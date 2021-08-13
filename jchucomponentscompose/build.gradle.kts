@@ -19,6 +19,11 @@ android {
         kotlinCompilerExtensionVersion = "1.0.1"
     }
 
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
+    }
+
     lint {
         isWarningsAsErrors = false
         isAbortOnError = false
