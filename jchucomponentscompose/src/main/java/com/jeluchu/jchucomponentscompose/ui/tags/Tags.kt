@@ -1,4 +1,4 @@
-package com.jeluchu.jchucomponentscompose.ui
+package com.jeluchu.jchucomponentscompose.ui.tags
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.MaterialTheme

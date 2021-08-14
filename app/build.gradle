@@ -29,5 +29,5 @@ android {
 }
 
 dependencies {
-    implementation project(path: ':jchucomponentscompose')
+    implementation project(':jchucomponentscompose')
 }

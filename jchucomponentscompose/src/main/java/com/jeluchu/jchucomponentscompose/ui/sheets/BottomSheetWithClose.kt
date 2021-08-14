@@ -1,4 +1,4 @@
-package com.jeluchu.jchucomponentscompose.ui
+package com.jeluchu.jchucomponentscompose.ui.sheets
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth

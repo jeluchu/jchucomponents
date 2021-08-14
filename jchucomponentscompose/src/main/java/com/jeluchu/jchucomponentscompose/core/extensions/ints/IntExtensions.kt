@@ -1,4 +1,4 @@
-package com.jeluchu.jchucomponentscompose.core.extensions.int
+package com.jeluchu.jchucomponentscompose.core.extensions.ints
 
 import com.jeluchu.jchucomponentscompose.core.extensions.strings.empty
 import java.math.RoundingMode

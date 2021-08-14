@@ -1,7 +1,7 @@
 package com.jeluchu.jchucomponentscompose.ui.time
 
 import androidx.compose.runtime.*
-import com.jeluchu.jchucomponentscompose.core.extensions.int.fixedDecimalsTime
+import com.jeluchu.jchucomponentscompose.core.extensions.ints.fixedDecimalsTime
 import kotlinx.coroutines.delay
 import java.util.*
 
