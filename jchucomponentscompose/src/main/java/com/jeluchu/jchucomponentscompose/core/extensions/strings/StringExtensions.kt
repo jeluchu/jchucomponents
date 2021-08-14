@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory
 import android.graphics.drawable.BitmapDrawable
 import android.net.Uri
 import android.util.Base64
+import androidx.compose.ui.graphics.Color
 import org.intellij.lang.annotations.RegExp
 import java.io.File
 import java.io.IOException
@@ -17,23 +18,9 @@ import java.text.SimpleDateFormat
 import java.util.*
 import java.util.regex.Pattern
 
-fun String.deleteDouble() = this.split(".")[0]
+/** ---- COMPOSE FUNCTIONS --------------------------------------------------------------------- **/
 
-/** ---- DATE ---------------------------------------------------------------------------------- **/
-
-fun String.parserDate(): String {
-    val parser = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale("es", "ES"))
-    val formatter = SimpleDateFormat("dd/MM/yyyy", Locale("es", "ES"))
-    return formatter.format(parser.parse(this))
-}
-
-fun String?.compareDate(): Boolean {
-    val sdf = SimpleDateFormat("dd/M/yyyy", Locale("es", "ES"))
-    val currentDate = sdf.format(Date())
-    return if (this.isNullOrEmpty()) false else sdf.parse(this).before(sdf.parse(currentDate))
-}
-
-fun Long.bytesToMeg(): String = (this / (1024L * 1024L)).toString()
+fun String.getColor() = Color(android.graphics.Color.parseColor(this))
 
 /** ---- YOUTUBE ------------------------------------------------------------------------------- **/
 
@@ -50,7 +37,6 @@ fun String.extractYTId(): String? {
     return vId
 }
 
-
 /** ---- BITMAPS ------------------------------------------------------------------------------- **/
 
 fun String.getBitmapFromURL(): Bitmap? =
@@ -66,29 +52,22 @@ fun String.getBitmapFromURL(): Bitmap? =
 fun String.toBitmapDrawable(context: Context): BitmapDrawable =
     BitmapDrawable(context.resources, getBitmapFromURL())
 
-/** ---- ENCODE & DECODE ----------------------------------------------------------------------- **/
 
-fun String.decodeBase64toImage(): Bitmap {
-    val imageBytes = Base64.decode(this, Base64.DEFAULT)
-    return BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size)
+fun String.deleteDouble() = this.split(".")[0]
+
+/** ---- DATE ---------------------------------------------------------------------------------- **/
+
+fun String.parserDate(): String {
+    val parser = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale("es", "ES"))
+    val formatter = SimpleDateFormat("dd/MM/yyyy", Locale("es", "ES"))
+    return formatter.format(parser.parse(this))
 }
 
-/** ---- MODIFY STRING ------------------------------------------------------------------------- **/
-
-fun String.capitalizeWords(): String =
-    split(" ").joinToString(" ") { it.capitalize(Locale.getDefault()) }
-
-fun String.capitalizeFirstLetter(): String =
-    substring(0, 1).uppercase(Locale("es", "ES")) + this.substring(1)
-
-/** ---- REMOVE STRING ------------------------------------------------------------------------- **/
-
-fun String.remove(value: String, ignoreCase: Boolean = false): String =
-    replace(value, "", ignoreCase)
-
-fun String.remove(@RegExp pattern: String) = remove(Regex(pattern, RegexOption.IGNORE_CASE))
-fun String.remove(regex: Regex) = replace(regex, "")
-
+fun String?.compareDate(): Boolean {
+    val sdf = SimpleDateFormat("dd/M/yyyy", Locale("es", "ES"))
+    val currentDate = sdf.format(Date())
+    return if (this.isNullOrEmpty()) false else sdf.parse(this).before(sdf.parse(currentDate))
+}
 
 /** ---- CHECKER ------------------------------------------------------------------------------- **/
 
@@ -130,13 +109,32 @@ inline val String.isIp: Boolean
         return m.find()
     }
 
-/** ---- FUNCTION STRING ----------------------------------------------------------------------- **/
+/** ---- ENCODE & DECODE ----------------------------------------------------------------------- **/
+
+fun String.decodeBase64toImage(): Bitmap {
+    val imageBytes = Base64.decode(this, Base64.DEFAULT)
+    return BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size)
+}
+
+/** ---- CONVERTERS AND MODIFIERS -------------------------------------------------------------- **/
+
+fun Long.bytesToMeg(): String = (this / (1024L * 1024L)).toString()
+
+fun String.capitalizeWords(): String =
+    split(" ").joinToString(" ") { it.uppercase(Locale.getDefault()) }
+
+fun String.capitalizeFirstLetter(): String =
+    substring(0, 1).uppercase(Locale.getDefault()) + this.substring(1)
+
+fun String.remove(value: String, ignoreCase: Boolean = false): String =
+    replace(value, "", ignoreCase)
+
+fun String.remove(@RegExp pattern: String) = remove(Regex(pattern, RegexOption.IGNORE_CASE))
+fun String.remove(regex: Regex) = replace(regex, "")
 
 fun String.Companion.empty() = ""
-fun String?.orEmpty(): String = this ?: String.empty()
 
 fun String.isEmpty(): Boolean = length == 0
-
 fun String.replace(): String = replace("-", " ")
 
 fun String.parseDate(): String? =
