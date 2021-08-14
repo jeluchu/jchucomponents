@@ -7,7 +7,6 @@ import androidx.compose.ui.layout.ContentScale
 import coil.compose.rememberImagePainter
 import com.jeluchu.jchucomponentscompose.core.extensions.strings.empty
 
-
 @Composable
 fun NetworkImage(
     url: String?,

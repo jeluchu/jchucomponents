@@ -1,6 +1,17 @@
 plugins {
     id("com.android.library")
     kotlin("android")
+    id("maven-publish")
+}
+
+publishing {
+    publications {
+        create<MavenPublication>("maven") {
+            groupId = "com.github.Jeluchu"
+            artifactId = "jchucomponents-compose"
+            version = "0.1.0"
+        }
+    }
 }
 
 android {
@@ -24,11 +35,6 @@ android {
         targetCompatibility = JavaVersion.VERSION_11
     }
 
-    lint {
-        isWarningsAsErrors = false
-        isAbortOnError = false
-    }
-
     packagingOptions {
         resources.excludes.add("AndroidManifest.xml")
         resources.excludes.add("LICENSE.txt")
@@ -37,15 +43,6 @@ android {
         resources.excludes.add("META-INF/NOTICE")
         resources.excludes.add("META-INF/LICENSE")
         resources.excludes.add("*.kotlin_module")
-    }
-
-    buildTypes {
-        release {
-            isMinifyEnabled = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
-            )
-        }
     }
 
 }
@@ -74,7 +71,7 @@ dependencies {
     implementation("androidx.activity:activity-compose:1.3.1")
 
     // ACCOMPANIST GOOGLE LIBRARY ------------------------------------------------------------------
-    implementation("com.google.accompanist:accompanist-systemuicontroller:0.15.0")
+    implementation("com.google.accompanist:accompanist-systemuicontroller:0.16.1")
     implementation("com.google.accompanist:accompanist-navigation-animation:0.16.1")
 
     // ANDROIDX LIBRARY ----------------------------------------------------------------------------
@@ -93,6 +90,6 @@ dependencies {
     implementation("com.squareup.okhttp3:logging-interceptor:4.9.1")
 
     // THIRD PARTY DEPENDENCIES --------------------------------------------------------------------
-    implementation("io.coil-kt:coil-compose:1.3.1")
+    implementation("io.coil-kt:coil-compose:1.3.2")
 
 }
