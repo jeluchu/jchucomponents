@@ -1,0 +1,3 @@
+rootProject.name = "JchuComponentsCompose"
+include ':jchucomponentscompose'
+include ':app'
