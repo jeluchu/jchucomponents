@@ -4,16 +4,6 @@ plugins {
     id("maven-publish")
 }
 
-publishing {
-    publications {
-        create<MavenPublication>("maven") {
-            groupId = "com.github.Jeluchu"
-            artifactId = "jchucomponents-compose"
-            version = "0.1.0"
-        }
-    }
-}
-
 android {
 
     compileSdk = 30
@@ -28,6 +18,15 @@ android {
 
     composeOptions {
         kotlinCompilerExtensionVersion = "1.0.1"
+    }
+
+    buildTypes {
+        release {
+            isMinifyEnabled = false
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )        }
     }
 
     compileOptions {
@@ -92,4 +91,16 @@ dependencies {
     // THIRD PARTY DEPENDENCIES --------------------------------------------------------------------
     implementation("io.coil-kt:coil-compose:1.3.2")
 
+}
+
+afterEvaluate {
+    publishing {
+        publications {
+            create<MavenPublication>("release") {
+                groupId = "com.github.Jeluchu"
+                artifactId = "jchucomponents-compose"
+                version = "0.0.1"
+            }
+        }
+    }
 }
