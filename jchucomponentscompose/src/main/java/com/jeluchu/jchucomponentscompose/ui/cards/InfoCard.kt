@@ -44,7 +44,7 @@ fun InfoCard(
                     NetworkImage(
                         contentScale = ContentScale.Fit,
                         modifier = Modifier.size(34.dp),
-                        url = iconImage
+                        url = iconImage ?: String.empty()
                     )
                 } else {
                     Icon(

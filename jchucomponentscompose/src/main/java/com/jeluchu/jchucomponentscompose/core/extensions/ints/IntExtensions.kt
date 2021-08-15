@@ -7,6 +7,7 @@ import java.text.DecimalFormat
 fun Int.Companion.empty() = 0
 fun Int?.orEmpty() = this ?: Int.empty()
 
+
 fun Int.fixedDecimalsTime(): String {
     val decimalFormat = DecimalFormat("00")
     decimalFormat.roundingMode = RoundingMode.DOWN

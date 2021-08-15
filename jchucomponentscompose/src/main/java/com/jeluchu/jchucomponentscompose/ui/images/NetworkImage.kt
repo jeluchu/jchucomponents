@@ -9,14 +9,14 @@ import com.jeluchu.jchucomponentscompose.core.extensions.strings.empty
 
 @Composable
 fun NetworkImage(
-    url: String?,
+    url: Any,
     modifier: Modifier,
     contentScale: ContentScale = ContentScale.Crop
 ) {
 
     Image(
         painter = rememberImagePainter(
-            data = url ?: String.empty(),
+            data = url,
             builder = {
                 crossfade(true)
             }
