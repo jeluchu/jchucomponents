@@ -1,7 +1,7 @@
 ﻿
 
 
-![coverDescription](cover)
+![Cover Library Image](https://raw.githubusercontent.com/Jeluchu/jchucomponents-compose/main/images/cover.png)
 
 # Jchucomponents (Compose Version)
 This library contains Composable elements that can be used in any application that uses the new android layout system (Jetpack Compose).
