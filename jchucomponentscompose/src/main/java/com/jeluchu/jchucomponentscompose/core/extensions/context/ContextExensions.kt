@@ -23,13 +23,20 @@ import android.view.LayoutInflater
 import android.widget.Toast
 import androidx.annotation.DrawableRes
 import androidx.browser.customtabs.CustomTabsIntent
+import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import com.jeluchu.jchucomponentscompose.R
 import com.jeluchu.jchucomponentscompose.core.extensions.coroutines.noCrash
 import com.jeluchu.jchucomponentscompose.core.extensions.packageutils.buildIsMAndLower
 import com.jeluchu.jchucomponentscompose.core.extensions.sharedprefs.SharedPrefsHelpers
 import com.jeluchu.jchucomponentscompose.utils.broadcast.CustomTabsCopyReceiver
 import com.jeluchu.jchucomponentscompose.utils.broadcast.ShareBroadcastReceiver
 import java.io.IOException
+
+/** ---- PERMISSIONS --------------------------------------------------------------------------- **/
+
+fun Context.checkSelfPermissionCompat(permission: String) =
+    ActivityCompat.checkSelfPermission(this, permission)
 
 /** ---- NETWORKS ------------------------------------------------------------------------------ **/
 
@@ -99,10 +106,13 @@ fun Context.addToClipboard(str: CharSequence?) {
 
 /** ---- BROWSER TABS -------------------------------------------------------------------------- **/
 
-/*fun Context.openInCustomTab(string: String) = customTabsWeb(string)
+fun Context.openInCustomTab(url: String, colorBar: Int) = customTabsWeb(url, colorBar)
 
 @Suppress("DEPRECATION")
-private fun Context.customTabsWeb(string: String) {
+private fun Context.customTabsWeb(
+    string: String,
+    colorBar: Int = R.color.browser_actions_bg_grey
+) {
     try {
 
         val share = Intent(this, ShareBroadcastReceiver::class.java)
@@ -123,7 +133,7 @@ private fun Context.customTabsWeb(string: String) {
                 "#" + Integer.toHexString(
                     ContextCompat.getColor(
                         this,
-                        R.color.chipBackground
+                        colorBar
                     )
                 )
             )
@@ -150,7 +160,7 @@ private fun Context.customTabsWeb(string: String) {
         intent.putExtra(Browser.EXTRA_APPLICATION_ID, packageName)
         startActivity(intent)
     }
-}*/
+}
 
 /** ---- PRIVATE METHODS ----------------------------------------------------------------------- **/
 

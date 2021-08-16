@@ -118,8 +118,6 @@ fun String.decodeBase64toImage(): Bitmap {
 
 /** ---- CONVERTERS AND MODIFIERS -------------------------------------------------------------- **/
 
-fun Long.bytesToMeg(): String = (this / (1024L * 1024L)).toString()
-
 fun String.capitalizeWords(): String =
     split(" ").joinToString(" ") { it.uppercase(Locale.getDefault()) }
 
@@ -133,6 +131,7 @@ fun String.remove(@RegExp pattern: String) = remove(Regex(pattern, RegexOption.I
 fun String.remove(regex: Regex) = replace(regex, "")
 
 fun String.Companion.empty() = ""
+fun CharSequence.isEmpty(): Boolean = length == 0
 
 fun String.isEmpty(): Boolean = length == 0
 fun String.replace(): String = replace("-", " ")

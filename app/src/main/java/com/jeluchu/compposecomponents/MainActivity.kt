@@ -16,6 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
+import com.jeluchu.jchucomponentscompose.ui.images.DoubleTapAnimation
 import com.jeluchu.jchucomponentscompose.ui.images.NetworkImage
 
 class MainActivity : ComponentActivity() {
@@ -59,6 +60,13 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.padding(vertical = 8.dp)
                 ) {
                     androidx.compose.material.Text("Open Gallery")
+                }
+
+                DoubleTapAnimation(
+                    "https://i.picsum.photos/id/1016/3844/2563.jpg?hmac=WEryKFRvTdeae2aUrY-DHscSmZuyYI9jd_-p94stBvc",
+                    iconResource = R.drawable.ic_btnfavourite
+                ) {
+                    // Action when double tap
                 }
 
             }
