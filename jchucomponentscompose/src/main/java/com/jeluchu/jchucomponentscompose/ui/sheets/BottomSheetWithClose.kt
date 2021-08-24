@@ -29,10 +29,10 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun BottomSheetWithCloseDialog(
-    content: @Composable () -> Unit,
-    modifier: Modifier = Modifier,
     onClosePressed: () -> Unit,
+    modifier: Modifier = Modifier,
     closeButtonColor: Color = Color.Gray,
+    content: @Composable () -> Unit
 ) {
 
     Box(modifier.fillMaxWidth()) {
