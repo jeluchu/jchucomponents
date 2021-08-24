@@ -3,12 +3,28 @@ package com.jeluchu.jchucomponentscompose.utils.mediaplayer
 import android.content.Context
 import android.media.MediaPlayer
 import android.net.Uri
-import com.jeluchu.inook.core.utils.mediaplayer.PlaybackInfoListener
 import com.jeluchu.jchucomponentscompose.core.extensions.ints.milliSecondsToTimer
 import com.jeluchu.jchucomponentscompose.core.extensions.strings.empty
 import java.util.concurrent.Executors
 import java.util.concurrent.ScheduledExecutorService
 import java.util.concurrent.TimeUnit
+
+/**
+ *
+ * Author: @Jeluchu
+ *
+ * This class is used to play music with MediaPlayer
+ *
+ * Once the [MediaPlayer] is released, it can't be used again, and another one has to be
+ * created. In the onStop() method of the Activity the [MediaPlayer] is
+ * released. Then in the onStart() of the Activity a new [MediaPlayer]
+ * object has to be created. That's why this method is private, and called by load(int) and
+ * not the constructor.
+ *
+ * References [PlayerAdapter] and [PlaybackInfoListener]
+ *
+ */
+
 
 class MediaPlayerHolder(context: Context) : PlayerAdapter {
     private val mContext: Context = context.applicationContext
@@ -18,18 +34,11 @@ class MediaPlayerHolder(context: Context) : PlayerAdapter {
     private var mExecutor: ScheduledExecutorService? = null
     private var mSeekbarPositionUpdateTask: Runnable? = null
 
-    /**
-     * Once the [MediaPlayer] is released, it can't be used again, and another one has to be
-     * created. In the onStop() method of the [MainActivity] the [MediaPlayer] is
-     * released. Then in the onStart() of the [MainActivity] a new [MediaPlayer]
-     * object has to be created. That's why this method is private, and called by load(int) and
-     * not the constructor.
-     */
     private fun initializeMediaPlayer() {
         if (mMediaPlayer == null) {
             mMediaPlayer = MediaPlayer()
             mMediaPlayer!!.setOnCompletionListener {
-                stopUpdatingCallbackWithPosition(true)
+                stopUpdatingCallbackWithPosition()
                 if (mPlaybackInfoListener != null) {
                     mPlaybackInfoListener!!.onStateChanged(PlaybackInfoListener.State.COMPLETED)
                     mPlaybackInfoListener!!.onPlaybackCompleted()
@@ -110,7 +119,7 @@ class MediaPlayerHolder(context: Context) : PlayerAdapter {
             if (mPlaybackInfoListener != null) {
                 mPlaybackInfoListener!!.onStateChanged(PlaybackInfoListener.State.RESET)
             }
-            stopUpdatingCallbackWithPosition(true)
+            stopUpdatingCallbackWithPosition()
         }
     }
 
@@ -144,13 +153,12 @@ class MediaPlayerHolder(context: Context) : PlayerAdapter {
         )
     }
 
-    // Reports media playback position to mPlaybackProgressCallback.
-    private fun stopUpdatingCallbackWithPosition(resetUIPlaybackPosition: Boolean) {
+    private fun stopUpdatingCallbackWithPosition() {
         if (mExecutor != null) {
             mExecutor!!.shutdownNow()
             mExecutor = null
             mSeekbarPositionUpdateTask = null
-            if (resetUIPlaybackPosition && mPlaybackInfoListener != null) {
+            if (mPlaybackInfoListener != null) {
                 mPlaybackInfoListener!!.onPositionChanged(0)
             }
         }

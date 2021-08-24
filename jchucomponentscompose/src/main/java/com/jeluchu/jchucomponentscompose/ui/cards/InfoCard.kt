@@ -15,18 +15,34 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.jeluchu.jchucomponentscompose.core.extensions.ints.isNotEmpty
 import com.jeluchu.jchucomponentscompose.core.extensions.strings.empty
 import com.jeluchu.jchucomponentscompose.ui.images.NetworkImage
 
+/**
+ *
+ * Author: @Jeluchu
+ *
+ * Component displaying
+ * information on a custom-designed card
+ *
+ * @param modifier modifier that will be used to change the color, size...
+ * @param title text to be displayed on the card
+ * @param textColor color of text that appears on Card
+ * @param iconResource drawable id of the resource you want to be displayed as an icon on Card
+ * @param iconTintColor color of the icon (only if [iconResource] is being used) displayed on Card
+ * @param iconImage link of the image you want to be displayed on Card
+ *
+ */
+
 @Composable
 fun InfoCard(
+    modifier: Modifier,
     title: String,
-    isRemoteImage: Boolean = true,
+    textColor: Color = Color.Gray,
     iconResource: Int = 0,
     iconTintColor: Color = Color.White,
-    iconImage: String? = String.empty(),
-    modifier: Modifier,
-    textColor: Color = Color.Gray
+    iconImage: String = String.empty()
 ) {
 
     Box(
@@ -40,13 +56,13 @@ fun InfoCard(
 
             Column {
 
-                if (isRemoteImage) {
+                if (iconImage.isNotEmpty()) {
                     NetworkImage(
                         contentScale = ContentScale.Fit,
                         modifier = Modifier.size(34.dp),
-                        url = iconImage ?: String.empty()
+                        url = iconImage
                     )
-                } else {
+                } else if (iconResource.isNotEmpty()) {
                     Icon(
                         modifier = Modifier.size(30.dp),
                         painter = painterResource(id = iconResource),
@@ -54,7 +70,6 @@ fun InfoCard(
                         contentDescription = null
                     )
                 }
-
 
             }
 

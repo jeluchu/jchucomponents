@@ -1,4 +1,4 @@
-package com.jeluchu.inook.core.utils.mediaplayer
+package com.jeluchu.jchucomponentscompose.utils.mediaplayer
 
 abstract class PlaybackInfoListener {
 

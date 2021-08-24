@@ -1,8 +1,19 @@
 package com.jeluchu.jchucomponentscompose.utils.broadcast
 
-import android.content.*
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
 import android.widget.Toast
 import com.jeluchu.jchucomponentscompose.core.extensions.context.addToClipboard
+
+/**
+ *
+ * Author: @Jeluchu
+ *
+ * This class is used to show inside
+ * a CustomTab the option of copying the url
+ *
+ */
 
 class CustomTabsCopyReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context?, intent: Intent) {

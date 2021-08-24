@@ -9,6 +9,7 @@ import android.util.Base64
 import androidx.compose.ui.graphics.Color
 import org.intellij.lang.annotations.RegExp
 import java.io.File
+import java.io.FileOutputStream
 import java.io.IOException
 import java.net.HttpURLConnection
 import java.net.URL
@@ -17,6 +18,28 @@ import java.text.Format
 import java.text.SimpleDateFormat
 import java.util.*
 import java.util.regex.Pattern
+
+fun String.getLastBitFromUrl(): String = replaceFirst(".*/([^/?]+).*".toRegex(), "$1")
+
+fun String.saveImage(destinationFile: File) {
+    try {
+        Thread {
+            val url = URL(this)
+            val inputStream = url.openStream()
+            val os = FileOutputStream(destinationFile)
+            val b = ByteArray(2048)
+            var length: Int
+            while (inputStream.read(b).also { length = it } != -1) {
+                os.write(b, 0, length)
+            }
+            inputStream?.close()
+            os.close()
+        }.start()
+
+    } catch (e: Exception) {
+        e.printStackTrace()
+    }
+}
 
 /** ---- COMPOSE FUNCTIONS --------------------------------------------------------------------- **/
 
@@ -71,12 +94,6 @@ fun String?.compareDate(): Boolean {
 
 /** ---- CHECKER ------------------------------------------------------------------------------- **/
 
-val String.isPhone: Boolean get() = matches("^1([34578])\\d{9}\$".toRegex())
-val String.isEmail: Boolean get() = matches("^(\\w)+(\\.\\w+)*@(\\w)+((\\.\\w+)+)\$".toRegex())
-val String.isNumeric: Boolean get() = matches("^[0-9]+$".toRegex())
-val String.isAlphanumeric get() = matches("^[a-zA-Z0-9]*$".toRegex())
-val String.isAlphabetic get() = matches("^[a-zA-Z]*$".toRegex())
-fun String.isLocal() = !isEmptyString() && (startsWith("http://") || startsWith("https://"))
 
 fun CharSequence.isEmptyString(): Boolean = this.isEmpty() || this.toString().equals("null", true)
 fun CharSequence.isDigitOnly(): Boolean = (0 until length).any { Character.isDigit(this[it]) }
@@ -100,11 +117,13 @@ fun String.atLeastOneNumber(): Boolean = !matches(Regex(".*\\d.*"))
 fun String.startsWithNonNumber(): Boolean = Character.isDigit(this[0])
 fun String.noSpecialCharacter(): Boolean = !matches(Regex("[A-Za-z0-9]+"))
 fun String.atLeastOneSpecialCharacter(): Boolean = matches(Regex("[A-Za-z0-9]+"))
-fun Any.readResourceText(resource: String): String? = this.javaClass.classLoader?.getResource(resource)?.readText()
+fun Any.readResourceText(resource: String): String? =
+    this.javaClass.classLoader?.getResource(resource)?.readText()
 
 inline val String.isIp: Boolean
     get() {
-        val p = Pattern.compile("([1-9]|[1-9]\\d|1\\d{2}|2[0-4]\\d|25[0-5])(\\.(\\d|[1-9]\\d|1\\d{2}|2[0-4]\\d|25[0-5])){3}")
+        val p =
+            Pattern.compile("([1-9]|[1-9]\\d|1\\d{2}|2[0-4]\\d|25[0-5])(\\.(\\d|[1-9]\\d|1\\d{2}|2[0-4]\\d|25[0-5])){3}")
         val m = p.matcher(this)
         return m.find()
     }

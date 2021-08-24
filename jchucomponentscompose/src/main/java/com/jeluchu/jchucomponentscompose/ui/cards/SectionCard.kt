@@ -20,21 +20,38 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import com.jeluchu.jchucomponentscompose.core.extensions.strings.empty
 import com.jeluchu.jchucomponentscompose.ui.images.NetworkImage
 
+/**
+ *
+ * Author: @Jeluchu
+ *
+ * Component displaying
+ * information on a custom-designed card
+ *
+ * @param modifier modifier that will be used to change the color, size...
+ * @param title text to be displayed on the card
+ * @param textColor color of text that appears on Card
+ * @param localImage drawable id of the resource you want to be displayed as an icon on Card
+ * @param remoteImage link of the image you want to be displayed on Card
+ * @param backgroundCard color of the background Card
+ * @param navigateToScreen action to be performed after pressing
+ *
+ */
+
 @Composable
 fun SectionCard(
-    name: String,
+    modifier: Modifier,
+    title: String,
+    textColor: Color,
     localImage: Int = 0,
     remoteImage: String = String.empty(),
     backgroundCard: Color,
-    textColor: Color,
-    modifier: Modifier,
-    navigateToDetailScreen: () -> Unit
+    navigateToScreen: () -> Unit
 ) {
 
     Card(
         modifier = modifier
             .height(200.dp)
-            .clickable { navigateToDetailScreen() },
+            .clickable { navigateToScreen() },
         backgroundColor = backgroundCard,
         shape = RoundedCornerShape(16.dp),
         elevation = 0.dp
@@ -75,8 +92,9 @@ fun SectionCard(
             }
 
             Text(
-                text = name,
-                modifier = Modifier.padding(12.dp, 6.dp, 12.dp, 6.dp)
+                text = title,
+                modifier = Modifier
+                    .padding(12.dp, 6.dp, 12.dp, 6.dp)
                     .constrainAs(sectionName) {
                         bottom.linkTo(parent.bottom, margin = 20.dp)
                         linkTo(parent.start, parent.end)

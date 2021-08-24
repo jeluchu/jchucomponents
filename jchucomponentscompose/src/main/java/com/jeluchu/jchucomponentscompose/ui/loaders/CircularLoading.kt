@@ -5,16 +5,29 @@ import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.constraintlayout.compose.ConstraintLayout
+
+/**
+ *
+ * Author: @Jeluchu
+ *
+ * This is a component for displaying a circular loading progress
+ *
+ * @sample CircularLoadingPreview
+ *
+ * @param isShow the status of whether or not to display
+ * @param colorLoading color of the circular progress bar
+ *
+ */
 
 @Composable
 fun CircularLoading(
     isShow: Boolean,
-    modifier: Modifier = Modifier.fillMaxSize(),
     colorLoading: Color = Color.Black
 ) {
 
-    ConstraintLayout(modifier = modifier) {
+    ConstraintLayout(modifier = Modifier.fillMaxSize()) {
 
         val (progress) = createRefs()
 
@@ -32,4 +45,13 @@ fun CircularLoading(
 
     }
 
+}
+
+@Preview
+@Composable
+fun CircularLoadingPreview() {
+    CircularLoading(
+        isShow = true,
+        colorLoading = Color.Black
+    )
 }

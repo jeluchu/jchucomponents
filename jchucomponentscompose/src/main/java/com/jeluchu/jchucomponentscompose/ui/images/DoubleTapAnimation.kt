@@ -20,6 +20,21 @@ import androidx.compose.ui.unit.dp
 import com.jeluchu.jchucomponentscompose.core.extensions.ints.empty
 import com.jeluchu.jchucomponentscompose.core.extensions.strings.empty
 
+/**
+ *
+ * Author: @Jeluchu
+ *
+ * This component performs the same function as the animation
+ * when you double click on an image to "like" it on Instagram
+ *
+ * @param imageRemote link of the remote image to be displayed
+ * @param imageResources drawable resource of the remote image to be displayed
+ * @param iconResource drawable of the icon you want to display when pressing
+ * @param size maximum animation size
+ * @param onDoubleTap action to be performed after the double-tap animation is performed
+ *
+ */
+
 @Composable
 fun DoubleTapAnimation(
     imageRemote: String = String.empty(),
@@ -68,7 +83,6 @@ fun DoubleTapAnimation(
                     })
         }
 
-
         if (isLike) {
             Icon(
                 painterResource(id = iconResource),
@@ -82,5 +96,6 @@ fun DoubleTapAnimation(
                 isLike = false
             }
         }
+
     }
 }

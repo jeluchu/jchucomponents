@@ -10,12 +10,26 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import com.jeluchu.jchucomponentscompose.ui.images.NetworkImage
 
+/**
+ *
+ * Author: @Jeluchu
+ *
+ * Component displaying
+ * information on a custom-designed card
+ *
+ * @param modifier modifier that will be used to change the color, size...
+ * @param title text to be displayed on the card
+ * @param image link of the image you want to be displayed on Card
+ * @param description text to be displayed on the card
+ *
+ */
+
 @Composable
 fun PostCardTop(
+    modifier: Modifier = Modifier,
     title: String,
     image: String,
     description: String,
-    modifier: Modifier = Modifier
 ) {
 
     val typography = MaterialTheme.typography

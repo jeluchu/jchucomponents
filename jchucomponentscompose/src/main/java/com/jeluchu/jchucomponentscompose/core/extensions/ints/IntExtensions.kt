@@ -6,6 +6,7 @@ import java.text.DecimalFormat
 
 fun Int.Companion.empty() = 0
 fun Int?.orEmpty() = this ?: Int.empty()
+fun Int.isNotEmpty() = this != Int.empty()
 fun Long.bytesToMeg(): String = (this / (1024L * 1024L)).toString()
 
 fun Int.fixedDecimalsTime(): String {

@@ -12,16 +12,33 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+
+/**
+ *
+ * Author: @Jeluchu
+ *
+ * This component is a loading with pulse animation
+ *
+ * @sample PulseLoadingPreview
+ *
+ * @param durationMillis animation duration
+ * @param maxPulseSize maximum size of circular animation
+ * @param minPulseSize minimum size of circular animation
+ * @param pulseColor color of the circular animation
+ * @param centreColor color of the main circle
+ *
+ */
 
 @Composable
 fun PulseLoading(
-    durationMillis:Int = 1000,
-    maxPulseSize:Float = 300f,
-    minPulseSize:Float = 50f,
-    pulseColor: Color = Color(234,240,246),
-    centreColor:Color =  Color(66,133,244)
-){
+    durationMillis: Int = 1000,
+    maxPulseSize: Float = 300f,
+    minPulseSize: Float = 50f,
+    pulseColor: Color = Color(234, 240, 246),
+    centreColor: Color = Color(66, 133, 244)
+) {
     val infiniteTransition = rememberInfiniteTransition()
     val size by infiniteTransition.animateFloat(
         initialValue = minPulseSize,
@@ -39,17 +56,28 @@ fun PulseLoading(
             repeatMode = RepeatMode.Restart
         )
     )
-    Box(contentAlignment = Alignment.Center,modifier = Modifier.fillMaxSize()) {
+    Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
         Card(
             shape = CircleShape,
-            modifier = Modifier.size(size.dp).align(Alignment.Center).alpha(alpha),
+            modifier = Modifier
+                .size(size.dp)
+                .align(Alignment.Center)
+                .alpha(alpha),
             backgroundColor = pulseColor,
             elevation = 0.dp
         ) {}
-        Card(modifier = Modifier
-            .size(minPulseSize.dp)
-            .align(Alignment.Center),
+        Card(
+            modifier = Modifier
+                .size(minPulseSize.dp)
+                .align(Alignment.Center),
             shape = CircleShape,
-            backgroundColor = centreColor){}
+            backgroundColor = centreColor
+        ) {}
     }
+}
+
+@Preview
+@Composable
+fun PulseLoadingPreview() {
+    PulseLoading()
 }

@@ -5,6 +5,15 @@ import com.jeluchu.jchucomponentscompose.core.extensions.ints.fixedDecimalsTime
 import kotlinx.coroutines.delay
 import java.util.*
 
+/**
+ *
+ * Author: @Jeluchu
+ *
+ * This component only returns the current time (it is a kind of clock)
+ * which is updated every minute.
+ *
+ */
+
 @Composable
 fun minutesLeft(): String {
 

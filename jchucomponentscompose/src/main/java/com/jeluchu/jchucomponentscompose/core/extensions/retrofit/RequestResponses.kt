@@ -1,7 +1,7 @@
 package com.jeluchu.jchucomponentscompose.core.extensions.retrofit
 
-import com.jeluchu.jchucomponentscompose.core.functional.Either
 import com.jeluchu.jchucomponentscompose.core.exception.Failure
+import com.jeluchu.jchucomponentscompose.core.functional.Either
 import retrofit2.Call
 
 fun <T, R> request(
@@ -14,13 +14,12 @@ fun <T, R> request(
         when (response.isSuccessful) {
             true -> Either.Right(transform((response.body() ?: default)))
             false -> {
-
                 when (response.code()) {
                     StatusCode.InternalServerError.code -> Either.Left(Failure.ServerError)
                     StatusCode.BadGateway.code -> Either.Left(Failure.ServerError)
+                    StatusCode.NotFound.code -> Either.Left(Failure.ServerError)
                     else -> Either.Left(Failure.ServerError)
                 }
-
             }
         }
     } catch (exception: Throwable) {

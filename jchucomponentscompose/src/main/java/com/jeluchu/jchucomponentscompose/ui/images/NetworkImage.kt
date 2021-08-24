@@ -5,7 +5,18 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import coil.compose.rememberImagePainter
-import com.jeluchu.jchucomponentscompose.core.extensions.strings.empty
+
+/**
+ *
+ * Author: @Jeluchu
+ *
+ * This component is used to upload images via network
+ *
+ * @param url link to image requiring internet (based on Coil)
+ * @param modifier custom modifier for the displayed icon (currently there is a default padding)
+ * @param contentScale type of scale for the image
+ *
+ */
 
 @Composable
 fun NetworkImage(

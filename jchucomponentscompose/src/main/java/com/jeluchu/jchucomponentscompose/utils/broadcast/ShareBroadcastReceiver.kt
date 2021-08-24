@@ -4,6 +4,14 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 
+/**
+ *
+ * Author: @Jeluchu
+ *
+ * This class is used to show inside
+ * a CustomTab the option of share the url
+ *
+ */
 class ShareBroadcastReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
         val url = intent.dataString

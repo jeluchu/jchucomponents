@@ -14,27 +14,35 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 
+/**
+ *
+ * Author: @Jeluchu
+ *
+ * This component displays a BottomSheet with an icon to close it
+ *
+ * @param content change the color of the system notification bar
+ * @param modifier modifier that will be used to change the color, size...
+ * @param onClosePressed action that will be performed when the close button is pressed
+ * @param closeButtonColor color of the close button
+ *
+ */
+
 @Composable
 fun BottomSheetWithCloseDialog(
-    onClosePressed: () -> Unit,
+    content: @Composable () -> Unit,
     modifier: Modifier = Modifier,
+    onClosePressed: () -> Unit,
     closeButtonColor: Color = Color.Gray,
-    content: @Composable () -> Unit
 ) {
 
     Box(modifier.fillMaxWidth()) {
         content()
-
         IconButton(
             onClick = onClosePressed,
             modifier = Modifier
                 .align(Alignment.TopEnd)
                 .padding(16.dp)
                 .size(29.dp)
-
-        ) {
-            Icon(Icons.Filled.Close, tint = closeButtonColor, contentDescription = null)
-        }
-
+        ) { Icon(Icons.Filled.Close, tint = closeButtonColor, contentDescription = null) }
     }
 }

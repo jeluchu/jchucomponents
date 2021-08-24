@@ -6,6 +6,18 @@ import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.graphics.Color
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
+/**
+ *
+ * Author: @Jeluchu
+ *
+ * This component makes adjustments
+ * to the system interface of the cell phone
+ *
+ * @param systemBarsColor change the color of the system navigation bar
+ * @param statusBarColor change the color of the system notification bar
+ *
+ */
+
 @Composable
 fun SystemStatusBarColors(
     systemBarsColor: Color,

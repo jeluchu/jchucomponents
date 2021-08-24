@@ -20,9 +20,27 @@ import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import com.jeluchu.jchucomponentscompose.ui.images.NetworkImage
 
+/**
+ *
+ * Author: @Jeluchu
+ *
+ * Component displaying
+ * information on a custom-designed card
+ *
+ * @param modifier modifier that will be used to change the color, size...
+ * @param title text to be displayed on the card
+ * @param image link of the image you want to be displayed on Card
+ * @param iconDebut  link of the icon you want to be displayed on Card
+ * @param isDebut status to display a banner with information at the top
+ * @param bgDebut background color of the flag state with information
+ * @param navigateToScreen action to be performed after pressing
+ *
+ */
+
 @Composable
-fun StoryCard(
-    name: String,
+fun DebutCard(
+    modifier: Modifier,
+    title: String,
     image: String,
     iconDebut: String,
     isDebut: Boolean = false,
@@ -34,7 +52,7 @@ fun StoryCard(
 
         Card(
             shape = RoundedCornerShape(12.dp),
-            modifier = Modifier
+            modifier = modifier
                 .width(130.dp)
                 .height(190.dp)
                 .padding(4.dp),
@@ -99,7 +117,6 @@ fun StoryCard(
 
                         }
 
-
                     }
 
                 }
@@ -109,7 +126,7 @@ fun StoryCard(
         }
 
         Text(
-            text = name,
+            text = title,
             fontSize = 12.sp,
             color = Color.Black,
             modifier = Modifier.padding(7.dp),
