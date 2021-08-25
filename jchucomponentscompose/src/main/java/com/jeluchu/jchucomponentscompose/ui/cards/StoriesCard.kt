@@ -71,13 +71,11 @@ fun StoryCard(
                 NetworkImage(
                     url = iconMainUrl,
                     modifier = Modifier
-                        .size(23.dp)
-                        .padding(start = 7.dp)
                         .constrainAs(storyImg) {
                             linkTo(parent.start, parent.end)
                             linkTo(parent.top, parent.bottom)
                         },
-                    contentScale = ContentScale.Fit,
+                    contentScale = ContentScale.Crop,
                 )
 
             } else if (iconMainResource.isNotEmpty()) {

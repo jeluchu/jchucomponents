@@ -39,7 +39,7 @@ import com.jeluchu.jchucomponentscompose.ui.images.NetworkImage
 
 @Composable
 fun DebutCard(
-    modifier: Modifier,
+    modifier: Modifier = Modifier,
     title: String,
     image: String,
     iconDebut: String,

@@ -56,14 +56,14 @@ class MainActivity : ComponentActivity() {
                         StoryCard(
                             modifier = Modifier.animateItem(),
                             title = item.toString(),
-                            iconMainUrl = "https://i.picsum.photos/id/1003/1181/1772.jpg?hmac=oN9fHMXiqe9Zq2RM6XT-RVZkojgPnECWwyEF1RvvTZk",
+                            iconMainUrl = "https://i.picsum.photos/id/1016/3844/2563.jpg?hmac=WEryKFRvTdeae2aUrY-DHscSmZuyYI9jd_-p94stBvc",
                             circleImage = R.drawable.ic_btnfavourite,
                             navigateToScreen = { context.shortToast("Clicked!") }
                         )
                     }
                 }
 
-                if (imageUriState.value != null) {
+                if (false && imageUriState.value != null) {
 
                     NetworkImage(
                         modifier = Modifier
@@ -76,21 +76,23 @@ class MainActivity : ComponentActivity() {
                         url = imageUriState.value!!
                     )
 
+                    Button(
+                        onClick = { selectImageLauncher.launch("image/*") },
+                        modifier = Modifier.padding(vertical = 8.dp)
+                    ) {
+                        androidx.compose.material.Text("Open Gallery")
+                    }
+
+                    DoubleTapAnimation(
+                        "https://i.picsum.photos/id/1016/3844/2563.jpg?hmac=WEryKFRvTdeae2aUrY-DHscSmZuyYI9jd_-p94stBvc",
+                        iconResource = R.drawable.ic_btnfavourite
+                    ) {
+                        // Action when double tap
+                    }
+
                 }
 
-                Button(
-                    onClick = { selectImageLauncher.launch("image/*") },
-                    modifier = Modifier.padding(vertical = 8.dp)
-                ) {
-                    androidx.compose.material.Text("Open Gallery")
-                }
 
-                DoubleTapAnimation(
-                    "https://i.picsum.photos/id/1016/3844/2563.jpg?hmac=WEryKFRvTdeae2aUrY-DHscSmZuyYI9jd_-p94stBvc",
-                    iconResource = R.drawable.ic_btnfavourite
-                ) {
-                    // Action when double tap
-                }
 
             }
         }
