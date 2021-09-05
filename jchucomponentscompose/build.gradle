@@ -57,7 +57,7 @@ dependencies {
     implementation 'androidx.compose.runtime:runtime:1.0.1'
     implementation 'androidx.compose.runtime:runtime-livedata:1.0.1'
     implementation 'androidx.constraintlayout:constraintlayout-compose:1.0.0-beta02'
-    implementation 'androidx.navigation:navigation-compose:2.4.0-alpha07'
+    implementation 'androidx.navigation:navigation-compose:2.4.0-alpha08'
 
     // FIREBASE LIBRARY ----------------------------------------------------------------------------
     implementation("com.google.firebase:firebase-analytics-ktx:19.0.1")
@@ -92,7 +92,7 @@ afterEvaluate {
                 from components.release
                 groupId = "com.jeluchu"
                 artifactId = "jchucomponentscompose"
-                version = "0.1.1"
+                version = "0.2.1"
             }
         }
     }
