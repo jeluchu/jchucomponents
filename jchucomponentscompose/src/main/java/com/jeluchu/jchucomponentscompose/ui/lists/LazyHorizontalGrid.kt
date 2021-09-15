@@ -1,4 +1,4 @@
-package com.jeluchu.jchucomponentscompose.ui.listview
+package com.jeluchu.jchucomponentscompose.ui.lists
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.*

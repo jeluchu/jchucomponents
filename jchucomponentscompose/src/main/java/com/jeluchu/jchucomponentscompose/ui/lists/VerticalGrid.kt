@@ -1,4 +1,4 @@
-package com.jeluchu.jchucomponentscompose.ui.listview
+package com.jeluchu.jchucomponentscompose.ui.lists
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
