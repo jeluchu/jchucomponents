@@ -31,6 +31,7 @@ import com.jeluchu.jchucomponentscompose.ui.images.NetworkImage
  *
  * @param modifier modifier that will be used to added animations (for example)
  * @param title text to be displayed on the chip
+ * @param textColor color of title
  * @param circleImage link of the image you want to be displayed as an icon on top storie
  * @param iconMainUrl link of the image you want to be displayed as an image
  * @param iconMainResource drawable id of the resource you want to be displayed as an image
@@ -42,6 +43,7 @@ import com.jeluchu.jchucomponentscompose.ui.images.NetworkImage
 fun StoryCard(
     modifier: Modifier = Modifier,
     title: String,
+    textColor: Color = Color.Black,
     circleImage: Int,
     iconMainUrl: String = String.empty(),
     iconMainResource: Int = 0,
@@ -91,14 +93,13 @@ fun StoryCard(
             Text(
                 text = title,
                 fontSize = 13.sp,
-                color = Color.White,
+                color = textColor,
                 modifier = Modifier
                     .constrainAs(name) {
                         start.linkTo(parent.start)
                         bottom.linkTo(parent.bottom)
                     }
-                    .padding(8.dp),
-                style = TextStyle(shadow = Shadow(color = Color.Red))
+                    .padding(8.dp)
             )
 
             Card(
