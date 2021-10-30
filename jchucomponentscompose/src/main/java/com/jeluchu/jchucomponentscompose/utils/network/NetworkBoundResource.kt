@@ -38,25 +38,30 @@ inline fun <ResultType, RequestType> networkBoundResourceNew(
 
 }
 
-inline fun <RequestType> networkResource(
+inline fun <ResultType, RequestType> networkBoundResource(
+    crossinline query: () -> Flow<ResultType>,
     crossinline fetch: suspend () -> RequestType,
-    crossinline isNetworkActive: () -> Boolean = { true },
+    crossinline saveFetchResult: suspend (RequestType) -> Unit,
+    crossinline shouldFetch: () -> Boolean = { true }
 ) = flow {
 
     emit(Resource.Loading())
 
-    if (isNetworkActive()) {
+    val flow = if (shouldFetch()) {
 
         try {
-            emit(Resource.Success(fetch()))
+            saveFetchResult(fetch())
+            query().map { Resource.Success(it) }
         } catch (exception: IOException) {
-            emit(Resource.Error(Failure.NetworkConnection(errorMessage = exception.message.orEmpty())))
+            query().map { Resource.Error(Failure.ServerError(errorCode = 0, errorMessage = exception.message.orEmpty())) }
         } catch (error: HttpException) {
-            emit(Resource.Error(Failure.NetworkConnection(errorMessage = error.message.orEmpty())))
+            query().map { Resource.Error(Failure.NetworkConnection(errorCode = error.code(), errorMessage = error.message.orEmpty())) }
         } catch (exception: Exception) {
-            emit(Resource.Error(Failure.NetworkConnection(errorMessage = exception.message.orEmpty())))
+            query().map { Resource.Error(Failure.ServerError(errorCode = 0, errorMessage = exception.message.orEmpty())) }
         }
 
-    } else emit(Resource.Error(Failure.NetworkConnection(errorMessage = "error. .orEmpty()")))
+    } else query().map { Resource.Success(it) }
+
+    emitAll(flow)
 
 }
