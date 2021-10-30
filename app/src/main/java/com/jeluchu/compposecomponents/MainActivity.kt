@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
@@ -16,12 +17,13 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import com.jeluchu.jchucomponentscompose.core.extensions.context.shortToast
 import com.jeluchu.jchucomponentscompose.ui.animations.animateItem
-import com.jeluchu.jchucomponentscompose.ui.cards.StoryCard
+import com.jeluchu.jchucomponentscompose.ui.cards.*
 import com.jeluchu.jchucomponentscompose.ui.images.DoubleTapAnimation
 import com.jeluchu.jchucomponentscompose.ui.images.NetworkImage
 
@@ -51,7 +53,50 @@ class MainActivity : ComponentActivity() {
         Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
 
-                LazyRow {
+                StoryCard(
+                    modifier = Modifier.animateItem(),
+                    title = "Rayo MacQueen",
+                    iconMainUrl = "https://picsum.photos/id/1010/5184/3456",
+                    circleImage = R.drawable.ic_btnfavourite,
+                    navigateToScreen = { }
+                )
+
+                /*SectionCard(
+                    modifier = Modifier.padding(20.dp),
+                    title = "Hello!",
+                    remoteImage = "https://picsum.photos/250?image=9",
+                    backgroundCard = Color.DarkGray,
+                    textColor = Color.White,
+                    navigateToScreen = { }
+                )*/
+
+                /*PostCardTop(
+                    title = "Hello!",
+                    image = "https://picsum.photos/id/1023/3955/2094",
+                    description = "The World is a Vampire!"
+                )*/
+
+                /*DebutCard(
+                    title = "Name",
+                    image = "https://i.picsum.photos/id/0/5616/3744.jpg?hmac=3GAAioiQziMGEtLbfrdbcoenXoWAW-zlyEAMkfEdBzQ",
+                    isDebut = true,
+                    nameOfDebut = "Look",
+                    iconDebut = "https://img.icons8.com/color/search",
+                    bgDebut = Color.Yellow,
+                    navigateToScreen = {  }
+                )*/
+
+                /*InfoCard(
+                    title = "Info",
+                    iconImage = "https://img.icons8.com/color/search",
+                    modifier = Modifier
+                        .clip(RoundedCornerShape(15.dp))
+                        .background(Color.Blue.copy(.5f)),
+                    textColor = Color.Black
+                )*/
+
+
+               /* LazyRow {
                     items(numbers) { item ->
                         StoryCard(
                             modifier = Modifier.animateItem(),
@@ -61,7 +106,7 @@ class MainActivity : ComponentActivity() {
                             navigateToScreen = { context.shortToast("Clicked!") }
                         )
                     }
-                }
+                }*/
 
                 if (false && imageUriState.value != null) {
 

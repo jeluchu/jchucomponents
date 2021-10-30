@@ -39,7 +39,7 @@ import com.jeluchu.jchucomponentscompose.ui.images.NetworkImage
 
 @Composable
 fun SectionCard(
-    modifier: Modifier,
+    modifier: Modifier = Modifier,
     title: String,
     textColor: Color,
     localImage: Int = 0,

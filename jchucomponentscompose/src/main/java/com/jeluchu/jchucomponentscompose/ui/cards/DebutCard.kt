@@ -18,6 +18,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
+import com.jeluchu.jchucomponentscompose.core.extensions.strings.empty
 import com.jeluchu.jchucomponentscompose.ui.images.NetworkImage
 
 /**
@@ -42,7 +43,10 @@ fun DebutCard(
     modifier: Modifier = Modifier,
     title: String,
     image: String,
+    titleColor: Color = Color.Black,
+    debutColor: Color = Color.Black,
     iconDebut: String,
+    nameOfDebut: String = String.empty(),
     isDebut: Boolean = false,
     bgDebut: Color = Color.Black,
     navigateToScreen: () -> Unit
@@ -105,9 +109,9 @@ fun DebutCard(
 
                             Column {
                                 Text(
-                                    text = "Debut",
+                                    text = nameOfDebut,
                                     modifier = Modifier.padding(8.dp, 6.dp, 12.dp, 6.dp),
-                                    color = Color.White,
+                                    color = debutColor,
                                     fontSize = 12.sp,
                                     fontWeight = FontWeight.Bold,
                                     style = MaterialTheme.typography.overline,
@@ -128,7 +132,7 @@ fun DebutCard(
         Text(
             text = title,
             fontSize = 12.sp,
-            color = Color.Black,
+            color = titleColor,
             modifier = Modifier.padding(7.dp),
             fontWeight = FontWeight.Bold
         )

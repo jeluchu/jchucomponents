@@ -50,7 +50,7 @@ fun InfoCard(
     ) {
 
         Row(
-            modifier = Modifier.wrapContentWidth(),
+            modifier = Modifier.padding(8.dp).wrapContentWidth(),
             verticalAlignment = Alignment.CenterVertically
         ) {
 
