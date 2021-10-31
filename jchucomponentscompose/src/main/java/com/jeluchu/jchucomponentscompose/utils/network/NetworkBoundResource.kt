@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.map
 import retrofit2.HttpException
 import java.io.IOException
 
-inline fun <ResultType, RequestType> networkBoundResourceNew(
+inline fun <ResultType, RequestType> networkBoundResource(
     crossinline query: () -> Flow<ResultType>,
     crossinline fetch: suspend () -> RequestType,
     crossinline saveFetchResult: suspend (RequestType) -> Unit,
