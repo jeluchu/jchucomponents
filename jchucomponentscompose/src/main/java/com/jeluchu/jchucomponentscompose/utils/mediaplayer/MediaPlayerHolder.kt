@@ -27,6 +27,7 @@ import java.util.concurrent.TimeUnit
 
 
 class MediaPlayerHolder(context: Context) : PlayerAdapter {
+
     private val mContext: Context = context.applicationContext
     private var mMediaPlayer: MediaPlayer? = null
     private var mResourceId = String.empty()
@@ -109,6 +110,14 @@ class MediaPlayerHolder(context: Context) : PlayerAdapter {
                 mPlaybackInfoListener!!.onStateChanged(PlaybackInfoListener.State.PLAYING)
             }
             startUpdatingCallbackWithPosition()
+        }
+    }
+
+    override fun stop() {
+        if (mMediaPlayer != null) {
+            mMediaPlayer!!.stop()
+            mMediaPlayer!!.release()
+            mMediaPlayer = null
         }
     }
 

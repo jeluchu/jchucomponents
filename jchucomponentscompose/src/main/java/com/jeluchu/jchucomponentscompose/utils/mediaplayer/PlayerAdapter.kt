@@ -1,6 +1,7 @@
 package com.jeluchu.jchucomponentscompose.utils.mediaplayer
 
 interface PlayerAdapter {
+
     fun loadMedia(mp3Link: String)
     fun release()
 
@@ -12,6 +13,7 @@ interface PlayerAdapter {
     fun play()
     fun reset()
     fun pause()
+    fun stop()
 
     fun togglePlaying(isPlaying: Boolean)
 
