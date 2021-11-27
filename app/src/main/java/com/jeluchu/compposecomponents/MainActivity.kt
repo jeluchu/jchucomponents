@@ -14,18 +14,21 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import com.jeluchu.jchucomponentscompose.core.extensions.context.shortToast
 import com.jeluchu.jchucomponentscompose.ui.animations.animateItem
 import com.jeluchu.jchucomponentscompose.ui.cards.*
 import com.jeluchu.jchucomponentscompose.ui.images.DoubleTapAnimation
 import com.jeluchu.jchucomponentscompose.ui.images.NetworkImage
+import com.jeluchu.jchucomponentscompose.ui.textfields.SearchView
 
 class MainActivity : ComponentActivity() {
 
@@ -52,6 +55,9 @@ class MainActivity : ComponentActivity() {
 
         Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
+
+                val textState = remember { mutableStateOf(TextFieldValue("")) }
+                SearchView(state = textState)
 
                 StoryCard(
                     modifier = Modifier.animateItem(),
