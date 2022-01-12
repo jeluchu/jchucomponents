@@ -114,27 +114,24 @@ private fun Context.customTabsWeb(
     string: String,
     colorBar: Int = R.color.browser_actions_bg_grey
 ) {
-    try {
 
-        val share = Intent(this, ShareBroadcastReceiver::class.java)
-        share.action = Intent.ACTION_SEND
+    runCatching {
 
-        val copy: PendingIntent = if (buildIsMarshmallowAndUp)
-            PendingIntent.getBroadcast(
-            this, 0, Intent(
-                this,
-                CustomTabsCopyReceiver::class.java
-            ), PendingIntent.FLAG_IMMUTABLE
-        ) else
+        val share: PendingIntent = if (buildIsMarshmallowAndUp)
             PendingIntent.getBroadcast(
                 this, 0, Intent(
                     this,
-                    CustomTabsCopyReceiver::class.java
+                    ShareBroadcastReceiver::class.java
+                ), PendingIntent.FLAG_IMMUTABLE
+            ) else
+            PendingIntent.getBroadcast(
+                this, 0, Intent(
+                    this,
+                    ShareBroadcastReceiver::class.java
                 ), PendingIntent.FLAG_UPDATE_CURRENT
             )
 
         val builder = CustomTabsIntent.Builder()
-        builder.addMenuItem("Copiar Enlace", copy)
 
         builder.setToolbarColor(
             Color.parseColor(
@@ -146,28 +143,29 @@ private fun Context.customTabsWeb(
                 )
             )
         )
+
         builder.setShowTitle(true)
-        //builder.setExitAnimations(this, R.anim.enter_slide_left, R.anim.exit_slide_left)
-        //builder.setStartAnimations(this, R.anim.enter_slide_right, R.anim.exit_slide_right)
+
         builder.setActionButton(
             BitmapFactory.decodeResource(
                 resources,
                 R.drawable.abc_ic_menu_share_mtrl_alpha
             ),
             "Compartir",
-            PendingIntent.getBroadcast(this, 0, share, 0),
+            share,
             true
         )
 
         val intent = builder.build()
         intent.launchUrl(this, Uri.parse(string))
 
-    } catch (e: IOException) {
+    }.getOrElse {
         val intent = Intent(Intent.ACTION_VIEW, Uri.parse(string))
         intent.putExtra(Browser.EXTRA_CREATE_NEW_TAB, true)
         intent.putExtra(Browser.EXTRA_APPLICATION_ID, packageName)
         startActivity(intent)
     }
+
 }
 
 /** ---- PRIVATE METHODS ----------------------------------------------------------------------- **/
