@@ -27,6 +27,7 @@ import androidx.core.content.ContextCompat
 import com.jeluchu.jchucomponentscompose.R
 import com.jeluchu.jchucomponentscompose.core.extensions.coroutines.noCrash
 import com.jeluchu.jchucomponentscompose.core.extensions.packageutils.buildIsMAndLower
+import com.jeluchu.jchucomponentscompose.core.extensions.packageutils.buildIsMarshmallowAndUp
 import com.jeluchu.jchucomponentscompose.core.extensions.sharedprefs.SharedPrefsHelpers
 import com.jeluchu.jchucomponentscompose.utils.broadcast.CustomTabsCopyReceiver
 import com.jeluchu.jchucomponentscompose.utils.broadcast.ShareBroadcastReceiver
@@ -107,6 +108,7 @@ fun Context.addToClipboard(str: CharSequence?) {
 
 fun Context.openInCustomTab(url: String, colorBar: Int) = customTabsWeb(url, colorBar)
 
+@SuppressLint("UnspecifiedImmutableFlag")
 @Suppress("DEPRECATION")
 private fun Context.customTabsWeb(
     string: String,
@@ -117,12 +119,19 @@ private fun Context.customTabsWeb(
         val share = Intent(this, ShareBroadcastReceiver::class.java)
         share.action = Intent.ACTION_SEND
 
-        val copy: PendingIntent = PendingIntent.getBroadcast(
+        val copy: PendingIntent = if (buildIsMarshmallowAndUp)
+            PendingIntent.getBroadcast(
             this, 0, Intent(
                 this,
                 CustomTabsCopyReceiver::class.java
-            ), PendingIntent.FLAG_UPDATE_CURRENT
-        )
+            ), PendingIntent.FLAG_IMMUTABLE
+        ) else
+            PendingIntent.getBroadcast(
+                this, 0, Intent(
+                    this,
+                    CustomTabsCopyReceiver::class.java
+                ), PendingIntent.FLAG_UPDATE_CURRENT
+            )
 
         val builder = CustomTabsIntent.Builder()
         builder.addMenuItem("Copiar Enlace", copy)

@@ -23,6 +23,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
+import com.jeluchu.jchucomponentscompose.core.extensions.context.openInCustomTab
 import com.jeluchu.jchucomponentscompose.core.extensions.context.shortToast
 import com.jeluchu.jchucomponentscompose.ui.animations.animateItem
 import com.jeluchu.jchucomponentscompose.ui.cards.*
@@ -64,7 +65,10 @@ class MainActivity : ComponentActivity() {
                     title = "Rayo MacQueen",
                     iconMainUrl = "https://picsum.photos/id/1010/5184/3456",
                     circleImage = R.drawable.ic_btnfavourite,
-                    navigateToScreen = { }
+                    navigateToScreen = {
+                        // SUPPORTED API LEVEL S+ CUSTOM TAB
+                        context.openInCustomTab("https://developer.android.com/about/versions/marshmallow/android-6.0?hl=es-419", R.color.teal_700)
+                    }
                 )
 
                 /*SectionCard(
