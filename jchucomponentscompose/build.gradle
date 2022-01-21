@@ -72,7 +72,7 @@ dependencies {
     implementation 'androidx.preference:preference-ktx:1.1.1'
 
     // GOOGLE LIBRARY ------------------------------------------------------------------------------
-    implementation 'com.google.android.material:material:1.4.0'
+    implementation 'com.google.android.material:material:1.5.0'
     implementation 'com.google.code.gson:gson:2.8.9'
 
     // SQUAREUP LIBRARY ----------------------------------------------------------------------------
@@ -92,7 +92,7 @@ afterEvaluate {
                 from components.release
                 groupId = "com.jeluchu"
                 artifactId = "jchucomponentscompose"
-                version = "0.3.11"
+                version = "0.3.12"
             }
         }
     }

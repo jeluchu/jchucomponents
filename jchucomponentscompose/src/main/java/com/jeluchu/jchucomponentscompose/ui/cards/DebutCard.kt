@@ -20,6 +20,7 @@ import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import com.jeluchu.jchucomponentscompose.core.extensions.strings.empty
 import com.jeluchu.jchucomponentscompose.ui.images.NetworkImage
+import com.jeluchu.jchucomponentscompose.ui.text.MarqueeText
 
 /**
  *
@@ -49,7 +50,9 @@ fun DebutCard(
     nameOfDebut: String = String.empty(),
     isDebut: Boolean = false,
     bgDebut: Color = Color.Black,
-    navigateToScreen: () -> Unit
+    debubtAlignment: Alignment = Alignment.TopStart,
+    debutShape: RoundedCornerShape = RoundedCornerShape(bottomEnd = 20.dp),
+    navigateToScreen: () -> Unit = {}
 ) {
 
     Column {
@@ -59,37 +62,23 @@ fun DebutCard(
             modifier = modifier
                 .width(130.dp)
                 .height(190.dp)
-                .padding(4.dp),
+                .padding(4.dp)
+                .clip(RoundedCornerShape(12.dp))
+                .clickable(onClick = navigateToScreen),
             backgroundColor = Color.Gray
         ) {
 
-            ConstraintLayout(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .fillMaxHeight()
-                    .clickable { navigateToScreen() }
-            ) {
+            Box {
 
-                val (profileImg, storyImg) = createRefs()
-
-                NetworkImage(
-                    url = image,
-                    modifier = Modifier.constrainAs(storyImg) {
-                        linkTo(parent.start, parent.end)
-                        linkTo(parent.top, parent.bottom)
-                    }
-                )
+                NetworkImage(url = image)
 
                 if (isDebut) {
 
                     Box(
                         modifier = Modifier
-                            .clip(RoundedCornerShape(bottomEnd = 20.dp))
+                            .clip(debutShape)
                             .background(bgDebut)
-                            .constrainAs(profileImg) {
-                                top.linkTo(parent.top)
-                                start.linkTo(parent.start)
-                            },
+                            .align(debubtAlignment),
                     ) {
 
                         Row(
@@ -129,11 +118,13 @@ fun DebutCard(
 
         }
 
-        Text(
+        MarqueeText(
             text = title,
             fontSize = 12.sp,
             color = titleColor,
-            modifier = Modifier.padding(7.dp),
+            modifier = Modifier
+                .width(130.dp)
+                .padding(7.dp),
             fontWeight = FontWeight.Bold
         )
 
