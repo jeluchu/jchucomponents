@@ -63,8 +63,8 @@ dependencies {
     implementation("com.google.firebase:firebase-analytics-ktx:20.0.2")
 
     // ACCOMPANIST GOOGLE LIBRARY ------------------------------------------------------------------
-    implementation 'com.google.accompanist:accompanist-systemuicontroller:0.17.0'
-    implementation 'com.google.accompanist:accompanist-navigation-animation:0.20.2'
+    implementation 'com.google.accompanist:accompanist-systemuicontroller:0.22.0-rc'
+    implementation 'com.google.accompanist:accompanist-navigation-animation:0.22.0-rc'
 
     // ANDROIDX LIBRARY ----------------------------------------------------------------------------
     implementation 'androidx.core:core-ktx:1.7.0'
@@ -92,7 +92,7 @@ afterEvaluate {
                 from components.release
                 groupId = "com.jeluchu"
                 artifactId = "jchucomponentscompose"
-                version = "0.3.13"
+                version = "0.3.14"
             }
         }
     }
