@@ -82,6 +82,15 @@ class MainActivity : ComponentActivity() {
                         debutShape = RoundedCornerShape(topStart = 20.dp),
                     )
 
+                    DebutCard(
+                        image = "https://i.picsum.photos/id/0/5616/3744.jpg?hmac=3GAAioiQziMGEtLbfrdbcoenXoWAW-zlyEAMkfEdBzQ",
+                        isDebut = true,
+                        iconDebut = "https://img.icons8.com/color/search",
+                        bgDebut = Color.Yellow,
+                        debubtAlignment = Alignment.BottomEnd,
+                        debutShape = RoundedCornerShape(topStart = 20.dp),
+                    )
+
                     /*SectionCard(
                         modifier = Modifier.padding(20.dp),
                         title = "Hello!",
