@@ -47,6 +47,7 @@ fun DebutCard(
     image: String,
     titleColor: Color = Color.Black,
     debutColor: Color = Color.Black,
+    gradientEdgeColor: Color = Color.Transparent,
     style: TextStyle = LocalTextStyle.current,
     iconDebut: String,
     nameOfDebut: String = String.empty(),
@@ -124,6 +125,7 @@ fun DebutCard(
                 text = title,
                 fontSize = 12.sp,
                 color = titleColor,
+                gradientEdgeColor = gradientEdgeColor,
                 modifier = Modifier
                     .width(130.dp)
                     .padding(7.dp),
