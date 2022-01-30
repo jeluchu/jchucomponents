@@ -21,11 +21,11 @@ import com.google.accompanist.systemuicontroller.rememberSystemUiController
 @Composable
 fun SystemStatusBarColors(
     systemBarsColor: Color,
-    statusBarColor: Color
+    statusBarColor: Color,
+    useDarkIcons: Boolean = MaterialTheme.colors.isLight
 ) {
 
     val systemUiController = rememberSystemUiController()
-    val useDarkIcons = MaterialTheme.colors.isLight
 
     SideEffect {
 
