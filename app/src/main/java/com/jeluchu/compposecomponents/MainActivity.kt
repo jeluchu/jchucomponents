@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -29,6 +30,7 @@ import com.jeluchu.jchucomponentscompose.ui.images.DoubleTapAnimation
 import com.jeluchu.jchucomponentscompose.ui.images.NetworkImage
 import com.jeluchu.jchucomponentscompose.ui.sheets.BottomSheetWithCloseDialog
 import com.jeluchu.jchucomponentscompose.ui.textfields.SearchView
+import com.jeluchu.jchucomponentscompose.utils.ColorFF
 
 class MainActivity : ComponentActivity() {
 

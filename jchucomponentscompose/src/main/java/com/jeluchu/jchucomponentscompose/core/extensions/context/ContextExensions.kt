@@ -17,6 +17,7 @@ import android.graphics.drawable.Drawable
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.net.Uri
+import android.os.Build
 import android.provider.Browser
 import android.view.LayoutInflater
 import android.widget.Toast
@@ -28,6 +29,7 @@ import com.jeluchu.jchucomponentscompose.R
 import com.jeluchu.jchucomponentscompose.core.extensions.coroutines.noCrash
 import com.jeluchu.jchucomponentscompose.core.extensions.packageutils.buildIsMAndLower
 import com.jeluchu.jchucomponentscompose.core.extensions.packageutils.buildIsMarshmallowAndUp
+import com.jeluchu.jchucomponentscompose.core.extensions.packageutils.buildIsPAndUp
 import com.jeluchu.jchucomponentscompose.core.extensions.sharedprefs.SharedPrefsHelpers
 import com.jeluchu.jchucomponentscompose.utils.broadcast.CustomTabsCopyReceiver
 import com.jeluchu.jchucomponentscompose.utils.broadcast.ShareBroadcastReceiver
@@ -178,3 +180,64 @@ fun Context.getCompatDrawable(@DrawableRes drawableRes: Int): Drawable? =
 
 inline val Context.notificationManager: NotificationManager
     get() = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
+
+/** ---- INTENTS ------------------------------------------------------------------------------- **/
+
+fun Context.openPhoneCall(number: String) {
+    startActivity(Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", number, null)))
+}
+
+/** ---- CONECTION ----------------------------------------------------------------------------- **/
+
+@Suppress("DEPRECATION")
+fun Context.isRoamingConnection(): Boolean {
+    var result = false
+    val connectivityManager = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+    if (buildIsPAndUp) {
+        val networkCapabilities = connectivityManager.activeNetwork ?: return false
+        val actNw = connectivityManager.getNetworkCapabilities(networkCapabilities) ?: return false
+        result = !actNw.hasCapability(NetworkCapabilities.NET_CAPABILITY_NOT_ROAMING)
+    } else {
+        connectivityManager.run {
+            connectivityManager.activeNetworkInfo?.run {
+                result = this.isRoaming
+            }
+        }
+    }
+
+    return result
+}
+
+@SuppressLint("NewApi")
+@Suppress("DEPRECATION")
+fun Context.isConnectionAvailable(): Boolean {
+
+    var isAvailable = false
+    val connectivityManager = getSystemService(Context.CONNECTIVITY_SERVICE) as? ConnectivityManager
+
+    if (buildIsMarshmallowAndUp)
+        connectivityManager?.activeNetworkInfo?.let {
+            isAvailable = when (it.type) {
+                ConnectivityManager.TYPE_WIFI -> true
+                ConnectivityManager.TYPE_MOBILE -> true
+                ConnectivityManager.TYPE_ETHERNET -> true
+                else -> false
+            }
+        }
+    else {
+        connectivityManager?.let {
+            val capabilities = it.getNetworkCapabilities(it.activeNetwork)
+            if (capabilities != null) {
+                if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) ||
+                    capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) ||
+                    capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET)
+                ) {
+                    isAvailable = true
+                }
+            }
+        }
+    }
+
+    return isAvailable
+
+}
