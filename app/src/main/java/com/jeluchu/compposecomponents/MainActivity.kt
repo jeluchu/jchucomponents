@@ -30,7 +30,6 @@ import com.jeluchu.jchucomponentscompose.ui.images.DoubleTapAnimation
 import com.jeluchu.jchucomponentscompose.ui.images.NetworkImage
 import com.jeluchu.jchucomponentscompose.ui.sheets.BottomSheetWithCloseDialog
 import com.jeluchu.jchucomponentscompose.ui.textfields.SearchView
-import com.jeluchu.jchucomponentscompose.utils.ColorFF
 
 class MainActivity : ComponentActivity() {
 
