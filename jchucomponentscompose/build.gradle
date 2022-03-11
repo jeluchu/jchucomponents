@@ -16,7 +16,7 @@ android {
     }
 
     buildFeatures.compose = true
-    composeOptions.kotlinCompilerExtensionVersion = "1.1.0"
+    composeOptions.kotlinCompilerExtensionVersion = "1.1.1"
 
     buildTypes {
         release {
@@ -39,23 +39,23 @@ dependencies {
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.0-native-mt'
 
     // JETPACK COMPOSE -----------------------------------------------------------------------------
-    implementation 'androidx.compose.ui:ui:1.1.0'
-    implementation 'androidx.compose.material:material:1.1.0'
-    implementation 'androidx.compose.ui:ui-tooling-preview:1.1.0'
+    implementation 'androidx.compose.ui:ui:1.1.1'
+    implementation 'androidx.compose.material:material:1.1.1'
+    implementation 'androidx.compose.ui:ui-tooling-preview:1.1.1'
     implementation 'androidx.activity:activity-compose:1.4.0'
     implementation 'androidx.core:core-splashscreen:1.0.0-beta01'
-    debugImplementation 'androidx.compose.ui:ui-tooling:1.1.0'
-    implementation 'androidx.compose.material:material-icons-extended:1.1.0'
-    implementation 'androidx.compose.foundation:foundation:1.1.0'
-    implementation 'androidx.compose.foundation:foundation-layout:1.1.0'
-    implementation 'androidx.compose.animation:animation:1.1.0'
-    implementation 'androidx.compose.runtime:runtime:1.1.0'
-    implementation 'androidx.compose.runtime:runtime-livedata:1.1.0'
+    debugImplementation 'androidx.compose.ui:ui-tooling:1.1.1'
+    implementation 'androidx.compose.material:material-icons-extended:1.1.1'
+    implementation 'androidx.compose.foundation:foundation:1.1.1'
+    implementation 'androidx.compose.foundation:foundation-layout:1.1.1'
+    implementation 'androidx.compose.animation:animation:1.1.1'
+    implementation 'androidx.compose.runtime:runtime:1.1.1'
+    implementation 'androidx.compose.runtime:runtime-livedata:1.1.1'
     implementation 'androidx.constraintlayout:constraintlayout-compose:1.0.0'
     implementation 'androidx.navigation:navigation-compose:2.4.1'
 
     // FIREBASE LIBRARY ----------------------------------------------------------------------------
-    implementation("com.google.firebase:firebase-analytics-ktx:20.0.2")
+    implementation("com.google.firebase:firebase-analytics-ktx:20.1.0")
 
     // ACCOMPANIST GOOGLE LIBRARY ------------------------------------------------------------------
     implementation 'com.google.accompanist:accompanist-systemuicontroller:0.23.0'
@@ -86,7 +86,7 @@ afterEvaluate {
                 from components.release
                 groupId = "com.jeluchu"
                 artifactId = "jchucomponentscompose"
-                version = "0.4.0"
+                version = "0.4.2"
             }
         }
     }
