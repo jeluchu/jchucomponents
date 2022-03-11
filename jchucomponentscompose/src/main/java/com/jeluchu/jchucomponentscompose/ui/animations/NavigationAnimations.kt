@@ -7,10 +7,7 @@ import androidx.compose.animation.core.tween
 import androidx.navigation.NavBackStackEntry
 
 @ExperimentalAnimationApi
-val enterTransition: (AnimatedContentScope<String>.(
-    initial: NavBackStackEntry,
-    target: NavBackStackEntry
-) -> EnterTransition?) = { _, _ ->
+val enterTransition: (AnimatedContentScope<NavBackStackEntry>.() -> EnterTransition?) = {
     slideInHorizontally(
         initialOffsetX = { fullWidth -> fullWidth },
         animationSpec = tween(
@@ -21,10 +18,7 @@ val enterTransition: (AnimatedContentScope<String>.(
 }
 
 @ExperimentalAnimationApi
-val exitTransition: (AnimatedContentScope<String>.(
-    initial: NavBackStackEntry,
-    target: NavBackStackEntry
-) -> ExitTransition?) = { _, _ ->
+val exitTransition: (AnimatedContentScope<NavBackStackEntry>.() -> ExitTransition?) = {
     slideOutHorizontally(
         targetOffsetX = { fullWidth -> fullWidth },
         animationSpec = tween(

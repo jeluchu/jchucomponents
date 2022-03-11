@@ -5,6 +5,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import coil.compose.rememberImagePainter
+import coil.size.OriginalSize
 
 /**
  *
@@ -21,7 +22,9 @@ import coil.compose.rememberImagePainter
 @Composable
 fun NetworkImage(
     url: Any,
-    modifier: Modifier,
+    modifier: Modifier = Modifier,
+    isOriginalSize: Boolean = false,
+    isCrossfade: Boolean = true,
     contentScale: ContentScale = ContentScale.Crop
 ) {
 
@@ -29,7 +32,8 @@ fun NetworkImage(
         painter = rememberImagePainter(
             data = url,
             builder = {
-                crossfade(true)
+                if (isOriginalSize) size(OriginalSize)
+                crossfade(isCrossfade)
             }
         ),
         contentDescription = null,

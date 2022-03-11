@@ -5,6 +5,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
+import androidx.compose.material.LocalTextStyle
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -13,13 +14,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.constraintlayout.compose.ConstraintLayout
 import com.jeluchu.jchucomponentscompose.core.extensions.strings.empty
 import com.jeluchu.jchucomponentscompose.ui.images.NetworkImage
+import com.jeluchu.jchucomponentscompose.ui.text.MarqueeText
 
 /**
  *
@@ -41,15 +43,19 @@ import com.jeluchu.jchucomponentscompose.ui.images.NetworkImage
 @Composable
 fun DebutCard(
     modifier: Modifier = Modifier,
-    title: String,
+    title: String = String.empty(),
     image: String,
     titleColor: Color = Color.Black,
     debutColor: Color = Color.Black,
+    gradientEdgeColor: Color = Color.Transparent,
+    style: TextStyle = LocalTextStyle.current,
     iconDebut: String,
     nameOfDebut: String = String.empty(),
     isDebut: Boolean = false,
     bgDebut: Color = Color.Black,
-    navigateToScreen: () -> Unit
+    debubtAlignment: Alignment = Alignment.TopStart,
+    debutShape: RoundedCornerShape = RoundedCornerShape(bottomEnd = 20.dp),
+    navigateToScreen: () -> Unit = {}
 ) {
 
     Column {
@@ -59,37 +65,22 @@ fun DebutCard(
             modifier = modifier
                 .width(130.dp)
                 .height(190.dp)
-                .padding(4.dp),
-            backgroundColor = Color.Gray
+                .padding(4.dp)
+                .clip(RoundedCornerShape(12.dp))
+                .clickable(onClick = navigateToScreen)
         ) {
 
-            ConstraintLayout(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .fillMaxHeight()
-                    .clickable { navigateToScreen() }
-            ) {
+            Box {
 
-                val (profileImg, storyImg) = createRefs()
-
-                NetworkImage(
-                    url = image,
-                    modifier = Modifier.constrainAs(storyImg) {
-                        linkTo(parent.start, parent.end)
-                        linkTo(parent.top, parent.bottom)
-                    }
-                )
+                NetworkImage(url = image)
 
                 if (isDebut) {
 
                     Box(
                         modifier = Modifier
-                            .clip(RoundedCornerShape(bottomEnd = 20.dp))
+                            .clip(debutShape)
                             .background(bgDebut)
-                            .constrainAs(profileImg) {
-                                top.linkTo(parent.top)
-                                start.linkTo(parent.start)
-                            },
+                            .align(debubtAlignment),
                     ) {
 
                         Row(
@@ -97,17 +88,18 @@ fun DebutCard(
                             verticalAlignment = Alignment.CenterVertically
                         ) {
 
-                            Column {
-                                NetworkImage(
-                                    contentScale = ContentScale.Fit,
-                                    modifier = Modifier
-                                        .size(30.dp)
-                                        .padding(start = 8.dp),
-                                    url = iconDebut
-                                )
-                            }
+                            NetworkImage(
+                                contentScale = ContentScale.Fit,
+                                modifier = Modifier
+                                    .size(35.dp)
+                                    .padding(
+                                        start = 8.dp,
+                                        end = if (nameOfDebut.isNotEmpty()) 0.dp else 5.dp
+                                    ),
+                                url = iconDebut
+                            )
 
-                            Column {
+                            if (nameOfDebut.isNotEmpty())
                                 Text(
                                     text = nameOfDebut,
                                     modifier = Modifier.padding(8.dp, 6.dp, 12.dp, 6.dp),
@@ -117,7 +109,6 @@ fun DebutCard(
                                     style = MaterialTheme.typography.overline,
                                     textAlign = TextAlign.Start
                                 )
-                            }
 
                         }
 
@@ -129,13 +120,18 @@ fun DebutCard(
 
         }
 
-        Text(
-            text = title,
-            fontSize = 12.sp,
-            color = titleColor,
-            modifier = Modifier.padding(7.dp),
-            fontWeight = FontWeight.Bold
-        )
+        if (title.isNotEmpty())
+            MarqueeText(
+                text = title,
+                fontSize = 12.sp,
+                color = titleColor,
+                gradientEdgeColor = gradientEdgeColor,
+                modifier = Modifier
+                    .width(130.dp)
+                    .padding(7.dp),
+                style = style,
+                fontWeight = FontWeight.Bold
+            )
 
     }
 

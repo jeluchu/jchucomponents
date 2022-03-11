@@ -6,22 +6,17 @@ plugins {
 
 android {
 
-    compileSdkVersion 31
+    compileSdkVersion 32
     buildToolsVersion "30.0.3"
 
     defaultConfig {
         minSdkVersion 21
-        targetSdkVersion 31
+        targetSdkVersion 32
         consumerProguardFiles "consumer-rules.pro"
     }
 
-    buildFeatures {
-        compose = true
-    }
-
-    composeOptions {
-        kotlinCompilerExtensionVersion = "1.0.5"
-    }
+    buildFeatures.compose = true
+    composeOptions.kotlinCompilerExtensionVersion = "1.1.0"
 
     buildTypes {
         release {
@@ -44,35 +39,34 @@ dependencies {
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.0-native-mt'
 
     // JETPACK COMPOSE -----------------------------------------------------------------------------
-    implementation 'androidx.compose.ui:ui:1.0.5'
-    implementation 'androidx.compose.material:material:1.0.5'
-    implementation 'androidx.compose.ui:ui-tooling-preview:1.0.5'
+    implementation 'androidx.compose.ui:ui:1.1.0'
+    implementation 'androidx.compose.material:material:1.1.0'
+    implementation 'androidx.compose.ui:ui-tooling-preview:1.1.0'
     implementation 'androidx.activity:activity-compose:1.4.0'
-    implementation 'androidx.core:core-splashscreen:1.0.0-alpha02'
-    debugImplementation 'androidx.compose.ui:ui-tooling:1.0.5'
-    implementation 'androidx.compose.material:material-icons-extended:1.0.5'
-    implementation 'androidx.compose.foundation:foundation:1.0.5'
-    implementation 'androidx.compose.foundation:foundation-layout:1.0.5'
-    implementation 'androidx.compose.animation:animation:1.0.5'
-    implementation 'androidx.compose.runtime:runtime:1.0.5'
-    implementation 'androidx.compose.runtime:runtime-livedata:1.0.5'
-    implementation 'androidx.constraintlayout:constraintlayout-compose:1.0.0-rc02'
-    implementation 'androidx.navigation:navigation-compose:2.4.0-rc01'
+    implementation 'androidx.core:core-splashscreen:1.0.0-beta01'
+    debugImplementation 'androidx.compose.ui:ui-tooling:1.1.0'
+    implementation 'androidx.compose.material:material-icons-extended:1.1.0'
+    implementation 'androidx.compose.foundation:foundation:1.1.0'
+    implementation 'androidx.compose.foundation:foundation-layout:1.1.0'
+    implementation 'androidx.compose.animation:animation:1.1.0'
+    implementation 'androidx.compose.runtime:runtime:1.1.0'
+    implementation 'androidx.compose.runtime:runtime-livedata:1.1.0'
+    implementation 'androidx.constraintlayout:constraintlayout-compose:1.0.0'
+    implementation 'androidx.navigation:navigation-compose:2.4.1'
 
     // FIREBASE LIBRARY ----------------------------------------------------------------------------
     implementation("com.google.firebase:firebase-analytics-ktx:20.0.2")
 
     // ACCOMPANIST GOOGLE LIBRARY ------------------------------------------------------------------
-    implementation 'com.google.accompanist:accompanist-systemuicontroller:0.17.0'
-    implementation 'com.google.accompanist:accompanist-navigation-animation:0.20.2'
+    implementation 'com.google.accompanist:accompanist-systemuicontroller:0.23.0'
+    implementation 'com.google.accompanist:accompanist-navigation-animation:0.23.0'
 
     // ANDROIDX LIBRARY ----------------------------------------------------------------------------
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.browser:browser:1.4.0'
-    implementation 'androidx.preference:preference-ktx:1.1.1'
+    implementation 'androidx.preference:preference-ktx:1.2.0'
 
     // GOOGLE LIBRARY ------------------------------------------------------------------------------
-    implementation 'com.google.android.material:material:1.4.0'
     implementation 'com.google.code.gson:gson:2.8.9'
 
     // SQUAREUP LIBRARY ----------------------------------------------------------------------------
@@ -92,7 +86,7 @@ afterEvaluate {
                 from components.release
                 groupId = "com.jeluchu"
                 artifactId = "jchucomponentscompose"
-                version = "0.4.2"
+                version = "0.4.0"
             }
         }
     }
