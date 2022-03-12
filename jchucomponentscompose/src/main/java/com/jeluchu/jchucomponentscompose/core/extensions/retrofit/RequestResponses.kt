@@ -13,9 +13,9 @@ fun <T, R> request(
         val response = call.execute()
         when (response.isSuccessful) {
             true -> Either.Right(transform((response.body() ?: default)))
-            false -> Either.Left(Failure.CustomError(response.code(), response.message()))
+            false -> Either.Left(Failure.LegacyError(response.code(), response.message()))
         }
     } catch (exception: Throwable) {
-        Either.Left(Failure.ServerError())
+        Either.Left(Failure.LegacyError())
     }
 }
