@@ -32,6 +32,8 @@ val Activity.permissions: Unit
 
 /** ---- ACTIVITY RESULT LAUNCHER -------------------------------------------------------------- **/
 
+val customQrReader = ScanCustomCode()
+
 fun ActivityResultLauncher<ScannerConfig>.openQRReader(@StringRes stringRes: Int) {
     launch(
         ScannerConfig.build {
