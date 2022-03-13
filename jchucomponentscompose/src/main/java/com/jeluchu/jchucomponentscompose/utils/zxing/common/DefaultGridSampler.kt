@@ -12,7 +12,7 @@ class DefaultGridSampler : GridSampler() {
         transform: PerspectiveTransform?
     ): BitMatrix {
         if (dimensionX <= 0 || dimensionY <= 0) {
-            throw NotFoundException.getNotFoundInstance()
+            throw NotFoundException.notFoundInstance
         }
         val bits = BitMatrix(dimensionX, dimensionY, 1)
         val points = FloatArray(2 * dimensionX)
@@ -26,27 +26,13 @@ class DefaultGridSampler : GridSampler() {
                 x += 2
             }
             transform!!.transformPoints(points)
-            // Quick check to see if points transformed to something inside the image;
-            // sufficient to check the endpoints
             checkAndNudgePoints(image!!, points)
-            try {
+            runCatching {
                 var x1 = 0
                 while (x1 < max) {
-                    if (image[points[x1].toInt(), points[x1 + 1].toInt()]) {
-                        // Black(-ish) pixel
-                        bits[x1 / 2] = y
-                    }
+                    if (image[points[x1].toInt(), points[x1 + 1].toInt()]) bits[x1 / 2] = y
                     x1 += 2
                 }
-            } catch (aioobe: ArrayIndexOutOfBoundsException) {
-                // This feels wrong, but, sometimes if the finder patterns are misidentified, the resulting
-                // transform gets "twisted" such that it maps a straight line of points to a set of points
-                // whose endpoints are in bounds, but others are not. There is probably some mathematical
-                // way to detect this about the transformation that I don't know yet.
-                // This results in an ugly runtime exception despite our clever checks above -- can't have
-                // that. We could check each point's coordinates but that feels duplicative. We settle for
-                // catching and wrapping ArrayIndexOutOfBoundsException.
-                throw NotFoundException.getNotFoundInstance()
             }
         }
         return bits

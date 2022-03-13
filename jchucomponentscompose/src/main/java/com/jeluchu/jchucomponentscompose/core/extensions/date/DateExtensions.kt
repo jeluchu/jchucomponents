@@ -7,16 +7,27 @@ const val DATE_FORMAT_VERBOSE = "dd/MM/yyyy"
 const val DATE_FORMAT_TIMESTAMP = "dd/MM/yyyy HH:mm"
 const val DATE_FORMAT_ONLY_TIME = "HH:mm 'H'"
 
+/** ---- FORMATS ------------------------------------------------------------------------------- **/
+
 fun Date.format(): String =
-    SimpleDateFormat(DATE_FORMAT_VERBOSE, Locale.getDefault()).format(this)
+    SimpleDateFormat(
+        com.jeluchu.jchucomponentscompose.core.extensions.date.DATE_FORMAT_VERBOSE,
+        Locale.getDefault()
+    ).format(this)
 
 fun Date.formatWithTime(): String =
-    SimpleDateFormat(DATE_FORMAT_TIMESTAMP, Locale.getDefault()).format(this)
+    SimpleDateFormat(
+        com.jeluchu.jchucomponentscompose.core.extensions.date.DATE_FORMAT_TIMESTAMP,
+        Locale.getDefault()
+    ).format(this)
 
 fun Date.formatOnlyTime(): String =
-    SimpleDateFormat(DATE_FORMAT_ONLY_TIME, Locale.getDefault()).format(this)
+    SimpleDateFormat(
+        com.jeluchu.jchucomponentscompose.core.extensions.date.DATE_FORMAT_ONLY_TIME,
+        Locale.getDefault()
+    ).format(this)
 
-fun Date.now(): Date = Calendar.getInstance().time
+/** ---- CALENDAR ------------------------------------------------------------------------------ **/
 
 fun Date.addYear(years: Int): Date =
     this.toCalendar()

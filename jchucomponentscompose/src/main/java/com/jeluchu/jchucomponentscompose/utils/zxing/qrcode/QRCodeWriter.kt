@@ -17,15 +17,13 @@ import kotlin.math.max
 import kotlin.math.min
 import kotlin.math.roundToInt
 
-
 class QRCodeWriter {
     private var input: ByteMatrix? = null
     private val radii = FloatArray(8)
     private var imageBloks = 0
     private var imageBlockX = 0
     private var sideQuadSize = 0
-    var imageSize = 0
-        private set
+    private var imageSize = 0
 
     @Throws(WriterException::class)
     fun encode(
@@ -42,24 +40,19 @@ class QRCodeWriter {
         require(!(width < 0 || height < 0)) { "Requested dimensions are too small: " + width + 'x' + height }
         var errorCorrectionLevel = ErrorCorrectionLevel.L
         var quietZone = QUIET_ZONE_SIZE
-        if (hints.containsKey(EncodeHintType.ERROR_CORRECTION)) {
-            errorCorrectionLevel =
-                ErrorCorrectionLevel.valueOf(hints[EncodeHintType.ERROR_CORRECTION].toString())
-        }
-        if (hints.containsKey(EncodeHintType.MARGIN)) {
-            quietZone = hints[EncodeHintType.MARGIN].toString().toInt()
-        }
-        val code = Encoder.encode(contents, errorCorrectionLevel, hints)
+        if (hints.containsKey(EncodeHintType.ERROR_CORRECTION)) errorCorrectionLevel =
+            ErrorCorrectionLevel.valueOf(hints[EncodeHintType.ERROR_CORRECTION].toString())
+        if (hints.containsKey(EncodeHintType.MARGIN)) quietZone =
+            hints[EncodeHintType.MARGIN].toString().toInt()
+
+        val code = Encoder.encode(contents.orEmpty(), errorCorrectionLevel, hints)
         input = code.matrix
         checkNotNull(input)
         val inputWidth = input!!.width
         val inputHeight = input!!.height
         for (x in 0 until inputWidth) {
-            if (has(x, 0)) {
-                sideQuadSize++
-            } else {
-                break
-            }
+            if (has(x, 0)) sideQuadSize++
+            else break
         }
         val qrWidth = inputWidth + quietZone * 2
         val qrHeight = inputHeight + quietZone * 2
@@ -68,9 +61,8 @@ class QRCodeWriter {
         val multiple = min(outputWidth / qrWidth, outputHeight / qrHeight)
         val padding = 16
         val size = multiple * inputWidth + padding * 2
-        if (bitmap1 == null || bitmap1.width != size) {
-            bitmap1 = Bitmap.createBitmap(size, size, Bitmap.Config.ARGB_8888)
-        }
+        if (bitmap1 == null || bitmap1.width != size) bitmap1 =
+            Bitmap.createBitmap(size, size, Bitmap.Config.ARGB_8888)
         val canvas = Canvas(bitmap1!!)
         canvas.drawColor(-0x1)
         val blackPaint = Paint(Paint.ANTI_ALIAS_FLAG)
@@ -79,9 +71,7 @@ class QRCodeWriter {
         rect.shape = GradientDrawable.RECTANGLE
         rect.cornerRadii = radii
         imageBloks = ((size - 32) / 4.65f / multiple).roundToInt()
-        if (imageBloks % 2 != inputWidth % 2) {
-            imageBloks++
-        }
+        if (imageBloks % 2 != inputWidth % 2) imageBloks++
         imageBlockX = (inputWidth - imageBloks) / 2
         imageSize = imageBloks * multiple - 24
         val imageX = (size - imageSize) / 2

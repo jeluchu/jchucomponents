@@ -13,8 +13,10 @@ import kotlin.math.*
  *
  * @returns Distance in Meters
  */
-fun getDistance(lat1: Double, lat2: Double, lon1: Double,
-                lon2: Double): Double {
+fun getDistance(
+    lat1: Double, lat2: Double, lon1: Double,
+    lon2: Double
+): Double {
     val radiusOfEarth = 6371
     val latDistance = Math.toRadians(lat2 - lat1)
     val lonDistance = Math.toRadians(lon2 - lon1)

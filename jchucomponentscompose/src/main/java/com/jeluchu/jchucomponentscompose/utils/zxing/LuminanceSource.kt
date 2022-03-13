@@ -62,9 +62,8 @@ abstract class LuminanceSource protected constructor(
      * @param height The height of the rectangle to crop.
      * @return A cropped version of this object.
      */
-    open fun crop(left: Int, top: Int, width: Int, height: Int): LuminanceSource? {
+    open fun crop(left: Int, top: Int, width: Int, height: Int): LuminanceSource? =
         throw UnsupportedOperationException("This luminance source does not support cropping.")
-    }
 
     /**
      * @return Whether this subclass supports counter-clockwise rotation.
@@ -76,9 +75,9 @@ abstract class LuminanceSource protected constructor(
      * @return a wrapper of this `LuminanceSource` which inverts the luminances it returns -- black becomes
      * white and vice versa, and each value becomes (255-value).
      */
-    open fun invert(): LuminanceSource? {
-        return InvertedLuminanceSource(this)
-    }
+    open fun invert(): LuminanceSource? =
+        InvertedLuminanceSource(this)
+
 
     /**
      * Returns a new object with rotated image data by 90 degrees counterclockwise.
@@ -86,9 +85,8 @@ abstract class LuminanceSource protected constructor(
      *
      * @return A rotated version of this object.
      */
-    open fun rotateCounterClockwise(): LuminanceSource? {
+    open fun rotateCounterClockwise(): LuminanceSource? =
         throw UnsupportedOperationException("This luminance source does not support rotation by 90 degrees.")
-    }
 
     /**
      * Returns a new object with rotated image data by 45 degrees counterclockwise.
@@ -96,9 +94,8 @@ abstract class LuminanceSource protected constructor(
      *
      * @return A rotated version of this object.
      */
-    open fun rotateCounterClockwise45(): LuminanceSource? {
+    open fun rotateCounterClockwise45(): LuminanceSource? =
         throw UnsupportedOperationException("This luminance source does not support rotation by 45 degrees.")
-    }
 
     override fun toString(): String {
         var row = ByteArray(width)

@@ -6,7 +6,6 @@ package com.jeluchu.jchucomponentscompose.utils.zxing.common
  * applies to 2D barcode formats. For now it contains the raw bytes obtained,
  * as well as a String interpretation of those bytes, if applicable.
  *
- * @author Sean Owen
  */
 class DecoderResult(
     /**

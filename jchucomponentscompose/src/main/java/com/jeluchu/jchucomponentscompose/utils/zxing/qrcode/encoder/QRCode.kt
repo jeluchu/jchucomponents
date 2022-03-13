@@ -35,9 +35,7 @@ class QRCode {
 
         // Check if "mask_pattern" is valid.
         @JvmStatic
-        fun isValidMaskPattern(maskPattern: Int): Boolean {
-            return maskPattern in 0 until NUM_MASK_PATTERNS
-        }
+        fun isValidMaskPattern(maskPattern: Int): Boolean = maskPattern in 0 until NUM_MASK_PATTERNS
     }
 
 }

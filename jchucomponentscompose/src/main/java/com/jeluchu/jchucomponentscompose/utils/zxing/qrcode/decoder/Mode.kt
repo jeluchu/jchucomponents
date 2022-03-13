@@ -50,8 +50,8 @@ enum class Mode(private val characterCountBitsForVersions: IntArray, val bits: I
          * @throws IllegalArgumentException if bits do not correspond to a known mode
          */
         @JvmStatic
-        fun forBits(bits: Int): Mode {
-            return when (bits) {
+        fun forBits(bits: Int): Mode =
+            when (bits) {
                 0x0 -> TERMINATOR
                 0x1 -> NUMERIC
                 0x2 -> ALPHANUMERIC
@@ -64,6 +64,6 @@ enum class Mode(private val characterCountBitsForVersions: IntArray, val bits: I
                 0xD -> HANZI // 0xD is defined in GBT 18284-2000, may not be supported in foreign country
                 else -> throw IllegalArgumentException()
             }
-        }
+
     }
 }

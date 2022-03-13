@@ -8,7 +8,6 @@ import android.os.Looper
 import android.view.PixelCopy
 import android.view.View
 import android.view.Window
-import androidx.core.splashscreen.SplashScreen
 import com.jeluchu.jchucomponentscompose.core.extensions.packageutils.buildIsOAndUp
 
 /**
@@ -22,13 +21,14 @@ import com.jeluchu.jchucomponentscompose.core.extensions.packageutils.buildIsOAn
 
 class ScreenCapture {
 
-    fun captureView(view: View, window: Window, bitmapCallback: (Bitmap)->Unit) {
+    fun captureView(view: View, window: Window, bitmapCallback: (Bitmap) -> Unit) {
         if (buildIsOAndUp) {
 
             val bitmap = Bitmap.createBitmap(view.width, view.height, Bitmap.Config.ARGB_8888)
             val location = IntArray(2)
             view.getLocationInWindow(location)
-            PixelCopy.request(window,
+            PixelCopy.request(
+                window,
                 Rect(location[0], location[1], location[0] + view.width, location[1] + view.height),
                 bitmap,
                 {

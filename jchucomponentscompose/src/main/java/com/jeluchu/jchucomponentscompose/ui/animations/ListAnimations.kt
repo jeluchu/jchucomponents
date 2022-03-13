@@ -52,7 +52,8 @@ fun Modifier.animateItem(
                 graphicsLayer(scaleY = animatedProgress.value, scaleX = animatedProgress.value)
             }
             Animations.Slide -> {
-                val animatedProgress = remember { Animatable(initialValue = animatedProgressSpec.toFloat()) }
+                val animatedProgress =
+                    remember { Animatable(initialValue = animatedProgressSpec.toFloat()) }
                 LaunchedEffect(Unit) {
                     animatedProgress.animateTo(
                         targetValue = 0f,
@@ -62,7 +63,8 @@ fun Modifier.animateItem(
                 graphicsLayer(translationX = animatedProgress.value)
             }
             Animations.FadeAndSlide -> {
-                val animatedProgress = remember { Animatable(initialValue = -animatedProgressSpec.toFloat()) }
+                val animatedProgress =
+                    remember { Animatable(initialValue = -animatedProgressSpec.toFloat()) }
                 val opacityProgress = remember { Animatable(initialValue = 0f) }
                 LaunchedEffect(Unit) {
                     animatedProgress.animateTo(
@@ -78,7 +80,8 @@ fun Modifier.animateItem(
                 alpha(opacityProgress.value)
             }
             Animations.SlideUp -> {
-                val animatedProgress = remember { Animatable(initialValue = animatedProgressSpec.toFloat()) }
+                val animatedProgress =
+                    remember { Animatable(initialValue = animatedProgressSpec.toFloat()) }
                 val opacityProgress = remember { Animatable(initialValue = 0f) }
                 LaunchedEffect(Unit) {
                     animatedProgress.animateTo(

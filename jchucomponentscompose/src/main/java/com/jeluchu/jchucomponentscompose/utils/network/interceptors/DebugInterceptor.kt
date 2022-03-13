@@ -56,7 +56,14 @@ class DebugInterceptor(val context: Context) : Interceptor {
             ).flush()
 
             response = response.newBuilder()
-                .body(ResponseBody.create(response.body?.contentType(), if (!isCompressResponse) responseContent.toByteArray() else compress(responseContent)))
+                .body(
+                    ResponseBody.create(
+                        response.body?.contentType(),
+                        if (!isCompressResponse) responseContent.toByteArray() else compress(
+                            responseContent
+                        )
+                    )
+                )
                 .build()
 
         } else {

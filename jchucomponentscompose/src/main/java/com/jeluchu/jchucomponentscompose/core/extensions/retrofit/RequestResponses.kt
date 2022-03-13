@@ -9,13 +9,11 @@ fun <T, R> request(
     transform: (T) -> R,
     default: T
 ): Either<Failure, R> {
-    return try {
+    return runCatching {
         val response = call.execute()
         when (response.isSuccessful) {
             true -> Either.Right(transform((response.body() ?: default)))
             false -> Either.Left(Failure.LegacyError(response.code(), response.message()))
         }
-    } catch (exception: Throwable) {
-        Either.Left(Failure.LegacyError())
-    }
+    }.getOrElse { Either.Left(Failure.LegacyError()) }
 }

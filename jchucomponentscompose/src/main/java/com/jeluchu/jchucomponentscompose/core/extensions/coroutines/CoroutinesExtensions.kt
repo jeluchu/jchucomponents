@@ -5,13 +5,13 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 fun noCrash(enableLog: Boolean = true, func: () -> Unit): String? =
-    try {
+    runCatching {
         func()
         null
-    } catch (e: Exception) {
+    }.getOrElse {
         if (enableLog)
-            e.printStackTrace()
-        e.message
+            it.printStackTrace()
+        it.message
     }
 
 fun doOnGlobal(
@@ -51,11 +51,11 @@ fun doOnMain(
 }
 
 suspend fun noCrashSuspend(enableLog: Boolean = true, func: suspend () -> Unit): String? =
-    try {
+    runCatching {
         func()
         null
-    } catch (e: Exception) {
+    }.getOrElse {
         if (enableLog)
-            e.printStackTrace()
-        e.message
+            it.printStackTrace()
+        it.message
     }

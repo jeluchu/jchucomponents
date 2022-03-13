@@ -54,7 +54,7 @@ abstract class GridSampler {
                     val x = points[offset].toInt()
                     val y = points[offset + 1].toInt()
                     if (x < -1 || x > width || y < -1 || y > height) {
-                        throw NotFoundException.getNotFoundInstance()
+                        throw NotFoundException.notFoundInstance
                     }
                     nudged = false
                     if (x == -1) {
@@ -81,7 +81,7 @@ abstract class GridSampler {
                 val x = points[offset].toInt()
                 val y = points[offset + 1].toInt()
                 if (x < -1 || x > width || y < -1 || y > height) {
-                    throw NotFoundException.getNotFoundInstance()
+                    throw NotFoundException.notFoundInstance
                 }
                 nudged = false
                 if (x == -1) {

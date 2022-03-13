@@ -82,16 +82,12 @@ class MediaPlayerHolder(context: Context) : PlayerAdapter {
     override fun loadMedia(mp3Link: String) {
         mResourceId = mp3Link
         initializeMediaPlayer()
-        try {
+        runCatching {
             mMediaPlayer!!.setDataSource(mContext, Uri.parse(mResourceId))
-        } catch (e: Exception) {
-            e.message
-        }
-        try {
+        }.getOrElse { it.message }
+        runCatching {
             mMediaPlayer!!.prepare()
-        } catch (e: Exception) {
-            e.message
-        }
+        }.getOrElse { it.message }
         initializeProgressCallback()
     }
 

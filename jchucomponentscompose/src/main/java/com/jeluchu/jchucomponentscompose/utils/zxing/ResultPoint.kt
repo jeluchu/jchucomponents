@@ -4,19 +4,14 @@ import com.jeluchu.jchucomponentscompose.utils.zxing.common.detector.MathUtils.d
 
 open class ResultPoint(val x: Float, val y: Float) {
     override fun equals(other: Any?): Boolean {
-        if (other is ResultPoint) {
-            return x == other.x && y == other.y
-        }
+        if (other is ResultPoint) return x == other.x && y == other.y
         return false
     }
 
-    override fun hashCode(): Int {
-        return 31 * java.lang.Float.floatToIntBits(x) + java.lang.Float.floatToIntBits(y)
-    }
+    override fun hashCode(): Int =
+        31 * java.lang.Float.floatToIntBits(x) + java.lang.Float.floatToIntBits(y)
 
-    override fun toString(): String {
-        return "($x,$y)"
-    }
+    override fun toString(): String = "($x,$y)"
 
     companion object {
         /**
@@ -70,9 +65,8 @@ open class ResultPoint(val x: Float, val y: Float) {
          * @return distance between two points
          */
         @JvmStatic
-        fun distance(pattern1: ResultPoint, pattern2: ResultPoint): Float {
-            return distance(pattern1.x, pattern1.y, pattern2.x, pattern2.y)
-        }
+        fun distance(pattern1: ResultPoint, pattern2: ResultPoint): Float =
+            distance(pattern1.x, pattern1.y, pattern2.x, pattern2.y)
 
         /**
          * Returns the z component of the cross product between vectors BC and BA.

@@ -20,12 +20,10 @@ class QRCodeReader : Reader {
      * @throws ChecksumException if error correction fails
      */
     @Throws(NotFoundException::class, ChecksumException::class, FormatException::class)
-    override fun decode(image: BinaryBitmap?): Result? {
-        return decode(image, null)
-    }
+    override fun decode(image: BinaryBitmap?): Result = decode(image, null)
 
     @Throws(NotFoundException::class, ChecksumException::class, FormatException::class)
-    override fun decode(image: BinaryBitmap?, hints: Map<DecodeHintType?, *>?): Result? {
+    override fun decode(image: BinaryBitmap?, hints: Map<DecodeHintType?, *>?): Result {
         val decoderResult: DecoderResult
         val points: Array<ResultPoint?>
         if (hints != null && hints.containsKey(DecodeHintType.PURE_BARCODE)) {
@@ -33,9 +31,9 @@ class QRCodeReader : Reader {
             decoderResult = decoder.decode(bits, hints)
             points = emptyArray()
         } else {
-            val detectorResult = Detector(image!!.blackMatrix).detect(hints)
-            decoderResult = decoder.decode(detectorResult.bits, hints)
-            points = detectorResult.points
+            val detectorResult = image!!.blackMatrix?.let { Detector(it).detect(hints) }
+            decoderResult = decoder.decode(detectorResult?.bits, hints)
+            points = detectorResult?.points!!
         }
 
         // If the code was mirrored: swap the bottom-left and the top-right points.
@@ -61,12 +59,9 @@ class QRCodeReader : Reader {
         return result
     }
 
-    override fun reset() {
-        // do nothing
-    }
+    override fun reset() {}
 
     companion object {
-        private val NO_POINTS = arrayOfNulls<ResultPoint>(0)
 
         /**
          * This method detects a code in a "pure" image -- that is, pure monochrome image
@@ -79,7 +74,7 @@ class QRCodeReader : Reader {
             val leftTopBlack = image.topLeftOnBit
             val rightBottomBlack = image.bottomRightOnBit
             if (leftTopBlack == null || rightBottomBlack == null) {
-                throw NotFoundException.getNotFoundInstance()
+                throw NotFoundException.notFoundInstance
             }
             val moduleSize = moduleSize(leftTopBlack, image)
             var top = leftTopBlack[1]
@@ -89,7 +84,7 @@ class QRCodeReader : Reader {
 
             // Sanity check!
             if (left >= right || top >= bottom) {
-                throw NotFoundException.getNotFoundInstance()
+                throw NotFoundException.notFoundInstance
             }
             if (bottom - top != right - left) {
                 // Special case, where bottom-right module wasn't black so we found something else in the last row
@@ -97,18 +92,13 @@ class QRCodeReader : Reader {
                 right = left + (bottom - top)
                 if (right >= image.width) {
                     // Abort if that would not make sense -- off image
-                    throw NotFoundException.getNotFoundInstance()
+                    throw NotFoundException.notFoundInstance
                 }
             }
             val matrixWidth = ((right - left + 1) / moduleSize).roundToInt()
             val matrixHeight = ((bottom - top + 1) / moduleSize).roundToInt()
-            if (matrixWidth <= 0 || matrixHeight <= 0) {
-                throw NotFoundException.getNotFoundInstance()
-            }
-            if (matrixHeight != matrixWidth) {
-                // Only possibly decode square regions
-                throw NotFoundException.getNotFoundInstance()
-            }
+            if (matrixWidth <= 0 || matrixHeight <= 0) throw NotFoundException.notFoundInstance
+            if (matrixHeight != matrixWidth) throw NotFoundException.notFoundInstance
 
             // Push in the "border" by half the module width so that we start
             // sampling in the middle of the module. Just in case the image is a
@@ -122,19 +112,13 @@ class QRCodeReader : Reader {
             // This is positive by how much the inner x loop below would be too large
             val nudgedTooFarRight = left + ((matrixWidth - 1) * moduleSize).toInt() - right
             if (nudgedTooFarRight > 0) {
-                if (nudgedTooFarRight > nudge) {
-                    // Neither way fits; abort
-                    throw NotFoundException.getNotFoundInstance()
-                }
+                if (nudgedTooFarRight > nudge) throw NotFoundException.notFoundInstance
                 left -= nudgedTooFarRight
             }
             // See logic above
             val nudgedTooFarDown = top + ((matrixHeight - 1) * moduleSize).toInt() - bottom
             if (nudgedTooFarDown > 0) {
-                if (nudgedTooFarDown > nudge) {
-                    // Neither way fits; abort
-                    throw NotFoundException.getNotFoundInstance()
-                }
+                if (nudgedTooFarDown > nudge) throw NotFoundException.notFoundInstance
                 top -= nudgedTooFarDown
             }
 
@@ -143,9 +127,7 @@ class QRCodeReader : Reader {
             for (y in 0 until matrixHeight) {
                 val iOffset = top + (y * moduleSize).toInt()
                 for (x in 0 until matrixWidth) {
-                    if (image[left + (x * moduleSize).toInt(), iOffset]) {
-                        bits[x] = y
-                    }
+                    if (image[left + (x * moduleSize).toInt(), iOffset]) bits[x] = y
                 }
             }
             return bits
@@ -161,17 +143,13 @@ class QRCodeReader : Reader {
             var transitions = 0
             while (x < width && y < height) {
                 if (inBlack != image[x, y]) {
-                    if (++transitions == 5) {
-                        break
-                    }
+                    if (++transitions == 5) break
                     inBlack = !inBlack
                 }
                 x++
                 y++
             }
-            if (x == width || y == height) {
-                throw NotFoundException.getNotFoundInstance()
-            }
+            if (x == width || y == height) throw NotFoundException.notFoundInstance
             return (x - leftTopBlack[0]) / 7.0f
         }
     }

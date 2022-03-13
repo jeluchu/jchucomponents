@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -18,10 +19,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
+import com.jeluchu.jchucomponentscompose.core.extensions.context.createQR
 import com.jeluchu.jchucomponentscompose.core.extensions.context.openInCustomTab
 import com.jeluchu.jchucomponentscompose.ui.animations.animateItem
 import com.jeluchu.jchucomponentscompose.ui.cards.DebutCard
@@ -82,6 +85,8 @@ class MainActivity : ComponentActivity() {
                         debubtAlignment = Alignment.BottomEnd,
                         debutShape = RoundedCornerShape(topStart = 20.dp),
                     )
+
+                    Image(bitmap = createQR(R.drawable.qr_logo, "https://www.google.es/")!!.asImageBitmap(), contentDescription = "")
 
                     DebutCard(
                         image = "https://i.picsum.photos/id/0/5616/3744.jpg?hmac=3GAAioiQziMGEtLbfrdbcoenXoWAW-zlyEAMkfEdBzQ",

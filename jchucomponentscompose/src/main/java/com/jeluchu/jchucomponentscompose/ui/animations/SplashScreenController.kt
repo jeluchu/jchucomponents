@@ -28,7 +28,10 @@ class SplashScreenController(
     private val defaultExitDuration: Long = 300,
 ) {
 
-    fun customizeSplashScreenExit(keys: List<SplashAnimations>, onExitExtraActions: () -> Unit = {}) =
+    fun customizeSplashScreenExit(
+        keys: List<SplashAnimations>,
+        onExitExtraActions: () -> Unit = {}
+    ) =
         splashScreen.setOnExitAnimationListener { splashScreenViewProvider ->
             val onExit = {
                 splashScreenViewProvider.remove()
@@ -41,7 +44,8 @@ class SplashScreenController(
     private fun showSplashExitAnimator(
         splashScreenView: View,
         keys: List<SplashAnimations>,
-        onExit: () -> Unit = {}) {
+        onExit: () -> Unit = {}
+    ) {
 
         AnimatorSet().run {
             duration = defaultExitDuration
@@ -92,12 +96,15 @@ class SplashScreenController(
 
     }
 
-    private fun getAnimation(keys: List<SplashAnimations>, splashScreenView: View): MutableList<ObjectAnimator> {
+    private fun getAnimation(
+        keys: List<SplashAnimations>,
+        splashScreenView: View
+    ): MutableList<ObjectAnimator> {
 
         val listAnimations: MutableList<ObjectAnimator> = mutableListOf()
 
         for (key in keys) {
-            val animation = when(key) {
+            val animation = when (key) {
                 SplashAnimations.SlideUp -> ObjectAnimator.ofFloat(
                     splashScreenView,
                     View.TRANSLATION_Y,

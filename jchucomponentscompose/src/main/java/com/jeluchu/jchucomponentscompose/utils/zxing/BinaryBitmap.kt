@@ -1,5 +1,6 @@
 package com.jeluchu.jchucomponentscompose.utils.zxing
 
+import com.jeluchu.jchucomponentscompose.core.extensions.strings.empty
 import com.jeluchu.jchucomponentscompose.utils.zxing.common.BitMatrix
 
 class BinaryBitmap(binarizer: Binarizer?) {
@@ -35,57 +36,17 @@ class BinaryBitmap(binarizer: Binarizer?) {
             // 1. This work will never be done if the caller only installs 1D Reader objects, or if a
             //    1D Reader finds a barcode before the 2D Readers run.
             // 2. This work will only be done once even if the caller installs multiple 2D Readers.
-            if (matrix == null) {
-                matrix = binarizer.blackMatrix
-            }
+            if (matrix == null) matrix = binarizer.blackMatrix
+
             return matrix
         }
 
-    /**
-     * @return Whether this bitmap can be cropped.
-     */
-    val isCropSupported: Boolean
-        get() = binarizer.luminanceSource.isCropSupported
-
-    /**
-     * Returns a new object with cropped image data. Implementations may keep a reference to the
-     * original data rather than a copy. Only callable if isCropSupported() is true.
-     *
-     * @param left   The left coordinate, which must be in [0,getWidth())
-     * @param top    The top coordinate, which must be in [0,getHeight())
-     * @param width  The width of the rectangle to crop.
-     * @param height The height of the rectangle to crop.
-     * @return A cropped version of this object.
-     */
-    fun crop(left: Int, top: Int, width: Int, height: Int): BinaryBitmap {
-        val newSource = binarizer.luminanceSource.crop(left, top, width, height)
-        return BinaryBitmap(binarizer.createBinarizer(newSource))
-    }
-
-    /**
-     * @return Whether this bitmap supports counter-clockwise rotation.
-     */
-    val isRotateSupported: Boolean
-        get() = binarizer.luminanceSource.isRotateSupported
-
-    /**
-     * Returns a new object with rotated image data by 90 degrees counterclockwise.
-     * Only callable if [.isRotateSupported] is true.
-     *
-     * @return A rotated version of this object.
-     */
-    fun rotateCounterClockwise(): BinaryBitmap {
-        val newSource = binarizer.luminanceSource.rotateCounterClockwise()
-        return BinaryBitmap(binarizer.createBinarizer(newSource))
-    }
-
-    override fun toString(): String {
-        return try {
+    override fun toString(): String =
+        runCatching {
             blackMatrix.toString()
-        } catch (e: NotFoundException) {
-            ""
+        }.getOrElse {
+            String.empty()
         }
-    }
 
     init {
         requireNotNull(binarizer) { "Binarizer must be non-null." }

@@ -2,15 +2,10 @@ package com.jeluchu.jchucomponentscompose.core.extensions.activities
 
 import android.Manifest
 import android.app.Activity
-import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
-import androidx.activity.result.ActivityResultLauncher
-import androidx.annotation.StringRes
 import androidx.core.app.ActivityCompat
-import io.github.g00fy2.quickie.config.BarcodeFormat
-import io.github.g00fy2.quickie.config.ScannerConfig
 
 
 private val permissionsList =
@@ -29,19 +24,35 @@ val Activity.permissions: Unit
         }
     }
 
+/** ---- INTENTS ------------------------------------------------------------------------------- **/
 
-/** ---- ACTIVITY RESULT LAUNCHER -------------------------------------------------------------- **/
+fun Activity.openInstagram(profile: String) {
+    val uri: Uri = Uri.parse(profile)
+    val likeIng = Intent(Intent.ACTION_VIEW, uri)
 
-val customQrReader = ScanCustomCode()
+    likeIng.setPackage("com.instagram.android")
 
-fun ActivityResultLauncher<ScannerConfig>.openQRReader(@StringRes stringRes: Int) {
-    launch(
-        ScannerConfig.build {
-            setBarcodeFormats(listOf(BarcodeFormat.FORMAT_QR_CODE))
-            setOverlayStringRes(stringRes)
-            setHapticSuccessFeedback(false)
-            setShowTorchToggle(true)
-            setUseFrontCamera(false)
-        }
-    )
+    runCatching {
+        startActivity(likeIng)
+    }.getOrElse {
+        startActivity(
+            Intent(
+                Intent.ACTION_VIEW,
+                Uri.parse(profile)
+            )
+        )
+    }
+}
+
+fun Activity.openYoutube(id: String) {
+
+    val appIntent = Intent(Intent.ACTION_VIEW, Uri.parse("vnd.youtube:$id"))
+    val webIntent = Intent(Intent.ACTION_VIEW, Uri.parse("http://www.youtube.com/watch?v=$id"))
+
+    runCatching {
+        startActivity(appIntent)
+    }.getOrElse {
+        startActivity(webIntent)
+    }
+
 }

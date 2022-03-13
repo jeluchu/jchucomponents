@@ -74,7 +74,7 @@ enum class StatusCode(val code: Int, val message: String) {
 
 }
 
-fun getHttpErrorInfo(code: Int) = when(code) {
+fun getHttpErrorInfo(code: Int) = when (code) {
 
     0 -> StatusCode.Unknown
 

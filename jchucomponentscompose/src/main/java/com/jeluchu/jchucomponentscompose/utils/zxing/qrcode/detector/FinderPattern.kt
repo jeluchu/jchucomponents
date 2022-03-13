@@ -3,7 +3,7 @@ package com.jeluchu.jchucomponentscompose.utils.zxing.qrcode.detector
 import com.jeluchu.jchucomponentscompose.utils.zxing.ResultPoint
 import kotlin.math.abs
 
-class FinderPattern private constructor(
+class FinderPattern constructor(
     posX: Float,
     posY: Float,
     val estimatedModuleSize: Float,

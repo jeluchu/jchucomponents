@@ -117,12 +117,10 @@ class Version private constructor(
         @JvmStatic
         @Throws(FormatException::class)
         fun getProvisionalVersionForDimension(dimension: Int): Version {
-            if (dimension % 4 != 1) {
-                throw FormatException.getFormatInstance(formatInstance)
-            }
-            return try {
+            if (dimension % 4 != 1) throw FormatException.getFormatInstance(formatInstance)
+            return runCatching {
                 getVersionForNumber((dimension - 17) / 4)
-            } catch (ignored: IllegalArgumentException) {
+            }.getOrElse {
                 throw FormatException.getFormatInstance(formatInstance)
             }
         }
@@ -153,9 +151,8 @@ class Version private constructor(
             }
             // We can tolerate up to 3 bits of error since no two version info codewords will
             // differ in less than 8 bits.
-            return if (bestDifference <= 3) {
-                getVersionForNumber(bestVersion)
-            } else null
+            return if (bestDifference <= 3) getVersionForNumber(bestVersion)
+            else null
             // If we didn't find a close enough match, fail
         }
 

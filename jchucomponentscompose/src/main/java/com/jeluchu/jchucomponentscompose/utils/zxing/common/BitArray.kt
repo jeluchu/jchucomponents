@@ -46,16 +46,6 @@ class BitArray : Cloneable {
         bitArray[i / 32] = bitArray[i / 32] or (1 shl (i and 0x1F))
     }
 
-    /**
-     * Clears all bits (sets to false).
-     */
-    fun clear() {
-        val max = bitArray.size
-        for (i in 0 until max) {
-            bitArray[i] = 0
-        }
-    }
-
     fun appendBit(bit: Boolean) {
         ensureCapacity(size + 1)
         if (bit) {
@@ -119,38 +109,6 @@ class BitArray : Cloneable {
         }
     }
 
-    /**
-     * Reverses all bits in the array.
-     */
-    fun reverse() {
-        val newBits = IntArray(bitArray.size)
-        // reverse all int's first
-        val len = (size - 1) / 32
-        val oldBitsLen = len + 1
-        for (i in 0 until oldBitsLen) {
-            var x = bitArray[i].toLong()
-            x = x shr 1 and 0x55555555L or (x and 0x55555555L shl 1)
-            x = x shr 2 and 0x33333333L or (x and 0x33333333L shl 2)
-            x = x shr 4 and 0x0f0f0f0fL or (x and 0x0f0f0f0fL shl 4)
-            x = x shr 8 and 0x00ff00ffL or (x and 0x00ff00ffL shl 8)
-            x = x shr 16 and 0x0000ffffL or (x and 0x0000ffffL shl 16)
-            newBits[len - i] = x.toInt()
-        }
-        // now correct the int's if the bit size isn't a multiple of 32
-        if (size != oldBitsLen * 32) {
-            val leftOffset = oldBitsLen * 32 - size
-            var currentInt = newBits[0] ushr leftOffset
-            for (i in 1 until oldBitsLen) {
-                val nextInt = newBits[i]
-                currentInt = currentInt or (nextInt shl 32 - leftOffset)
-                newBits[i - 1] = currentInt
-                currentInt = nextInt ushr leftOffset
-            }
-            newBits[oldBitsLen - 1] = currentInt
-        }
-        bitArray = newBits
-    }
-
     override fun equals(other: Any?): Boolean {
         if (other !is BitArray) return false
         return size == other.size && bitArray.contentEquals(other.bitArray)
@@ -174,4 +132,5 @@ class BitArray : Cloneable {
     companion object {
         private fun makeArray(size: Int): IntArray = IntArray((size + 31) / 32)
     }
+
 }

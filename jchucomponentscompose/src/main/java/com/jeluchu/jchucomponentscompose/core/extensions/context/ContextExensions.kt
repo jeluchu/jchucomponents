@@ -17,10 +17,10 @@ import android.graphics.drawable.Drawable
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.net.Uri
-import android.os.Build
 import android.provider.Browser
 import android.view.LayoutInflater
 import android.widget.Toast
+import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.core.app.ActivityCompat
@@ -29,11 +29,15 @@ import com.jeluchu.jchucomponentscompose.R
 import com.jeluchu.jchucomponentscompose.core.extensions.coroutines.noCrash
 import com.jeluchu.jchucomponentscompose.core.extensions.packageutils.buildIsMAndLower
 import com.jeluchu.jchucomponentscompose.core.extensions.packageutils.buildIsMarshmallowAndUp
+import com.jeluchu.jchucomponentscompose.core.extensions.packageutils.buildIsNougatAndUp
 import com.jeluchu.jchucomponentscompose.core.extensions.packageutils.buildIsPAndUp
 import com.jeluchu.jchucomponentscompose.core.extensions.sharedprefs.SharedPrefsHelpers
-import com.jeluchu.jchucomponentscompose.utils.broadcast.CustomTabsCopyReceiver
 import com.jeluchu.jchucomponentscompose.utils.broadcast.ShareBroadcastReceiver
-import java.io.IOException
+import com.jeluchu.jchucomponentscompose.utils.zxing.EncodeHintType
+import com.jeluchu.jchucomponentscompose.utils.zxing.qrcode.QRCodeWriter
+import com.jeluchu.jchucomponentscompose.utils.zxing.qrcode.decoder.ErrorCorrectionLevel
+import java.io.File
+import java.util.*
 
 /** ---- PERMISSIONS --------------------------------------------------------------------------- **/
 
@@ -67,6 +71,25 @@ fun Context.checkNetworkState(): Boolean {
 
 }
 
+val Context.downstreamBandwidth: Int
+    get() {
+        val cm = this.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+
+        return if (buildIsMarshmallowAndUp) {
+            val n = cm.activeNetwork
+            if (n != null) {
+                val nc = cm.getNetworkCapabilities(n)
+                nc?.linkDownstreamBandwidthKbps ?: 0
+            } else {
+                0
+            }
+        } else {
+            0
+        }
+
+    }
+
+/** ---- SHARED PREFERENCES -------------------------------------------------------------------- **/
 
 fun Context.initSharedPrefs() = SharedPrefsHelpers.init(this)
 
@@ -239,5 +262,83 @@ fun Context.isConnectionAvailable(): Boolean {
     }
 
     return isAvailable
+
+}
+
+/** ---- DELETE CACHE -------------------------------------------------------------------------- **/
+
+fun Context.deleteCache() {
+    runCatching {
+        val dir: File = this.cacheDir
+        deleteDir(dir)
+    }.getOrElse {
+        it.printStackTrace()
+    }
+}
+
+private fun deleteDir(dir: File?): Boolean {
+    return if (dir != null && dir.isDirectory) {
+        val children = dir.list()
+        if (children != null) {
+            for (i in children.indices) {
+                val success = deleteDir(File(dir, children[i]))
+                if (!success) {
+                    return false
+                }
+            }
+        }
+        dir.delete()
+    } else if (dir != null && dir.isFile) dir.delete()
+    else false
+}
+
+/** ---- LOCALE -------------------------------------------------------------------------------- **/
+
+@Suppress("DEPRECATION")
+fun Context.getLocale(): Locale =
+    if (buildIsNougatAndUp) resources.configuration.locales[0]
+    else resources.configuration.locale
+
+/** ---- CREATE QR ----------------------------------------------------------------------------- **/
+
+fun Context.createQR(
+    @DrawableRes icon: Int,
+    key: String?,
+    width: Int? = 768,
+    height: Int? = 768
+): Bitmap? {
+
+    val qrCode: Bitmap? = null
+
+    runCatching {
+        val hints = HashMap<EncodeHintType, Any?>()
+        hints[EncodeHintType.ERROR_CORRECTION] = ErrorCorrectionLevel.M
+        hints[EncodeHintType.MARGIN] = 0
+        val writer = QRCodeWriter()
+        return writer.encode(key, width ?: 768, height ?: 768, hints, qrCode, this, icon)
+    }.getOrElse {
+        it.localizedMessage
+        return null
+    }
+
+}
+
+/** ---- RATE US ------------------------------------------------------------------------------- **/
+
+fun Context.rateUs(packageName: String, @ColorRes customTabColor: Int) {
+    runCatching {
+        val intent = Intent(Intent.ACTION_VIEW).apply {
+            data = Uri.parse(
+                "https://play.google.com/store/apps/details?id=${packageName}"
+            )
+            setPackage("com.android.vending")
+        }
+        startActivity(intent)
+    }.getOrElse {
+        openInCustomTab(
+            url = "https://play.google.com/store/apps/details?id=${packageName}",
+            colorBar = customTabColor
+        )
+    }
 
 }

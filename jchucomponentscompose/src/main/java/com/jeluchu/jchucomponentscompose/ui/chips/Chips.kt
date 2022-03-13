@@ -45,9 +45,9 @@ fun Chip(
         modifier = modifier
             .clip(shape)
             .clickable(
-            enabled = isClickable,
-            onClick = { onClick() }
-        ),
+                enabled = isClickable,
+                onClick = { onClick() }
+            ),
         elevation = elevation,
         shape = shape,
         color = color

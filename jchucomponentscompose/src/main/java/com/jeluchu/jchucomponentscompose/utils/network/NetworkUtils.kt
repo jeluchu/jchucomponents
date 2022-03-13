@@ -1,9 +1,5 @@
 package com.jeluchu.jchucomponentscompose.utils.network
 
-import android.content.Context
-import android.net.ConnectivityManager
-import android.net.NetworkCapabilities
-import android.os.Build
 import com.jeluchu.jchucomponentscompose.utils.network.NetworkUtils.saveResponseBodyToFile
 import okhttp3.ResponseBody
 import java.io.File

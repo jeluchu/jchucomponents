@@ -67,7 +67,8 @@ object RetrofitClient {
 
             addInterceptor(interceptor)
 
-            val httpLoggingInterceptor = HttpLoggingInterceptor(HttpLoggingInterceptor.Logger.DEFAULT)
+            val httpLoggingInterceptor =
+                HttpLoggingInterceptor(HttpLoggingInterceptor.Logger.DEFAULT)
             httpLoggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
 
             if (isDebug) {

@@ -12,8 +12,11 @@ class Interceptor(
 
     override fun intercept(chain: Interceptor.Chain): Response {
 
-        val builder= chain.request().newBuilder()
-            .addHeader("User-Agent", "${interceptorHeaders.userAgent.appName}/${interceptorHeaders.userAgent.versionName} (rv ${interceptorHeaders.userAgent.versionCode}) okhttp/${interceptorHeaders.userAgent.okhttpVersion}")
+        val builder = chain.request().newBuilder()
+            .addHeader(
+                "User-Agent",
+                "${interceptorHeaders.userAgent.appName}/${interceptorHeaders.userAgent.versionName} (rv ${interceptorHeaders.userAgent.versionCode}) okhttp/${interceptorHeaders.userAgent.okhttpVersion}"
+            )
             .addHeader("X-Client", "${interceptorHeaders.client}-android")
             .addHeader("Accept", "application/json")
             .addHeader("Accept-Language", Locale.getDefault().toString().replace("_", "-"))

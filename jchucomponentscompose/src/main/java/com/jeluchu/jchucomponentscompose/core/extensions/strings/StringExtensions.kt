@@ -15,7 +15,6 @@ import org.intellij.lang.annotations.RegExp
 import org.json.JSONObject
 import java.io.File
 import java.io.FileOutputStream
-import java.io.IOException
 import java.net.HttpURLConnection
 import java.net.URL
 import java.net.URLEncoder
@@ -28,8 +27,10 @@ import java.util.regex.Pattern
 /** ---- REGEX AND CONST ----------------------------------------------------------------------- **/
 
 private const val NAME_PATTERN = "^([0-9]`´´¡!¿?<>ºª|/\\·@#$%&,;=\\(\\))_"
-private const val NAME_SURNAME_PATTERN = "/^(?!.[0-9`´¡!?¿<>\\\\ºª|/\\·@#$%&,;=?¿())_+{}\\[\\]\"^€$£])/"
-private const val VALID_PASSWORD_REGEX = "^(?!.*[\\s])(?=.*[A-Z])(?=.*[!\\\"#$'()*+,-.\\/:;<=>?@\\[\\]^_`{|}\\]])(?=.*[0-9])(?=.*[a-z]).{8,20}$"
+private const val NAME_SURNAME_PATTERN =
+    "/^(?!.[0-9`´¡!?¿<>\\\\ºª|/\\·@#$%&,;=?¿())_+{}\\[\\]\"^€$£])/"
+private const val VALID_PASSWORD_REGEX =
+    "^(?!.*[\\s])(?=.*[A-Z])(?=.*[!\\\"#$'()*+,-.\\/:;<=>?@\\[\\]^_`{|}\\]])(?=.*[0-9])(?=.*[a-z]).{8,20}$"
 
 private const val PASSWORD_REGEX = "^[a-zñA-ZÑ0-9!\\\\/\"#$'()*+,;.:\\-_<=>?@\\[\\]^`{}|]*$"
 private const val VALID_PHONE_REGEX = "^(00[0-9]{9,20}|(?!00)[0-9]{9,20})"
@@ -43,7 +44,7 @@ private val LETRAS_NIF = "TRWAGMYFPDXBNJZSQVHLCKE"
 fun String.getLastBitFromUrl(): String = replaceFirst(".*/([^/?]+).*".toRegex(), "$1")
 
 fun String.saveImage(destinationFile: File) {
-    try {
+    runCatching {
         Thread {
             val url = URL(this)
             val inputStream = url.openStream()
@@ -57,8 +58,8 @@ fun String.saveImage(destinationFile: File) {
             os.close()
         }.start()
 
-    } catch (e: Exception) {
-        e.printStackTrace()
+    }.getOrElse {
+        it.printStackTrace()
     }
 }
 
@@ -84,14 +85,12 @@ fun String.extractYTId(): String? {
 /** ---- BITMAPS ------------------------------------------------------------------------------- **/
 
 fun String.getBitmapFromURL(): Bitmap? =
-    try {
+    runCatching {
         val connection = URL(this).openConnection() as HttpURLConnection
         connection.doInput = true
         connection.connect()
         BitmapFactory.decodeStream(connection.inputStream)
-    } catch (e: IOException) {
-        null
-    }
+    }.getOrElse { null }
 
 fun String.toBitmapDrawable(context: Context): BitmapDrawable =
     BitmapDrawable(context.resources, getBitmapFromURL())
@@ -104,22 +103,24 @@ fun String.deleteDouble() = this.split(".")[0]
 fun String.parserDate(): String {
     val parser = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale("es", "ES"))
     val formatter = SimpleDateFormat("dd/MM/yyyy", Locale("es", "ES"))
-    return formatter.format(parser.parse(this))
+    return formatter.format(parser.parse(this) ?: Date())
 }
 
 fun String?.compareDate(): Boolean {
     val sdf = SimpleDateFormat("dd/M/yyyy", Locale("es", "ES"))
     val currentDate = sdf.format(Date())
-    return if (this.isNullOrEmpty()) false else sdf.parse(this).before(sdf.parse(currentDate))
+    return if (this.isNullOrEmpty()) false else (sdf.parse(this) ?: Date()).before(
+        sdf.parse(
+            currentDate
+        )
+    )
 }
 
 fun String?.toDate(): Date {
-    try {
+    return runCatching {
         val formatter = SimpleDateFormat(DATE_FORMAT_VERBOSE, Locale.getDefault())
-        return formatter.parse(this.orEmpty()) as Date
-    } catch (e: java.lang.Exception) {
-        return Date(0)
-    }
+        formatter.parse(this.orEmpty()) as Date
+    }.getOrElse { Date(0) }
 }
 
 fun String?.toDateWithTime(): Date {
@@ -135,7 +136,7 @@ fun String?.toDateTimeNull(): Date? =
     runCatching {
         SimpleDateFormat(DATE_FORMAT_TIMESTAMP, Locale.getDefault()).parse(this.safeValue())
     }.getOrElse {
-        Log.d("error to parse dateTime",this.safeValue())
+        Log.d("error to parse dateTime", this.safeValue())
         null
     }
 
@@ -144,7 +145,8 @@ fun String?.toDateTimeNull(): Date? =
 fun String?.safeValue(default: String = String.empty()) = this?.let { return@let it } ?: default
 
 fun String?.removeCharactersWeirds() =
-    this?.let { return@let it.replace("\n", String.empty()).replace("\r", String.empty()) } ?: String.empty()
+    this?.let { return@let it.replace("\n", String.empty()).replace("\r", String.empty()) }
+        ?: String.empty()
 
 fun CharSequence.isEmptyString(): Boolean = this.isEmpty() || this.toString().equals("null", true)
 fun CharSequence.isDigitOnly(): Boolean = (0 until length).any { Character.isDigit(this[it]) }
@@ -310,11 +312,11 @@ fun String.jwtBodyToJsonObject(): JSONObject? {
                 runCatching {
                     result = JSONObject(body)
                 }.getOrElse {
-                    Log.e("ERROR_JCHU","Error while parsing JWT JSON body")
+                    Log.e("ERROR_JCHU", "Error while parsing JWT JSON body")
                 }
             }
         }.getOrElse {
-            Log.e("ERROR_JCHU","Error while parsing JWT JSON body")
+            Log.e("ERROR_JCHU", "Error while parsing JWT JSON body")
         }
     }
     return result
