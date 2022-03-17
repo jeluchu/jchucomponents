@@ -12,6 +12,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.jeluchu.jchucomponentscompose.core.extensions.strings.empty
+import com.jeluchu.jchucomponentscompose.ui.text.MarqueeText
 
 @Composable
 fun SimpleToolbar(
@@ -20,18 +21,30 @@ fun SimpleToolbar(
     tintContent: Color = Color.DarkGray,
     style: TextStyle = LocalTextStyle.current,
     leftIcon: Int,
+    largeText: Boolean = false,
     navigateAction: () -> Unit
 ) {
     TopAppBar(
         actions = {
-            Text(
-                text = title,
-                modifier = Modifier.padding(end = 15.dp),
-                color = tintContent,
-                style = style,
-                fontSize = 20.sp,
-                textAlign = TextAlign.End
-            )
+            if (!largeText)
+                Text(
+                    text = title,
+                    modifier = Modifier.padding(end = 15.dp),
+                    color = tintContent,
+                    style = style,
+                    fontSize = 20.sp,
+                    textAlign = TextAlign.End
+                )
+            else
+                MarqueeText(
+                    text = title,
+                    modifier = Modifier.padding(end = 15.dp),
+                    color = tintContent,
+                    style = style,
+                    fontSize = 20.sp,
+                    textAlign = TextAlign.End,
+                    gradientEdgeColor = Color.Transparent
+                )
         },
         title = {},
         backgroundColor = backgroundColor,
