@@ -1,14 +1,13 @@
 package com.jeluchu.jchucomponentscompose.core.extensions.context
 
+import android.Manifest
 import android.annotation.SuppressLint
 import android.app.NotificationManager
 import android.app.PendingIntent
-import android.content.ClipData
-import android.content.ClipboardManager
-import android.content.Context
+import android.content.*
 import android.content.Context.LAYOUT_INFLATER_SERVICE
 import android.content.Context.NOTIFICATION_SERVICE
-import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Canvas
@@ -17,7 +16,9 @@ import android.graphics.drawable.Drawable
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.net.Uri
+import android.os.Environment
 import android.provider.Browser
+import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.widget.Toast
 import androidx.annotation.ColorRes
@@ -27,15 +28,15 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.jeluchu.jchucomponentscompose.R
 import com.jeluchu.jchucomponentscompose.core.extensions.coroutines.noCrash
-import com.jeluchu.jchucomponentscompose.core.extensions.packageutils.buildIsMAndLower
-import com.jeluchu.jchucomponentscompose.core.extensions.packageutils.buildIsMarshmallowAndUp
-import com.jeluchu.jchucomponentscompose.core.extensions.packageutils.buildIsNougatAndUp
-import com.jeluchu.jchucomponentscompose.core.extensions.packageutils.buildIsPAndUp
+import com.jeluchu.jchucomponentscompose.core.extensions.intent.INTENT_TYPE_IMG_PNG
+import com.jeluchu.jchucomponentscompose.core.extensions.intent.INTENT_TYPE_TEXT
+import com.jeluchu.jchucomponentscompose.core.extensions.packageutils.*
 import com.jeluchu.jchucomponentscompose.core.extensions.sharedprefs.SharedPrefsHelpers
 import com.jeluchu.jchucomponentscompose.utils.broadcast.ShareBroadcastReceiver
 import com.jeluchu.jchucomponentscompose.utils.zxing.EncodeHintType
 import com.jeluchu.jchucomponentscompose.utils.zxing.qrcode.QRCodeWriter
 import com.jeluchu.jchucomponentscompose.utils.zxing.qrcode.decoder.ErrorCorrectionLevel
+import java.io.ByteArrayOutputStream
 import java.io.File
 import java.util.*
 
@@ -44,7 +45,15 @@ import java.util.*
 fun Context.checkSelfPermissionCompat(permission: String) =
     ActivityCompat.checkSelfPermission(this, permission)
 
+inline val Context.checkPermisionStorage: Boolean
+    get() = ContextCompat.checkSelfPermission(
+        this, Manifest.permission.WRITE_EXTERNAL_STORAGE
+    ) == PackageManager.PERMISSION_DENIED
+
 /** ---- NETWORKS ------------------------------------------------------------------------------ **/
+
+inline val Context.connectivityManager: ConnectivityManager
+    get() = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
 
 @Suppress("DEPRECATION")
 @SuppressLint("NewApi")
@@ -339,6 +348,87 @@ fun Context.rateUs(packageName: String, @ColorRes customTabColor: Int) {
             url = "https://play.google.com/store/apps/details?id=${packageName}",
             colorBar = customTabColor
         )
+    }
+
+}
+
+/** ---- INTENTS ------------------------------------------------------------------------------- **/
+
+fun Context.share(
+    title: String,
+    message: String
+) = with(Intent()) {
+    action = Intent.ACTION_SEND
+    type = INTENT_TYPE_TEXT
+    putExtra(Intent.EXTRA_TEXT, message)
+    startActivity(Intent.createChooser(this, title))
+}
+
+fun Context.share(
+    title: String,
+    nameOfImage: String,
+    message: String,
+    bitmap: Bitmap
+) {
+
+    val bytes = ByteArrayOutputStream()
+    bitmap.compress(Bitmap.CompressFormat.PNG, 100, bytes)
+    val path = MediaStore.Images.Media.insertImage(contentResolver, bitmap, nameOfImage, null)
+    val uri = Uri.parse(path)
+
+    with(Intent()) {
+        action = Intent.ACTION_SEND
+        putExtra(Intent.EXTRA_TEXT, message)
+        putExtra(Intent.EXTRA_STREAM, uri)
+        type = INTENT_TYPE_IMG_PNG
+        addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+        startActivity(Intent.createChooser(this, title))
+    }
+
+}
+
+fun Context.share(
+    title: String,
+    message: String,
+    uri: Uri
+) = with(Intent()) {
+    action = Intent.ACTION_SEND
+    putExtra(Intent.EXTRA_TEXT, message)
+    putExtra(Intent.EXTRA_STREAM, uri)
+    type = INTENT_TYPE_IMG_PNG
+    addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+    startActivity(Intent.createChooser(this, title))
+}
+
+fun Context.openOtherApp(packageName: String, packageManager: PackageManager) {
+    val launchIntent = packageManager.getLaunchIntentForPackage(packageName)
+    if (launchIntent != null) startActivity(launchIntent)
+}
+
+/** ---- SAVE IMAGES --------------------------------------------------------------------------- **/
+
+fun Context.saveBitmap(bitmap: Bitmap, filename: String = System.currentTimeMillis().toString()): Uri? {
+
+    val contentValues = ContentValues().apply {
+        put(MediaStore.MediaColumns.DISPLAY_NAME, filename)
+        put(MediaStore.MediaColumns.MIME_TYPE, INTENT_TYPE_IMG_PNG)
+        if (buildIsQAndUp) put(
+            MediaStore.MediaColumns.RELATIVE_PATH,
+            Environment.DIRECTORY_PICTURES
+        )
+    }
+
+    with(contentResolver) {
+        val imageUri: Uri? = insert(
+            MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+            contentValues
+        )
+
+        return imageUri.also {
+            val fileOutputStream = imageUri?.let { openOutputStream(it) }
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fileOutputStream)
+            fileOutputStream?.close()
+        }
     }
 
 }

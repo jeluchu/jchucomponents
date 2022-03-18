@@ -24,6 +24,10 @@ import java.text.SimpleDateFormat
 import java.util.*
 import java.util.regex.Pattern
 
+/** ---- FORMATER STRINGS ---------------------------------------------------------------------- **/
+fun String.addSpaceAfterEvery4Chars() = replace("....".toRegex(), "$0 ")
+fun String.addSpaceAfterEvery3Chars() = replace("...".toRegex(), "$0 ")
+
 /** ---- REGEX AND CONST ----------------------------------------------------------------------- **/
 
 private const val NAME_PATTERN = "^([0-9]`´´¡!¿?<>ºª|/\\·@#$%&,;=\\(\\))_"
@@ -66,6 +70,7 @@ fun String.saveImage(destinationFile: File) {
 /** ---- COMPOSE FUNCTIONS --------------------------------------------------------------------- **/
 
 fun String.getColor() = Color(android.graphics.Color.parseColor(this))
+fun String.getColorWithHex(): Color = Color(android.graphics.Color.parseColor("#$this"))
 
 /** ---- YOUTUBE ------------------------------------------------------------------------------- **/
 
