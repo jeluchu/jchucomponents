@@ -25,6 +25,7 @@ fun NetworkImage(
     modifier: Modifier = Modifier,
     isOriginalSize: Boolean = false,
     isCrossfade: Boolean = true,
+    isAllowHardware: Boolean = true,
     contentScale: ContentScale = ContentScale.Crop
 ) {
 
@@ -34,6 +35,7 @@ fun NetworkImage(
             builder = {
                 if (isOriginalSize) size(OriginalSize)
                 crossfade(isCrossfade)
+                allowHardware(isAllowHardware)
             }
         ),
         contentDescription = null,

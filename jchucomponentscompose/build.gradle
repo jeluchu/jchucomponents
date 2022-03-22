@@ -56,7 +56,7 @@ dependencies {
     implementation 'androidx.navigation:navigation-compose:2.4.1'
 
     // FIREBASE LIBRARY ----------------------------------------------------------------------------
-    implementation("com.google.firebase:firebase-analytics-ktx:20.1.0")
+    implementation("com.google.firebase:firebase-analytics-ktx:20.1.1")
 
     // ACCOMPANIST GOOGLE LIBRARY ------------------------------------------------------------------
     implementation 'com.google.accompanist:accompanist-systemuicontroller:0.23.0'
@@ -87,7 +87,7 @@ afterEvaluate {
                 from components.release
                 groupId = "com.jeluchu"
                 artifactId = "jchucomponentscompose"
-                version = "0.6.1"
+                version = "0.7.1"
             }
         }
     }
