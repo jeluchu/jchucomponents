@@ -70,7 +70,7 @@ fun DebutCard(
                 .clickable(onClick = navigateToScreen)
         ) {
 
-            Box {
+            Box(modifier = Modifier.background(Color.Transparent)) {
 
                 NetworkImage(url = image)
 

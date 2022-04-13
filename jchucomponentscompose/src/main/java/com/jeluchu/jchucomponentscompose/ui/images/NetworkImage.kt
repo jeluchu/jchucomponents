@@ -1,11 +1,11 @@
 package com.jeluchu.jchucomponentscompose.ui.images
 
-import androidx.compose.foundation.Image
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
-import coil.compose.rememberImagePainter
-import coil.size.OriginalSize
+import androidx.compose.ui.platform.LocalContext
+import coil.compose.AsyncImage
+import coil.request.ImageRequest
 
 /**
  *
@@ -19,6 +19,7 @@ import coil.size.OriginalSize
  *
  */
 
+@Deprecated("isOriginalSize param not use for next version")
 @Composable
 fun NetworkImage(
     url: Any,
@@ -29,18 +30,15 @@ fun NetworkImage(
     contentScale: ContentScale = ContentScale.Crop
 ) {
 
-    Image(
-        painter = rememberImagePainter(
-            data = url,
-            builder = {
-                if (isOriginalSize) size(OriginalSize)
-                crossfade(isCrossfade)
-                allowHardware(isAllowHardware)
-            }
-        ),
-        contentDescription = null,
+    AsyncImage(
         modifier = modifier,
-        contentScale = contentScale
+        model = ImageRequest.Builder(LocalContext.current)
+            .data(url)
+            .crossfade(isCrossfade)
+            .allowHardware(isAllowHardware)
+            .build(),
+        contentScale = contentScale,
+        contentDescription = null
     )
 
 }
