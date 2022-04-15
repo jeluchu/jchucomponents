@@ -19,12 +19,10 @@ import coil.request.ImageRequest
  *
  */
 
-@Deprecated("isOriginalSize param not use for next version")
 @Composable
 fun NetworkImage(
     url: Any,
     modifier: Modifier = Modifier,
-    isOriginalSize: Boolean = false,
     isCrossfade: Boolean = true,
     isAllowHardware: Boolean = true,
     contentScale: ContentScale = ContentScale.Crop

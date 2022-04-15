@@ -87,7 +87,7 @@ afterEvaluate {
                 from components.release
                 groupId = "com.jeluchu"
                 artifactId = "jchucomponentscompose"
-                version = "0.7.5"
+                version = "0.7.6"
             }
         }
     }

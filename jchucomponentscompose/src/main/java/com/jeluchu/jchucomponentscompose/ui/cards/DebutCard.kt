@@ -4,7 +4,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Card
 import androidx.compose.material.LocalTextStyle
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
@@ -58,59 +57,55 @@ fun DebutCard(
     navigateToScreen: () -> Unit = {}
 ) {
 
-    Column {
+    Column(
+        modifier = modifier
+            .width(130.dp)
+            .height(190.dp)
+            .padding(4.dp)
+            .clip(RoundedCornerShape(12.dp))
+            .background(Color.Transparent)
+            .clickable(onClick = navigateToScreen)
+    ) {
 
-        Card(
-            shape = RoundedCornerShape(12.dp),
-            modifier = modifier
-                .width(130.dp)
-                .height(190.dp)
-                .padding(4.dp)
-                .clip(RoundedCornerShape(12.dp))
-                .clickable(onClick = navigateToScreen)
-        ) {
+        Box {
 
-            Box(modifier = Modifier.background(Color.Transparent)) {
+            NetworkImage(url = image)
 
-                NetworkImage(url = image)
+            if (isDebut) {
 
-                if (isDebut) {
+                Box(
+                    modifier = Modifier
+                        .clip(debutShape)
+                        .background(bgDebut)
+                        .align(debubtAlignment),
+                ) {
 
-                    Box(
-                        modifier = Modifier
-                            .clip(debutShape)
-                            .background(bgDebut)
-                            .align(debubtAlignment),
+                    Row(
+                        modifier = Modifier.wrapContentWidth(),
+                        verticalAlignment = Alignment.CenterVertically
                     ) {
 
-                        Row(
-                            modifier = Modifier.wrapContentWidth(),
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
+                        NetworkImage(
+                            contentScale = ContentScale.Fit,
+                            modifier = Modifier
+                                .size(35.dp)
+                                .padding(
+                                    start = 8.dp,
+                                    end = if (nameOfDebut.isNotEmpty()) 0.dp else 5.dp
+                                ),
+                            url = iconDebut
+                        )
 
-                            NetworkImage(
-                                contentScale = ContentScale.Fit,
-                                modifier = Modifier
-                                    .size(35.dp)
-                                    .padding(
-                                        start = 8.dp,
-                                        end = if (nameOfDebut.isNotEmpty()) 0.dp else 5.dp
-                                    ),
-                                url = iconDebut
+                        if (nameOfDebut.isNotEmpty())
+                            Text(
+                                text = nameOfDebut,
+                                modifier = Modifier.padding(8.dp, 6.dp, 12.dp, 6.dp),
+                                color = debutColor,
+                                fontSize = 12.sp,
+                                fontWeight = FontWeight.Bold,
+                                style = MaterialTheme.typography.overline,
+                                textAlign = TextAlign.Start
                             )
-
-                            if (nameOfDebut.isNotEmpty())
-                                Text(
-                                    text = nameOfDebut,
-                                    modifier = Modifier.padding(8.dp, 6.dp, 12.dp, 6.dp),
-                                    color = debutColor,
-                                    fontSize = 12.sp,
-                                    fontWeight = FontWeight.Bold,
-                                    style = MaterialTheme.typography.overline,
-                                    textAlign = TextAlign.Start
-                                )
-
-                        }
 
                     }
 

@@ -41,78 +41,72 @@ fun SearchView(
 
     val focusManager = LocalFocusManager.current
 
-    Row(
+    TextField(
         modifier = modifier
-    ) {
-
-        TextField(
-            label = {
-                Text(
-                    text = labelText,
-                    style = styleLabel,
-                    color = colorLabelText
-                )
-            },
-            value = state.value,
-            modifier = Modifier
-                .clip(RoundedCornerShape(cornerRadious))
-                .background(bgCard)
-                .fillMaxWidth()
-                .height(53.dp),
-            textStyle = TextStyle(
-                fontSize = 16.sp,
-                fontWeight = FontWeight.Bold
-            ),
-            onValueChange = { value ->
-                state.value = value
-            }, colors = TextFieldDefaults.textFieldColors(
-                textColor = bgContent,
-                disabledTextColor = Color.Transparent,
-                backgroundColor = bgCard,
-                focusedIndicatorColor = Color.Transparent,
-                errorIndicatorColor = Color.Transparent,
-                unfocusedIndicatorColor = Color.Transparent,
-                disabledIndicatorColor = Color.Transparent,
-                cursorColor = bgContent
-            ),
-            leadingIcon = {
+            .clip(RoundedCornerShape(cornerRadious))
+            .background(bgCard)
+            .fillMaxWidth()
+            .height(53.dp),
+        label = {
+            Text(
+                text = labelText,
+                style = styleLabel,
+                color = colorLabelText
+            )
+        },
+        value = state.value,
+        textStyle = TextStyle(
+            fontSize = 16.sp,
+            fontWeight = FontWeight.Bold
+        ),
+        onValueChange = { value ->
+            state.value = value
+        }, colors = TextFieldDefaults.textFieldColors(
+            textColor = bgContent,
+            disabledTextColor = Color.Transparent,
+            backgroundColor = bgCard,
+            focusedIndicatorColor = Color.Transparent,
+            errorIndicatorColor = Color.Transparent,
+            unfocusedIndicatorColor = Color.Transparent,
+            disabledIndicatorColor = Color.Transparent,
+            cursorColor = bgContent
+        ),
+        leadingIcon = {
+            Icon(
+                Icons.Default.Search,
+                tint = bgContent,
+                contentDescription = "",
+                modifier = Modifier
+                    .padding(15.dp)
+                    .size(24.dp)
+            )
+        },
+        trailingIcon = {
+            IconButton(
+                onClick = {
+                    state.value = TextFieldValue(String.empty())
+                },
+            ) {
                 Icon(
-                    Icons.Default.Search,
+                    Icons.Filled.Close,
                     tint = bgContent,
                     contentDescription = "",
                     modifier = Modifier
                         .padding(15.dp)
                         .size(24.dp)
                 )
-            },
-            trailingIcon = {
-                IconButton(
-                    onClick = {
-                        state.value = TextFieldValue(String.empty())
-                    },
-                ) {
-                    Icon(
-                        Icons.Filled.Close,
-                        tint = bgContent,
-                        contentDescription = "",
-                        modifier = Modifier
-                            .padding(15.dp)
-                            .size(24.dp)
-                    )
-                }
-            },
-            singleLine = true,
-            keyboardActions = KeyboardActions(
-                onDone = {
-                    focusManager.clearFocus()
-                }
-            ),
-            keyboardOptions = KeyboardOptions.Default.copy(
-                imeAction = ImeAction.Done
-            )
+            }
+        },
+        singleLine = true,
+        keyboardActions = KeyboardActions(
+            onDone = {
+                focusManager.clearFocus()
+            }
+        ),
+        keyboardOptions = KeyboardOptions.Default.copy(
+            imeAction = ImeAction.Done
         )
-
-    }
+    )
 
 }
 
