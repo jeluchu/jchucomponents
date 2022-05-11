@@ -1,3 +1,9 @@
+/*
+ *
+ *  Copyright 2022 Jeluchu
+ *
+ */
+
 package com.jeluchu.jchucomponentscompose.ui.text
 
 import androidx.compose.animation.core.*

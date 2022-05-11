@@ -1,3 +1,9 @@
+/*
+ *
+ *  Copyright 2022 Jeluchu
+ *
+ */
+
 package com.jeluchu.jchucomponentscompose.ui.lists.column
 
 import androidx.compose.animation.core.Animatable

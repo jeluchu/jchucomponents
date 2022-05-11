@@ -1,3 +1,9 @@
+/*
+ *
+ *  Copyright 2022 Jeluchu
+ *
+ */
+
 package com.jeluchu.jchucomponentscompose.core.extensions.strings
 
 import android.content.Context

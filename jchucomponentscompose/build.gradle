@@ -1,3 +1,9 @@
+/*
+ *
+ *  Copyright 2022 Jeluchu
+ *
+ */
+
 plugins {
     id 'com.android.library'
     id 'kotlin-android'
@@ -88,7 +94,7 @@ afterEvaluate {
                 from components.release
                 groupId = "com.jeluchu"
                 artifactId = "jchucomponentscompose"
-                version = "0.8.0"
+                version = "0.9.0"
             }
         }
     }

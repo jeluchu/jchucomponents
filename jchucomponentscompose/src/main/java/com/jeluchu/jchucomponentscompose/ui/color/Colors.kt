@@ -1,3 +1,9 @@
+/*
+ *
+ *  Copyright 2022 Jeluchu
+ *
+ */
+
 package com.jeluchu.jchucomponentscompose.ui.color
 
 import androidx.compose.ui.graphics.Color

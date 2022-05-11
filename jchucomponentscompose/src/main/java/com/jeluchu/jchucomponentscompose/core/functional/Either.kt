@@ -1,3 +1,9 @@
+/*
+ *
+ *  Copyright 2022 Jeluchu
+ *
+ */
+
 package com.jeluchu.jchucomponentscompose.core.functional
 
 import com.jeluchu.jchucomponentscompose.core.functional.Either.Left

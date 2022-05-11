@@ -1,3 +1,9 @@
+/*
+ *
+ *  Copyright 2022 Jeluchu
+ *
+ */
+
 package com.jeluchu.jchucomponentscompose.utils.network.interceptors
 
 import com.jeluchu.jchucomponentscompose.core.extensions.strings.empty

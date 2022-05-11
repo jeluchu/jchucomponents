@@ -1,3 +1,9 @@
+/*
+ *
+ *  Copyright 2022 Jeluchu
+ *
+ */
+
 package com.jeluchu.jchucomponentscompose.utils.zxing
 
 import com.jeluchu.jchucomponentscompose.utils.zxing.common.detector.MathUtils.distance

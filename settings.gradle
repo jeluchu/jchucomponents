@@ -1,3 +1,9 @@
+/*
+ *
+ *  Copyright 2022 Jeluchu
+ *
+ */
+
 rootProject.name = "JchuComponentsCompose"
 include ':jchucomponentscompose'
 include ':app'

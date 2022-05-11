@@ -1,3 +1,9 @@
+/*
+ *
+ *  Copyright 2022 Jeluchu
+ *
+ */
+
 package com.jeluchu.jchucomponentscompose.utils.zxing.qrcode.detector
 
 import com.jeluchu.jchucomponentscompose.utils.zxing.*

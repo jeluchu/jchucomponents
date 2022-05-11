@@ -1,3 +1,9 @@
+/*
+ *
+ *  Copyright 2022 Jeluchu
+ *
+ */
+
 package com.jeluchu.jchucomponentscompose.utils.zxing.qrcode.detector
 
 class FinderPatternInfo(patternCenters: Array<FinderPattern>) {

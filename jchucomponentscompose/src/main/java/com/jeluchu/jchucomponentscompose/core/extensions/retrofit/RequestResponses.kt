@@ -1,3 +1,9 @@
+/*
+ *
+ *  Copyright 2022 Jeluchu
+ *
+ */
+
 package com.jeluchu.jchucomponentscompose.core.extensions.retrofit
 
 import com.jeluchu.jchucomponentscompose.core.exception.Failure

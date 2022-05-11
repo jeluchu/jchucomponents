@@ -1,3 +1,9 @@
+/*
+ *
+ *  Copyright 2022 Jeluchu
+ *
+ */
+
 package com.jeluchu.jchucomponentscompose.utils.network.models
 
 sealed class Resource<out E, out T>(val error: E? = null, val data: T? = null) {

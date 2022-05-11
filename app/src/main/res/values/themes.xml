@@ -1,3 +1,9 @@
+<!--
+  ~
+  ~  Copyright 2022 Jeluchu
+  ~
+  -->
+
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Theme.CompposeComponents" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
