@@ -4,6 +4,7 @@ import android.content.Context
 import android.media.MediaPlayer
 import android.net.Uri
 import com.jeluchu.jchucomponentscompose.core.extensions.ints.milliSecondsToTimer
+import com.jeluchu.jchucomponentscompose.core.extensions.ints.orEmpty
 import com.jeluchu.jchucomponentscompose.core.extensions.strings.empty
 import java.util.concurrent.Executors
 import java.util.concurrent.ScheduledExecutorService
@@ -38,39 +39,39 @@ class MediaPlayerHolder(context: Context) : PlayerAdapter {
     private fun initializeMediaPlayer() {
         if (mMediaPlayer == null) {
             mMediaPlayer = MediaPlayer()
-            mMediaPlayer!!.setOnCompletionListener {
+            mMediaPlayer?.setOnCompletionListener {
                 stopUpdatingCallbackWithPosition()
                 if (mPlaybackInfoListener != null) {
-                    mPlaybackInfoListener!!.onStateChanged(PlaybackInfoListener.State.COMPLETED)
-                    mPlaybackInfoListener!!.onPlaybackCompleted()
+                    mPlaybackInfoListener?.onStateChanged(PlaybackInfoListener.State.COMPLETED)
+                    mPlaybackInfoListener?.onPlaybackCompleted()
                 }
             }
         }
     }
 
     override val isPlaying: Boolean
-        get() = if (mMediaPlayer != null) mMediaPlayer!!.isPlaying else false
+        get() = if (mMediaPlayer != null) mMediaPlayer?.isPlaying == true else false
 
     override val currentProgress: Float
         get() = if (mMediaPlayer != null) {
-            val currentSeconds: Long = (mMediaPlayer!!.currentPosition / 1000).toLong()
-            val totalSeconds: Long = (mMediaPlayer!!.duration / 1000).toLong()
+            val currentSeconds: Long = (mMediaPlayer?.currentPosition.orEmpty() / 1000).toLong()
+            val totalSeconds: Long = (mMediaPlayer?.duration.orEmpty() / 1000).toLong()
             (currentSeconds.toDouble() / totalSeconds * 100).toFloat()
         } else 0F
 
     override val currentTime: String
-        get() = if (mMediaPlayer != null) mMediaPlayer!!.currentPosition.milliSecondsToTimer()
+        get() = if (mMediaPlayer != null) mMediaPlayer?.currentPosition?.milliSecondsToTimer().orEmpty()
         else String.empty()
 
     override val totalTime: String
-        get() = if (mMediaPlayer != null) mMediaPlayer!!.duration.milliSecondsToTimer()
+        get() = if (mMediaPlayer != null) mMediaPlayer?.duration?.milliSecondsToTimer().orEmpty()
         else String.empty()
 
     override fun togglePlaying(isPlaying: Boolean) {
         if (mMediaPlayer != null) {
             when (isPlaying) {
-                true -> mMediaPlayer!!.pause()
-                false -> mMediaPlayer!!.start()
+                true -> mMediaPlayer?.pause()
+                false -> mMediaPlayer?.start()
             }
         }
     }
@@ -83,27 +84,27 @@ class MediaPlayerHolder(context: Context) : PlayerAdapter {
         mResourceId = mp3Link
         initializeMediaPlayer()
         runCatching {
-            mMediaPlayer!!.setDataSource(mContext, Uri.parse(mResourceId))
+            mMediaPlayer?.setDataSource(mContext, Uri.parse(mResourceId))
         }.getOrElse { it.message }
         runCatching {
-            mMediaPlayer!!.prepare()
+            mMediaPlayer?.prepare()
         }.getOrElse { it.message }
         initializeProgressCallback()
     }
 
     override fun release() {
         if (mMediaPlayer != null) {
-            mMediaPlayer!!.release()
+            mMediaPlayer?.release()
             mMediaPlayer = null
         }
     }
 
 
     override fun play() {
-        if (mMediaPlayer != null && !mMediaPlayer!!.isPlaying) {
-            mMediaPlayer!!.start()
+        if (mMediaPlayer != null && mMediaPlayer?.isPlaying == false) {
+            mMediaPlayer?.start()
             if (mPlaybackInfoListener != null) {
-                mPlaybackInfoListener!!.onStateChanged(PlaybackInfoListener.State.PLAYING)
+                mPlaybackInfoListener?.onStateChanged(PlaybackInfoListener.State.PLAYING)
             }
             startUpdatingCallbackWithPosition()
         }
@@ -111,35 +112,35 @@ class MediaPlayerHolder(context: Context) : PlayerAdapter {
 
     override fun stop() {
         if (mMediaPlayer != null) {
-            mMediaPlayer!!.stop()
-            mMediaPlayer!!.release()
+            mMediaPlayer?.stop()
+            mMediaPlayer?.release()
             mMediaPlayer = null
         }
     }
 
     override fun reset() {
         if (mMediaPlayer != null) {
-            mMediaPlayer!!.reset()
+            mMediaPlayer?.reset()
             loadMedia(mResourceId)
             if (mPlaybackInfoListener != null) {
-                mPlaybackInfoListener!!.onStateChanged(PlaybackInfoListener.State.RESET)
+                mPlaybackInfoListener?.onStateChanged(PlaybackInfoListener.State.RESET)
             }
             stopUpdatingCallbackWithPosition()
         }
     }
 
     override fun pause() {
-        if (mMediaPlayer != null && mMediaPlayer!!.isPlaying) {
-            mMediaPlayer!!.pause()
+        if (mMediaPlayer != null && mMediaPlayer?.isPlaying == true) {
+            mMediaPlayer?.pause()
             if (mPlaybackInfoListener != null) {
-                mPlaybackInfoListener!!.onStateChanged(PlaybackInfoListener.State.PAUSED)
+                mPlaybackInfoListener?.onStateChanged(PlaybackInfoListener.State.PAUSED)
             }
         }
     }
 
     override fun seekTo(position: Int) {
         if (mMediaPlayer != null) {
-            mMediaPlayer!!.seekTo(position)
+            mMediaPlayer?.seekTo(position)
         }
     }
 
@@ -150,7 +151,7 @@ class MediaPlayerHolder(context: Context) : PlayerAdapter {
         if (mSeekbarPositionUpdateTask == null) {
             mSeekbarPositionUpdateTask = Runnable { updateProgressCallbackTask() }
         }
-        mExecutor!!.scheduleAtFixedRate(
+        mExecutor?.scheduleAtFixedRate(
             mSeekbarPositionUpdateTask,
             0,
             PLAYBACK_POSITION_REFRESH_INTERVAL_MS.toLong(),
@@ -160,29 +161,29 @@ class MediaPlayerHolder(context: Context) : PlayerAdapter {
 
     private fun stopUpdatingCallbackWithPosition() {
         if (mExecutor != null) {
-            mExecutor!!.shutdownNow()
+            mExecutor?.shutdownNow()
             mExecutor = null
             mSeekbarPositionUpdateTask = null
             if (mPlaybackInfoListener != null) {
-                mPlaybackInfoListener!!.onPositionChanged(0)
+                mPlaybackInfoListener?.onPositionChanged(0)
             }
         }
     }
 
     private fun updateProgressCallbackTask() {
-        if (mMediaPlayer != null && mMediaPlayer!!.isPlaying) {
-            val currentPosition = mMediaPlayer!!.currentPosition
+        if (mMediaPlayer != null && mMediaPlayer?.isPlaying == true) {
+            val currentPosition = mMediaPlayer?.currentPosition
             if (mPlaybackInfoListener != null) {
-                mPlaybackInfoListener!!.onPositionChanged(currentPosition)
+                mPlaybackInfoListener?.onPositionChanged(currentPosition.orEmpty())
             }
         }
     }
 
     override fun initializeProgressCallback() {
-        val duration = mMediaPlayer!!.duration
+        val duration = mMediaPlayer?.duration
         if (mPlaybackInfoListener != null) {
-            mPlaybackInfoListener!!.onDurationChanged(duration)
-            mPlaybackInfoListener!!.onPositionChanged(0)
+            mPlaybackInfoListener?.onDurationChanged(duration.orEmpty())
+            mPlaybackInfoListener?.onPositionChanged(0)
         }
     }
 

@@ -1,4 +1,4 @@
-package com.jeluchu.jchucomponentscompose.ui.lists
+package com.jeluchu.jchucomponentscompose.ui.lists.grids
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.*

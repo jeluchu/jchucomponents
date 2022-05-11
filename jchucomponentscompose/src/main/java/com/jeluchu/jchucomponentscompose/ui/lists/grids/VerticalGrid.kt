@@ -1,4 +1,4 @@
-package com.jeluchu.jchucomponentscompose.ui.lists
+package com.jeluchu.jchucomponentscompose.ui.lists.grids
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
