@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.unit.dp
 import com.jeluchu.jchucomponentscompose.core.extensions.strings.empty
 import java.math.RoundingMode
@@ -23,9 +24,15 @@ fun Int.height() = Spacer(modifier = Modifier.height(this.dp))
 fun Int.width() = Spacer(modifier = Modifier.width(this.dp))
 
 fun Int.Companion.empty() = 0
-fun Int?.orEmpty() = this ?: Int.empty()
+fun Int?.orEmpty(defaultValue: Int = Int.empty()) = this ?: defaultValue
 fun Int.isNotEmpty() = this != Int.empty()
 fun Long.bytesToMeg(): String = (this / (1024L * 1024L)).toString()
+
+fun Float.Companion.empty() = 0f
+fun Float?.orEmpty(defaultValue: Float = Float.empty()): Float = this ?: defaultValue
+
+fun Long.Companion.empty() = 0L
+fun Long?.orEmpty(defaultValue: Long = Long.empty()): Long =  this ?: defaultValue
 
 fun Int.fixedDecimalsTime(): String {
     val decimalFormat = DecimalFormat("00")

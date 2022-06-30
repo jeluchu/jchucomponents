@@ -298,6 +298,7 @@ fun String.remove(@RegExp pattern: String) = remove(Regex(pattern, RegexOption.I
 fun String.remove(regex: Regex) = replace(regex, String.empty())
 
 fun String.Companion.empty() = ""
+fun String?.orEmpty(defaultValue: String = String.empty()) = this ?: defaultValue
 fun CharSequence.isEmpty(): Boolean = length == 0
 
 fun String.isEmpty(): Boolean = length == 0

@@ -30,6 +30,12 @@ import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.delay
 
+/**
+ *  HOfsdlkgnsdf
+ *
+ * @param text: es un texto
+ */
+
 @Composable
 fun MarqueeText(
     text: String,

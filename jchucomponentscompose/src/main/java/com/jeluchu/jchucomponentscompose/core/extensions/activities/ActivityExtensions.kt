@@ -15,10 +15,16 @@ import android.net.Uri
 import androidx.core.app.ActivityCompat
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.GoogleApiAvailability
+import com.jeluchu.jchucomponentscompose.core.extensions.context.openInCustomTab
+import com.jeluchu.jchucomponentscompose.core.extensions.strings.empty
 
+private val permissionsList = arrayOf(
+    Manifest.permission.WRITE_EXTERNAL_STORAGE,
+    Manifest.permission.READ_EXTERNAL_STORAGE
+)
 
-private val permissionsList =
-    arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE)
+private fun intentView(url: String) = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+
 
 val Activity.permissions: Unit
     get() {
@@ -33,94 +39,98 @@ val Activity.permissions: Unit
         }
     }
 
-/** ---- GOOGLE PLAY SERVICES ------------------------------------------------------------------ **/
-
+/**
+ *
+ * [Activity] extension to check the availability of Google Play Services,
+ * return a [Boolean] to know if they are available or not, also we have
+ * the possibility to choose if we want to show a system dialog or not
+ *
+ * @param withDialog [Boolean] to show Google Play Services dialog
+ *
+ */
 fun Activity.isGooglePlayServicesAvailable(withDialog: Boolean = false): Boolean {
-    val googleApiAvailability = GoogleApiAvailability.getInstance()
-    val status = googleApiAvailability.isGooglePlayServicesAvailable(this)
-    if (status != ConnectionResult.SUCCESS) {
-        if (googleApiAvailability.isUserResolvableError(status) && withDialog)
-            googleApiAvailability.getErrorDialog(this, status, 2404)?.show()
-        return false
+    with(GoogleApiAvailability.getInstance()) {
+        val status = isGooglePlayServicesAvailable(this@isGooglePlayServicesAvailable)
+        if (status != ConnectionResult.SUCCESS) {
+            if (isUserResolvableError(status) && withDialog)
+                getErrorDialog(this@isGooglePlayServicesAvailable, status, 2404)?.show()
+            return false
+        }
+        return true
     }
-    return true
 }
 
-/** ---- INTENTS ------------------------------------------------------------------------------- **/
-
-fun Activity.openInstagram(user: String) {
-
-    val appIntent = Intent(
-        Intent.ACTION_VIEW,
-        Uri.parse("http://instagram.com/_u/$user")
-    ).setPackage("com.instagram.android")
-
-    val webIntent = Intent(
-        Intent.ACTION_VIEW,
-        Uri.parse("http://instagram.com/$user")
-    )
+/**
+ *
+ * [Activity] to open the Instagram profile, if you have the application installed
+ * it will open the profile in the application, in case you do not have it installed
+ * it will open a Chrome Tab with the function [openInCustomTab]
+ *
+ * @param username [String] the profile to be displayed
+ *
+ */
+fun Activity.openInstagram(username: String) {
 
     runCatching {
-        startActivity(appIntent)
+        startActivity(
+            intentView("http://instagram.com/_u/$username").setPackage("com.instagram.android")
+        )
     }.getOrElse {
-        startActivity(webIntent)
+        openInCustomTab("http://instagram.com/$username")
     }
-
 
 }
 
+/**
+ *
+ * [Activity] to open the Twitter profile, if you have the application installed
+ * it will open the profile in the application, in case you do not have it installed
+ * it will open a Chrome Tab with the function [openInCustomTab]
+ *
+ * @param username [String] the profile to be displayed
+ *
+ */
 fun Activity.openTwitter(username: String) {
-    runCatching {
-        startActivity(
-            Intent(
-                Intent.ACTION_VIEW,
-                Uri.parse("twitter://user?screen_name=$username")
-            )
-        )
-    }.getOrElse {
-        startActivity(
-            Intent(
-                Intent.ACTION_VIEW,
-                Uri.parse("https://twitter.com/#!/$username")
-            )
-        )
-    }
-}
-
-fun Activity.openYoutube(id: String) {
-
-    val appIntent = Intent(Intent.ACTION_VIEW, Uri.parse("vnd.youtube:$id"))
-    val webIntent = Intent(Intent.ACTION_VIEW, Uri.parse("http://www.youtube.com/watch?v=$id"))
 
     runCatching {
-        startActivity(appIntent)
+        startActivity(intentView("twitter://user?screen_name=$username"))
     }.getOrElse {
-        startActivity(webIntent)
+        openInCustomTab("https://twitter.com/#!/$username")
     }
 
 }
 
-fun Context.openChannelInYouTube(channel: String) {
+/**
+ *
+ * [Activity] to open the YouTube video or channel, if you have the application installed
+ * it will open the video or channel in the application, in case you do not have it installed
+ * it will open a Chrome Tab with the function [openInCustomTab]
+ *
+ * It is important to know that if one of the two parameters is not passed,
+ * the function will not perform any action
+ *
+ * @param videoId [String] the video to be displayed for default is empty [String]
+ * @param channelId [String] the channel to be displayed for default is empty [String]
+ *
+ */
+fun Activity.openYoutube(videoId: String = String.empty(), channelId: String = String.empty()) {
 
-    val appIntent = Intent(
-        Intent.ACTION_VIEW, Uri.parse(
-            "vnd.youtube.com/channel/$channel"
-        )
-    )
-
-    val webIntent = Intent(
-        Intent.ACTION_VIEW,
-        Uri.parse("http://www.youtube.com/channel/$channel")
-    )
-
-    runCatching {
-        startActivity(appIntent)
-    }.getOrElse {
-        startActivity(webIntent)
+    if (videoId.isNotEmpty()) {
+        runCatching {
+            startActivity(intentView("vnd.youtube:$videoId"))
+        }.getOrElse {
+            openInCustomTab("http://www.youtube.com/watch?v=$videoId")
+        }
+    } else if (channelId.isNotEmpty()) {
+        runCatching {
+            startActivity(intentView("vnd.youtube.com/channel/$channelId"))
+        }.getOrElse {
+            openInCustomTab("http://www.youtube.com/channel/$channelId")
+        }
     }
 
-}
 
+}
 
 fun Context.openTwitchProfile(user: String) {
 

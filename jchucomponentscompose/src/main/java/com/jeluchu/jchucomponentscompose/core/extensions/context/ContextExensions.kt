@@ -8,6 +8,7 @@ package com.jeluchu.jchucomponentscompose.core.extensions.context
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.*
@@ -29,6 +30,7 @@ import android.view.LayoutInflater
 import android.widget.Toast
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
+import androidx.browser.customtabs.CustomTabColorSchemeParams
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -45,6 +47,8 @@ import com.jeluchu.jchucomponentscompose.utils.zxing.qrcode.decoder.ErrorCorrect
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.util.*
+
+private fun intentView(url: String) = Intent(Intent.ACTION_VIEW, Uri.parse(url))
 
 /** ---- PERMISSIONS --------------------------------------------------------------------------- **/
 
@@ -144,15 +148,19 @@ fun Context.addToClipboard(str: CharSequence?) {
     }
 }
 
-/** ---- BROWSER TABS -------------------------------------------------------------------------- **/
-
-fun Context.openInCustomTab(url: String, colorBar: Int) = customTabsWeb(url, colorBar)
-
+/**
+ *
+ * [Context] extension to open any url from Custom Chrome Tab or alternative WebView
+ *
+ * @param url [String] will be the web page we want to open
+ * @param colorBar [Int] the color that will be displayed on the Web Tab, by default is
+ * [R.color.browserActionsBgGrey]
+ *
+ */
 @SuppressLint("UnspecifiedImmutableFlag")
-@Suppress("DEPRECATION")
-private fun Context.customTabsWeb(
-    string: String,
-    colorBar: Int = R.color.browser_actions_bg_grey
+fun Context.openInCustomTab(
+    url: String,
+    colorBar: Int = R.color.browserActionsBgGrey
 ) {
 
     runCatching {
@@ -171,39 +179,38 @@ private fun Context.customTabsWeb(
                 ), PendingIntent.FLAG_UPDATE_CURRENT
             )
 
-        val builder = CustomTabsIntent.Builder()
-
-        builder.setToolbarColor(
-            Color.parseColor(
-                "#" + Integer.toHexString(
-                    ContextCompat.getColor(
-                        this,
-                        colorBar
+        val customTabColorSchemeParams = CustomTabColorSchemeParams.Builder()
+            .setToolbarColor(
+                Color.parseColor(
+                    "#" + Integer.toHexString(
+                        ContextCompat.getColor(
+                            this,
+                            colorBar
+                        )
                     )
                 )
+            ).build()
+
+        CustomTabsIntent.Builder().apply {
+            setDefaultColorSchemeParams(customTabColorSchemeParams)
+            setShowTitle(true)
+            setActionButton(
+                BitmapFactory.decodeResource(resources, R.drawable.ic_btn_share),
+                "Compartir",
+                share,
+                true
             )
-        )
-
-        builder.setShowTitle(true)
-
-        builder.setActionButton(
-            BitmapFactory.decodeResource(
-                resources,
-                R.drawable.abc_ic_menu_share_mtrl_alpha
-            ),
-            "Compartir",
-            share,
-            true
-        )
-
-        val intent = builder.build()
-        intent.launchUrl(this, Uri.parse(string))
+        }.build().launchUrl(this, Uri.parse(url))
 
     }.getOrElse {
-        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(string))
-        intent.putExtra(Browser.EXTRA_CREATE_NEW_TAB, true)
-        intent.putExtra(Browser.EXTRA_APPLICATION_ID, packageName)
+
+        val intent = intentView(url).apply {
+            putExtra(Browser.EXTRA_CREATE_NEW_TAB, true)
+            putExtra(Browser.EXTRA_APPLICATION_ID, packageName)
+        }
+
         startActivity(intent)
+
     }
 
 }
