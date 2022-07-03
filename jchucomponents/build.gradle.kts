@@ -121,9 +121,9 @@ afterEvaluate {
         publications {
             create<MavenPublication>("release") {
                 from(components["release"])
-                groupId = "com.jeluchu.jchucomponents"
+                groupId = "com.jeluchu"
                 artifactId = "jchucomponents"
-                version = "1.0.0-beta04"
+                version = "1.0.0-beta05"
             }
         }
     }
