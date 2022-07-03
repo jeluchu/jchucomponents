@@ -32,7 +32,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.jeluchu.jchucomponentscompose.R
+import com.jeluchu.jchucomponents.R
 
 const val ExpandAnimation = 300
 const val CollapseAnimation = 300

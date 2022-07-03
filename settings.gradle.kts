@@ -4,6 +4,5 @@
  *
  */
 
+include(":app", ":jchucomponents")
 rootProject.name = "JchuComponents"
-include ':jchucomponents'
-include ':app'

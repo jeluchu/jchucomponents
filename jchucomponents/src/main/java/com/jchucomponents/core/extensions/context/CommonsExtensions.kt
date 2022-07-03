@@ -22,7 +22,7 @@ import com.jchucomponents.core.extensions.packageutils.buildIsMarshmallowAndUp
 import com.jchucomponents.core.extensions.packageutils.buildIsNougatAndUp
 import com.jchucomponents.core.extensions.sharedprefs.SharedPrefsHelpers
 import com.jchucomponents.utils.broadcast.ShareBroadcastReceiver
-import com.jeluchu.jchucomponentscompose.R
+import com.jeluchu.jchucomponents.R
 import java.io.File
 import java.util.*
 
