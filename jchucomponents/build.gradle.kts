@@ -115,3 +115,16 @@ dependencies {
     implementation("io.coil-kt:coil-compose:2.1.0")
 
 }
+
+afterEvaluate {
+    publishing {
+        publications {
+            create<MavenPublication>("release") {
+                from(components["release"])
+                groupId = "com.jeluchu.jchucomponents"
+                artifactId = "jchucomponents"
+                version = "1.0.0-beta04"
+            }
+        }
+    }
+}
