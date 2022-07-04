@@ -1,0 +1,30 @@
+/*
+ *
+ *  Copyright 2022 Jeluchu
+ *
+ */
+
+buildscript {
+
+    repositories {
+        google()
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:7.2.1'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.7.0"
+        classpath "org.jetbrains.dokka:dokka-gradle-plugin:1.7.0"
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+        maven { url 'https://jitpack.io' }
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
