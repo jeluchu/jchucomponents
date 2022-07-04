@@ -38,7 +38,7 @@ android {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
-    namespace = "com.jeluchu.jchucomponents"
+    namespace = "com.jeluchu.jchucomponentscompose"
 
     tasks.dokkaHtml.configure {
 
@@ -123,7 +123,7 @@ afterEvaluate {
                 from(components["release"])
                 groupId = "com.jeluchu"
                 artifactId = "jchucomponentscompose"
-                version = "1.0.0-beta07"
+                version = "1.0.0-beta08"
             }
         }
     }

@@ -29,16 +29,16 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
-import com.jeluchu.jchucomponents.core.extensions.context.createQR
-import com.jeluchu.jchucomponents.core.extensions.context.locale
-import com.jeluchu.jchucomponents.core.extensions.context.openOtherApp
-import com.jeluchu.jchucomponents.ui.animations.animateItem
-import com.jeluchu.jchucomponents.ui.cards.DebutCard
-import com.jeluchu.jchucomponents.ui.cards.StoryCard
-import com.jeluchu.jchucomponents.ui.images.DoubleTapAnimation
-import com.jeluchu.jchucomponents.ui.images.NetworkImage
-import com.jeluchu.jchucomponents.ui.sheets.BottomSheetWithCloseDialog
-import com.jeluchu.jchucomponents.ui.textfields.SearchView
+import com.jeluchu.jchucomponentscompose.core.extensions.context.createQR
+import com.jeluchu.jchucomponentscompose.core.extensions.context.locale
+import com.jeluchu.jchucomponentscompose.core.extensions.context.openInCustomTab
+import com.jeluchu.jchucomponentscompose.ui.animations.animateItem
+import com.jeluchu.jchucomponentscompose.ui.cards.DebutCard
+import com.jeluchu.jchucomponentscompose.ui.cards.StoryCard
+import com.jeluchu.jchucomponentscompose.ui.images.DoubleTapAnimation
+import com.jeluchu.jchucomponentscompose.ui.images.NetworkImage
+import com.jeluchu.jchucomponentscompose.ui.sheets.BottomSheetWithCloseDialog
+import com.jeluchu.jchucomponentscompose.ui.textfields.SearchView
 
 class MainActivity : ComponentActivity() {
 
@@ -78,9 +78,7 @@ class MainActivity : ComponentActivity() {
                         circleImage = R.drawable.ic_btnfavourite,
                         navigateToScreen = {
                             // SUPPORTED API LEVEL S+ CUSTOM TAB
-                            //context.openInCustomTab("https://developer.android.com/about/versions/marshmallow/android-6.0?hl=es-419", R.color.teal_700)
-                            openOtherApp("com.jeluchu.aruppipro", packageManager)
-
+                            context.openInCustomTab("https://developer.android.com/about/versions/marshmallow/android-6.0?hl=es-419", R.color.teal_700)
                         }
                     )
 
