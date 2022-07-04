@@ -123,7 +123,7 @@ afterEvaluate {
                 from(components["release"])
                 groupId = "com.jeluchu"
                 artifactId = "jchucomponentscompose"
-                version = "1.0.0-beta08"
+                version = "1.0.0-beta09"
             }
         }
     }

@@ -6,6 +6,7 @@
 
 package com.jeluchu.jchucomponentscompose.core.extensions.uri
 
+import android.annotation.SuppressLint
 import android.content.ContentResolver
 import android.content.Context
 import android.database.Cursor
@@ -16,6 +17,7 @@ import java.io.IOException
 import java.io.InputStream
 import java.io.InputStreamReader
 
+@SuppressLint("Range")
 fun Uri.getFileName(contentResolver: ContentResolver): String {
     var result: String? = null
     if (scheme == "content") {
