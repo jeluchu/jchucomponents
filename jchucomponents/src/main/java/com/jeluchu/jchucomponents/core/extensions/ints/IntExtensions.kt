@@ -13,8 +13,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.jeluchu.jchucomponents.core.extensions.strings.empty
+import java.lang.Math.round
 import java.math.RoundingMode
 import java.text.DecimalFormat
+import kotlin.math.roundToInt
 
 @Composable
 fun Int.height() = Spacer(modifier = Modifier.height(this.dp))
@@ -58,3 +60,5 @@ fun Int.milliSecondsToTimer(): String {
 
     return finalTimerString
 }
+
+fun Int?.roundUpToNearestTen(): Int = ((((this ?: 0) + 5) / 10.0).roundToInt() * 10)

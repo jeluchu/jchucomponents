@@ -33,29 +33,29 @@ fun Modifier.dashedBorder(border: BorderStroke, shape: Shape = RectangleShape, o
     dashedBorder(width = border.width, brush = border.brush, shape = shape, on, off)
 
 /**
+ *
  * Returns a [Modifier] that adds border with appearance specified with [width], [color] and a
  * [shape], pads the content by the [width] and clips it.
- *
- * @sample androidx.compose.foundation.samples.BorderSampleWithDataClass()
  *
  * @param width width of the border. Use [Dp.Hairline] for a hairline border.
  * @param color color to paint the border with
  * @param shape shape of the border
  * @param on the size of the solid part of the dashes
  * @param off the size of the space between dashes
+ *
  */
 fun Modifier.dashedBorder(width: Dp, color: Color, shape: Shape = RectangleShape, on: Dp, off: Dp) =
     dashedBorder(width, SolidColor(color), shape, on, off)
 
 /**
+ *
  * Returns a [Modifier] that adds border with appearance specified with [width], [brush] and a
  * [shape], pads the content by the [width] and clips it.
- *
- * @sample androidx.compose.foundation.samples.BorderSampleWithBrush()
  *
  * @param width width of the border. Use [Dp.Hairline] for a hairline border.
  * @param brush brush to paint the border with
  * @param shape shape of the border
+ *
  */
 fun Modifier.dashedBorder(width: Dp, brush: Brush, shape: Shape, on: Dp, off: Dp): Modifier =
     composed(

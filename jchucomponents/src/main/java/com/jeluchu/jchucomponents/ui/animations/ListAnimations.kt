@@ -19,8 +19,6 @@ import androidx.compose.ui.graphics.graphicsLayer
 
 /**
  *
- * Author: @Jeluchu
- *
  * This is an extension of animations for list item modifiers
  *
  * @param animationType in this parameter you have to pass a type of animation,
