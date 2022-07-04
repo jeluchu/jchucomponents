@@ -1,4 +1,4 @@
-# Module JchuComponentsCompose
+# Module JchuComponents
 
 # Description
 **This library contains Composable elements** that can be used in any app that uses the new android layout system (Jetpack Compose).

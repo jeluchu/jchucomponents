@@ -4,5 +4,5 @@
  *
  */
 
-include(":app", ":jchucomponents")
+include(":app", ":jchucomponentscompose")
 rootProject.name = "JchuComponents"
