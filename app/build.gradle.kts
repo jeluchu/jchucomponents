@@ -14,7 +14,7 @@ android {
     buildFeatures.compose = true
     composeOptions.kotlinCompilerExtensionVersion = "1.2.0"
     kotlinOptions.jvmTarget = JavaVersion.VERSION_11.toString()
-    namespace = "com.jeluchu.compposecomponents"
+    namespace = "com.jeluchu.composer"
     defaultConfig {
         minSdk = 21
         targetSdk = 32
@@ -41,7 +41,7 @@ android {
 
 dependencies {
 
-    implementation(project(":jchucomponentscompose"))
+    implementation(project(":jchucomponents"))
     implementation("androidx.appcompat:appcompat:1.4.2")
     implementation("com.google.android.material:material:1.6.1")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
