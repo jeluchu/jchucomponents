@@ -47,7 +47,7 @@ private const val VALID_PHONE_REGEX = "^(00[0-9]{9,20}|(?!00)[0-9]{9,20})"
 private const val validCharacters =
     "abcdefghijklmnñopqrstuvwxyzABCDEFGHIJKLMNÑOPQRSTUVWXYZáéíóúÁÉÍÓÚ -àÀáÁâÂãÃäÄåÅæÆçÇèÈéÉêÊëËìÌíÍîÎïÏðÐñÑòÒóÓôÔõÕöÖøØùÙúÚûÛüÜýÝþÞÿß'."
 
-private val LETRAS_NIF = "TRWAGMYFPDXBNJZSQVHLCKE"
+private const val LETRAS_NIF = "TRWAGMYFPDXBNJZSQVHLCKE"
 
 /** ---- IMAGES DOWNLOAD URL ------------------------------------------------------------------- **/
 
@@ -161,6 +161,7 @@ fun String?.removeCharactersWeirds() =
 
 fun CharSequence.isEmptyString(): Boolean = this.isEmpty() || this.toString().equals("null", true)
 fun CharSequence.isDigitOnly(): Boolean = (0 until length).any { Character.isDigit(this[it]) }
+fun String.onlyDigits(): String = replace(Regex("\\D*"), "")
 
 fun Char.isAlphabeticCharacter() =
     this == '-' || this == '.' || this == '\'' || Character.isLetter(this) || Character.isSpaceChar(

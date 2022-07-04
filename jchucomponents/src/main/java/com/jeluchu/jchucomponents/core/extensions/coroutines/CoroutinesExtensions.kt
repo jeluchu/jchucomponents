@@ -6,6 +6,7 @@
 
 package com.jeluchu.jchucomponents.core.extensions.coroutines
 
+import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -20,6 +21,7 @@ fun noCrash(enableLog: Boolean = true, func: () -> Unit): String? =
         it.message
     }
 
+@DelicateCoroutinesApi
 fun doOnGlobal(
     enableLog: Boolean = true,
     onLog: (text: String) -> Unit = {},
@@ -32,6 +34,7 @@ fun doOnGlobal(
     }
 }
 
+@DelicateCoroutinesApi
 fun doOnUI(
     enableLog: Boolean = true,
     onLog: (text: String) -> Unit = {},
@@ -44,6 +47,7 @@ fun doOnUI(
     }
 }
 
+@DelicateCoroutinesApi
 fun doOnMain(
     enableLog: Boolean = true,
     onLog: (text: String) -> Unit = {},

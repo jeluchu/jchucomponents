@@ -40,12 +40,12 @@ fun Context.openPhoneCall(number: String) = startActivity(
  * [Context] Extension to share a message via social networks
  * or any instant messaging application
  *
- * @param title [String] title to be displayed in the selector
+ * @param title [String] title to be displayed in the selector (by default is empty)
  * @param message [String] message to be sent
  *
  */
 fun Context.share(
-    title: String,
+    title: String = String.empty(),
     message: String
 ) = with(Intent()) {
     action = Intent.ACTION_SEND
@@ -59,7 +59,7 @@ fun Context.share(
  * [Context] Extension to share a message with image
  * via social networks or any instant messaging application
  *
- * @param title [String] title to be displayed in the selector
+ * @param title [String] title to be displayed in the selector (by default is empty)
  * @param imageName [String] name of image to be sent
  * @param message [String] message to be sent
  * @param bitmap [Bitmap] image to be sent
@@ -67,7 +67,7 @@ fun Context.share(
  */
 @Suppress("DEPRECATION")
 fun Context.share(
-    title: String,
+    title: String = String.empty(),
     imageName: String,
     message: String,
     bitmap: Bitmap
@@ -93,13 +93,13 @@ fun Context.share(
  * [Context] Extension to share a message with image
  * via social networks or any instant messaging application
  *
- * @param title [String] title to be displayed in the selector
+ * @param title [String] title to be displayed in the selector (by default is empty)
  * @param message [String] message to be sent
  * @param uri [Uri] uri to be sent
  *
  */
 fun Context.share(
-    title: String,
+    title: String = String.empty(),
     message: String,
     uri: Uri
 ) = with(Intent()) {

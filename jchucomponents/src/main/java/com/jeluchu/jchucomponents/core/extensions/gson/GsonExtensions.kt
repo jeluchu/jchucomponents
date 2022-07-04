@@ -31,3 +31,11 @@ fun <T> T.toMap(): Map<String, Any> = convert()
 
 /** Convert an object of type T to type R **/
 inline fun <T, reified R> T.convert(): R = gson.toJson(this).toObject()
+
+/**
+ * Helps to get Map, List, Set or other generic type from Json using Gson.
+ */
+inline fun <reified T: Any> Gson.fromJsonToGeneric(json: String): T {
+    val type = object : TypeToken<T>() {}.type
+    return fromJson(json, type)
+}

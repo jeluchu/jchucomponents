@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -29,6 +30,7 @@ import com.jeluchu.jchucomponents.core.extensions.context.openInCustomTab
 import com.jeluchu.jchucomponents.ui.animations.animateItem
 import com.jeluchu.jchucomponents.ui.cards.DebutCard
 import com.jeluchu.jchucomponents.ui.cards.StoryCard
+import com.jeluchu.jchucomponents.ui.lists.ListColumn
 import com.jeluchu.jchucomponents.ui.sheets.BottomSheetWithCloseDialog
 import com.jeluchu.jchucomponents.ui.textfields.SearchView
 
@@ -52,6 +54,16 @@ class MainActivity : ComponentActivity() {
 
                     val textState = remember { mutableStateOf(TextFieldValue("")) }
                     SearchView(state = textState)
+
+                    data class Algo(val id: Int, val name: String)
+                    val test = listOf(Algo(0, "H"), Algo(1, "o"), Algo(2, "l"), Algo(3, "a"))
+
+                    ListColumn(
+                        items = test,
+                        key = { it.id }
+                    ) { item ->
+                        Text(text = item.name)
+                    }
 
                     StoryCard(
                         modifier = Modifier.animateItem(),

@@ -7,7 +7,6 @@
 package com.jeluchu.jchucomponents.core.extensions.context
 
 import android.Manifest
-import android.annotation.SuppressLint
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
@@ -45,7 +44,6 @@ inline val Context.connectivityManager: ConnectivityManager
  *
  */
 @Suppress("DEPRECATION")
-@SuppressLint("NewApi")
 @RequiresPermission(Manifest.permission.ACCESS_NETWORK_STATE)
 fun Context.checkNetworkState(): Boolean {
 
@@ -140,7 +138,6 @@ fun Context.isRoamingConnection(): Boolean {
  * @see android.net.NetworkCapabilities.NET_CAPABILITY_NOT_ROAMING
  *
  */
-@SuppressLint("NewApi")
 @Suppress("DEPRECATION")
 @RequiresPermission(Manifest.permission.ACCESS_NETWORK_STATE)
 fun Context.isConnectionAvailable(): Boolean {

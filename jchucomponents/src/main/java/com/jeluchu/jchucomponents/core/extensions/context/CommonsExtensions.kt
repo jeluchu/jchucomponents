@@ -43,17 +43,6 @@ val Context.locale: Locale
 
 /**
  *
- * [Context] Extension to perform the initialization of
- * the optimized Shared Preferences within the components
- *
- * @see com.jeluchu.jchucomponents.core.extensions.sharedprefs
- * @see androidx.preference.PreferenceManager
- *
- */
-fun Context.initSharedPrefs() = SharedPrefsHelpers.init(this)
-
-/**
- *
  * [Context] Extension to display a Toast with a short duration
  * period in which a customized toast will be displayed
  *

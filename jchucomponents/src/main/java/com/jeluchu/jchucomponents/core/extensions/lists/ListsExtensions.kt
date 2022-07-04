@@ -27,3 +27,9 @@ fun LazyListState.reenableScrolling(scope: CoroutineScope) {
         scroll(scrollPriority = MutatePriority.PreventUserInput) {}
     }
 }
+
+fun <T> MutableList<T>.addAllIfNotExist(elements: Collection<T>) {
+    for (element in elements) {
+        if (!contains(element)) add(element)
+    }
+}
