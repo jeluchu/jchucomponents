@@ -56,14 +56,6 @@ class MainActivity : ComponentActivity() {
                     SearchView(state = textState)
 
                     data class Algo(val id: Int, val name: String)
-                    val test = listOf(Algo(0, "H"), Algo(1, "o"), Algo(2, "l"), Algo(3, "a"))
-
-                    ListColumn(
-                        items = test,
-                        key = { it.id }
-                    ) { item ->
-                        Text(text = item.name)
-                    }
 
                     StoryCard(
                         modifier = Modifier.animateItem(),
