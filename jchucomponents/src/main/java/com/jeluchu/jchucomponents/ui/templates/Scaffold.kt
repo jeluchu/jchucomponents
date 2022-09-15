@@ -75,10 +75,10 @@ fun <T> ScaffoldStates(
     backgroundColor: Color = MaterialTheme.colors.background,
     contentColor: Color = contentColorFor(backgroundColor),
     isLoading: Boolean = false,
-    list: List<T> = emptyList(),
+    data: List<T> = emptyList(),
     success: @Composable (PaddingValues) -> Unit,
-    failed: @Composable (PaddingValues) -> Unit,
-    loading: @Composable (PaddingValues) -> Unit
+    failed: @Composable (PaddingValues) -> Unit = {},
+    loading: @Composable (PaddingValues) -> Unit = {}
 ) {
 
     Scaffold(
@@ -94,8 +94,8 @@ fun <T> ScaffoldStates(
         contentColor = contentColor
     ) { paddingValues ->
         when {
-            !isLoading && list.isNotEmpty() -> success(paddingValues)
-            !isLoading && list.isEmpty() -> failed(paddingValues)
+            !isLoading && data.isNotEmpty() -> success(paddingValues)
+            !isLoading && data.isEmpty() -> failed(paddingValues)
             isLoading -> loading(paddingValues)
         }
     }
