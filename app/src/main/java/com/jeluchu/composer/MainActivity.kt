@@ -16,6 +16,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -27,6 +28,7 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import com.jeluchu.jchucomponents.core.extensions.context.createQR
 import com.jeluchu.jchucomponents.core.extensions.context.openInCustomTab
+import com.jeluchu.jchucomponents.core.extensions.remember.rememberMutableStateOf
 import com.jeluchu.jchucomponents.ui.animations.animateItem
 import com.jeluchu.jchucomponents.ui.cards.DebutCard
 import com.jeluchu.jchucomponents.ui.cards.StoryCard
@@ -35,6 +37,7 @@ import com.jeluchu.jchucomponents.ui.sheets.BottomSheetWithCloseDialog
 import com.jeluchu.jchucomponents.ui.textfields.SearchView
 
 class MainActivity : ComponentActivity() {
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,6 +48,8 @@ class MainActivity : ComponentActivity() {
 
     @Composable
     fun PhotoSelector() {
+
+        val fieldValue by rememberMutableStateOf(666)
 
         val context = LocalContext.current
 
