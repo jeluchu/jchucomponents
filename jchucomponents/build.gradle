@@ -13,12 +13,12 @@ plugins {
 
 android {
 
-    compileSdkVersion 32
+    compileSdkVersion 33
     buildToolsVersion "30.0.3"
 
     defaultConfig {
         minSdkVersion 21
-        targetSdkVersion 32
+        targetSdkVersion 33
         consumerProguardFiles "consumer-rules.pro"
     }
 
@@ -89,8 +89,8 @@ dependencies {
     implementation("com.google.firebase:firebase-analytics-ktx:21.1.1")
 
     // ACCOMPANIST GOOGLE LIBRARY ------------------------------------------------------------------
-    implementation 'com.google.accompanist:accompanist-systemuicontroller:0.25.0'
-    implementation 'com.google.accompanist:accompanist-navigation-animation:0.25.0'
+    implementation 'com.google.accompanist:accompanist-systemuicontroller:0.25.1'
+    implementation 'com.google.accompanist:accompanist-navigation-animation:0.25.1'
 
     // ANDROIDX LIBRARY ----------------------------------------------------------------------------
     implementation 'androidx.core:core-ktx:1.9.0'
