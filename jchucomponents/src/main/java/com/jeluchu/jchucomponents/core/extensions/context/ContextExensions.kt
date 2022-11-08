@@ -22,6 +22,12 @@ import android.view.LayoutInflater
 import androidx.annotation.DrawableRes
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.graphics.drawable.toBitmapOrNull
+import coil.imageLoader
+import coil.request.CachePolicy
+import coil.request.ErrorResult
+import coil.request.ImageRequest
+import coil.request.SuccessResult
 import com.jeluchu.jchucomponents.core.extensions.coroutines.noCrash
 import com.jeluchu.jchucomponents.core.extensions.intent.INTENT_TYPE_IMG_PNG
 import com.jeluchu.jchucomponents.core.extensions.packageutils.buildIsQAndUp
@@ -140,4 +146,18 @@ fun Context.saveBitmap(
         }
     }
 
+}
+
+suspend fun Context.getImageToBitmap(url: String, force: Boolean = false): Bitmap? {
+    val request = ImageRequest.Builder(this).data(url).apply {
+        if (force) {
+            memoryCachePolicy(CachePolicy.DISABLED)
+            diskCachePolicy(CachePolicy.DISABLED)
+        }
+    }.build()
+
+    return when (val result = imageLoader.execute(request)) {
+        is ErrorResult -> throw result.throwable
+        is SuccessResult -> result.drawable.toBitmapOrNull()
+    }
 }
