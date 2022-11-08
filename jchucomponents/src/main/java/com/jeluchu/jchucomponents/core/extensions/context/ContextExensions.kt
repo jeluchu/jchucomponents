@@ -148,12 +148,17 @@ fun Context.saveBitmap(
 
 }
 
-suspend fun Context.getImageToBitmap(url: String, force: Boolean = false): Bitmap? {
+suspend fun Context.getImageToBitmap(
+    url: String,
+    force: Boolean = false,
+    isHardware: Boolean = false
+): Bitmap? {
     val request = ImageRequest.Builder(this).data(url).apply {
         if (force) {
             memoryCachePolicy(CachePolicy.DISABLED)
             diskCachePolicy(CachePolicy.DISABLED)
         }
+        allowHardware(isHardware)
     }.build()
 
     return when (val result = imageLoader.execute(request)) {
