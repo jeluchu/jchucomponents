@@ -47,16 +47,16 @@ import com.jeluchu.jchucomponents.ui.textfields.CountTextFieldPreview
  * the same value set above this Surface.
  * @param isLoading controls the status of whether the request to the service is loading
  * or has already finished.
- * @param list the list of items to be displayed within the LazyColumn or LazyRow
- * @param success content when service response is success of your screen. The lambda receives an
+ * @param items the list of items to be displayed within the LazyColumn or LazyRow
+ * @param onSuccess content when service response is success of your screen. The lambda receives an
  * [PaddingValues] that should be applied to the content root via Modifier.padding to
  * properly offset top and bottom bars. If you're using VerticalScroller, apply this
  * modifier to the child of the scroller, and not on the scroller itself.
- * @param failed content when service response is failed of your screen. The lambda receives an
+ * @param onFailed content when service response is failed of your screen. The lambda receives an
  * [PaddingValues] that should be applied to the content root via Modifier.padding to
  * properly offset top and bottom bars. If you're using VerticalScroller, apply this
  * modifier to the child of the scroller, and not on the scroller itself.
- * @param loading content when service response is loading of your screen. The lambda receives an
+ * @param onLoading content when service response is loading of your screen. The lambda receives an
  * [PaddingValues] that should be applied to the content root via Modifier.padding to
  * properly offset top and bottom bars. If you're using VerticalScroller, apply this
  * modifier to the child of the scroller, and not on the scroller itself.
@@ -75,29 +75,23 @@ fun <T> ScaffoldStates(
     backgroundColor: Color = MaterialTheme.colors.background,
     contentColor: Color = contentColorFor(backgroundColor),
     isLoading: Boolean = false,
-    data: List<T> = emptyList(),
-    success: @Composable (PaddingValues) -> Unit,
-    failed: @Composable (PaddingValues) -> Unit = {},
-    loading: @Composable (PaddingValues) -> Unit = {}
-) {
-
-    Scaffold(
-        modifier = modifier,
-        scaffoldState = scaffoldState,
-        topBar = topBar,
-        bottomBar = bottomBar,
-        snackbarHost = snackbarHost,
-        floatingActionButton = floatingActionButton,
-        floatingActionButtonPosition = floatingActionButtonPosition,
-        isFloatingActionButtonDocked = isFloatingActionButtonDocked,
-        backgroundColor = backgroundColor,
-        contentColor = contentColor
-    ) { paddingValues ->
-        when {
-            !isLoading && data.isNotEmpty() -> success(paddingValues)
-            !isLoading && data.isEmpty() -> failed(paddingValues)
-            isLoading -> loading(paddingValues)
-        }
-    }
-
+    items: List<T> = emptyList(),
+    onSuccess: @Composable (PaddingValues, List<T>) -> Unit,
+    onFailed: @Composable (PaddingValues) -> Unit = {},
+    onLoading: @Composable (PaddingValues) -> Unit = {}
+) = Scaffold(
+    modifier = modifier,
+    scaffoldState = scaffoldState,
+    topBar = topBar,
+    bottomBar = bottomBar,
+    snackbarHost = snackbarHost,
+    floatingActionButton = floatingActionButton,
+    floatingActionButtonPosition = floatingActionButtonPosition,
+    isFloatingActionButtonDocked = isFloatingActionButtonDocked,
+    backgroundColor = backgroundColor,
+    contentColor = contentColor
+) { paddingValues ->
+    if (isLoading) onLoading(paddingValues)
+    if (items.isNotEmpty()) onSuccess(paddingValues, items)
+    if (!isLoading && items.isEmpty()) onFailed(paddingValues)
 }

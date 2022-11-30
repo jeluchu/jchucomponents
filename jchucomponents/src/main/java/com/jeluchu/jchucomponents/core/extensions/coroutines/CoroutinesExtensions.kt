@@ -6,6 +6,7 @@
 
 package com.jeluchu.jchucomponents.core.extensions.coroutines
 
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -21,7 +22,8 @@ fun noCrash(enableLog: Boolean = true, func: () -> Unit): String? =
         it.message
     }
 
-@DelicateCoroutinesApi
+@OptIn(DelicateCoroutinesApi::class)
+@Deprecated("GlobalScope is delicated api", ReplaceWith("doOnUI or doOnMain"))
 fun doOnGlobal(
     enableLog: Boolean = true,
     onLog: (text: String) -> Unit = {},
@@ -34,30 +36,20 @@ fun doOnGlobal(
     }
 }
 
-@DelicateCoroutinesApi
 fun doOnUI(
     enableLog: Boolean = true,
     onLog: (text: String) -> Unit = {},
     func: suspend () -> Unit,
-) {
-    GlobalScope.launch(Dispatchers.Main) {
-        noCrashSuspend(enableLog) {
-            func()
-        }?.also { onLog(it) }
-    }
+) = CoroutineScope(Dispatchers.Main).launch {
+    noCrashSuspend(enableLog) { func() }?.also { onLog(it) }
 }
 
-@DelicateCoroutinesApi
 fun doOnMain(
     enableLog: Boolean = true,
     onLog: (text: String) -> Unit = {},
     func: suspend () -> Unit,
-) {
-    GlobalScope.launch(Dispatchers.IO) {
-        noCrashSuspend(enableLog) {
-            func()
-        }?.also { onLog(it) }
-    }
+) = CoroutineScope(Dispatchers.IO).launch {
+    noCrashSuspend(enableLog) { func() }?.also { onLog(it) }
 }
 
 suspend fun noCrashSuspend(enableLog: Boolean = true, func: suspend () -> Unit): String? =

@@ -41,3 +41,15 @@ inline val buildIsOAndUp: Boolean
 inline val buildIsQAndUp: Boolean
     @ChecksSdkIntAtLeast(api = Build.VERSION_CODES.Q)
     get() = Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q
+
+inline val buildIsRAndUp: Boolean
+    @ChecksSdkIntAtLeast(api = Build.VERSION_CODES.R)
+    get() = Build.VERSION.SDK_INT >= Build.VERSION_CODES.R
+
+inline val buildIsSAndUp: Boolean
+    @ChecksSdkIntAtLeast(api = Build.VERSION_CODES.S)
+    get() = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
+
+inline val buildIsTiramisuAndUp: Boolean
+    @ChecksSdkIntAtLeast(api = Build.VERSION_CODES.TIRAMISU)
+    get() = Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU

@@ -166,3 +166,19 @@ suspend fun Context.getImageToBitmap(
         is SuccessResult -> result.drawable.toBitmapOrNull()
     }
 }
+
+fun Context.openPlaystoreSubscriptions(
+    productId: String,
+    packageName: String
+) {
+    runCatching {
+        startActivity(
+            Intent(
+                Intent.ACTION_VIEW,
+                Uri.parse("https://play.google.com/store/account/subscriptions?sku=$productId&package=$packageName")
+            )
+        )
+    }.getOrElse {
+        it.printStackTrace()
+    }
+}
