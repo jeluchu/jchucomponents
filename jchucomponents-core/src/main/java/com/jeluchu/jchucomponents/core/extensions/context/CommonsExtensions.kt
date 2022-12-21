@@ -18,11 +18,10 @@ import androidx.annotation.ColorRes
 import androidx.browser.customtabs.CustomTabColorSchemeParams
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.core.content.ContextCompat
+import com.jeluchu.jchucomponents.core.R
 import com.jeluchu.jchucomponents.core.extensions.packageutils.buildIsMarshmallowAndUp
 import com.jeluchu.jchucomponents.core.extensions.packageutils.buildIsNougatAndUp
-import com.jeluchu.jchucomponents.core.extensions.sharedprefs.SharedPrefsHelpers
 import com.jeluchu.jchucomponents.utils.broadcast.ShareBroadcastReceiver
-import com.jeluchu.jchucomponents.R
 import java.io.File
 import java.util.*
 

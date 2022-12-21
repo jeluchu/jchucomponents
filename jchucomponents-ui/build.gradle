@@ -31,7 +31,7 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
-    namespace 'com.jeluchu.jchucomponents'
+    namespace 'com.jeluchu.jchucomponents.ui'
 
 }
 
