@@ -14,7 +14,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -32,7 +31,6 @@ import com.jeluchu.jchucomponents.core.extensions.remember.rememberMutableStateO
 import com.jeluchu.jchucomponents.ui.animations.animateItem
 import com.jeluchu.jchucomponents.ui.cards.DebutCard
 import com.jeluchu.jchucomponents.ui.cards.StoryCard
-import com.jeluchu.jchucomponents.ui.lists.ListColumn
 import com.jeluchu.jchucomponents.ui.sheets.BottomSheetWithCloseDialog
 import com.jeluchu.jchucomponents.ui.textfields.SearchView
 

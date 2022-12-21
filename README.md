@@ -16,7 +16,7 @@ Versions released prior to v1.x.x can still be used although it is not recommend
 **For Gradle:**
 
 Add the maven repository:
-  >
+>
       allprojects {
 		    repositories {
 			    ...
@@ -25,10 +25,10 @@ Add the maven repository:
       }
 
 
-Add the **jchucomponents-compose** dependencies 
+Add the **jchucomponents-compose** dependencies
 
 ***Gradle:***
-  >
+>
     dependencies {
           implementation 'com.github.Jeluchu:jchucomponents-compose:0.10.0'
     }
@@ -43,20 +43,20 @@ Add the maven repository:
             maven("https://jitpack.io")  
         }  
     }
-    
-Add the **jchucomponents-compose** dependencies 
 
-  >
+Add the **jchucomponents-compose** dependencies
+
+>
     dependencies {
           implementation("com.github.Jeluchu:jchucomponents-compose:0.10.0")
     }
 
 
 
-These versions used `JavaVersion.VERSION_1_8` please take this into account to adjust your project with the compatible versions as it may cause problems when compiling your project
+These versions used `JavaVersion.VERSION_11` please take this into account to adjust your project with the compatible versions as it may cause problems when compiling your project
 ```
-sourceCompatibility JavaVersion.VERSION_1_8
-targetCompatibility JavaVersion.VERSION_1_8
+sourceCompatibility JavaVersion.VERSION_11
+targetCompatibility JavaVersion.VERSION_11
 ```
 
 ##  Use Library
@@ -71,7 +71,7 @@ thanks to it you will learn how to use the library.
 
 At the moment we do not have a publishing mechanism to a maven repository so the easiest way to add the library to your app is via a JitPack Dependency [![](https://jitpack.io/v/jeluchu/jchucomponents.svg)](https://jitpack.io/#jeluchu/jchucomponents)
 
-  >
+>
       allprojects {
 		    repositories {
 			    ...
@@ -79,10 +79,18 @@ At the moment we do not have a publishing mechanism to a maven repository so the
     	  }
       }
 
+Add the **jchucomponents** dependencies, it include jchucomponents-core library and its library dependencies.
 
-  >
+>
     dependencies {
-          implementation 'com.github.Jeluchu:jchucomponents-compose:Tag'
+          implementation 'com.github.jeluchu.jchucomponents:jchucomponents-core:1.x.x'
+    }
+
+If you want to get the design components in Jetpack Compose, you will need to include jchucomponents-ui library and its library dependencies
+
+>
+    dependencies {
+          implementation 'com.github.jeluchu.jchucomponents:jchucomponents-ui:1.x.x'
     }
 
 ###  As a git submodule

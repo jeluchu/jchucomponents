@@ -1,6 +1,6 @@
 @file:Suppress("unused")
 
-package com.jeluchu.jchucomponents.ui.icon
+package com.jeluchu.jchucomponents.ui.foundation.icon
 
 import androidx.annotation.StringRes
 import androidx.compose.material.LocalContentColor

@@ -3,8 +3,9 @@ package com.jeluchu.jchucomponents.ui.foundation.text
 import androidx.annotation.StringRes
 import androidx.compose.material.LocalContentColor
 import androidx.compose.material.LocalTextStyle
-import androidx.compose.material.Text
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.NonRestartableComposable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
@@ -68,6 +69,7 @@ import androidx.compose.ui.unit.TextUnit
  *
  */
 @Composable
+@NonRestartableComposable
 fun Text(
     @StringRes text: Int,
     modifier: Modifier = Modifier,

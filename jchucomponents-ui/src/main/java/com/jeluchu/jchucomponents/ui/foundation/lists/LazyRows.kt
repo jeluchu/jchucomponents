@@ -1,6 +1,6 @@
 @file:Suppress("unused")
 
-package com.jeluchu.jchucomponents.ui.lists
+package com.jeluchu.jchucomponents.ui.foundation.lists
 
 import androidx.compose.foundation.gestures.FlingBehavior
 import androidx.compose.foundation.gestures.ScrollableDefaults
@@ -11,7 +11,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.jeluchu.jchucomponents.ui.lists.composition.ListNotOverScroll
 
 /**
  *
@@ -33,23 +32,23 @@ import com.jeluchu.jchucomponents.ui.lists.composition.ListNotOverScroll
  * @param contentPadding a padding around the whole content. This will add padding for the
  * content after it has been clipped, which is not possible via [modifier] param. You can use it
  * to add a padding before the first item or after the last one. If you want to add a spacing
- * between each item use [verticalArrangement]
+ * between each item use [horizontalArrangement]
  * @param reverseLayout reverse the direction of scrolling and layout. When `true`, items are
  * laid out in the reverse order and [LazyListState.firstVisibleItemIndex] == 0 means
  * that column is scrolled to the bottom. Note that [reverseLayout] does not change the behavior of
- * [verticalArrangement],
+ * [horizontalArrangement],
  * e.g. with [Arrangement.Top] (top) 123### (bottom) becomes (top) 321### (bottom)
- * @param verticalArrangement The vertical arrangement of the layout's children. This allows
+ * @param horizontalArrangement The horizontal arrangement of the layout's children. This allows
  * adding a spacing between items and specifying the arrangement of the items when we have not enough
- * of them to fill the whole minimum size
- * @param horizontalAlignment the horizontal alignment applied to the items
+ * of them to fill the whole minimum size.
+ * @param verticalAlignment the vertical alignment applied to the items
  * @param flingBehavior logic describing fling behavior
  * @param userScrollEnabled whether the scrolling via the user gestures or accessibility actions
  * is allowed. You can still scroll programmatically, using the state even when it is disabled
  * @param itemContent the content displayed by a single item
  */
 @Composable
-inline fun <T> LazyColumnFor(
+inline fun <T> LazyRowFor(
     items: Array<T>,
     modifier: Modifier = Modifier,
     noinline key: ((item: T) -> Any)? = null,
@@ -57,19 +56,19 @@ inline fun <T> LazyColumnFor(
     state: LazyListState = rememberLazyListState(),
     contentPadding: PaddingValues = PaddingValues(0.dp),
     reverseLayout: Boolean = false,
-    verticalArrangement: Arrangement.Vertical =
-        if (!reverseLayout) Arrangement.Top else Arrangement.Bottom,
-    horizontalAlignment: Alignment.Horizontal = Alignment.Start,
+    horizontalArrangement: Arrangement.Horizontal =
+        if (!reverseLayout) Arrangement.Start else Arrangement.End,
+    verticalAlignment: Alignment.Vertical = Alignment.Top,
     flingBehavior: FlingBehavior = ScrollableDefaults.flingBehavior(),
     userScrollEnabled: Boolean = true,
     crossinline itemContent: @Composable (LazyItemScope.(item: T) -> Unit)
-) = LazyColumn(
+) = LazyRow(
     modifier = modifier,
     state = state,
     contentPadding = contentPadding,
     reverseLayout = reverseLayout,
-    verticalArrangement = verticalArrangement,
-    horizontalAlignment = horizontalAlignment,
+    horizontalArrangement = horizontalArrangement,
+    verticalAlignment = verticalAlignment,
     flingBehavior = flingBehavior,
     userScrollEnabled = userScrollEnabled,
     content = { items(items, key, contentType, itemContent) }
@@ -77,7 +76,7 @@ inline fun <T> LazyColumnFor(
 
 /**
  *
- * The vertical scrolling list that only composes and lays out the currently visible items.
+ * The horizontal scrolling list that only composes and lays out the currently visible items.
  * This composable shows only [Array] of items.
  *
  * @param items the data array
@@ -95,24 +94,24 @@ inline fun <T> LazyColumnFor(
  * @param contentPadding a padding around the whole content. This will add padding for the
  * content after it has been clipped, which is not possible via [modifier] param. You can use it
  * to add a padding before the first item or after the last one. If you want to add a spacing
- * between each item use [verticalArrangement]
+ * between each item use [horizontalArrangement]
  * @param reverseLayout reverse the direction of scrolling and layout. When `true`, items are
  * laid out in the reverse order and [LazyListState.firstVisibleItemIndex] == 0 means
  * that column is scrolled to the bottom. Note that [reverseLayout] does not change the behavior of
- * [verticalArrangement],
+ * [horizontalArrangement],
  * e.g. with [Arrangement.Top] (top) 123### (bottom) becomes (top) 321### (bottom)
- * @param verticalArrangement The vertical arrangement of the layout's children. This allows
+ * @param horizontalArrangement The horizontal arrangement of the layout's children. This allows
  * adding a spacing between items and specifying the arrangement of the items when we have not enough
- * of them to fill the whole minimum size
- * @param horizontalAlignment the horizontal alignment applied to the items
+ * of them to fill the whole minimum size.
+ * @param verticalAlignment the vertical alignment applied to the items
  * @param flingBehavior logic describing fling behavior
  * @param userScrollEnabled whether the scrolling via the user gestures or accessibility actions
  * is allowed. You can still scroll programmatically, using the state even when it is disabled
  * @param itemContent the content displayed by a single item
- *
  */
+@Suppress("unused")
 @Composable
-inline fun <T> LazyColumnForIndexed(
+inline fun <T> LazyRowForIndexed(
     items: Array<T>,
     modifier: Modifier = Modifier,
     noinline key: ((index: Int, item: T) -> Any)? = null,
@@ -120,19 +119,19 @@ inline fun <T> LazyColumnForIndexed(
     state: LazyListState = rememberLazyListState(),
     contentPadding: PaddingValues = PaddingValues(0.dp),
     reverseLayout: Boolean = false,
-    verticalArrangement: Arrangement.Vertical =
-        if (!reverseLayout) Arrangement.Top else Arrangement.Bottom,
-    horizontalAlignment: Alignment.Horizontal = Alignment.Start,
+    horizontalArrangement: Arrangement.Horizontal =
+        if (!reverseLayout) Arrangement.Start else Arrangement.End,
+    verticalAlignment: Alignment.Vertical = Alignment.Top,
     flingBehavior: FlingBehavior = ScrollableDefaults.flingBehavior(),
     userScrollEnabled: Boolean = true,
     crossinline itemContent: @Composable (LazyItemScope.(index: Int, item: T) -> Unit)
-) = LazyColumn(
+) = LazyRow(
     modifier = modifier,
     state = state,
     contentPadding = contentPadding,
     reverseLayout = reverseLayout,
-    verticalArrangement = verticalArrangement,
-    horizontalAlignment = horizontalAlignment,
+    horizontalArrangement = horizontalArrangement,
+    verticalAlignment = verticalAlignment,
     flingBehavior = flingBehavior,
     userScrollEnabled = userScrollEnabled,
     content = { itemsIndexed(items, key, contentType, itemContent) }
@@ -140,7 +139,7 @@ inline fun <T> LazyColumnForIndexed(
 
 /**
  *
- * The vertical scrolling list that only composes and lays out the currently visible items.
+ * The horizontal scrolling list that only composes and lays out the currently visible items.
  * This composable shows only [List] of items.
  *
  * @param count items count
@@ -158,51 +157,52 @@ inline fun <T> LazyColumnForIndexed(
  * @param contentPadding a padding around the whole content. This will add padding for the
  * content after it has been clipped, which is not possible via [modifier] param. You can use it
  * to add a padding before the first item or after the last one. If you want to add a spacing
- * between each item use [verticalArrangement]
+ * between each item use [horizontalArrangement]
  * @param reverseLayout reverse the direction of scrolling and layout. When `true`, items are
  * laid out in the reverse order and [LazyListState.firstVisibleItemIndex] == 0 means
  * that column is scrolled to the bottom. Note that [reverseLayout] does not change the behavior of
- * [verticalArrangement],
+ * [horizontalArrangement],
  * e.g. with [Arrangement.Top] (top) 123### (bottom) becomes (top) 321### (bottom)
- * @param verticalArrangement The vertical arrangement of the layout's children. This allows
+ * @param horizontalArrangement The horizontal arrangement of the layout's children. This allows
  * adding a spacing between items and specifying the arrangement of the items when we have not enough
- * of them to fill the whole minimum size
- * @param horizontalAlignment the horizontal alignment applied to the items
+ * of them to fill the whole minimum size.
+ * @param verticalAlignment the vertical alignment applied to the items
  * @param flingBehavior logic describing fling behavior
  * @param userScrollEnabled whether the scrolling via the user gestures or accessibility actions
  * is allowed. You can still scroll programmatically, using the state even when it is disabled
  * @param itemContent the content displayed by a single item
- *
  */
+@Suppress("NOTHING_TO_INLINE", "unused")
 @Composable
-fun LazyColumnFor(
+inline fun LazyRowFor(
     count: Int,
     modifier: Modifier = Modifier,
-    key: ((index: Int) -> Any)? = null,
-    contentType: (index: Int) -> Any? = { null },
+    noinline key: ((index: Int) -> Any)? = null,
+    noinline contentType: (index: Int) -> Any? = { null },
     state: LazyListState = rememberLazyListState(),
     contentPadding: PaddingValues = PaddingValues(0.dp),
     reverseLayout: Boolean = false,
-    verticalArrangement: Arrangement.Vertical =
-        if (!reverseLayout) Arrangement.Top else Arrangement.Bottom,
-    horizontalAlignment: Alignment.Horizontal = Alignment.Start,
+    horizontalArrangement: Arrangement.Horizontal =
+        if (!reverseLayout) Arrangement.Start else Arrangement.End,
+    verticalAlignment: Alignment.Vertical = Alignment.Top,
     flingBehavior: FlingBehavior = ScrollableDefaults.flingBehavior(),
     userScrollEnabled: Boolean = true,
-    itemContent: @Composable LazyItemScope.(index: Int) -> Unit
-) = LazyColumn(
+    noinline itemContent: @Composable LazyItemScope.(index: Int) -> Unit
+) = LazyRow(
     modifier = modifier,
     state = state,
     contentPadding = contentPadding,
     reverseLayout = reverseLayout,
-    verticalArrangement = verticalArrangement,
-    horizontalAlignment = horizontalAlignment,
+    horizontalArrangement = horizontalArrangement,
+    verticalAlignment = verticalAlignment,
     flingBehavior = flingBehavior,
     userScrollEnabled = userScrollEnabled,
     content = { items(count, key, contentType, itemContent) }
 )
 
 /**
- * The vertical scrolling list that only composes and lays out the currently visible items.
+ *
+ * The horizontal scrolling list that only composes and lays out the currently visible items.
  * This composable shows only [List] of items.
  *
  * @param items the data list
@@ -220,23 +220,23 @@ fun LazyColumnFor(
  * @param contentPadding a padding around the whole content. This will add padding for the
  * content after it has been clipped, which is not possible via [modifier] param. You can use it
  * to add a padding before the first item or after the last one. If you want to add a spacing
- * between each item use [verticalArrangement]
+ * between each item use [horizontalArrangement]
  * @param reverseLayout reverse the direction of scrolling and layout. When `true`, items are
  * laid out in the reverse order and [LazyListState.firstVisibleItemIndex] == 0 means
  * that column is scrolled to the bottom. Note that [reverseLayout] does not change the behavior of
- * [verticalArrangement],
+ * [horizontalArrangement],
  * e.g. with [Arrangement.Top] (top) 123### (bottom) becomes (top) 321### (bottom)
- * @param verticalArrangement The vertical arrangement of the layout's children. This allows
+ * @param horizontalArrangement The horizontal arrangement of the layout's children. This allows
  * adding a spacing between items and specifying the arrangement of the items when we have not enough
- * of them to fill the whole minimum size
- * @param horizontalAlignment the horizontal alignment applied to the items
+ * of them to fill the whole minimum size.
+ * @param verticalAlignment the vertical alignment applied to the items
  * @param flingBehavior logic describing fling behavior
  * @param userScrollEnabled whether the scrolling via the user gestures or accessibility actions
  * is allowed. You can still scroll programmatically, using the state even when it is disabled
  * @param itemContent the content displayed by a single item
  */
 @Composable
-inline fun <T> LazyColumnFor(
+inline fun <T> LazyRowFor(
     items: List<T>,
     modifier: Modifier = Modifier,
     noinline key: ((item: T) -> Any)? = null,
@@ -244,19 +244,19 @@ inline fun <T> LazyColumnFor(
     state: LazyListState = rememberLazyListState(),
     contentPadding: PaddingValues = PaddingValues(0.dp),
     reverseLayout: Boolean = false,
-    verticalArrangement: Arrangement.Vertical =
-        if (!reverseLayout) Arrangement.Top else Arrangement.Bottom,
-    horizontalAlignment: Alignment.Horizontal = Alignment.Start,
+    horizontalArrangement: Arrangement.Horizontal =
+        if (!reverseLayout) Arrangement.Start else Arrangement.End,
+    verticalAlignment: Alignment.Vertical = Alignment.Top,
     flingBehavior: FlingBehavior = ScrollableDefaults.flingBehavior(),
     userScrollEnabled: Boolean = true,
     crossinline itemContent: @Composable (LazyItemScope.(item: T) -> Unit)
-) = LazyColumn(
+) = LazyRow(
     modifier = modifier,
     state = state,
     contentPadding = contentPadding,
     reverseLayout = reverseLayout,
-    verticalArrangement = verticalArrangement,
-    horizontalAlignment = horizontalAlignment,
+    horizontalArrangement = horizontalArrangement,
+    verticalAlignment = verticalAlignment,
     flingBehavior = flingBehavior,
     userScrollEnabled = userScrollEnabled,
     content = { items(items, key, contentType, itemContent) }
@@ -264,7 +264,7 @@ inline fun <T> LazyColumnFor(
 
 /**
  *
- * The vertical scrolling list that only composes and lays out the currently visible items.
+ * The horizontal scrolling list that only composes and lays out the currently visible items.
  * This composable shows only [List] of items.
  *
  * @param items the data list
@@ -282,23 +282,24 @@ inline fun <T> LazyColumnFor(
  * @param contentPadding a padding around the whole content. This will add padding for the
  * content after it has been clipped, which is not possible via [modifier] param. You can use it
  * to add a padding before the first item or after the last one. If you want to add a spacing
- * between each item use [verticalArrangement]
+ * between each item use [horizontalArrangement]
  * @param reverseLayout reverse the direction of scrolling and layout. When `true`, items are
  * laid out in the reverse order and [LazyListState.firstVisibleItemIndex] == 0 means
  * that column is scrolled to the bottom. Note that [reverseLayout] does not change the behavior of
- * [verticalArrangement],
+ * [horizontalArrangement],
  * e.g. with [Arrangement.Top] (top) 123### (bottom) becomes (top) 321### (bottom)
- * @param verticalArrangement The vertical arrangement of the layout's children. This allows
+ * @param horizontalArrangement The vertical arrangement of the layout's children. This allows
  * adding a spacing between items and specifying the arrangement of the items when we have not enough
  * of them to fill the whole minimum size
- * @param horizontalAlignment the horizontal alignment applied to the items
+ * @param verticalAlignment the horizontal alignment applied to the items
  * @param flingBehavior logic describing fling behavior
  * @param userScrollEnabled whether the scrolling via the user gestures or accessibility actions
  * is allowed. You can still scroll programmatically, using the state even when it is disabled
  * @param itemContent the content displayed by a single item
  */
+@Suppress("unused")
 @Composable
-inline fun <T> LazyColumnForIndexed(
+inline fun <T> LazyRowForIndexed(
     items: List<T>,
     modifier: Modifier = Modifier,
     noinline key: ((index: Int, item: T) -> Any)? = null,
@@ -306,71 +307,71 @@ inline fun <T> LazyColumnForIndexed(
     state: LazyListState = rememberLazyListState(),
     contentPadding: PaddingValues = PaddingValues(0.dp),
     reverseLayout: Boolean = false,
-    verticalArrangement: Arrangement.Vertical =
-        if (!reverseLayout) Arrangement.Top else Arrangement.Bottom,
-    horizontalAlignment: Alignment.Horizontal = Alignment.Start,
+    horizontalArrangement: Arrangement.Horizontal =
+        if (!reverseLayout) Arrangement.Start else Arrangement.End,
+    verticalAlignment: Alignment.Vertical = Alignment.Top,
     flingBehavior: FlingBehavior = ScrollableDefaults.flingBehavior(),
     userScrollEnabled: Boolean = true,
     crossinline itemContent: @Composable (LazyItemScope.(index: Int, item: T) -> Unit)
-) = LazyColumn(
+) = LazyRow(
     modifier = modifier,
     state = state,
     contentPadding = contentPadding,
     reverseLayout = reverseLayout,
-    verticalArrangement = verticalArrangement,
-    horizontalAlignment = horizontalAlignment,
+    horizontalArrangement = horizontalArrangement,
+    verticalAlignment = verticalAlignment,
     flingBehavior = flingBehavior,
     userScrollEnabled = userScrollEnabled,
     content = { itemsIndexed(items, key, contentType, itemContent) }
 )
 
 @Composable
-fun ListColumn(
+fun ListRow(
     modifier: Modifier = Modifier,
     contentPadding: PaddingValues = PaddingValues(),
-    verticalArrangement: Arrangement.Vertical = Arrangement.Top,
-    horizontalAlignment: Alignment.Horizontal = Alignment.Start,
+    verticalAlignment: Alignment.Vertical = Alignment.Top,
+    horizontalArrangement: Arrangement.Horizontal = Arrangement.Start,
     content: LazyListScope.() -> Unit
-) = ListNotOverScroll {
-    LazyColumn(
+) = com.jeluchu.jchucomponents.ui.foundation.lists.composition.ListNotOverScroll {
+    LazyRow(
         modifier = modifier,
         contentPadding = contentPadding,
-        verticalArrangement = verticalArrangement,
-        horizontalAlignment = horizontalAlignment,
+        horizontalArrangement = horizontalArrangement,
+        verticalAlignment = verticalAlignment,
         content = content
     )
 }
 
 @Composable
-fun <T> ListColumn(
+fun <T> ListRow(
     modifier: Modifier = Modifier,
     contentPadding: PaddingValues = PaddingValues(),
-    verticalArrangement: Arrangement.Vertical = Arrangement.Top,
-    horizontalAlignment: Alignment.Horizontal = Alignment.Start,
+    verticalAlignment: Alignment.Vertical = Alignment.Top,
+    horizontalArrangement: Arrangement.Horizontal = Arrangement.Start,
     items: List<T> = emptyList(),
     content: @Composable (T) -> Unit
-) = ListNotOverScroll {
-    LazyColumn(
+) = com.jeluchu.jchucomponents.ui.foundation.lists.composition.ListNotOverScroll {
+    LazyRow(
         modifier = modifier,
         contentPadding = contentPadding,
-        verticalArrangement = verticalArrangement,
-        horizontalAlignment = horizontalAlignment,
+        horizontalArrangement = horizontalArrangement,
+        verticalAlignment = verticalAlignment,
     ) { items(items) { item -> content(item) } }
 }
 
 @Composable
-fun <T> ListColumn(
+fun <T> ListRow(
     modifier: Modifier = Modifier,
     contentPadding: PaddingValues = PaddingValues(),
-    verticalArrangement: Arrangement.Vertical = Arrangement.Top,
-    horizontalAlignment: Alignment.Horizontal = Alignment.Start,
+    verticalAlignment: Alignment.Vertical = Alignment.Top,
+    horizontalArrangement: Arrangement.Horizontal = Arrangement.Start,
     items: List<T> = emptyList(),
     content: @Composable (Int, T) -> Unit
-) = ListNotOverScroll {
-    LazyColumn(
+) = com.jeluchu.jchucomponents.ui.foundation.lists.composition.ListNotOverScroll {
+    LazyRow(
         modifier = modifier,
         contentPadding = contentPadding,
-        verticalArrangement = verticalArrangement,
-        horizontalAlignment = horizontalAlignment,
+        horizontalArrangement = horizontalArrangement,
+        verticalAlignment = verticalAlignment,
     ) { itemsIndexed(items) { index, item -> content(index, item) } }
 }

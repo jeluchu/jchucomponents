@@ -4,7 +4,7 @@
  *
  */
 
-package com.jeluchu.jchucomponents.ui.lists.column
+package com.jeluchu.jchucomponents.ui.foundation.lists
 
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.Spring

@@ -6,9 +6,11 @@
 
 package com.jeluchu.jchucomponents.ui.loaders
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
@@ -33,19 +35,12 @@ fun CircularLoading(
     colorLoading: Color = Color.Black
 ) {
 
-    ConstraintLayout(modifier = Modifier.fillMaxSize()) {
-
-        val (progress) = createRefs()
+    Box(modifier = Modifier.fillMaxSize()) {
 
         if (isShow) {
             CircularProgressIndicator(
-                color = colorLoading,
-                modifier = Modifier.constrainAs(progress) {
-                    start.linkTo(parent.start)
-                    end.linkTo(parent.end)
-                    top.linkTo(parent.top)
-                    bottom.linkTo(parent.bottom)
-                }
+                modifier = Modifier.align(Alignment.Center),
+                color = colorLoading
             )
         }
 
