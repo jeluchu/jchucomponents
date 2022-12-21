@@ -1,4 +1,4 @@
-package com.jeluchu.jchucomponents.ui.text
+package com.jeluchu.jchucomponents.ui.foundation.text
 
 import androidx.annotation.StringRes
 import androidx.compose.material.LocalContentColor

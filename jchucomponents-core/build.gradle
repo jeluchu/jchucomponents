@@ -119,7 +119,7 @@ afterEvaluate {
             release(MavenPublication) {
                 from components.release
                 groupId = "com.jeluchu"
-                artifactId = "jchucomponents"
+                artifactId = "jchucomponents-core"
                 version = "1.0.0-beta09"
             }
         }
