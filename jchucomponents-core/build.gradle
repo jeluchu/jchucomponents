@@ -36,7 +36,6 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
-    namespace 'com.jeluchu.jchucomponents.core'
 
     dokkaHtml.configure {
 
@@ -59,6 +58,8 @@ android {
             }
         }
     }
+
+    namespace 'com.jeluchu.jchucomponents.core'
 
 }
 
@@ -118,9 +119,9 @@ afterEvaluate {
         publications {
             release(MavenPublication) {
                 from components.release
-                groupId = "com.jeluchu"
+                groupId = "com.github.jeluchu"
                 artifactId = "jchucomponents-core"
-                version = "1.0.0-beta09"
+                version = "1.0.0-beta12"
             }
         }
     }
