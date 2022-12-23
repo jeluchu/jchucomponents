@@ -5,6 +5,7 @@ plugins {
     id 'org.jetbrains.dokka'
 }
 
+
 android {
 
     compileSdkVersion 33
@@ -53,27 +54,12 @@ android {
         }
     }
 
-    namespace 'com.jeluchu.jchucomponents.ui'
+    namespace 'com.jeluchu.jchucomponents.ktx'
 
 }
 
 dependencies {
-    implementation platform('androidx.compose:compose-bom:2022.12.00')
-    implementation 'androidx.compose.ui:ui'
-    implementation 'androidx.compose.material:material'
-    implementation 'androidx.compose.material3:material3'
-    implementation 'androidx.compose.ui:ui-tooling-preview'
-    debugImplementation 'androidx.compose.ui:ui-tooling'
-    implementation 'androidx.compose.material:material-icons-extended'
-    implementation 'androidx.compose.foundation:foundation'
-    implementation 'androidx.compose.foundation:foundation-layout'
-    implementation 'androidx.compose.animation:animation'
-    implementation 'androidx.compose.runtime:runtime'
-    implementation 'androidx.compose.runtime:runtime-livedata'
     implementation 'androidx.navigation:navigation-compose:2.5.3'
-    implementation 'androidx.constraintlayout:constraintlayout-compose:1.0.1'
-    implementation 'androidx.core:core-splashscreen:1.0.0'
-    implementation 'com.google.accompanist:accompanist-systemuicontroller:0.28.0'
 }
 
 afterEvaluate {
@@ -82,7 +68,7 @@ afterEvaluate {
             release(MavenPublication) {
                 from components.release
                 groupId = "com.github.jeluchu"
-                artifactId = "jchucomponents-ui"
+                artifactId = "jchucomponents-ktx"
                 version = "1.0.0-beta13"
             }
         }

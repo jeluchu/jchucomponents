@@ -9,3 +9,4 @@ rootProject.name = "JchuComponents"
 include ':jchucomponents-core',
         ':jchucomponents-ui',
         'app'
+include ':jchucomponents-ktx'

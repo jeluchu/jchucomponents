@@ -14,3 +14,9 @@ val green700 = Color(0xff388e3c)
 
 val artichoke = Color(0xFFA29574)
 val cosmicLatte = Color(0xFFFEF8E4)
+
+val blueBell = Color(0xFF9CA6D9)
+val cell = Color(0xFF8793CC)
+val darkPastelBlue = Color(0xFF7C8AC5)
+val toolbox = Color(0xFF7280BF)
+val glaucous = Color(0xFF6777B8)

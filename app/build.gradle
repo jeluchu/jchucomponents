@@ -51,6 +51,7 @@ dependencies {
 
     implementation project(':jchucomponents-core')
     implementation project(':jchucomponents-ui')
+    implementation project(':jchucomponents-ktx')
 
     // JETPACK COMPOSE -----------------------------------------------------------------------------
     implementation platform('androidx.compose:compose-bom:2022.11.00')

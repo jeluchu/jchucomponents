@@ -25,7 +25,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import kotlin.random.Random
 
-@OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun Particles(
     modifier: Modifier,

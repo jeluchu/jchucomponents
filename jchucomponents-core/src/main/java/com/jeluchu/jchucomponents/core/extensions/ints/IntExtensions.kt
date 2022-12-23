@@ -35,12 +35,6 @@ fun Float?.orEmpty(defaultValue: Float = Float.empty()): Float = this ?: default
 fun Long.Companion.empty() = 0L
 fun Long?.orEmpty(defaultValue: Long = Long.empty()): Long =  this ?: defaultValue
 
-fun Int.fixedDecimalsTime(): String {
-    val decimalFormat = DecimalFormat("00")
-    decimalFormat.roundingMode = RoundingMode.DOWN
-    return decimalFormat.format(this)
-}
-
 fun Int.milliSecondsToTimer(): String {
 
     var finalTimerString = String.empty()

@@ -52,20 +52,17 @@ fun Tag(
     shape: Shape = RoundedCornerShape(4.dp),
     style: TextStyle = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Bold),
     navigateToScreen: () -> Unit = {}
-) {
-    val tagModifier = modifier
+) = Text(
+    modifier = modifier
         .padding(4.dp)
         .clickable(onClick = navigateToScreen)
         .clip(shape = shape)
         .background(colors.backgroundColor(enabled = true).value)
-        .padding(horizontal = 8.dp, vertical = 4.dp)
-    Text(
-        text = title,
-        color = colors.contentColor(enabled = true).value,
-        modifier = tagModifier,
-        style = style
-    )
-}
+        .padding(horizontal = 8.dp, vertical = 4.dp),
+    text = title,
+    color = colors.contentColor(enabled = true).value,
+    style = style
+)
 
 @Stable
 interface TagColors {
@@ -98,4 +95,10 @@ object TagDefaults {
         backgroundColor: Color = Color.White.copy(alpha = .2f),
         contentColor: Color = Color.White
     ): TagColors = DefaultTagColors(backgroundColor = backgroundColor, contentColor = contentColor)
+}
+
+@Preview
+@Composable
+fun TagPreview() {
+    Tag(title = "Hello world")
 }

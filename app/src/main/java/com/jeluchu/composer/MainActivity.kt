@@ -27,8 +27,9 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import com.jeluchu.jchucomponents.core.extensions.context.createQR
 import com.jeluchu.jchucomponents.core.extensions.context.openInCustomTab
-import com.jeluchu.jchucomponents.core.extensions.remember.rememberMutableStateOf
-import com.jeluchu.jchucomponents.ui.animations.animateItem
+import com.jeluchu.jchucomponents.core.extensions.strings.empty
+import com.jeluchu.jchucomponents.ui.runtime.remember.rememberMutableStateOf
+import com.jeluchu.jchucomponents.ui.animations.lists.animateItem
 import com.jeluchu.jchucomponents.ui.cards.DebutCard
 import com.jeluchu.jchucomponents.ui.cards.StoryCard
 import com.jeluchu.jchucomponents.ui.sheets.BottomSheetWithCloseDialog
@@ -55,7 +56,7 @@ class MainActivity : ComponentActivity() {
             Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
                 Column(horizontalAlignment = Alignment.CenterHorizontally) {
 
-                    val textState = remember { mutableStateOf(TextFieldValue("")) }
+                    val textState = remember { mutableStateOf(String.empty()) }
                     SearchView(state = textState)
 
                     data class Algo(val id: Int, val name: String)
