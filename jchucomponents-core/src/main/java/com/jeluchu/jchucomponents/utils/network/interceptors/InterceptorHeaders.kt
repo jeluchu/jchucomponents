@@ -6,13 +6,12 @@
 
 package com.jeluchu.jchucomponents.utils.network.interceptors
 
-import com.jeluchu.jchucomponents.core.extensions.strings.empty
 import okhttp3.OkHttp
 
 data class InterceptorHeaders(
     val userAgent: UserAgent,
-    val keyHeaderAgent: String = String.empty(),
-    val key: String = String.empty(),
+    val keyHeaderAgent: String = "",
+    val key: String = "",
     val client: String
 ) {
 

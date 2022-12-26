@@ -9,9 +9,6 @@ package com.jeluchu.jchucomponents.utils.mediaplayer
 import android.content.Context
 import android.media.MediaPlayer
 import android.net.Uri
-import com.jeluchu.jchucomponents.core.extensions.ints.milliSecondsToTimer
-import com.jeluchu.jchucomponents.core.extensions.ints.orEmpty
-import com.jeluchu.jchucomponents.core.extensions.strings.empty
 import java.util.concurrent.Executors
 import java.util.concurrent.ScheduledExecutorService
 import java.util.concurrent.TimeUnit
@@ -37,7 +34,7 @@ class MediaPlayerHolder(context: Context) : PlayerAdapter {
 
     private val mContext: Context = context.applicationContext
     private var mMediaPlayer: MediaPlayer? = null
-    private var mResourceId = String.empty()
+    private var mResourceId = ""
     private var mPlaybackInfoListener: PlaybackInfoListener? = null
     private var mExecutor: ScheduledExecutorService? = null
     private var mSeekbarPositionUpdateTask: Runnable? = null
@@ -60,18 +57,18 @@ class MediaPlayerHolder(context: Context) : PlayerAdapter {
 
     override val currentProgress: Float
         get() = if (mMediaPlayer != null) {
-            val currentSeconds: Long = (mMediaPlayer?.currentPosition.orEmpty() / 1000).toLong()
-            val totalSeconds: Long = (mMediaPlayer?.duration.orEmpty() / 1000).toLong()
+            val currentSeconds: Long = ((mMediaPlayer?.currentPosition ?: 0) / 1000).toLong()
+            val totalSeconds: Long = ((mMediaPlayer?.duration ?: 0) / 1000).toLong()
             (currentSeconds.toDouble() / totalSeconds * 100).toFloat()
         } else 0F
 
     override val currentTime: String
         get() = if (mMediaPlayer != null) mMediaPlayer?.currentPosition?.milliSecondsToTimer().orEmpty()
-        else String.empty()
+        else ""
 
     override val totalTime: String
         get() = if (mMediaPlayer != null) mMediaPlayer?.duration?.milliSecondsToTimer().orEmpty()
-        else String.empty()
+        else ""
 
     override fun togglePlaying(isPlaying: Boolean) {
         if (mMediaPlayer != null) {
@@ -180,7 +177,7 @@ class MediaPlayerHolder(context: Context) : PlayerAdapter {
         if (mMediaPlayer != null && mMediaPlayer?.isPlaying == true) {
             val currentPosition = mMediaPlayer?.currentPosition
             if (mPlaybackInfoListener != null) {
-                mPlaybackInfoListener?.onPositionChanged(currentPosition.orEmpty())
+                mPlaybackInfoListener?.onPositionChanged(currentPosition ?: 0)
             }
         }
     }
@@ -188,13 +185,33 @@ class MediaPlayerHolder(context: Context) : PlayerAdapter {
     override fun initializeProgressCallback() {
         val duration = mMediaPlayer?.duration
         if (mPlaybackInfoListener != null) {
-            mPlaybackInfoListener?.onDurationChanged(duration.orEmpty())
+            mPlaybackInfoListener?.onDurationChanged(duration ?: 0)
             mPlaybackInfoListener?.onPositionChanged(0)
         }
     }
 
     companion object {
         const val PLAYBACK_POSITION_REFRESH_INTERVAL_MS = 1000
+    }
+
+    private fun Int.milliSecondsToTimer(): String {
+
+        var finalTimerString = ""
+        val secondsString: String
+
+        val hours = (this / (1000 * 60 * 60))
+        val minutes = (this % (1000 * 60 * 60)) / (1000 * 60)
+        val seconds = (this % (1000 * 60 * 60) % (1000 * 60) / 1000)
+        if (hours > 0) finalTimerString = "$hours:"
+
+        secondsString = if (seconds < 10) {
+            "0$seconds"
+        } else {
+            "" + seconds
+        }
+        finalTimerString = "$finalTimerString$minutes:$secondsString"
+
+        return finalTimerString
     }
 
 }

@@ -15,7 +15,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -23,17 +22,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
-import com.jeluchu.jchucomponents.core.extensions.context.createQR
-import com.jeluchu.jchucomponents.core.extensions.context.openInCustomTab
-import com.jeluchu.jchucomponents.core.extensions.strings.empty
-import com.jeluchu.jchucomponents.ui.runtime.remember.rememberMutableStateOf
+import com.jeluchu.jchucomponents.ktx.context.createQR
+import com.jeluchu.jchucomponents.ktx.context.openInCustomTab
+import com.jeluchu.jchucomponents.ktx.strings.empty
+import com.jeluchu.jchucomponents.ui.accompanist.systemui.SystemStatusBarColors
 import com.jeluchu.jchucomponents.ui.animations.lists.animateItem
-import com.jeluchu.jchucomponents.ui.cards.DebutCard
-import com.jeluchu.jchucomponents.ui.cards.StoryCard
-import com.jeluchu.jchucomponents.ui.sheets.BottomSheetWithCloseDialog
-import com.jeluchu.jchucomponents.ui.textfields.SearchView
+import com.jeluchu.jchucomponents.ui.migration.cards.DebutCard
+import com.jeluchu.jchucomponents.ui.migration.cards.StoryCard
+import com.jeluchu.jchucomponents.ui.migration.sheets.BottomSheetWithCloseDialog
+import com.jeluchu.jchucomponents.ui.migration.textfields.SearchView
+import com.jeluchu.jchucomponents.ui.runtime.remember.rememberMutableStateOf
+import com.jeluchu.jchucomponents.ui.themes.darkPastelBlue
 
 class MainActivity : ComponentActivity() {
 
@@ -48,7 +48,10 @@ class MainActivity : ComponentActivity() {
     @Composable
     fun PhotoSelector() {
 
-        val fieldValue by rememberMutableStateOf(666)
+        SystemStatusBarColors(
+            systemBarsColor = darkPastelBlue,
+            statusBarColor = darkPastelBlue
+        )
 
         val context = LocalContext.current
 

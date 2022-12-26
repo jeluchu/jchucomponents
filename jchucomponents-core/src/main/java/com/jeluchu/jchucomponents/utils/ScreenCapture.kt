@@ -9,12 +9,12 @@ package com.jeluchu.jchucomponents.utils
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Rect
+import android.os.Build
 import android.os.Handler
 import android.os.Looper
 import android.view.PixelCopy
 import android.view.View
 import android.view.Window
-import com.jeluchu.jchucomponents.core.extensions.packageutils.buildIsOAndUp
 
 /**
  *
@@ -28,7 +28,7 @@ import com.jeluchu.jchucomponents.core.extensions.packageutils.buildIsOAndUp
 class ScreenCapture {
 
     fun captureView(view: View, window: Window, bitmapCallback: (Bitmap) -> Unit) {
-        if (buildIsOAndUp) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
 
             val bitmap = Bitmap.createBitmap(view.width, view.height, Bitmap.Config.ARGB_8888)
             val location = IntArray(2)

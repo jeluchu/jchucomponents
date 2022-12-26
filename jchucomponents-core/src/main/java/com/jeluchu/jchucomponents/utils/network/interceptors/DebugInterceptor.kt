@@ -7,17 +7,18 @@
 package com.jeluchu.jchucomponents.utils.network.interceptors
 
 import android.content.Context
-import com.jeluchu.jchucomponents.core.extensions.strings.InputStreamToString
-import okhttp3.Interceptor
-import okhttp3.Response
-import okhttp3.ResponseBody
-import okio.Buffer
 import java.io.ByteArrayInputStream
 import java.io.ByteArrayOutputStream
 import java.io.FileOutputStream
 import java.io.IOException
+import java.io.InputStream
+import java.nio.charset.StandardCharsets
 import java.util.zip.GZIPInputStream
 import java.util.zip.GZIPOutputStream
+import okhttp3.Interceptor
+import okhttp3.Response
+import okhttp3.ResponseBody
+import okio.Buffer
 
 class DebugInterceptor(val context: Context) : Interceptor {
 
@@ -94,7 +95,7 @@ class DebugInterceptor(val context: Context) : Interceptor {
     @Throws(IOException::class)
     fun decompress(compressed: ByteArray): String {
         GZIPInputStream(ByteArrayInputStream(compressed)).use { gzipIn ->
-            return InputStreamToString().convertInputStreamToString(gzipIn)
+            return convertInputStreamToString(gzipIn)
         }
     }
 
@@ -107,6 +108,17 @@ class DebugInterceptor(val context: Context) : Interceptor {
         val compressed = os.toByteArray()
         os.close()
         return compressed
+    }
+
+    @Throws(IOException::class)
+    fun convertInputStreamToString(`is`: InputStream): String {
+        val result = ByteArrayOutputStream()
+        val buffer = ByteArray(8192)
+        var length: Int
+        while (`is`.read(buffer).also { length = it } != -1) {
+            result.write(buffer, 0, length)
+        }
+        return result.toString(StandardCharsets.UTF_8.name())
     }
 
 }

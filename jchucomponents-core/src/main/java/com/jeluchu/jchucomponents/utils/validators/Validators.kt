@@ -9,7 +9,6 @@ package com.jeluchu.jchucomponents.utils.validators
 import android.annotation.SuppressLint
 import android.text.TextUtils
 import androidx.core.util.PatternsCompat
-import com.jeluchu.jchucomponents.core.extensions.strings.isEmptyString
 
 /**
  *
@@ -55,4 +54,5 @@ object Validators {
     fun String.isLocal() =
         !isEmptyString() && (startsWith("http://") || startsWith("https://"))
 
+    fun CharSequence.isEmptyString(): Boolean = this.isEmpty() || this.toString().equals("null", true)
 }

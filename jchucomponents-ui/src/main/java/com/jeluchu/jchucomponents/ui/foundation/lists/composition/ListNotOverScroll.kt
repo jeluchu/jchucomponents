@@ -15,8 +15,6 @@ import androidx.compose.runtime.CompositionLocalProvider
 @Composable
 fun ListNotOverScroll(
     content: @Composable () -> Unit
-) {
-    CompositionLocalProvider(
-        LocalOverscrollConfiguration provides null
-    ) { content() }
-}
+) = CompositionLocalProvider(
+    LocalOverscrollConfiguration provides null
+) { content() }
