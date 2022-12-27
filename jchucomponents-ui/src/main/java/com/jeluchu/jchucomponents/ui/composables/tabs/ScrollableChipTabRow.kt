@@ -4,7 +4,7 @@
  *
  */
 
-package com.jeluchu.jchucomponents.ui.migration.tabs
+package com.jeluchu.jchucomponents.ui.composables.tabs
 
 import androidx.compose.animation.core.AnimationSpec
 import androidx.compose.animation.core.FastOutSlowInEasing
@@ -15,7 +15,11 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.selection.selectableGroup
-import androidx.compose.material.*
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Surface
+import androidx.compose.material.TabRowDefaults
+import androidx.compose.material.contentColorFor
+import androidx.compose.material.primarySurface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.remember
@@ -39,59 +43,57 @@ fun ScrollableChipTabRow(
     contentColor: Color = contentColorFor(backgroundColor),
     edgePadding: Dp = TabRowDefaults.ScrollableTabRowPadding,
     tabs: @Composable () -> Unit
+) = Surface(
+    modifier = modifier,
+    color = backgroundColor,
+    contentColor = contentColor
 ) {
-    Surface(
-        modifier = modifier,
-        color = backgroundColor,
-        contentColor = contentColor
-    ) {
-        val scrollState = rememberScrollState()
-        val coroutineScope = rememberCoroutineScope()
-        val scrollableTabData = remember(scrollState, coroutineScope) {
-            ScrollableTabData(
-                scrollState = scrollState,
-                coroutineScope = coroutineScope
-            )
+    val scrollState = rememberScrollState()
+    val coroutineScope = rememberCoroutineScope()
+    val scrollableTabData = remember(scrollState, coroutineScope) {
+        ScrollableTabData(
+            scrollState = scrollState,
+            coroutineScope = coroutineScope
+        )
+    }
+    SubcomposeLayout(
+        Modifier
+            .fillMaxWidth()
+            .wrapContentSize(align = Alignment.CenterStart)
+            .horizontalScroll(scrollState)
+            .selectableGroup()
+            .clipToBounds()
+    ) { constraints ->
+        val minTabWidth = ScrollableTabRowMinimumTabWidth.roundToPx()
+        val padding = edgePadding.roundToPx()
+        val tabConstraints = constraints.copy(minWidth = minTabWidth)
+
+        val tabPlaceables = subcompose(TabSlots.Tabs, tabs)
+            .map { it.measure(tabConstraints) }
+
+        var layoutWidth = padding * 2
+        var layoutHeight = 0
+        tabPlaceables.forEach {
+            layoutWidth += it.width
+            layoutHeight = maxOf(layoutHeight, it.height)
         }
-        SubcomposeLayout(
-            Modifier
-                .fillMaxWidth()
-                .wrapContentSize(align = Alignment.CenterStart)
-                .horizontalScroll(scrollState)
-                .selectableGroup()
-                .clipToBounds()
-        ) { constraints ->
-            val minTabWidth = ScrollableTabRowMinimumTabWidth.roundToPx()
-            val padding = edgePadding.roundToPx()
-            val tabConstraints = constraints.copy(minWidth = minTabWidth)
 
-            val tabPlaceables = subcompose(TabSlots.Tabs, tabs)
-                .map { it.measure(tabConstraints) }
+        layout(layoutWidth, layoutHeight) {
 
-            var layoutWidth = padding * 2
-            var layoutHeight = 0
+            val tabPositions = mutableListOf<TabPosition>()
+            var left = padding
             tabPlaceables.forEach {
-                layoutWidth += it.width
-                layoutHeight = maxOf(layoutHeight, it.height)
+                it.placeRelative(left, 0)
+                tabPositions.add(TabPosition(left = left.toDp(), width = it.width.toDp()))
+                left += it.width
             }
 
-            layout(layoutWidth, layoutHeight) {
-
-                val tabPositions = mutableListOf<TabPosition>()
-                var left = padding
-                tabPlaceables.forEach {
-                    it.placeRelative(left, 0)
-                    tabPositions.add(TabPosition(left = left.toDp(), width = it.width.toDp()))
-                    left += it.width
-                }
-
-                scrollableTabData.onLaidOut(
-                    density = this@SubcomposeLayout,
-                    edgeOffset = padding,
-                    tabPositions = tabPositions,
-                    selectedTab = selectedTabIndex
-                )
-            }
+            scrollableTabData.onLaidOut(
+                density = this@SubcomposeLayout,
+                edgeOffset = padding,
+                tabPositions = tabPositions,
+                selectedTab = selectedTabIndex
+            )
         }
     }
 }

@@ -4,7 +4,7 @@
  *
  */
 
-package com.jeluchu.jchucomponents.ui.migration.tabs
+package com.jeluchu.jchucomponents.ui.composables.tabs
 
 import androidx.compose.animation.animateColor
 import androidx.compose.animation.core.LinearEasing
@@ -43,25 +43,22 @@ fun ChipTab(
     selectedContentColor: Color = LocalContentColor.current,
     unselectedContentColor: Color = selectedContentColor.copy(alpha = ContentAlpha.medium),
     content: @Composable ColumnScope.() -> Unit
-) {
-
-    TabTransition(selectedContentColor, unselectedContentColor, selected) {
-        Column(
-            modifier = modifier
-                .selectable(
-                    selected = selected,
-                    onClick = onClick,
-                    enabled = enabled,
-                    role = Role.Tab,
-                    interactionSource = interactionSource,
-                    indication = null
-                )
-                .fillMaxWidth(),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center,
-            content = content
-        )
-    }
+) = TabTransition(selectedContentColor, unselectedContentColor, selected) {
+    Column(
+        modifier = modifier
+            .selectable(
+                selected = selected,
+                onClick = onClick,
+                enabled = enabled,
+                role = Role.Tab,
+                interactionSource = interactionSource,
+                indication = null
+            )
+            .fillMaxWidth(),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center,
+        content = content
+    )
 }
 
 @Composable

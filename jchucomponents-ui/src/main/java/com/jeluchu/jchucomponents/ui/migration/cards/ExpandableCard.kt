@@ -7,6 +7,7 @@
 package com.jeluchu.jchucomponents.ui.migration.cards
 
 import android.annotation.SuppressLint
+import androidx.annotation.StringRes
 import androidx.compose.animation.*
 import androidx.compose.animation.core.*
 import androidx.compose.foundation.background
@@ -18,7 +19,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
 import androidx.compose.material.LocalTextStyle
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -29,6 +29,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -137,20 +138,16 @@ fun ExpandableCard(
 fun CardArrow(
     degrees: Float,
     tintIcon: Color,
+    @StringRes contentDescription: Int? = null,
     onClick: () -> Unit
-) {
-    IconButton(
-        onClick = onClick,
-        content = {
-            Icon(
-                painter = painterResource(id = R.drawable.ic_up_arrow),
-                contentDescription = "Expandable Arrow",
-                modifier = Modifier.rotate(degrees),
-                tint = tintIcon
-            )
-        }
-    )
-}
+) = Icon(
+    modifier = Modifier
+        .rotate(degrees)
+        .clickable(onClick = onClick),
+    painter = painterResource(id = R.drawable.ic_up_arrow),
+    contentDescription = contentDescription?.let { stringResource(id = it) },
+    tint = tintIcon
+)
 
 @ExperimentalAnimationApi
 @Composable
@@ -167,9 +164,7 @@ fun ExpandableContent(
             )
         )
     }
-    val enterExpand = remember {
-        expandVertically(animationSpec = tween(ExpandAnimation))
-    }
+    val enterExpand = remember { expandVertically(animationSpec = tween(ExpandAnimation)) }
     val exitFadeOut = remember {
         fadeOut(
             animationSpec = TweenSpec(
@@ -178,9 +173,7 @@ fun ExpandableContent(
             )
         )
     }
-    val exitCollapse = remember {
-        shrinkVertically(animationSpec = tween(CollapseAnimation))
-    }
+    val exitCollapse = remember { shrinkVertically(animationSpec = tween(CollapseAnimation)) }
 
     AnimatedVisibility(
         visible = expanded,

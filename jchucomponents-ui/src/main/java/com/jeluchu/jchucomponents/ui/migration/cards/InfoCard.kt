@@ -23,7 +23,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.jeluchu.jchucomponents.ktx.ints.isNotEmpty
 import com.jeluchu.jchucomponents.ktx.strings.empty
-import com.jeluchu.jchucomponents.ui.migration.images.NetworkImage
+import com.jeluchu.jchucomponents.ui.composables.images.NetworkImage
 
 /**
  *

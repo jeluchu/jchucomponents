@@ -4,14 +4,24 @@
  *
  */
 
-package com.jeluchu.jchucomponents.ui.migration.images
+package com.jeluchu.jchucomponents.ui.composables.images
 
+import android.content.Context
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
+
+/**
+ *
+ * Author: @Jeluchu
+ *
+ * This component is used to return [ImageRequest.Builder]
+ *
+ */
+fun Context.imageBuilder() = ImageRequest.Builder(this)
 
 /**
  *
@@ -32,17 +42,13 @@ fun NetworkImage(
     isCrossfade: Boolean = true,
     isAllowHardware: Boolean = true,
     contentScale: ContentScale = ContentScale.Crop
-) {
-
-    AsyncImage(
-        modifier = modifier,
-        model = ImageRequest.Builder(LocalContext.current)
-            .data(url)
-            .crossfade(isCrossfade)
-            .allowHardware(isAllowHardware)
-            .build(),
-        contentScale = contentScale,
-        contentDescription = null
-    )
-
-}
+) = AsyncImage(
+    modifier = modifier,
+    model = ImageRequest.Builder(LocalContext.current)
+        .data(url)
+        .crossfade(isCrossfade)
+        .allowHardware(isAllowHardware)
+        .build(),
+    contentScale = contentScale,
+    contentDescription = null
+)
