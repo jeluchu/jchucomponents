@@ -4,7 +4,7 @@
  *
  */
 
-package com.jeluchu.jchucomponents.ui.migration.cards
+package com.jeluchu.jchucomponents.ui.composables.cards
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border

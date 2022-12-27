@@ -29,7 +29,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.jeluchu.jchucomponents.ktx.strings.empty
 import com.jeluchu.jchucomponents.ui.migration.modifier.noRippleClickable
-import com.jeluchu.jchucomponents.ui.migration.theme.artichoke
+import com.jeluchu.jchucomponents.ui.themes.artichoke
 
 @Composable
 fun CircularProgressbar(

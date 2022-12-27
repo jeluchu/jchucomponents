@@ -33,7 +33,7 @@ import androidx.compose.ui.unit.dp
 import com.jeluchu.jchucomponents.ktx.strings.empty
 import com.jeluchu.jchucomponents.ui.R
 import com.jeluchu.jchucomponents.ui.migration.chips.Type
-import com.jeluchu.jchucomponents.ui.migration.theme.artichoke
+import com.jeluchu.jchucomponents.ui.themes.artichoke
 
 @Composable
 fun LinearProgressbar(

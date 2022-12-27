@@ -22,8 +22,8 @@ import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.jeluchu.jchucomponents.ui.migration.modifier.cornerRadius
-import com.jeluchu.jchucomponents.ui.migration.text.MarqueeText
-import com.jeluchu.jchucomponents.ui.migration.theme.artichoke
+import com.jeluchu.jchucomponents.ui.foundation.text.MarqueeText
+import com.jeluchu.jchucomponents.ui.themes.artichoke
 
 @Composable
 fun Type(

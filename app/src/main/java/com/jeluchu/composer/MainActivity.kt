@@ -13,7 +13,9 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -28,8 +30,9 @@ import com.jeluchu.jchucomponents.ktx.context.openInCustomTab
 import com.jeluchu.jchucomponents.ktx.strings.empty
 import com.jeluchu.jchucomponents.ui.accompanist.systemui.SystemStatusBarColors
 import com.jeluchu.jchucomponents.ui.animations.lists.animateItem
-import com.jeluchu.jchucomponents.ui.migration.cards.DebutCard
-import com.jeluchu.jchucomponents.ui.migration.cards.StoryCard
+import com.jeluchu.jchucomponents.ui.composables.cards.DebutCard
+import com.jeluchu.jchucomponents.ui.composables.cards.PostCardTop
+import com.jeluchu.jchucomponents.ui.composables.cards.StoryCard
 import com.jeluchu.jchucomponents.ui.migration.sheets.BottomSheetWithCloseDialog
 import com.jeluchu.jchucomponents.ui.migration.textfields.SearchView
 import com.jeluchu.jchucomponents.ui.runtime.remember.rememberMutableStateOf
@@ -57,12 +60,13 @@ class MainActivity : ComponentActivity() {
 
         BottomSheetWithCloseDialog {
             Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
-                Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                Column(
+                    modifier = Modifier.verticalScroll(rememberScrollState()),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
 
                     val textState = remember { mutableStateOf(String.empty()) }
                     SearchView(state = textState)
-
-                    data class Algo(val id: Int, val name: String)
 
                     StoryCard(
                         modifier = Modifier.animateItem(),
@@ -73,6 +77,12 @@ class MainActivity : ComponentActivity() {
                             // SUPPORTED API LEVEL S+ CUSTOM TAB
                             context.openInCustomTab("https://developer.android.com/about/versions/marshmallow/android-6.0?hl=es-419", R.color.teal_700)
                         }
+                    )
+
+                    PostCardTop(
+                        title = "Cosas de la vida",
+                        image = "https://i.picsum.photos/id/0/5616/3744.jpg?hmac=3GAAioiQziMGEtLbfrdbcoenXoWAW-zlyEAMkfEdBzQ",
+                        description = "Descripción"
                     )
 
                     DebutCard(

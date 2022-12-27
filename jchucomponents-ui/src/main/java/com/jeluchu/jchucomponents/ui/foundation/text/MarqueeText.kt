@@ -4,20 +4,37 @@
  *
  */
 
-package com.jeluchu.jchucomponents.ui.migration.text
+package com.jeluchu.jchucomponents.ui.foundation.text
 
-import androidx.compose.animation.core.*
+import androidx.compose.animation.core.LinearEasing
+import androidx.compose.animation.core.RepeatMode
+import androidx.compose.animation.core.TargetBasedAnimation
+import androidx.compose.animation.core.VectorConverter
+import androidx.compose.animation.core.infiniteRepeatable
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.width
 import androidx.compose.material.LocalTextStyle
 import androidx.compose.material.Text
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.runtime.withFrameNanos
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.Placeable
 import androidx.compose.ui.layout.SubcomposeLayout
+import androidx.compose.ui.text.Paragraph
 import androidx.compose.ui.text.TextLayoutResult
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
@@ -31,9 +48,37 @@ import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.delay
 
 /**
- *  HOfsdlkgnsdf
+ *
+ *  Author: @Jeluchu
+ *
+ *  Auto scrollable text to display the content that
+ *  is over passed to the view (This design element is estimated
+ *  to be temporary until the Jetpack Compose team releases an official solution
+ *  for this behavior that exists in XML)
  *
  * @param text: es un texto
+ * @param modifier modifier that will be used to change the color, size...
+ * @param gradientEdgeColor: es un texto
+ * @param color [Color] to apply to the text
+ * @param fontSize the size of glyphs to use when painting the text. See [TextStyle.fontSize]
+ * @param fontStyle the typeface variant to use when drawing the letters (e.g., italic)
+ * @param fontWeight the typeface thickness to use when painting the text (e.g., [FontWeight.Bold])
+ * @param fontFamily the font family to be used when rendering the text. See [TextStyle.fontFamily]
+ * @param letterSpacing the amount of space to add between each letter.
+ * @param textDecoration the decorations to paint on the text (e.g., an underline).
+ * See [TextStyle.textDecoration]
+ * @param textAlign the alignment of the text within the lines of the paragraph.
+ * See [TextStyle.textAlign]
+ * @param lineHeight line height for the [Paragraph] in [TextUnit] unit, e.g. SP or EM.
+ * See [TextStyle.lineHeight]
+ * @param overflow how visual overflow should be handled.
+ * @param softWrap whether the text should break at soft line breaks
+ * @param onTextLayout callback that is executed when a new text layout is calculated
+ * A [TextLayoutResult] object that callback provides contains paragraph information, size of the
+ * text, baselines and other details. The callback can be used to add additional decoration or
+ * functionality to the text
+ * @param style style configuration for the text such as color, font, line height etc.
+ *
  */
 
 @Composable
@@ -160,18 +205,16 @@ fun MarqueeText(
 @Composable
 private fun GradientEdge(
     startColor: Color, endColor: Color,
-) {
-    Box(
-        modifier = Modifier
-            .width(10.dp)
-            .fillMaxHeight()
-            .background(
-                brush = Brush.horizontalGradient(
-                    0f to startColor, 1f to endColor,
-                )
+) = Box(
+    modifier = Modifier
+        .width(10.dp)
+        .fillMaxHeight()
+        .background(
+            brush = Brush.horizontalGradient(
+                0f to startColor, 1f to endColor,
             )
-    )
-}
+        )
+)
 
 private enum class MarqueeLayers { MainText, SecondaryText, EdgesGradient }
 private data class TextLayoutInfo(val textWidth: Int, val containerWidth: Int)
