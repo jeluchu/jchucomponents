@@ -19,7 +19,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.jeluchu.jchucomponents.ui.composables.images.NetworkImage
-import com.jeluchu.jchucomponents.ui.migration.modifier.cornerRadius
+import com.jeluchu.jchucomponents.ui.extensions.modifier.cornerRadius
 
 /**
  *

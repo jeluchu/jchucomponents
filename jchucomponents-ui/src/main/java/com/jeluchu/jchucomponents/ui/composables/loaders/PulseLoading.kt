@@ -4,14 +4,15 @@
  *
  */
 
-package com.jeluchu.jchucomponents.ui.migration.loaders
+package com.jeluchu.jchucomponents.ui.composables.loaders
 
 import androidx.compose.animation.core.*
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.Card
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -69,15 +70,26 @@ fun PulseLoading(
                 .size(size.dp)
                 .align(Alignment.Center)
                 .alpha(alpha),
-            backgroundColor = pulseColor,
-            elevation = 0.dp
+            colors = CardDefaults.cardColors(
+                containerColor = pulseColor
+            ),
+            elevation = CardDefaults.cardElevation(
+                defaultElevation = 0.dp,
+                pressedElevation = 0.dp,
+                focusedElevation = 0.dp,
+                hoveredElevation = 0.dp,
+                draggedElevation = 0.dp,
+                disabledElevation = 0.dp
+            )
         ) {}
         Card(
             modifier = Modifier
                 .size(minPulseSize.dp)
                 .align(Alignment.Center),
             shape = CircleShape,
-            backgroundColor = centreColor
+            colors = CardDefaults.cardColors(
+                containerColor = centreColor
+            ),
         ) {}
     }
 }

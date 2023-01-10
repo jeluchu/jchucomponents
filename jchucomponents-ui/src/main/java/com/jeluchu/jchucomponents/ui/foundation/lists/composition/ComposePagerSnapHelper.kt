@@ -4,7 +4,7 @@
  *
  */
 
-package com.jeluchu.jchucomponents.ui.migration.lists
+package com.jeluchu.jchucomponents.ui.foundation.lists.composition
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.lazy.LazyListItemInfo

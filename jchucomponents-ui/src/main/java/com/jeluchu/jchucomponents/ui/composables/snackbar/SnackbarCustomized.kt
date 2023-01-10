@@ -1,4 +1,4 @@
-package com.jeluchu.jchucomponents.ui.migration.snackbar
+package com.jeluchu.jchucomponents.ui.composables.snackbar
 
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.LocalTextStyle

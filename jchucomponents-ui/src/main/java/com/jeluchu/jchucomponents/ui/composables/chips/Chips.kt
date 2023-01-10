@@ -4,16 +4,16 @@
  *
  */
 
-package com.jeluchu.jchucomponents.ui.migration.chips
+package com.jeluchu.jchucomponents.ui.composables.chips
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Icon
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.HighlightOff
@@ -39,7 +39,7 @@ fun Chip(
     endIconTint: Color = Color.Unspecified,
     onEndIconClicked: () -> Unit = { },
     textColor: Color = Color.DarkGray,
-    color: Color = MaterialTheme.colors.surface,
+    color: Color = MaterialTheme.colorScheme.surface,
     contentDescription: String? = null,
     label: String,
     elevation: Dp = 0.dp,
@@ -54,7 +54,8 @@ fun Chip(
                 enabled = isClickable,
                 onClick = { onClick() }
             ),
-        elevation = elevation,
+        tonalElevation = elevation,
+        shadowElevation = elevation,
         shape = shape,
         color = color
     ) {
@@ -103,7 +104,7 @@ fun SelectableChip(
     contentDescription: String? = null,
     shape: Shape = RoundedCornerShape(10.dp),
     textColor: Color = Color.DarkGray,
-    color: Color = MaterialTheme.colors.surface,
+    color: Color = MaterialTheme.colorScheme.surface,
     elevation: Dp = 0.dp,
     selected: Boolean,
     onClick: (nowSelected: Boolean) -> Unit
@@ -129,7 +130,7 @@ fun RemovableChip(
     shape: Shape = RoundedCornerShape(10.dp),
     contentDescription: String,
     textColor: Color = Color.DarkGray,
-    color: Color = MaterialTheme.colors.surface,
+    color: Color = MaterialTheme.colorScheme.surface,
     elevation: Dp = 0.dp,
     onRemove: () -> Unit
 ) {

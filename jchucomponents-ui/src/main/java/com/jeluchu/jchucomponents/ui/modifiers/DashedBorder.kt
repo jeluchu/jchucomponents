@@ -4,7 +4,7 @@
  *
  */
 
-package com.jeluchu.jchucomponents.ui.modifier
+package com.jeluchu.jchucomponents.ui.modifiers
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.ui.Modifier

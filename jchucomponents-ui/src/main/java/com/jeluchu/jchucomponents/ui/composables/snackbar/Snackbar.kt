@@ -4,7 +4,7 @@
  *
  */
 
-package com.jeluchu.jchucomponents.ui.migration.snackbar
+package com.jeluchu.jchucomponents.ui.composables.snackbar
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
@@ -39,11 +39,8 @@ import kotlin.math.max
  * with defaults on the screen, use [ScaffoldState.snackbarHostState] and
  * [SnackbarHostState.showSnackbar]:
  *
- * @sample androidx.compose.material.samples.ScaffoldWithSimpleSnackbar
- *
  * If you want to customize appearance of the [Snackbar], you can pass your own version as a child
  * of the [SnackbarHost] to the [Scaffold]:
- * @sample androidx.compose.material.samples.ScaffoldWithCustomSnackbar
  *
  * @param modifier modifiers for the Snackbar layout
  * @param action action / button component to add as an action to the snackbar. Consider using
@@ -113,11 +110,8 @@ fun Snackbar(
  * with defaults on the screen, use [ScaffoldState.snackbarHostState] and
  * [SnackbarHostState.showSnackbar]:
  *
- * @sample androidx.compose.material.samples.ScaffoldWithSimpleSnackbar
- *
  * If you want to customize appearance of the [Snackbar], you can pass your own version as a child
  * of the [SnackbarHost] to the [Scaffold]:
- * @sample androidx.compose.material.samples.ScaffoldWithCustomSnackbar
  *
  * @param snackbarData data about the current snackbar showing via [SnackbarHostState]
  * @param modifier modifiers for the Snackbar layout

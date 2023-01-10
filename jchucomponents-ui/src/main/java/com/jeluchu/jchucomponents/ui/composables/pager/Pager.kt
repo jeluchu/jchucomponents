@@ -4,7 +4,7 @@
  *
  */
 
-package com.jeluchu.jchucomponents.ui.migration.pager
+package com.jeluchu.jchucomponents.ui.composables.pager
 
 import androidx.compose.animation.core.Animatable
 import androidx.compose.foundation.gestures.Orientation

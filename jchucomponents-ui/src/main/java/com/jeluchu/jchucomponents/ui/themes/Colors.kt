@@ -20,3 +20,5 @@ val cell = Color(0xFF8793CC)
 val darkPastelBlue = Color(0xFF7C8AC5)
 val toolbox = Color(0xFF7280BF)
 val glaucous = Color(0xFF6777B8)
+
+fun toHex(color: String) = Color(android.graphics.Color.parseColor("#$color"))
