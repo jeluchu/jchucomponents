@@ -6,16 +6,9 @@
 
 package com.jeluchu.jchucomponents.ktx.utilities.zxing.qrcode
 
-import com.jeluchu.jchucomponents.ktx.utilities.zxing.BarcodeFormat
-import com.jeluchu.jchucomponents.ktx.utilities.zxing.BinaryBitmap
-import com.jeluchu.jchucomponents.ktx.utilities.zxing.ChecksumException
-import com.jeluchu.jchucomponents.ktx.utilities.zxing.DecodeHintType
-import com.jeluchu.jchucomponents.ktx.utilities.zxing.FormatException
-import com.jeluchu.jchucomponents.ktx.utilities.zxing.NotFoundException
-import com.jeluchu.jchucomponents.ktx.utilities.zxing.Reader
-import com.jeluchu.jchucomponents.ktx.utilities.zxing.ResultMetadataType
-import com.jeluchu.jchucomponents.ktx.utilities.zxing.ResultPoint
 import com.jeluchu.jchucomponents.ktx.utilities.zxing.*
+import com.jeluchu.jchucomponents.ktx.utilities.zxing.ChecksumException
+import com.jeluchu.jchucomponents.ktx.utilities.zxing.FormatException
 import com.jeluchu.jchucomponents.ktx.utilities.zxing.common.BitMatrix
 import com.jeluchu.jchucomponents.ktx.utilities.zxing.common.DecoderResult
 import com.jeluchu.jchucomponents.ktx.utilities.zxing.qrcode.decoder.Decoder

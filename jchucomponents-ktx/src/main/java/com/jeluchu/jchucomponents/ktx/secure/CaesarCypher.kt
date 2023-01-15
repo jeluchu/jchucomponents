@@ -13,12 +13,10 @@ object CaesarCypher {
             if (c in 'A'..'Z') {
                 d = c + offset
                 if (d > 'Z') d -= 26
-            }
-            else if (c in 'a'..'z') {
+            } else if (c in 'a'..'z') {
                 d = c + offset
                 if (d > 'z') d -= 26
-            }
-            else
+            } else
                 d = c
             chars[index] = d
         }

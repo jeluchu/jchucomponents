@@ -4,7 +4,7 @@
  *
  */
 
-package com.jeluchu.jchucomponents.ui.migration.toolbars
+package com.jeluchu.jchucomponents.ui.composables.toolbars
 
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.background
@@ -19,6 +19,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
@@ -74,7 +75,7 @@ fun Toolbar(
                 .clip(CircleShape)
                 .clickable(onClick = navigateToBackScreen),
             tint = topBarSettings.tintActionsColor,
-            imageVector = ImageVector.vectorResource(id = R.drawable.ic_arrow_left),
+            imageVector = ImageVector.vectorResource(id = topBarSettings.navIcon),
             contentDescription = null
         )
         Icon(
@@ -129,21 +130,22 @@ fun Toolbar(
         containerColor = topBarSettings.backgroundColor
     ),
     navigationIcon = {
-        Icon(
-            modifier = Modifier
-                .size(40.dp)
-                .padding(8.dp)
-                .clip(CircleShape)
-                .clickable(onClick = navigateToBackScreen),
-            tint = topBarSettings.contentColor,
-            imageVector = ImageVector.vectorResource(id = R.drawable.ic_arrow_left),
-            contentDescription = null
-        )
+        IconButton(onClick = navigateToBackScreen) {
+            Icon(
+                modifier = Modifier
+                    .size(40.dp)
+                    .padding(8.dp),
+                tint = topBarSettings.contentColor,
+                imageVector = ImageVector.vectorResource(id = topBarSettings.navIcon),
+                contentDescription = null
+            )
+        }
     }
 )
 
 @Immutable
 class TopBarSettings constructor(
+    @DrawableRes val navIcon: Int = R.drawable.ic_arrow_left,
     @DrawableRes val actionIcon: Int = R.drawable.ic_btn_qrcode,
     val contentColor: Color = Color.DarkGray,
     val actionsBackgroundColor: Color = Color.DarkGray,

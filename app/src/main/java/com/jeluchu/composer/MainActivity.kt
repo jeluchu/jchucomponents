@@ -7,7 +7,6 @@
 package com.jeluchu.composer
 
 import android.os.Bundle
-import android.widget.SearchView
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
@@ -34,8 +33,9 @@ import com.jeluchu.jchucomponents.ui.animations.lists.animateItem
 import com.jeluchu.jchucomponents.ui.composables.cards.DebutCard
 import com.jeluchu.jchucomponents.ui.composables.cards.PostCardTop
 import com.jeluchu.jchucomponents.ui.composables.cards.StoryCard
-import com.jeluchu.jchucomponents.ui.migration.sheets.BottomSheetWithCloseDialog
+import com.jeluchu.jchucomponents.ui.composables.sheets.BottomSheetWithCloseDialog
 import com.jeluchu.jchucomponents.ui.composables.textfields.SearchTextField
+import com.jeluchu.jchucomponents.ui.composables.toolbars.Toolbar
 import com.jeluchu.jchucomponents.ui.themes.darkPastelBlue
 
 class MainActivity : ComponentActivity() {
@@ -64,6 +64,12 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.verticalScroll(rememberScrollState()),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
+
+                    Toolbar(
+                        modifier = Modifier,
+                        title = "Villagers",
+                        navigateToBackScreen = { }
+                    )
 
                     val textState = remember { mutableStateOf(String.empty()) }
                     SearchTextField(state = textState)

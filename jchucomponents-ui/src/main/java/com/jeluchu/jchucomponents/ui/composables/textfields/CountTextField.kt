@@ -57,55 +57,55 @@ fun CountTextField(
     styleLabel: TextStyle = LocalTextStyle.current
 ) = Column {
 
-        var textState by rememberMutableStateOf(String.empty())
+    var textState by rememberMutableStateOf(String.empty())
 
-        Text(
-            text = title,
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(bottom = 4.dp),
-            textAlign = TextAlign.Start,
-            color = countField.counterTextColor,
-            style = styleLabel
-        )
+    Text(
+        text = title,
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(bottom = 4.dp),
+        textAlign = TextAlign.Start,
+        color = countField.counterTextColor,
+        style = styleLabel
+    )
 
-        TextField(
-            modifier = Modifier.fillMaxWidth(),
-            value = textState,
-            colors = TextFieldDefaults.textFieldColors(
-                containerColor = countField.backgroundColor,
-                cursorColor = countField.cursorColor,
-                disabledLabelColor = countField.disabledLabelColor,
-                focusedIndicatorColor = Color.Transparent,
-                unfocusedIndicatorColor = Color.Transparent
-            ),
-            onValueChange = {
-                if (it.length <= maxLength) textState = it
-            },
-            shape = RoundedCornerShape(8.dp),
-            singleLine = true,
-            textStyle = styleLabel,
-            trailingIcon = {
-                if (textState.isNotEmpty()) {
-                    IconButton(onClick = { textState = "" }) {
-                        Icon(
-                            imageVector = Icons.Outlined.Close,
-                            contentDescription = null
-                        )
-                    }
+    TextField(
+        modifier = Modifier.fillMaxWidth(),
+        value = textState,
+        colors = TextFieldDefaults.textFieldColors(
+            containerColor = countField.backgroundColor,
+            cursorColor = countField.cursorColor,
+            disabledLabelColor = countField.disabledLabelColor,
+            focusedIndicatorColor = Color.Transparent,
+            unfocusedIndicatorColor = Color.Transparent
+        ),
+        onValueChange = {
+            if (it.length <= maxLength) textState = it
+        },
+        shape = RoundedCornerShape(8.dp),
+        singleLine = true,
+        textStyle = styleLabel,
+        trailingIcon = {
+            if (textState.isNotEmpty()) {
+                IconButton(onClick = { textState = "" }) {
+                    Icon(
+                        imageVector = Icons.Outlined.Close,
+                        contentDescription = null
+                    )
                 }
             }
-        )
-        Text(
-            text = "${textState.length} / $maxLength",
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = 4.dp),
-            textAlign = TextAlign.End,
-            color = countField.counterTextColor,
-            style = styleLabel
-        )
-    }
+        }
+    )
+    Text(
+        text = "${textState.length} / $maxLength",
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(top = 4.dp),
+        textAlign = TextAlign.End,
+        color = countField.counterTextColor,
+        style = styleLabel
+    )
+}
 
 @Immutable
 class CountField constructor(

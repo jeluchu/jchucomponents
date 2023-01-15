@@ -30,7 +30,7 @@ fun Float.Companion.empty() = 0f
 fun Float?.orEmpty(defaultValue: Float = Float.empty()): Float = this ?: defaultValue
 
 fun Long.Companion.empty() = 0L
-fun Long?.orEmpty(defaultValue: Long = Long.empty()): Long =  this ?: defaultValue
+fun Long?.orEmpty(defaultValue: Long = Long.empty()): Long = this ?: defaultValue
 
 fun Int.milliSecondsToTimer(): String {
 

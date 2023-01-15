@@ -61,7 +61,6 @@ fun Context.addToClipboard(str: CharSequence?) {
 }
 
 
-
 /** ---- PRIVATE METHODS ----------------------------------------------------------------------- **/
 
 val Context.layoutInflater
@@ -97,7 +96,6 @@ fun Context.createQR(
     }
 
 }
-
 
 
 /** ---- SAVE IMAGES --------------------------------------------------------------------------- **/

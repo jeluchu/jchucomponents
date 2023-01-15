@@ -119,7 +119,7 @@ class SharedPrefsHelpers {
         return datalist
     }
 
-   fun clearSession() {
+    fun clearSession() {
         val editor = mSharedPreferences!!.edit()
         editor.clear()
         editor.apply()

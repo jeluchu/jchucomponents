@@ -21,10 +21,8 @@ import androidx.compose.ui.graphics.Color
  *
  * Author: @Jeluchu
  *
- * This component is based on EditText in which you can check
- * how many characters you have typed and what is the maximum
- *
- * @sample CountTextFieldPreview
+ * This component is useful to check the status of a response to a request to the service,
+ * and depending on the result it can display information, an error or the loading progress
  *
  * @param modifier optional Modifier for the root of the [Scaffold]
  * @param scaffoldState state of this scaffold widget. It contains the state of the screen, e.g.

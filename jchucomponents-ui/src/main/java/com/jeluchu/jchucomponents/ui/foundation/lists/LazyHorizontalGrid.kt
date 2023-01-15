@@ -4,11 +4,19 @@
  *
  */
 
-package com.jeluchu.jchucomponents.ui.migration.lists.grids
+package com.jeluchu.jchucomponents.ui.foundation.lists
 
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.*
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.foundation.lazy.LazyItemScope
+import androidx.compose.foundation.lazy.LazyListState
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.Dp
@@ -58,7 +66,7 @@ sealed class GridCells {
     /**
      * Combines cells with fixed number rows or columns.
      *
-     * For example, for the vertical [LazyVerticalGrid] Fixed(3) would mean that there are 3 columns 1/3
+     * For example, for the vertical LazyVerticalGrid Fixed(3) would mean that there are 3 columns 1/3
      * of the parent wide.
      */
     @ExperimentalFoundationApi
@@ -69,7 +77,7 @@ sealed class GridCells {
      * or columns as possible on the condition that every cell has at least [minSize] space and
      * all extra space distributed evenly.
      *
-     * For example, for the vertical [LazyVerticalGrid] Adaptive(20.dp) would mean that there will be as
+     * For example, for the vertical LazyVerticalGrid Adaptive(20.dp) would mean that there will be as
      * many columns as possible and every column will be at least 20.dp and all the columns will
      * have equal width. If the screen is 88.dp wide then there will be 4 columns 22.dp each.
      */
@@ -78,7 +86,7 @@ sealed class GridCells {
 }
 
 /**
- * Receiver scope which is used by [LazyVerticalGrid].
+ * Receiver scope which is used by LazyVerticalGrid.
  */
 @ExperimentalFoundationApi
 interface LazyGridScope {

@@ -45,7 +45,7 @@ com-google-firebase-firebase-analytics-ktx = "com.google.firebase:firebase-analy
 com-google-code-gson = "com.google.code.gson:gson:2.10"
 com-google-android-gms-play-services-base = "com.google.android.gms:play-services-base:18.1.0"
 com-google-accompanist-accompanist-systemuicontroller = { module = "com.google.accompanist:accompanist-systemuicontroller", version.ref = "com-google-accompanist" }
-com-android-tools-build-gradle = "com.android.tools.build:gradle:7.3.1"
+com-android-tools-build-gradle = "com.android.tools.build:gradle:7.4.0"
 androidx-navigation-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "androidx-navigation" }
 androidx-preference = "androidx.preference:preference-ktx:1.2.0"
 androidx-browser = "androidx.browser:browser:1.4.0"
