@@ -84,7 +84,7 @@ class SharedPrefsHelpers {
         editor.apply()
     }
 
-    fun <T> getObjectsList(key: String, classType: Class<T>?): List<T> {
+    fun <T> getObjectsList(key: String): List<T> {
         if (isKeyExists(key)) {
             val objectString = mSharedPreferences!!.getString(key, null)
             if (objectString != null) {

@@ -1,4 +1,4 @@
-package com.jeluchu.jchucomponents.ui.migration.templates
+package com.jeluchu.jchucomponents.ui.composables.structures
 
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.material.BottomAppBar

@@ -36,7 +36,7 @@ fun FloatingButton(
     isVisible: Boolean,
     enter: EnterTransition = scaleIn(),
     exit: ExitTransition = scaleOut(),
-    floatButton: FloatingButton = FloatingButton()
+    floatButton: FloatingButtonSettings = FloatingButtonSettings()
 ) = AnimatedVisibility(
     visible = isVisible,
     enter = enter,
@@ -60,7 +60,7 @@ fun FloatingButton(
 }
 
 @Immutable
-class FloatingButton constructor(
+class FloatingButtonSettings constructor(
     @DrawableRes val icon: Int = R.drawable.ic_btn_share,
     val size: Dp = 40.dp,
     val tint: Color = cosmicLatte,
