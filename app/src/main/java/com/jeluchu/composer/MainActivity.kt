@@ -7,6 +7,7 @@
 package com.jeluchu.composer
 
 import android.os.Bundle
+import android.widget.SearchView
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
@@ -34,8 +35,7 @@ import com.jeluchu.jchucomponents.ui.composables.cards.DebutCard
 import com.jeluchu.jchucomponents.ui.composables.cards.PostCardTop
 import com.jeluchu.jchucomponents.ui.composables.cards.StoryCard
 import com.jeluchu.jchucomponents.ui.migration.sheets.BottomSheetWithCloseDialog
-import com.jeluchu.jchucomponents.ui.migration.textfields.SearchView
-import com.jeluchu.jchucomponents.ui.runtime.remember.rememberMutableStateOf
+import com.jeluchu.jchucomponents.ui.composables.textfields.SearchTextField
 import com.jeluchu.jchucomponents.ui.themes.darkPastelBlue
 
 class MainActivity : ComponentActivity() {
@@ -66,7 +66,7 @@ class MainActivity : ComponentActivity() {
                 ) {
 
                     val textState = remember { mutableStateOf(String.empty()) }
-                    SearchView(state = textState)
+                    SearchTextField(state = textState)
 
                     StoryCard(
                         modifier = Modifier.animateItem(),
@@ -75,7 +75,10 @@ class MainActivity : ComponentActivity() {
                         circleImage = R.drawable.ic_btnfavourite,
                         navigateToScreen = {
                             // SUPPORTED API LEVEL S+ CUSTOM TAB
-                            context.openInCustomTab("https://developer.android.com/about/versions/marshmallow/android-6.0?hl=es-419", R.color.teal_700)
+                            context.openInCustomTab(
+                                "https://developer.android.com/about/versions/marshmallow/android-6.0?hl=es-419",
+                                R.color.teal_700
+                            )
                         }
                     )
 
@@ -96,7 +99,12 @@ class MainActivity : ComponentActivity() {
                         debutShape = RoundedCornerShape(topStart = 20.dp),
                     )
 
-                    Image(bitmap = createQR(R.drawable.qr_logo, "https://www.google.es/")!!.asImageBitmap(), contentDescription = "")
+                    Image(
+                        bitmap = createQR(
+                            R.drawable.qr_logo,
+                            "https://www.google.es/"
+                        )!!.asImageBitmap(), contentDescription = ""
+                    )
 
                     DebutCard(
                         image = "https://i.picsum.photos/id/0/5616/3744.jpg?hmac=3GAAioiQziMGEtLbfrdbcoenXoWAW-zlyEAMkfEdBzQ",

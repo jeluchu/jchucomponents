@@ -6,7 +6,11 @@
 
 package com.jeluchu.jchucomponents.utils.location
 
-import kotlin.math.*
+import kotlin.math.atan2
+import kotlin.math.cos
+import kotlin.math.pow
+import kotlin.math.sin
+import kotlin.math.sqrt
 
 /**
  * Calculate distance between two points in latitude and longitude taking

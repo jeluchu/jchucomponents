@@ -9,12 +9,12 @@ package com.jeluchu.jchucomponents.utils.network
 import android.content.Context
 import com.jeluchu.jchucomponents.utils.network.interceptors.DebugInterceptor
 import com.jeluchu.jchucomponents.utils.network.interceptors.Interceptor
+import java.util.concurrent.TimeUnit
 import okhttp3.ConnectionPool
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Converter
 import retrofit2.Retrofit
-import java.util.concurrent.TimeUnit
 
 object RetrofitClient {
 

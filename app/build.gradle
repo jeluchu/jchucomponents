@@ -44,7 +44,7 @@ android {
     }
 
     namespace 'com.jeluchu.composer'
-    
+
 }
 
 dependencies {

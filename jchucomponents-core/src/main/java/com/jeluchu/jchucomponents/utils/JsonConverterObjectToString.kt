@@ -9,8 +9,8 @@ package  com.jeluchu.jchucomponents.utils
 import com.google.gson.TypeAdapter
 import com.google.gson.stream.JsonReader
 import com.google.gson.stream.JsonWriter
-import org.json.JSONObject
 import java.io.IOException
+import org.json.JSONObject
 
 class JsonConverterObjectToString : TypeAdapter<String?>() {
 

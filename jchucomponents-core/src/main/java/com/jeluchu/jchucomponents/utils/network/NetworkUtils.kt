@@ -7,9 +7,9 @@
 package com.jeluchu.jchucomponents.utils.network
 
 import com.jeluchu.jchucomponents.utils.network.NetworkUtils.saveResponseBodyToFile
-import okhttp3.ResponseBody
 import java.io.File
 import java.io.FileOutputStream
+import okhttp3.ResponseBody
 
 /**
  *

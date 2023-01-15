@@ -63,7 +63,8 @@ class MediaPlayerHolder(context: Context) : PlayerAdapter {
         } else 0F
 
     override val currentTime: String
-        get() = if (mMediaPlayer != null) mMediaPlayer?.currentPosition?.milliSecondsToTimer().orEmpty()
+        get() = if (mMediaPlayer != null) mMediaPlayer?.currentPosition?.milliSecondsToTimer()
+            .orEmpty()
         else ""
 
     override val totalTime: String

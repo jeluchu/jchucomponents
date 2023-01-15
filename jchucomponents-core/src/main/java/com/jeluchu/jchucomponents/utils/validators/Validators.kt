@@ -54,5 +54,6 @@ object Validators {
     fun String.isLocal() =
         !isEmptyString() && (startsWith("http://") || startsWith("https://"))
 
-    fun CharSequence.isEmptyString(): Boolean = this.isEmpty() || this.toString().equals("null", true)
+    fun CharSequence.isEmptyString(): Boolean =
+        this.isEmpty() || this.toString().equals("null", true)
 }

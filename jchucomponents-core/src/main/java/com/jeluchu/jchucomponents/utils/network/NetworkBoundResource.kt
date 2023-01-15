@@ -8,12 +8,12 @@ package com.jeluchu.jchucomponents.utils.network
 
 import com.jeluchu.jchucomponents.core.exception.Failure
 import com.jeluchu.jchucomponents.utils.network.models.Resource
+import java.io.IOException
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.emitAll
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import retrofit2.HttpException
-import java.io.IOException
 
 inline fun <ResultType, RequestType> networkBoundResource(
     crossinline query: () -> Flow<ResultType>,

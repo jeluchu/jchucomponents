@@ -4,16 +4,21 @@
  *
  */
 
-package com.jeluchu.jchucomponents.ui.migration.progress
+package com.jeluchu.jchucomponents.ui.composables.progress
 
 import androidx.annotation.DrawableRes
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.*
-import androidx.compose.material.Icon
-import androidx.compose.material.LocalTextStyle
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.material3.Icon
+import androidx.compose.material3.LocalTextStyle
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -140,6 +145,6 @@ fun LinearProgressbar(
 @Composable
 fun LinearProgressbarPreview() {
     LinearProgressbar(
-        icon = R.drawable.ic_up_arrow
+        icon = R.drawable.ic_btn_share
     )
 }
