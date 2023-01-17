@@ -7,6 +7,7 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
+    id 'org.jetbrains.dokka'
 }
 
 android {
@@ -42,6 +43,29 @@ android {
         sourceCompatibility JavaVersion.VERSION_11
         targetCompatibility JavaVersion.VERSION_11
     }
+
+    dokkaHtml.configure {
+
+        outputDirectory.set(file("../docs"))
+        moduleName.set("$rootProject.name")
+        suppressInheritedMembers.set(true)
+        pluginsMapConfiguration.set(
+                [
+                        "org.jetbrains.dokka.base.DokkaBase": """{
+                            "footerMessage": "Made with ❤️ at <b><a href=\\"https://about.jeluchu.com\\">Jéluchu</a></b> © 2022",
+                            "customStyleSheets": ["${file("../logo-style.css")}"]
+                        }"""
+                ]
+        )
+
+        dokkaSourceSets {
+            named("main") {
+                includes.from("../modules.md")
+                includeNonPublic.set(true)
+            }
+        }
+    }
+
 
     namespace 'com.jeluchu.composer'
 

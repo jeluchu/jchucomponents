@@ -6,10 +6,18 @@
     <link href="../../images/logo-icon.svg" rel="icon" type="image/svg">
     <script>var pathToRoot = "../../";</script>
     <script>const storage = localStorage.getItem("dokka-dark-mode")
-const savedDarkMode = storage ? JSON.parse(storage) : false
-if(savedDarkMode === true){
-    document.getElementsByTagName("html")[0].classList.add("theme-dark")
-}</script>
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
 <script type="text/javascript" src="../../scripts/sourceset_dependencies.js" async="async"></script>
 <link href="../../styles/style.css" rel="Stylesheet">
 <link href="../../styles/jetbrains-mono.css" rel="Stylesheet">
@@ -21,6 +29,7 @@ if(savedDarkMode === true){
 <script type="text/javascript" src="../../scripts/platform-content-handler.js" async="async"></script>
 <script type="text/javascript" src="../../scripts/main.js" defer="defer"></script>
 <script type="text/javascript" src="../../scripts/prism.js" async="async"></script>
+<script type="text/javascript" src="../../scripts/symbol-parameters-wrapper_deferred.js" defer="defer"></script>
 <link href="../../styles/logo-style.css" rel="Stylesheet">
 </head>
 <body>
@@ -43,56 +52,56 @@ if(savedDarkMode === true){
         <div id="sideMenu"></div>
     </div>
     <div id="main">
-<div class="main-content" id="content" pageIds="JchuComponents::com.jeluchu.jchucomponents.utils.network.interceptors////PointingToDeclaration//-122051826">
-  <div class="breadcrumbs"><a href="../../index.html">JchuComponents</a><span class="delimiter">/</span><a href="index.html">com.jeluchu.jchucomponents.utils.network.interceptors</a></div>
+<div class="main-content" id="content" pageIds="JchuComponents::com.jeluchu.jchucomponents.utils.network.interceptors////PointingToDeclaration//1497454736">
+  <div class="breadcrumbs"><a href="../../index.html">JchuComponents</a><span class="delimiter">/</span><span class="current">com.jeluchu.jchucomponents.utils.network.interceptors</span></div>
   <div class="cover ">
-    <h1 class="cover"><span><span>Package</span></span> <span>com.</span><wbr></wbr><span>jeluchu.</span><wbr></wbr><span>jchucomponents.</span><wbr></wbr><span>utils.</span><wbr></wbr><span>network.</span><wbr></wbr><span><span>interceptors</span></span></h1>
+    <h1 class="cover"><span><span>Package-level</span></span> <span><span>declarations</span></span></h1>
   </div>
   <div class="tabbedcontent">
     <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="Types">Types</button></div>
     <div class="tabs-section-body">
       <h2 class="">Types</h2>
-      <div class="table" data-togglable="Types"><a data-name="-1227182946%2FClasslikes%2F-122051826" anchor-label="DebugInterceptor" id="-1227182946%2FClasslikes%2F-122051826" data-filterable-set=":jchucomponents:dokkaHtml/release"></a>
-        <div class="table-row" data-filterable-current=":jchucomponents:dokkaHtml/release" data-filterable-set=":jchucomponents:dokkaHtml/release">
+      <div class="table" data-togglable="Types"><a data-name="-1227182946%2FClasslikes%2F1497454736" anchor-label="DebugInterceptor" id="-1227182946%2FClasslikes%2F1497454736" data-filterable-set=":jchucomponents-core:dokkaHtml/release"></a>
+        <div class="table-row" data-filterable-current=":jchucomponents-core:dokkaHtml/release" data-filterable-set=":jchucomponents-core:dokkaHtml/release">
           <div class="main-subrow keyValue ">
             <div class=""><span class="inline-flex">
                 <div><a href="-debug-interceptor/index.html"><span>Debug</span><wbr></wbr><span><span>Interceptor</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1227182946%2FClasslikes%2F-122051826"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1227182946%2FClasslikes%2F1497454736"></span>
                   <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                 </span></span></div>
             <div>
               <div class="title">
-                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":jchucomponents:dokkaHtml/release"><div class="symbol monospace"><span class="token keyword">class </span><a href="-debug-interceptor/index.html">DebugInterceptor</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>context<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/android/content/Context.html">Context</a></span></span><span class="token punctuation">)</span> : <span data-unresolved-link="okhttp3/Interceptor///PointingToDeclaration/">Interceptor</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":jchucomponents-core:dokkaHtml/release"><div class="symbol monospace"><span class="token keyword">class </span><a href="-debug-interceptor/index.html">DebugInterceptor</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>context<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/android/content/Context.html">Context</a></span></span><span class="token punctuation">)</span> : <span data-unresolved-link="okhttp3/Interceptor///PointingToDeclaration/">Interceptor</span></div></div></div>
               </div>
             </div>
           </div>
         </div>
-<a data-name="-1494756275%2FClasslikes%2F-122051826" anchor-label="Interceptor" id="-1494756275%2FClasslikes%2F-122051826" data-filterable-set=":jchucomponents:dokkaHtml/release"></a>
-        <div class="table-row" data-filterable-current=":jchucomponents:dokkaHtml/release" data-filterable-set=":jchucomponents:dokkaHtml/release">
+<a data-name="-1494756275%2FClasslikes%2F1497454736" anchor-label="Interceptor" id="-1494756275%2FClasslikes%2F1497454736" data-filterable-set=":jchucomponents-core:dokkaHtml/release"></a>
+        <div class="table-row" data-filterable-current=":jchucomponents-core:dokkaHtml/release" data-filterable-set=":jchucomponents-core:dokkaHtml/release">
           <div class="main-subrow keyValue ">
             <div class=""><span class="inline-flex">
                 <div><a href="-interceptor/index.html"><span><span>Interceptor</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1494756275%2FClasslikes%2F-122051826"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1494756275%2FClasslikes%2F1497454736"></span>
                   <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                 </span></span></div>
             <div>
               <div class="title">
-                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":jchucomponents:dokkaHtml/release"><div class="symbol monospace"><span class="token keyword">class </span><a href="-interceptor/index.html">Interceptor</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">interceptorHeaders<span class="token operator">: </span><a href="-interceptor-headers/index.html">InterceptorHeaders</a></span></span><span class="token punctuation">)</span> : <span data-unresolved-link="okhttp3/Interceptor///PointingToDeclaration/">Interceptor</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":jchucomponents-core:dokkaHtml/release"><div class="symbol monospace"><span class="token keyword">class </span><a href="-interceptor/index.html">Interceptor</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">interceptorHeaders<span class="token operator">: </span><a href="-interceptor-headers/index.html">InterceptorHeaders</a></span></span><span class="token punctuation">)</span> : <span data-unresolved-link="okhttp3/Interceptor///PointingToDeclaration/">Interceptor</span></div></div></div>
               </div>
             </div>
           </div>
         </div>
-<a data-name="373356527%2FClasslikes%2F-122051826" anchor-label="InterceptorHeaders" id="373356527%2FClasslikes%2F-122051826" data-filterable-set=":jchucomponents:dokkaHtml/release"></a>
-        <div class="table-row" data-filterable-current=":jchucomponents:dokkaHtml/release" data-filterable-set=":jchucomponents:dokkaHtml/release">
+<a data-name="373356527%2FClasslikes%2F1497454736" anchor-label="InterceptorHeaders" id="373356527%2FClasslikes%2F1497454736" data-filterable-set=":jchucomponents-core:dokkaHtml/release"></a>
+        <div class="table-row" data-filterable-current=":jchucomponents-core:dokkaHtml/release" data-filterable-set=":jchucomponents-core:dokkaHtml/release">
           <div class="main-subrow keyValue ">
             <div class=""><span class="inline-flex">
                 <div><a href="-interceptor-headers/index.html"><span>Interceptor</span><wbr></wbr><span><span>Headers</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="373356527%2FClasslikes%2F-122051826"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="373356527%2FClasslikes%2F1497454736"></span>
                   <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                 </span></span></div>
             <div>
               <div class="title">
-                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":jchucomponents:dokkaHtml/release"><div class="symbol monospace"><span class="token keyword">data </span><span class="token keyword">class </span><a href="-interceptor-headers/index.html">InterceptorHeaders</a><span class="token punctuation">(</span><span class="parameters wrapped"><span class="parameter indented">&nbsp;&nbsp;&nbsp;&nbsp;<span class="token keyword">val </span>userAgent<span class="token operator">: </span><a href="-interceptor-headers/-user-agent/index.html">InterceptorHeaders.UserAgent</a><span class="token punctuation">, </span></span><span class="parameter indented">&nbsp;&nbsp;&nbsp;&nbsp;<span class="token keyword">val </span>keyHeaderAgent<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token operator"> = </span>String.empty()<span class="token punctuation">, </span></span><span class="parameter indented">&nbsp;&nbsp;&nbsp;&nbsp;<span class="token keyword">val </span>key<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token operator"> = </span>String.empty()<span class="token punctuation">, </span></span><span class="parameter indented">&nbsp;&nbsp;&nbsp;&nbsp;<span class="token keyword">val </span>client<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":jchucomponents-core:dokkaHtml/release"><div class="symbol monospace"><span class="token keyword">data </span><span class="token keyword">class </span><a href="-interceptor-headers/index.html">InterceptorHeaders</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>userAgent<span class="token operator">: </span><a href="-interceptor-headers/-user-agent/index.html">InterceptorHeaders.UserAgent</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>keyHeaderAgent<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token operator"> = </span><span class="token string">&quot;&quot;</span><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>key<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token operator"> = </span><span class="token string">&quot;&quot;</span><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>client<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span></div></div></div>
               </div>
             </div>
           </div>

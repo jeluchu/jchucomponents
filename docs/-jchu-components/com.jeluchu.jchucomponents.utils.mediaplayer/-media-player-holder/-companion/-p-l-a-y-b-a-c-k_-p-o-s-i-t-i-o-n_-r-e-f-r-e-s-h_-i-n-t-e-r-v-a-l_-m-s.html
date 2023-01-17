@@ -6,10 +6,18 @@
     <link href="../../../../images/logo-icon.svg" rel="icon" type="image/svg">
     <script>var pathToRoot = "../../../../";</script>
     <script>const storage = localStorage.getItem("dokka-dark-mode")
-const savedDarkMode = storage ? JSON.parse(storage) : false
-if(savedDarkMode === true){
-    document.getElementsByTagName("html")[0].classList.add("theme-dark")
-}</script>
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
 <script type="text/javascript" src="../../../../scripts/sourceset_dependencies.js" async="async"></script>
 <link href="../../../../styles/style.css" rel="Stylesheet">
 <link href="../../../../styles/jetbrains-mono.css" rel="Stylesheet">
@@ -21,6 +29,7 @@ if(savedDarkMode === true){
 <script type="text/javascript" src="../../../../scripts/platform-content-handler.js" async="async"></script>
 <script type="text/javascript" src="../../../../scripts/main.js" defer="defer"></script>
 <script type="text/javascript" src="../../../../scripts/prism.js" async="async"></script>
+<script type="text/javascript" src="../../../../scripts/symbol-parameters-wrapper_deferred.js" defer="defer"></script>
 <link href="../../../../styles/logo-style.css" rel="Stylesheet">
 </head>
 <body>
@@ -43,12 +52,12 @@ if(savedDarkMode === true){
         <div id="sideMenu"></div>
     </div>
     <div id="main">
-<div class="main-content" id="content" pageIds="JchuComponents::com.jeluchu.jchucomponents.utils.mediaplayer/MediaPlayerHolder.Companion/PLAYBACK_POSITION_REFRESH_INTERVAL_MS/#/PointingToDeclaration//-122051826">
-  <div class="breadcrumbs"><a href="../../../../index.html">JchuComponents</a><span class="delimiter">/</span><a href="../../index.html">com.jeluchu.jchucomponents.utils.mediaplayer</a><span class="delimiter">/</span><a href="../index.html">MediaPlayerHolder</a><span class="delimiter">/</span><a href="index.html">Companion</a><span class="delimiter">/</span><a href="-p-l-a-y-b-a-c-k_-p-o-s-i-t-i-o-n_-r-e-f-r-e-s-h_-i-n-t-e-r-v-a-l_-m-s.html">PLAYBACK_POSITION_REFRESH_INTERVAL_MS</a></div>
+<div class="main-content" id="content" pageIds="JchuComponents::com.jeluchu.jchucomponents.utils.mediaplayer/MediaPlayerHolder.Companion/PLAYBACK_POSITION_REFRESH_INTERVAL_MS/#/PointingToDeclaration//1497454736">
+  <div class="breadcrumbs"><a href="../../../../index.html">JchuComponents</a><span class="delimiter">/</span><a href="../../index.html">com.jeluchu.jchucomponents.utils.mediaplayer</a><span class="delimiter">/</span><a href="../index.html">MediaPlayerHolder</a><span class="delimiter">/</span><a href="index.html">Companion</a><span class="delimiter">/</span><span class="current">PLAYBACK_POSITION_REFRESH_INTERVAL_MS</span></div>
   <div class="cover ">
     <h1 class="cover"><span><span>PLAYBACK_POSITION_REFRESH_INTERVAL_MS</span></span></h1>
   </div>
-  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":jchucomponents:dokkaHtml/release"><div class="symbol monospace"><span class="token keyword">const </span><span class="token keyword">val </span><a href="-p-l-a-y-b-a-c-k_-p-o-s-i-t-i-o-n_-r-e-f-r-e-s-h_-i-n-t-e-r-v-a-l_-m-s.html">PLAYBACK_POSITION_REFRESH_INTERVAL_MS</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token operator"> = </span><span class="token constant">1000</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":jchucomponents-core:dokkaHtml/release"><div class="symbol monospace"><span class="token keyword">const </span><span class="token keyword">val </span><a href="-p-l-a-y-b-a-c-k_-p-o-s-i-t-i-o-n_-r-e-f-r-e-s-h_-i-n-t-e-r-v-a-l_-m-s.html">PLAYBACK_POSITION_REFRESH_INTERVAL_MS</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token operator"> = </span><span class="token constant">1000</span></div></div></div>
 </div>
       <div class="footer">
         <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>Made with ❤️ at <b><a href="https://about.jeluchu.com">Jéluchu</a></b> © 2022</span><span

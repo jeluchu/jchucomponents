@@ -45,13 +45,6 @@ android {
                         }"""
                 ]
         )
-
-        dokkaSourceSets {
-            named("main") {
-                includes.from("../modules.md")
-                includeNonPublic.set(true)
-            }
-        }
     }
 
     namespace 'com.jeluchu.jchucomponents.ui'

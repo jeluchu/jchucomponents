@@ -6,10 +6,18 @@
     <link href="../../../../images/logo-icon.svg" rel="icon" type="image/svg">
     <script>var pathToRoot = "../../../../";</script>
     <script>const storage = localStorage.getItem("dokka-dark-mode")
-const savedDarkMode = storage ? JSON.parse(storage) : false
-if(savedDarkMode === true){
-    document.getElementsByTagName("html")[0].classList.add("theme-dark")
-}</script>
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
 <script type="text/javascript" src="../../../../scripts/sourceset_dependencies.js" async="async"></script>
 <link href="../../../../styles/style.css" rel="Stylesheet">
 <link href="../../../../styles/jetbrains-mono.css" rel="Stylesheet">
@@ -21,6 +29,7 @@ if(savedDarkMode === true){
 <script type="text/javascript" src="../../../../scripts/platform-content-handler.js" async="async"></script>
 <script type="text/javascript" src="../../../../scripts/main.js" defer="defer"></script>
 <script type="text/javascript" src="../../../../scripts/prism.js" async="async"></script>
+<script type="text/javascript" src="../../../../scripts/symbol-parameters-wrapper_deferred.js" defer="defer"></script>
 <link href="../../../../styles/logo-style.css" rel="Stylesheet">
 </head>
 <body>
@@ -43,89 +52,89 @@ if(savedDarkMode === true){
         <div id="sideMenu"></div>
     </div>
     <div id="main">
-<div class="main-content" id="content" pageIds="JchuComponents::com.jeluchu.jchucomponents.utils.network.interceptors/InterceptorHeaders.UserAgent///PointingToDeclaration//-122051826">
-  <div class="breadcrumbs"><a href="../../../../index.html">JchuComponents</a><span class="delimiter">/</span><a href="../../index.html">com.jeluchu.jchucomponents.utils.network.interceptors</a><span class="delimiter">/</span><a href="../index.html">InterceptorHeaders</a><span class="delimiter">/</span><a href="index.html">UserAgent</a></div>
+<div class="main-content" id="content" pageIds="JchuComponents::com.jeluchu.jchucomponents.utils.network.interceptors/InterceptorHeaders.UserAgent///PointingToDeclaration//1497454736">
+  <div class="breadcrumbs"><a href="../../../../index.html">JchuComponents</a><span class="delimiter">/</span><a href="../../index.html">com.jeluchu.jchucomponents.utils.network.interceptors</a><span class="delimiter">/</span><a href="../index.html">InterceptorHeaders</a><span class="delimiter">/</span><span class="current">UserAgent</span></div>
   <div class="cover ">
     <h1 class="cover"><span>User</span><wbr></wbr><span><span>Agent</span></span></h1>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":jchucomponents:dokkaHtml/release"><div class="symbol monospace"><span class="token keyword">data </span><span class="token keyword">class </span><a href="index.html">UserAgent</a><span class="token punctuation">(</span><span class="parameters wrapped"><span class="parameter indented">&nbsp;&nbsp;&nbsp;&nbsp;<span class="token keyword">val </span>appName<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter indented">&nbsp;&nbsp;&nbsp;&nbsp;<span class="token keyword">val </span>versionName<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter indented">&nbsp;&nbsp;&nbsp;&nbsp;<span class="token keyword">val </span>versionCode<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">, </span></span><span class="parameter indented">&nbsp;&nbsp;&nbsp;&nbsp;<span class="token keyword">val </span>okhttpVersion<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token operator"> = </span>OkHttp.VERSION</span></span><span class="token punctuation">)</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":jchucomponents-core:dokkaHtml/release"><div class="symbol monospace"><span class="token keyword">data </span><span class="token keyword">class </span><a href="index.html">UserAgent</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>appName<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>versionName<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>versionCode<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>okhttpVersion<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token operator"> = </span>OkHttp.VERSION</span></span><span class="token punctuation">)</span></div></div></div>
   </div>
   <div class="tabbedcontent">
     <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="Constructors">Constructors</button><button class="section-tab" data-togglable="Properties">Properties</button></div>
     <div class="tabs-section-body">
       <h2 class="tabbedcontent">Constructors</h2>
-      <div class="table" data-togglable="Constructors"><a data-name="-168801251%2FConstructors%2F-122051826" anchor-label="UserAgent" id="-168801251%2FConstructors%2F-122051826" data-filterable-set=":jchucomponents:dokkaHtml/release"></a>
-        <div class="table-row" data-filterable-current=":jchucomponents:dokkaHtml/release" data-filterable-set=":jchucomponents:dokkaHtml/release">
+      <div class="table" data-togglable="Constructors"><a data-name="-168801251%2FConstructors%2F1497454736" anchor-label="UserAgent" id="-168801251%2FConstructors%2F1497454736" data-filterable-set=":jchucomponents-core:dokkaHtml/release"></a>
+        <div class="table-row" data-filterable-current=":jchucomponents-core:dokkaHtml/release" data-filterable-set=":jchucomponents-core:dokkaHtml/release">
           <div class="main-subrow keyValue TabbedContent">
             <div class=""><span class="inline-flex">
                 <div><a href="-user-agent.html"><span>User</span><wbr></wbr><span><span>Agent</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-168801251%2FConstructors%2F-122051826"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-168801251%2FConstructors%2F1497454736"></span>
                   <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                 </span></span></div>
             <div>
               <div class="title">
-                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":jchucomponents:dokkaHtml/release"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="-user-agent.html"><span class="token function">UserAgent</span></a><span class="token punctuation">(</span><span class="parameters wrapped"><span class="parameter indented">&nbsp;&nbsp;&nbsp;&nbsp;appName<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter indented">&nbsp;&nbsp;&nbsp;&nbsp;versionName<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter indented">&nbsp;&nbsp;&nbsp;&nbsp;versionCode<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">, </span></span><span class="parameter indented">&nbsp;&nbsp;&nbsp;&nbsp;okhttpVersion<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token operator"> = </span>OkHttp.VERSION</span></span><span class="token punctuation">)</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":jchucomponents-core:dokkaHtml/release"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="-user-agent.html"><span class="token function">UserAgent</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">appName<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">versionName<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">versionCode<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">, </span></span><span class="parameter ">okhttpVersion<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token operator"> = </span>OkHttp.VERSION</span></span><span class="token punctuation">)</span></div></div></div>
               </div>
             </div>
           </div>
         </div>
       </div>
       <h2 class="">Properties</h2>
-      <div class="table" data-togglable="Properties"><a data-name="423014258%2FProperties%2F-122051826" anchor-label="appName" id="423014258%2FProperties%2F-122051826" data-filterable-set=":jchucomponents:dokkaHtml/release"></a>
-        <div class="table-row" data-filterable-current=":jchucomponents:dokkaHtml/release" data-filterable-set=":jchucomponents:dokkaHtml/release">
+      <div class="table" data-togglable="Properties"><a data-name="423014258%2FProperties%2F1497454736" anchor-label="appName" id="423014258%2FProperties%2F1497454736" data-filterable-set=":jchucomponents-core:dokkaHtml/release"></a>
+        <div class="table-row" data-filterable-current=":jchucomponents-core:dokkaHtml/release" data-filterable-set=":jchucomponents-core:dokkaHtml/release">
           <div class="main-subrow keyValue ">
             <div class=""><span class="inline-flex">
                 <div><a href="app-name.html"><span>app</span><wbr></wbr><span><span>Name</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="423014258%2FProperties%2F-122051826"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="423014258%2FProperties%2F1497454736"></span>
                   <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                 </span></span></div>
             <div>
               <div class="title">
-                <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable=":jchucomponents:dokkaHtml/release"><a data-name="423014258%2FProperties%2F-122051826" anchor-label="appName" id="423014258%2FProperties%2F-122051826" data-filterable-set=":jchucomponents:dokkaHtml/release"></a><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">val </span><a href="app-name.html">appName</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-dependent-content" data-active="" data-togglable=":jchucomponents-core:dokkaHtml/release"><a data-name="423014258%2FProperties%2F1497454736" anchor-label="appName" id="423014258%2FProperties%2F1497454736" data-filterable-set=":jchucomponents-core:dokkaHtml/release"></a><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">val </span><a href="app-name.html">appName</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></div></div></div>
               </div>
             </div>
           </div>
         </div>
-<a data-name="1118605354%2FProperties%2F-122051826" anchor-label="okhttpVersion" id="1118605354%2FProperties%2F-122051826" data-filterable-set=":jchucomponents:dokkaHtml/release"></a>
-        <div class="table-row" data-filterable-current=":jchucomponents:dokkaHtml/release" data-filterable-set=":jchucomponents:dokkaHtml/release">
+<a data-name="1118605354%2FProperties%2F1497454736" anchor-label="okhttpVersion" id="1118605354%2FProperties%2F1497454736" data-filterable-set=":jchucomponents-core:dokkaHtml/release"></a>
+        <div class="table-row" data-filterable-current=":jchucomponents-core:dokkaHtml/release" data-filterable-set=":jchucomponents-core:dokkaHtml/release">
           <div class="main-subrow keyValue ">
             <div class=""><span class="inline-flex">
                 <div><a href="okhttp-version.html"><span>okhttp</span><wbr></wbr><span><span>Version</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1118605354%2FProperties%2F-122051826"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1118605354%2FProperties%2F1497454736"></span>
                   <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                 </span></span></div>
             <div>
               <div class="title">
-                <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable=":jchucomponents:dokkaHtml/release"><a data-name="1118605354%2FProperties%2F-122051826" anchor-label="okhttpVersion" id="1118605354%2FProperties%2F-122051826" data-filterable-set=":jchucomponents:dokkaHtml/release"></a><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">val </span><a href="okhttp-version.html">okhttpVersion</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-dependent-content" data-active="" data-togglable=":jchucomponents-core:dokkaHtml/release"><a data-name="1118605354%2FProperties%2F1497454736" anchor-label="okhttpVersion" id="1118605354%2FProperties%2F1497454736" data-filterable-set=":jchucomponents-core:dokkaHtml/release"></a><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">val </span><a href="okhttp-version.html">okhttpVersion</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></div></div></div>
               </div>
             </div>
           </div>
         </div>
-<a data-name="-1990864263%2FProperties%2F-122051826" anchor-label="versionCode" id="-1990864263%2FProperties%2F-122051826" data-filterable-set=":jchucomponents:dokkaHtml/release"></a>
-        <div class="table-row" data-filterable-current=":jchucomponents:dokkaHtml/release" data-filterable-set=":jchucomponents:dokkaHtml/release">
+<a data-name="-1990864263%2FProperties%2F1497454736" anchor-label="versionCode" id="-1990864263%2FProperties%2F1497454736" data-filterable-set=":jchucomponents-core:dokkaHtml/release"></a>
+        <div class="table-row" data-filterable-current=":jchucomponents-core:dokkaHtml/release" data-filterable-set=":jchucomponents-core:dokkaHtml/release">
           <div class="main-subrow keyValue ">
             <div class=""><span class="inline-flex">
                 <div><a href="version-code.html"><span>version</span><wbr></wbr><span><span>Code</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1990864263%2FProperties%2F-122051826"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1990864263%2FProperties%2F1497454736"></span>
                   <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                 </span></span></div>
             <div>
               <div class="title">
-                <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable=":jchucomponents:dokkaHtml/release"><a data-name="-1990864263%2FProperties%2F-122051826" anchor-label="versionCode" id="-1990864263%2FProperties%2F-122051826" data-filterable-set=":jchucomponents:dokkaHtml/release"></a><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">val </span><a href="version-code.html">versionCode</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-dependent-content" data-active="" data-togglable=":jchucomponents-core:dokkaHtml/release"><a data-name="-1990864263%2FProperties%2F1497454736" anchor-label="versionCode" id="-1990864263%2FProperties%2F1497454736" data-filterable-set=":jchucomponents-core:dokkaHtml/release"></a><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">val </span><a href="version-code.html">versionCode</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a></div></div></div>
               </div>
             </div>
           </div>
         </div>
-<a data-name="674223003%2FProperties%2F-122051826" anchor-label="versionName" id="674223003%2FProperties%2F-122051826" data-filterable-set=":jchucomponents:dokkaHtml/release"></a>
-        <div class="table-row" data-filterable-current=":jchucomponents:dokkaHtml/release" data-filterable-set=":jchucomponents:dokkaHtml/release">
+<a data-name="674223003%2FProperties%2F1497454736" anchor-label="versionName" id="674223003%2FProperties%2F1497454736" data-filterable-set=":jchucomponents-core:dokkaHtml/release"></a>
+        <div class="table-row" data-filterable-current=":jchucomponents-core:dokkaHtml/release" data-filterable-set=":jchucomponents-core:dokkaHtml/release">
           <div class="main-subrow keyValue ">
             <div class=""><span class="inline-flex">
                 <div><a href="version-name.html"><span>version</span><wbr></wbr><span><span>Name</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="674223003%2FProperties%2F-122051826"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="674223003%2FProperties%2F1497454736"></span>
                   <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                 </span></span></div>
             <div>
               <div class="title">
-                <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable=":jchucomponents:dokkaHtml/release"><a data-name="674223003%2FProperties%2F-122051826" anchor-label="versionName" id="674223003%2FProperties%2F-122051826" data-filterable-set=":jchucomponents:dokkaHtml/release"></a><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">val </span><a href="version-name.html">versionName</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-dependent-content" data-active="" data-togglable=":jchucomponents-core:dokkaHtml/release"><a data-name="674223003%2FProperties%2F1497454736" anchor-label="versionName" id="674223003%2FProperties%2F1497454736" data-filterable-set=":jchucomponents-core:dokkaHtml/release"></a><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">val </span><a href="version-name.html">versionName</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></div></div></div>
               </div>
             </div>
           </div>
