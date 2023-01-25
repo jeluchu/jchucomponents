@@ -11,8 +11,8 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import androidx.annotation.RequiresPermission
-import com.jeluchu.jchucomponents.ktx.ints.empty
-import com.jeluchu.jchucomponents.ktx.ints.orEmpty
+import com.jeluchu.jchucomponents.ktx.numbers.empty
+import com.jeluchu.jchucomponents.ktx.numbers.orEmpty
 import com.jeluchu.jchucomponents.ktx.packageutils.buildIsMAndLower
 import com.jeluchu.jchucomponents.ktx.packageutils.buildIsMarshmallowAndUp
 import com.jeluchu.jchucomponents.ktx.packageutils.buildIsPAndUp

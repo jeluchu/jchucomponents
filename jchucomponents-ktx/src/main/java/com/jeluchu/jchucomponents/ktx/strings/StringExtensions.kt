@@ -30,6 +30,8 @@ import java.util.regex.Pattern
 import org.intellij.lang.annotations.RegExp
 import org.json.JSONObject
 
+fun String.removeFirstLastChar(): String =  this.substring(1, this.length - 1)
+
 /** ---- FORMATER STRINGS ---------------------------------------------------------------------- **/
 fun String.addSpaceAfterEvery4Chars() = replace("....".toRegex(), "$0 ")
 fun String.addSpaceAfterEvery3Chars() = replace("...".toRegex(), "$0 ")
@@ -334,7 +336,6 @@ fun String.jwtBodyToJsonObject(): JSONObject? {
     }
     return result
 }
-
 
 /** ---- CURRENCIES ---------------------------------------------------------------------------- **/
 

@@ -4,7 +4,7 @@
  *
  */
 
-package com.jeluchu.jchucomponents.ktx.ints
+package com.jeluchu.jchucomponents.ktx.numbers
 
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height

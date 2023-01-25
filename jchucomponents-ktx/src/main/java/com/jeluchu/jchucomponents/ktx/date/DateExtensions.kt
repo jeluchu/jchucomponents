@@ -6,6 +6,9 @@
 
 package com.jeluchu.jchucomponents.ktx.date
 
+import android.provider.Settings.System.DATE_FORMAT
+import com.jeluchu.jchucomponents.ktx.numbers.orEmpty
+import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -46,6 +49,23 @@ const val DATE_FORMAT_TIMESTAMP = "dd/MM/yyyy HH:mm"
  *
  */
 const val DATE_FORMAT_ONLY_TIME = "HH:mm 'H'"
+
+/**
+ *
+ * Constant to perform the time formatting as follows: "EEEE, MMMM d, yyyy - hh:mm:ss a"
+ * For example: "21:02 hrs"
+ *
+ * E: Day of week
+ * M: Month of year
+ * d: Day of month
+ * y: Year
+ * H: Hour
+ * m: Minutes
+ * s: Seconds
+ * a: AM / PM
+ *
+ */
+const val DATE_FORMAT_WEEK_AND_MONTH_TIME = "EEEE, MMMM d, yyyy - hh:mm:ss a"
 
 /** ---- FORMATS ------------------------------------------------------------------------------- **/
 

@@ -28,8 +28,5 @@ fun LazyListState.reenableScrolling(scope: CoroutineScope) {
     }
 }
 
-fun <T> MutableList<T>.addAllIfNotExist(elements: Collection<T>) {
-    for (element in elements) {
-        if (!contains(element)) add(element)
-    }
-}
+val <T> List<T?>.penultimateElement: T?
+    get() = if (isEmpty()) null else get(size - 2)
