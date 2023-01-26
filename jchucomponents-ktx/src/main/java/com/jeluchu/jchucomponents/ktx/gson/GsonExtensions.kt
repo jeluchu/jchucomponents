@@ -35,7 +35,16 @@ inline fun <T, reified R> T.convert(): R = gson.toJson(this).toObject()
 /**
  * Helps to get Map, List, Set or other generic type from Json using Gson.
  */
-inline fun <reified T : Any> Gson.fromJsonToGeneric(json: String): T {
-    val type = object : TypeToken<T>() {}.type
-    return fromJson(json, type)
+inline fun <reified T> Gson.fromJson(json: String): T? = try {
+    fromJson<T>(json, object : TypeToken<T>() {}.type)
+} catch (e: Exception) {
+    e.printStackTrace()
+    null
+}
+
+inline fun <reified T : Any> Gson.fromJsonList(json: String?): List<T>? = try {
+    fromJson<List<T>>(json, object : TypeToken<List<T>>() {}.type)
+} catch (e: Exception) {
+    e.printStackTrace()
+    null
 }

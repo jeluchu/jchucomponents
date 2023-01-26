@@ -23,6 +23,7 @@ import java.net.HttpURLConnection
 import java.net.URL
 import java.net.URLEncoder
 import java.text.DateFormat
+import java.text.DecimalFormat
 import java.text.Format
 import java.text.SimpleDateFormat
 import java.util.*
@@ -350,3 +351,8 @@ fun String.getCurrencyString() =
         "RUB" -> "₽"
         else -> "€"
     }
+
+fun String.toPriceAmount(): String {
+    val dec = DecimalFormat("###,###,###.00")
+    return dec.format(this.toDouble())
+}

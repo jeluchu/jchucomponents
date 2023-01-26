@@ -6,9 +6,6 @@
 
 package com.jeluchu.jchucomponents.ktx.date
 
-import android.provider.Settings.System.DATE_FORMAT
-import com.jeluchu.jchucomponents.ktx.numbers.orEmpty
-import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -139,38 +136,14 @@ fun Date.add(field: Int, amount: Int): Date {
     }
 }
 
-fun Date.addYears(years: Int): Date {
-    return add(Calendar.YEAR, years)
-}
-
-fun Date.addMonths(months: Int): Date {
-    return add(Calendar.MONTH, months)
-}
-
-fun Date.addDays(days: Int): Date {
-    return add(Calendar.DAY_OF_MONTH, days)
-}
-
-fun Date.addHours(hours: Int): Date {
-    return add(Calendar.HOUR_OF_DAY, hours)
-}
-
-fun Date.addMinutes(minutes: Int): Date {
-    return add(Calendar.MINUTE, minutes)
-}
-
-fun Date.addSeconds(seconds: Int): Date {
-    return add(Calendar.SECOND, seconds)
-}
+fun Date.addYears(years: Int): Date = add(Calendar.YEAR, years)
+fun Date.addMonths(months: Int): Date = add(Calendar.MONTH, months)
+fun Date.addDays(days: Int): Date = add(Calendar.DAY_OF_MONTH, days)
+fun Date.addHours(hours: Int): Date = add(Calendar.HOUR_OF_DAY, hours)
+fun Date.addMinutes(minutes: Int): Date = add(Calendar.MINUTE, minutes)
+fun Date.addSeconds(seconds: Int): Date = add(Calendar.SECOND, seconds)
 
 /** ---- CALENDAR ------------------------------------------------------------------------------ **/
-
-fun Date.addYear(years: Int): Date =
-    this.toCalendar()
-        .run {
-            add(Calendar.YEAR, years)
-            this.time
-        }
 
 fun Date.toCalendar(): Calendar {
     val calendar = Calendar.getInstance()
