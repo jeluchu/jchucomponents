@@ -21,6 +21,8 @@ import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Environment
 import android.provider.MediaStore
+import android.telephony.TelephonyManager
+import android.util.Log
 import android.view.LayoutInflater
 import androidx.annotation.DrawableRes
 import androidx.core.app.ActivityCompat
@@ -31,6 +33,8 @@ import coil.request.CachePolicy
 import coil.request.ErrorResult
 import coil.request.ImageRequest
 import coil.request.SuccessResult
+import com.google.android.gms.common.util.ClientLibraryUtils
+import com.google.gson.Gson
 import com.jeluchu.jchucomponents.ktx.constants.INTENT_TYPE_IMG_PNG
 import com.jeluchu.jchucomponents.ktx.packageutils.buildIsQAndUp
 import com.jeluchu.jchucomponents.ktx.utilities.zxing.EncodeHintType
@@ -163,3 +167,25 @@ fun Context.openPlaystoreSubscriptions(
         it.printStackTrace()
     }
 }
+
+fun <T> Context.getJsonDataFromAsset(fileName: String, typeClass: Class<T>): T? =
+    kotlin.runCatching {
+        Gson().fromJson(
+            this.assets.open(fileName).bufferedReader().use { it.readText() },
+            typeClass
+        )
+    }.onFailure { error -> Log.e("ERROR:", error.message.orEmpty()) }.getOrNull()
+
+
+fun Context.isSimCardReady(): Boolean {
+    val telephonyManager = getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager
+    return telephonyManager.simState == TelephonyManager.SIM_STATE_READY
+}
+
+fun Context.isPackageInstalled(packageName: String): Boolean =
+    runCatching {
+        ClientLibraryUtils.getPackageInfo(this, packageName)
+        true
+    }.getOrElse {
+        false
+    }

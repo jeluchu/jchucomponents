@@ -6,15 +6,12 @@
 
 package com.jeluchu.jchucomponents.utils
 
-import android.content.pm.PackageManager
 import java.util.*
 
-fun getRandomUUID(): Long = UUID.randomUUID().mostSignificantBits and Long.MAX_VALUE
+fun getUUIDBits(): Long = UUID.randomUUID().mostSignificantBits and Long.MAX_VALUE
 
-fun isPackageInstalled(packageName: String, packageManager: PackageManager): Boolean =
-    runCatching {
-        packageManager.getPackageInfo(packageName, 0)
-        true
-    }.getOrElse {
-        false
-    }
+fun getRandomUUID(): String =
+    UUID.randomUUID().toString().replace("-", "").uppercase(Locale.getDefault())
+
+fun randInt(min: Int, max: Int): Int = Random().nextInt(max - min + 1) + min
+fun randDouble(min: Double, max: Double): Double = min + (max - min) * Random().nextDouble()

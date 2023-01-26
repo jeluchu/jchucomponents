@@ -12,7 +12,9 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.jeluchu.jchucomponents.ktx.constants.FIRST_DAY_OF_MONTH
 import com.jeluchu.jchucomponents.ktx.strings.empty
+import java.util.*
 import kotlin.math.roundToInt
 
 @Composable
@@ -53,3 +55,27 @@ fun Int.milliSecondsToTimer(): String {
 }
 
 fun Int?.roundUpToNearestTen(): Int = ((((this ?: 0) + 5) / 10.0).roundToInt() * 10)
+
+/**
+ * Return a list of calendar values which contains the months of the year.
+ * If the year is the current one, return only the months until the current one.
+ */
+fun Int.getMonths(): List<Calendar> =
+    mutableListOf<Calendar>().also { months ->
+        Calendar.getInstance().let { calendar ->
+            val maxMonth =
+                if (this == calendar.get(Calendar.YEAR)) calendar.get(Calendar.MONTH)
+                else Calendar.DECEMBER
+
+            calendar.set(Calendar.YEAR, this)
+
+            for (i in Calendar.JANUARY..maxMonth)
+                months.add(
+                    Calendar.getInstance().apply {
+                        set(Calendar.YEAR, calendar.get(Calendar.YEAR))
+                        set(Calendar.MONTH, i)
+                        set(Calendar.DAY_OF_MONTH, FIRST_DAY_OF_MONTH)
+                    }
+                )
+        }
+    }

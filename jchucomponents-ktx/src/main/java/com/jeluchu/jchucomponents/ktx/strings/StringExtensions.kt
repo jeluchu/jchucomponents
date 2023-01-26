@@ -356,3 +356,10 @@ fun String.toPriceAmount(): String {
     val dec = DecimalFormat("###,###,###.00")
     return dec.format(this.toDouble())
 }
+
+/**
+ * Returns Uri from a path.
+ */
+fun String.pathToUri(): Uri = Uri.parse(this)
+
+fun String.wordCount(): Int = trim().split("\\s+".toRegex()).size

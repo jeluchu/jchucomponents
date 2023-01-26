@@ -150,3 +150,15 @@ fun Date.toCalendar(): Calendar {
     calendar.time = this
     return calendar
 }
+
+fun Date.backInYears(years: Int): Date =
+    Calendar.getInstance().also { calendar ->
+        calendar.time = this
+        calendar.add(Calendar.YEAR, -years)
+    }.time
+
+fun Date.forwardInYears(years: Int): Date =
+    Calendar.getInstance().also { calendar ->
+        calendar.time = this
+        calendar.add(Calendar.YEAR, years)
+    }.time
