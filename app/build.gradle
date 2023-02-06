@@ -7,17 +7,19 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
+    id 'org.jetbrains.dokka'
 }
 
 android {
-    compileSdk 32
+
+    compileSdk 33
 
     defaultConfig {
-        applicationId "com.jeluchu.compposecomponents"
+        applicationId "com.jeluchu.composer"
         minSdk 22
-        targetSdk 32
+        targetSdk 33
         versionCode 1
-        versionName "1.0"
+        versionName "1.0.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -34,38 +36,44 @@ android {
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.2.0-rc01"
+        kotlinCompilerExtensionVersion = "1.3.2"
     }
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_11
         targetCompatibility JavaVersion.VERSION_11
     }
-    namespace 'com.jeluchu.compposecomponents'
+
+    dokkaHtml.configure {
+
+        outputDirectory.set(file("../docs"))
+        moduleName.set("$rootProject.name")
+        suppressInheritedMembers.set(true)
+        pluginsMapConfiguration.set(
+                [
+                        "org.jetbrains.dokka.base.DokkaBase": """{
+                            "footerMessage": "Made with ❤️ at <b><a href=\\"https://about.jeluchu.com\\">Jéluchu</a></b> © 2022",
+                            "customStyleSheets": ["${file("../logo-style.css")}"]
+                        }"""
+                ]
+        )
+
+        dokkaSourceSets {
+            named("main") {
+                includes.from("../modules.md")
+                includeNonPublic.set(true)
+            }
+        }
+    }
+
+
+    namespace 'com.jeluchu.composer'
+
 }
 
 dependencies {
-
-    implementation project(':jchucomponentscompose')
-    implementation 'androidx.appcompat:appcompat:1.4.2'
-    implementation 'com.google.android.material:material:1.6.1'
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-
-    // JETPACK COMPOSE -----------------------------------------------------------------------------
-    implementation 'androidx.compose.ui:ui:1.1.1'
-    implementation 'androidx.compose.material:material:1.1.1'
-    implementation 'androidx.compose.ui:ui-tooling-preview:1.1.1'
-    implementation 'androidx.activity:activity-compose:1.4.0'
-    debugImplementation 'androidx.compose.ui:ui-tooling:1.1.1'
-    implementation 'androidx.activity:activity-compose:1.4.0'
-    implementation 'androidx.compose.material:material-icons-extended:1.1.1'
-    implementation 'androidx.compose.foundation:foundation:1.1.1'
-    implementation 'androidx.compose.foundation:foundation-layout:1.1.1'
-    implementation 'androidx.compose.animation:animation:1.1.1'
-    implementation 'androidx.compose.runtime:runtime:1.1.1'
-    implementation 'androidx.compose.runtime:runtime-livedata:1.1.1'
-    implementation 'androidx.constraintlayout:constraintlayout-compose:1.0.1'
-    implementation 'androidx.navigation:navigation-compose:2.4.2'
-    implementation 'androidx.activity:activity-compose:1.4.0'
-
+    implementation libs.bundles.ui.compose
+    implementation project(':jchucomponents-core')
+    implementation project(':jchucomponents-ui')
+    implementation project(':jchucomponents-ktx')
 }
