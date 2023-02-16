@@ -19,6 +19,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
 import androidx.compose.material.LocalTextStyle
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -140,13 +141,16 @@ fun CardArrow(
     tintIcon: Color,
     @StringRes contentDescription: Int? = null,
     onClick: () -> Unit
-) = Icon(
-    modifier = Modifier
-        .rotate(degrees)
-        .clickable(onClick = onClick),
-    painter = painterResource(id = R.drawable.ic_up_arrow),
-    contentDescription = contentDescription?.let { stringResource(id = it) },
-    tint = tintIcon
+) = IconButton(
+    onClick = onClick,
+    content = {
+        Icon(
+            painter = painterResource(id = R.drawable.ic_up_arrow),
+            contentDescription = "Expandable Arrow",
+            modifier = Modifier.rotate(degrees),
+            tint = tintIcon
+        )
+    }
 )
 
 @ExperimentalAnimationApi
