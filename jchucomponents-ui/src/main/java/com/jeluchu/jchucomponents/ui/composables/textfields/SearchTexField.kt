@@ -101,7 +101,7 @@ fun SearchTextField(
                 tint = searchField.contentColor,
                 contentDescription = String.empty(),
                 modifier = Modifier
-                    .padding(15.dp)
+                    .padding(5.dp)
                     .size(24.dp)
             )
         }
