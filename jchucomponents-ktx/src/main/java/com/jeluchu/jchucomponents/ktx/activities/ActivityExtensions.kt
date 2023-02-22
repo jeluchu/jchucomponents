@@ -9,6 +9,7 @@ package com.jeluchu.jchucomponents.ktx.activities
 import android.Manifest
 import android.app.Activity
 import android.content.pm.PackageManager
+import androidx.compose.runtime.Composable
 import androidx.core.app.ActivityCompat
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.GoogleApiAvailability
