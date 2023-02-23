@@ -42,9 +42,8 @@ fun PreferenceSwitch(
                 modifier = Modifier.size(SwitchDefaults.IconSize),
             )
         }
-    } else {
-        null
-    }
+    } else null
+
     Surface(
         modifier = Modifier.toggleable(value = isChecked,
             enabled = enabled,

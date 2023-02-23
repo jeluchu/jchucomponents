@@ -136,6 +136,14 @@ fun Date.add(field: Int, amount: Int): Date {
     }
 }
 
+/**
+ * Convert time in **seconds** to `hh:mm:ss` or `mm:ss`
+ */
+fun Int.toDurationText(): String = this.run {
+    if (this > 3600) "%d:%02d:%02d".format(this / 3600, (this % 3600) / 60, this % 60)
+    else "%02d:%02d".format(this / 60, this % 60)
+}
+
 fun Date.addYears(years: Int): Date = add(Calendar.YEAR, years)
 fun Date.addMonths(months: Int): Date = add(Calendar.MONTH, months)
 fun Date.addDays(days: Int): Date = add(Calendar.DAY_OF_MONTH, days)
