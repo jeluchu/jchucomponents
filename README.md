@@ -6,6 +6,83 @@
 
 This library is intended to facilitate the work of developers so that they can make applications in a faster way and with less code. That is why in addition to having design components (Compose), it also includes various functions and extensions with which to accelerate the development of applications from scratch, or current, as well as including components for the implementation of architectures (MVVM) or perform various common functions.
 
+
+##  Use Library
+
+In the repository it is not only the library project but also the example project "sample_client";
+
+thanks to it you will learn how to use the library.
+
+*There are different ways of adding this library to your code*
+
+###  Gradle / Maven dependency
+
+At the moment we do not have a publishing mechanism to a maven repository so the easiest way to add the library to your app is via a JitPack Dependency [![](https://jitpack.io/v/jeluchu/jchucomponents.svg)](https://jitpack.io/#jeluchu/jchucomponents)
+
+>
+      allprojects {
+	  repositories {
+	      ...
+	      maven { url 'https://jitpack.io' }
+    	  }
+      }
+
+Add the **jchucomponents** dependencies, it include jchucomponents-core library and its library dependencies.
+
+>
+    // build.gradle
+
+    dependencies {
+       implementation 'com.github.jeluchu.jchucomponents:jchucomponents-core:1.x.x'
+    }
+    
+or
+
+>
+    // build.gradle.kts
+
+    dependencies {
+       implementation("com.github.jeluchu.jchucomponents:jchucomponents-core:1.x.x")
+    }
+
+If you want to get the design components in Jetpack Compose, you will need to include jchucomponents-ui library and its library dependencies
+
+>
+    // build.gradle
+    
+    dependencies {
+       implementation 'com.github.jeluchu.jchucomponents:jchucomponents-ui:1.x.x'
+    }
+    
+or
+
+>
+    // build.gradle.kts
+
+    dependencies {
+       implementation("com.github.jeluchu.jchucomponents:jchucomponents-ui:1.x.x")
+    }
+	  
+	  
+If you want to get the extensions, you will need to include jchucomponents-ktx library and its library dependencies
+
+>
+    // build.gradle
+    
+    dependencies {
+       implementation 'com.github.jeluchu.jchucomponents:jchucomponents-ktx:1.x.x'
+    }
+        
+or
+
+>
+    // build.gradle.kts
+
+    dependencies {
+       implementation("com.github.jeluchu.jchucomponents:jchucomponents-ktx:1.x.x")
+    }
+	  
+	
 ##  Versions prior to v1
 
 Versions released prior to v1.x.x can still be used although it is not recommended due to the lack of optimizations and the lack of documentation for those versions, in case you want to use it, remember that the implementation is not the same as the current one
@@ -58,40 +135,6 @@ These versions used `JavaVersion.VERSION_11` please take this into account to ad
 sourceCompatibility JavaVersion.VERSION_11
 targetCompatibility JavaVersion.VERSION_11
 ```
-
-##  Use Library
-
-In the repository it is not only the library project but also the example project "sample_client";
-
-thanks to it you will learn how to use the library.
-
-*There are different ways of adding this library to your code*
-
-###  Gradle / Maven dependency
-
-At the moment we do not have a publishing mechanism to a maven repository so the easiest way to add the library to your app is via a JitPack Dependency [![](https://jitpack.io/v/jeluchu/jchucomponents.svg)](https://jitpack.io/#jeluchu/jchucomponents)
-
->
-      allprojects {
-		    repositories {
-			    ...
-			    maven { url 'https://jitpack.io' }
-    	  }
-      }
-
-Add the **jchucomponents** dependencies, it include jchucomponents-core library and its library dependencies.
-
->
-    dependencies {
-          implementation 'com.github.jeluchu.jchucomponents:jchucomponents-core:1.x.x'
-    }
-
-If you want to get the design components in Jetpack Compose, you will need to include jchucomponents-ui library and its library dependencies
-
->
-    dependencies {
-          implementation 'com.github.jeluchu.jchucomponents:jchucomponents-ui:1.x.x'
-    }
 
 ###  As a git submodule
 
