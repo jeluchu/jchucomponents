@@ -6,6 +6,7 @@
 package com.jeluchu.jchucomponents.ktx.utilities.zxing.common
 
 import okhttp3.internal.and
+import kotlin.math.min
 
 /**
  *
@@ -25,20 +26,20 @@ class BitSource
     private var bitOffset = 0
 
     /**
-     * @param numBits number of bits to read
+     * @param bits number of bits to read
      * @return int representing the bits read. The bits will appear as the least-significant
      * bits of the int
      * @throws IllegalArgumentException if numBits isn't in [1,32] or more than is available
      */
-    fun readBits(numBits: Int): Int {
-        var numBits = numBits
+    fun readBits(bits: Int): Int {
+        var numBits = bits
         require(!(numBits < 1 || numBits > 32 || numBits > available())) { numBits.toString() }
         var result = 0
 
         // First, read remainder from current byte
         if (bitOffset > 0) {
             val bitsLeft = 8 - bitOffset
-            val toRead = Math.min(numBits, bitsLeft)
+            val toRead = min(numBits, bitsLeft)
             val bitsToNotRead = bitsLeft - toRead
             val mask = 0xFF shr 8 - toRead shl bitsToNotRead
             result = bytes[byteOffset] and mask shr bitsToNotRead

@@ -35,4 +35,6 @@
     <string name="la_az" translatable="false">Azərbaycanca</string>
     <string name="la_nn" translatable="false">Nynorsk</string>
     <string name="la_pa" translatable="false">ਪੰਜਾਬੀ</string>
+    <string name="filesize_mb" translatable="false">%.2f MB</string>
+    <string name="filesize_gb" translatable="false">%.2f GB</string>
 </resources>
