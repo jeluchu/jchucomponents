@@ -33,6 +33,8 @@ import com.jeluchu.jchucomponents.ui.animations.lists.animateItem
 import com.jeluchu.jchucomponents.ui.composables.cards.DebutCard
 import com.jeluchu.jchucomponents.ui.composables.cards.PostCardTop
 import com.jeluchu.jchucomponents.ui.composables.cards.StoryCard
+import com.jeluchu.jchucomponents.ui.composables.images.NetworkImage
+import com.jeluchu.jchucomponents.ui.composables.images.transformations.BlurTransformation
 import com.jeluchu.jchucomponents.ui.composables.sheets.BottomSheetWithCloseDialog
 import com.jeluchu.jchucomponents.ui.composables.textfields.SearchTextField
 import com.jeluchu.jchucomponents.ui.composables.toolbars.Toolbar
@@ -104,6 +106,13 @@ class MainActivity : ComponentActivity() {
                         debubtAlignment = Alignment.BottomEnd,
                         debutShape = RoundedCornerShape(topStart = 20.dp),
                     )
+
+                    NetworkImage(url = "https://picsum.photos/200/300")
+                    NetworkImage(url = "https://picsum.photos/200/300", transformations = listOf(BlurTransformation(
+                        scale = 0.5f,
+                        radius = 10
+                    )
+                    ))
 
                     Image(
                         bitmap = createQR(
