@@ -9,10 +9,12 @@ package com.jeluchu.jchucomponents.ui.composables.images
 import android.content.Context
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.DefaultAlpha
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
+import coil.transform.Transformation
 
 /**
  *
@@ -41,14 +43,18 @@ fun NetworkImage(
     modifier: Modifier = Modifier,
     isCrossfade: Boolean = true,
     isAllowHardware: Boolean = true,
+    alpha: Float = DefaultAlpha,
+    transformations: List<Transformation> = emptyList(),
     contentScale: ContentScale = ContentScale.Crop
 ) = AsyncImage(
     modifier = modifier,
     model = ImageRequest.Builder(LocalContext.current)
         .data(url)
+        .transformations(transformations)
         .crossfade(isCrossfade)
         .allowHardware(isAllowHardware)
         .build(),
+    alpha = alpha,
     contentScale = contentScale,
     contentDescription = null
 )
