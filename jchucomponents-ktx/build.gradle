@@ -17,7 +17,7 @@ android {
     }
 
     buildFeatures.compose = true
-    composeOptions.kotlinCompilerExtensionVersion = "1.4.2"
+    composeOptions.kotlinCompilerExtensionVersion = "1.4.4"
 
     buildTypes {
         release {
@@ -65,7 +65,7 @@ afterEvaluate {
                 from components.release
                 groupId = "com.github.jeluchu"
                 artifactId = "jchucomponents-ktx"
-                version = "1.2.0"
+                version = "1.2.1"
             }
         }
     }
