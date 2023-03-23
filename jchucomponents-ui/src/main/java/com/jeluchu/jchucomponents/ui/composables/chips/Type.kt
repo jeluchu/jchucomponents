@@ -25,6 +25,7 @@ import com.jeluchu.jchucomponents.ui.extensions.modifier.cornerRadius
 import com.jeluchu.jchucomponents.ui.foundation.text.MarqueeText
 import com.jeluchu.jchucomponents.ui.themes.artichoke
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun Type(
     type: String,
@@ -47,8 +48,7 @@ fun Type(
             style = style,
             fontSize = fontSize,
             color = textColor,
-            textAlign = textAlign,
-            gradientEdgeColor = Color.Transparent
+            textAlign = textAlign
         )
     else
         Text(

@@ -6,6 +6,7 @@
 
 package com.jeluchu.jchucomponents.ui.composables.cards
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -52,6 +53,7 @@ import com.jeluchu.jchucomponents.ui.foundation.text.MarqueeText
  *
  */
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun DebutCard(
     modifier: Modifier = Modifier,
@@ -131,7 +133,6 @@ fun DebutCard(
             text = title,
             fontSize = 12.sp,
             color = titleColor,
-            gradientEdgeColor = gradientEdgeColor,
             modifier = Modifier
                 .width(130.dp)
                 .padding(7.dp),
