@@ -9,10 +9,13 @@ package com.jeluchu.composer
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
@@ -38,6 +41,7 @@ import com.jeluchu.jchucomponents.ui.composables.images.transformations.BlurTran
 import com.jeluchu.jchucomponents.ui.composables.sheets.BottomSheetWithCloseDialog
 import com.jeluchu.jchucomponents.ui.composables.textfields.SearchTextField
 import com.jeluchu.jchucomponents.ui.composables.toolbars.Toolbar
+import com.jeluchu.jchucomponents.ui.foundation.text.MarqueeText
 import com.jeluchu.jchucomponents.ui.themes.darkPastelBlue
 
 class MainActivity : ComponentActivity() {
@@ -50,6 +54,7 @@ class MainActivity : ComponentActivity() {
         }
     }
 
+    @OptIn(ExperimentalFoundationApi::class)
     @Composable
     fun PhotoSelector() {
 
@@ -63,7 +68,7 @@ class MainActivity : ComponentActivity() {
         BottomSheetWithCloseDialog {
             Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
                 Column(
-                    modifier = Modifier.verticalScroll(rememberScrollState()),
+                    modifier = Modifier.verticalScroll(rememberScrollState()).background(Color.Red),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
 
@@ -75,6 +80,10 @@ class MainActivity : ComponentActivity() {
 
                     val textState = remember { mutableStateOf(String.empty()) }
                     SearchTextField(state = textState)
+                    MarqueeText(
+                        modifier = Modifier.width(150.dp),
+                        text = "Rayo MacQueenRayo MacQueenRayo MacQueenRayo MacQueenRayo MacQueenRayo MacQueen",
+                    )
 
                     StoryCard(
                         modifier = Modifier.animateItem(),

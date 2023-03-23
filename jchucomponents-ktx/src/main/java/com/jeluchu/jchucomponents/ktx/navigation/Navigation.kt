@@ -21,4 +21,4 @@ inline fun <reified T> NavBackStackEntry.findArg(key: String): T {
  * This is used to de-duplicate navigation events.
  */
 fun NavBackStackEntry.lifecycleIsResumed() =
-    this.lifecycle.currentState == Lifecycle.State.RESUMED
+    this.getLifecycle().currentState == Lifecycle.State.RESUMED

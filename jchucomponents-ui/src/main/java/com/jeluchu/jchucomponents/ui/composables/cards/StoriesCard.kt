@@ -8,29 +8,30 @@ package com.jeluchu.jchucomponents.ui.composables.cards
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.constraintlayout.compose.ConstraintLayout
 import com.jeluchu.jchucomponents.ktx.numbers.isNotEmpty
 import com.jeluchu.jchucomponents.ktx.strings.empty
 import com.jeluchu.jchucomponents.ui.composables.images.NetworkImage
+import com.jeluchu.jchucomponents.ui.extensions.modifier.cornerRadius
+import com.jeluchu.jchucomponents.ui.extensions.modifier.noRippleClickable
 
 /**
  *
@@ -57,39 +58,26 @@ fun StoryCard(
     iconMainUrl: String = String.empty(),
     iconMainResource: Int = 0,
     navigateToScreen: () -> Unit
+) = Card(
+    shape = 12.cornerRadius(),
+    modifier = modifier
+        .width(130.dp)
+        .height(190.dp)
+        .padding(4.dp)
+        .clip(12.cornerRadius())
+        .noRippleClickable { navigateToScreen() },
+    backgroundColor = Color.Gray
 ) {
-
-    Card(
-        shape = RoundedCornerShape(12.dp),
-        modifier = modifier
-            .width(130.dp)
-            .height(190.dp)
-            .padding(4.dp),
-        backgroundColor = Color.Gray
-    ) {
-
-        ConstraintLayout(
-            modifier = Modifier
-                .fillMaxWidth()
-                .fillMaxHeight()
-                .clickable { navigateToScreen() }
-        ) {
-
-            val (profileImg, storyImg, name) = createRefs()
-
-            if (iconMainUrl.isNotEmpty()) {
-
+    Box(modifier = Modifier.fillMaxSize()) {
+        when {
+            iconMainUrl.isNotEmpty() -> {
                 NetworkImage(
                     url = iconMainUrl,
-                    modifier = Modifier
-                        .constrainAs(storyImg) {
-                            linkTo(parent.start, parent.end)
-                            linkTo(parent.top, parent.bottom)
-                        },
+                    modifier = Modifier.fillMaxSize(),
                     contentScale = ContentScale.Crop,
                 )
-
-            } else if (iconMainResource.isNotEmpty()) {
+            }
+            iconMainResource.isNotEmpty() -> {
                 Icon(
                     modifier = Modifier
                         .size(23.dp)
@@ -98,48 +86,37 @@ fun StoryCard(
                     contentDescription = null
                 )
             }
-
-            Text(
-                text = title,
-                fontSize = 13.sp,
-                color = textColor,
-                modifier = Modifier
-                    .constrainAs(name) {
-                        start.linkTo(parent.start)
-                        bottom.linkTo(parent.bottom)
-                    }
-                    .padding(8.dp)
-            )
-
-            Card(
-                shape = CircleShape,
-                modifier = Modifier
-                    .constrainAs(profileImg) {
-                        top.linkTo(parent.top)
-                        start.linkTo(parent.start)
-                    }
-                    .padding(8.dp)
-                    .width(40.dp)
-                    .height(40.dp)
-                    .border(
-                        width = 2.dp,
-                        color = Color.Blue,
-                        shape = CircleShape
-                    )
-                    .padding(4.dp)
-            ) {
-
-                Image(
-                    painter = painterResource(circleImage),
-                    contentDescription = "",
-                    contentScale = ContentScale.Crop,
-                )
-
-            }
-
         }
 
+        Text(
+            text = title,
+            fontSize = 13.sp,
+            color = textColor,
+            modifier = Modifier
+                .align(Alignment.BottomStart)
+                .padding(8.dp)
+        )
 
+        Card(
+            shape = CircleShape,
+            modifier = Modifier
+                .align(Alignment.TopStart)
+                .padding(8.dp)
+                .width(40.dp)
+                .height(40.dp)
+                .border(
+                    width = 2.dp,
+                    color = Color.Blue,
+                    shape = CircleShape
+                )
+                .padding(4.dp)
+        ) {
+            Image(
+                painter = painterResource(circleImage),
+                contentDescription = "",
+                contentScale = ContentScale.Crop,
+            )
+        }
     }
-
 }
+
