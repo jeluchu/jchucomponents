@@ -7,6 +7,7 @@
 package com.jeluchu.jchucomponents.ui.composables.images
 
 import android.content.Context
+import androidx.annotation.DrawableRes
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.DefaultAlpha
@@ -15,6 +16,7 @@ import androidx.compose.ui.platform.LocalContext
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import coil.transform.Transformation
+import com.jeluchu.jchucomponents.ui.R
 
 /**
  *
@@ -44,6 +46,7 @@ fun NetworkImage(
     isCrossfade: Boolean = true,
     isAllowHardware: Boolean = true,
     alpha: Float = DefaultAlpha,
+    @DrawableRes error: Int = R.drawable.ic_deco_image_error,
     transformations: List<Transformation> = emptyList(),
     contentScale: ContentScale = ContentScale.Crop
 ) = AsyncImage(
@@ -53,6 +56,7 @@ fun NetworkImage(
         .transformations(transformations)
         .crossfade(isCrossfade)
         .allowHardware(isAllowHardware)
+        .error(error)
         .build(),
     alpha = alpha,
     contentScale = contentScale,
