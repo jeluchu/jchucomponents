@@ -13,6 +13,8 @@ import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.MarqueeAnimationMode
 import androidx.compose.foundation.MarqueeSpacing
 import androidx.compose.foundation.basicMarquee
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.LocalTextStyle
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -75,8 +77,11 @@ import com.jeluchu.jchucomponents.ktx.compose.toStringRes
  *
  */
 
-fun ContentDrawScope.drawFadedEdge(leftEdge: Boolean) {
-    val edgeWidthPx = 30.dp.toPx()
+fun ContentDrawScope.drawFadedEdge(
+    leftEdge: Boolean,
+    edgeWidth: Dp
+) {
+    val edgeWidthPx = edgeWidth.toPx()
     drawRect(
         topLeft = Offset(if (leftEdge) 0f else size.width - edgeWidthPx, 0f),
         size = Size(edgeWidthPx, size.height),
@@ -102,12 +107,13 @@ fun MarqueeText(
     fontFamily: FontFamily? = null,
     letterSpacing: TextUnit = TextUnit.Unspecified,
     textDecoration: TextDecoration? = null,
-    textAlign: TextAlign? = null,
+    textAlign: TextAlign? = TextAlign.Center,
     lineHeight: TextUnit = TextUnit.Unspecified,
     overflow: TextOverflow = TextOverflow.Clip,
     softWrap: Boolean = true,
     iterations: Int = Int.MAX_VALUE,
-    marqueeSpacing: MarqueeSpacing = MarqueeSpacing(0.dp),
+    edgeWidthGradient: Dp = 10.dp,
+    marqueeSpacing: MarqueeSpacing = MarqueeSpacing(30.dp),
     delayMillis: Int = DefaultMarqueeDelayMillis,
     animationMode: MarqueeAnimationMode = MarqueeAnimationMode.Immediately,
     velocity: Dp = DefaultMarqueeVelocity,
@@ -117,11 +123,12 @@ fun MarqueeText(
 ) = Text(
     text = text,
     modifier = modifier
+        .fillMaxWidth()
         .graphicsLayer { compositingStrategy = CompositingStrategy.Offscreen }
         .drawWithContent {
             drawContent()
-            drawFadedEdge(leftEdge = true)
-            drawFadedEdge(leftEdge = false)
+            drawFadedEdge(leftEdge = true, edgeWidth = edgeWidthGradient)
+            drawFadedEdge(leftEdge = false, edgeWidth = edgeWidthGradient)
         }
         .basicMarquee(
             animationMode = animationMode,
@@ -159,12 +166,13 @@ fun MarqueeText(
     fontFamily: FontFamily? = null,
     letterSpacing: TextUnit = TextUnit.Unspecified,
     textDecoration: TextDecoration? = null,
-    textAlign: TextAlign? = null,
+    textAlign: TextAlign? = TextAlign.Center,
     lineHeight: TextUnit = TextUnit.Unspecified,
     overflow: TextOverflow = TextOverflow.Clip,
     softWrap: Boolean = true,
     iterations: Int = Int.MAX_VALUE,
-    marqueeSpacing: MarqueeSpacing = MarqueeSpacing(0.dp),
+    edgeWidthGradient: Dp = 10.dp,
+    marqueeSpacing: MarqueeSpacing = MarqueeSpacing(30.dp),
     delayMillis: Int = DefaultMarqueeDelayMillis,
     animationMode: MarqueeAnimationMode = MarqueeAnimationMode.Immediately,
     velocity: Dp = DefaultMarqueeVelocity,
@@ -177,8 +185,8 @@ fun MarqueeText(
         .graphicsLayer { compositingStrategy = CompositingStrategy.Offscreen }
         .drawWithContent {
             drawContent()
-            drawFadedEdge(leftEdge = true)
-            drawFadedEdge(leftEdge = false)
+            drawFadedEdge(leftEdge = true, edgeWidth = edgeWidthGradient)
+            drawFadedEdge(leftEdge = false, edgeWidth = edgeWidthGradient)
         }
         .basicMarquee(
             animationMode = animationMode,
