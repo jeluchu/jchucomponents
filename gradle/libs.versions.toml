@@ -9,7 +9,7 @@ androidx-lifecycle = "2.6.1"
 androidx-navigation = "2.5.3"
 com-google-accompanist = "0.30.0"
 com-squareup-retrofit2 = "2.9.0"
-io-coil-kt = "2.2.2"
+io-coil-kt = "2.3.0"
 org-jetbrains-kotlin = "1.8.10"
 org-jetbrains-kotlinx = "1.6.4"
 
@@ -36,7 +36,7 @@ com-android-tools-build-gradle = "com.android.tools.build:gradle:7.4.2"
 com-google-accompanist-accompanist-systemuicontroller = { module = "com.google.accompanist:accompanist-systemuicontroller", version.ref = "com-google-accompanist" }
 com-google-android-gms-play-services-base = "com.google.android.gms:play-services-base:18.2.0"
 com-google-code-gson = "com.google.code.gson:gson:2.8.5"
-com-google-firebase-firebase-analytics-ktx = "com.google.firebase:firebase-analytics-ktx:21.2.0"
+com-google-firebase-firebase-analytics-ktx = "com.google.firebase:firebase-analytics-ktx:21.2.1"
 com-squareup-okhttp3-logging-interceptor = "com.squareup.okhttp3:logging-interceptor:4.9.3"
 com-squareup-retrofit2-converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "com-squareup-retrofit2" }
 com-squareup-retrofit2-retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "com-squareup-retrofit2" }
