@@ -38,6 +38,7 @@ com-google-android-gms-play-services-base = "com.google.android.gms:play-service
 com-google-code-gson = "com.google.code.gson:gson:2.8.5"
 com-google-firebase-firebase-analytics-ktx = "com.google.firebase:firebase-analytics-ktx:21.2.1"
 com-squareup-okhttp3-logging-interceptor = "com.squareup.okhttp3:logging-interceptor:4.9.3"
+com-squareup-okhttp3-okhttp = "com.squareup.okhttp3:okhttp:4.10.0"
 com-squareup-retrofit2-converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "com-squareup-retrofit2" }
 com-squareup-retrofit2-retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "com-squareup-retrofit2" }
 io-coil-kt-coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "io-coil-kt" }
@@ -75,7 +76,6 @@ ktx-google = [
     "com-google-code-gson",
 ]
 ktx-third-party = [
-    "com-squareup-retrofit2-retrofit",
     "io-coil-kt-coil-compose",
 ]
 # FOR JCHUCOMPONENTS UI
@@ -98,4 +98,11 @@ ui-compose = [
     "androidx-compose-ui-ui-tooling",
     "androidx-navigation-navigation-compose",
     "io-coil-kt-coil-compose",
+]
+# FOR JCHUCOMPONENTS QR
+qr-androidx = [
+    "androidx-core-core-ktx",
+]
+qr-third-party = [
+    "com-squareup-okhttp3-okhttp",
 ]
