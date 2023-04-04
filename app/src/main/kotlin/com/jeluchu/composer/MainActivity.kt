@@ -28,7 +28,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
-import com.jeluchu.jchucomponents.ktx.context.createQR
 import com.jeluchu.jchucomponents.ktx.context.openInCustomTab
 import com.jeluchu.jchucomponents.ktx.strings.empty
 import com.jeluchu.jchucomponents.ui.accompanist.systemui.SystemStatusBarColors
@@ -43,6 +42,7 @@ import com.jeluchu.jchucomponents.ui.composables.textfields.SearchTextField
 import com.jeluchu.jchucomponents.ui.composables.toolbars.Toolbar
 import com.jeluchu.jchucomponents.ui.foundation.text.MarqueeText
 import com.jeluchu.jchucomponents.ui.themes.darkPastelBlue
+import com.jeluchu.qr.generateQr
 
 class MainActivity : ComponentActivity() {
 
@@ -124,7 +124,7 @@ class MainActivity : ComponentActivity() {
                     ))
 
                     Image(
-                        bitmap = createQR(
+                        bitmap = generateQr(
                             R.drawable.qr_logo,
                             "https://www.google.es/"
                         )!!.asImageBitmap(), contentDescription = ""

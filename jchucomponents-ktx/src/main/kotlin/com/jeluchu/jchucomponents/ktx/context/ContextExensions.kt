@@ -37,10 +37,6 @@ import com.google.android.gms.common.util.ClientLibraryUtils
 import com.google.gson.Gson
 import com.jeluchu.jchucomponents.ktx.constants.INTENT_TYPE_IMG_PNG
 import com.jeluchu.jchucomponents.ktx.packageutils.buildIsQAndUp
-import com.jeluchu.jchucomponents.ktx.utilities.zxing.EncodeHintType
-import com.jeluchu.jchucomponents.ktx.utilities.zxing.qrcode.QRCodeWriter
-import com.jeluchu.jchucomponents.ktx.utilities.zxing.qrcode.decoder.ErrorCorrectionLevel
-
 
 /** ---- PERMISSIONS --------------------------------------------------------------------------- **/
 
@@ -75,32 +71,6 @@ fun Context.getCompatDrawable(@DrawableRes drawableRes: Int): Drawable? =
 
 inline val Context.notificationManager: NotificationManager
     get() = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
-
-
-/** ---- CREATE QR ----------------------------------------------------------------------------- **/
-
-fun Context.createQR(
-    @DrawableRes icon: Int,
-    key: String?,
-    width: Int? = 768,
-    height: Int? = 768
-): Bitmap? {
-
-    val qrCode: Bitmap? = null
-
-    runCatching {
-        val hints = HashMap<EncodeHintType, Any?>()
-        hints[EncodeHintType.ERROR_CORRECTION] = ErrorCorrectionLevel.M
-        hints[EncodeHintType.MARGIN] = 0
-        val writer = QRCodeWriter()
-        return writer.encode(key, width ?: 768, height ?: 768, hints, qrCode, this, icon)
-    }.getOrElse {
-        it.localizedMessage
-        return null
-    }
-
-}
-
 
 /** ---- SAVE IMAGES --------------------------------------------------------------------------- **/
 

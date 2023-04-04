@@ -11,7 +11,6 @@ plugins {
 }
 
 buildscript {
-
     repositories {
         google()
         mavenCentral()
@@ -22,7 +21,6 @@ buildscript {
         classpath(libs.org.jetbrains.kotlin.kotlin.gradle.plugin)
         classpath(libs.org.jetbrains.dokka.dokka.gradle.plugin)
     }
-
 }
 
 allprojects {
