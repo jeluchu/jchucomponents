@@ -33,7 +33,6 @@ import coil.request.CachePolicy
 import coil.request.ErrorResult
 import coil.request.ImageRequest
 import coil.request.SuccessResult
-import com.google.android.gms.common.util.ClientLibraryUtils
 import com.google.gson.Gson
 import com.jeluchu.jchucomponents.ktx.constants.INTENT_TYPE_IMG_PNG
 import com.jeluchu.jchucomponents.ktx.packageutils.buildIsQAndUp
@@ -154,7 +153,7 @@ fun Context.isSimCardReady(): Boolean {
 
 fun Context.isPackageInstalled(packageName: String): Boolean =
     runCatching {
-        ClientLibraryUtils.getPackageInfo(this, packageName)
+        packageManager.getPackageInfo(packageName, PackageManager.GET_ACTIVITIES)
         true
     }.getOrElse {
         false

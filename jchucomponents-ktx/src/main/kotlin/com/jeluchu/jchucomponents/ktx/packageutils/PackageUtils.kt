@@ -6,6 +6,7 @@
 
 package com.jeluchu.jchucomponents.ktx.packageutils
 
+import android.content.pm.PackageManager
 import android.os.Build
 import androidx.annotation.ChecksSdkIntAtLeast
 
