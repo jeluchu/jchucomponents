@@ -1,4 +1,4 @@
-package com.jeluchu.jchucomponents.ktx.utilities
+package com.jeluchu.jchucomponents.ktx.utils
 
 object IbanUtils {
 
