@@ -1,1 +1,0 @@
-sourceset_dependencies='{":jchucomponents-ui:dokkaHtml/androidTestRelease":[],":jchucomponents-ui:dokkaHtml/debug":[],":jchucomponents-ui:dokkaHtml/main":[],":jchucomponents-ui:dokkaHtml/release":[],":jchucomponents-ui:dokkaHtml/testFixtures":[],":jchucomponents-ui:dokkaHtml/testFixturesDebug":[],":jchucomponents-ui:dokkaHtml/testFixturesRelease":[]}'
