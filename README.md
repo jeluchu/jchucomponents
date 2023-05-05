@@ -130,10 +130,10 @@ Add the **jchucomponents-compose** dependencies
 
 
 
-These versions used `JavaVersion.VERSION_11` please take this into account to adjust your project with the compatible versions as it may cause problems when compiling your project
+These versions used `JavaVersion.VERSION_17` please take this into account to adjust your project with the compatible versions as it may cause problems when compiling your project
 ```
-sourceCompatibility JavaVersion.VERSION_11
-targetCompatibility JavaVersion.VERSION_11
+sourceCompatibility JavaVersion.VERSION_17
+targetCompatibility JavaVersion.VERSION_17
 ```
 
 ###  As a git submodule
@@ -156,7 +156,7 @@ For the development of new features by the developer community, the following st
 
 ##  Compatibility
 
-JchuComponents is compatible with newer versions of Android Studio, and includes support for `JavaVersion.VERSION_11` and **recent targets for the latest versions of Android**
+JchuComponents is compatible with newer versions of Android Studio, and includes support for `JavaVersion.VERSION_17` and **recent targets for the latest versions of Android**
 
 ## Contributors ✨
 

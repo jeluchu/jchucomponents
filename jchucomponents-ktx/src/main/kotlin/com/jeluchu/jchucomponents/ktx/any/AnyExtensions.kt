@@ -7,6 +7,9 @@ import java.lang.reflect.Type
 
 fun Any?.isNull() = this == null
 
+val Any.logTag: String
+    get() = this::class.java.simpleName
+
 /**
  *
  *

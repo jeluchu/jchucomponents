@@ -1,13 +1,20 @@
 package com.jeluchu.jchucomponents.ktx.compose
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringArrayResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 
 @Composable
+@ReadOnlyComposable
 fun Int.toStringRes() = stringResource(this)
+
+@Composable
+@ReadOnlyComposable
+fun Int.toStringArrayRes() = stringArrayResource(this)
 
 @Composable
 fun Int.toImageVector() = ImageVector.vectorResource(this)

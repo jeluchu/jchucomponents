@@ -6,8 +6,10 @@
 
 package com.jeluchu.jchucomponents.ktx.date
 
+import java.text.DateFormatSymbols
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.math.absoluteValue
 
 /**
  *
@@ -170,3 +172,79 @@ fun Date.forwardInYears(years: Int): Date =
         calendar.time = this
         calendar.add(Calendar.YEAR, years)
     }.time
+
+fun Date.isAfterOrEqualThan(numberDaysBeforeToday: Int, now: Date? = null): Boolean {
+    val calendar = Calendar.getInstance()
+    now?.let { calendar.time = it }
+    calendar[Calendar.HOUR_OF_DAY] = 0
+    calendar[Calendar.MINUTE] = 0
+    calendar[Calendar.SECOND] = 0
+    calendar[Calendar.MILLISECOND] = 0
+    calendar.add(Calendar.DAY_OF_YEAR, -numberDaysBeforeToday)
+    val backDate = calendar.time
+    return this.time >= backDate.time
+}
+
+fun Date.minusDays(days: Int) = plusDays(-days)
+
+fun Date.plusDays(days: Int): Date {
+    val calendar = Calendar.getInstance()
+    calendar.time = this
+    calendar.add(Calendar.DATE, days)
+    return calendar.time
+}
+
+fun Date.isBeforeThan(numberDaysBeforeToday: Int, now: Date? = null) =
+    !isAfterOrEqualThan(numberDaysBeforeToday, now)
+
+fun Date.getDateTime(daysNumber: Int): Date =
+    Calendar.getInstance()
+        .also {
+            it.time = this
+            it.add(Calendar.DAY_OF_MONTH, -daysNumber)
+        }
+        .time
+
+fun Date.getDayEndCalendar(): Calendar =
+    Calendar.getInstance().apply {
+        time = this@getDayEndCalendar
+        set(Calendar.HOUR_OF_DAY, 23)
+        set(Calendar.MINUTE, 59)
+        set(Calendar.SECOND, 59)
+        set(Calendar.MILLISECOND, 999)
+    }
+
+fun Date.firstDayOfTheMonth(): Date {
+    val calendar = Calendar.getInstance()
+    calendar.time = firstHourOfTheDay()
+    calendar.set(Calendar.DAY_OF_MONTH, calendar.getActualMinimum(Calendar.DAY_OF_MONTH))
+    return calendar.time
+}
+
+fun Date.firstHourOfTheDay(): Date {
+    val calendar = Calendar.getInstance()
+    calendar.time = this
+    calendar.set(Calendar.HOUR_OF_DAY, 0) // ! clear would not reset the hour of day !
+    calendar.clear(Calendar.MINUTE)
+    calendar.clear(Calendar.SECOND)
+    calendar.clear(Calendar.MILLISECOND)
+    return calendar.time
+}
+
+fun Date.plusMinutes(minutes: Int): Date {
+    val calendar = Calendar.getInstance()
+    calendar.time = this
+    calendar.add(Calendar.MINUTE, minutes)
+    return calendar.time
+}
+
+fun Date.diffInDays(next: Date): Long {
+    val diffInMillis = next.time - time
+    return (diffInMillis / (24 * 60 * 60 * 1000)).absoluteValue
+}
+
+fun Date.toAccessibilityDateMMMMYYYY(): CharSequence {
+    val cal = Calendar.getInstance()
+    cal.time = this
+    return DateFormatSymbols().months[cal.get(Calendar.MONTH)] + " " + cal.get(Calendar.YEAR)
+}

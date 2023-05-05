@@ -7,6 +7,8 @@
 package com.jeluchu.jchucomponents.ktx.colors
 
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.toArgb
+import androidx.core.graphics.ColorUtils
 import kotlin.random.Random.Default.nextFloat
 
 /**
@@ -36,3 +38,5 @@ fun Color?.orTransparent(defaultValue: Color = Color.Transparent): Color = this 
 
 
 fun Color.applyOpacity(enabled: Boolean): Color = if (enabled) this else this.copy(alpha = 0.62f)
+
+fun Color.isDark() = ColorUtils.calculateLuminance(toArgb()) < 0.5
