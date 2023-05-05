@@ -32,10 +32,10 @@ android {
     }
     
     buildFeatures.compose = true
-    composeOptions.kotlinCompilerExtensionVersion = "1.4.4"
+    composeOptions.kotlinCompilerExtensionVersion = "1.4.7"
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
 
     namespace = "com.jeluchu.composer"
