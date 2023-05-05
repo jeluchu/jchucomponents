@@ -17,6 +17,8 @@ import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import com.jeluchu.jchucomponents.ktx.constants.FIRST_DAY_OF_MONTH
 import com.jeluchu.jchucomponents.ktx.strings.empty
+import java.text.DecimalFormat
+import java.text.DecimalFormatSymbols
 import java.util.*
 import kotlin.math.roundToInt
 
@@ -85,3 +87,12 @@ fun Int.getMonths(): List<Calendar> =
                 )
         }
     }
+
+fun Int.thousandsFormat(): String {
+    return try {
+        val df = DecimalFormat("#,##0", DecimalFormatSymbols().apply { groupingSeparator = '.' }).apply { groupingSize = 3 }
+        df.format(this)
+    } catch (e: Exception) {
+        toString()
+    }
+}
