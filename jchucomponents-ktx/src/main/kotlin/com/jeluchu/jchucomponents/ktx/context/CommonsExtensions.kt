@@ -13,11 +13,13 @@ import android.content.Intent
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.provider.Browser
+import android.view.accessibility.AccessibilityManager
 import android.widget.Toast
 import androidx.annotation.ColorRes
 import androidx.browser.customtabs.CustomTabColorSchemeParams
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.core.content.ContextCompat
+import androidx.core.content.getSystemService
 import com.jeluchu.jchucomponents.ktx.R
 import com.jeluchu.jchucomponents.ktx.context.broadcast.ShareBroadcastReceiver
 import com.jeluchu.jchucomponents.ktx.packageutils.buildIsMarshmallowAndUp
@@ -26,6 +28,20 @@ import java.io.File
 import java.util.*
 
 private fun intentView(url: String) = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+
+/**
+ *
+ * [Context] Extension to get whether Talkback
+ * is activated or not
+ *
+ */
+val Context.isTalkBackEnabled: Boolean
+    get() {
+        val am: AccessibilityManager? = getSystemService()
+        val isAccessibilityEnabled: Boolean = am?.isEnabled ?: false
+        val isExploreByTouchEnabled: Boolean = am?.isTouchExplorationEnabled ?: false
+        return isAccessibilityEnabled && isExploreByTouchEnabled
+    }
 
 /**
  *
