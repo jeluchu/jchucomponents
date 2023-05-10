@@ -327,12 +327,14 @@ inline fun <T> LazyColumnForIndexed(
 @Composable
 fun ListColumn(
     modifier: Modifier = Modifier,
+    state: LazyListState = rememberLazyListState(),
     contentPadding: PaddingValues = PaddingValues(),
     verticalArrangement: Arrangement.Vertical = Arrangement.Top,
     horizontalAlignment: Alignment.Horizontal = Alignment.Start,
     content: LazyListScope.() -> Unit
 ) = ListNotOverScroll {
     LazyColumn(
+        state = state,
         modifier = modifier,
         contentPadding = contentPadding,
         verticalArrangement = verticalArrangement,
@@ -344,6 +346,7 @@ fun ListColumn(
 @Composable
 fun <T> ListColumn(
     modifier: Modifier = Modifier,
+    state: LazyListState = rememberLazyListState(),
     contentPadding: PaddingValues = PaddingValues(),
     verticalArrangement: Arrangement.Vertical = Arrangement.Top,
     horizontalAlignment: Alignment.Horizontal = Alignment.Start,
@@ -351,6 +354,7 @@ fun <T> ListColumn(
     content: @Composable (T) -> Unit
 ) = ListNotOverScroll {
     LazyColumn(
+        state = state,
         modifier = modifier,
         contentPadding = contentPadding,
         verticalArrangement = verticalArrangement,
@@ -361,6 +365,7 @@ fun <T> ListColumn(
 @Composable
 fun <T> ListColumn(
     modifier: Modifier = Modifier,
+    state: LazyListState = rememberLazyListState(),
     contentPadding: PaddingValues = PaddingValues(),
     verticalArrangement: Arrangement.Vertical = Arrangement.Top,
     horizontalAlignment: Alignment.Horizontal = Alignment.Start,
@@ -368,6 +373,7 @@ fun <T> ListColumn(
     content: @Composable (Int, T) -> Unit
 ) = ListNotOverScroll {
     LazyColumn(
+        state = state,
         modifier = modifier,
         contentPadding = contentPadding,
         verticalArrangement = verticalArrangement,
