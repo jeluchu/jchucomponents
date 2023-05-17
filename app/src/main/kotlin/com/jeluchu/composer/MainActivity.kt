@@ -27,6 +27,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.jeluchu.jchucomponents.ktx.context.openInCustomTab
 import com.jeluchu.jchucomponents.ktx.strings.empty
@@ -45,7 +46,6 @@ import com.jeluchu.jchucomponents.ui.themes.darkPastelBlue
 import com.jeluchu.qr.generateQr
 
 class MainActivity : ComponentActivity() {
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -84,7 +84,11 @@ class MainActivity : ComponentActivity() {
                         modifier = Modifier.width(150.dp),
                         text = "Rayo MacQueenRayo MacQueenRayo MacQueenRayo MacQueenRayo MacQueenRayo MacQueen",
                     )
-
+                    MarqueeText(
+                        modifier = Modifier.width(150.dp),
+                        text = "Rayo",
+                        textAlign = TextAlign.Left
+                    )
                     StoryCard(
                         modifier = Modifier.animateItem(),
                         title = "Rayo MacQueen",
