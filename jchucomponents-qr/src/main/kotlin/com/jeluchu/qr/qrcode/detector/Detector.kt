@@ -6,21 +6,21 @@
 
 package com.jeluchu.qr.qrcode.detector
 
+import com.jeluchu.qr.DecodeHintType
+import com.jeluchu.qr.FormatException
+import com.jeluchu.qr.NotFoundException
 import com.jeluchu.qr.NotFoundException.notFoundInstance
+import com.jeluchu.qr.ResultPoint
 import com.jeluchu.qr.ResultPoint.Companion.distance
+import com.jeluchu.qr.ResultPointCallback
 import com.jeluchu.qr.common.BitMatrix
 import com.jeluchu.qr.common.DetectorResult
 import com.jeluchu.qr.common.GridSampler.Companion.instance
 import com.jeluchu.qr.common.PerspectiveTransform
 import com.jeluchu.qr.common.PerspectiveTransform.Companion.quadrilateralToQuadrilateral
-import com.jeluchu.qr.DecodeHintType
-import com.jeluchu.qr.FormatException
 import com.jeluchu.qr.common.detector.MathUtils.distance
 import com.jeluchu.qr.common.detector.MathUtils.round
 import com.jeluchu.qr.qrcode.decoder.Version.Companion.getProvisionalVersionForDimension
-import com.jeluchu.qr.NotFoundException
-import com.jeluchu.qr.ResultPoint
-import com.jeluchu.qr.ResultPointCallback
 import kotlin.math.abs
 import kotlin.math.max
 import kotlin.math.min
