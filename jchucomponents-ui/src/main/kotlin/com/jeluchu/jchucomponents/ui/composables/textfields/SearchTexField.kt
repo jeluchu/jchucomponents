@@ -16,7 +16,6 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Search
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.LocalTextStyle
@@ -42,7 +41,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.jeluchu.jchucomponents.ktx.strings.empty
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SearchTextField(
     modifier: Modifier = Modifier,
@@ -70,10 +68,13 @@ fun SearchTextField(
     ),
     onValueChange = { value ->
         state.value = value
-    }, colors = TextFieldDefaults.textFieldColors(
-        textColor = searchField.contentColor,
+    }, colors = TextFieldDefaults.colors(
+        focusedTextColor = searchField.contentColor,
+        unfocusedTextColor = searchField.contentColor,
         disabledTextColor = Color.Transparent,
-        containerColor = searchField.backgroundColor,
+        focusedContainerColor = searchField.backgroundColor,
+        unfocusedContainerColor = searchField.backgroundColor,
+        disabledContainerColor = searchField.backgroundColor,
         focusedIndicatorColor = Color.Transparent,
         errorIndicatorColor = Color.Transparent,
         unfocusedIndicatorColor = Color.Transparent,
