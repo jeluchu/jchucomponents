@@ -6,7 +6,7 @@
 
 package com.jeluchu.qr.qrcode.encoder
 
-import java.util.*
+import java.util.Arrays
 
 class ByteMatrix(val width: Int, val height: Int) {
 

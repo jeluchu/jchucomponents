@@ -6,7 +6,7 @@
 
 package com.jeluchu.qr
 
-import java.util.*
+import java.util.EnumMap
 
 class Result(
     /**

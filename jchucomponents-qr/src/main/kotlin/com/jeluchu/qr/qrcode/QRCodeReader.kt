@@ -6,21 +6,21 @@
 
 package com.jeluchu.qr.qrcode
 
-import com.jeluchu.qr.ChecksumException
-import com.jeluchu.qr.FormatException
-import com.jeluchu.qr.common.BitMatrix
-import com.jeluchu.qr.common.DecoderResult
-import com.jeluchu.qr.qrcode.decoder.Decoder
-import com.jeluchu.qr.qrcode.decoder.QRCodeDecoderMetaData
-import com.jeluchu.qr.qrcode.detector.Detector
 import com.jeluchu.qr.BarcodeFormat
 import com.jeluchu.qr.BinaryBitmap
+import com.jeluchu.qr.ChecksumException
 import com.jeluchu.qr.DecodeHintType
+import com.jeluchu.qr.FormatException
 import com.jeluchu.qr.NotFoundException
 import com.jeluchu.qr.Reader
 import com.jeluchu.qr.Result
 import com.jeluchu.qr.ResultMetadataType
 import com.jeluchu.qr.ResultPoint
+import com.jeluchu.qr.common.BitMatrix
+import com.jeluchu.qr.common.DecoderResult
+import com.jeluchu.qr.qrcode.decoder.Decoder
+import com.jeluchu.qr.qrcode.decoder.QRCodeDecoderMetaData
+import com.jeluchu.qr.qrcode.detector.Detector
 import kotlin.math.roundToInt
 
 class QRCodeReader : Reader {
