@@ -71,7 +71,7 @@ fun SearchTextField(
     onValueChange = { value ->
         state.value = value
     }, colors = TextFieldDefaults.textFieldColors(
-        textColor = searchField.contentColor,
+        focusedTextColor = searchField.contentColor,
         disabledTextColor = Color.Transparent,
         containerColor = searchField.backgroundColor,
         focusedIndicatorColor = Color.Transparent,
