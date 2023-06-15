@@ -1,66 +1,88 @@
 /*
  *
- *  Copyright 2022 Jeluchu
+ *  Copyright 2018-2023 by Jeluchu <jelu@jeluchu.com>
  *
  */
 
 package com.jeluchu.jchucomponents.ui.composables.progress
 
-import androidx.annotation.DrawableRes
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.material3.Divider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.LocalTextStyle
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.Immutable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import com.jeluchu.jchucomponents.ktx.colors.toColorFilter
+import com.jeluchu.jchucomponents.ktx.compose.toImageVector
+import com.jeluchu.jchucomponents.ktx.compose.toPainter
 import com.jeluchu.jchucomponents.ktx.strings.empty
 import com.jeluchu.jchucomponents.ui.R
-import com.jeluchu.jchucomponents.ui.composables.chips.Type
+import com.jeluchu.jchucomponents.ui.extensions.modifier.cornerRadius
+import com.jeluchu.jchucomponents.ui.runtime.remember.rememberMutableStateOf
 import com.jeluchu.jchucomponents.ui.themes.artichoke
+import com.jeluchu.jchucomponents.ui.themes.cosmicLatte
 
+/**
+ *
+ * [LinearProgressbar]
+ *
+ * @param icon [ImageVector] the value we want in case the Bitmap is null,
+ * by default it will be an empty one
+ * @param enabled [Boolean] Enables or disables the content, showing a colour,
+ * indicating that it is not active
+ * @param number [Float] The current progress number
+ * @param maxNumber [Float] The maximum amount of progress that can be achieved
+ * @param indicatorHeight [Dp] Progress bar height
+ * @param linearProgressCustom [LinearProgressCustom] Progress bar elements and icon
+ * customisations
+ * @param linearProgressCounter [LinearProgressCounter] Counter customisations
+ * @param animationDuration [Int] Duration of the initial animation
+ * @param animationDelay [Int] Time delay in the initial animation duration
+ * @param style [TextStyle] Style to be displayed in the counter text
+ *
+ */
 @Composable
 fun LinearProgressbar(
-    number: Float = 5f,
-    maxNumber: Float = 10f,
-    @DrawableRes icon: Int? = null,
-    @DrawableRes img: Int? = null,
-    indicatorHeight: Dp = 30.dp,
-    backgroundIndicatorColor: Color = Color.LightGray.copy(alpha = 0.3f),
-    foregroundIndicatorColor: Color = Color(0xFF35898f),
-    foregroundIndicatorAllColor: Color = Color(0xFF7DA88C),
-    indicatorPadding: Dp = 20.dp,
+    icon: ImageVector,
+    enabled: Boolean = true,
+    number: Float = 1000f,
+    maxNumber: Float = 1000f,
+    indicatorHeight: Dp = 15.dp,
+    linearProgressCustom: LinearProgressCustom = LinearProgressCustom(),
+    linearProgressCounter: LinearProgressCounter = LinearProgressCounter(),
     animationDuration: Int = 1000,
     animationDelay: Int = 0,
     style: TextStyle = LocalTextStyle.current
 ) {
-
-    val numberTimes = remember { mutableStateOf(number) }
-    numberTimes.value = number
-
-    val animateNumber = animateFloatAsState(
-        targetValue = numberTimes.value,
+    val checkMaxValue = if (number > maxNumber) maxNumber else number
+    val numberTimes by rememberMutableStateOf(key1 = checkMaxValue, value = checkMaxValue)
+    val animateNumber by animateFloatAsState(
+        targetValue =  if (numberTimes > maxNumber) maxNumber else numberTimes,
         animationSpec = tween(
             durationMillis = animationDuration,
             delayMillis = animationDelay
@@ -70,81 +92,280 @@ fun LinearProgressbar(
     Row(
         modifier = Modifier.fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.Center
+        horizontalArrangement = Arrangement.spacedBy(15.dp)
     ) {
-
-        if (icon != null)
-            Icon(
-                modifier = Modifier
-                    .size(30.dp)
-                    .padding(start = 10.dp),
-                imageVector = ImageVector.vectorResource(id = icon),
-                tint = if (number != maxNumber) artichoke else foregroundIndicatorAllColor,
-                contentDescription = String.empty()
-            )
-        else if (img != null)
-            Image(
-                modifier = Modifier
-                    .size(25.dp)
-                    .padding(start = 15.dp),
-                painter = painterResource(id = img),
-                contentDescription = null
-            )
+        Icon(
+            modifier = Modifier
+                .size(40.dp)
+                .padding(start = 10.dp),
+            imageVector = icon,
+            tint = when {
+                !enabled -> linearProgressCounter.disabledIndicator
+                numberTimes != maxNumber -> linearProgressCustom.iconTint
+                else -> linearProgressCustom.foregroundIndicatorComplete
+            },
+            contentDescription = String.empty()
+        )
 
         Canvas(
             modifier = Modifier
                 .fillMaxWidth()
                 .height(indicatorHeight)
                 .weight(6f)
-                .padding(
-                    start = indicatorPadding,
-                    end = indicatorPadding,
-                    top = 15.dp
-                )
-        ) {
 
-            // Background indicator
+        ) {
             drawLine(
-                color = backgroundIndicatorColor,
+                color = if (enabled) linearProgressCustom.backgroundIndicator
+                else linearProgressCustom.disabledIndicator,
                 cap = StrokeCap.Round,
                 strokeWidth = size.height,
-                start = Offset(x = 0f, y = 0f),
-                end = Offset(x = size.width, y = 0f)
+                start = Offset(x = 0f, y = center.y),
+                end = Offset(x = size.width, y = center.y)
             )
 
-            // Convert the downloaded percentage into progress (width of foreground indicator)
-            val progress = (animateNumber.value / maxNumber) * size.width
-
-            // Foreground indicator
-            if (animateNumber.value != 0f)
-                drawLine(
-                    color = if (number != maxNumber) foregroundIndicatorColor else foregroundIndicatorAllColor,
-                    cap = StrokeCap.Round,
-                    strokeWidth = size.height,
-                    start = Offset(x = 0f, y = 0f),
-                    end = Offset(x = progress, y = 0f)
-                )
-
+            if (enabled) {
+                val progress = (animateNumber / maxNumber) * size.width
+                if (animateNumber != 0f)
+                    drawLine(
+                        color = if (numberTimes != maxNumber) linearProgressCustom.foregroundIndicator
+                        else linearProgressCustom.foregroundIndicatorComplete,
+                        cap = StrokeCap.Round,
+                        strokeWidth = size.height,
+                        start = Offset(x = 0f, y = center.y),
+                        end = Offset(x = progress, y = center.y)
+                    )
+            }
         }
 
-        Type(
+        Surface(
             modifier = Modifier
                 .fillMaxWidth()
-                .weight(5f)
+                .weight(2.5f)
                 .padding(end = 10.dp),
-            type = "${number.toInt()}/${maxNumber.toInt()}",
-            textAlign = TextAlign.Center,
-            style = style
+            shape = linearProgressCounter.shape.cornerRadius(),
+            color = if (enabled) linearProgressCounter.background
+            else linearProgressCounter.disabledIndicator,
+            contentColor = linearProgressCounter.content
+        ) {
+            Text(
+                modifier = Modifier.padding(2.dp),
+                text = if (enabled) "${numberTimes.toInt()}/${maxNumber.toInt()}" else "- / -",
+                style = style,
+                textAlign = TextAlign.Center,
+            )
+        }
+    }
+}
+
+/**
+ *
+ * [LinearProgressbar]
+ *
+ * @param icon [Painter] the value we want in case the Bitmap is null,
+ * by default it will be an empty one
+ * @param enabled [Boolean] Enables or disables the content, showing a colour,
+ * indicating that it is not active
+ * @param number [Float] The current progress number
+ * @param maxNumber [Float] The maximum amount of progress that can be achieved
+ * @param indicatorHeight [Dp] Progress bar height
+ * @param linearProgressCustom [LinearProgressCustom] Progress bar elements and icon
+ * customisations
+ * @param linearProgressCounter [LinearProgressCounter] Counter customisations
+ * @param animationDuration [Int] Duration of the initial animation
+ * @param animationDelay [Int] Time delay in the initial animation duration
+ * @param style [TextStyle] Style to be displayed in the counter text
+ *
+ */
+@Composable
+fun LinearProgressbar(
+    icon: Painter,
+    enabled: Boolean = true,
+    number: Float = 1000f,
+    maxNumber: Float = 1000f,
+    indicatorHeight: Dp = 15.dp,
+    linearProgressCustom: LinearProgressCustom = LinearProgressCustom(),
+    linearProgressCounter: LinearProgressCounter = LinearProgressCounter(),
+    animationDuration: Int = 1000,
+    animationDelay: Int = 0,
+    style: TextStyle = LocalTextStyle.current
+) {
+    val checkMaxValue = if (number > maxNumber) maxNumber else number
+    val numberTimes by rememberMutableStateOf(key1 = checkMaxValue, value = checkMaxValue)
+    val animateNumber by animateFloatAsState(
+        targetValue =  if (numberTimes > maxNumber) maxNumber else numberTimes,
+        animationSpec = tween(
+            durationMillis = animationDuration,
+            delayMillis = animationDelay
+        )
+    )
+
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(15.dp)
+    ) {
+        Image(
+            modifier = Modifier
+                .size(40.dp)
+                .padding(start = 10.dp),
+            painter = icon,
+            colorFilter = when {
+                !enabled -> linearProgressCounter.disabledIndicator
+                numberTimes != maxNumber -> linearProgressCustom.iconTint
+                else -> linearProgressCustom.foregroundIndicatorComplete
+            }.toColorFilter(),
+            contentDescription = null
         )
 
-    }
+        Canvas(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(indicatorHeight)
+                .weight(6f)
 
+        ) {
+            drawLine(
+                color = if (enabled) linearProgressCustom.backgroundIndicator
+                else linearProgressCustom.disabledIndicator,
+                cap = StrokeCap.Round,
+                strokeWidth = size.height,
+                start = Offset(x = 0f, y = center.y),
+                end = Offset(x = size.width, y = center.y)
+            )
+
+            if (enabled) {
+                val progress = (animateNumber / maxNumber) * size.width
+                if (animateNumber != 0f)
+                    drawLine(
+                        color = if (numberTimes != maxNumber) linearProgressCustom.foregroundIndicator
+                        else linearProgressCustom.foregroundIndicatorComplete,
+                        cap = StrokeCap.Round,
+                        strokeWidth = size.height,
+                        start = Offset(x = 0f, y = center.y),
+                        end = Offset(x = progress, y = center.y)
+                    )
+            }
+        }
+
+        Surface(
+            modifier = Modifier
+                .fillMaxWidth()
+                .weight(2.5f)
+                .padding(end = 10.dp),
+            shape = linearProgressCounter.shape.cornerRadius(),
+            color = if (enabled) linearProgressCounter.background
+            else linearProgressCounter.disabledIndicator,
+            contentColor = linearProgressCounter.content
+        ) {
+            Text(
+                modifier = Modifier.padding(2.dp),
+                text = if (enabled) "${numberTimes.toInt()}/${maxNumber.toInt()}" else "- / -",
+                style = style,
+                textAlign = TextAlign.Center
+            )
+        }
+    }
 }
+
+@Immutable
+class LinearProgressCustom constructor(
+    val disabledIndicator: Color = Color.Gray,
+    val backgroundIndicator: Color = Color.LightGray.copy(alpha = 0.3f),
+    val foregroundIndicator: Color = Color(0xFF35898f),
+    val foregroundIndicatorComplete: Color = Color(0xFF7DA88C),
+    val iconTint: Color = artichoke
+)
+
+@Immutable
+class LinearProgressCounter constructor(
+    val shape: Int = 10,
+    val disabledIndicator: Color = Color.Gray,
+    val background: Color = Color(0xFF35898f),
+    val content: Color = cosmicLatte
+)
 
 @Preview
 @Composable
 fun LinearProgressbarPreview() {
-    LinearProgressbar(
-        icon = R.drawable.ic_btn_share
-    )
+    Column(
+        verticalArrangement = Arrangement.spacedBy(10.dp)
+    ) {
+        Text(text = "LinearProgressbar with ImageVector")
+
+        Text(text = "Disable")
+        LinearProgressbar(
+            icon = R.drawable.ic_btn_share.toImageVector(),
+            enabled = false,
+            number = 0f,
+            maxNumber = 1000f
+        )
+
+        Text(text = "Enable")
+        LinearProgressbar(
+            icon = R.drawable.ic_btn_share.toImageVector(),
+            number = 0f,
+            maxNumber = 1000f
+        )
+
+        Text(text = "When the number is less than the maximum")
+        LinearProgressbar(
+            icon = R.drawable.ic_btn_share.toImageVector(),
+            number = 400f,
+            maxNumber = 1000f
+        )
+
+        Text(text = "When the number is equal to the maximum")
+        LinearProgressbar(
+            icon = R.drawable.ic_btn_share.toImageVector(),
+            number = 1000f,
+            maxNumber = 1000f
+        )
+
+        Text(text = "When the number is greater than the maximum")
+        LinearProgressbar(
+            icon = R.drawable.ic_btn_share.toImageVector(),
+            number = 2000f,
+            maxNumber = 1000f
+        )
+
+        Divider()
+
+        Text(text = "LinearProgressbar with Painter")
+
+        Text(text = "Disable")
+        LinearProgressbar(
+            icon = R.drawable.ic_deco_jeluchu.toPainter(),
+            enabled = false,
+            number = 0f,
+            maxNumber = 1000f
+        )
+
+        Text(text = "Enable")
+        LinearProgressbar(
+            icon = R.drawable.ic_deco_jeluchu.toPainter(),
+            number = 0f,
+            maxNumber = 1000f
+        )
+
+        Text(text = "When the number is less than the maximum")
+        LinearProgressbar(
+            icon = R.drawable.ic_deco_jeluchu.toPainter(),
+            number = 400f,
+            maxNumber = 1000f
+        )
+
+        Text(text = "When the number is equal to the maximum")
+        LinearProgressbar(
+            icon = R.drawable.ic_deco_jeluchu.toPainter(),
+            number = 1000f,
+            maxNumber = 1000f
+        )
+
+        Text(text = "When the number is greater than the maximum")
+        LinearProgressbar(
+            icon = R.drawable.ic_deco_jeluchu.toPainter(),
+            number = 2000f,
+            maxNumber = 1000f
+        )
+    }
 }
