@@ -30,8 +30,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.TextLayoutResult
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
@@ -42,6 +40,7 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
+import com.jeluchu.jchucomponents.ktx.compose.toImageVector
 import com.jeluchu.jchucomponents.ktx.strings.empty
 import com.jeluchu.jchucomponents.ui.R
 
@@ -53,16 +52,14 @@ fun DropdownItem(
     contentPadding: PaddingValues = MenuDefaults.DropdownMenuItemContentPadding,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     content: @Composable RowScope.() -> Unit
-) {
-    DropdownMenuItemContent(
-        onClick = onClick,
-        modifier = modifier,
-        enabled = enabled,
-        contentPadding = contentPadding,
-        interactionSource = interactionSource,
-        content = content
-    )
-}
+) = DropdownMenuItemContent(
+    onClick = onClick,
+    modifier = modifier,
+    enabled = enabled,
+    contentPadding = contentPadding,
+    interactionSource = interactionSource,
+    content = content
+)
 
 @Composable
 fun DropdownItemOption(
@@ -73,9 +70,9 @@ fun DropdownItemOption(
 ) {
     with(dropdownItemIcon) {
         Icon(
-            modifier = modifier,
-            imageVector = ImageVector.vectorResource(id = icon),
             tint = tint,
+            modifier = modifier,
+            imageVector = icon.toImageVector(),
             contentDescription = String.empty()
         )
     }
@@ -139,30 +136,28 @@ internal fun DropdownMenuItemContent(
     contentPadding: PaddingValues = MenuDefaults.DropdownMenuItemContentPadding,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     content: @Composable RowScope.() -> Unit
+) = Row(
+    modifier = modifier
+        .clickable(
+            enabled = enabled,
+            onClick = onClick,
+            interactionSource = interactionSource,
+            indication = null
+        )
+        .fillMaxWidth()
+        .sizeIn(
+            minWidth = DropdownMenuItemDefaultMinWidth,
+            maxWidth = DropdownMenuItemDefaultMaxWidth,
+            minHeight = DropdownMenuItemDefaultMinHeight
+        )
+        .padding(contentPadding),
+    verticalAlignment = Alignment.CenterVertically
 ) {
-    Row(
-        modifier = modifier
-            .clickable(
-                enabled = enabled,
-                onClick = onClick,
-                interactionSource = interactionSource,
-                indication = null
-            )
-            .fillMaxWidth()
-            .sizeIn(
-                minWidth = DropdownMenuItemDefaultMinWidth,
-                maxWidth = DropdownMenuItemDefaultMaxWidth,
-                minHeight = DropdownMenuItemDefaultMinHeight
-            )
-            .padding(contentPadding),
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        val typography = MaterialTheme.typography
-        ProvideTextStyle(typography.titleMedium) {
-            val contentAlpha = if (enabled) ContentAlpha.high else ContentAlpha.disabled
-            CompositionLocalProvider(LocalContentAlpha provides contentAlpha) {
-                content()
-            }
+    val typography = MaterialTheme.typography
+    ProvideTextStyle(typography.titleMedium) {
+        val contentAlpha = if (enabled) ContentAlpha.high else ContentAlpha.disabled
+        CompositionLocalProvider(LocalContentAlpha provides contentAlpha) {
+            content()
         }
     }
 }
