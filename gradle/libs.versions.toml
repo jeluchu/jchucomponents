@@ -10,10 +10,10 @@ androidx-navigation = "2.6.0"
 com-google-accompanist = "0.30.1"
 com-squareup-okhttp3 = "4.11.0"
 com-squareup-retrofit2 = "2.9.0"
-io-coil-kt = "2.3.0"
+io-coil-kt = "2.4.0"
 org-jetbrains-kotlin = "1.8.21"
-org-jetbrains-kotlinx = "1.7.0"
-billing-ktx = "6.0.0"
+org-jetbrains-kotlinx = "1.7.2"
+billing-ktx = "6.0.1"
 
 [libraries]
 androidx-activity-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activity" }
@@ -23,7 +23,7 @@ androidx-compose-foundation = { module = "androidx.compose.foundation:foundation
 androidx-compose-foundation-foundation-layout = { module = "androidx.compose.foundation:foundation-layout", version.ref = "androidx-compose-foundation" }
 androidx-compose-material = { module = "androidx.compose.material:material", version.ref = "androidx-compose-material" }
 androidx-compose-material-material-icons-extended = { module = "androidx.compose.material:material-icons-extended", version.ref = "androidx-compose-material" }
-androidx-compose-material3 = "androidx.compose.material3:material3:1.1.0"
+androidx-compose-material3 = "androidx.compose.material3:material3:1.1.1"
 androidx-compose-runtime = { module = "androidx.compose.runtime:runtime", version.ref = "androidx-compose-runtime" }
 androidx-compose-ui = { module = "androidx.compose.ui:ui", version.ref = "androidx-compose-ui" }
 androidx-compose-ui-ui-tooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "androidx-compose-ui" }
@@ -49,7 +49,7 @@ org-jetbrains-kotlin-kotlin-gradle-plugin = { module = "org.jetbrains.kotlin:kot
 org-jetbrains-kotlinx-kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "org-jetbrains-kotlinx" }
 org-jetbrains-kotlinx-kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "org-jetbrains-kotlinx" }
 com-android-billingclient-billing-ktx = { module = "com.android.billingclient:billing-ktx", version.ref = "billing-ktx" }
-firebase-crashlytics-buildtools = { group = "com.google.firebase", name = "firebase-crashlytics-buildtools", version = "2.9.5" }
+firebase-crashlytics-buildtools = { group = "com.google.firebase", name = "firebase-crashlytics-buildtools", version = "2.9.6" }
 
 [bundles]
 core-androidx = [
