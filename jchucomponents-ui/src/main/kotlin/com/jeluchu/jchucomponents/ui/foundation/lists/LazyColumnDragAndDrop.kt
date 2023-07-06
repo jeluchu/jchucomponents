@@ -125,10 +125,12 @@ class DragDropState internal constructor(
                     draggingItem.index != item.index
         }
         if (targetItem != null) {
-            val scrollToIndex = when {
-                targetItem.index == state.firstVisibleItemIndex -> draggingItem.index
-                draggingItem.index == state.firstVisibleItemIndex -> targetItem.index
-                else -> null
+            val scrollToIndex = if (targetItem.index == state.firstVisibleItemIndex) {
+                draggingItem.index
+            } else if (draggingItem.index == state.firstVisibleItemIndex) {
+                targetItem.index
+            } else {
+                null
             }
             if (scrollToIndex != null) {
                 scope.launch {
@@ -172,7 +174,7 @@ fun Modifier.dragContainer(dragDropState: DragDropState): Modifier {
     }
 }
 
-@ExperimentalFoundationApi
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun LazyItemScope.DraggableItem(
     dragDropState: DragDropState,
@@ -181,22 +183,19 @@ fun LazyItemScope.DraggableItem(
     content: @Composable ColumnScope.(isDragging: Boolean) -> Unit
 ) {
     val dragging = index == dragDropState.draggingItemIndex
-    val draggingModifier = when {
-        dragging -> {
-            Modifier
-                .zIndex(1f)
-                .graphicsLayer {
-                    translationY = dragDropState.draggingItemOffset
-                }
-        }
-        index == dragDropState.previousIndexOfDraggedItem -> {
-            Modifier
-                .zIndex(1f)
-                .graphicsLayer {
-                    translationY = dragDropState.previousItemOffset.value
-                }
-        }
-        else -> Modifier.animateItemPlacement()
+    val draggingModifier = if (dragging) {
+        Modifier
+            .zIndex(1f)
+            .graphicsLayer {
+                translationY = dragDropState.draggingItemOffset
+            }
+    } else if (index == dragDropState.previousIndexOfDraggedItem) {
+        Modifier.zIndex(1f)
+            .graphicsLayer {
+                translationY = dragDropState.previousItemOffset.value
+            }
+    } else {
+        Modifier.animateItemPlacement()
     }
     Column(modifier = modifier.then(draggingModifier)) {
         content(dragging)
