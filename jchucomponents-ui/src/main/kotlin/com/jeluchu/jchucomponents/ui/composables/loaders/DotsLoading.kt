@@ -27,6 +27,7 @@ import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.Layout
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.jeluchu.jchucomponents.ui.themes.Spacing
 import com.jeluchu.jchucomponents.ui.themes.artichoke
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
@@ -40,7 +41,6 @@ import kotlin.math.sin
 private const val NumDots = 5
 private const val AnimationDuration = 2000
 private const val AnimationSegment = AnimationDuration / 10
-private val MainDotSize = 7.dp
 
 private val Float.alphaFromRadians: Float
     get() {
@@ -101,16 +101,11 @@ class ProgressStateImpl : ProgressState {
 }
 
 @Composable
-fun rememberProgressState(): ProgressState = remember {
-    ProgressStateImpl()
-}
-
-@Composable
 fun ProgressIndicator(
     modifier: Modifier = Modifier,
     color: Color = MaterialTheme.colorScheme.primary,
 ) {
-    val state = rememberProgressState()
+    val state = remember { ProgressStateImpl() }
     LaunchedEffect(key1 = Unit) {
         state.start(this)
     }
@@ -119,7 +114,7 @@ fun ProgressIndicator(
             val minFactor = .3f
             val step = minFactor / NumDots
             repeat(NumDots) { index ->
-                val size = MainDotSize * (1f - step * index)
+                val size = Spacing.sizeSpacing07 * (1f - step * index)
                 Dot(
                     color = color,
                     modifier = Modifier
@@ -156,16 +151,32 @@ fun ProgressIndicator(
 }
 
 @Composable
-private fun Dot(
-    color: Color,
+fun DotsLoading(
     modifier: Modifier = Modifier,
+    bgColor: Color = Color.Transparent,
+    loaderColor: Color
+) = Box(
+    modifier = modifier
+        .fillMaxSize()
+        .background(bgColor)
 ) {
-    Box(
-        modifier = modifier
-            .clip(shape = CircleShape)
-            .background(color = color)
+    ProgressIndicator(
+        modifier = Modifier
+            .size(50.dp)
+            .align(Alignment.Center),
+        color = loaderColor
     )
 }
+
+@Composable
+private fun Dot(
+    color: Color,
+    modifier: Modifier = Modifier
+) = Box(
+    modifier = modifier
+        .clip(shape = CircleShape)
+        .background(color = color)
+)
 
 @Preview(widthDp = 360, showBackground = true)
 @Composable
@@ -183,24 +194,5 @@ fun PreviewDot() {
 private fun PreviewProgressIndicator() {
     ProgressIndicator(
         modifier = Modifier.padding(all = 32.dp)
-    )
-}
-
-
-@Composable
-fun DotsLoading(
-    modifier: Modifier = Modifier,
-    bgColor: Color = Color.Transparent,
-    loaderColor: Color
-) = Box(
-    modifier = modifier
-        .background(bgColor)
-        .fillMaxSize()
-) {
-    ProgressIndicator(
-        modifier = Modifier
-            .size(50.dp)
-            .align(Alignment.Center),
-        color = loaderColor
     )
 }

@@ -284,14 +284,13 @@ class LinearProgressCounter constructor(
     val content: Color = cosmicLatte
 )
 
-@Preview
+@Preview(showBackground = true)
 @Composable
 fun LinearProgressbarPreview() {
     Column(
         verticalArrangement = Arrangement.spacedBy(10.dp)
     ) {
         Text(text = "LinearProgressbar with ImageVector")
-
         Text(text = "Disable")
         LinearProgressbar(
             icon = R.drawable.ic_btn_share.toImageVector(),
@@ -300,7 +299,7 @@ fun LinearProgressbarPreview() {
             maxNumber = 1000f
         )
 
-        Text(text = "Enable")
+        Text(text = "Enabled")
         LinearProgressbar(
             icon = R.drawable.ic_btn_share.toImageVector(),
             number = 0f,

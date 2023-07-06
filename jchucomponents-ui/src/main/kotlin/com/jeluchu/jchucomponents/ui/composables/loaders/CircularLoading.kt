@@ -41,7 +41,7 @@ fun CircularLoading(
     }
 }
 
-@Preview
+@Preview(showBackground = true)
 @Composable
 fun CircularLoadingPreview() {
     CircularLoading(
