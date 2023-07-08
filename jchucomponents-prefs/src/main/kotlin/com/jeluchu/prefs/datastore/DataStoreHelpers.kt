@@ -8,7 +8,13 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.platform.LocalContext
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.core.booleanPreferencesKey
+import androidx.datastore.preferences.core.doublePreferencesKey
 import androidx.datastore.preferences.core.edit
+import androidx.datastore.preferences.core.floatPreferencesKey
+import androidx.datastore.preferences.core.intPreferencesKey
+import androidx.datastore.preferences.core.longPreferencesKey
+import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.jeluchu.prefs.extensions.empty
@@ -116,6 +122,13 @@ class DataStoreHelpers {
         fun initDataStore(context: Context) {
             dataStore = context.defaultPreferencesDataStore
         }
+
+        fun intPrefsKey(name: String) = intPreferencesKey(name)
+        fun floatPrefsKey(name: String) = floatPreferencesKey(name)
+        fun longPrefsKey(name: String) = longPreferencesKey(name)
+        fun doublePrefsKey(name: String) = doublePreferencesKey(name)
+        fun stringPrefsKey(name: String) = stringPreferencesKey(name)
+        fun booleanPrefsKey(name: String) = booleanPreferencesKey(name)
 
         fun <T> DataStore<Preferences>.getValueSync(
             key: Preferences.Key<T>
