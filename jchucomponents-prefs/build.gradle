@@ -1,17 +1,8 @@
-/*
- *
- *  Copyright 2022 Jeluchu
- *
- */
-
 plugins {
     id 'com.android.library'
     id 'kotlin-android'
     id 'maven-publish'
     id 'org.jetbrains.dokka'
-}
-subprojects {
-    apply(plugin = "org.jetbrains.dokka")
 }
 
 android {
@@ -32,9 +23,10 @@ android {
         }
     }
 
+    kotlinOptions.jvmTarget = JavaVersion.VERSION_17.toString()
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
     }
 
     dokkaHtml.configure {
@@ -50,24 +42,15 @@ android {
                         }"""
                 ]
         )
-
-        dokkaSourceSets {
-            named("main") {
-                includes.from("../modules.md")
-                includeNonPublic.set(true)
-            }
-        }
     }
 
-    namespace 'com.jeluchu.jchucomponents.core'
-
+    namespace 'com.jeluchu.jchucomponents.qr'
 }
 
 dependencies {
-    implementation(libs.bundles.core.androidx)
-    implementation(libs.bundles.core.squareup)
-    implementation(libs.bundles.core.firebase)
-    implementation(libs.bundles.core.jetbrains)
+    implementation libs.bundles.preferences.androidx
+    implementation libs.bundles.preferences.google
+    implementation libs.bundles.preferences.compose
 }
 
 afterEvaluate {
@@ -76,7 +59,7 @@ afterEvaluate {
             release(MavenPublication) {
                 from components.release
                 groupId = "com.github.jeluchu"
-                artifactId = "jchucomponents-core"
+                artifactId = "jchucomponents-preferences"
                 version = "1.7.0"
             }
         }
