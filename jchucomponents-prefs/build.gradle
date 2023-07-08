@@ -59,8 +59,8 @@ afterEvaluate {
             release(MavenPublication) {
                 from components.release
                 groupId = "com.github.jeluchu"
-                artifactId = "jchucomponents-preferences"
-                version = "1.7.0"
+                artifactId = "jchucomponents-prefs"
+                version = "1.7.1"
             }
         }
     }
