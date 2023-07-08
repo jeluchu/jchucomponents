@@ -4,7 +4,7 @@
  *
  */
 
-package com.jeluchu.jchucomponents.ktx.sharedprefs
+package com.jeluchu.prefs.sharedprefs
 
 import android.content.Context
 import android.content.SharedPreferences
@@ -161,7 +161,7 @@ class SharedPrefsHelpers {
             private set
         private var mSharedPreferences: SharedPreferences? = null
 
-        fun init(context: Context) {
+        fun initSharedPrefs(context: Context) {
             mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
         }
 

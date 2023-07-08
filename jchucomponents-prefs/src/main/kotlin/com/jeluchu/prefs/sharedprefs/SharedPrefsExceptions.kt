@@ -4,6 +4,6 @@
  *
  */
 
-package com.jeluchu.jchucomponents.ktx.sharedprefs
+package com.jeluchu.prefs.sharedprefs
 
 class SharedPrefsExceptions(message: String?) : RuntimeException(message)

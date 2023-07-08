@@ -11,4 +11,5 @@ include ':jchucomponents-core',
         ':jchucomponents-ktx',
         ':jchucomponents-qr',
         ':jchucomponents-pay',
+        ':jchucomponents-prefs',
         'app'
