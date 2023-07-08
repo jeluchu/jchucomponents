@@ -16,6 +16,9 @@ android {
         consumerProguardFiles "consumer-rules.pro"
     }
 
+    buildFeatures.compose = true
+    composeOptions.kotlinCompilerExtensionVersion = "1.4.7"
+
     buildTypes {
         release {
             minifyEnabled false
