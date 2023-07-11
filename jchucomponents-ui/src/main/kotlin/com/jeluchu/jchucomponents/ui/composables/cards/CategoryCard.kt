@@ -28,6 +28,7 @@ import com.jeluchu.jchucomponents.ktx.colors.applyOpacity
 import com.jeluchu.jchucomponents.ktx.strings.empty
 import com.jeluchu.jchucomponents.ui.R
 import com.jeluchu.jchucomponents.ui.composables.chips.Type
+import com.jeluchu.jchucomponents.ui.composables.chips.TypeColors
 import com.jeluchu.jchucomponents.ui.extensions.modifier.cornerRadius
 
 @Composable
@@ -60,8 +61,10 @@ fun CategoryCard(
     Spacer(modifier = Modifier.align(Alignment.Center))
     Type(
         modifier = Modifier.align(Alignment.BottomEnd),
-        type = title,
-        textColor = textColor.applyOpacity(enabled),
+        text = title,
+        colors = TypeColors(
+            container = textColor.applyOpacity(enabled)
+        ),
         fontSize = fontSize,
         style = textStyle
     )
