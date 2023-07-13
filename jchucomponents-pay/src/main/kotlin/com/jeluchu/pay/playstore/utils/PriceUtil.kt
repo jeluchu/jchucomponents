@@ -20,7 +20,7 @@ object PriceUtil {
      * @param divider divide the extracted price
      * @return formatted divided price or null on error
      */
-    fun convertFullPriceToDivided(
+    fun convertDividedPrice(
         price: String,
         divider: Int
     ): String? {
@@ -43,6 +43,48 @@ object PriceUtil {
             if (digit != null) {
                 currency = fullPrice.replace(digit, "")
                 val digitValue = digit.toDouble() / divider
+
+                return if (fullPrice.startsWith(currency)) currency + roundDigitString(digitValue)
+                else roundDigitString(digitValue) + currency
+            }
+        } catch (e: Exception) {
+            if (enableLogging) Log.e(TAG, e.message ?: "")
+        }
+
+        return null
+    }
+
+    /**
+     * Convert a formatted price to a formatted price with a given divider.
+     * For example: "4.20 EUR" with a multiply of 4 will return "12.80 EUR"
+     *
+     * @param price formatted price input
+     * @param divider divide the extracted price
+     * @return formatted divided price or null on error
+     */
+    fun convertFullPrice(
+        price: String,
+        divider: Int
+    ): String? {
+        var fullPrice = price
+        if (divider == 1) return price
+        else try {
+            fullPrice = fullPrice.replace("(?<=\\d)\\p{javaSpaceChar}+(?=\\d)".toRegex(), "").trim()
+            fullPrice =
+                if (fullPrice.contains(",") && fullPrice.contains(".") && fullPrice.last() != '.')
+                    fullPrice.replace(",", "")
+                else fullPrice.replace(",", ".")
+
+            var digit: String? = null
+            val currency: String
+            val regex = Pattern.compile("(\\d+(?:\\.\\d+)?)")
+            val matcher = regex.matcher(fullPrice)
+            while (matcher.find()) {
+                digit = matcher.group(1)
+            }
+            if (digit != null) {
+                currency = fullPrice.replace(digit, "")
+                val digitValue = digit.toDouble() * divider
 
                 return if (fullPrice.startsWith(currency)) currency + roundDigitString(digitValue)
                 else roundDigitString(digitValue) + currency
