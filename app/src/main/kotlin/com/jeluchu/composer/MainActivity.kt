@@ -82,8 +82,8 @@ class MainActivity : ComponentActivity() {
                         navigateToBackScreen = { }
                     )
 
-                    androidx.compose.material.Text(text = PriceUtil.convertFullPriceToDivided("19,99€", 12).orEmpty())
-                    androidx.compose.material.Text(text = PriceUtil.convertDividedToFullPrice("1,99€", 12).orEmpty())
+                    androidx.compose.material.Text(text = PriceUtil.toDividedPrice("19,99€", 12).orEmpty())
+                    androidx.compose.material.Text(text = PriceUtil.toFullPrice("1,99€", 12).orEmpty())
                     val textState = remember { mutableStateOf(String.empty()) }
                     SearchTextField(state = textState)
                     MarqueeText(
