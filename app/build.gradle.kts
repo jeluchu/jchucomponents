@@ -47,4 +47,5 @@ dependencies {
     implementation(project(":jchucomponents-ui"))
     implementation(project(":jchucomponents-ktx"))
     implementation(project(":jchucomponents-qr"))
+    implementation(project(":jchucomponents-pay"))
 }

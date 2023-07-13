@@ -42,7 +42,9 @@ import com.jeluchu.jchucomponents.ui.composables.sheets.BottomSheetWithCloseDial
 import com.jeluchu.jchucomponents.ui.composables.textfields.SearchTextField
 import com.jeluchu.jchucomponents.ui.composables.toolbars.Toolbar
 import com.jeluchu.jchucomponents.ui.foundation.text.MarqueeText
+import com.jeluchu.jchucomponents.ui.foundation.text.Text
 import com.jeluchu.jchucomponents.ui.themes.darkPastelBlue
+import com.jeluchu.pay.playstore.utils.PriceUtil
 import com.jeluchu.qr.generateQr
 
 class MainActivity : ComponentActivity() {
@@ -68,7 +70,9 @@ class MainActivity : ComponentActivity() {
         BottomSheetWithCloseDialog {
             Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
                 Column(
-                    modifier = Modifier.verticalScroll(rememberScrollState()).background(Color.Red),
+                    modifier = Modifier
+                        .verticalScroll(rememberScrollState())
+                        .background(Color.Red),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
 
@@ -78,6 +82,8 @@ class MainActivity : ComponentActivity() {
                         navigateToBackScreen = { }
                     )
 
+                    androidx.compose.material.Text(text = PriceUtil.convertFullPriceToDivided("19,99€", 12).orEmpty())
+                    androidx.compose.material.Text(text = PriceUtil.convertDividedToFullPrice("1,99€", 12).orEmpty())
                     val textState = remember { mutableStateOf(String.empty()) }
                     SearchTextField(state = textState)
                     MarqueeText(
