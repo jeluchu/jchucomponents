@@ -77,7 +77,7 @@ afterEvaluate {
                 from components.release
                 groupId = "com.github.jeluchu"
                 artifactId = "jchucomponents-core"
-                version = "1.7.4"
+                version = "1.7.5"
             }
         }
     }

@@ -20,7 +20,7 @@ object PriceUtil {
      * @param divider divide the extracted price
      * @return formatted divided price or null on error
      */
-    fun convertDividedPrice(
+    fun toDividedPrice(
         price: String,
         divider: Int
     ): String? {
@@ -62,7 +62,7 @@ object PriceUtil {
      * @param divider divide the extracted price
      * @return formatted divided price or null on error
      */
-    fun convertFullPrice(
+    fun toFullPrice(
         price: String,
         divider: Int
     ): String? {
