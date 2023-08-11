@@ -19,7 +19,7 @@ import androidx.compose.animation.slideOutHorizontally
 import androidx.navigation.NavBackStackEntry
 
 @ExperimentalAnimationApi
-val enterTransition: (AnimatedContentScope<NavBackStackEntry>.() -> EnterTransition) = {
+val enterTransition: (AnimatedContentScope.() -> EnterTransition) = {
     slideInHorizontally(
         initialOffsetX = { fullWidth -> fullWidth },
         animationSpec = tween(
@@ -30,7 +30,7 @@ val enterTransition: (AnimatedContentScope<NavBackStackEntry>.() -> EnterTransit
 }
 
 @ExperimentalAnimationApi
-val exitTransition: (AnimatedContentScope<NavBackStackEntry>.() -> ExitTransition) = {
+val exitTransition: (AnimatedContentScope.() -> ExitTransition) = {
     slideOutHorizontally(
         targetOffsetX = { fullWidth -> fullWidth },
         animationSpec = tween(
