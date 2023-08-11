@@ -42,6 +42,7 @@ android {
 
 dependencies {
     implementation(libs.bundles.ui.compose)
+    implementation(libs.androidx.appcompat)
     implementation(project(":jchucomponents-core"))
     implementation(project(":jchucomponents-ui"))
     implementation(project(":jchucomponents-ktx"))

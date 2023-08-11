@@ -51,6 +51,7 @@ org-jetbrains-kotlinx-kotlinx-coroutines-android = { module = "org.jetbrains.kot
 org-jetbrains-kotlinx-kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "org-jetbrains-kotlinx" }
 com-android-billingclient-billing-ktx = { module = "com.android.billingclient:billing-ktx", version.ref = "billing-ktx" }
 firebase-crashlytics-buildtools = { group = "com.google.firebase", name = "firebase-crashlytics-buildtools", version = "2.9.8" }
+androidx-appcompat = "androidx.appcompat:appcompat:1.6.1"
 
 [bundles]
 core-androidx = [
