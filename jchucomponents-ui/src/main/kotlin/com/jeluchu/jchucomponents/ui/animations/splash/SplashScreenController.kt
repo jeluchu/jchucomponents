@@ -8,7 +8,6 @@ package com.jeluchu.jchucomponents.ui.animations.splash
 
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
-import android.annotation.SuppressLint
 import android.graphics.Path
 import android.view.View
 import android.view.animation.AnticipateInterpolator
@@ -28,7 +27,6 @@ import androidx.core.splashscreen.SplashScreen
  *
  */
 
-@SuppressLint("CustomSplashScreen")
 class SplashScreenController(
     private val splashScreen: SplashScreen,
     private val defaultExitDuration: Long = 300,
@@ -99,7 +97,6 @@ class SplashScreenController(
             doOnEnd { onExit() }
             start()
         }
-
     }
 
     private fun getAnimation(
@@ -147,13 +144,10 @@ class SplashScreenController(
             }
 
             listAnimations.add(animation)
-
         }
 
         return listAnimations
-
     }
-
 }
 
 enum class SplashAnimations {

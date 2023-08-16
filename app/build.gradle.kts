@@ -7,18 +7,17 @@
 plugins {
     id("com.android.application")
     id("kotlin-android")
-    id("org.jetbrains.dokka")
 }
 
 android {
 
-    compileSdk = 33
+    compileSdk = 34
     defaultConfig {
         applicationId = "com.jeluchu.composer"
         minSdk = 22
-        targetSdk = 33
+        targetSdk = 34
         versionCode = 1
-        versionName = "1.0.3"
+        versionName = "1.0.0"
     }
 
     buildTypes {
@@ -32,7 +31,7 @@ android {
     }
     
     buildFeatures.compose = true
-    composeOptions.kotlinCompilerExtensionVersion = "1.4.7"
+    composeOptions.kotlinCompilerExtensionVersion = "1.5.1"
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
@@ -43,6 +42,7 @@ android {
 
 dependencies {
     implementation(libs.bundles.ui.compose)
+    implementation(libs.androidx.appcompat)
     implementation(project(":jchucomponents-core"))
     implementation(project(":jchucomponents-ui"))
     implementation(project(":jchucomponents-ktx"))

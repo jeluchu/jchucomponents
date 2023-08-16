@@ -77,7 +77,6 @@ fun Context.saveBitmap(
     bitmap: Bitmap,
     filename: String = System.currentTimeMillis().toString()
 ): Uri? {
-
     val contentValues = ContentValues().apply {
         put(MediaStore.MediaColumns.DISPLAY_NAME, filename)
         put(MediaStore.MediaColumns.MIME_TYPE, INTENT_TYPE_IMG_PNG)
@@ -93,13 +92,13 @@ fun Context.saveBitmap(
             contentValues
         )
 
-        return imageUri.also {
-            val fileOutputStream = imageUri?.let { openOutputStream(it) }
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fileOutputStream)
-            fileOutputStream?.close()
+        return imageUri?.also { uri ->
+            openOutputStream(uri)?.let { outputStream ->
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream)
+                outputStream.close()
+            }
         }
     }
-
 }
 
 suspend fun Context.getImageToBitmap(
