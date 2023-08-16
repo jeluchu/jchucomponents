@@ -80,7 +80,9 @@ fun IconProgress(
         verticalArrangement = Arrangement.spacedBy(5.dp)
     ) {
         androidx.compose.material3.Icon(
-            modifier = Modifier.size(60.dp),
+            modifier = Modifier
+                .size(iconProgressCustom.iconSize)
+                .padding(iconProgressCustom.iconPadding),
             imageVector = icon,
             tint = when {
                 !enabled -> iconProgressCounter.disabledIndicator
@@ -169,7 +171,9 @@ fun IconProgress(
         verticalArrangement = Arrangement.spacedBy(5.dp)
     ) {
         Image(
-            modifier = Modifier.size(iconProgressCustom.iconSize),
+            modifier = Modifier
+                .size(iconProgressCustom.iconSize)
+                .padding(iconProgressCustom.iconPadding),
             painter = icon,
             colorFilter = when {
                 !enabled -> iconProgressCounter.disabledIndicator
@@ -228,6 +232,7 @@ fun IconProgress(
 @Immutable
 class IconProgressCustom constructor(
     val iconSize: Dp = 50.dp,
+    val iconPadding: Dp = 10.dp,
     val container: Color = Color.Gray,
     val content: Color = Color.LightGray.copy(alpha = 0.3f),
     val disabledIndicator: Color = Color(0xFF35898f),
