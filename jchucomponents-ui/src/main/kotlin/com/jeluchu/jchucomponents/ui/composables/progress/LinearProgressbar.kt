@@ -11,17 +11,20 @@ import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Divider
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.LocalTextStyle
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.getValue
@@ -33,6 +36,7 @@ import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
@@ -42,6 +46,7 @@ import com.jeluchu.jchucomponents.ktx.compose.toImageVector
 import com.jeluchu.jchucomponents.ktx.compose.toPainter
 import com.jeluchu.jchucomponents.ktx.strings.empty
 import com.jeluchu.jchucomponents.ui.R
+import com.jeluchu.jchucomponents.ui.composables.column.ScrollableColumn
 import com.jeluchu.jchucomponents.ui.extensions.modifier.cornerRadius
 import com.jeluchu.jchucomponents.ui.runtime.remember.rememberMutableStateOf
 import com.jeluchu.jchucomponents.ui.themes.artichoke
@@ -284,87 +289,112 @@ class LinearProgressCounter constructor(
     val content: Color = cosmicLatte
 )
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Preview(showBackground = true)
 @Composable
-fun LinearProgressbarPreview() {
-    Column(
-        verticalArrangement = Arrangement.spacedBy(10.dp)
-    ) {
-        Text(text = "LinearProgressbar with ImageVector")
-        Text(text = "Disable")
-        LinearProgressbar(
-            icon = R.drawable.ic_btn_share.toImageVector(),
-            enabled = false,
-            number = 0f,
-            maxNumber = 1000f
-        )
+fun LinearProgressbarPreview(
+    primary: Color = Color(0xFFA9D2B5),
+    secondary: Color = Color(0xFF79BA98),
+    milky: Color = Color(0xFFF9F8DD)
+) {
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                title = {
+                    Text(
+                        text = "LinearProgressbar",
+                        color = milky,
+                        fontWeight = FontWeight.ExtraBold
+                    )
+                },
+                colors = TopAppBarDefaults.topAppBarColors(
+                    containerColor = secondary
+                )
+            )
+        },
+        containerColor = secondary
+    ) { contentPadding ->
+        ScrollableColumn(
+            modifier = Modifier
+                .padding(contentPadding)
+                .padding(horizontal = 15.dp)
+        ) {
+            Text(text = "LinearProgressbar with ImageVector")
+            Text(text = "Disable")
+            LinearProgressbar(
+                icon = R.drawable.ic_btn_share.toImageVector(),
+                enabled = false,
+                number = 0f,
+                maxNumber = 1000f
+            )
 
-        Text(text = "Enabled")
-        LinearProgressbar(
-            icon = R.drawable.ic_btn_share.toImageVector(),
-            number = 0f,
-            maxNumber = 1000f
-        )
+            Text(text = "Enabled")
+            LinearProgressbar(
+                icon = R.drawable.ic_btn_share.toImageVector(),
+                number = 0f,
+                maxNumber = 1000f
+            )
 
-        Text(text = "When the number is less than the maximum")
-        LinearProgressbar(
-            icon = R.drawable.ic_btn_share.toImageVector(),
-            number = 400f,
-            maxNumber = 1000f
-        )
+            Text(text = "When the number is less than the maximum")
+            LinearProgressbar(
+                icon = R.drawable.ic_btn_share.toImageVector(),
+                number = 400f,
+                maxNumber = 1000f
+            )
 
-        Text(text = "When the number is equal to the maximum")
-        LinearProgressbar(
-            icon = R.drawable.ic_btn_share.toImageVector(),
-            number = 1000f,
-            maxNumber = 1000f
-        )
+            Text(text = "When the number is equal to the maximum")
+            LinearProgressbar(
+                icon = R.drawable.ic_btn_share.toImageVector(),
+                number = 1000f,
+                maxNumber = 1000f
+            )
 
-        Text(text = "When the number is greater than the maximum")
-        LinearProgressbar(
-            icon = R.drawable.ic_btn_share.toImageVector(),
-            number = 2000f,
-            maxNumber = 1000f
-        )
+            Text(text = "When the number is greater than the maximum")
+            LinearProgressbar(
+                icon = R.drawable.ic_btn_share.toImageVector(),
+                number = 2000f,
+                maxNumber = 1000f
+            )
 
-        Divider()
+            Divider()
 
-        Text(text = "LinearProgressbar with Painter")
+            Text(text = "LinearProgressbar with Painter")
 
-        Text(text = "Disable")
-        LinearProgressbar(
-            icon = R.drawable.ic_deco_jeluchu.toPainter(),
-            enabled = false,
-            number = 0f,
-            maxNumber = 1000f
-        )
+            Text(text = "Disable")
+            LinearProgressbar(
+                icon = R.drawable.ic_deco_jeluchu.toPainter(),
+                enabled = false,
+                number = 0f,
+                maxNumber = 1000f
+            )
 
-        Text(text = "Enable")
-        LinearProgressbar(
-            icon = R.drawable.ic_deco_jeluchu.toPainter(),
-            number = 0f,
-            maxNumber = 1000f
-        )
+            Text(text = "Enable")
+            LinearProgressbar(
+                icon = R.drawable.ic_deco_jeluchu.toPainter(),
+                number = 0f,
+                maxNumber = 1000f
+            )
 
-        Text(text = "When the number is less than the maximum")
-        LinearProgressbar(
-            icon = R.drawable.ic_deco_jeluchu.toPainter(),
-            number = 400f,
-            maxNumber = 1000f
-        )
+            Text(text = "When the number is less than the maximum")
+            LinearProgressbar(
+                icon = R.drawable.ic_deco_jeluchu.toPainter(),
+                number = 400f,
+                maxNumber = 1000f
+            )
 
-        Text(text = "When the number is equal to the maximum")
-        LinearProgressbar(
-            icon = R.drawable.ic_deco_jeluchu.toPainter(),
-            number = 1000f,
-            maxNumber = 1000f
-        )
+            Text(text = "When the number is equal to the maximum")
+            LinearProgressbar(
+                icon = R.drawable.ic_deco_jeluchu.toPainter(),
+                number = 1000f,
+                maxNumber = 1000f
+            )
 
-        Text(text = "When the number is greater than the maximum")
-        LinearProgressbar(
-            icon = R.drawable.ic_deco_jeluchu.toPainter(),
-            number = 2000f,
-            maxNumber = 1000f
-        )
+            Text(text = "When the number is greater than the maximum")
+            LinearProgressbar(
+                icon = R.drawable.ic_deco_jeluchu.toPainter(),
+                number = 2000f,
+                maxNumber = 1000f
+            )
+        }
     }
 }

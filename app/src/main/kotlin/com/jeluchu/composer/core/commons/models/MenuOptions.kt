@@ -13,6 +13,10 @@ data class MenuOptions(
                 id = DestinationsIds.buttons,
                 name = Names.buttons
             ),
+            MenuOptions(
+                id = DestinationsIds.progress,
+                name = Names.progress
+            ),
         )
 
         val buttons = listOf(
@@ -20,6 +24,17 @@ data class MenuOptions(
                 id = DestinationsIds.floatingButton,
                 name = Names.floatingButtons
             ),
+        )
+
+        val progress = listOf(
+            MenuOptions(
+                id = DestinationsIds.linearProgress,
+                name = Names.linearProgress
+            ),
+            MenuOptions(
+                id = DestinationsIds.iconProgress,
+                name = Names.iconProgress
+            )
         )
     }
 }

@@ -13,6 +13,7 @@ fun Navigation() = ProvideNavHostController { navHost ->
         ) {
             dashboardNav(nav)
             buttonsNav(nav)
+            progressNav(nav)
         }
     }
 }

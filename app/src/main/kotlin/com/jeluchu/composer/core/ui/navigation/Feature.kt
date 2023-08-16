@@ -4,6 +4,9 @@ enum class Feature(val route: String) {
     DASHBOARD("dashboard"),
     BUTTONS("buttons"),
     FLOATING_BUTTONS("floating_buttons"),
+    PROGRESS("progress"),
+    LINEAR_PROGRESS("linear_progress"),
+    ICON_PROGRESS("icon_progress"),
 }
 
 val Feature.baseRoute: String
