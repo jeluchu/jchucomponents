@@ -124,7 +124,7 @@ fun IconProgress(
                 .padding(bottom = 5.dp)
                 .clip(iconProgressCounter.shape.cornerRadius())
                 .background(
-                    if (enabled) iconProgressCounter.background
+                    if (enabled) iconProgressCounter.container
                     else iconProgressCounter.disabledIndicator
                 )
                 .padding(horizontal = 15.dp),
@@ -169,7 +169,7 @@ fun IconProgress(
         verticalArrangement = Arrangement.spacedBy(5.dp)
     ) {
         Image(
-            modifier = Modifier.size(60.dp),
+            modifier = Modifier.size(iconProgressCustom.iconSize),
             painter = icon,
             colorFilter = when {
                 !enabled -> iconProgressCounter.disabledIndicator
@@ -213,7 +213,7 @@ fun IconProgress(
                 .padding(bottom = 5.dp)
                 .clip(iconProgressCounter.shape.cornerRadius())
                 .background(
-                    if (enabled) iconProgressCounter.background
+                    if (enabled) iconProgressCounter.container
                     else iconProgressCounter.disabledIndicator
                 )
                 .padding(horizontal = 15.dp),
@@ -227,6 +227,7 @@ fun IconProgress(
 
 @Immutable
 class IconProgressCustom constructor(
+    val iconSize: Dp = 50.dp,
     val container: Color = Color.Gray,
     val content: Color = Color.LightGray.copy(alpha = 0.3f),
     val disabledIndicator: Color = Color(0xFF35898f),
@@ -239,7 +240,7 @@ class IconProgressCustom constructor(
 class IconProgressCounter constructor(
     val shape: Int = 10,
     val disabledIndicator: Color = Color.Gray,
-    val background: Color = Color(0xFF35898f),
+    val container: Color = Color(0xFF35898f),
     val content: Color = cosmicLatte
 )
 
@@ -295,7 +296,7 @@ fun IconProgressbarPreview(
                                 foregroundIndicator = milky
                             ),
                             iconProgressCounter = IconProgressCounter(
-                                background = secondary
+                                container = secondary
                             )
                         )
                     }
@@ -316,7 +317,7 @@ fun IconProgressbarPreview(
                     foregroundIndicator = milky
                 ),
                 iconProgressCounter = IconProgressCounter(
-                    background = secondary
+                    container = secondary
                 )
             )
 
@@ -332,7 +333,7 @@ fun IconProgressbarPreview(
                     foregroundIndicator = milky
                 ),
                 iconProgressCounter = IconProgressCounter(
-                    background = secondary
+                    container = secondary
                 )
             )
 
@@ -348,7 +349,7 @@ fun IconProgressbarPreview(
                     foregroundIndicator = milky
                 ),
                 iconProgressCounter = IconProgressCounter(
-                    background = secondary
+                    container = secondary
                 )
             )
 
@@ -364,7 +365,7 @@ fun IconProgressbarPreview(
                     foregroundIndicator = milky
                 ),
                 iconProgressCounter = IconProgressCounter(
-                    background = secondary
+                    container = secondary
                 )
             )
 
@@ -380,7 +381,7 @@ fun IconProgressbarPreview(
                     foregroundIndicator = milky
                 ),
                 iconProgressCounter = IconProgressCounter(
-                    background = secondary
+                    container = secondary
                 )
             )
 
@@ -401,7 +402,7 @@ fun IconProgressbarPreview(
                     foregroundIndicator = milky
                 ),
                 iconProgressCounter = IconProgressCounter(
-                    background = secondary
+                    container = secondary
                 )
             )
 
@@ -417,7 +418,7 @@ fun IconProgressbarPreview(
                     foregroundIndicator = milky
                 ),
                 iconProgressCounter = IconProgressCounter(
-                    background = secondary
+                    container = secondary
                 )
             )
 
@@ -433,7 +434,7 @@ fun IconProgressbarPreview(
                     foregroundIndicator = milky
                 ),
                 iconProgressCounter = IconProgressCounter(
-                    background = secondary
+                    container = secondary
                 )
             )
 
@@ -449,7 +450,7 @@ fun IconProgressbarPreview(
                     foregroundIndicator = milky
                 ),
                 iconProgressCounter = IconProgressCounter(
-                    background = secondary
+                    container = secondary
                 )
             )
 
@@ -465,7 +466,7 @@ fun IconProgressbarPreview(
                     foregroundIndicator = milky
                 ),
                 iconProgressCounter = IconProgressCounter(
-                    background = secondary
+                    container = secondary
                 )
             )
         }
