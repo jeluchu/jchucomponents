@@ -165,7 +165,7 @@ data class SubscriptionsHelper(private val context: Context, val subscripttions:
                 .setSubscriptionUpdateParams(
                     BillingFlowParams.SubscriptionUpdateParams.newBuilder()
                         .setOldPurchaseToken(purchase.purchaseToken)
-                        .setReplaceProrationMode(BillingFlowParams.ProrationMode.IMMEDIATE_AND_CHARGE_FULL_PRICE)
+                        .setSubscriptionReplacementMode(BillingFlowParams.SubscriptionUpdateParams.ReplacementMode.CHARGE_FULL_PRICE)
                         .build()
                 )
                 .build()
