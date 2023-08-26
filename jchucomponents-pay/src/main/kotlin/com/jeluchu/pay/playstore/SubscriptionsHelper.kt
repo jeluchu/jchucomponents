@@ -201,12 +201,21 @@ data class SubscriptionsHelper(private val context: Context, val subscripttions:
                         val acknowledgePurchaseParams = AcknowledgePurchaseParams
                             .newBuilder()
                             .setPurchaseToken(purchase.purchaseToken)
-                        billingClient.acknowledgePurchase(acknowledgePurchaseParams.build()) { p0 ->
-                            if (p0.responseCode == BillingClient.BillingResponseCode.OK) {
-                                if (purchase.products.contains(productId)) {
-                                    onSubscriptionSuccess(purchase)
-                                } else onSubscriptionFailure(p0.debugMessage)
-                            } else onSubscriptionFailure(p0.debugMessage)
+                        billingClient.acknowledgePurchase(
+                            acknowledgePurchaseParams.build()
+                        ) { billingResult ->
+                            if (billingResult.responseCode == BillingClient.BillingResponseCode.OK &&
+                                purchase.purchaseState == Purchase.PurchaseState.PURCHASED
+                            ) {
+                                if (purchase.products.contains(productId)) onSubscriptionSuccess(purchase)
+                                else onSubscriptionFailure(billingResult.debugMessage)
+                            }
+                            if (billingResult.responseCode == BillingClient.BillingResponseCode.OK &&
+                                purchase.purchaseState == Purchase.PurchaseState.PENDING
+                            ) onSubscriptionFailure(billingResult.debugMessage)
+                            if (billingResult.responseCode == BillingClient.BillingResponseCode.OK &&
+                                purchase.purchaseState == Purchase.PurchaseState.UNSPECIFIED_STATE
+                            ) onSubscriptionFailure(billingResult.debugMessage)
                         }
                     }
                 }
