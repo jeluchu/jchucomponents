@@ -27,7 +27,7 @@ android {
         targetCompatibility JavaVersion.VERSION_17
     }
 
-    namespace 'com.jeluchu.jchucomponents.qr'
+    namespace 'com.jeluchu.jchucomponents.pay'
 }
 
 dependencies {
