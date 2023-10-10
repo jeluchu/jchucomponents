@@ -4,6 +4,7 @@ package com.jeluchu.jchucomponents.ui.foundation.icon
 
 import androidx.annotation.StringRes
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.LocalContentColor
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.NonRestartableComposable
@@ -12,7 +13,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.res.stringResource
 
 /**
  *
@@ -34,17 +34,20 @@ import androidx.compose.ui.res.stringResource
  */
 @Composable
 @NonRestartableComposable
-fun Icon(
+fun IconLink(
     bitmap: ImageBitmap,
-    @StringRes contentDescription: Int?,
+    contentDescription: String?,
     modifier: Modifier = Modifier,
-    tint: Color = LocalContentColor.current
-) = Icon(
-    bitmap = bitmap,
-    contentDescription = contentDescription?.let { stringResource(id = it) },
-    modifier = modifier,
-    tint = tint
-)
+    tint: Color = LocalContentColor.current,
+    onClick: () -> Unit
+) = IconButton(onClick = onClick) {
+    Icon(
+        tint = tint,
+        bitmap = bitmap,
+        modifier = modifier,
+        contentDescription = contentDescription
+    )
+}
 
 /**
  *
@@ -66,17 +69,20 @@ fun Icon(
  */
 @Composable
 @NonRestartableComposable
-fun Icon(
+fun IconLink(
     imageVector: ImageVector,
-    @StringRes contentDescription: Int?,
+    contentDescription: String?,
     modifier: Modifier = Modifier,
-    tint: Color = LocalContentColor.current
-) = Icon(
-    imageVector = imageVector,
-    contentDescription = contentDescription?.let { stringResource(it) },
-    modifier = modifier,
-    tint = tint
-)
+    tint: Color = LocalContentColor.current,
+    onClick: () -> Unit
+) = IconButton(onClick = onClick) {
+    Icon(
+        imageVector = imageVector,
+        contentDescription = contentDescription,
+        modifier = modifier,
+        tint = tint
+    )
+}
 
 /**
  *
@@ -100,17 +106,20 @@ fun Icon(
  *
  */
 @Composable
-fun Icon(
+fun IconLink(
     painter: Painter,
-    @StringRes contentDescription: Int?,
+    contentDescription: String?,
     modifier: Modifier = Modifier,
-    tint: Color = LocalContentColor.current
-) = Icon(
-    painter = painter,
-    contentDescription = contentDescription?.let { stringResource(id = it) },
-    modifier = modifier,
-    tint = tint
-)
+    tint: Color = LocalContentColor.current,
+    onClick: () -> Unit
+) = IconButton(onClick = onClick) {
+    Icon(
+        painter = painter,
+        contentDescription = contentDescription,
+        modifier = modifier,
+        tint = tint
+    )
+}
 
 /**
  *
@@ -133,16 +142,19 @@ fun Icon(
  *
  */
 @Composable
-fun Icon(
-    modifier: Modifier = Modifier,
+fun IconLink(
     isActive: Boolean,
+    contentDescription: String?,
+    modifier: Modifier = Modifier,
+    tint: Color = Color.White,
     activeImageVector: ImageVector,
     disableImageVector: ImageVector,
-    @StringRes contentDescription: Int?,
-    tint: Color = Color.White
-) = Icon(
-    modifier = modifier,
-    imageVector = if (isActive) activeImageVector else disableImageVector,
-    contentDescription = contentDescription?.let { stringResource(id = it) },
-    tint = tint
-)
+    onClick: () -> Unit
+) = IconButton(onClick = onClick) {
+    Icon(
+        modifier = modifier,
+        imageVector = if (isActive) activeImageVector else disableImageVector,
+        contentDescription = contentDescription,
+        tint = tint
+    )
+}

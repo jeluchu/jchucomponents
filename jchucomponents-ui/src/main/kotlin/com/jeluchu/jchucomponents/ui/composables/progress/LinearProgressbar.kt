@@ -322,10 +322,10 @@ fun LinearProgressbarPreview(
             Text(text = "LinearProgressbar with ImageVector")
             Text(text = "Disable")
             LinearProgressbar(
-                icon = R.drawable.ic_btn_share.toImageVector(),
-                enabled = false,
                 number = 0f,
-                maxNumber = 1000f
+                enabled = false,
+                maxNumber = 1000f,
+                icon = R.drawable.ic_btn_share.toImageVector()
             )
 
             Text(text = "Enabled")
