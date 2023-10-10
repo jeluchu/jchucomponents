@@ -30,6 +30,7 @@ import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.input.nestedscroll.NestedScrollConnection
 import androidx.compose.ui.input.nestedscroll.NestedScrollSource
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
@@ -59,11 +60,18 @@ fun Modifier.graphicsCollapse(
     }
 }
 
-inline fun Modifier.noRippleClickable(crossinline onClick: () -> Unit) = composed {
-    val interactionSource by remember { mutableStateOf(MutableInteractionSource()) }
+inline fun Modifier.noRippleClickable(
+    role: Role? = null,
+    enabled: Boolean = true,
+    onClickLabel: String? = null,
+    crossinline onClick: () -> Unit
+) = composed {
     clickable(
+        role = role,
+        enabled = enabled,
         indication = null,
-        interactionSource = interactionSource
+        onClickLabel = onClickLabel,
+        interactionSource = remember { MutableInteractionSource() }
     ) { onClick() }
 }
 
