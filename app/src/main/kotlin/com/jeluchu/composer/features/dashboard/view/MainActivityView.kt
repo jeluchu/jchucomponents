@@ -14,6 +14,7 @@ import androidx.compose.ui.unit.dp
 import com.jeluchu.composer.core.commons.models.MenuOptions
 import com.jeluchu.composer.core.ui.composables.ScaffoldListStructure
 import com.jeluchu.composer.core.ui.composables.SimpleButton
+import com.jeluchu.composer.core.ui.theme.darkGreen
 import com.jeluchu.composer.core.ui.theme.darkness
 import com.jeluchu.composer.core.ui.theme.milky
 import com.jeluchu.composer.core.ui.theme.primary
@@ -40,7 +41,7 @@ fun Main(
     onItemClick: (String) -> Unit
 ) = ScaffoldListStructure(
     title = "Jchucomponents",
-    navIcon = com.jeluchu.jchucomponents.ui.R.drawable.ic_btn_qrcode,
+    navIcon = com.jeluchu.jchucomponents.ui.R.drawable.ic_deco_jeluchu,
     colors = CenterToolbarColors(
         containerColor = primary,
         contentColor = darkness
@@ -49,7 +50,7 @@ fun Main(
     stickyHeader {
         Text(
             text = "UI Components",
-            color = primary,
+            color = milky.copy(.8f),
             modifier = Modifier
                 .fillMaxWidth()
                 .background(secondary)
@@ -63,9 +64,9 @@ fun Main(
             modifier = Modifier
                 .padding(horizontal = 15.dp)
                 .clip(10.cornerRadius())
-                .background(secondary),
+                .background(secondary.copy(.4f)),
             label = option.name,
-            color = milky
+            color = darkGreen
         ) { onItemClick(option.id) }
     }
 }

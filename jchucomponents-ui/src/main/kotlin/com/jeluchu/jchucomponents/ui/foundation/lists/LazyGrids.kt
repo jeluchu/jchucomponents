@@ -16,10 +16,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
 import androidx.compose.ui.Alignment
@@ -27,11 +24,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.Layout
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.jeluchu.jchucomponents.ui.composables.column.ScrollableColumn
 import com.jeluchu.jchucomponents.ui.extensions.modifier.cornerRadius
 import kotlin.math.ceil
 
@@ -158,144 +153,121 @@ class RowContentAlignment(
     val verticalAlignment: Alignment.Vertical = Alignment.Top
 )
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Preview
 @Composable
 fun LazyStaticGridPreview(
     primary: Color = Color(0xFFA9D2B5),
     secondary: Color = Color(0xFF79BA98),
     milky: Color = Color(0xFFF9F8DD)
+) = Column(
+    verticalArrangement = Arrangement.spacedBy(15.dp)
 ) {
-    Scaffold(
-        topBar = {
-            TopAppBar(
-                title = {
-                    Text(
-                        text = "LazyStaticGrid",
-                        color = milky,
-                        fontWeight = FontWeight.ExtraBold
-                    )
-                },
-                colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = secondary
-                )
-            )
-        },
-        containerColor = secondary
-    ) { contentPadding ->
-        ScrollableColumn(
-            modifier = Modifier
-                .padding(contentPadding)
-                .padding(horizontal = 15.dp)
+    Text(text = "LazyStaticGrid with number to repeat")
+    LazyStaticGrid(
+        columns = 5,
+        itemCount = 22,
+        modifier = Modifier.padding(bottom = 20.dp)
+    ) { itemIndex ->
+        Box(
+            Modifier
+                .weight(1f)
+                .aspectRatio(1f)
+                .padding(5.dp)
+                .clip(15.cornerRadius())
+                .background(primary)
+                .padding(8.dp),
+            Alignment.Center,
         ) {
-            Text(text = "LazyStaticGrid with number to repeat")
-            LazyStaticGrid(
-                columns = 5,
-                itemCount = 22,
-                modifier = Modifier.padding(bottom = 20.dp)
-            ) { itemIndex ->
-                Box(
-                    Modifier
-                        .weight(1f)
-                        .aspectRatio(1f)
-                        .padding(5.dp)
-                        .clip(15.cornerRadius())
-                        .background(primary)
-                        .padding(8.dp),
-                    Alignment.Center,
-                ) {
-                    Text(
-                        text = itemIndex.toString(),
-                        textAlign = TextAlign.Center,
-                        color = Color.DarkGray
-                    )
-                }
-            }
+            Text(
+                text = itemIndex.toString(),
+                textAlign = TextAlign.Center,
+                color = Color.DarkGray
+            )
+        }
+    }
 
-            Text(text = "LazyStaticGrid with simple list of String")
-            LazyStaticGrid(
-                columns = 3,
-                itemCount = listOf(
-                    "Spanish",
-                    "Catalan",
-                    "Galician",
-                    "Basque",
-                    "English",
-                    "Italian",
-                    "French",
-                    "Portuguese",
-                    "Portuguese por tu",
-                    "Polish",
-                    "Disabled",
-                ).size,
-                modifier = Modifier.padding(bottom = 20.dp)
-            ) { itemIndex ->
-                Box(
-                    Modifier
-                        .weight(1f)
-                        .aspectRatio(1f)
-                        .padding(5.dp)
-                        .clip(15.cornerRadius())
-                        .background(primary)
-                        .padding(8.dp),
-                    Alignment.Center,
-                ) {
-                    Text(
-                        text = itemIndex.toString(),
-                        textAlign = TextAlign.Center,
-                        color = Color.DarkGray
-                    )
-                }
-            }
+    Text(text = "LazyStaticGrid with simple list of String")
+    LazyStaticGrid(
+        columns = 3,
+        itemCount = listOf(
+            "Spanish",
+            "Catalan",
+            "Galician",
+            "Basque",
+            "English",
+            "Italian",
+            "French",
+            "Portuguese",
+            "Portuguese por tu",
+            "Polish",
+            "Disabled",
+        ).size,
+        modifier = Modifier.padding(bottom = 20.dp)
+    ) { itemIndex ->
+        Box(
+            Modifier
+                .weight(1f)
+                .aspectRatio(1f)
+                .padding(5.dp)
+                .clip(15.cornerRadius())
+                .background(primary)
+                .padding(8.dp),
+            Alignment.Center,
+        ) {
+            Text(
+                text = itemIndex.toString(),
+                textAlign = TextAlign.Center,
+                color = Color.DarkGray
+            )
+        }
+    }
 
-            Text(text = "LazyStaticGrid with simple list of custom object")
-            LazyStaticGrid(
-                columns = 3,
-                items = listOf(
-                    LazyGridPeview(
-                        id = 0,
-                        name = "Spanish"
-                    ),
-                    LazyGridPeview(
-                        id = 1,
-                        name = "Catalan"
-                    ),
-                    LazyGridPeview(
-                        id = 2,
-                        name = "Galician"
-                    ),
-                    LazyGridPeview(
-                        id = 3,
-                        name = "Basque"
-                    ),
-                    LazyGridPeview(
-                        id = 4,
-                        name = "English"
-                    ),
-                    LazyGridPeview(
-                        id = 5,
-                        name = "Italian"
-                    )
-                ),
-                modifier = Modifier.padding(bottom = 20.dp)
-            ) { item ->
-                Box(
-                    Modifier
-                        .weight(1f)
-                        .aspectRatio(1f)
-                        .padding(5.dp)
-                        .clip(15.cornerRadius())
-                        .background(primary)
-                        .padding(8.dp),
-                    Alignment.Center,
-                ) {
-                    Text(
-                        text = item.name,
-                        textAlign = TextAlign.Center,
-                        color = Color.DarkGray
-                    )
-                }
-            }
+    Text(text = "LazyStaticGrid with simple list of custom object")
+    LazyStaticGrid(
+        columns = 3,
+        items = listOf(
+            LazyGridPeview(
+                id = 0,
+                name = "Spanish"
+            ),
+            LazyGridPeview(
+                id = 1,
+                name = "Catalan"
+            ),
+            LazyGridPeview(
+                id = 2,
+                name = "Galician"
+            ),
+            LazyGridPeview(
+                id = 3,
+                name = "Basque"
+            ),
+            LazyGridPeview(
+                id = 4,
+                name = "English"
+            ),
+            LazyGridPeview(
+                id = 5,
+                name = "Italian"
+            )
+        ),
+        modifier = Modifier.padding(bottom = 20.dp)
+    ) { item ->
+        Box(
+            Modifier
+                .weight(1f)
+                .aspectRatio(1f)
+                .padding(5.dp)
+                .clip(15.cornerRadius())
+                .background(primary)
+                .padding(8.dp),
+            Alignment.Center,
+        ) {
+            Text(
+                text = item.name,
+                textAlign = TextAlign.Center,
+                color = Color.DarkGray
+            )
         }
     }
 }

@@ -53,7 +53,6 @@ import com.jeluchu.jchucomponents.ui.foundation.text.MarqueeText
  *
  */
 
-@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun DebutCard(
     modifier: Modifier = Modifier,
