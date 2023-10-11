@@ -40,6 +40,7 @@ fun NavGraphBuilder.buttonsNav(nav: Destinations) {
             ButtonsView { id ->
                 when (id) {
                     DestinationsIds.floatingButton -> nav.goToFloatingButtons()
+                    DestinationsIds.back -> nav.goBack(it)
                 }
             }
         }
@@ -60,6 +61,7 @@ fun NavGraphBuilder.progressNav(nav: Destinations) {
                 when (id) {
                     DestinationsIds.linearProgress -> nav.goToLinearProgress()
                     DestinationsIds.iconProgress -> nav.goToIconProgress()
+                    DestinationsIds.back -> nav.goBack(it)
                 }
             }
         }
@@ -83,6 +85,7 @@ fun NavGraphBuilder.lazyGridsNav(nav: Destinations) {
             LazyGridsView { id ->
                 when (id) {
                     DestinationsIds.lazyStaticGrids -> nav.goToLazyStaticGrid()
+                    DestinationsIds.back -> nav.goBack(it)
                 }
             }
         }

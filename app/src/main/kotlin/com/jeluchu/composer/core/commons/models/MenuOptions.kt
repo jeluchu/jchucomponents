@@ -8,7 +8,7 @@ data class MenuOptions(
     val name: String
 ) {
     companion object {
-        val dashboard = listOf(
+        val ui = listOf(
             MenuOptions(
                 id = DestinationsIds.buttons,
                 name = Names.buttons
