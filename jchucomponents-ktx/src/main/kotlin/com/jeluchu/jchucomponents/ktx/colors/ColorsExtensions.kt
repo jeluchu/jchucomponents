@@ -37,8 +37,10 @@ val Color.Companion.Random
  */
 fun Color?.orTransparent(defaultValue: Color = Color.Transparent): Color = this ?: defaultValue
 
-
-fun Color.applyOpacity(enabled: Boolean): Color = if (enabled) this else this.copy(alpha = 0.62f)
+fun Color.opacity(
+    enabled: Boolean,
+    opacity: Float = .62f
+): Color = copy(alpha = if (enabled) 1f else opacity)
 
 fun Color.isDark() = ColorUtils.calculateLuminance(toArgb()) < 0.5
 

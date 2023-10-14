@@ -15,6 +15,7 @@ import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -33,6 +34,8 @@ import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import com.jeluchu.jchucomponents.ui.runtime.remember.rememberMutableFloatStateOf
+import com.jeluchu.jchucomponents.ui.runtime.remember.rememberMutableIntStateOf
 
 /** ---- MODIFIER EXT -------------------------------------------------------------------------- **/
 
@@ -51,35 +54,13 @@ fun Int.Width() = Spacer(modifier = Modifier.width(this.dp))
 fun Modifier.graphicsCollapse(
     state: LazyListState
 ) = this.composed {
-    var scrolledY by remember { mutableStateOf(0f) }
-    var previousOffset by remember { mutableStateOf(0) }
+    var scrolledY by rememberMutableFloatStateOf(0f)
+    var previousOffset by rememberMutableIntStateOf(0)
     graphicsLayer {
         scrolledY += state.firstVisibleItemScrollOffset - previousOffset
         translationY = scrolledY * 0.5f
         previousOffset = state.firstVisibleItemScrollOffset
     }
-}
-
-inline fun Modifier.noRippleClickable(
-    role: Role? = null,
-    enabled: Boolean = true,
-    onClickLabel: String? = null,
-    crossinline onClick: () -> Unit
-) = composed {
-    clickable(
-        role = role,
-        enabled = enabled,
-        indication = null,
-        onClickLabel = onClickLabel,
-        interactionSource = remember { MutableInteractionSource() }
-    ) { onClick() }
-}
-
-fun Modifier.interceptionClickable(): Modifier = composed {
-    clickable(
-        indication = null,
-        interactionSource = remember { MutableInteractionSource() }
-    ) {}
 }
 
 /** ---- LISTS  -------------------------------------------------------------------------------- **/

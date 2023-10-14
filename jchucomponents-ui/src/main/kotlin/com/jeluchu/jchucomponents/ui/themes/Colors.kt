@@ -6,7 +6,17 @@
 
 package com.jeluchu.jchucomponents.ui.themes
 
+import androidx.compose.runtime.Stable
 import androidx.compose.ui.graphics.Color
+
+@Stable
+val primary = Color(0xFFA9D2B5)
+
+@Stable
+val secondary = Color(0xFF79BA98)
+
+@Stable
+val darkGreen = Color(0xFF4D7C63)
 
 val green200 = Color(0xffa5d6a7)
 val green500 = Color(0xff4caf50)
