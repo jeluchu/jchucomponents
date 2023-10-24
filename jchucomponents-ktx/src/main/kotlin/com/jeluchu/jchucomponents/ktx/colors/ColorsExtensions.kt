@@ -45,3 +45,10 @@ fun Color.opacity(
 fun Color.isDark() = ColorUtils.calculateLuminance(toArgb()) < 0.5
 
 fun Color.toColorFilter() = ColorFilter.tint(this)
+
+fun Color.Companion.random(): Color {
+    val red = kotlin.random.Random.nextInt(0, 256)
+    val green = kotlin.random.Random.nextInt(0, 256)
+    val blue = kotlin.random.Random.nextInt(0, 256)
+    return Color(red, green, blue)
+}

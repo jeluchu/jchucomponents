@@ -18,6 +18,12 @@ val secondary = Color(0xFF79BA98)
 @Stable
 val darkGreen = Color(0xFF4D7C63)
 
+@Stable
+val darkness = Color(0xFF333333)
+
+@Stable
+val milky = Color(0xFFF9F8DD)
+
 val green200 = Color(0xffa5d6a7)
 val green500 = Color(0xff4caf50)
 val green700 = Color(0xff388e3c)

@@ -11,8 +11,6 @@ import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -27,12 +25,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
@@ -43,15 +37,22 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.jeluchu.jchucomponents.ktx.colors.toColorFilter
 import com.jeluchu.jchucomponents.ktx.compose.toImageVector
 import com.jeluchu.jchucomponents.ktx.compose.toPainter
 import com.jeluchu.jchucomponents.ktx.strings.empty
 import com.jeluchu.jchucomponents.ui.R
 import com.jeluchu.jchucomponents.ui.extensions.modifier.cornerRadius
+import com.jeluchu.jchucomponents.ui.foundation.text.AutoSizeText
 import com.jeluchu.jchucomponents.ui.runtime.remember.rememberMutableStateOf
 import com.jeluchu.jchucomponents.ui.themes.artichoke
 import com.jeluchu.jchucomponents.ui.themes.cosmicLatte
+import com.jeluchu.jchucomponents.ui.themes.darkGreen
+import com.jeluchu.jchucomponents.ui.themes.darkness
+import com.jeluchu.jchucomponents.ui.themes.milky
+import com.jeluchu.jchucomponents.ui.themes.primary
+import com.jeluchu.jchucomponents.ui.themes.secondary
 
 /**
  *
@@ -88,7 +89,7 @@ fun LinearProgressbar(
     val checkMaxValue = if (number > maxNumber) maxNumber else number
     val numberTimes by rememberMutableStateOf(key1 = checkMaxValue, value = checkMaxValue)
     val animateNumber by animateFloatAsState(
-        targetValue =  if (numberTimes > maxNumber) maxNumber else numberTimes,
+        targetValue = if (numberTimes > maxNumber) maxNumber else numberTimes,
         animationSpec = tween(
             durationMillis = animationDuration,
             delayMillis = animationDelay
@@ -115,10 +116,8 @@ fun LinearProgressbar(
 
         Canvas(
             modifier = Modifier
-                .fillMaxWidth()
                 .height(indicatorHeight)
-                .weight(6f)
-
+                .weight(1f)
         ) {
             drawLine(
                 color = if (enabled) linearProgressCustom.backgroundIndicator
@@ -145,18 +144,22 @@ fun LinearProgressbar(
 
         Surface(
             modifier = Modifier
-                .fillMaxWidth()
-                .weight(2.5f)
+                .weight(.5f)
                 .padding(end = 10.dp),
             shape = linearProgressCounter.shape.cornerRadius(),
             color = if (enabled) linearProgressCounter.background
             else linearProgressCounter.disabledIndicator,
-            contentColor = linearProgressCounter.content
+            contentColor = if (enabled) linearProgressCounter.content
+            else linearProgressCounter.disabledContent
         ) {
-            Text(
-                modifier = Modifier.padding(2.dp),
+            AutoSizeText(
+                modifier = Modifier.padding(
+                    vertical = 2.dp,
+                    horizontal = 8.dp
+                ),
                 text = if (enabled) "${numberTimes.toInt()}/${maxNumber.toInt()}" else "- / -",
                 style = style,
+                maxTextSize = 14.sp,
                 textAlign = TextAlign.Center,
             )
         }
@@ -198,7 +201,7 @@ fun LinearProgressbar(
     val checkMaxValue = if (number > maxNumber) maxNumber else number
     val numberTimes by rememberMutableStateOf(key1 = checkMaxValue, value = checkMaxValue)
     val animateNumber by animateFloatAsState(
-        targetValue =  if (numberTimes > maxNumber) maxNumber else numberTimes,
+        targetValue = if (numberTimes > maxNumber) maxNumber else numberTimes,
         animationSpec = tween(
             durationMillis = animationDuration,
             delayMillis = animationDelay
@@ -225,10 +228,8 @@ fun LinearProgressbar(
 
         Canvas(
             modifier = Modifier
-                .fillMaxWidth()
                 .height(indicatorHeight)
-                .weight(6f)
-
+                .weight(1f)
         ) {
             drawLine(
                 color = if (enabled) linearProgressCustom.backgroundIndicator
@@ -255,19 +256,23 @@ fun LinearProgressbar(
 
         Surface(
             modifier = Modifier
-                .fillMaxWidth()
-                .weight(2.5f)
+                .weight(.5f)
                 .padding(end = 10.dp),
             shape = linearProgressCounter.shape.cornerRadius(),
             color = if (enabled) linearProgressCounter.background
             else linearProgressCounter.disabledIndicator,
-            contentColor = linearProgressCounter.content
+            contentColor = if (enabled) linearProgressCounter.content
+            else linearProgressCounter.disabledContent
         ) {
-            Text(
-                modifier = Modifier.padding(2.dp),
+            AutoSizeText(
+                modifier = Modifier.padding(
+                    vertical = 2.dp,
+                    horizontal = 8.dp
+                ),
                 text = if (enabled) "${numberTimes.toInt()}/${maxNumber.toInt()}" else "- / -",
                 style = style,
-                textAlign = TextAlign.Center
+                maxTextSize = 14.sp,
+                textAlign = TextAlign.Center,
             )
         }
     }
@@ -275,18 +280,19 @@ fun LinearProgressbar(
 
 @Immutable
 class LinearProgressCustom constructor(
-    val disabledIndicator: Color = Color.Gray,
-    val backgroundIndicator: Color = Color.LightGray.copy(alpha = 0.3f),
-    val foregroundIndicator: Color = Color(0xFF35898f),
-    val foregroundIndicatorComplete: Color = Color(0xFF7DA88C),
-    val iconTint: Color = artichoke
+    val disabledIndicator: Color = milky.copy(.2f),
+    val backgroundIndicator: Color = Color.LightGray.copy(.3f),
+    val foregroundIndicator: Color = milky,
+    val foregroundIndicatorComplete: Color = darkGreen.copy(.7f),
+    val iconTint: Color = milky
 )
 
 @Immutable
 class LinearProgressCounter constructor(
     val shape: Int = 10,
-    val disabledIndicator: Color = Color.Gray,
-    val background: Color = Color(0xFF35898f),
+    val disabledIndicator: Color = milky.copy(.2f),
+    val background: Color = darkGreen,
+    val disabledContent: Color = darkGreen,
     val content: Color = cosmicLatte
 )
 
@@ -336,7 +342,7 @@ fun LinearProgressbarPreview(
         maxNumber = 1000f
     )
 
-    Divider()
+    Divider(color = darkGreen.copy(.3f))
 
     Text(text = "LinearProgressbar with Painter")
 
