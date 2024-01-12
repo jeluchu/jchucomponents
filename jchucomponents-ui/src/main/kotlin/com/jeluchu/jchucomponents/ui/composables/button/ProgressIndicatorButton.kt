@@ -28,11 +28,11 @@ import com.jeluchu.jchucomponents.ui.runtime.remember.rememberMutableStateOf
 @Composable
 fun ProgressIndicatorButton(
     modifier: Modifier = Modifier,
-    isLoading: Boolean = false,
     text: String,
     icon: ImageVector,
-    textSyle: TextStyle = MaterialTheme.typography.bodyLarge,
+    isLoading: Boolean = false,
     fontSize: TextUnit = 16.sp,
+    textSyle: TextStyle = MaterialTheme.typography.bodyLarge,
     colors: ButtonColors = ButtonDefaults.filledTonalButtonColors(),
     onClick: () -> Unit,
 ) = FilledTonalButton(

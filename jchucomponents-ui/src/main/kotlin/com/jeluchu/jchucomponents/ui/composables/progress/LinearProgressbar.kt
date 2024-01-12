@@ -46,13 +46,9 @@ import com.jeluchu.jchucomponents.ui.R
 import com.jeluchu.jchucomponents.ui.extensions.modifier.cornerRadius
 import com.jeluchu.jchucomponents.ui.foundation.text.AutoSizeText
 import com.jeluchu.jchucomponents.ui.runtime.remember.rememberMutableStateOf
-import com.jeluchu.jchucomponents.ui.themes.artichoke
 import com.jeluchu.jchucomponents.ui.themes.cosmicLatte
 import com.jeluchu.jchucomponents.ui.themes.darkGreen
-import com.jeluchu.jchucomponents.ui.themes.darkness
 import com.jeluchu.jchucomponents.ui.themes.milky
-import com.jeluchu.jchucomponents.ui.themes.primary
-import com.jeluchu.jchucomponents.ui.themes.secondary
 
 /**
  *

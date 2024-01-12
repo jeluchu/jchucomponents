@@ -2,14 +2,9 @@ package com.jeluchu.jchucomponents.ui.wrapper
 
 import android.graphics.drawable.Drawable
 import androidx.annotation.DrawableRes
-import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
-import androidx.compose.ui.graphics.asImageBitmap
-import androidx.compose.ui.graphics.painter.BitmapPainter
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.core.graphics.drawable.toBitmap
-import com.jeluchu.jchucomponents.ktx.compose.toPainter
 
 @Immutable
 sealed interface JchImage {

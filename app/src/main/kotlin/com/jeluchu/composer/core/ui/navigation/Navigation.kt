@@ -2,7 +2,6 @@ package com.jeluchu.composer.core.ui.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
-import com.jeluchu.pay.playstore.SubscriptionsHelper
 
 @Composable
 fun Navigation() = ProvideNavHostController { navHost ->

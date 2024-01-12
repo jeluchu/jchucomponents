@@ -22,6 +22,7 @@ import com.jeluchu.composer.core.ui.theme.secondary
 import com.jeluchu.jchucomponents.ui.accompanist.systemui.SystemStatusBarColors
 import com.jeluchu.jchucomponents.ui.composables.toolbars.CenterToolbarColors
 import com.jeluchu.jchucomponents.ui.extensions.modifier.cornerRadius
+import com.jeluchu.jchucomponents.ui.foundation.lists.ListRow
 
 @Composable
 fun MainView(

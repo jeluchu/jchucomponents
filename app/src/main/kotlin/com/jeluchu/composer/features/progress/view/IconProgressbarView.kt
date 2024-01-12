@@ -8,7 +8,6 @@ import com.jeluchu.composer.core.utils.DestinationsIds
 import com.jeluchu.composer.core.utils.Names
 import com.jeluchu.jchucomponents.ui.accompanist.systemui.SystemStatusBarColors
 import com.jeluchu.jchucomponents.ui.composables.progress.IconProgressbarPreview
-import com.jeluchu.jchucomponents.ui.composables.progress.LinearProgressbarPreview
 import com.jeluchu.jchucomponents.ui.composables.toolbars.CenterToolbarColors
 
 @Composable

@@ -14,11 +14,8 @@ import com.jeluchu.composer.features.progress.view.IconProgressbarView
 import com.jeluchu.composer.features.progress.view.LinearProgressbarView
 import com.jeluchu.composer.features.progress.view.ProgressView
 import com.jeluchu.composer.features.toolbars.view.ToolbarsView
-import com.jeluchu.jchucomponents.ui.composables.progress.IconProgressbarPreview
-import com.jeluchu.jchucomponents.ui.composables.progress.LinearProgressbarPreview
 import com.jeluchu.jchucomponents.ui.composables.toolbars.CenterToolbarActionsPreview
 import com.jeluchu.jchucomponents.ui.composables.toolbars.ToolbarActionsPreview
-import com.jeluchu.jchucomponents.ui.foundation.lists.LazyStaticGridPreview
 
 fun NavGraphBuilder.dashboardNav(nav: Destinations) {
     composable(Feature.DASHBOARD.nav) {

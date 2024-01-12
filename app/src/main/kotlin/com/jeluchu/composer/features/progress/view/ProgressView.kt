@@ -1,12 +1,10 @@
 package com.jeluchu.composer.features.progress.view
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.unit.dp
 import com.jeluchu.composer.core.commons.models.MenuOptions
 import com.jeluchu.composer.core.ui.composables.ScaffoldStructure
 import com.jeluchu.composer.core.ui.composables.SimpleButton
