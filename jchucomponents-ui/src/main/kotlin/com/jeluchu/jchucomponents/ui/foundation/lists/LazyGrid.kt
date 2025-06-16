@@ -4,7 +4,7 @@
  *
  */
 
-package com.jeluchu.jchucomponents.ui.migration.lists.grids
+package com.jeluchu.jchucomponents.ui.foundation.lists
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row

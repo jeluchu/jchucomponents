@@ -7,7 +7,7 @@
 package com.jeluchu.jchucomponents.ui.foundation.lists.composition
 
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.LocalOverscrollConfiguration
+import androidx.compose.foundation.LocalOverscrollFactory
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 
@@ -16,5 +16,5 @@ import androidx.compose.runtime.CompositionLocalProvider
 fun ListNotOverScroll(
     content: @Composable () -> Unit
 ) = CompositionLocalProvider(
-    LocalOverscrollConfiguration provides null
+    LocalOverscrollFactory provides null
 ) { content() }

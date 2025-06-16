@@ -70,7 +70,7 @@ class PagerSnapNestedScrollConnection(
 
     override fun onPreScroll(available: Offset, source: NestedScrollSource): Offset =
         when (source) {
-            NestedScrollSource.Drag -> onScroll()
+            NestedScrollSource.UserInput -> onScroll()
             else -> Offset.Zero
         }
 
@@ -79,7 +79,7 @@ class PagerSnapNestedScrollConnection(
         available: Offset,
         source: NestedScrollSource
     ): Offset = when (source) {
-        NestedScrollSource.Drag -> onScroll()
+        NestedScrollSource.UserInput -> onScroll()
         else -> Offset.Zero
     }
 

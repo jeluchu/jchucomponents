@@ -27,8 +27,9 @@ android {
     
     buildFeatures.compose = true
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
+        sourceCompatibility = JavaVersion.VERSION_21
+        targetCompatibility = JavaVersion.VERSION_21
+        isCoreLibraryDesugaringEnabled = true
     }
 
     namespace = "com.jeluchu.composer"
@@ -38,6 +39,7 @@ dependencies {
     implementation(platform(libs.compose.bom))
     implementation(libs.bundles.compose.bom)
     implementation(libs.androidx.appcompat)
+    coreLibraryDesugaring(libs.desugar.jdk.libs)
     implementation(project(":jchucomponents-core"))
     implementation(project(":jchucomponents-ui"))
     implementation(project(":jchucomponents-ktx"))
