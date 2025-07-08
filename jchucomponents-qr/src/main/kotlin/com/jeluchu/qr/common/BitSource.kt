@@ -5,7 +5,6 @@
  */
 package com.jeluchu.qr.common
 
-import okhttp3.internal.and
 import kotlin.math.min
 
 /**

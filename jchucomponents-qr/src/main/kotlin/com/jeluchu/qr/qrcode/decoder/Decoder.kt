@@ -13,11 +13,11 @@ import com.jeluchu.qr.FormatException
 import com.jeluchu.qr.common.BitMatrix
 import com.jeluchu.qr.common.BitMatrix.Companion.parse
 import com.jeluchu.qr.common.DecoderResult
+import com.jeluchu.qr.common.and
 import com.jeluchu.qr.common.reedsolomon.GenericGF
 import com.jeluchu.qr.common.reedsolomon.ReedSolomonDecoder
 import com.jeluchu.qr.qrcode.decoder.DataBlock.Companion.getDataBlocks
 import com.jeluchu.qr.qrcode.decoder.DecodedBitStreamParser.decode
-import okhttp3.internal.and
 
 /**
  *

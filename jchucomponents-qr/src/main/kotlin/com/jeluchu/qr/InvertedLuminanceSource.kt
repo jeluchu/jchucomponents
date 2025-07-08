@@ -6,7 +6,7 @@
 
 package com.jeluchu.qr
 
-import okhttp3.internal.and
+import com.jeluchu.qr.common.and
 
 class InvertedLuminanceSource(private val delegate: LuminanceSource?) : LuminanceSource(
     delegate!!.width, delegate.height

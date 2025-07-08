@@ -22,4 +22,3 @@ tasks.withType<DokkaMultiModuleTask> {
     outputDirectory.set(file(projectDir.toPath().resolve("docs/assets/logo-icon.svg").resolve(currentVersion)))
     pluginsMapConfiguration.set(mapOf)
 }
-

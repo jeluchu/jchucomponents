@@ -10,6 +10,7 @@ import com.jeluchu.qr.EncodeHintType
 import com.jeluchu.qr.WriterException
 import com.jeluchu.qr.common.BitArray
 import com.jeluchu.qr.common.CharacterSetECI
+import com.jeluchu.qr.common.and
 import com.jeluchu.qr.common.reedsolomon.GenericGF
 import com.jeluchu.qr.common.reedsolomon.ReedSolomonEncoder
 import com.jeluchu.qr.qrcode.decoder.ErrorCorrectionLevel
@@ -21,7 +22,6 @@ import com.jeluchu.qr.qrcode.encoder.MaskUtil.applyMaskPenaltyRule2
 import com.jeluchu.qr.qrcode.encoder.MaskUtil.applyMaskPenaltyRule3
 import com.jeluchu.qr.qrcode.encoder.MaskUtil.applyMaskPenaltyRule4
 import com.jeluchu.qr.qrcode.encoder.QRCode.Companion.isValidMaskPattern
-import okhttp3.internal.and
 import kotlin.math.max
 
 object Encoder {
