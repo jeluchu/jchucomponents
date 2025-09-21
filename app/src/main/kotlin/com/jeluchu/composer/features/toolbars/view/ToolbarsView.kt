@@ -16,6 +16,7 @@ import com.jeluchu.composer.core.utils.Names
 import com.jeluchu.jchucomponents.ui.accompanist.systemui.SystemStatusBarColors
 import com.jeluchu.jchucomponents.ui.composables.toolbars.CenterToolbarColors
 import com.jeluchu.jchucomponents.ui.extensions.modifier.cornerRadius
+import com.jeluchu.jchucomponents.ui.theme.shape.Shape
 
 @Composable
 fun ToolbarsView(onItemClick: (String) -> Unit) {
@@ -41,7 +42,7 @@ private fun Toolbars(
     MenuOptions.toolbars.forEach { option ->
         SimpleButton(
             modifier = Modifier
-                .clip(10.cornerRadius())
+                .clip(Shape.corner_10)
                 .background(primary.copy(.7f)),
             label = option.name,
             color = Color.DarkGray

@@ -16,8 +16,8 @@ import androidx.compose.ui.unit.dp
 import com.jeluchu.jchucomponents.ui.extensions.toImageVector
 import com.jeluchu.jchucomponents.ui.R
 import com.jeluchu.jchucomponents.ui.extensions.modifier.cornerRadius
-import com.jeluchu.jchucomponents.ui.themes.artichoke
-import com.jeluchu.jchucomponents.ui.themes.cosmicLatte
+import com.jeluchu.jchucomponents.ui.theme.color.artichoke
+import com.jeluchu.jchucomponents.ui.theme.color.cosmicLatte
 
 @Composable
 fun CategoryIcon(

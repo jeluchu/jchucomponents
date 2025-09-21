@@ -52,7 +52,7 @@ import java.util.Locale
 fun Context.checkSelfPermissionCompat(permission: String) =
     ActivityCompat.checkSelfPermission(this, permission)
 
-inline val Context.checkPermisionStorage: Boolean
+inline val Context.checkPermissionStorage: Boolean
     get() = ContextCompat.checkSelfPermission(
         this, Manifest.permission.WRITE_EXTERNAL_STORAGE
     ) == PackageManager.PERMISSION_DENIED
@@ -153,20 +153,6 @@ fun Context.isPackageInstalled(packageName: String): Boolean =
 
 
 private fun intentView(url: String) = Intent(Intent.ACTION_VIEW, Uri.parse(url))
-
-/**
- *
- * [Context] Extension to get whether Talkback
- * is activated or not
- *
- */
-val Context.isTalkBackEnabled: Boolean
-    get() {
-        val am: AccessibilityManager? = getSystemService()
-        val isAccessibilityEnabled: Boolean = am?.isEnabled ?: false
-        val isExploreByTouchEnabled: Boolean = am?.isTouchExplorationEnabled ?: false
-        return isAccessibilityEnabled && isExploreByTouchEnabled
-    }
 
 /**
  *

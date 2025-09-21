@@ -1,7 +1,9 @@
 package com.jeluchu.jchucomponents.ktx.utils
 
+import com.jeluchu.jchucomponents.ktx.constants.ALPHABET
+
 object IbanUtils {
-    private const val REG = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    private const val REG = ALPHABET
     private const val STRING_DOUBLE_ZERO = "00"
     private const val STRING_ZERO = "0"
     private const val INT_NINETY_EIGHT = 98

@@ -31,8 +31,8 @@ import com.jeluchu.jchucomponents.ui.extensions.toImageVector
 import com.jeluchu.jchucomponents.ui.R
 import com.jeluchu.jchucomponents.ui.composables.images.NetworkImage
 import com.jeluchu.jchucomponents.ui.extensions.modifier.cornerRadius
-import com.jeluchu.jchucomponents.ui.themes.Spacing.sizeSpacing06
-import com.jeluchu.jchucomponents.ui.themes.Spacing.sizeSpacing10
+import com.jeluchu.jchucomponents.ui.theme.Dimen.sizeSpacing06
+import com.jeluchu.jchucomponents.ui.theme.Dimen.sizeSpacing10
 
 /**
  *

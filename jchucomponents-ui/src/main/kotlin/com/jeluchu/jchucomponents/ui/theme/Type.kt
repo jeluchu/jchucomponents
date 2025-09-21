@@ -4,7 +4,7 @@
  *
  */
 
-package com.jeluchu.jchucomponents.ui.themes
+package com.jeluchu.jchucomponents.ui.theme
 
 import androidx.compose.material.Typography
 import androidx.compose.ui.graphics.Color

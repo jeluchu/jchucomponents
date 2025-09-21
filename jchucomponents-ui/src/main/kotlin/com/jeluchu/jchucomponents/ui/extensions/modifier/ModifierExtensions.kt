@@ -33,7 +33,6 @@ import com.jeluchu.jchucomponents.ui.runtime.remember.rememberMutableIntStateOf
 
 /** ---- MODIFIER EXT -------------------------------------------------------------------------- **/
 
-@Composable
 fun Int.cornerRadius() = RoundedCornerShape(this.dp)
 
 @Composable

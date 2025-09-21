@@ -7,7 +7,6 @@ import com.jeluchu.composer.core.ui.theme.secondary
 import com.jeluchu.composer.core.utils.DestinationsIds
 import com.jeluchu.composer.core.utils.Names
 import com.jeluchu.jchucomponents.ui.accompanist.systemui.SystemStatusBarColors
-import com.jeluchu.jchucomponents.ui.composables.progress.IconProgressbarPreview
 import com.jeluchu.jchucomponents.ui.composables.toolbars.CenterToolbarColors
 
 @Composable
@@ -30,4 +29,4 @@ private fun IconProgressbar(
         contentColor = milky
     ),
     onNavIconClick = { onItemClick(DestinationsIds.back) }
-) { IconProgressbarPreview() }
+) {/* IconProgressBarScreenPreview()*/ }

@@ -39,7 +39,7 @@ import com.jeluchu.jchucomponents.ktx.strings.empty
 import com.jeluchu.jchucomponents.ui.R
 import com.jeluchu.jchucomponents.ui.extensions.modifier.cornerRadius
 import com.jeluchu.jchucomponents.ui.runtime.remember.rememberMutableStateOf
-import com.jeluchu.jchucomponents.ui.themes.cosmicLatte
+import com.jeluchu.jchucomponents.ui.theme.color.cosmicLatte
 
 @Composable
 fun IconProgress(

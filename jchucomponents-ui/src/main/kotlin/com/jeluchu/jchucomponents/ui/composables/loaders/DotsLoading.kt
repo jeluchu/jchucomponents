@@ -27,8 +27,8 @@ import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.Layout
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.jeluchu.jchucomponents.ui.themes.Spacing
-import com.jeluchu.jchucomponents.ui.themes.artichoke
+import com.jeluchu.jchucomponents.ui.theme.Dimen
+import com.jeluchu.jchucomponents.ui.theme.color.artichoke
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import kotlin.math.PI
@@ -114,7 +114,7 @@ fun ProgressIndicator(
             val minFactor = .3f
             val step = minFactor / NumDots
             repeat(NumDots) { index ->
-                val size = Spacing.sizeSpacing07 * (1f - step * index)
+                val size = Dimen.sizeSpacing07 * (1f - step * index)
                 Dot(
                     color = color,
                     modifier = Modifier

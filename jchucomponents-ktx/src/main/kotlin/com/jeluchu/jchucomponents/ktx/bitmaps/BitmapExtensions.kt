@@ -14,6 +14,8 @@ import com.jeluchu.jchucomponents.ktx.constants.SIZE_2MB_BYTES
 import java.io.ByteArrayOutputStream
 import kotlin.math.floor
 import kotlin.math.sqrt
+import androidx.core.graphics.scale
+import androidx.core.graphics.createBitmap
 
 /**
  *
@@ -27,7 +29,7 @@ import kotlin.math.sqrt
  *
  */
 fun Bitmap?.orEmpty(
-    defaultValue: Bitmap = Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888)
+    defaultValue: Bitmap = createBitmap(1, 1)
 ): Bitmap = this ?: defaultValue
 
 /**
@@ -44,13 +46,12 @@ fun Bitmap?.orEmpty(
  *
  */
 fun ImageBitmap?.orEmpty(
-    defaultValue: ImageBitmap = Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888).asImageBitmap()
+    defaultValue: ImageBitmap = createBitmap(1, 1).asImageBitmap()
 ): ImageBitmap = this ?: defaultValue
 
 /**
  * Bitmap to base 64.
  *
- * @param bitmap the bitmap
  * @return the string
  */
 fun Bitmap.toBase64(): String? {
@@ -69,7 +70,7 @@ fun Bitmap.scaleBitmap(maxBytes: Long = SIZE_2MB_BYTES.toLong()): Bitmap? {
     val scaleFactor = sqrt(maxPixels / currentPixels.toDouble())
     val newWidthPx = floor(currentWidth * scaleFactor).toInt()
     val newHeightPx = floor(currentHeight * scaleFactor).toInt()
-    return Bitmap.createScaledBitmap(this, newWidthPx, newHeightPx, true)
+    return this.scale(newWidthPx, newHeightPx)
 }
 
 internal val Bitmap.safeConfig: Bitmap.Config
