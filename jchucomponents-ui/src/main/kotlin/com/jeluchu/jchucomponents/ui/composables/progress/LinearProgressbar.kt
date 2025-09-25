@@ -44,9 +44,9 @@ import com.jeluchu.jchucomponents.ktx.strings.empty
 import com.jeluchu.jchucomponents.ui.R
 import com.jeluchu.jchucomponents.ui.extensions.modifier.cornerRadius
 import com.jeluchu.jchucomponents.ui.runtime.remember.rememberMutableStateOf
-import com.jeluchu.jchucomponents.ui.theme.color.cosmicLatte
-import com.jeluchu.jchucomponents.ui.theme.color.darkGreen
-import com.jeluchu.jchucomponents.ui.theme.color.milky
+import com.jeluchu.jchucomponents.ui.theme.cosmicLatte
+import com.jeluchu.jchucomponents.ui.theme.darkGreen
+import com.jeluchu.jchucomponents.ui.theme.milky
 
 /**
  *

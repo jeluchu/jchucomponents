@@ -21,7 +21,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.jeluchu.jchucomponents.ui.extensions.modifier.bounceClick
 import com.jeluchu.jchucomponents.ui.extensions.modifier.cornerRadius
-import com.jeluchu.jchucomponents.ui.theme.color.primary
+import com.jeluchu.jchucomponents.ui.theme.primary
 
 @Composable
 fun TimeCard(

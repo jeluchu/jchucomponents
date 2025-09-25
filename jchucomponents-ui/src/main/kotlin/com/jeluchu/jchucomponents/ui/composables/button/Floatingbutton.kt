@@ -37,8 +37,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.jeluchu.jchucomponents.ktx.strings.empty
 import com.jeluchu.jchucomponents.ui.R
-import com.jeluchu.jchucomponents.ui.theme.color.artichoke
-import com.jeluchu.jchucomponents.ui.theme.color.cosmicLatte
+import com.jeluchu.jchucomponents.ui.theme.artichoke
+import com.jeluchu.jchucomponents.ui.theme.cosmicLatte
 
 @Composable
 fun FloatingButton(

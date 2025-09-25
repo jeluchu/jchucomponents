@@ -4,10 +4,11 @@
  *
  */
 
-package com.jeluchu.jchucomponents.ui.theme.color
+package com.jeluchu.jchucomponents.ui.theme
 
 import androidx.compose.runtime.Stable
 import androidx.compose.ui.graphics.Color
+import androidx.core.graphics.toColorInt
 
 @Stable
 val primary = Color(0xFFA9D2B5)
@@ -37,4 +38,4 @@ val darkPastelBlue = Color(0xFF7C8AC5)
 val toolbox = Color(0xFF7280BF)
 val glaucous = Color(0xFF6777B8)
 
-fun toHex(color: String) = Color(android.graphics.Color.parseColor("#$color"))
+fun toHex(color: String) = Color("#$color".toColorInt())

@@ -10,8 +10,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
-import com.jeluchu.jchucomponents.ui.theme.color.artichoke
-import com.jeluchu.jchucomponents.ui.theme.color.cosmicLatte
+import com.jeluchu.jchucomponents.ui.theme.artichoke
+import com.jeluchu.jchucomponents.ui.theme.cosmicLatte
 
 @Composable
 fun SnackbarCustomized(

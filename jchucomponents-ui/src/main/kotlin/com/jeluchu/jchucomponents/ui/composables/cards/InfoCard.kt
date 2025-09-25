@@ -31,8 +31,7 @@ import com.jeluchu.jchucomponents.ui.extensions.toImageVector
 import com.jeluchu.jchucomponents.ui.R
 import com.jeluchu.jchucomponents.ui.composables.images.NetworkImage
 import com.jeluchu.jchucomponents.ui.extensions.modifier.cornerRadius
-import com.jeluchu.jchucomponents.ui.theme.Dimen.sizeSpacing06
-import com.jeluchu.jchucomponents.ui.theme.Dimen.sizeSpacing10
+import com.jeluchu.jchucomponents.ui.theme.JchuTheme
 
 /**
  *
@@ -58,7 +57,7 @@ fun InfoCard(
 ) = Row(
     modifier = modifier,
     verticalAlignment = Alignment.CenterVertically,
-    horizontalArrangement = Arrangement.spacedBy(sizeSpacing10)
+    horizontalArrangement = Arrangement.spacedBy(JchuTheme.spacing.dimen10)
 ) {
     NetworkImage(
         url = image,
@@ -72,7 +71,7 @@ fun InfoCard(
         color = contentColor,
         textAlign = TextAlign.Start,
         fontWeight = FontWeight.Bold,
-        modifier = Modifier.padding(vertical = sizeSpacing06)
+        modifier = Modifier.padding(vertical = JchuTheme.spacing.dimen06)
     )
 }
 
@@ -100,7 +99,7 @@ fun InfoCard(
 ) = Row(
     modifier = modifier,
     verticalAlignment = Alignment.CenterVertically,
-    horizontalArrangement = Arrangement.spacedBy(sizeSpacing10)
+    horizontalArrangement = Arrangement.spacedBy(JchuTheme.spacing.dimen10)
 ) {
     Icon(
         tint = tint,
@@ -115,7 +114,7 @@ fun InfoCard(
         style = style,
         textAlign = TextAlign.Start,
         fontWeight = FontWeight.Bold,
-        modifier = Modifier.padding(vertical = sizeSpacing06)
+        modifier = Modifier.padding(vertical = JchuTheme.spacing.dimen06)
     )
 }
 

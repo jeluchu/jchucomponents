@@ -36,7 +36,7 @@ import com.jeluchu.jchucomponents.ui.R
 import com.jeluchu.jchucomponents.ui.composables.column.ScrollableColumn
 import com.jeluchu.jchucomponents.ui.extensions.modifier.noRippleClickable
 import com.jeluchu.jchucomponents.ui.runtime.remember.rememberMutableStateOf
-import com.jeluchu.jchucomponents.ui.theme.color.artichoke
+import com.jeluchu.jchucomponents.ui.theme.artichoke
 
 /**
  *

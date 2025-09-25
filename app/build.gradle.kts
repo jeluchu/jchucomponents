@@ -9,7 +9,7 @@ android {
     compileSdk = 36
     defaultConfig {
         applicationId = "com.jeluchu.composer"
-        minSdk = 22
+        minSdk = 23
         targetSdk = 36
         versionCode = 1
         versionName = "1.0.0"
