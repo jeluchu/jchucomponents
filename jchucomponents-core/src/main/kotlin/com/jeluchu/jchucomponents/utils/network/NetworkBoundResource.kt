@@ -26,22 +26,28 @@ inline fun <ResultType, RequestType> networkBoundResource(
     emit(Resource.Loading())
 
     val flow = if (shouldFetch()) {
-
         try {
             saveFetchResult(fetch())
-            query().map { Resource.Success(dbTransform(it)) }
+            query().mapToResource(transform = dbTransform)
         } catch (exception: IOException) {
-            query().map { Resource.Error(Failure.NetworkConnection(errorMessage = exception.message.orEmpty())) }
+            query().mapToResource(
+                transform = dbTransform,
+                errorMessage = Failure.NetworkConnection(errorMessage = exception.message.orEmpty())
+            )
         } catch (error: HttpException) {
-            query().map { Resource.Error(Failure.ServerError(error.code(), error.message())) }
+            query().mapToResource(
+                transform = dbTransform,
+                errorMessage = Failure.ServerError(error.code(), error.message())
+            )
         } catch (exception: Exception) {
-            query().map { Resource.Error(Failure.NetworkConnection(errorMessage = exception.message.orEmpty())) }
+            query().mapToResource(
+                transform = dbTransform,
+                errorMessage = Failure.NetworkConnection(errorMessage = exception.message.orEmpty())
+            )
         }
-
-    } else query().map { Resource.Success(dbTransform(it)) }
+    } else query().mapToResource(dbTransform)
 
     emitAll(flow)
-
 }
 
 inline fun <RequestType> networkResource(
@@ -65,4 +71,12 @@ inline fun <RequestType> networkResource(
 
     } else emit(Resource.Error(Failure.NetworkConnection(errorMessage = "error. .orEmpty()")))
 
+}
+
+inline fun <ResultType, RequestType> Flow<ResultType?>.mapToResource(
+    crossinline transform: (ResultType) -> RequestType,
+    errorMessage: Failure = Failure.DatabaseError("No data available")
+): Flow<Resource<Failure, RequestType>> = map { result ->
+    if (result != null) Resource.Success(data = transform(result))
+    else Resource.Error(error = errorMessage)
 }
