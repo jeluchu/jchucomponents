@@ -17,6 +17,7 @@ import com.jeluchu.jchucomponents.core.exception.Failure
 fun Failure?.handleFailure() = when (this) {
     is Failure.NetworkConnection -> "Network Connection Failed: $errorMessage"
     is Failure.ServerError -> "Server Failed (Code: $errorCode): $errorMessage"
+    is Failure.DatabaseError -> errorMessage
     is Failure.CustomError -> errorMessage
     is Failure.LegacyError -> errorMessage
     else -> "Unknow Error"
