@@ -2,6 +2,66 @@
 ![Cover Library Image](https://raw.githubusercontent.com/Jeluchu/jchucomponents-compose/develop/images/cover.png)
 # Jchucomponents for Android
 
+> JchuComponents 3 is currently under active development on the `v3` branch.
+> Pre-release versions follow `3.0.0-alphaNN`, `3.0.0-betaNN` and
+> `3.0.0-rcNN` before the stable `3.0.0` release.
+
+JchuComponents 3 supports native Jetpack Compose and SwiftUI interfaces.
+Shared Kotlin Multiplatform behavior lives in `jchucomponents-foundation`.
+
+## JchuComponents 3 installation
+
+The following coordinates apply to tagged v3 releases. During development,
+replace `3.0.0-alpha01` with an available v3 tag.
+
+Add JitPack to `settings.gradle.kts`:
+
+```kotlin
+dependencyResolutionManagement {
+    repositories {
+        google()
+        mavenCentral()
+        maven("https://jitpack.io")
+    }
+}
+```
+
+Then depend only on the Android modules your application needs:
+
+```kotlin
+dependencies {
+    implementation(
+        "com.github.jeluchu.jchucomponents:jchucomponents-ui:3.0.0-alpha01"
+    )
+    implementation(
+        "com.github.jeluchu.jchucomponents:jchucomponents-ktx:3.0.0-alpha01"
+    )
+}
+```
+
+Available Android artifacts are `jchucomponents-core`,
+`jchucomponents-foundation`, `jchucomponents-ktx`, `jchucomponents-pay`,
+`jchucomponents-prefs`, `jchucomponents-qr` and `jchucomponents-ui`.
+
+For iOS, add this package URL in Xcode:
+
+```text
+https://github.com/Jeluchu/jchucomponents-spm
+```
+
+Select the `JchuComponents` product and import the modules required by the
+application:
+
+```swift
+import JchuComponentsCore
+import JchuComponentsExtensions
+import JchuComponentsSwiftUI
+```
+
+The Swift package requires iOS 26.0 or newer. The public SwiftPM repository
+and the `3.0.0-alpha01` artifacts will become available with the matching
+tagged prerelease.
+
 ##  Introduction
 
 This library is intended to facilitate the work of developers so that they can make applications in a faster way and with less code. That is why in addition to having design components (Compose), it also includes various functions and extensions with which to accelerate the development of applications from scratch, or current, as well as including components for the implementation of architectures (MVVM) or perform various common functions.

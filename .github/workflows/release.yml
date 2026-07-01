@@ -1,0 +1,109 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "3.*"
+
+permissions:
+  contents: write
+
+jobs:
+  validate:
+    name: Validate release
+    runs-on: macos-26
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "21"
+
+      - uses: gradle/actions/setup-gradle@v4
+
+      - name: Verify tag matches catalog version
+        run: |
+          catalog_version="$(
+            sed -n 's/^jchucomponents = "\(.*\)"/\1/p' \
+              gradle/libs.versions.toml
+          )"
+          test "${GITHUB_REF_NAME}" = "${catalog_version}"
+
+      - name: Build Android release and publications
+        run: ./gradlew check assembleRelease publishToMavenLocal
+
+      - name: Prepare Swift release
+        run: ./scripts/prepare-swift-release.sh
+
+      - name: Validate generated Swift manifest
+        run: |
+          swift package dump-package \
+            --package-path "build/swift-release/${GITHUB_REF_NAME}"
+
+      - name: Publish GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          release_args=(--generate-notes)
+          if [[ "${GITHUB_REF_NAME}" == *-* ]]; then
+            release_args+=(--prerelease)
+          fi
+          archive="build/swift-release/${GITHUB_REF_NAME}/JchuComponentsCore.xcframework.zip"
+          if gh release view "${GITHUB_REF_NAME}" >/dev/null 2>&1; then
+            gh release upload "${GITHUB_REF_NAME}" "${archive}" --clobber
+          else
+            gh release create "${GITHUB_REF_NAME}" \
+              "${archive}" \
+              "${release_args[@]}"
+          fi
+
+      - name: Upload SwiftPM repository payload
+        uses: actions/upload-artifact@v4
+        with:
+          name: jchucomponents-spm-${{ github.ref_name }}
+          path: |
+            build/swift-release/${{ github.ref_name }}/Package.swift
+            build/swift-release/${{ github.ref_name }}/Sources
+            build/swift-release/${{ github.ref_name }}/Tests
+
+  publish-swift-package:
+    name: Publish SwiftPM manifest repository
+    needs: validate
+    if: ${{ vars.SPM_REPOSITORY_ENABLED == 'true' }}
+    runs-on: macos-26
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download SwiftPM payload
+        uses: actions/download-artifact@v4
+        with:
+          name: jchucomponents-spm-${{ github.ref_name }}
+          path: swift-package
+
+      - name: Check out SwiftPM manifest repository
+        uses: actions/checkout@v4
+        with:
+          repository: Jeluchu/jchucomponents-spm
+          token: ${{ secrets.SPM_REPOSITORY_TOKEN }}
+          path: jchucomponents-spm
+
+      - name: Publish package sources and tag
+        working-directory: jchucomponents-spm
+        run: |
+          rsync -a --delete --exclude .git ../swift-package/ ./
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add --all
+          if ! git diff --cached --quiet; then
+            git commit -m "chore: release ${GITHUB_REF_NAME}"
+          fi
+          if git rev-parse --verify "refs/tags/${GITHUB_REF_NAME}" >/dev/null 2>&1; then
+            test "$(
+              git rev-list -n 1 "${GITHUB_REF_NAME}"
+            )" = "$(git rev-parse HEAD)"
+          else
+            git tag "${GITHUB_REF_NAME}"
+          fi
+          git push origin HEAD
+          git push origin "refs/tags/${GITHUB_REF_NAME}"

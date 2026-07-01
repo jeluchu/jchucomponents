@@ -12,6 +12,8 @@ fun Navigation() = ProvideNavHostController { navHost ->
         ) {
             dashboardNav(nav)
             buttonsNav(nav)
+            chipsNav(nav)
+            loadersNav(nav)
             progressNav(nav)
             lazyGridsNav(nav)
             dividersNav(nav)

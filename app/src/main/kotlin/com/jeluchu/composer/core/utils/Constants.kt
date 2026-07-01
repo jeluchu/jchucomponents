@@ -5,9 +5,12 @@ object DestinationsIds {
 
     const val buttons = "buttons"
     const val progress = "progress"
+    const val chips = "chips"
+    const val loaders = "loaders"
 
     const val floatingButton = "floatingButton"
     const val linearProgress = "linearProgress"
+    const val circularProgress = "circularProgress"
     const val iconProgress = "iconProgress"
 
     const val lazyGrids = "lazyGrids"
@@ -31,13 +34,18 @@ object NavigationIds {
     const val dividers = "dividersNav"
     const val toolbars = "toolbarsNav"
     const val cards = "cardsNav"
+    const val chips = "chipsNav"
+    const val loaders = "loadersNav"
 }
 
 object Names {
     const val buttons = "Buttons"
     const val progress = "Progress"
+    const val chips = "Chips"
+    const val loaders = "Loaders"
     const val floatingButtons = "FloatingButtons"
     const val linearProgress = "LinearProgress"
+    const val circularProgress = "CircularProgress"
     const val iconProgress = "IconProgress"
     const val lazyGrids = "LazyGrids"
     const val lazyStaticGrids = "LazyStaticGrids"

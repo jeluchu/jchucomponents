@@ -31,7 +31,7 @@ fun ProgressView(onItemClick: (String) -> Unit) {
 private fun Progress(
     onItemClick: (String) -> Unit
 ) = ScaffoldStructure(
-    title = Names.buttons,
+    title = Names.progress,
     colors = CenterToolbarColors(
         containerColor = secondary,
         contentColor = milky

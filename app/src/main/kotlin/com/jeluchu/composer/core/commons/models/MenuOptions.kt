@@ -18,6 +18,14 @@ data class MenuOptions(
                 name = Names.progress
             ),
             MenuOptions(
+                id = DestinationsIds.chips,
+                name = Names.chips
+            ),
+            MenuOptions(
+                id = DestinationsIds.loaders,
+                name = Names.loaders
+            ),
+            MenuOptions(
                 id = DestinationsIds.lazyGrids,
                 name = Names.lazyGrids
             ),
@@ -43,6 +51,10 @@ data class MenuOptions(
         )
 
         val progress = listOf(
+            MenuOptions(
+                id = DestinationsIds.circularProgress,
+                name = Names.circularProgress
+            ),
             MenuOptions(
                 id = DestinationsIds.linearProgress,
                 name = Names.linearProgress

@@ -1,24 +1,24 @@
 [versions]
-jchucomponents = "2.1.0"
-agp = "8.13.0"
-ktor="3.3.1"
-kotlin = "2.2.21"
-dokka = "2.1.0"
-androidx-activity = "1.11.0"
-androidx-lifecycle = "2.9.4"
-androidx-navigation = "2.9.5"
-com-squareup-okhttp3 = "5.2.1"
+jchucomponents = "3.0.0-alpha01"
+agp = "9.2.1"
+ktor="3.5.1"
+kotlin = "2.4.0"
+dokka = "2.2.0"
+androidx-activity = "1.13.0"
+androidx-lifecycle = "2.11.0"
+androidx-navigation = "2.9.8"
+com-squareup-okhttp3 = "5.4.0"
 com-squareup-retrofit2 = "3.0.0"
-coil-kt = "3.3.0"
-org-jetbrains-kotlin = "2.2.21"
-org-jetbrains-kotlinx = "1.10.2"
-composeBom = "2025.10.01"
+coil-kt = "3.5.0"
+org-jetbrains-kotlin = "2.4.0"
+org-jetbrains-kotlinx = "1.11.0"
+composeBom = "2026.06.00"
 desugar_jdk_libs = "2.1.5"
 
 [libraries]
-androidx-datastore = "androidx.datastore:datastore-preferences:1.1.7"
+androidx-datastore = "androidx.datastore:datastore-preferences:1.2.1"
 androidx-activity-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activity" }
-androidx-browser = "androidx.browser:browser:1.9.0"
+androidx-browser = "androidx.browser:browser:1.10.0"
 androidx-compose-animation = { module = "androidx.compose.animation:animation" }
 androidx-compose-foundation = { module = "androidx.compose.foundation:foundation" }
 androidx-compose-foundation-foundation-layout = { module = "androidx.compose.foundation:foundation-layout" }
@@ -29,15 +29,15 @@ androidx-compose-runtime = { module = "androidx.compose.runtime:runtime" }
 androidx-compose-ui = { module = "androidx.compose.ui:ui" }
 androidx-compose-ui-ui-tooling = { module = "androidx.compose.ui:ui-tooling" }
 androidx-compose-ui-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview" }
-androidx-core-core-ktx = "androidx.core:core-ktx:1.17.0"
-androidx-core-core-splashscreen = "androidx.core:core-splashscreen:1.0.1"
+androidx-core-core-ktx = "androidx.core:core-ktx:1.19.0"
+androidx-core-core-splashscreen = "androidx.core:core-splashscreen:1.2.0"
 androidx-lifecycle-lifecycle-runtime-compose = { module = "androidx.lifecycle:lifecycle-runtime-compose", version.ref = "androidx-lifecycle" }
 androidx-lifecycle-lifecycle-livedata-core-ktx = { module = "androidx.lifecycle:lifecycle-livedata-core-ktx", version.ref = "androidx-lifecycle" }
 androidx-lifecycle-lifecycle-viewmodel-ktx = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "androidx-lifecycle" }
 androidx-navigation-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "androidx-navigation" }
 androidx-preference = "androidx.preference:preference-ktx:1.2.1"
-com-google-android-gms-play-services-base = "com.google.android.gms:play-services-base:18.9.0"
-com-google-code-gson = "com.google.code.gson:gson:2.13.2"
+com-google-android-gms-play-services-base = "com.google.android.gms:play-services-base:18.10.0"
+com-google-code-gson = "com.google.code.gson:gson:2.14.0"
 com-squareup-okhttp3-logging-interceptor = { module = "com.squareup.okhttp3:logging-interceptor", version.ref = "com-squareup-okhttp3" }
 com-squareup-okhttp3-okhttp = { module = "com.squareup.okhttp3:okhttp", version.ref = "com-squareup-okhttp3" }
 com-squareup-retrofit2-converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "com-squareup-retrofit2" }
@@ -47,7 +47,7 @@ coil-compose-ktor = { module = "io.coil-kt.coil3:coil-network-ktor3", version.re
 org-jetbrains-kotlinx-kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "org-jetbrains-kotlinx" }
 org-jetbrains-kotlinx-kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "org-jetbrains-kotlinx" }
 androidx-appcompat = "androidx.appcompat:appcompat:1.7.1"
-revenuecat = "com.revenuecat.purchases:purchases:9.12.0"
+revenuecat = "com.revenuecat.purchases:purchases:10.11.0"
 compose-bom = { group = "androidx.compose", name ="compose-bom", version.ref = "composeBom" }
 ktor-android = { module = "io.ktor:ktor-client-android", version.ref = "ktor" }
 desugar_jdk_libs = { module = "com.android.tools:desugar_jdk_libs", version.ref = "desugar_jdk_libs" }
@@ -55,7 +55,8 @@ desugar_jdk_libs = { module = "com.android.tools:desugar_jdk_libs", version.ref 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 android-library = { id = "com.android.library", version.ref = "agp" }
-jetbrains-kotlin = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+android-kmp-library = { id = "com.android.kotlin.multiplatform.library", version.ref = "agp" }
+jetbrains-kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 jetbrains-dokka = { id = "org.jetbrains.dokka", version.ref = "dokka" }
 compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "org-jetbrains-kotlin" }
 

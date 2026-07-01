@@ -145,7 +145,7 @@ fun Context.isConnectionAvailable(): Boolean {
     var isAvailable = false
     with(connectivityManager) {
 
-        if (buildIsMarshmallowAndUp)
+        if (!buildIsMarshmallowAndUp)
             activeNetworkInfo?.let { networkInfo ->
                 isAvailable = when (networkInfo.type) {
                     ConnectivityManager.TYPE_WIFI -> true

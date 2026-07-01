@@ -1,0 +1,245 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		100000000000000000000001 /* JchuComponentsCatalogApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 100000000000000000000002 /* JchuComponentsCatalogApp.swift */; };
+		100000000000000000000003 /* JchuComponentsCatalog in Frameworks */ = {isa = PBXBuildFile; productRef = 100000000000000000000004 /* JchuComponentsCatalog */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		100000000000000000000002 /* JchuComponentsCatalogApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JchuComponentsCatalogApp.swift; sourceTree = "<group>"; };
+		100000000000000000000005 /* JchuComponentsCatalogApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JchuComponentsCatalogApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		100000000000000000000006 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				100000000000000000000003 /* JchuComponentsCatalog in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		100000000000000000000007 = {
+			isa = PBXGroup;
+			children = (
+				100000000000000000000008 /* JchuComponentsCatalogApp */,
+				100000000000000000000009 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		100000000000000000000008 /* JchuComponentsCatalogApp */ = {
+			isa = PBXGroup;
+			children = (
+				100000000000000000000002 /* JchuComponentsCatalogApp.swift */,
+			);
+			path = JchuComponentsCatalogApp;
+			sourceTree = "<group>";
+		};
+		100000000000000000000009 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				100000000000000000000005 /* JchuComponentsCatalogApp.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		10000000000000000000000A /* JchuComponentsCatalogApp */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 10000000000000000000000B /* Build configuration list for PBXNativeTarget "JchuComponentsCatalogApp" */;
+			buildPhases = (
+				10000000000000000000000C /* Sources */,
+				100000000000000000000006 /* Frameworks */,
+				10000000000000000000000D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = JchuComponentsCatalogApp;
+			packageProductDependencies = (
+				100000000000000000000004 /* JchuComponentsCatalog */,
+			);
+			productName = JchuComponentsCatalogApp;
+			productReference = 100000000000000000000005 /* JchuComponentsCatalogApp.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		10000000000000000000000E /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 2660;
+				LastUpgradeCheck = 2660;
+				TargetAttributes = {
+					10000000000000000000000A = {
+						CreatedOnToolsVersion = 26.0;
+					};
+				};
+			};
+			buildConfigurationList = 10000000000000000000000F /* Build configuration list for PBXProject "JchuComponentsCatalog" */;
+			compatibilityVersion = "Xcode 16.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 100000000000000000000007;
+			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				100000000000000000000010 /* XCLocalSwiftPackageReference "../../swift" */,
+			);
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 100000000000000000000009 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				10000000000000000000000A /* JchuComponentsCatalogApp */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		10000000000000000000000D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		10000000000000000000000C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				100000000000000000000001 /* JchuComponentsCatalogApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		100000000000000000000011 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_MODULES = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 6.0;
+			};
+			name = Debug;
+		};
+		100000000000000000000012 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_MODULES = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_VERSION = 6.0;
+			};
+			name = Release;
+		};
+		100000000000000000000013 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = JchuComponents;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.developer-tools";
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				MARKETING_VERSION = "3.0.0-alpha01";
+				PRODUCT_BUNDLE_IDENTIFIER = com.jeluchu.jchucomponents.catalog;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		100000000000000000000014 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = JchuComponents;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.developer-tools";
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				MARKETING_VERSION = "3.0.0-alpha01";
+				PRODUCT_BUNDLE_IDENTIFIER = com.jeluchu.jchucomponents.catalog;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		10000000000000000000000B /* Build configuration list for PBXNativeTarget "JchuComponentsCatalogApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				100000000000000000000013 /* Debug */,
+				100000000000000000000014 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		10000000000000000000000F /* Build configuration list for PBXProject "JchuComponentsCatalog" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				100000000000000000000011 /* Debug */,
+				100000000000000000000012 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		100000000000000000000010 /* XCLocalSwiftPackageReference "../../swift" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = ../../swift;
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		100000000000000000000004 /* JchuComponentsCatalog */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 100000000000000000000010 /* XCLocalSwiftPackageReference "../../swift" */;
+			productName = JchuComponentsCatalog;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = 10000000000000000000000E /* Project object */;
+}

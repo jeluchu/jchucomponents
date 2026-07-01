@@ -1,18 +1,17 @@
 plugins {
     alias(libs.plugins.android.application)
-    alias(libs.plugins.jetbrains.kotlin)
     alias(libs.plugins.jetbrains.dokka)
     alias(libs.plugins.compose.compiler)
 }
 
 android {
-    compileSdk = 36
+    compileSdk = 37
     defaultConfig {
         applicationId = "com.jeluchu.composer"
         minSdk = 23
-        targetSdk = 36
+        targetSdk = 37
         versionCode = 1
-        versionName = "1.0.0"
+        versionName = libs.versions.jchucomponents.get()
     }
 
     buildTypes {
@@ -41,6 +40,7 @@ dependencies {
     implementation(libs.androidx.appcompat)
     coreLibraryDesugaring(libs.desugar.jdk.libs)
     implementation(project(":jchucomponents-core"))
+    implementation(project(":jchucomponents-foundation"))
     implementation(project(":jchucomponents-ui"))
     implementation(project(":jchucomponents-ktx"))
     implementation(project(":jchucomponents-qr"))

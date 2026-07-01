@@ -8,11 +8,14 @@ import com.jeluchu.composer.features.bottons.view.ButtonsView
 import com.jeluchu.composer.features.bottons.view.FloatingButtonView
 import com.jeluchu.composer.features.cards.view.BenefitsView
 import com.jeluchu.composer.features.cards.view.CardsView
+import com.jeluchu.composer.features.chips.view.ChipsView
 import com.jeluchu.composer.features.dashboard.view.MainView
 import com.jeluchu.composer.features.dividers.view.DividersView
 import com.jeluchu.composer.features.lists.view.LazyGridsView
 import com.jeluchu.composer.features.lists.view.LazyStaticGridView
+import com.jeluchu.composer.features.loaders.view.LoadersView
 import com.jeluchu.composer.features.progress.view.IconProgressbarView
+import com.jeluchu.composer.features.progress.view.CircularProgressbarView
 import com.jeluchu.composer.features.progress.view.LinearProgressbarView
 import com.jeluchu.composer.features.progress.view.ProgressView
 import com.jeluchu.composer.features.toolbars.view.ToolbarsView
@@ -25,11 +28,35 @@ fun NavGraphBuilder.dashboardNav(nav: Destinations) {
             when (id) {
                 DestinationsIds.buttons -> nav.goToButtons()
                 DestinationsIds.progress -> nav.goToProgress()
+                DestinationsIds.chips -> nav.goToChips()
+                DestinationsIds.loaders -> nav.goToLoaders()
                 DestinationsIds.lazyGrids -> nav.goToLazyGrids()
                 DestinationsIds.dividers -> nav.goToDividers()
                 DestinationsIds.toolbars -> nav.goToToolbars()
                 DestinationsIds.cards -> nav.goToCards()
             }
+        }
+    }
+}
+
+fun NavGraphBuilder.chipsNav(nav: Destinations) {
+    navigation(
+        startDestination = Feature.CHIPS.route,
+        route = NavigationIds.chips
+    ) {
+        composable(Feature.CHIPS.nav) {
+            ChipsView { nav.goBack(it) }
+        }
+    }
+}
+
+fun NavGraphBuilder.loadersNav(nav: Destinations) {
+    navigation(
+        startDestination = Feature.LOADERS.route,
+        route = NavigationIds.loaders
+    ) {
+        composable(Feature.LOADERS.nav) {
+            LoadersView { nav.goBack(it) }
         }
     }
 }
@@ -66,8 +93,17 @@ fun NavGraphBuilder.progressNav(nav: Destinations) {
         composable(Feature.PROGRESS.nav) {
             ProgressView { id ->
                 when (id) {
+                    DestinationsIds.circularProgress -> nav.goToCircularProgress()
                     DestinationsIds.linearProgress -> nav.goToLinearProgress()
                     DestinationsIds.iconProgress -> nav.goToIconProgress()
+                    DestinationsIds.back -> nav.goBack(it)
+                }
+            }
+        }
+
+        composable(Feature.CIRCULAR_PROGRESS.nav) {
+            CircularProgressbarView { id ->
+                when (id) {
                     DestinationsIds.back -> nav.goBack(it)
                 }
             }

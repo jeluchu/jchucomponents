@@ -24,6 +24,6 @@ include(
         ":jchucomponents-qr",
         ":jchucomponents-pay",
         ":jchucomponents-prefs",
+        ":jchucomponents-foundation",
         "app"
 )
-

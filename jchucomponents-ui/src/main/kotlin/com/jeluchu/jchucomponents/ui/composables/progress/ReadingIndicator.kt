@@ -3,7 +3,6 @@ package com.jeluchu.jchucomponents.ui.composables.progress
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -38,7 +37,7 @@ fun ReadingIndicator(
         tween(durationMillis = 2000)
     )
 
-    BoxWithConstraints(
+    Box(
         modifier = Modifier.fillMaxWidth().padding(20.dp).height(20.dp)
     ) {
         Box(

@@ -1,0 +1,45 @@
+// swift-tools-version: 6.1
+
+import PackageDescription
+
+let package = Package(
+    name: "JchuComponents",
+    platforms: [
+        .iOS("26.0")
+    ],
+    products: [
+        .library(
+            name: "JchuComponents",
+            targets: [
+                "JchuComponentsCore",
+                "JchuComponentsExtensions",
+                "JchuComponentsSwiftUI"
+            ]
+        )
+    ],
+    targets: [
+        .binaryTarget(
+            name: "JchuComponentsCore",
+            url: "https://github.com/Jeluchu/jchucomponents/releases/download/{{VERSION}}/JchuComponentsCore.xcframework.zip",
+            checksum: "{{CHECKSUM}}"
+        ),
+        .target(
+            name: "JchuComponentsExtensions"
+        ),
+        .target(
+            name: "JchuComponentsSwiftUI",
+            dependencies: [
+                "JchuComponentsCore",
+                "JchuComponentsExtensions"
+            ]
+        ),
+        .testTarget(
+            name: "JchuComponentsSwiftUITests",
+            dependencies: [
+                "JchuComponentsCore",
+                "JchuComponentsExtensions",
+                "JchuComponentsSwiftUI"
+            ]
+        )
+    ]
+)

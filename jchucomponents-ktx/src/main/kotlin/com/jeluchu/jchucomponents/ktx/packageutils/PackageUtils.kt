@@ -11,7 +11,7 @@ import android.os.Build
 import androidx.annotation.ChecksSdkIntAtLeast
 
 inline val buildIsMarshmallowAndUp: Boolean
-    @ChecksSdkIntAtLeast(api = Build.VERSION_CODES.N)
+    @ChecksSdkIntAtLeast(api = Build.VERSION_CODES.M)
     get() = Build.VERSION.SDK_INT >= Build.VERSION_CODES.M
 
 inline val buildIsLollipopAndUp: Boolean

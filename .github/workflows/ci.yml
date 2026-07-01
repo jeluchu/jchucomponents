@@ -1,0 +1,65 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches:
+      - v3
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  android:
+    name: Android and publications
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "21"
+
+      - uses: gradle/actions/setup-gradle@v4
+
+      - name: Build and test Android
+        run: ./gradlew check assembleDebug assembleRelease publishToMavenLocal
+
+  apple:
+    name: Kotlin iOS and SwiftPM
+    runs-on: macos-26
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "21"
+
+      - uses: gradle/actions/setup-gradle@v4
+
+      - name: Test shared code and assemble XCFramework
+        run: |
+          ./gradlew \
+            :jchucomponents-foundation:allTests \
+            :jchucomponents-foundation:assembleJchuComponentsCoreReleaseXCFramework
+
+      - name: Build Swift package
+        working-directory: swift
+        run: |
+          xcodebuild \
+            -scheme JchuComponents-Package \
+            -destination 'generic/platform=iOS Simulator' \
+            build
+
+      - name: Build iOS catalog app
+        working-directory: samples/iosApp
+        run: |
+          xcodebuild \
+            -project JchuComponentsCatalog.xcodeproj \
+            -scheme JchuComponentsCatalog \
+            -destination 'generic/platform=iOS Simulator' \
+            CODE_SIGNING_ALLOWED=NO \
+            build

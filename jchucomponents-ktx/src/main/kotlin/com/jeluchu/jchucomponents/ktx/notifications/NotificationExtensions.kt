@@ -6,14 +6,17 @@
 
 package com.jeluchu.jchucomponents.ktx.notifications
 
+import android.Manifest
 import android.annotation.SuppressLint
 import android.app.*
+import android.content.pm.PackageManager
 import android.content.Context
 import android.os.Build
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import androidx.core.content.ContextCompat
 
 /**
  * NotificationExtensions.kt
@@ -104,8 +107,18 @@ fun Context.getNotificationBuilder(
 /**
  * Update notification
  */
-fun Context.notifyNotification(notificationId: Int, notification: Notification) =
-    NotificationManagerCompat.from(this).notify(notificationId, notification)
+fun Context.notifyNotification(notificationId: Int, notification: Notification) {
+    val canPostNotifications =
+        Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU ||
+            ContextCompat.checkSelfPermission(
+                this,
+                Manifest.permission.POST_NOTIFICATIONS
+            ) == PackageManager.PERMISSION_GRANTED
+
+    if (canPostNotifications) {
+        NotificationManagerCompat.from(this).notify(notificationId, notification)
+    }
+}
 
 /**
  * Cancel notification base on notification id

@@ -1,15 +1,12 @@
-import org.jetbrains.kotlin.gradle.dsl.JvmTarget
-
 plugins {
     alias(libs.plugins.android.library)
-    alias(libs.plugins.jetbrains.kotlin)
     alias(libs.plugins.jetbrains.dokka)
     id("maven-publish")
 }
 
 android {
     namespace = "com.jeluchu.jchucomponents.ktx"
-    compileSdk = 36
+    compileSdk = 37
 
     defaultConfig {
         minSdk = 21
@@ -41,11 +38,12 @@ android {
         targetCompatibility = JavaVersion.VERSION_21
     }
 
-    kotlin {
-        compilerOptions {
-            jvmTarget = JvmTarget.JVM_21
+    publishing {
+        singleVariant("release") {
+            withSourcesJar()
         }
     }
+
 }
 
 dependencies {

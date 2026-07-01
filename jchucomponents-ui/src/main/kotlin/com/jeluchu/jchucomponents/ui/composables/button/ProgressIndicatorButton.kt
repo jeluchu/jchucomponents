@@ -31,6 +31,7 @@ fun ProgressIndicatorButton(
     text: String,
     icon: ImageVector,
     isLoading: Boolean = false,
+    enabled: Boolean = true,
     fontSize: TextUnit = 16.sp,
     textSyle: TextStyle = MaterialTheme.typography.bodyLarge,
     colors: ButtonColors = ButtonDefaults.filledTonalButtonColors(),
@@ -38,6 +39,7 @@ fun ProgressIndicatorButton(
 ) = FilledTonalButton(
     modifier = modifier,
     onClick = onClick,
+    enabled = enabled && !isLoading,
     colors = colors,
     contentPadding = ButtonDefaults.ButtonWithIconContentPadding
 ) {
