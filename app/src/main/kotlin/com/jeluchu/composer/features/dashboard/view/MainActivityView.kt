@@ -13,13 +13,11 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.dp
+import com.jeluchu.composer.core.catalog.JchuCatalogTheme
 import com.jeluchu.composer.core.commons.models.MenuOptions
 import com.jeluchu.composer.core.ui.composables.ScaffoldListStructure
 import com.jeluchu.composer.core.ui.composables.SimpleButton
-import com.jeluchu.composer.core.ui.theme.darkGreen
 import com.jeluchu.composer.core.ui.theme.darkness
 import com.jeluchu.composer.core.ui.theme.milky
 import com.jeluchu.composer.core.ui.theme.primary
@@ -27,7 +25,6 @@ import com.jeluchu.composer.core.ui.theme.secondary
 import com.jeluchu.jchucomponents.ui.accompanist.systemui.SystemStatusBarColors
 import com.jeluchu.jchucomponents.ui.composables.images.NetworkImage
 import com.jeluchu.jchucomponents.ui.composables.toolbars.CenterToolbarColors
-import com.jeluchu.jchucomponents.ui.extensions.modifier.cornerRadius
 import com.jeluchu.jchucomponents.ui.foundation.lists.ListRow
 
 @Composable
@@ -61,7 +58,7 @@ fun Main(
             modifier = Modifier
                 .fillMaxWidth()
                 .background(secondary)
-                .padding(15.dp),
+                .padding(JchuCatalogTheme.spacing.dimen15),
             fontWeight = FontWeight.Bold
         )
     }
@@ -69,11 +66,11 @@ fun Main(
     items(MenuOptions.ui) { option ->
         SimpleButton(
             modifier = Modifier
-                .padding(horizontal = 15.dp)
-                .clip(10.cornerRadius())
-                .background(secondary.copy(.4f)),
+                .padding(horizontal = JchuCatalogTheme.spacing.dimen15)
+                .clip(JchuCatalogTheme.shapes.corner10)
+                .background(JchuCatalogTheme.colors.surface),
             label = option.name,
-            color = darkGreen
+            color = JchuCatalogTheme.colors.accent
         ) { onItemClick(option.id) }
     }
 }

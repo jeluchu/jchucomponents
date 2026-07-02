@@ -22,18 +22,40 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.jeluchu.jchucomponents.foundation.components.JchuProgressButtonState
 import com.jeluchu.jchucomponents.ui.R
 import com.jeluchu.jchucomponents.ui.runtime.remember.rememberMutableStateOf
 
 @Composable
-fun ProgressIndicatorButton(
+fun JchuProgressButton(
+    state: JchuProgressButtonState,
+    modifier: Modifier = Modifier,
+    icon: ImageVector,
+    fontSize: TextUnit = 16.sp,
+    textStyle: TextStyle = MaterialTheme.typography.bodyLarge,
+    colors: ButtonColors = ButtonDefaults.filledTonalButtonColors(),
+    onClick: () -> Unit,
+) = JchuProgressButton(
+    modifier = modifier,
+    text = state.title,
+    icon = icon,
+    isLoading = state.isLoading,
+    enabled = state.isEnabled,
+    fontSize = fontSize,
+    textStyle = textStyle,
+    colors = colors,
+    onClick = onClick,
+)
+
+@Composable
+fun JchuProgressButton(
     modifier: Modifier = Modifier,
     text: String,
     icon: ImageVector,
     isLoading: Boolean = false,
     enabled: Boolean = true,
     fontSize: TextUnit = 16.sp,
-    textSyle: TextStyle = MaterialTheme.typography.bodyLarge,
+    textStyle: TextStyle = MaterialTheme.typography.bodyLarge,
     colors: ButtonColors = ButtonDefaults.filledTonalButtonColors(),
     onClick: () -> Unit,
 ) = FilledTonalButton(
@@ -60,16 +82,43 @@ fun ProgressIndicatorButton(
     Text(
         text = text,
         modifier = Modifier.padding(start = 8.dp),
-        style = textSyle,
+        style = textStyle,
         fontSize = fontSize
     )
 }
+
+@Deprecated(
+    message = "Use JchuProgressButton.",
+    replaceWith = ReplaceWith("JchuProgressButton(modifier, text, icon, isLoading, enabled, fontSize, textSyle, colors, onClick)")
+)
+@Composable
+fun ProgressIndicatorButton(
+    modifier: Modifier = Modifier,
+    text: String,
+    icon: ImageVector,
+    isLoading: Boolean = false,
+    enabled: Boolean = true,
+    fontSize: TextUnit = 16.sp,
+    textSyle: TextStyle = MaterialTheme.typography.bodyLarge,
+    colors: ButtonColors = ButtonDefaults.filledTonalButtonColors(),
+    onClick: () -> Unit,
+) = JchuProgressButton(
+    modifier = modifier,
+    text = text,
+    icon = icon,
+    isLoading = isLoading,
+    enabled = enabled,
+    fontSize = fontSize,
+    textStyle = textSyle,
+    colors = colors,
+    onClick = onClick,
+)
 
 @Preview
 @Composable
 fun ProgressIndicatorButtonPreview() {
     var isLoading by rememberMutableStateOf(value = false)
-    ProgressIndicatorButton(
+    JchuProgressButton(
         isLoading = isLoading,
         text = "Test",
         icon = ImageVector.vectorResource(id = R.drawable.ic_btn_qrcode),

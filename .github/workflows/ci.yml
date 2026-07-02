@@ -11,6 +11,17 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  catalog-readiness:
+    name: Catalog visual readiness
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check catalog visual scenarios
+        run: |
+          scripts/check-visual-readiness.sh
+          scripts/check-api-readiness.sh
+
   android:
     name: Android and publications
     runs-on: ubuntu-latest
@@ -25,7 +36,7 @@ jobs:
       - uses: gradle/actions/setup-gradle@v4
 
       - name: Build and test Android
-        run: ./gradlew check assembleDebug assembleRelease publishToMavenLocal
+        run: ./gradlew apiCheck androidApiCheck check assembleDebug assembleRelease publishToMavenLocal
 
   apple:
     name: Kotlin iOS and SwiftPM

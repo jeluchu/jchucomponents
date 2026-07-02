@@ -1,5 +1,6 @@
 package com.jeluchu.composer.features.bottons.view
 
+import android.content.res.Configuration
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.icons.Icons
@@ -13,9 +14,14 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.tooling.preview.Preview
+import com.jeluchu.composer.core.catalog.CatalogColors
+import com.jeluchu.composer.core.catalog.CatalogFixtures
+import com.jeluchu.composer.core.catalog.ProvideJchuCatalogTheme
 import com.jeluchu.composer.core.commons.models.MenuOptions
 import com.jeluchu.composer.core.ui.composables.ScaffoldStructure
 import com.jeluchu.composer.core.ui.composables.SimpleButton
+import com.jeluchu.composer.core.ui.theme.JeluchuTheme
 import com.jeluchu.composer.core.ui.theme.milky
 import com.jeluchu.composer.core.ui.theme.primary
 import com.jeluchu.composer.core.ui.theme.secondary
@@ -23,9 +29,8 @@ import com.jeluchu.composer.core.utils.DestinationsIds
 import com.jeluchu.composer.core.utils.Names
 import com.jeluchu.jchucomponents.ui.accompanist.systemui.SystemStatusBarColors
 import com.jeluchu.jchucomponents.ui.composables.toolbars.CenterToolbarColors
-import com.jeluchu.jchucomponents.ui.composables.button.ProgressIndicatorButton
+import com.jeluchu.jchucomponents.ui.composables.button.JchuProgressButton
 import com.jeluchu.jchucomponents.ui.extensions.modifier.cornerRadius
-import com.jeluchu.jchucomponents.foundation.components.JchuProgressButtonState
 
 @Composable
 fun ButtonsView(onItemClick: (String) -> Unit) {
@@ -51,18 +56,17 @@ private fun Buttons(
     var interactiveLoading by remember { mutableStateOf(false) }
 
     Text("Progress buttons")
-    listOf(
-        JchuProgressButtonState("Normal"),
-        JchuProgressButtonState("Loading", isLoading = true),
-        JchuProgressButtonState("Disabled", isEnabled = false),
-        JchuProgressButtonState("Interactive", isLoading = interactiveLoading),
-    ).forEach { state ->
-        ProgressIndicatorButton(
+    val states = CatalogFixtures.progressButtonStateFixtures.map { it.state } +
+        CatalogFixtures.progressButtonStates.first().copy(
+            title = "Interactive",
+            isLoading = interactiveLoading
+        )
+
+    states.forEach { state ->
+        JchuProgressButton(
+            state = state,
             modifier = Modifier.fillMaxWidth(),
-            text = state.title,
             icon = Icons.Default.Check,
-            isLoading = state.isLoading,
-            enabled = state.isEnabled,
             onClick = {
                 if (state.title == "Interactive") {
                     interactiveLoading = !interactiveLoading
@@ -80,5 +84,41 @@ private fun Buttons(
             label = option.name,
             color = Color.DarkGray
         ) { onItemClick(option.id) }
+    }
+}
+
+@Preview(name = "Buttons - Light", showBackground = true)
+@Composable
+private fun ButtonsLightPreview() {
+    JeluchuTheme {
+        Buttons(onItemClick = {})
+    }
+}
+
+@Preview(
+    name = "Buttons - Dark",
+    showBackground = true,
+    uiMode = Configuration.UI_MODE_NIGHT_YES
+)
+@Composable
+private fun ButtonsDarkPreview() {
+    JeluchuTheme {
+        ProvideJchuCatalogTheme(colors = CatalogColors.dark()) {
+            Buttons(onItemClick = {})
+        }
+    }
+}
+
+@Preview(
+    name = "Buttons - Accessibility",
+    showBackground = true,
+    fontScale = 1.5f
+)
+@Composable
+private fun ButtonsAccessibilityPreview() {
+    JeluchuTheme {
+        ProvideJchuCatalogTheme(colors = CatalogColors.highContrast()) {
+            Buttons(onItemClick = {})
+        }
     }
 }

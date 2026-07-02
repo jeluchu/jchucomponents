@@ -38,7 +38,10 @@ let package = Package(
         ),
         .target(
             name: "JchuComponentsCatalog",
-            dependencies: ["JchuComponentsSwiftUI"]
+            dependencies: [
+                "JchuComponentsCore",
+                "JchuComponentsSwiftUI"
+            ]
         ),
         .testTarget(
             name: "JchuComponentsSwiftUITests",

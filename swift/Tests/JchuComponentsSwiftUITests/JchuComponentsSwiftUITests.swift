@@ -40,4 +40,37 @@ final class JchuComponentsSwiftUITests: XCTestCase {
         XCTAssertEqual([1, 2].jchu[safe: 1], 2)
         XCTAssertNil([1, 2].jchu[safe: 4])
     }
+
+    func testSwiftUIThemeCanBeCustomized() {
+        let theme = JchuTheme(
+            spacing: JchuSpacing(dimen16: 18),
+            shapes: JchuShapes(corner16: 20),
+            motion: JchuMotion(durationMedium: 0.3)
+        )
+
+        XCTAssertEqual(theme.spacing.dimen16, 18)
+        XCTAssertEqual(theme.shapes.corner16, 20)
+        XCTAssertEqual(theme.motion.durationMedium, 0.3)
+    }
+
+    func testSwiftUIThemeSupportsAccessibilityScaleTokens() {
+        let theme = JchuTheme(
+            colors: JchuColors(contentSecondary: .primary),
+            spacing: JchuSpacing(dimen16: 20, dimen24: 30)
+        )
+
+        XCTAssertEqual(theme.spacing.dimen16, 20)
+        XCTAssertEqual(theme.spacing.dimen24, 30)
+    }
+
+    @MainActor
+    func testFloatingButtonSupportsNativeConfiguration() {
+        _ = JchuFloatingButton(
+            systemImage: "plus",
+            accessibilityLabel: "Add",
+            size: .large,
+            isEnabled: false,
+            isVisible: true
+        ) {}
+    }
 }

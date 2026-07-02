@@ -4,6 +4,8 @@ agp = "9.2.1"
 ktor="3.5.1"
 kotlin = "2.4.0"
 dokka = "2.2.0"
+binaryCompatibilityValidator = "0.18.1"
+metalava = "1.0.0-alpha14"
 androidx-activity = "1.13.0"
 androidx-lifecycle = "2.11.0"
 androidx-navigation = "2.9.8"
@@ -51,6 +53,7 @@ revenuecat = "com.revenuecat.purchases:purchases:10.11.0"
 compose-bom = { group = "androidx.compose", name ="compose-bom", version.ref = "composeBom" }
 ktor-android = { module = "io.ktor:ktor-client-android", version.ref = "ktor" }
 desugar_jdk_libs = { module = "com.android.tools:desugar_jdk_libs", version.ref = "desugar_jdk_libs" }
+metalava = { module = "com.android.tools.metalava:metalava", version.ref = "metalava" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
@@ -59,6 +62,7 @@ android-kmp-library = { id = "com.android.kotlin.multiplatform.library", version
 jetbrains-kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 jetbrains-dokka = { id = "org.jetbrains.dokka", version.ref = "dokka" }
 compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "org-jetbrains-kotlin" }
+binary-compatibility-validator = { id = "org.jetbrains.kotlinx.binary-compatibility-validator", version.ref = "binaryCompatibilityValidator" }
 
 [bundles]
 core-androidx = [

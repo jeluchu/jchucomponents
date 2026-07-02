@@ -31,15 +31,62 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.semantics.disabled
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.jeluchu.jchucomponents.ktx.strings.empty
 import com.jeluchu.jchucomponents.ui.R
 import com.jeluchu.jchucomponents.ui.theme.artichoke
 import com.jeluchu.jchucomponents.ui.theme.cosmicLatte
 
+@Composable
+fun JchuFloatingButton(
+    modifier: Modifier = Modifier,
+    enabled: Boolean = true,
+    isVisible: Boolean = true,
+    exit: ExitTransition = scaleOut(),
+    enter: EnterTransition = scaleIn(),
+    size: FloatingButtonSize = FloatingButtonSize.Medium,
+    floatButton: FloatingButtonSettings = FloatingButtonSettings(),
+    contentDescription: String? = null,
+    onClick: () -> Unit = {}
+) = AnimatedVisibility(
+    visible = isVisible,
+    enter = enter,
+    exit = exit
+) {
+    FloatingActionButton(
+        modifier = modifier
+            .size(size.buttonSize)
+            .then(
+                if (enabled) Modifier
+                else Modifier.semantics { disabled() }
+            ),
+        containerColor = if (enabled) floatButton.background else floatButton.disabledBackground,
+        elevation = FloatingActionButtonDefaults.elevation(
+            defaultElevation = 0.dp,
+            pressedElevation = 0.dp
+        ),
+        shape = RoundedCornerShape(size.shape),
+        onClick = {
+            if (enabled) onClick()
+        }
+    ) {
+        Icon(
+            modifier = Modifier.size(size.iconSize),
+            imageVector = ImageVector.vectorResource(id = floatButton.icon),
+            contentDescription = contentDescription,
+            tint = if (enabled) floatButton.tint else floatButton.disabledTint
+        )
+    }
+}
+
+@Deprecated(
+    message = "Use JchuFloatingButton.",
+    replaceWith = ReplaceWith("JchuFloatingButton(modifier, enabled, isVisible, exit, enter, size, floatButton, onClick)")
+)
 @Composable
 fun FloatingButton(
     modifier: Modifier = Modifier,
@@ -50,29 +97,17 @@ fun FloatingButton(
     size: FloatingButtonSize = FloatingButtonSize.Medium,
     floatButton: FloatingButtonSettings = FloatingButtonSettings(),
     onClick: () -> Unit = {}
-) = AnimatedVisibility(
-    visible = isVisible,
+) = JchuFloatingButton(
+    modifier = modifier,
+    enabled = enabled,
+    isVisible = isVisible,
+    exit = exit,
     enter = enter,
-    exit = exit
-) {
-    FloatingActionButton(
-        modifier = modifier.size(size.buttonSize),
-        containerColor = if (enabled) floatButton.background else floatButton.disabledBackground,
-        elevation = FloatingActionButtonDefaults.elevation(
-            defaultElevation = 0.dp,
-            pressedElevation = 0.dp
-        ),
-        shape = RoundedCornerShape(size.shape),
-        onClick = onClick
-    ) {
-        Icon(
-            modifier = Modifier.size(size.iconSize),
-            imageVector = ImageVector.vectorResource(id = floatButton.icon),
-            contentDescription = String.empty(),
-            tint = if (enabled) floatButton.tint else floatButton.disabledTint
-        )
-    }
-}
+    size = size,
+    floatButton = floatButton,
+    contentDescription = null,
+    onClick = onClick
+)
 
 @Immutable
 class FloatingButtonSettings(
@@ -134,7 +169,7 @@ fun FloatingButtonPreview(
     ) {
         Text(text = "Enabled", fontSize = 16.sp, modifier = Modifier.weight(1f))
         Box(modifier = Modifier.weight(1f), contentAlignment = Alignment.Center) {
-            FloatingButton(
+            JchuFloatingButton(
                 size = FloatingButtonSize.Large,
                 floatButton = FloatingButtonSettings(
                     tint = Color.DarkGray,
@@ -147,7 +182,7 @@ fun FloatingButtonPreview(
                 .weight(1f)
                 .padding(start = 16.dp), contentAlignment = Alignment.Center
         ) {
-            FloatingButton(
+            JchuFloatingButton(
                 size = FloatingButtonSize.Medium,
                 floatButton = FloatingButtonSettings(
                     tint = Color.DarkGray,
@@ -160,7 +195,7 @@ fun FloatingButtonPreview(
                 .weight(1f)
                 .padding(start = 8.dp), contentAlignment = Alignment.Center
         ) {
-            FloatingButton(
+            JchuFloatingButton(
                 size = FloatingButtonSize.Small,
                 floatButton = FloatingButtonSettings(
                     tint = Color.DarkGray,
@@ -169,7 +204,7 @@ fun FloatingButtonPreview(
             )
         }
         Box(modifier = Modifier.weight(1f), contentAlignment = Alignment.Center) {
-            FloatingButton(
+            JchuFloatingButton(
                 size = FloatingButtonSize.Border,
                 floatButton = FloatingButtonSettings(
                     tint = Color.DarkGray,
@@ -184,7 +219,7 @@ fun FloatingButtonPreview(
     ) {
         Text(text = "Disable", fontSize = 16.sp, modifier = Modifier.weight(1f))
         Box(modifier = Modifier.weight(1f), contentAlignment = Alignment.Center) {
-            FloatingButton(
+            JchuFloatingButton(
                 enabled = false,
                 size = FloatingButtonSize.Large,
             )
@@ -194,7 +229,7 @@ fun FloatingButtonPreview(
                 .weight(1f)
                 .padding(start = 16.dp), contentAlignment = Alignment.Center
         ) {
-            FloatingButton(
+            JchuFloatingButton(
                 enabled = false,
                 size = FloatingButtonSize.Medium
             )
@@ -204,13 +239,13 @@ fun FloatingButtonPreview(
                 .weight(1f)
                 .padding(start = 8.dp), contentAlignment = Alignment.Center
         ) {
-            FloatingButton(
+            JchuFloatingButton(
                 enabled = false,
                 size = FloatingButtonSize.Small
             )
         }
         Box(modifier = Modifier.weight(1f), contentAlignment = Alignment.Center) {
-            FloatingButton(
+            JchuFloatingButton(
                 enabled = false,
                 size = FloatingButtonSize.Border
             )

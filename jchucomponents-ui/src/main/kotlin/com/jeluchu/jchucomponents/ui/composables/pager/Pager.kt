@@ -26,7 +26,7 @@ class PagerState(
     minPage: Int = 0,
     maxPage: Int = 0
 ) {
-    private var _minPage by mutableStateOf(minPage)
+    private var _minPage: Int by mutableStateOf(minPage)
     var minPage: Int
         get() = _minPage
         set(value) {
@@ -34,7 +34,7 @@ class PagerState(
             _currentPage = _currentPage.coerceIn(_minPage, _maxPage)
         }
 
-    private var _maxPage by mutableStateOf(maxPage, structuralEqualityPolicy())
+    private var _maxPage: Int by mutableStateOf(maxPage, structuralEqualityPolicy())
     var maxPage: Int
         get() = _maxPage
         set(value) {
@@ -42,7 +42,7 @@ class PagerState(
             _currentPage = _currentPage.coerceIn(_minPage, maxPage)
         }
 
-    private var _currentPage by mutableStateOf(currentPage.coerceIn(minPage, maxPage))
+    private var _currentPage: Int by mutableStateOf(currentPage.coerceIn(minPage, maxPage))
     var currentPage: Int
         get() = _currentPage
         set(value) {
@@ -51,7 +51,7 @@ class PagerState(
 
     enum class SelectionState { Selected, Undecided }
 
-    var selectionState by mutableStateOf(SelectionState.Selected)
+    var selectionState: SelectionState by mutableStateOf(SelectionState.Selected)
 
     suspend inline fun <R> selectPage(block: PagerState.() -> R): R = try {
         selectionState = SelectionState.Undecided

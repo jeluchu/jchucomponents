@@ -1,5 +1,6 @@
 package com.jeluchu.composer.core.commons.models
 
+import com.jeluchu.composer.core.catalog.CatalogCategory
 import com.jeluchu.composer.core.utils.DestinationsIds
 import com.jeluchu.composer.core.utils.Names
 
@@ -11,23 +12,27 @@ data class MenuOptions(
         val ui = listOf(
             MenuOptions(
                 id = DestinationsIds.buttons,
-                name = Names.buttons
+                name = CatalogCategory.BUTTONS.title
             ),
             MenuOptions(
-                id = DestinationsIds.progress,
-                name = Names.progress
+                id = DestinationsIds.cards,
+                name = CatalogCategory.CARDS.title
             ),
             MenuOptions(
                 id = DestinationsIds.chips,
-                name = Names.chips
-            ),
-            MenuOptions(
-                id = DestinationsIds.loaders,
-                name = Names.loaders
+                name = CatalogCategory.CHIPS.title
             ),
             MenuOptions(
                 id = DestinationsIds.lazyGrids,
-                name = Names.lazyGrids
+                name = CatalogCategory.LISTS.title
+            ),
+            MenuOptions(
+                id = DestinationsIds.loaders,
+                name = CatalogCategory.LOADERS.title
+            ),
+            MenuOptions(
+                id = DestinationsIds.progress,
+                name = CatalogCategory.PROGRESS.title
             ),
             MenuOptions(
                 id = DestinationsIds.dividers,
@@ -35,11 +40,7 @@ data class MenuOptions(
             ),
             MenuOptions(
                 id = DestinationsIds.toolbars,
-                name = Names.toolbars
-            ),
-            MenuOptions(
-                id = DestinationsIds.cards,
-                name = Names.cards
+                name = CatalogCategory.TOOLBARS.title
             ),
         )
 

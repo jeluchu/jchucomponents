@@ -3,7 +3,9 @@ import JchuComponentsSwiftUI
 import SwiftUI
 
 public struct JchuComponentsCatalogView: View {
+    @Environment(\.jchuTheme) private var theme
     @State private var interactiveLoading = false
+    @State private var floatingButtonVisible = true
     @State private var selectedChip = false
 
     public init() {}
@@ -11,28 +13,13 @@ public struct JchuComponentsCatalogView: View {
     public var body: some View {
         NavigationStack {
             List {
-                Section("Buttons") {
-                    JchuProgressButton(
-                        state: JchuProgressButtonState(
-                            title: "Normal",
-                            isLoading: false,
-                            isEnabled: true
-                        )
-                    ) {}
-                    JchuProgressButton(
-                        state: JchuProgressButtonState(
-                            title: "Loading",
-                            isLoading: true,
-                            isEnabled: true
-                        )
-                    ) {}
-                    JchuProgressButton(
-                        state: JchuProgressButtonState(
-                            title: "Disabled",
-                            isLoading: false,
-                            isEnabled: false
-                        )
-                    ) {}
+                Section(JchuCatalogCategory.buttons.rawValue) {
+                    Text("Progress buttons")
+                        .font(theme.typography.section)
+
+                    ForEach(JchuCatalogFixtures.progressButtonStateFixtures, id: \.name) { fixture in
+                        JchuProgressButton(state: fixture.state) {}
+                    }
                     JchuProgressButton(
                         state: JchuProgressButtonState(
                             title: "Interactive",
@@ -42,9 +29,49 @@ public struct JchuComponentsCatalogView: View {
                     ) {
                         interactiveLoading.toggle()
                     }
+
+                    Text("Floating buttons")
+                        .font(theme.typography.section)
+
+                    HStack(spacing: theme.spacing.dimen16) {
+                        JchuFloatingButton(
+                            systemImage: "plus",
+                            accessibilityLabel: "Add",
+                            size: .small
+                        ) {}
+                        JchuFloatingButton(
+                            systemImage: "square.and.arrow.up",
+                            accessibilityLabel: "Share"
+                        ) {}
+                        JchuFloatingButton(
+                            systemImage: "heart.fill",
+                            accessibilityLabel: "Favorite",
+                            size: .large,
+                            isEnabled: false
+                        ) {}
+                        JchuFloatingButton(
+                            systemImage: "eye",
+                            accessibilityLabel: "Visibility example",
+                            isVisible: floatingButtonVisible
+                        ) {}
+                    }
+
+                    Button(
+                        floatingButtonVisible ? "Hide floating button" : "Show floating button"
+                    ) {
+                        floatingButtonVisible.toggle()
+                    }
                 }
 
-                Section("Chips") {
+                Section("Scenarios") {
+                    ForEach(JchuCatalogFixtures.scenarios) { scenario in
+                        Text(scenario.rawValue)
+                            .font(theme.typography.body)
+                            .foregroundStyle(theme.colors.content)
+                    }
+                }
+
+                Section(JchuCatalogCategory.chips.rawValue) {
                     HStack {
                         JchuChip("Default") {}
                         JchuChip(
@@ -56,14 +83,15 @@ public struct JchuComponentsCatalogView: View {
                     }
                 }
 
-                Section("Loading") {
+                Section(JchuCatalogCategory.loaders.rawValue) {
                     JchuLoadingIndicator(label: "Loading")
                         .frame(maxWidth: .infinity)
+                        .padding(.vertical, theme.spacing.dimen16)
                 }
 
-                Section("Progress") {
+                Section(JchuCatalogCategory.progress.rawValue) {
                     JchuLinearProgress(
-                        state: progressState(
+                        state: JchuCatalogFixtures.progressState(
                             title: "Linear",
                             value: 40
                         )
@@ -71,14 +99,14 @@ public struct JchuComponentsCatalogView: View {
 
                     HStack {
                         JchuCircularProgress(
-                            state: progressState(
+                            state: JchuCatalogFixtures.progressState(
                                 title: "Circular",
                                 value: 70
                             )
                         )
 
                         JchuCircularProgress(
-                            state: progressState(
+                            state: JchuCatalogFixtures.progressState(
                                 title: "Indeterminate",
                                 value: 0,
                                 isIndeterminate: true
@@ -87,7 +115,7 @@ public struct JchuComponentsCatalogView: View {
                     }
 
                     JchuIconProgress(
-                        state: progressState(
+                        state: JchuCatalogFixtures.progressState(
                             title: "Downloads",
                             value: 85
                         ),
@@ -95,25 +123,28 @@ public struct JchuComponentsCatalogView: View {
                     )
                 }
             }
+            .scrollContentBackground(.hidden)
+            .background(theme.colors.background)
             .navigationTitle("JchuComponents")
         }
     }
-
-    private func progressState(
-        title: String,
-        value: Double,
-        isIndeterminate: Bool = false
-    ) -> JchuProgressState {
-        JchuProgressState(
-            title: title,
-            value: value,
-            maxValue: 100,
-            isEnabled: true,
-            isIndeterminate: isIndeterminate
-        )
-    }
 }
 
-#Preview {
+#Preview("Catalog - Light") {
     JchuComponentsCatalogView()
+        .jchuTheme(JchuCatalogScenario.light.theme)
+        .preferredColorScheme(.light)
+}
+
+#Preview("Catalog - Dark") {
+    JchuComponentsCatalogView()
+        .jchuTheme(JchuCatalogScenario.dark.theme)
+        .preferredColorScheme(.dark)
+}
+
+#Preview("Catalog - Accessibility") {
+    JchuComponentsCatalogView()
+        .jchuTheme(JchuCatalogScenario.accessibility.theme)
+        .preferredColorScheme(.light)
+        .dynamicTypeSize(.accessibility2)
 }
