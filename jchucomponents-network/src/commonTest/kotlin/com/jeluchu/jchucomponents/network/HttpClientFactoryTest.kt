@@ -1,5 +1,7 @@
 package com.jeluchu.jchucomponents.network
 
+import com.jeluchu.jchucomponents.network.http.HttpClientConfiguration
+import com.jeluchu.jchucomponents.network.http.createHttpClient
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue

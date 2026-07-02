@@ -1,9 +1,9 @@
-package com.jeluchu.jchucomponents.network.android
+package com.jeluchu.jchucomponents.network.extensions
 
 import java.net.Inet4Address
 import java.net.NetworkInterface
 
-public fun getIpv4LocalHostAddress(): String {
+fun getIpv4LocalHostAddress(): String {
     NetworkInterface.getNetworkInterfaces()?.toList()?.forEach { networkInterface ->
         networkInterface.inetAddresses
             ?.toList()

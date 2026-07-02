@@ -8,8 +8,8 @@ package com.jeluchu.jchucomponents.utils.network
 
 import android.os.Build
 import io.ktor.client.HttpClient
-import com.jeluchu.jchucomponents.network.HttpClientConfiguration
-import com.jeluchu.jchucomponents.network.createHttpClient
+import com.jeluchu.jchucomponents.network.http.HttpClientConfiguration
+import com.jeluchu.jchucomponents.network.http.createHttpClient
 import java.text.Normalizer
 import java.util.Locale
 import java.util.TimeZone

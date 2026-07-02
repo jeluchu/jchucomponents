@@ -1,4 +1,4 @@
-package com.jeluchu.jchucomponents.network.android
+package com.jeluchu.jchucomponents.network.extensions
 
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
@@ -7,7 +7,7 @@ import java.io.FileOutputStream
 import java.net.HttpURLConnection
 import java.net.URL
 
-public fun String.saveImage(destinationFile: File) {
+fun String.saveImage(destinationFile: File) {
     runCatching {
         Thread {
             URL(this).openStream().use { input ->
@@ -19,12 +19,12 @@ public fun String.saveImage(destinationFile: File) {
     }
 }
 
-public fun String.getBitmapFromUrl(): Bitmap? = runCatching {
+fun String.getBitmapFromUrl(): Bitmap? = runCatching {
     val connection = URL(this).openConnection() as HttpURLConnection
     try {
         connection.doInput = true
         connection.connect()
-        connection.inputStream.use(BitmapFactory::decodeStream)
+        connection.inputStream.use(block = BitmapFactory::decodeStream)
     } finally {
         connection.disconnect()
     }

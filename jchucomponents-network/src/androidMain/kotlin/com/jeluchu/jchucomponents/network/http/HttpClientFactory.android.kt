@@ -1,4 +1,4 @@
-package com.jeluchu.jchucomponents.network
+package com.jeluchu.jchucomponents.network.http
 
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.android.Android

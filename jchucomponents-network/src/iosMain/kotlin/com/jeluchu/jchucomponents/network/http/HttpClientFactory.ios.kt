@@ -1,4 +1,4 @@
-package com.jeluchu.jchucomponents.network
+package com.jeluchu.jchucomponents.network.http
 
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.darwin.Darwin
@@ -7,6 +7,6 @@ import io.ktor.client.plugins.logging.SIMPLE
 
 internal actual fun createPlatformHttpClient(
     configuration: HttpClientConfiguration,
-): HttpClient = HttpClient(Darwin) {
-    applyJchuConfiguration(configuration, Logger.SIMPLE)
+): HttpClient = HttpClient(engineFactory = Darwin) {
+    applyJchuConfiguration(configuration, platformLogger = Logger.SIMPLE)
 }

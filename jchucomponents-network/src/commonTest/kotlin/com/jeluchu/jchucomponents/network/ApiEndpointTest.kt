@@ -1,5 +1,8 @@
 package com.jeluchu.jchucomponents.network
 
+import com.jeluchu.jchucomponents.network.api.ApiEndpoint
+import com.jeluchu.jchucomponents.network.api.ApiVersion
+import com.jeluchu.jchucomponents.network.http.path
 import kotlin.test.Test
 import kotlin.test.assertEquals
 

@@ -1,6 +1,6 @@
-package com.jeluchu.jchucomponents.network
+package com.jeluchu.jchucomponents.network.api
 
-public enum class ApiVersion(public val path: String = "") {
+enum class ApiVersion(val path: String = "") {
     V1(path = "v1"),
     V2(path = "v2"),
     V3(path = "v3"),

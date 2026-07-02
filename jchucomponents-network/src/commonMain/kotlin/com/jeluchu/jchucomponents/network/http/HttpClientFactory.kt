@@ -1,4 +1,4 @@
-package com.jeluchu.jchucomponents.network
+package com.jeluchu.jchucomponents.network.http
 
 import io.ktor.client.HttpClient
 import io.ktor.client.HttpClientConfig
@@ -22,7 +22,7 @@ import kotlinx.serialization.json.Json
  *
  * The caller owns the returned client and must close it when it is no longer needed.
  */
-public fun createHttpClient(
+fun createHttpClient(
     configuration: HttpClientConfiguration = HttpClientConfiguration(),
 ): HttpClient = createPlatformHttpClient(configuration)
 
@@ -36,7 +36,7 @@ internal fun <T : HttpClientEngineConfig> HttpClientConfig<T>.applyJchuConfigura
 ) {
     expectSuccess = configuration.expectSuccess
 
-    install(ContentNegotiation) {
+    install(plugin = ContentNegotiation) {
         json(
             json = Json {
                 coerceInputValues = configuration.coerceInputValues
@@ -49,26 +49,26 @@ internal fun <T : HttpClientEngineConfig> HttpClientConfig<T>.applyJchuConfigura
 
     if (configuration.enableCache) install(HttpCache)
 
-    install(HttpTimeout) {
+    install(plugin = HttpTimeout) {
         requestTimeoutMillis = configuration.requestTimeoutMillis
         connectTimeoutMillis = configuration.connectTimeoutMillis
         socketTimeoutMillis = configuration.socketTimeoutMillis
     }
 
     if (configuration.enableLogging) {
-        install(Logging) {
+        install(plugin = Logging) {
             logger = platformLogger
             level = configuration.logLevel.toKtorLogLevel()
             sanitizeHeader { header ->
                 configuration.sensitiveHeaders.any {
-                    it.equals(header, ignoreCase = true)
+                    it.equals(other = header, ignoreCase = true)
                 }
             }
         }
     }
 
     defaultRequest {
-        if (configuration.baseUrl.isNotBlank()) url(configuration.baseUrl)
+        if (configuration.baseUrl.isNotBlank()) url(urlString = configuration.baseUrl)
         header(HttpHeaders.Accept, ContentType.Application.Json)
         header(HttpHeaders.ContentType, ContentType.Application.Json)
         configuration.defaultHeaders.forEach { (key, value) -> header(key, value) }

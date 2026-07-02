@@ -17,8 +17,8 @@ import android.util.Patterns
 import androidx.compose.ui.graphics.Color
 import com.jeluchu.jchucomponents.ktx.constants.DATE_FORMAT_TIMESTAMP
 import com.jeluchu.jchucomponents.ktx.constants.DATE_FORMAT_VERBOSE
-import com.jeluchu.jchucomponents.network.android.getBitmapFromUrl as networkBitmapFromUrl
-import com.jeluchu.jchucomponents.network.android.saveImage as networkSaveImage
+import com.jeluchu.jchucomponents.network.extensions.getBitmapFromUrl as networkBitmapFromUrl
+import com.jeluchu.jchucomponents.network.extensions.saveImage as networkSaveImage
 import java.io.File
 import java.net.URLEncoder
 import java.text.DateFormat

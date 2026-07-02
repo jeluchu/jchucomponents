@@ -1,16 +1,9 @@
-/*
- *
- *  Copyright 2022 Jeluchu
- *
- */
-
-package com.jeluchu.jchucomponents.network
+package com.jeluchu.jchucomponents.network.http
 
 /**
  * This is a list of Hypertext Transfer Protocol (HTTP) response status codes.
  */
 enum class StatusCode(val code: Int, val message: String) {
-
     Unknown(0, ""),
 
     Continue(100, ""),
@@ -77,7 +70,6 @@ enum class StatusCode(val code: Int, val message: String) {
     HTTPVersionNotSupported(505, ""),
     NotExtended(510, ""),
     NetworkAuthenticationRequired(511, "");
-
 }
 
 fun getHttpErrorInfo(code: Int) = when (code) {
