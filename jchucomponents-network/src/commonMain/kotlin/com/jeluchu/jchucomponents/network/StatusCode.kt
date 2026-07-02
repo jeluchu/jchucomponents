@@ -4,7 +4,7 @@
  *
  */
 
-package com.jeluchu.jchucomponents.extensions.http
+package com.jeluchu.jchucomponents.network
 
 /**
  * This is a list of Hypertext Transfer Protocol (HTTP) response status codes.

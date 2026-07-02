@@ -50,6 +50,7 @@ androidx-appcompat = "androidx.appcompat:appcompat:1.7.1"
 revenuecat = "com.revenuecat.purchases:purchases:10.11.0"
 compose-bom = { group = "androidx.compose", name ="compose-bom", version.ref = "composeBom" }
 ktor-android = { module = "io.ktor:ktor-client-android", version.ref = "ktor" }
+ktor-darwin = { module = "io.ktor:ktor-client-darwin", version.ref = "ktor" }
 ktor-client-content-negotiation = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktor" }
 ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
 ktor-client-logging = { module = "io.ktor:ktor-client-logging", version.ref = "ktor" }
@@ -76,12 +77,6 @@ core-androidx = [
 core-jetbrains = [
     "org-jetbrains-kotlinx-kotlinx-coroutines-android",
     "org-jetbrains-kotlinx-kotlinx-coroutines-core",
-]
-core-ktor = [
-    "ktor-android",
-    "ktor-client-content-negotiation",
-    "ktor-client-logging",
-    "ktor-serialization-kotlinx-json",
 ]
 # FOR JCHUCOMPONENTS KTX
 ktx-androidx = [

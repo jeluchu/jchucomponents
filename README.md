@@ -21,6 +21,22 @@ commonMain.dependencies {
 Compose modules remain Android-only, and Ktor is not exported through the
 SwiftUI XCFramework.
 
+Create the platform client from shared Kotlin code:
+
+```kotlin
+val api = createHttpClient(
+    HttpClientConfiguration(
+        baseUrl = "https://example.com/api/",
+        enableLogging = isDebug,
+        defaultHeaders = mapOf("X-Client" to "my-app"),
+    )
+)
+```
+
+`createHttpClient` uses Ktor's Android engine on Android and Darwin engine on
+iOS. JSON, cache, timeouts, response validation, logging and sensitive headers
+are configured through `HttpClientConfiguration`.
+
 ## JchuComponents 3 installation
 
 The following coordinates apply to tagged v3 releases. During development,
@@ -72,8 +88,33 @@ import JchuComponentsSwiftUI
 ```
 
 The Swift package requires iOS 26.0 or newer. The public SwiftPM repository
-and the `3.0.0-alpha01` artifacts will become available with the matching
-tagged prerelease.
+becomes available when its first matching prerelease tag is published.
+
+## Publishing a SwiftPM release
+
+SwiftPM publication is launched by pushing a version tag to this repository.
+Before the first release:
+
+1. Create the public repository `Jeluchu/jchucomponents-spm` with a `main`
+   branch and an initial commit.
+2. In this repository, create the Actions variable
+   `SPM_REPOSITORY_ENABLED=true`.
+3. Create `SPM_REPOSITORY_TOKEN` as an Actions secret. Its token must have
+   Contents read/write permission for `Jeluchu/jchucomponents-spm`.
+4. Push `v3` and confirm that the CI workflow is green.
+5. Ensure `gradle/libs.versions.toml` contains the version being released.
+6. Create and push the matching annotated tag:
+
+```bash
+git tag -a 3.0.0-alpha02 -m "3.0.0-alpha02"
+git push origin v3
+git push origin 3.0.0-alpha02
+```
+
+The release workflow validates Android/KMP, builds and uploads the XCFramework,
+generates the binary Swift manifest, then commits and tags the generated
+package in `jchucomponents-spm`. The release is complete only when both jobs
+are green and the same tag exists in both repositories.
 
 ##  Introduction
 

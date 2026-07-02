@@ -208,82 +208,6 @@ package com.jeluchu.jchucomponents.extensions.flow {
 
 }
 
-package com.jeluchu.jchucomponents.extensions.http {
-
-  public enum StatusCode {
-    method @InaccessibleFromKotlin public int getCode();
-    method @InaccessibleFromKotlin @NonNull public String getMessage();
-    property public int code;
-    property @NonNull public String message;
-    enum_constant public static final com.jeluchu.jchucomponents.extensions.http.StatusCode Accepted;
-    enum_constant public static final com.jeluchu.jchucomponents.extensions.http.StatusCode AlreadyReported;
-    enum_constant public static final com.jeluchu.jchucomponents.extensions.http.StatusCode BadGateway;
-    enum_constant public static final com.jeluchu.jchucomponents.extensions.http.StatusCode BadRequest;
-    enum_constant public static final com.jeluchu.jchucomponents.extensions.http.StatusCode Conflict;
-    enum_constant public static final com.jeluchu.jchucomponents.extensions.http.StatusCode Continue;
-    enum_constant public static final com.jeluchu.jchucomponents.extensions.http.StatusCode Created;
-    enum_constant public static final com.jeluchu.jchucomponents.extensions.http.StatusCode EarlyHints;
-    enum_constant public static final com.jeluchu.jchucomponents.extensions.http.StatusCode ExpectationFailed;
-    enum_constant public static final com.jeluchu.jchucomponents.extensions.http.StatusCode FailedDependency;
-    enum_constant public static final com.jeluchu.jchucomponents.extensions.http.StatusCode Forbidden;
-    enum_constant public static final com.jeluchu.jchucomponents.extensions.http.StatusCode Found;
-    enum_constant public static final com.jeluchu.jchucomponents.extensions.http.StatusCode GatewayTimeout;
-    enum_constant public static final com.jeluchu.jchucomponents.extensions.http.StatusCode Gone;
-    enum_constant public static final com.jeluchu.jchucomponents.extensions.http.StatusCode HTTPVersionNotSupported;
-    enum_constant public static final com.jeluchu.jchucomponents.extensions.http.StatusCode IMATeapot;
-    enum_constant public static final com.jeluchu.jchucomponents.extensions.http.StatusCode IMUsed;
-    enum_constant public static final com.jeluchu.jchucomponents.extensions.http.StatusCode InternalServerError;
-    enum_constant public static final com.jeluchu.jchucomponents.extensions.http.StatusCode LengthRequired;
-    enum_constant public static final com.jeluchu.jchucomponents.extensions.http.StatusCode Locked;
-    enum_constant public static final com.jeluchu.jchucomponents.extensions.http.StatusCode MethodNotAllowed;
-    enum_constant public static final com.jeluchu.jchucomponents.extensions.http.StatusCode MisdirectedRequest;
-    enum_constant public static final com.jeluchu.jchucomponents.extensions.http.StatusCode MovePermanently;
-    enum_constant public static final com.jeluchu.jchucomponents.extensions.http.StatusCode MultiStatus;
-    enum_constant public static final com.jeluchu.jchucomponents.extensions.http.StatusCode MultipleChoices;
-    enum_constant public static final com.jeluchu.jchucomponents.extensions.http.StatusCode NetworkAuthenticationRequired;
-    enum_constant public static final com.jeluchu.jchucomponents.extensions.http.StatusCode NoContent;
-    enum_constant public static final com.jeluchu.jchucomponents.extensions.http.StatusCode NonAuthoritative;
-    enum_constant public static final com.jeluchu.jchucomponents.extensions.http.StatusCode NotAcceptable;
-    enum_constant public static final com.jeluchu.jchucomponents.extensions.http.StatusCode NotExtended;
-    enum_constant public static final com.jeluchu.jchucomponents.extensions.http.StatusCode NotFound;
-    enum_constant public static final com.jeluchu.jchucomponents.extensions.http.StatusCode NotImplemented;
-    enum_constant public static final com.jeluchu.jchucomponents.extensions.http.StatusCode NotModified;
-    enum_constant public static final com.jeluchu.jchucomponents.extensions.http.StatusCode OK;
-    enum_constant public static final com.jeluchu.jchucomponents.extensions.http.StatusCode PartialContent;
-    enum_constant public static final com.jeluchu.jchucomponents.extensions.http.StatusCode PayloadTooLarge;
-    enum_constant public static final com.jeluchu.jchucomponents.extensions.http.StatusCode PaymentRequired;
-    enum_constant public static final com.jeluchu.jchucomponents.extensions.http.StatusCode PermanentRedirect;
-    enum_constant public static final com.jeluchu.jchucomponents.extensions.http.StatusCode PreconditionFailed;
-    enum_constant public static final com.jeluchu.jchucomponents.extensions.http.StatusCode PreconditionRequired;
-    enum_constant public static final com.jeluchu.jchucomponents.extensions.http.StatusCode Processing;
-    enum_constant public static final com.jeluchu.jchucomponents.extensions.http.StatusCode ProxyAuthenticationRequired;
-    enum_constant public static final com.jeluchu.jchucomponents.extensions.http.StatusCode RangeNotSatisfiable;
-    enum_constant public static final com.jeluchu.jchucomponents.extensions.http.StatusCode RequestHeaderFieldsTooLarge;
-    enum_constant public static final com.jeluchu.jchucomponents.extensions.http.StatusCode RequestTimeout;
-    enum_constant public static final com.jeluchu.jchucomponents.extensions.http.StatusCode ResetContent;
-    enum_constant public static final com.jeluchu.jchucomponents.extensions.http.StatusCode SeeOther;
-    enum_constant public static final com.jeluchu.jchucomponents.extensions.http.StatusCode ServiceUnavailable;
-    enum_constant public static final com.jeluchu.jchucomponents.extensions.http.StatusCode SwitchProxy;
-    enum_constant public static final com.jeluchu.jchucomponents.extensions.http.StatusCode SwitchingProtocols;
-    enum_constant public static final com.jeluchu.jchucomponents.extensions.http.StatusCode TemporaryRedirect;
-    enum_constant public static final com.jeluchu.jchucomponents.extensions.http.StatusCode TooEarly;
-    enum_constant public static final com.jeluchu.jchucomponents.extensions.http.StatusCode TooManyRequests;
-    enum_constant public static final com.jeluchu.jchucomponents.extensions.http.StatusCode URITooLong;
-    enum_constant public static final com.jeluchu.jchucomponents.extensions.http.StatusCode UnProcessableEntity;
-    enum_constant public static final com.jeluchu.jchucomponents.extensions.http.StatusCode Unauthorized;
-    enum_constant public static final com.jeluchu.jchucomponents.extensions.http.StatusCode UnavailableForLegalReasons;
-    enum_constant public static final com.jeluchu.jchucomponents.extensions.http.StatusCode Unknown;
-    enum_constant public static final com.jeluchu.jchucomponents.extensions.http.StatusCode UnsupportedMediaType;
-    enum_constant public static final com.jeluchu.jchucomponents.extensions.http.StatusCode UpgradeRequired;
-    enum_constant public static final com.jeluchu.jchucomponents.extensions.http.StatusCode UseProxy;
-  }
-
-  public final class StatusCodeKt {
-    method @NonNull public static com.jeluchu.jchucomponents.extensions.http.StatusCode getHttpErrorInfo(int code);
-  }
-
-}
-
 package com.jeluchu.jchucomponents.extensions.lifecycle {
 
   public final class LifecycleExtensionsKt {
@@ -435,9 +359,9 @@ package com.jeluchu.jchucomponents.utils.network {
     property @NonNull public String versionName;
   }
 
-  public final class KtorClient {
-    method @NonNull public io.ktor.client.HttpClient buildHttpClient(@NonNull String baseUrl, @Nullable com.jeluchu.jchucomponents.utils.network.ClientHeaders headers, boolean isDebug, long timeoutMillis);
-    field @NonNull public static final com.jeluchu.jchucomponents.utils.network.KtorClient INSTANCE;
+  @Deprecated public final class KtorClient {
+    method @Deprecated @NonNull public io.ktor.client.HttpClient buildHttpClient(@NonNull String baseUrl, @Nullable com.jeluchu.jchucomponents.utils.network.ClientHeaders headers, boolean isDebug, long timeoutMillis);
+    field @Deprecated @NonNull public static final com.jeluchu.jchucomponents.utils.network.KtorClient INSTANCE;
   }
 
   public final class NetworkBoundResourceKt {
@@ -446,9 +370,9 @@ package com.jeluchu.jchucomponents.utils.network {
     method @NonNull public static inline <RequestType> kotlinx.coroutines.flow.Flow<com.jeluchu.jchucomponents.utils.network.models.Resource<com.jeluchu.jchucomponents.core.exception.Failure,RequestType>> networkResource(@NonNull kotlin.jvm.functions.Function1<? super kotlin.coroutines.Continuation<? super RequestType>,?> fetch, @NonNull kotlin.jvm.functions.Function0<java.lang.Boolean> shouldFetch);
   }
 
-  public final class NetworkUtils {
-    method @Nullable public suspend Object saveResponseBodyToFile(@NonNull String filePath, @NonNull io.ktor.client.statement.HttpResponse response, @NonNull kotlin.jvm.functions.Function1<? super java.lang.Long,kotlin.Unit> progress, @NonNull kotlin.coroutines.Continuation<? super kotlin.Unit>);
-    field @NonNull public static final com.jeluchu.jchucomponents.utils.network.NetworkUtils INSTANCE;
+  @Deprecated public final class NetworkUtils {
+    method @Deprecated @Nullable public suspend Object saveResponseBodyToFile(@NonNull String filePath, @NonNull io.ktor.client.statement.HttpResponse response, @NonNull kotlin.jvm.functions.Function1<? super java.lang.Long,kotlin.Unit> progress, @NonNull kotlin.coroutines.Continuation<? super kotlin.Unit>);
+    field @Deprecated @NonNull public static final com.jeluchu.jchucomponents.utils.network.NetworkUtils INSTANCE;
   }
 
 }

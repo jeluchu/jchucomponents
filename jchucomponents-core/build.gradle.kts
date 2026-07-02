@@ -48,9 +48,7 @@ android {
 
 dependencies {
     api(project(":jchucomponents-network"))
-    api(libs.ktor.client.core)
     implementation(libs.bundles.core.androidx)
-    implementation(libs.bundles.core.ktor)
     implementation(libs.bundles.core.jetbrains)
     implementation(libs.com.google.code.gson)
 }

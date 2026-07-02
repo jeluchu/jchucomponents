@@ -8,26 +8,25 @@ package com.jeluchu.jchucomponents.utils.network
 
 import android.os.Build
 import io.ktor.client.HttpClient
-import io.ktor.client.engine.android.Android
-import io.ktor.client.plugins.HttpTimeout
-import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
-import io.ktor.client.plugins.defaultRequest
-import io.ktor.client.plugins.logging.LogLevel
-import io.ktor.client.plugins.logging.Logger
-import io.ktor.client.plugins.logging.ANDROID
-import io.ktor.client.plugins.logging.Logging
-import io.ktor.client.request.header
-import io.ktor.http.ContentType
-import io.ktor.http.HttpHeaders
-import io.ktor.serialization.kotlinx.json.json
+import com.jeluchu.jchucomponents.network.HttpClientConfiguration
+import com.jeluchu.jchucomponents.network.createHttpClient
 import java.text.Normalizer
 import java.util.Locale
 import java.util.TimeZone
-import kotlinx.serialization.json.Json
 
 /**
  * Creates the standard Ktor client used by Android consumers.
  */
+@Deprecated(
+    message = "Use createHttpClient from jchucomponents-network",
+    replaceWith = ReplaceWith(
+        expression = "createHttpClient(HttpClientConfiguration(baseUrl = baseUrl, enableLogging = isDebug))",
+        imports = [
+            "com.jeluchu.jchucomponents.network.HttpClientConfiguration",
+            "com.jeluchu.jchucomponents.network.createHttpClient",
+        ],
+    ),
+)
 public object KtorClient {
     private const val DEFAULT_TIMEOUT_MILLIS: Long = 90_000
 
@@ -36,55 +35,31 @@ public object KtorClient {
         headers: ClientHeaders? = null,
         isDebug: Boolean = false,
         timeoutMillis: Long = DEFAULT_TIMEOUT_MILLIS,
-    ): HttpClient = HttpClient(Android) {
-        expectSuccess = true
+    ): HttpClient = createHttpClient(
+        HttpClientConfiguration(
+            baseUrl = baseUrl,
+            requestTimeoutMillis = timeoutMillis,
+            connectTimeoutMillis = timeoutMillis,
+            socketTimeoutMillis = timeoutMillis,
+            enableLogging = isDebug,
+            defaultHeaders = headers?.toDefaultHeaders().orEmpty(),
+            sensitiveHeaders = setOfNotNull(
+                "Authorization",
+                headers?.keyHeader?.takeIf(String::isNotEmpty),
+            ),
+        )
+    )
 
-        install(ContentNegotiation) {
-            json(
-                Json {
-                    coerceInputValues = true
-                    ignoreUnknownKeys = true
-                    isLenient = true
-                }
-            )
-        }
-
-        install(HttpTimeout) {
-            requestTimeoutMillis = timeoutMillis
-            connectTimeoutMillis = timeoutMillis
-            socketTimeoutMillis = timeoutMillis
-        }
-
-        if (isDebug) {
-            install(Logging) {
-                logger = Logger.ANDROID
-                level = LogLevel.ALL
-                sanitizeHeader { header ->
-                    header == HttpHeaders.Authorization ||
-                        header.equals(headers?.keyHeader, ignoreCase = true)
-                }
-            }
-        }
-
-        defaultRequest {
-            if (baseUrl.isNotBlank()) url(baseUrl)
-            header(HttpHeaders.Accept, ContentType.Application.Json)
-            header(HttpHeaders.ContentType, ContentType.Application.Json)
-
-            headers?.let { clientHeaders ->
-                header(HttpHeaders.UserAgent, clientHeaders.userAgent.value)
-                header("X-Client", "${clientHeaders.client}-android")
-                header("Accept-Language", Locale.getDefault().toLanguageTag())
-                header("X-Request-AppVersion", clientHeaders.userAgent.versionName)
-                header("X-Request-OsVersion", osVersion)
-                header("X-Request-Device", deviceName)
-                header("X-Mobile-Native", "Android")
-                header("X-User-TimezoneOffset", TimeZone.getDefault().id)
-                if (clientHeaders.key.isNotEmpty() && clientHeaders.keyHeader.isNotEmpty()) {
-                    header(clientHeaders.keyHeader, clientHeaders.key)
-                }
-            }
-        }
+    private fun ClientHeaders.toDefaultHeaders(): Map<String, String> = buildMap {
+        put("User-Agent", userAgent.value)
+        put("X-Client", "$client-android")
+        put("Accept-Language", Locale.getDefault().toLanguageTag())
+        put("X-Request-AppVersion", userAgent.versionName)
+        put("X-Request-OsVersion", osVersion)
+        put("X-Request-Device", deviceName)
+        put("X-Mobile-Native", "Android")
+        put("X-User-TimezoneOffset", TimeZone.getDefault().id)
+        if (key.isNotEmpty() && keyHeader.isNotEmpty()) put(keyHeader, key)
     }
 
     private val ClientHeaders.UserAgent.value: String

@@ -17,10 +17,9 @@ import android.util.Patterns
 import androidx.compose.ui.graphics.Color
 import com.jeluchu.jchucomponents.ktx.constants.DATE_FORMAT_TIMESTAMP
 import com.jeluchu.jchucomponents.ktx.constants.DATE_FORMAT_VERBOSE
+import com.jeluchu.jchucomponents.network.android.getBitmapFromUrl as networkBitmapFromUrl
+import com.jeluchu.jchucomponents.network.android.saveImage as networkSaveImage
 import java.io.File
-import java.io.FileOutputStream
-import java.net.HttpURLConnection
-import java.net.URL
 import java.net.URLEncoder
 import java.text.DateFormat
 import java.text.DecimalFormat
@@ -57,23 +56,7 @@ private const val LETRAS_NIF = "TRWAGMYFPDXBNJZSQVHLCKE"
 fun String.getLastBitFromUrl(): String = replaceFirst(".*/([^/?]+).*".toRegex(), "$1")
 
 fun String.saveImage(destinationFile: File) {
-    runCatching {
-        Thread {
-            val url = URL(this)
-            val inputStream = url.openStream()
-            val os = FileOutputStream(destinationFile)
-            val b = ByteArray(2048)
-            var length: Int
-            while (inputStream.read(b).also { length = it } != -1) {
-                os.write(b, 0, length)
-            }
-            inputStream?.close()
-            os.close()
-        }.start()
-
-    }.getOrElse {
-        it.printStackTrace()
-    }
+    networkSaveImage(destinationFile)
 }
 
 /** ---- COMPOSE FUNCTIONS --------------------------------------------------------------------- **/
@@ -99,12 +82,7 @@ fun String.extractYTId(): String? {
 /** ---- BITMAPS ------------------------------------------------------------------------------- **/
 
 fun String.getBitmapFromURL(): Bitmap? =
-    runCatching {
-        val connection = URL(this).openConnection() as HttpURLConnection
-        connection.doInput = true
-        connection.connect()
-        BitmapFactory.decodeStream(connection.inputStream)
-    }.getOrElse { null }
+    networkBitmapFromUrl()
 
 fun String.toBitmapDrawable(context: Context): BitmapDrawable =
     BitmapDrawable(context.resources, getBitmapFromURL())

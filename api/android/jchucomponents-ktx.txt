@@ -199,13 +199,13 @@ package com.jeluchu.jchucomponents.ktx.context {
   }
 
   public final class NetworkExtensionsKt {
-    method @RequiresPermission(android.Manifest.permission.ACCESS_NETWORK_STATE) public static boolean checkNetworkState(@NonNull android.content.Context);
-    method @InaccessibleFromKotlin @NonNull public static inline android.net.ConnectivityManager getConnectivityManager(@NonNull android.content.Context);
-    method @InaccessibleFromKotlin @RequiresPermission(android.Manifest.permission.ACCESS_NETWORK_STATE) public static int getDownstreamBandwidth(@NonNull android.content.Context);
-    method @RequiresPermission(android.Manifest.permission.ACCESS_NETWORK_STATE) public static boolean isConnectionAvailable(@NonNull android.content.Context);
-    method @RequiresPermission(android.Manifest.permission.ACCESS_NETWORK_STATE) public static boolean isRoamingConnection(@NonNull android.content.Context);
-    property @NonNull public static inline android.net.ConnectivityManager android.content.Context.connectivityManager;
-    property @RequiresPermission(android.Manifest.permission.ACCESS_NETWORK_STATE) public static int android.content.Context.downstreamBandwidth;
+    method @Deprecated @RequiresPermission(android.Manifest.permission.ACCESS_NETWORK_STATE) public static boolean checkNetworkState(@NonNull android.content.Context);
+    method @InaccessibleFromKotlin @Deprecated @NonNull public static inline android.net.ConnectivityManager getConnectivityManager(@NonNull android.content.Context);
+    method @InaccessibleFromKotlin @Deprecated @RequiresPermission(android.Manifest.permission.ACCESS_NETWORK_STATE) public static int getDownstreamBandwidth(@NonNull android.content.Context);
+    method @Deprecated @RequiresPermission(android.Manifest.permission.ACCESS_NETWORK_STATE) public static boolean isConnectionAvailable(@NonNull android.content.Context);
+    method @Deprecated @RequiresPermission(android.Manifest.permission.ACCESS_NETWORK_STATE) public static boolean isRoamingConnection(@NonNull android.content.Context);
+    property @Deprecated @NonNull public static inline android.net.ConnectivityManager android.content.Context.connectivityManager;
+    property @Deprecated @RequiresPermission(android.Manifest.permission.ACCESS_NETWORK_STATE) public static int android.content.Context.downstreamBandwidth;
   }
 
 }
@@ -349,7 +349,7 @@ package com.jeluchu.jchucomponents.ktx.navigation {
 package com.jeluchu.jchucomponents.ktx.network {
 
   public final class NetworkExtensionsKt {
-    method @NonNull public static String getIpv4LocalHostAddress();
+    method @Deprecated @NonNull public static String getIpv4LocalHostAddress();
   }
 
 }
