@@ -31,14 +31,12 @@ androidx-compose-ui-ui-tooling = { module = "androidx.compose.ui:ui-tooling" }
 androidx-compose-ui-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview" }
 androidx-core-core-ktx = "androidx.core:core-ktx:1.19.0"
 androidx-core-core-splashscreen = "androidx.core:core-splashscreen:1.2.0"
-androidx-lifecycle-lifecycle-runtime-compose = { module = "androidx.lifecycle:lifecycle-runtime-compose", version.ref = "androidx-lifecycle" }
 androidx-lifecycle-lifecycle-livedata-core-ktx = { module = "androidx.lifecycle:lifecycle-livedata-core-ktx", version.ref = "androidx-lifecycle" }
 androidx-lifecycle-lifecycle-viewmodel-ktx = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "androidx-lifecycle" }
 androidx-navigation-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "androidx-navigation" }
 androidx-navigation3-runtime = { module = "androidx.navigation3:navigation3-runtime", version.ref = "androidx-navigation3" }
 androidx-navigation3-ui = { module = "androidx.navigation3:navigation3-ui", version.ref = "androidx-navigation3" }
 androidx-lifecycle-viewmodel-navigation3 = { module = "androidx.lifecycle:lifecycle-viewmodel-navigation3", version.ref = "androidx-lifecycle" }
-androidx-preference = "androidx.preference:preference-ktx:1.2.1"
 com-google-android-gms-play-services-base = "com.google.android.gms:play-services-base:18.10.0"
 com-google-code-gson = "com.google.code.gson:gson:2.14.0"
 coil-compose = { module = "io.coil-kt.coil3:coil-compose", version.ref = "coil-kt" }
@@ -121,18 +119,4 @@ pay-android = [
 pay-jetbrains = [
     "org-jetbrains-kotlinx-kotlinx-coroutines-android",
     "org-jetbrains-kotlinx-kotlinx-coroutines-core",
-]
-
-# FOR JCHUCOMPONENTS PREFERENCES
-preferences-androidx = [
-    "androidx-datastore",
-    "androidx-preference",
-    "androidx-lifecycle-lifecycle-runtime-compose",
-]
-preferences-google = [
-    "com-google-code-gson",
-]
-preferences-compose = [
-    "androidx-compose-runtime",
-    "androidx-compose-ui",
 ]
