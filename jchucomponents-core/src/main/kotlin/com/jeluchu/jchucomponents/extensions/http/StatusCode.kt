@@ -4,7 +4,7 @@
  *
  */
 
-package com.jeluchu.jchucomponents.extensions.retrofit
+package com.jeluchu.jchucomponents.extensions.http
 
 /**
  * This is a list of Hypertext Transfer Protocol (HTTP) response status codes.

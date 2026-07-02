@@ -48,7 +48,6 @@ android {
 
 dependencies {
     implementation(libs.bundles.qr.androidx)
-    implementation(libs.bundles.qr.third.party)
 }
 
 publishing {

@@ -208,91 +208,95 @@ package com.jeluchu.jchucomponents.extensions.flow {
 
 }
 
-package com.jeluchu.jchucomponents.extensions.lifecycle {
-
-  public final class LifecycleExtensionsKt {
-    method public static <L extends androidx.lifecycle.LiveData<com.jeluchu.jchucomponents.core.exception.Failure>> void failure(@NonNull androidx.lifecycle.LifecycleOwner, @NonNull L liveData, @NonNull kotlin.jvm.functions.Function1<? super com.jeluchu.jchucomponents.core.exception.Failure,kotlin.Unit> body);
-    method public static <T, L extends androidx.lifecycle.LiveData<T>> void observe(@NonNull androidx.lifecycle.LifecycleOwner, @NonNull L liveData, @NonNull kotlin.jvm.functions.Function1<? super T,kotlin.Unit> body);
-  }
-
-}
-
-package com.jeluchu.jchucomponents.extensions.retrofit {
-
-  public final class RequestResponsesKt {
-    method @NonNull public static <T, R> com.jeluchu.jchucomponents.core.functional.Either<com.jeluchu.jchucomponents.core.exception.Failure,R> request(@NonNull retrofit2.Call<T> call, @NonNull kotlin.jvm.functions.Function1<? super T,? extends R> transform, T default);
-  }
+package com.jeluchu.jchucomponents.extensions.http {
 
   public enum StatusCode {
     method @InaccessibleFromKotlin public int getCode();
     method @InaccessibleFromKotlin @NonNull public String getMessage();
     property public int code;
     property @NonNull public String message;
-    enum_constant public static final com.jeluchu.jchucomponents.extensions.retrofit.StatusCode Accepted;
-    enum_constant public static final com.jeluchu.jchucomponents.extensions.retrofit.StatusCode AlreadyReported;
-    enum_constant public static final com.jeluchu.jchucomponents.extensions.retrofit.StatusCode BadGateway;
-    enum_constant public static final com.jeluchu.jchucomponents.extensions.retrofit.StatusCode BadRequest;
-    enum_constant public static final com.jeluchu.jchucomponents.extensions.retrofit.StatusCode Conflict;
-    enum_constant public static final com.jeluchu.jchucomponents.extensions.retrofit.StatusCode Continue;
-    enum_constant public static final com.jeluchu.jchucomponents.extensions.retrofit.StatusCode Created;
-    enum_constant public static final com.jeluchu.jchucomponents.extensions.retrofit.StatusCode EarlyHints;
-    enum_constant public static final com.jeluchu.jchucomponents.extensions.retrofit.StatusCode ExpectationFailed;
-    enum_constant public static final com.jeluchu.jchucomponents.extensions.retrofit.StatusCode FailedDependency;
-    enum_constant public static final com.jeluchu.jchucomponents.extensions.retrofit.StatusCode Forbidden;
-    enum_constant public static final com.jeluchu.jchucomponents.extensions.retrofit.StatusCode Found;
-    enum_constant public static final com.jeluchu.jchucomponents.extensions.retrofit.StatusCode GatewayTimeout;
-    enum_constant public static final com.jeluchu.jchucomponents.extensions.retrofit.StatusCode Gone;
-    enum_constant public static final com.jeluchu.jchucomponents.extensions.retrofit.StatusCode HTTPVersionNotSupported;
-    enum_constant public static final com.jeluchu.jchucomponents.extensions.retrofit.StatusCode IMATeapot;
-    enum_constant public static final com.jeluchu.jchucomponents.extensions.retrofit.StatusCode IMUsed;
-    enum_constant public static final com.jeluchu.jchucomponents.extensions.retrofit.StatusCode InternalServerError;
-    enum_constant public static final com.jeluchu.jchucomponents.extensions.retrofit.StatusCode LengthRequired;
-    enum_constant public static final com.jeluchu.jchucomponents.extensions.retrofit.StatusCode Locked;
-    enum_constant public static final com.jeluchu.jchucomponents.extensions.retrofit.StatusCode MethodNotAllowed;
-    enum_constant public static final com.jeluchu.jchucomponents.extensions.retrofit.StatusCode MisdirectedRequest;
-    enum_constant public static final com.jeluchu.jchucomponents.extensions.retrofit.StatusCode MovePermanently;
-    enum_constant public static final com.jeluchu.jchucomponents.extensions.retrofit.StatusCode MultiStatus;
-    enum_constant public static final com.jeluchu.jchucomponents.extensions.retrofit.StatusCode MultipleChoices;
-    enum_constant public static final com.jeluchu.jchucomponents.extensions.retrofit.StatusCode NetworkAuthenticationRequired;
-    enum_constant public static final com.jeluchu.jchucomponents.extensions.retrofit.StatusCode NoContent;
-    enum_constant public static final com.jeluchu.jchucomponents.extensions.retrofit.StatusCode NonAuthoritative;
-    enum_constant public static final com.jeluchu.jchucomponents.extensions.retrofit.StatusCode NotAcceptable;
-    enum_constant public static final com.jeluchu.jchucomponents.extensions.retrofit.StatusCode NotExtended;
-    enum_constant public static final com.jeluchu.jchucomponents.extensions.retrofit.StatusCode NotFound;
-    enum_constant public static final com.jeluchu.jchucomponents.extensions.retrofit.StatusCode NotImplemented;
-    enum_constant public static final com.jeluchu.jchucomponents.extensions.retrofit.StatusCode NotModified;
-    enum_constant public static final com.jeluchu.jchucomponents.extensions.retrofit.StatusCode OK;
-    enum_constant public static final com.jeluchu.jchucomponents.extensions.retrofit.StatusCode PartialContent;
-    enum_constant public static final com.jeluchu.jchucomponents.extensions.retrofit.StatusCode PayloadTooLarge;
-    enum_constant public static final com.jeluchu.jchucomponents.extensions.retrofit.StatusCode PaymentRequired;
-    enum_constant public static final com.jeluchu.jchucomponents.extensions.retrofit.StatusCode PermanentRedirect;
-    enum_constant public static final com.jeluchu.jchucomponents.extensions.retrofit.StatusCode PreconditionFailed;
-    enum_constant public static final com.jeluchu.jchucomponents.extensions.retrofit.StatusCode PreconditionRequired;
-    enum_constant public static final com.jeluchu.jchucomponents.extensions.retrofit.StatusCode Processing;
-    enum_constant public static final com.jeluchu.jchucomponents.extensions.retrofit.StatusCode ProxyAuthenticationRequired;
-    enum_constant public static final com.jeluchu.jchucomponents.extensions.retrofit.StatusCode RangeNotSatisfiable;
-    enum_constant public static final com.jeluchu.jchucomponents.extensions.retrofit.StatusCode RequestHeaderFieldsTooLarge;
-    enum_constant public static final com.jeluchu.jchucomponents.extensions.retrofit.StatusCode RequestTimeout;
-    enum_constant public static final com.jeluchu.jchucomponents.extensions.retrofit.StatusCode ResetContent;
-    enum_constant public static final com.jeluchu.jchucomponents.extensions.retrofit.StatusCode SeeOther;
-    enum_constant public static final com.jeluchu.jchucomponents.extensions.retrofit.StatusCode ServiceUnavailable;
-    enum_constant public static final com.jeluchu.jchucomponents.extensions.retrofit.StatusCode SwitchProxy;
-    enum_constant public static final com.jeluchu.jchucomponents.extensions.retrofit.StatusCode SwitchingProtocols;
-    enum_constant public static final com.jeluchu.jchucomponents.extensions.retrofit.StatusCode TemporaryRedirect;
-    enum_constant public static final com.jeluchu.jchucomponents.extensions.retrofit.StatusCode TooEarly;
-    enum_constant public static final com.jeluchu.jchucomponents.extensions.retrofit.StatusCode TooManyRequests;
-    enum_constant public static final com.jeluchu.jchucomponents.extensions.retrofit.StatusCode URITooLong;
-    enum_constant public static final com.jeluchu.jchucomponents.extensions.retrofit.StatusCode UnProcessableEntity;
-    enum_constant public static final com.jeluchu.jchucomponents.extensions.retrofit.StatusCode Unauthorized;
-    enum_constant public static final com.jeluchu.jchucomponents.extensions.retrofit.StatusCode UnavailableForLegalReasons;
-    enum_constant public static final com.jeluchu.jchucomponents.extensions.retrofit.StatusCode Unknown;
-    enum_constant public static final com.jeluchu.jchucomponents.extensions.retrofit.StatusCode UnsupportedMediaType;
-    enum_constant public static final com.jeluchu.jchucomponents.extensions.retrofit.StatusCode UpgradeRequired;
-    enum_constant public static final com.jeluchu.jchucomponents.extensions.retrofit.StatusCode UseProxy;
+    enum_constant public static final com.jeluchu.jchucomponents.extensions.http.StatusCode Accepted;
+    enum_constant public static final com.jeluchu.jchucomponents.extensions.http.StatusCode AlreadyReported;
+    enum_constant public static final com.jeluchu.jchucomponents.extensions.http.StatusCode BadGateway;
+    enum_constant public static final com.jeluchu.jchucomponents.extensions.http.StatusCode BadRequest;
+    enum_constant public static final com.jeluchu.jchucomponents.extensions.http.StatusCode Conflict;
+    enum_constant public static final com.jeluchu.jchucomponents.extensions.http.StatusCode Continue;
+    enum_constant public static final com.jeluchu.jchucomponents.extensions.http.StatusCode Created;
+    enum_constant public static final com.jeluchu.jchucomponents.extensions.http.StatusCode EarlyHints;
+    enum_constant public static final com.jeluchu.jchucomponents.extensions.http.StatusCode ExpectationFailed;
+    enum_constant public static final com.jeluchu.jchucomponents.extensions.http.StatusCode FailedDependency;
+    enum_constant public static final com.jeluchu.jchucomponents.extensions.http.StatusCode Forbidden;
+    enum_constant public static final com.jeluchu.jchucomponents.extensions.http.StatusCode Found;
+    enum_constant public static final com.jeluchu.jchucomponents.extensions.http.StatusCode GatewayTimeout;
+    enum_constant public static final com.jeluchu.jchucomponents.extensions.http.StatusCode Gone;
+    enum_constant public static final com.jeluchu.jchucomponents.extensions.http.StatusCode HTTPVersionNotSupported;
+    enum_constant public static final com.jeluchu.jchucomponents.extensions.http.StatusCode IMATeapot;
+    enum_constant public static final com.jeluchu.jchucomponents.extensions.http.StatusCode IMUsed;
+    enum_constant public static final com.jeluchu.jchucomponents.extensions.http.StatusCode InternalServerError;
+    enum_constant public static final com.jeluchu.jchucomponents.extensions.http.StatusCode LengthRequired;
+    enum_constant public static final com.jeluchu.jchucomponents.extensions.http.StatusCode Locked;
+    enum_constant public static final com.jeluchu.jchucomponents.extensions.http.StatusCode MethodNotAllowed;
+    enum_constant public static final com.jeluchu.jchucomponents.extensions.http.StatusCode MisdirectedRequest;
+    enum_constant public static final com.jeluchu.jchucomponents.extensions.http.StatusCode MovePermanently;
+    enum_constant public static final com.jeluchu.jchucomponents.extensions.http.StatusCode MultiStatus;
+    enum_constant public static final com.jeluchu.jchucomponents.extensions.http.StatusCode MultipleChoices;
+    enum_constant public static final com.jeluchu.jchucomponents.extensions.http.StatusCode NetworkAuthenticationRequired;
+    enum_constant public static final com.jeluchu.jchucomponents.extensions.http.StatusCode NoContent;
+    enum_constant public static final com.jeluchu.jchucomponents.extensions.http.StatusCode NonAuthoritative;
+    enum_constant public static final com.jeluchu.jchucomponents.extensions.http.StatusCode NotAcceptable;
+    enum_constant public static final com.jeluchu.jchucomponents.extensions.http.StatusCode NotExtended;
+    enum_constant public static final com.jeluchu.jchucomponents.extensions.http.StatusCode NotFound;
+    enum_constant public static final com.jeluchu.jchucomponents.extensions.http.StatusCode NotImplemented;
+    enum_constant public static final com.jeluchu.jchucomponents.extensions.http.StatusCode NotModified;
+    enum_constant public static final com.jeluchu.jchucomponents.extensions.http.StatusCode OK;
+    enum_constant public static final com.jeluchu.jchucomponents.extensions.http.StatusCode PartialContent;
+    enum_constant public static final com.jeluchu.jchucomponents.extensions.http.StatusCode PayloadTooLarge;
+    enum_constant public static final com.jeluchu.jchucomponents.extensions.http.StatusCode PaymentRequired;
+    enum_constant public static final com.jeluchu.jchucomponents.extensions.http.StatusCode PermanentRedirect;
+    enum_constant public static final com.jeluchu.jchucomponents.extensions.http.StatusCode PreconditionFailed;
+    enum_constant public static final com.jeluchu.jchucomponents.extensions.http.StatusCode PreconditionRequired;
+    enum_constant public static final com.jeluchu.jchucomponents.extensions.http.StatusCode Processing;
+    enum_constant public static final com.jeluchu.jchucomponents.extensions.http.StatusCode ProxyAuthenticationRequired;
+    enum_constant public static final com.jeluchu.jchucomponents.extensions.http.StatusCode RangeNotSatisfiable;
+    enum_constant public static final com.jeluchu.jchucomponents.extensions.http.StatusCode RequestHeaderFieldsTooLarge;
+    enum_constant public static final com.jeluchu.jchucomponents.extensions.http.StatusCode RequestTimeout;
+    enum_constant public static final com.jeluchu.jchucomponents.extensions.http.StatusCode ResetContent;
+    enum_constant public static final com.jeluchu.jchucomponents.extensions.http.StatusCode SeeOther;
+    enum_constant public static final com.jeluchu.jchucomponents.extensions.http.StatusCode ServiceUnavailable;
+    enum_constant public static final com.jeluchu.jchucomponents.extensions.http.StatusCode SwitchProxy;
+    enum_constant public static final com.jeluchu.jchucomponents.extensions.http.StatusCode SwitchingProtocols;
+    enum_constant public static final com.jeluchu.jchucomponents.extensions.http.StatusCode TemporaryRedirect;
+    enum_constant public static final com.jeluchu.jchucomponents.extensions.http.StatusCode TooEarly;
+    enum_constant public static final com.jeluchu.jchucomponents.extensions.http.StatusCode TooManyRequests;
+    enum_constant public static final com.jeluchu.jchucomponents.extensions.http.StatusCode URITooLong;
+    enum_constant public static final com.jeluchu.jchucomponents.extensions.http.StatusCode UnProcessableEntity;
+    enum_constant public static final com.jeluchu.jchucomponents.extensions.http.StatusCode Unauthorized;
+    enum_constant public static final com.jeluchu.jchucomponents.extensions.http.StatusCode UnavailableForLegalReasons;
+    enum_constant public static final com.jeluchu.jchucomponents.extensions.http.StatusCode Unknown;
+    enum_constant public static final com.jeluchu.jchucomponents.extensions.http.StatusCode UnsupportedMediaType;
+    enum_constant public static final com.jeluchu.jchucomponents.extensions.http.StatusCode UpgradeRequired;
+    enum_constant public static final com.jeluchu.jchucomponents.extensions.http.StatusCode UseProxy;
   }
 
   public final class StatusCodeKt {
-    method @NonNull public static com.jeluchu.jchucomponents.extensions.retrofit.StatusCode getHttpErrorInfo(int code);
+    method @NonNull public static com.jeluchu.jchucomponents.extensions.http.StatusCode getHttpErrorInfo(int code);
+  }
+
+}
+
+package com.jeluchu.jchucomponents.extensions.ktor {
+
+  public final class RequestResponsesKt {
+    method @KotlinOnly public static suspend inline <reified T, R> Object request(kotlin.jvm.functions.Function1<kotlin.coroutines.Continuation<? super io.ktor.client.statement.HttpResponse>,?> call, kotlin.jvm.functions.Function1<T,R> transform, T default, kotlin.coroutines.Continuation<? super com.jeluchu.jchucomponents.core.functional.Either<com.jeluchu.jchucomponents.core.exception.Failure,R>>);
+  }
+
+}
+
+package com.jeluchu.jchucomponents.extensions.lifecycle {
+
+  public final class LifecycleExtensionsKt {
+    method public static <L extends androidx.lifecycle.LiveData<com.jeluchu.jchucomponents.core.exception.Failure>> void failure(@NonNull androidx.lifecycle.LifecycleOwner, @NonNull L liveData, @NonNull kotlin.jvm.functions.Function1<? super com.jeluchu.jchucomponents.core.exception.Failure,kotlin.Unit> body);
+    method public static <T, L extends androidx.lifecycle.LiveData<T>> void observe(@NonNull androidx.lifecycle.LifecycleOwner, @NonNull L liveData, @NonNull kotlin.jvm.functions.Function1<? super T,kotlin.Unit> body);
   }
 
 }
@@ -408,74 +412,51 @@ package com.jeluchu.jchucomponents.utils.mediaplayer {
 
 package com.jeluchu.jchucomponents.utils.network {
 
-  public final class NetworkBoundResourceKt {
-    method @NonNull public static inline <ResultType, RequestType> kotlinx.coroutines.flow.Flow<com.jeluchu.jchucomponents.utils.network.models.Resource<com.jeluchu.jchucomponents.core.exception.Failure,RequestType>> mapToResource(@NonNull kotlinx.coroutines.flow.Flow<? extends ResultType>, @NonNull kotlin.jvm.functions.Function1<? super ResultType,? extends RequestType> transform, @NonNull com.jeluchu.jchucomponents.core.exception.Failure errorMessage);
-    method @NonNull public static inline <ResultType, RequestType> kotlinx.coroutines.flow.Flow<com.jeluchu.jchucomponents.utils.network.models.Resource<com.jeluchu.jchucomponents.core.exception.Failure,RequestType>> networkBoundResource(@NonNull kotlin.jvm.functions.Function0<? extends kotlinx.coroutines.flow.Flow<? extends ResultType>> query, @NonNull kotlin.jvm.functions.Function1<? super kotlin.coroutines.Continuation<? super RequestType>,?> fetch, @NonNull kotlin.jvm.functions.Function2<? super RequestType,? super kotlin.coroutines.Continuation<? super kotlin.Unit>,?> saveFetchResult, @NonNull kotlin.jvm.functions.Function0<java.lang.Boolean> shouldFetch, @NonNull kotlin.jvm.functions.Function1<? super ResultType,? extends RequestType> dbTransform);
-    method @NonNull public static inline <RequestType> kotlinx.coroutines.flow.Flow<com.jeluchu.jchucomponents.utils.network.models.Resource<com.jeluchu.jchucomponents.core.exception.Failure.NetworkConnection,RequestType>> networkResource(@NonNull kotlin.jvm.functions.Function1<? super kotlin.coroutines.Continuation<? super RequestType>,?> fetch, @NonNull kotlin.jvm.functions.Function0<java.lang.Boolean> shouldFetch);
-  }
-
-  public final class NetworkUtils {
-    method public void saveResponseBodyToFile(@NonNull String filePath, @NonNull okhttp3.ResponseBody responseBody, @NonNull kotlin.jvm.functions.Function1<? super java.lang.Long,kotlin.Unit> progress);
-    field @NonNull public static final com.jeluchu.jchucomponents.utils.network.NetworkUtils INSTANCE;
-  }
-
-  public final class RetrofitClient {
-    method @NonNull public retrofit2.Retrofit buildRetrofit(@NonNull String baseUrl, @NonNull retrofit2.Converter.Factory converterFactory, @NonNull android.content.Context context, @NonNull com.jeluchu.jchucomponents.utils.network.interceptors.Interceptor interceptor, boolean isDebug);
-    method @NonNull public retrofit2.Retrofit buildRetrofit(@NonNull String baseUrl, @NonNull retrofit2.Converter.Factory converterFactory, boolean isDebug);
-    field @NonNull public static final com.jeluchu.jchucomponents.utils.network.RetrofitClient INSTANCE;
-  }
-
-}
-
-package com.jeluchu.jchucomponents.utils.network.interceptors {
-
-  public final class DebugInterceptor implements okhttp3.Interceptor {
-    ctor public DebugInterceptor(@NonNull android.content.Context context);
-    method @NonNull @kotlin.jvm.Throws(exceptionClasses=IOException::class) public byte[] compress(@NonNull String string) throws java.io.IOException;
-    method @NonNull @kotlin.jvm.Throws(exceptionClasses=IOException::class) public String convertInputStreamToString(@NonNull java.io.InputStream is) throws java.io.IOException;
-    method @NonNull @kotlin.jvm.Throws(exceptionClasses=IOException::class) public String decompress(@NonNull byte[] compressed) throws java.io.IOException;
-    method @InaccessibleFromKotlin @NonNull public android.content.Context getContext();
-    method @NonNull public okhttp3.Response intercept(@NonNull okhttp3.Interceptor.Chain chain);
-    property @NonNull public android.content.Context context;
-  }
-
-  public final class Interceptor implements okhttp3.Interceptor {
-    ctor public Interceptor(@NonNull com.jeluchu.jchucomponents.utils.network.interceptors.InterceptorHeaders interceptorHeaders);
-    method @NonNull public okhttp3.Response intercept(@NonNull okhttp3.Interceptor.Chain chain);
-  }
-
-  public final class InterceptorHeaders {
-    ctor public InterceptorHeaders(@NonNull com.jeluchu.jchucomponents.utils.network.interceptors.InterceptorHeaders.UserAgent userAgent, @NonNull String keyHeaderAgent, @NonNull String key, @NonNull String client);
-    method @NonNull public com.jeluchu.jchucomponents.utils.network.interceptors.InterceptorHeaders.UserAgent component1();
+  public final class ClientHeaders {
+    ctor public ClientHeaders(@NonNull com.jeluchu.jchucomponents.utils.network.ClientHeaders.UserAgent userAgent, @NonNull String keyHeader, @NonNull String key, @NonNull String client);
+    method @NonNull public com.jeluchu.jchucomponents.utils.network.ClientHeaders.UserAgent component1();
     method @NonNull public String component2();
     method @NonNull public String component3();
     method @NonNull public String component4();
-    method @NonNull public com.jeluchu.jchucomponents.utils.network.interceptors.InterceptorHeaders copy(@NonNull com.jeluchu.jchucomponents.utils.network.interceptors.InterceptorHeaders.UserAgent userAgent, @NonNull String keyHeaderAgent, @NonNull String key, @NonNull String client);
+    method @NonNull public com.jeluchu.jchucomponents.utils.network.ClientHeaders copy(@NonNull com.jeluchu.jchucomponents.utils.network.ClientHeaders.UserAgent userAgent, @NonNull String keyHeader, @NonNull String key, @NonNull String client);
     method @InaccessibleFromKotlin @NonNull public String getClient();
     method @InaccessibleFromKotlin @NonNull public String getKey();
-    method @InaccessibleFromKotlin @NonNull public String getKeyHeaderAgent();
-    method @InaccessibleFromKotlin @NonNull public com.jeluchu.jchucomponents.utils.network.interceptors.InterceptorHeaders.UserAgent getUserAgent();
+    method @InaccessibleFromKotlin @NonNull public String getKeyHeader();
+    method @InaccessibleFromKotlin @NonNull public com.jeluchu.jchucomponents.utils.network.ClientHeaders.UserAgent getUserAgent();
     property @NonNull public String client;
     property @NonNull public String key;
-    property @NonNull public String keyHeaderAgent;
-    property @NonNull public com.jeluchu.jchucomponents.utils.network.interceptors.InterceptorHeaders.UserAgent userAgent;
+    property @NonNull public String keyHeader;
+    property @NonNull public com.jeluchu.jchucomponents.utils.network.ClientHeaders.UserAgent userAgent;
   }
 
-  public static final class InterceptorHeaders.UserAgent {
-    ctor public InterceptorHeaders.UserAgent(@NonNull String appName, @NonNull String versionName, int versionCode, @NonNull String okhttpVersion);
+  public static final class ClientHeaders.UserAgent {
+    ctor public ClientHeaders.UserAgent(@NonNull String appName, @NonNull String versionName, int versionCode);
     method @NonNull public String component1();
     method @NonNull public String component2();
     method public int component3();
-    method @NonNull public String component4();
-    method @NonNull public com.jeluchu.jchucomponents.utils.network.interceptors.InterceptorHeaders.UserAgent copy(@NonNull String appName, @NonNull String versionName, int versionCode, @NonNull String okhttpVersion);
+    method @NonNull public com.jeluchu.jchucomponents.utils.network.ClientHeaders.UserAgent copy(@NonNull String appName, @NonNull String versionName, int versionCode);
     method @InaccessibleFromKotlin @NonNull public String getAppName();
-    method @InaccessibleFromKotlin @NonNull public String getOkhttpVersion();
     method @InaccessibleFromKotlin public int getVersionCode();
     method @InaccessibleFromKotlin @NonNull public String getVersionName();
     property @NonNull public String appName;
-    property @NonNull public String okhttpVersion;
     property public int versionCode;
     property @NonNull public String versionName;
+  }
+
+  public final class KtorClient {
+    method @NonNull public io.ktor.client.HttpClient buildHttpClient(@NonNull String baseUrl, @Nullable com.jeluchu.jchucomponents.utils.network.ClientHeaders headers, boolean isDebug, long timeoutMillis);
+    field @NonNull public static final com.jeluchu.jchucomponents.utils.network.KtorClient INSTANCE;
+  }
+
+  public final class NetworkBoundResourceKt {
+    method @NonNull public static inline <ResultType, RequestType> kotlinx.coroutines.flow.Flow<com.jeluchu.jchucomponents.utils.network.models.Resource<com.jeluchu.jchucomponents.core.exception.Failure,RequestType>> mapToResource(@NonNull kotlinx.coroutines.flow.Flow<? extends ResultType>, @NonNull kotlin.jvm.functions.Function1<? super ResultType,? extends RequestType> transform, @NonNull com.jeluchu.jchucomponents.core.exception.Failure errorMessage);
+    method @NonNull public static inline <ResultType, RequestType> kotlinx.coroutines.flow.Flow<com.jeluchu.jchucomponents.utils.network.models.Resource<com.jeluchu.jchucomponents.core.exception.Failure,RequestType>> networkBoundResource(@NonNull kotlin.jvm.functions.Function0<? extends kotlinx.coroutines.flow.Flow<? extends ResultType>> query, @NonNull kotlin.jvm.functions.Function1<? super kotlin.coroutines.Continuation<? super RequestType>,?> fetch, @NonNull kotlin.jvm.functions.Function2<? super RequestType,? super kotlin.coroutines.Continuation<? super kotlin.Unit>,?> saveFetchResult, @NonNull kotlin.jvm.functions.Function0<java.lang.Boolean> shouldFetch, @NonNull kotlin.jvm.functions.Function1<? super ResultType,? extends RequestType> dbTransform);
+    method @NonNull public static inline <RequestType> kotlinx.coroutines.flow.Flow<com.jeluchu.jchucomponents.utils.network.models.Resource<com.jeluchu.jchucomponents.core.exception.Failure,RequestType>> networkResource(@NonNull kotlin.jvm.functions.Function1<? super kotlin.coroutines.Continuation<? super RequestType>,?> fetch, @NonNull kotlin.jvm.functions.Function0<java.lang.Boolean> shouldFetch);
+  }
+
+  public final class NetworkUtils {
+    method @Nullable public suspend Object saveResponseBodyToFile(@NonNull String filePath, @NonNull io.ktor.client.statement.HttpResponse response, @NonNull kotlin.jvm.functions.Function1<? super java.lang.Long,kotlin.Unit> progress, @NonNull kotlin.coroutines.Continuation<? super kotlin.Unit>);
+    field @NonNull public static final com.jeluchu.jchucomponents.utils.network.NetworkUtils INSTANCE;
   }
 
 }

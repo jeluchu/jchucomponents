@@ -50,7 +50,6 @@ android {
 }
 
 dependencies {
-    implementation(libs.bundles.ktor)
     implementation(platform(libs.compose.bom))
     implementation(libs.bundles.compose.bom)
     implementation(libs.bundles.ui.androidx)

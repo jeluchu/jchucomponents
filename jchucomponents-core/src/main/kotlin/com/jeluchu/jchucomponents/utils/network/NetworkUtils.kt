@@ -6,10 +6,12 @@
 
 package com.jeluchu.jchucomponents.utils.network
 
-import com.jeluchu.jchucomponents.utils.network.NetworkUtils.saveResponseBodyToFile
 import java.io.File
 import java.io.FileOutputStream
-import okhttp3.ResponseBody
+import io.ktor.client.statement.HttpResponse
+import io.ktor.client.statement.bodyAsChannel
+import io.ktor.http.HttpHeaders
+import io.ktor.utils.io.readAvailable
 
 /**
  *
@@ -24,32 +26,28 @@ import okhttp3.ResponseBody
 
 object NetworkUtils {
 
-    fun saveResponseBodyToFile(
+    public suspend fun saveResponseBodyToFile(
         filePath: String,
-        responseBody: ResponseBody,
+        response: HttpResponse,
         progress: (percent: Long) -> Unit
     ) {
-        responseBody.let { body ->
-            File(filePath).let { file ->
-                val outputStream = FileOutputStream(file)
-                body.source().also {
-                    val buffer = ByteArray(4096)
-                    var totalBytesRead = 0L
-                    while (true) {
-                        val byteRead = it.read(buffer)
-                        if (byteRead < 0) {
-                            break
-                        }
-                        outputStream.write(buffer, 0, byteRead)
-                        // Downloading progress in percent
-                        totalBytesRead += byteRead
-                        val percent = (totalBytesRead * 100) / body.contentLength()
-                        progress(percent)
-                    }
+        val contentLength = response.headers[HttpHeaders.ContentLength]?.toLongOrNull()
+        val channel = response.bodyAsChannel()
+        FileOutputStream(File(filePath)).use { outputStream ->
+            val buffer = ByteArray(DEFAULT_BUFFER_SIZE)
+            var totalBytesRead = 0L
+            while (true) {
+                val bytesRead = channel.readAvailable(buffer)
+                if (bytesRead < 0) break
+                if (bytesRead == 0) continue
+                outputStream.write(buffer, 0, bytesRead)
+                totalBytesRead += bytesRead
+                if (contentLength != null && contentLength > 0) {
+                    progress((totalBytesRead * 100 / contentLength).coerceAtMost(100))
                 }
-                outputStream.flush()
-                outputStream.close()
             }
+            outputStream.flush()
+            if (contentLength == null || contentLength <= 0) progress(100)
         }
     }
 

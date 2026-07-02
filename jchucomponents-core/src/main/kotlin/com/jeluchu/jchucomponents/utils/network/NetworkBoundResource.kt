@@ -9,11 +9,12 @@ package com.jeluchu.jchucomponents.utils.network
 import com.jeluchu.jchucomponents.core.exception.Failure
 import com.jeluchu.jchucomponents.utils.network.models.Resource
 import java.io.IOException
+import io.ktor.client.plugins.ResponseException
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.flow.emitAll
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
-import retrofit2.HttpException
 
 inline fun <ResultType, RequestType> networkBoundResource(
     crossinline query: () -> Flow<ResultType>,
@@ -29,15 +30,20 @@ inline fun <ResultType, RequestType> networkBoundResource(
         try {
             saveFetchResult(fetch())
             query().mapToResource(transform = dbTransform)
+        } catch (exception: CancellationException) {
+            throw exception
         } catch (exception: IOException) {
             query().mapToResource(
                 transform = dbTransform,
                 errorMessage = Failure.NetworkConnection(errorMessage = exception.message.orEmpty())
             )
-        } catch (error: HttpException) {
+        } catch (error: ResponseException) {
             query().mapToResource(
                 transform = dbTransform,
-                errorMessage = Failure.ServerError(error.code(), error.message())
+                errorMessage = Failure.ServerError(
+                    errorCode = error.response.status.value,
+                    errorMessage = error.message.orEmpty(),
+                )
             )
         } catch (exception: Exception) {
             query().mapToResource(
@@ -61,10 +67,19 @@ inline fun <RequestType> networkResource(
 
         try {
             emit(Resource.Success(fetch()))
+        } catch (exception: CancellationException) {
+            throw exception
         } catch (exception: IOException) {
             emit(Resource.Error(Failure.NetworkConnection(errorMessage = exception.message.orEmpty())))
-        } catch (error: HttpException) {
-            emit(Resource.Error(Failure.NetworkConnection(errorMessage = error.message.orEmpty())))
+        } catch (error: ResponseException) {
+            emit(
+                Resource.Error(
+                    Failure.ServerError(
+                        errorCode = error.response.status.value,
+                        errorMessage = error.message.orEmpty(),
+                    )
+                )
+            )
         } catch (exception: Exception) {
             emit(Resource.Error(Failure.NetworkConnection(errorMessage = exception.message.orEmpty())))
         }
