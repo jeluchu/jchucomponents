@@ -22,7 +22,7 @@ Declare the library in the version catalog:
 
 ```toml
 [versions]
-jchucomponents = "<version>"
+jchucomponents = "3.0.0-alpha04"
 
 [libraries]
 jchucomponents-prefs = {
@@ -42,9 +42,6 @@ kotlin {
     }
 }
 ```
-
-Replace `<version>` with a published JchuComponents version that contains the
-KMP preferences module.
 
 The public API is available from:
 

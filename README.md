@@ -13,7 +13,7 @@ Shared state lives in `jchucomponents-foundation`. Reusable Ktor APIs live in
 ```kotlin
 commonMain.dependencies {
     implementation(
-        "com.github.jeluchu.jchucomponents:jchucomponents-network:3.0.0-alpha03"
+        "com.github.jeluchu.jchucomponents:jchucomponents-network:3.0.0-alpha04"
     )
 }
 ```
@@ -40,7 +40,7 @@ are configured through `HttpClientConfiguration`.
 ## JchuComponents 3 installation
 
 The following coordinates apply to tagged v3 releases. During development,
-replace `3.0.0-alpha03` with an available v3 tag.
+replace `3.0.0-alpha04` with an available v3 tag.
 
 Add JitPack to `settings.gradle.kts`:
 
@@ -59,10 +59,10 @@ Then depend only on the Android modules your application needs:
 ```kotlin
 dependencies {
     implementation(
-        "com.github.jeluchu.jchucomponents:jchucomponents-ui:3.0.0-alpha03"
+        "com.github.jeluchu.jchucomponents:jchucomponents-ui:3.0.0-alpha04"
     )
     implementation(
-        "com.github.jeluchu.jchucomponents:jchucomponents-ktx:3.0.0-alpha03"
+        "com.github.jeluchu.jchucomponents:jchucomponents-ktx:3.0.0-alpha04"
     )
 }
 ```
@@ -108,9 +108,9 @@ Before the first release:
 6. Create and push the matching annotated tag:
 
 ```bash
-git tag -a 3.0.0-alpha03 -m "3.0.0-alpha03"
+git tag -a 3.0.0-alpha04 -m "3.0.0-alpha04"
 git push origin v3
-git push origin 3.0.0-alpha03
+git push origin 3.0.0-alpha04
 ```
 
 The release workflow validates Android/KMP, builds and uploads the XCFramework,
