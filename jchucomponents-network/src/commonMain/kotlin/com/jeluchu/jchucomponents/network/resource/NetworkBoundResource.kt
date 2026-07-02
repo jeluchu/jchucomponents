@@ -1,111 +1,76 @@
 package com.jeluchu.jchucomponents.network.resource
 
-import io.ktor.client.plugins.ResponseException
-import kotlinx.io.IOException
+import com.jeluchu.jchucomponents.network.extensions.toFailure
+import com.jeluchu.jchucomponents.network.models.Failure
+import com.jeluchu.jchucomponents.network.models.Resource
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.emitAll
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
+import kotlinx.io.IOException
 
 inline fun <ResultType, RequestType> networkBoundResource(
-    crossinline query: () -> Flow<ResultType>,
+    crossinline query: () -> Flow<ResultType?>,
     crossinline fetch: suspend () -> RequestType,
-    crossinline saveFetchResult: suspend (RequestType) -> Unit,
-    crossinline shouldFetch: () -> Boolean = { true },
     crossinline dbTransform: (ResultType) -> RequestType,
+    crossinline shouldFetch: suspend () -> Boolean = { true },
+    crossinline saveFetchResult: suspend (RequestType) -> Unit
 ) = flow {
-    emit(Resource.Loading())
+    emit(value = Resource.Loading())
 
     val flow = if (shouldFetch()) {
         try {
             saveFetchResult(fetch())
             query().mapToResource(transform = dbTransform)
-        } catch (exception: CancellationException) {
-            throw exception
         } catch (exception: IOException) {
             query().mapToResource(
                 transform = dbTransform,
-                errorMessage = NetworkFailure.NetworkConnection(
-                    errorMessage = exception.message.orEmpty(),
-                ),
+                failure = exception.toFailure()
             )
-        } catch (error: ResponseException) {
+        } catch (error: Exception) {
             query().mapToResource(
                 transform = dbTransform,
-                errorMessage = NetworkFailure.ServerError(
-                    errorCode = error.response.status.value,
-                    errorMessage = error.message.orEmpty(),
-                ),
-            )
-        } catch (exception: Exception) {
-            query().mapToResource(
-                transform = dbTransform,
-                errorMessage = NetworkFailure.NetworkConnection(
-                    errorMessage = exception.message.orEmpty(),
-                ),
+                failure = error.toFailure()
             )
         }
-    } else {
-        query().mapToResource(dbTransform)
-    }
+    } else query().mapToResource(dbTransform)
 
     emitAll(flow)
 }
 
 inline fun <RequestType> networkResource(
     crossinline fetch: suspend () -> RequestType,
-    crossinline shouldFetch: () -> Boolean = { true },
+    crossinline shouldFetch: () -> Boolean = { true }
 ) = flow {
-    emit(Resource.Loading())
+    emit(value = Resource.Loading())
 
     if (shouldFetch()) {
         try {
-            emit(Resource.Success(fetch()))
-        } catch (exception: CancellationException) {
-            throw exception
+            emit(value = Resource.Success(data = fetch()))
         } catch (exception: IOException) {
-            emit(
-                Resource.Error(
-                    NetworkFailure.NetworkConnection(
-                        errorMessage = exception.message.orEmpty(),
-                    ),
-                ),
-            )
-        } catch (error: ResponseException) {
-            emit(
-                Resource.Error(
-                    NetworkFailure.ServerError(
-                        errorCode = error.response.status.value,
-                        errorMessage = error.message.orEmpty(),
-                    ),
-                ),
-            )
-        } catch (exception: Exception) {
-            emit(
-                Resource.Error(
-                    NetworkFailure.NetworkConnection(
-                        errorMessage = exception.message.orEmpty(),
-                    ),
-                ),
-            )
+            emit(value = Resource.Error(error = exception.toFailure()))
+        } catch (error: Exception) {
+            emit(value = Resource.Error(error = error.toFailure()))
         }
     } else {
-        emit(
-            Resource.Error(
-                NetworkFailure.NetworkConnection(errorMessage = "Fetch skipped"),
-            ),
-        )
+        emit(value = Resource.Error(error = Failure.NetworkConnection(errorMessage = "Fetch skipped")))
     }
 }
 
 inline fun <ResultType, RequestType> Flow<ResultType?>.mapToResource(
     crossinline transform: (ResultType) -> RequestType,
-    errorMessage: NetworkFailure = NetworkFailure.DatabaseError("No data available"),
-): Flow<Resource<NetworkFailure, RequestType>> = map { result ->
-    if (result != null) {
-        Resource.Success(data = transform(result))
-    } else {
-        Resource.Error(error = errorMessage)
+    failure: Failure? = null,
+): Flow<Resource<Failure, RequestType>> = map { result ->
+    val data = result?.let(block = transform)
+
+    when {
+        failure != null -> Resource.Error(error = failure, data = data)
+        data != null -> Resource.Success(data = data)
+        else -> Resource.Error(error = Failure.DatabaseError())
     }
+}.catch { exception ->
+    if (exception is CancellationException) throw exception
+    emit(value = Resource.Error(error = exception.toFailure()))
 }

@@ -3,144 +3,84 @@ package com.jeluchu.jchucomponents.network.http
 /**
  * This is a list of Hypertext Transfer Protocol (HTTP) response status codes.
  */
-enum class StatusCode(val code: Int, val message: String) {
-    Unknown(code = 0, message = ""),
+enum class HttpStatusCode(val code: Int, val message: String) {
+    Unknown(code = 0, message = "Unknown status code"),
 
-    Continue(code = 100, message = ""),
-    SwitchingProtocols(code = 101, message = ""),
-    Processing(code = 102, message = ""),
-    EarlyHints(code = 103, message = ""),
+    Continue(code = 100, message = "Continue"),
+    SwitchingProtocols(code = 101, message = "Switching Protocols"),
+    Processing(code = 102, message = "Processing"),
+    EarlyHints(code = 103, message = "Early Hints"),
 
-    OK(code = 200, message = ""),
-    Created(code = 201, message = ""),
-    Accepted(code = 202, message = ""),
-    NonAuthoritative(code = 203, message = ""),
-    NoContent(code = 204, message = ""),
-    ResetContent(code = 205, message = ""),
-    PartialContent(code = 206, message = ""),
-    MultiStatus(code = 207, message = ""),
-    AlreadyReported(code = 208, message = ""),
-    IMUsed(code = 209, message = ""),
+    OK(code = 200, message = "OK"),
+    Created(code = 201, message = "Created"),
+    Accepted(code = 202, message = "Accepted"),
+    NonAuthoritative(code = 203, message = "Non-Authoritative Information"),
+    NoContent(code = 204, message = "No Content"),
+    ResetContent(code = 205, message = "Reset Content"),
+    PartialContent(code = 206, message = "Partial Content"),
+    MultiStatus(code = 207, message = "Multi-Status"),
+    AlreadyReported(code = 208, message = "Already Reported"),
+    IMUsed(code = 209, message = "IM Used"),
 
-    MultipleChoices(code = 300, message = ""),
-    MovePermanently(code = 301, message = ""),
-    Found(code = 302, message = ""),
-    SeeOther(code = 303, message = ""),
-    NotModified(code = 304, message = ""),
-    UseProxy(code = 305, message = ""),
-    SwitchProxy(code = 306, message = ""),
-    TemporaryRedirect(code = 307, message = ""),
-    PermanentRedirect(code = 308, message = ""),
+    MultipleChoices(code = 300, message = "Multiple Choices"),
+    MovePermanently(code = 301, message = "Moved Permanently"),
+    Found(code = 302, message = "Found"),
+    SeeOther(code = 303, message = "See Other"),
+    NotModified(code = 304, message = "Not Modified"),
+    UseProxy(code = 305, message = "Use Proxy"),
+    SwitchProxy(code = 306, message = "Switch Proxy"),
+    TemporaryRedirect(code = 307, message = "Temporary Redirect"),
+    PermanentRedirect(code = 308, message = "Permanent Redirect"),
 
-    BadRequest(code = 400, message = ""),
-    Unauthorized(code = 401, message = ""),
-    PaymentRequired(code = 402, message = ""),
-    Forbidden(code = 403, message = ""),
-    NotFound(code = 404, message = ""),
-    MethodNotAllowed(code = 405, message = ""),
-    NotAcceptable(code = 406, message = ""),
-    ProxyAuthenticationRequired(code = 407, message = ""),
-    RequestTimeout(code = 408, message = ""),
-    Conflict(code = 409, message = ""),
-    Gone(code = 410, message = ""),
-    LengthRequired(code = 411, message = ""),
-    PreconditionFailed(code = 412, message = ""),
-    PayloadTooLarge(code = 413, message = ""),
-    URITooLong(code = 414, message = ""),
-    UnsupportedMediaType(code = 415, message = ""),
-    RangeNotSatisfiable(code = 416, message = ""),
-    ExpectationFailed(code = 417, message = ""),
-    IMATeapot(code = 418, message = ""),
-    MisdirectedRequest(code = 421, message = ""),
-    UnProcessableEntity(code = 422, message = ""),
-    Locked(code = 423, message = ""),
-    FailedDependency(code = 424, message = ""),
-    TooEarly(code = 425, message = ""),
-    UpgradeRequired(code = 426, message = ""),
-    PreconditionRequired(code = 428, message = ""),
-    TooManyRequests(code = 429, message = ""),
-    RequestHeaderFieldsTooLarge(code = 431, message = ""),
-    UnavailableForLegalReasons(code = 451, message = ""),
+    BadRequest(code = 400, message = "Bad Request"),
+    Unauthorized(code = 401, message = "Unauthorized"),
+    PaymentRequired(code = 402, message = "Payment Required"),
+    Forbidden(code = 403, message = "Forbidden"),
+    NotFound(code = 404, message = "Not Found"),
+    MethodNotAllowed(code = 405, message = "Method Not Allowed"),
+    NotAcceptable(code = 406, message = "Not Acceptable"),
+    ProxyAuthenticationRequired(code = 407, message = "Proxy Authentication Required"),
+    RequestTimeout(code = 408, message = "Request Timeout"),
+    Conflict(code = 409, message = "Conflict"),
+    Gone(code = 410, message = "Gone"),
+    LengthRequired(code = 411, message = "Length Required"),
+    PreconditionFailed(code = 412, message = "Precondition Failed"),
+    PayloadTooLarge(code = 413, message = "Payload Too Large"),
+    URITooLong(code = 414, message = "URI Too Long"),
+    UnsupportedMediaType(code = 415, message = "Unsupported Media Type"),
+    RangeNotSatisfiable(code = 416, message = "Range Not Satisfiable"),
+    ExpectationFailed(code = 417, message = "Expectation Failed"),
+    IMATeapot(code = 418, message = "I'm a teapot"),
+    MisdirectedRequest(code = 421, message = "Misdirected Request"),
+    UnProcessableEntity(code = 422, message = "Unprocessable Entity"),
+    Locked(code = 423, message = "Locked"),
+    FailedDependency(code = 424, message = "Failed Dependency"),
+    TooEarly(code = 425, message = "Too Early"),
+    UpgradeRequired(code = 426, message = "Upgrade Required"),
+    PreconditionRequired(code = 428, message = "Precondition Required"),
+    TooManyRequests(code = 429, message = "Too Many Requests"),
+    RequestHeaderFieldsTooLarge(code = 431, message = "Request Header Fields Too Large"),
+    UnavailableForLegalReasons(code = 451, message = "Unavailable For Legal Reasons"),
 
-    InternalServerError(code = 500, message = ""),
-    NotImplemented(code = 501, message = ""),
-    BadGateway(code = 502, message = ""),
-    ServiceUnavailable(code = 503, message = ""),
-    GatewayTimeout(code = 504, message = ""),
-    HTTPVersionNotSupported(code = 505, message = ""),
-    NotExtended(code = 510, message = ""),
-    NetworkAuthenticationRequired(code = 511, message = "");
+    InternalServerError(code = 500, message = "Internal Server Error"),
+    NotImplemented(code = 501, message = "Not Implemented"),
+    BadGateway(code = 502, message = "Bad Gateway"),
+    ServiceUnavailable(code = 503, message = "Service Unavailable"),
+    GatewayTimeout(code = 504, message = "Gateway Timeout"),
+    HTTPVersionNotSupported(code = 505, message = "HTTP Version Not Supported"),
+    NotExtended(code = 510, message = "Not Extended"),
+    NetworkAuthenticationRequired(code = 511, message = "Network Authentication Required");
+
+    val isSuccess: Boolean get() = code in 200..299
+    val isRedirection: Boolean get() = code in 300..399
+    val isClientError: Boolean get() = code in 400..499
+    val isServerError: Boolean get() = code in 500..599
+    val isInformational: Boolean get() = code in 100..199
+
+    companion object {
+        fun fromCode(code: Int): HttpStatusCode =
+            entries.firstOrNull { status -> status.code == code } ?: Unknown
+    }
 }
 
-fun getHttpErrorInfo(code: Int) = when (code) {
-
-    0 -> StatusCode.Unknown
-
-    100 -> StatusCode.Continue
-    101 -> StatusCode.SwitchingProtocols
-    102 -> StatusCode.Processing
-    103 -> StatusCode.EarlyHints
-
-    200 -> StatusCode.OK
-    201 -> StatusCode.Created
-    202 -> StatusCode.Accepted
-    203 -> StatusCode.NonAuthoritative
-    204 -> StatusCode.NoContent
-    205 -> StatusCode.ResetContent
-    206 -> StatusCode.PartialContent
-    207 -> StatusCode.MultiStatus
-    208 -> StatusCode.AlreadyReported
-    209 -> StatusCode.IMUsed
-
-    300 -> StatusCode.MultipleChoices
-    301 -> StatusCode.MovePermanently
-    302 -> StatusCode.Found
-    303 -> StatusCode.SeeOther
-    304 -> StatusCode.NotModified
-    305 -> StatusCode.UseProxy
-    306 -> StatusCode.SwitchProxy
-    307 -> StatusCode.TemporaryRedirect
-    308 -> StatusCode.PermanentRedirect
-
-    400 -> StatusCode.BadRequest
-    401 -> StatusCode.Unauthorized
-    402 -> StatusCode.PaymentRequired
-    403 -> StatusCode.Forbidden
-    404 -> StatusCode.NotFound
-    405 -> StatusCode.MethodNotAllowed
-    406 -> StatusCode.NotAcceptable
-    407 -> StatusCode.ProxyAuthenticationRequired
-    408 -> StatusCode.RequestTimeout
-    409 -> StatusCode.Conflict
-    410 -> StatusCode.Gone
-    411 -> StatusCode.LengthRequired
-    412 -> StatusCode.PreconditionFailed
-    413 -> StatusCode.PayloadTooLarge
-    414 -> StatusCode.URITooLong
-    415 -> StatusCode.UnsupportedMediaType
-    416 -> StatusCode.RangeNotSatisfiable
-    417 -> StatusCode.ExpectationFailed
-    418 -> StatusCode.IMATeapot
-    421 -> StatusCode.MisdirectedRequest
-    422 -> StatusCode.UnProcessableEntity
-    423 -> StatusCode.Locked
-    424 -> StatusCode.FailedDependency
-    425 -> StatusCode.TooEarly
-    426 -> StatusCode.UpgradeRequired
-    428 -> StatusCode.PreconditionRequired
-    429 -> StatusCode.TooManyRequests
-    431 -> StatusCode.RequestHeaderFieldsTooLarge
-    451 -> StatusCode.UnavailableForLegalReasons
-
-    500 -> StatusCode.InternalServerError
-    501 -> StatusCode.NotImplemented
-    502 -> StatusCode.BadGateway
-    503 -> StatusCode.ServiceUnavailable
-    504 -> StatusCode.GatewayTimeout
-    505 -> StatusCode.HTTPVersionNotSupported
-    510 -> StatusCode.NotExtended
-    511 -> StatusCode.NetworkAuthenticationRequired
-
-    else -> StatusCode.Unknown
-
-}
+fun getHttpErrorInfo(code: Int): HttpStatusCode = HttpStatusCode.fromCode(code)
