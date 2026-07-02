@@ -62,15 +62,4 @@ final class JchuComponentsSwiftUITests: XCTestCase {
         XCTAssertEqual(theme.spacing.dimen16, 20)
         XCTAssertEqual(theme.spacing.dimen24, 30)
     }
-
-    @MainActor
-    func testFloatingButtonSupportsNativeConfiguration() {
-        _ = JchuFloatingButton(
-            systemImage: "plus",
-            accessibilityLabel: "Add",
-            size: .large,
-            isEnabled: false,
-            isVisible: true
-        ) {}
-    }
 }

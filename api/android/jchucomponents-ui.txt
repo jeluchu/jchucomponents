@@ -156,7 +156,6 @@ package com.jeluchu.jchucomponents.ui.composables.button {
 
   public final class FloatingbuttonKt {
     method @KotlinOnly @Deprecated @androidx.compose.runtime.Composable public static void FloatingButton(androidx.compose.ui.Modifier modifier, boolean enabled, boolean isVisible, androidx.compose.animation.ExitTransition exit, androidx.compose.animation.EnterTransition enter, com.jeluchu.jchucomponents.ui.composables.button.FloatingButtonSize size, com.jeluchu.jchucomponents.ui.composables.button.FloatingButtonSettings floatButton, kotlin.jvm.functions.Function0<kotlin.Unit> onClick);
-    method @KotlinOnly @androidx.compose.runtime.Composable @androidx.compose.ui.tooling.preview.Preview public static void FloatingButtonPreview(androidx.compose.ui.graphics.Color primary, androidx.compose.ui.graphics.Color secondary, androidx.compose.ui.graphics.Color milky);
     method @KotlinOnly @androidx.compose.runtime.Composable public static void JchuFloatingButton(androidx.compose.ui.Modifier modifier, boolean enabled, boolean isVisible, androidx.compose.animation.ExitTransition exit, androidx.compose.animation.EnterTransition enter, com.jeluchu.jchucomponents.ui.composables.button.FloatingButtonSize size, com.jeluchu.jchucomponents.ui.composables.button.FloatingButtonSettings floatButton, String contentDescription, kotlin.jvm.functions.Function0<kotlin.Unit> onClick);
   }
 
@@ -164,7 +163,6 @@ package com.jeluchu.jchucomponents.ui.composables.button {
     method @KotlinOnly @androidx.compose.runtime.Composable public static void JchuProgressButton(androidx.compose.ui.Modifier modifier, String text, androidx.compose.ui.graphics.vector.ImageVector icon, boolean isLoading, boolean enabled, androidx.compose.ui.unit.TextUnit fontSize, androidx.compose.ui.text.TextStyle textStyle, androidx.compose.material3.ButtonColors colors, kotlin.jvm.functions.Function0<kotlin.Unit> onClick);
     method @KotlinOnly @androidx.compose.runtime.Composable public static void JchuProgressButton(com.jeluchu.jchucomponents.foundation.components.JchuProgressButtonState state, androidx.compose.ui.Modifier modifier, androidx.compose.ui.graphics.vector.ImageVector icon, androidx.compose.ui.unit.TextUnit fontSize, androidx.compose.ui.text.TextStyle textStyle, androidx.compose.material3.ButtonColors colors, kotlin.jvm.functions.Function0<kotlin.Unit> onClick);
     method @KotlinOnly @Deprecated @androidx.compose.runtime.Composable public static void ProgressIndicatorButton(androidx.compose.ui.Modifier modifier, String text, androidx.compose.ui.graphics.vector.ImageVector icon, boolean isLoading, boolean enabled, androidx.compose.ui.unit.TextUnit fontSize, androidx.compose.ui.text.TextStyle textSyle, androidx.compose.material3.ButtonColors colors, kotlin.jvm.functions.Function0<kotlin.Unit> onClick);
-    method @KotlinOnly @androidx.compose.runtime.Composable @androidx.compose.ui.tooling.preview.Preview public static void ProgressIndicatorButtonPreview();
   }
 
 }

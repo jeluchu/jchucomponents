@@ -12,6 +12,7 @@ class Destinations(private val navController: NavHostController) {
     val goToButtons: () -> Unit = { Feature.BUTTONS.route.navigate() }
     val goToProgress: () -> Unit = { Feature.PROGRESS.route.navigate() }
     val goToChips: () -> Unit = { Feature.CHIPS.route.navigate() }
+    val goToInputs: () -> Unit = { Feature.INPUTS.route.navigate() }
     val goToLoaders: () -> Unit = { Feature.LOADERS.route.navigate() }
     val goToLazyGrids: () -> Unit = { Feature.LAZY_GRIDS.route.navigate() }
     val goToFloatingButtons: () -> Unit = { Feature.FLOATING_BUTTONS.route.navigate() }

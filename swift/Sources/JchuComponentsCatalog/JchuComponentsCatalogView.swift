@@ -5,7 +5,6 @@ import SwiftUI
 public struct JchuComponentsCatalogView: View {
     @Environment(\.jchuTheme) private var theme
     @State private var interactiveLoading = false
-    @State private var floatingButtonVisible = true
     @State private var selectedChip = false
 
     public init() {}
@@ -28,38 +27,6 @@ public struct JchuComponentsCatalogView: View {
                         )
                     ) {
                         interactiveLoading.toggle()
-                    }
-
-                    Text("Floating buttons")
-                        .font(theme.typography.section)
-
-                    HStack(spacing: theme.spacing.dimen16) {
-                        JchuFloatingButton(
-                            systemImage: "plus",
-                            accessibilityLabel: "Add",
-                            size: .small
-                        ) {}
-                        JchuFloatingButton(
-                            systemImage: "square.and.arrow.up",
-                            accessibilityLabel: "Share"
-                        ) {}
-                        JchuFloatingButton(
-                            systemImage: "heart.fill",
-                            accessibilityLabel: "Favorite",
-                            size: .large,
-                            isEnabled: false
-                        ) {}
-                        JchuFloatingButton(
-                            systemImage: "eye",
-                            accessibilityLabel: "Visibility example",
-                            isVisible: floatingButtonVisible
-                        ) {}
-                    }
-
-                    Button(
-                        floatingButtonVisible ? "Hide floating button" : "Show floating button"
-                    ) {
-                        floatingButtonVisible.toggle()
                     }
                 }
 

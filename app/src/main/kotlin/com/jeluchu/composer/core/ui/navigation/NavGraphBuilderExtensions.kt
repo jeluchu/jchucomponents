@@ -14,6 +14,7 @@ import com.jeluchu.composer.features.dividers.view.DividersView
 import com.jeluchu.composer.features.lists.view.LazyGridsView
 import com.jeluchu.composer.features.lists.view.LazyStaticGridView
 import com.jeluchu.composer.features.loaders.view.LoadersView
+import com.jeluchu.composer.features.inputs.view.InputsView
 import com.jeluchu.composer.features.progress.view.IconProgressbarView
 import com.jeluchu.composer.features.progress.view.CircularProgressbarView
 import com.jeluchu.composer.features.progress.view.LinearProgressbarView
@@ -29,6 +30,7 @@ fun NavGraphBuilder.dashboardNav(nav: Destinations) {
                 DestinationsIds.buttons -> nav.goToButtons()
                 DestinationsIds.progress -> nav.goToProgress()
                 DestinationsIds.chips -> nav.goToChips()
+                DestinationsIds.inputs -> nav.goToInputs()
                 DestinationsIds.loaders -> nav.goToLoaders()
                 DestinationsIds.lazyGrids -> nav.goToLazyGrids()
                 DestinationsIds.dividers -> nav.goToDividers()
@@ -46,6 +48,17 @@ fun NavGraphBuilder.chipsNav(nav: Destinations) {
     ) {
         composable(Feature.CHIPS.nav) {
             ChipsView { nav.goBack(it) }
+        }
+    }
+}
+
+fun NavGraphBuilder.inputsNav(nav: Destinations) {
+    navigation(
+        startDestination = Feature.INPUTS.route,
+        route = NavigationIds.inputs
+    ) {
+        composable(Feature.INPUTS.nav) {
+            InputsView { nav.goBack(it) }
         }
     }
 }

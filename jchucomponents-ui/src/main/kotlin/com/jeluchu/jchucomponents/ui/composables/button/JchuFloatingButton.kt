@@ -4,6 +4,8 @@
  *
  */
 
+@file:kotlin.jvm.JvmName("FloatingbuttonKt")
+
 package com.jeluchu.jchucomponents.ui.composables.button
 
 import androidx.annotation.DrawableRes
@@ -85,7 +87,9 @@ fun JchuFloatingButton(
 
 @Deprecated(
     message = "Use JchuFloatingButton.",
-    replaceWith = ReplaceWith("JchuFloatingButton(modifier, enabled, isVisible, exit, enter, size, floatButton, onClick)")
+    replaceWith = ReplaceWith(
+        "JchuFloatingButton(modifier = modifier, enabled = enabled, isVisible = isVisible, exit = exit, enter = enter, size = size, floatButton = floatButton, onClick = onClick)"
+    )
 )
 @Composable
 fun FloatingButton(
@@ -139,7 +143,7 @@ sealed class FloatingButtonSize(val buttonSize: Dp, val iconSize: Dp, val shape:
 
 @Preview
 @Composable
-fun FloatingButtonPreview(
+private fun FloatingButtonPreview(
     primary: Color = Color(0xFFA9D2B5),
     secondary: Color = Color(0xFF79BA98),
     milky: Color = Color(0xFFF9F8DD)

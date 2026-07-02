@@ -8,6 +8,7 @@ enum class Feature(val route: String) {
     FLOATING_BUTTONS("floating_buttons"),
 
     CHIPS("chips"),
+    INPUTS("inputs"),
     LOADERS("loaders"),
 
     // Progress

@@ -23,6 +23,10 @@ data class MenuOptions(
                 name = CatalogCategory.CHIPS.title
             ),
             MenuOptions(
+                id = DestinationsIds.inputs,
+                name = CatalogCategory.INPUTS.title
+            ),
+            MenuOptions(
                 id = DestinationsIds.lazyGrids,
                 name = CatalogCategory.LISTS.title
             ),

@@ -1,3 +1,5 @@
+@file:kotlin.jvm.JvmName("ProgressIndicatorButtonKt")
+
 package com.jeluchu.jchucomponents.ui.composables.button
 
 import androidx.compose.foundation.layout.Box
@@ -89,7 +91,9 @@ fun JchuProgressButton(
 
 @Deprecated(
     message = "Use JchuProgressButton.",
-    replaceWith = ReplaceWith("JchuProgressButton(modifier, text, icon, isLoading, enabled, fontSize, textSyle, colors, onClick)")
+    replaceWith = ReplaceWith(
+        "JchuProgressButton(modifier = modifier, text = text, icon = icon, isLoading = isLoading, enabled = enabled, fontSize = fontSize, textStyle = textSyle, colors = colors, onClick = onClick)"
+    )
 )
 @Composable
 fun ProgressIndicatorButton(
@@ -116,7 +120,7 @@ fun ProgressIndicatorButton(
 
 @Preview
 @Composable
-fun ProgressIndicatorButtonPreview() {
+private fun ProgressIndicatorButtonPreview() {
     var isLoading by rememberMutableStateOf(value = false)
     JchuProgressButton(
         isLoading = isLoading,
