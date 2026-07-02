@@ -9,6 +9,7 @@ metalava = "1.0.0-alpha14"
 androidx-activity = "1.13.0"
 androidx-lifecycle = "2.11.0"
 androidx-navigation = "2.9.8"
+androidx-navigation3 = "1.1.3"
 com-squareup-okhttp3 = "5.4.0"
 com-squareup-retrofit2 = "3.0.0"
 coil-kt = "3.5.0"
@@ -37,6 +38,9 @@ androidx-lifecycle-lifecycle-runtime-compose = { module = "androidx.lifecycle:li
 androidx-lifecycle-lifecycle-livedata-core-ktx = { module = "androidx.lifecycle:lifecycle-livedata-core-ktx", version.ref = "androidx-lifecycle" }
 androidx-lifecycle-lifecycle-viewmodel-ktx = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "androidx-lifecycle" }
 androidx-navigation-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "androidx-navigation" }
+androidx-navigation3-runtime = { module = "androidx.navigation3:navigation3-runtime", version.ref = "androidx-navigation3" }
+androidx-navigation3-ui = { module = "androidx.navigation3:navigation3-ui", version.ref = "androidx-navigation3" }
+androidx-lifecycle-viewmodel-navigation3 = { module = "androidx.lifecycle:lifecycle-viewmodel-navigation3", version.ref = "androidx-lifecycle" }
 androidx-preference = "androidx.preference:preference-ktx:1.2.1"
 com-google-android-gms-play-services-base = "com.google.android.gms:play-services-base:18.10.0"
 com-google-code-gson = "com.google.code.gson:gson:2.14.0"
@@ -63,6 +67,7 @@ jetbrains-kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", ve
 jetbrains-dokka = { id = "org.jetbrains.dokka", version.ref = "dokka" }
 compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "org-jetbrains-kotlin" }
 binary-compatibility-validator = { id = "org.jetbrains.kotlinx.binary-compatibility-validator", version.ref = "binaryCompatibilityValidator" }
+kotlinx-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 
 [bundles]
 core-androidx = [
@@ -117,6 +122,11 @@ compose-bom = [
     "androidx-navigation-navigation-compose",
     "coil-compose",
     "coil-compose-ktor"
+]
+navigation3 = [
+    "androidx-navigation3-runtime",
+    "androidx-navigation3-ui",
+    "androidx-lifecycle-viewmodel-navigation3",
 ]
 # FOR JCHUCOMPONENTS PAY
 pay-android = [

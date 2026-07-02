@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.dokka)
     alias(libs.plugins.compose.compiler)
+    alias(libs.plugins.kotlinx.serialization)
 }
 
 android {
@@ -38,6 +39,7 @@ dependencies {
     implementation(platform(libs.compose.bom))
     implementation(libs.bundles.compose.bom)
     implementation(libs.androidx.appcompat)
+    implementation(libs.bundles.navigation3)
     coreLibraryDesugaring(libs.desugar.jdk.libs)
     implementation(project(":jchucomponents-core"))
     implementation(project(":jchucomponents-foundation"))
