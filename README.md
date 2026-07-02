@@ -7,7 +7,19 @@
 > `3.0.0-rcNN` before the stable `3.0.0` release.
 
 JchuComponents 3 supports native Jetpack Compose and SwiftUI interfaces.
-Shared Kotlin Multiplatform behavior lives in `jchucomponents-foundation`.
+Shared state lives in `jchucomponents-foundation`. Reusable Ktor APIs live in
+`jchucomponents-network`, which KMP consumers can add directly to `commonMain`:
+
+```kotlin
+commonMain.dependencies {
+    implementation(
+        "com.github.jeluchu.jchucomponents:jchucomponents-network:3.0.0-alpha02"
+    )
+}
+```
+
+Compose modules remain Android-only, and Ktor is not exported through the
+SwiftUI XCFramework.
 
 ## JchuComponents 3 installation
 
@@ -40,8 +52,9 @@ dependencies {
 ```
 
 Available Android artifacts are `jchucomponents-core`,
-`jchucomponents-foundation`, `jchucomponents-ktx`, `jchucomponents-pay`,
-`jchucomponents-prefs`, `jchucomponents-qr` and `jchucomponents-ui`.
+`jchucomponents-foundation`, `jchucomponents-network`, `jchucomponents-ktx`,
+`jchucomponents-pay`, `jchucomponents-prefs`, `jchucomponents-qr` and
+`jchucomponents-ui`.
 
 For iOS, add this package URL in Xcode:
 

@@ -3,32 +3,34 @@ set -euo pipefail
 
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 
-required_files=(
-  "$ROOT_DIR/docs/api-compatibility.md"
-  "$ROOT_DIR/docs/public-api-conventions.md"
-  "$ROOT_DIR/docs/android-public-api-inventory.md"
+required_paths=(
+  "$ROOT_DIR/api/android"
+  "$ROOT_DIR/jchucomponents-network/src/commonMain"
+  "$ROOT_DIR/jchucomponents-core/src/main"
 )
 
 required_patterns=(
-  "Jchu<Component>"
-  "apiCheck"
-  "Swift symbol graphs"
-  "Android public API inventory"
-  "Existing Android API names remain source-compatible through"
+  "JchuProgressButtonState"
+  "JchuProgressState"
+  "package com.jeluchu.jchucomponents.network"
+  "package com.jeluchu.jchucomponents.utils.network"
 )
 
-for file in "${required_files[@]}"; do
-  if [[ ! -f "$file" ]]; then
-    echo "Missing API readiness file: $file" >&2
+for path in "${required_paths[@]}"; do
+  if [[ ! -e "$path" ]]; then
+    echo "Missing tracked API readiness path: $path" >&2
     exit 1
   fi
 done
 
 for pattern in "${required_patterns[@]}"; do
-  if ! grep -R --fixed-strings --quiet "$pattern" "$ROOT_DIR/docs"; then
+  if ! grep -R --fixed-strings --quiet "$pattern" \
+    "$ROOT_DIR/api" \
+    "$ROOT_DIR/jchucomponents-network/src/commonMain" \
+    "$ROOT_DIR/jchucomponents-core/src/main"; then
     echo "Missing API readiness pattern: $pattern" >&2
     exit 1
   fi
 done
 
-echo "API readiness documentation is present."
+echo "Tracked API readiness sources and signatures are present."

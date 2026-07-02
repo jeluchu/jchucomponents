@@ -7,6 +7,6 @@ class JchuComponentsTest {
 
     @Test
     fun exposesCurrentLibraryVersion() {
-        assertEquals("3.0.0-alpha01", JchuComponents.VERSION)
+        assertEquals("3.0.0-alpha02", JchuComponents.VERSION)
     }
 }

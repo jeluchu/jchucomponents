@@ -1,4 +1,4 @@
-package com.jeluchu.jchucomponents.extensions.ktor
+package com.jeluchu.jchucomponents.network
 
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
@@ -9,15 +9,15 @@ import io.ktor.client.request.post
 import io.ktor.client.request.put
 import io.ktor.client.request.setBody
 
-suspend inline fun <reified T> HttpClient.getRequest(
+public suspend inline fun <reified T> HttpClient.getRequest(
     url: String
 ): T = get(url).body()
 
-suspend inline fun <reified T> HttpClient.getRequest(
+public suspend inline fun <reified T> HttpClient.getRequest(
     endpoint: ApiEndpoint
-): T = get(path(endpoint)).body()
+): T = get(endpoint.path()).body()
 
-suspend inline fun <reified T> HttpClient.postRequest(
+public suspend inline fun <reified T> HttpClient.postRequest(
     url: String,
     payload: Any,
     headers: Map<String, String> = emptyMap()
@@ -26,16 +26,16 @@ suspend inline fun <reified T> HttpClient.postRequest(
     setBody(payload)
 }.body()
 
-suspend inline fun <reified T> HttpClient.postRequest(
+public suspend inline fun <reified T> HttpClient.postRequest(
     endpoint: ApiEndpoint,
     payload: Any? = null,
     headers: Map<String, String> = emptyMap()
-): T = post(path(endpoint)) {
+): T = post(endpoint.path()) {
     headers.forEach { (key, value) -> header(key, value) }
     setBody(payload)
 }.body()
 
-suspend inline fun <reified T> HttpClient.putRequest(
+public suspend inline fun <reified T> HttpClient.putRequest(
     url: String,
     payload: Any,
     headers: Map<String, String> = emptyMap()
@@ -44,16 +44,16 @@ suspend inline fun <reified T> HttpClient.putRequest(
     setBody(payload)
 }.body()
 
-suspend inline fun <reified T> HttpClient.putRequest(
+public suspend inline fun <reified T> HttpClient.putRequest(
     endpoint: ApiEndpoint,
     payload: Any,
     headers: Map<String, String> = emptyMap()
-): T = put(path(endpoint)) {
+): T = put(endpoint.path()) {
     headers.forEach { (key, value) -> header(key, value) }
     setBody(payload)
 }.body()
 
-suspend inline fun <reified T> HttpClient.uploadMultipartRequest(
+public suspend inline fun <reified T> HttpClient.uploadMultipartRequest(
     url: String,
     formData: MultiPartFormDataContent,
     headers: Map<String, String> = emptyMap()
@@ -62,15 +62,16 @@ suspend inline fun <reified T> HttpClient.uploadMultipartRequest(
     setBody(formData)
 }.body()
 
-suspend inline fun <reified T> HttpClient.uploadMultipartRequest(
+public suspend inline fun <reified T> HttpClient.uploadMultipartRequest(
     endpoint: ApiEndpoint,
     formData: MultiPartFormDataContent,
     headers: Map<String, String> = emptyMap()
-): T = post(path(endpoint)) {
+): T = post(endpoint.path()) {
     headers.forEach { (key, value) -> header(key, value) }
     setBody(formData)
 }.body()
 
-val path: (ApiEndpoint) -> String = { api ->
-    "${api.version.path}/${api.endpoint}.${api.format}"
-}
+public fun ApiEndpoint.path(): String =
+    listOf(version.path, "$endpoint.$format")
+        .filter(String::isNotBlank)
+        .joinToString(separator = "/")

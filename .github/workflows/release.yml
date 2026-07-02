@@ -30,8 +30,21 @@ jobs:
           )"
           test "${GITHUB_REF_NAME}" = "${catalog_version}"
 
+      - name: Verify SwiftPM publication is enabled
+        env:
+          SPM_REPOSITORY_ENABLED: ${{ vars.SPM_REPOSITORY_ENABLED }}
+        run: test "${SPM_REPOSITORY_ENABLED}" = "true"
+
       - name: Build Android release and publications
-        run: ./gradlew check assembleRelease publishToMavenLocal
+        run: |
+          scripts/check-visual-readiness.sh
+          scripts/check-api-readiness.sh
+          ./gradlew \
+            apiCheck \
+            androidApiCheck \
+            check \
+            assembleRelease \
+            publishToMavenLocal
 
       - name: Prepare Swift release
         run: ./scripts/prepare-swift-release.sh

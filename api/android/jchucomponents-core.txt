@@ -284,14 +284,6 @@ package com.jeluchu.jchucomponents.extensions.http {
 
 }
 
-package com.jeluchu.jchucomponents.extensions.ktor {
-
-  public final class RequestResponsesKt {
-    method @KotlinOnly public static suspend inline <reified T, R> Object request(kotlin.jvm.functions.Function1<kotlin.coroutines.Continuation<? super io.ktor.client.statement.HttpResponse>,?> call, kotlin.jvm.functions.Function1<T,R> transform, T default, kotlin.coroutines.Continuation<? super com.jeluchu.jchucomponents.core.functional.Either<com.jeluchu.jchucomponents.core.exception.Failure,R>>);
-  }
-
-}
-
 package com.jeluchu.jchucomponents.extensions.lifecycle {
 
   public final class LifecycleExtensionsKt {

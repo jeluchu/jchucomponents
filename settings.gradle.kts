@@ -25,5 +25,6 @@ include(
         ":jchucomponents-pay",
         ":jchucomponents-prefs",
         ":jchucomponents-foundation",
+        ":jchucomponents-network",
         "app"
 )
