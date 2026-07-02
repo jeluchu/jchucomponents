@@ -5,8 +5,8 @@ import XCTest
 
 final class JchuComponentsSwiftUITests: XCTestCase {
     func testPackageExposesKotlinCoreVersion() {
-        XCTAssertEqual(JchuComponentsInfo.version, "3.0.0-alpha01")
-        XCTAssertEqual(JchuComponents.shared.VERSION, "3.0.0-alpha01")
+        XCTAssertEqual(JchuComponentsInfo.version, "3.0.0-alpha03")
+        XCTAssertEqual(JchuComponents.shared.VERSION, "3.0.0-alpha03")
     }
 
     func testSharedProgressButtonStateUsesExpectedDefaults() {

@@ -40,7 +40,7 @@ import com.jeluchu.jchucomponents.ui.runtime.remember.rememberMutableStateOf
  * This component is based on EditText in which you can check
  * how many characters you have typed and what is the maximum
  *
- * @sample CountTextFieldPreview
+ * @sample JchuCountedFieldPreview
  *
  * @param title title to be displayed at the top of the EditText / TextField
  * @param maxLength maximum number of characters the user can type
@@ -51,14 +51,15 @@ import com.jeluchu.jchucomponents.ui.runtime.remember.rememberMutableStateOf
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CountTextField(
+fun JchuCountedField(
     title: String,
+    value: String,
+    onValueChange: (String) -> Unit,
     maxLength: Int,
     countField: CountField = CountField(),
     styleLabel: TextStyle = LocalTextStyle.current
 ) = Column {
-
-    var textState by rememberMutableStateOf(String.empty())
+    val displayValue = value.take(maxLength)
 
     Text(
         text = title,
@@ -72,7 +73,7 @@ fun CountTextField(
 
     TextField(
         modifier = Modifier.fillMaxWidth(),
-        value = textState,
+        value = displayValue,
         colors = TextFieldDefaults.colors(
             focusedContainerColor = countField.backgroundColor,
             cursorColor = countField.cursorColor,
@@ -81,14 +82,14 @@ fun CountTextField(
             unfocusedIndicatorColor = Color.Transparent
         ),
         onValueChange = {
-            if (it.length <= maxLength) textState = it
+            if (it.length <= maxLength) onValueChange(it)
         },
         shape = RoundedCornerShape(8.dp),
         singleLine = true,
         textStyle = styleLabel,
         trailingIcon = {
-            if (textState.isNotEmpty()) {
-                IconButton(onClick = { textState = "" }) {
+            if (displayValue.isNotEmpty()) {
+                IconButton(onClick = { onValueChange(String.empty()) }) {
                     Icon(
                         imageVector = Icons.Outlined.Close,
                         contentDescription = null
@@ -98,7 +99,7 @@ fun CountTextField(
         }
     )
     Text(
-        text = "${textState.length} / $maxLength",
+        text = "${displayValue.length} / $maxLength",
         modifier = Modifier
             .fillMaxWidth()
             .padding(top = 4.dp),
@@ -118,9 +119,13 @@ class CountField constructor(
 
 @Preview
 @Composable
-fun CountTextFieldPreview() {
-    CountTextField(
+fun JchuCountedFieldPreview() {
+    var textState by rememberMutableStateOf(String.empty())
+
+    JchuCountedField(
         title = "Name",
+        value = textState,
+        onValueChange = { textState = it },
         maxLength = 110,
         countField = CountField(
             backgroundColor = Color(0xffd8e6ff),

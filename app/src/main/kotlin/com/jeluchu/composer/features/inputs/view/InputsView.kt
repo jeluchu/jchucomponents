@@ -16,9 +16,9 @@ import com.jeluchu.composer.core.ui.composables.ScaffoldStructure
 import com.jeluchu.composer.core.ui.theme.JeluchuTheme
 import com.jeluchu.composer.core.utils.Names
 import com.jeluchu.jchucomponents.ui.composables.textfields.CountField
-import com.jeluchu.jchucomponents.ui.composables.textfields.CountTextField
+import com.jeluchu.jchucomponents.ui.composables.textfields.JchuCountedField
+import com.jeluchu.jchucomponents.ui.composables.textfields.JchuSearchField
 import com.jeluchu.jchucomponents.ui.composables.textfields.SearchField
-import com.jeluchu.jchucomponents.ui.composables.textfields.SearchTextField
 
 @Composable
 fun InputsView(onBack: () -> Unit) {
@@ -29,6 +29,7 @@ fun InputsView(onBack: () -> Unit) {
 private fun InputsCatalog(onBack: () -> Unit) {
     val fixtures = CatalogFixtures.inputFixtures
     val searchState = remember { mutableStateOf("") }
+    val countedState = remember { mutableStateOf("") }
 
     ScaffoldStructure(
         title = Names.inputs,
@@ -44,8 +45,9 @@ private fun InputsCatalog(onBack: () -> Unit) {
                 style = JchuCatalogTheme.typography.section,
                 color = JchuCatalogTheme.colors.content,
             )
-            SearchTextField(
-                state = searchState,
+            JchuSearchField(
+                value = searchState.value,
+                onValueChange = { searchState.value = it },
                 labelText = fixtures[0].label,
                 searchField = SearchField(
                     labelColor = JchuCatalogTheme.colors.content,
@@ -59,8 +61,10 @@ private fun InputsCatalog(onBack: () -> Unit) {
                 style = JchuCatalogTheme.typography.section,
                 color = JchuCatalogTheme.colors.content,
             )
-            CountTextField(
+            JchuCountedField(
                 title = fixtures[1].label,
+                value = countedState.value,
+                onValueChange = { countedState.value = it },
                 maxLength = requireNotNull(fixtures[1].maxLength),
                 countField = CountField(
                     cursorColor = JchuCatalogTheme.colors.content,

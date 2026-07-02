@@ -1,11 +1,10 @@
 [versions]
-jchucomponents = "3.0.0-alpha02"
+jchucomponents = "3.0.0-alpha03"
 agp = "9.2.1"
 ktor="3.5.1"
 kotlin = "2.4.0"
 dokka = "2.2.0"
 binaryCompatibilityValidator = "0.18.1"
-metalava = "1.0.0-alpha14"
 androidx-activity = "1.13.0"
 androidx-lifecycle = "2.11.0"
 androidx-navigation = "2.9.8"
@@ -56,7 +55,6 @@ ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
 ktor-client-logging = { module = "io.ktor:ktor-client-logging", version.ref = "ktor" }
 ktor-serialization-kotlinx-json = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktor" }
 desugar_jdk_libs = { module = "com.android.tools:desugar_jdk_libs", version.ref = "desugar_jdk_libs" }
-metalava = { module = "com.android.tools.metalava:metalava", version.ref = "metalava" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

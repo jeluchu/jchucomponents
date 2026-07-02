@@ -65,7 +65,7 @@ fun Chip(
 
             if (leader != null) {
                 Icon(
-                    leader,
+                    imageVector = leader,
                     contentDescription = contentDescription,
                     tint = startIconTint,
                     modifier = Modifier
@@ -76,14 +76,14 @@ fun Chip(
             }
 
             Text(
-                label,
+                text = label,
                 modifier = Modifier.padding(8.dp),
                 color = textColor
             )
 
             if (trailer != null) {
                 Icon(
-                    trailer,
+                    imageVector = trailer,
                     contentDescription = contentDescription,
                     tint = endIconTint,
                     modifier = Modifier

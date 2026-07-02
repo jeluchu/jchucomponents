@@ -13,7 +13,7 @@ Shared state lives in `jchucomponents-foundation`. Reusable Ktor APIs live in
 ```kotlin
 commonMain.dependencies {
     implementation(
-        "com.github.jeluchu.jchucomponents:jchucomponents-network:3.0.0-alpha02"
+        "com.github.jeluchu.jchucomponents:jchucomponents-network:3.0.0-alpha03"
     )
 }
 ```
@@ -40,7 +40,7 @@ are configured through `HttpClientConfiguration`.
 ## JchuComponents 3 installation
 
 The following coordinates apply to tagged v3 releases. During development,
-replace `3.0.0-alpha01` with an available v3 tag.
+replace `3.0.0-alpha03` with an available v3 tag.
 
 Add JitPack to `settings.gradle.kts`:
 
@@ -59,10 +59,10 @@ Then depend only on the Android modules your application needs:
 ```kotlin
 dependencies {
     implementation(
-        "com.github.jeluchu.jchucomponents:jchucomponents-ui:3.0.0-alpha01"
+        "com.github.jeluchu.jchucomponents:jchucomponents-ui:3.0.0-alpha03"
     )
     implementation(
-        "com.github.jeluchu.jchucomponents:jchucomponents-ktx:3.0.0-alpha01"
+        "com.github.jeluchu.jchucomponents:jchucomponents-ktx:3.0.0-alpha03"
     )
 }
 ```
@@ -87,8 +87,10 @@ import JchuComponentsExtensions
 import JchuComponentsSwiftUI
 ```
 
-The Swift package requires iOS 26.0 or newer. The public SwiftPM repository
-becomes available when its first matching prerelease tag is published.
+The Swift package requires iOS 26.0 or newer. A separate SwiftPM repository is
+planned for distribution so iOS consumers do not clone the full Android/Kotlin
+monorepo; it becomes available when its first matching prerelease tag is
+published.
 
 ## Publishing a SwiftPM release
 
@@ -106,15 +108,15 @@ Before the first release:
 6. Create and push the matching annotated tag:
 
 ```bash
-git tag -a 3.0.0-alpha02 -m "3.0.0-alpha02"
+git tag -a 3.0.0-alpha03 -m "3.0.0-alpha03"
 git push origin v3
-git push origin 3.0.0-alpha02
+git push origin 3.0.0-alpha03
 ```
 
 The release workflow validates Android/KMP, builds and uploads the XCFramework,
-generates the binary Swift manifest, then commits and tags the generated
-package in `jchucomponents-spm`. The release is complete only when both jobs
-are green and the same tag exists in both repositories.
+and generates the binary Swift manifest. When `SPM_REPOSITORY_ENABLED=true`, it
+also commits and tags the generated package in `jchucomponents-spm`; otherwise
+the SwiftPM payload remains attached to the workflow run as an artifact.
 
 ##  Introduction
 

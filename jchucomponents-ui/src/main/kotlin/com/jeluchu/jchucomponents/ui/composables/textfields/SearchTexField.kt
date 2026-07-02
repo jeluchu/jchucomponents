@@ -24,7 +24,6 @@ import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -42,13 +41,16 @@ import androidx.compose.ui.unit.sp
 import com.jeluchu.jchucomponents.ktx.strings.empty
 
 @Composable
-fun SearchTextField(
+fun JchuSearchField(
     modifier: Modifier = Modifier,
-    state: MutableState<String>,
+    value: String,
+    onValueChange: (String) -> Unit,
     labelText: String = String.empty(),
     styleLabel: TextStyle = LocalTextStyle.current,
     focusManager: FocusManager = LocalFocusManager.current,
     searchField: SearchField = SearchField(),
+    searchContentDescription: String = String.empty(),
+    clearContentDescription: String = String.empty(),
 ) = TextField(
     modifier = modifier
         .fillMaxWidth()
@@ -61,14 +63,13 @@ fun SearchTextField(
             color = searchField.labelColor
         )
     },
-    value = state.value,
+    value = value,
     textStyle = TextStyle(
         fontSize = 16.sp,
         fontWeight = FontWeight.Bold
     ),
-    onValueChange = { value ->
-        state.value = value
-    }, colors = TextFieldDefaults.colors(
+    onValueChange = onValueChange,
+    colors = TextFieldDefaults.colors(
         focusedTextColor = searchField.contentColor,
         unfocusedTextColor = searchField.contentColor,
         disabledTextColor = Color.Transparent,
@@ -85,7 +86,7 @@ fun SearchTextField(
         Icon(
             Icons.Default.Search,
             tint = searchField.contentColor,
-            contentDescription = "",
+            contentDescription = searchContentDescription,
             modifier = Modifier
                 .padding(15.dp)
                 .size(24.dp)
@@ -94,13 +95,13 @@ fun SearchTextField(
     trailingIcon = {
         IconButton(
             onClick = {
-                state.value = String.empty()
+                onValueChange(String.empty())
             },
         ) {
             Icon(
                 imageVector = Icons.Filled.Close,
                 tint = searchField.contentColor,
-                contentDescription = String.empty(),
+                contentDescription = clearContentDescription,
                 modifier = Modifier
                     .padding(5.dp)
                     .size(24.dp)
@@ -130,5 +131,8 @@ class SearchField constructor(
 @Composable
 fun SearchViewPreview() {
     val textState = remember { mutableStateOf(String.empty()) }
-    SearchTextField(state = textState)
+    JchuSearchField(
+        value = textState.value,
+        onValueChange = { textState.value = it }
+    )
 }
