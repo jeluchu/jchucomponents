@@ -16,9 +16,13 @@ import com.jeluchu.composer.core.ui.composables.ScaffoldStructure
 import com.jeluchu.composer.core.ui.theme.JeluchuTheme
 import com.jeluchu.composer.core.utils.Names
 import com.jeluchu.jchucomponents.ui.composables.textfields.CountField
+import com.jeluchu.jchucomponents.ui.composables.textfields.GrowingTextFieldDefaults
 import com.jeluchu.jchucomponents.ui.composables.textfields.JchuCountedField
+import com.jeluchu.jchucomponents.ui.composables.textfields.JchuExpandableSearch
+import com.jeluchu.jchucomponents.ui.composables.textfields.JchuGrowingTextField
 import com.jeluchu.jchucomponents.ui.composables.textfields.JchuSearchField
 import com.jeluchu.jchucomponents.ui.composables.textfields.SearchField
+import com.jeluchu.jchucomponents.ui.composables.textfields.SearchBarDefaults
 
 @Composable
 fun InputsView(onBack: () -> Unit) {
@@ -30,6 +34,8 @@ private fun InputsCatalog(onBack: () -> Unit) {
     val fixtures = CatalogFixtures.inputFixtures
     val searchState = remember { mutableStateOf("") }
     val countedState = remember { mutableStateOf("") }
+    val expandableSearchState = remember { mutableStateOf("") }
+    val notesState = remember { mutableStateOf("") }
 
     ScaffoldStructure(
         title = Names.inputs,
@@ -75,7 +81,37 @@ private fun InputsCatalog(onBack: () -> Unit) {
             )
 
             Text(
-                text = fixtures[2].label,
+                text = fixtures[2].name,
+                style = JchuCatalogTheme.typography.section,
+                color = JchuCatalogTheme.colors.content,
+            )
+            JchuExpandableSearch(
+                query = expandableSearchState.value,
+                onQueryChange = { expandableSearchState.value = it },
+                defaults = SearchBarDefaults(
+                    label = fixtures[2].label,
+                    containerColor = JchuCatalogTheme.colors.surface,
+                    contentColor = JchuCatalogTheme.colors.content,
+                )
+            )
+
+            Text(
+                text = fixtures[3].name,
+                style = JchuCatalogTheme.typography.section,
+                color = JchuCatalogTheme.colors.content,
+            )
+            JchuGrowingTextField(
+                value = notesState.value,
+                onValueChange = { notesState.value = it },
+                defaults = GrowingTextFieldDefaults(
+                    label = fixtures[3].label,
+                    placeholder = "Describe the component",
+                    maxCharacters = fixtures[3].maxLength,
+                )
+            )
+
+            Text(
+                text = fixtures[4].label,
                 style = JchuCatalogTheme.typography.body,
                 color = JchuCatalogTheme.colors.content,
             )

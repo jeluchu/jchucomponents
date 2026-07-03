@@ -205,6 +205,19 @@ object CatalogFixtures {
             maxLength = 40
         ),
         CatalogInputFixture(
+            name = "Expandable search",
+            kind = CatalogFixtureKind.ENABLED,
+            label = "Search the catalog",
+            contentDescription = "Expandable search field"
+        ),
+        CatalogInputFixture(
+            name = "Growing text field",
+            kind = CatalogFixtureKind.ENABLED,
+            label = "Component notes",
+            contentDescription = "Multiline field with character limit",
+            maxLength = 120
+        ),
+        CatalogInputFixture(
             name = "Long content",
             kind = CatalogFixtureKind.LONG_CONTENT,
             label = longContent,
