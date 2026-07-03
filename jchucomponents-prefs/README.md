@@ -22,11 +22,11 @@ Declare the library in the version catalog:
 
 ```toml
 [versions]
-jchucomponents = "3.0.0-alpha04"
+jchucomponents = "3.0.0-alpha05"
 
 [libraries]
 jchucomponents-prefs = {
-    module = "com.github.jeluchu.jchucomponents:jchucomponents-prefs",
+    module = "io.github.jeluchu:jchucomponents-prefs",
     version.ref = "jchucomponents"
 }
 ```

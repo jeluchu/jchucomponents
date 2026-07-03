@@ -13,7 +13,7 @@ Shared state lives in `jchucomponents-foundation`. Reusable Ktor APIs live in
 ```kotlin
 commonMain.dependencies {
     implementation(
-        "com.github.jeluchu.jchucomponents:jchucomponents-network:3.0.0-alpha04"
+        "io.github.jeluchu:jchucomponents-network:3.0.0-alpha05"
     )
 }
 ```
@@ -40,7 +40,7 @@ are configured through `HttpClientConfiguration`.
 ## JchuComponents 3 installation
 
 The following coordinates apply to tagged v3 releases. During development,
-replace `3.0.0-alpha04` with an available v3 tag.
+replace `3.0.0-alpha05` with an available v3 tag.
 
 Add JitPack to `settings.gradle.kts`:
 
@@ -59,10 +59,10 @@ Then depend only on the Android modules your application needs:
 ```kotlin
 dependencies {
     implementation(
-        "com.github.jeluchu.jchucomponents:jchucomponents-ui:3.0.0-alpha04"
+        "com.github.jeluchu.jchucomponents:jchucomponents-ui:3.0.0-alpha05"
     )
     implementation(
-        "com.github.jeluchu.jchucomponents:jchucomponents-ktx:3.0.0-alpha04"
+        "com.github.jeluchu.jchucomponents:jchucomponents-ktx:3.0.0-alpha05"
     )
 }
 ```
@@ -71,6 +71,19 @@ Available Android artifacts are `jchucomponents-core`,
 `jchucomponents-foundation`, `jchucomponents-network`, `jchucomponents-ktx`,
 `jchucomponents-pay`, `jchucomponents-prefs`, `jchucomponents-qr` and
 `jchucomponents-ui`.
+
+Kotlin Multiplatform applications with Apple targets must obtain the shared
+network and preferences artifacts from Maven Central:
+
+```kotlin
+commonMain.dependencies {
+    implementation("io.github.jeluchu:jchucomponents-network:3.0.0-alpha05")
+    implementation("io.github.jeluchu:jchucomponents-prefs:3.0.0-alpha05")
+}
+```
+
+JitPack remains available for Android artifacts, but its Linux builders do not
+publish the Apple KLIB variants required by KMP consumers.
 
 For iOS, add this package URL in Xcode:
 
@@ -108,9 +121,9 @@ Before the first release:
 6. Create and push the matching annotated tag:
 
 ```bash
-git tag -a 3.0.0-alpha04 -m "3.0.0-alpha04"
+git tag -a 3.0.0-alpha05 -m "3.0.0-alpha05"
 git push origin v3
-git push origin 3.0.0-alpha04
+git push origin 3.0.0-alpha05
 ```
 
 The release workflow validates Android/KMP, builds and uploads the XCFramework,
