@@ -1,65 +1,75 @@
 plugins {
-    alias(libs.plugins.android.library)
-    alias(libs.plugins.jetbrains.dokka)
-    id("maven-publish")
+    alias(libs.plugins.jetbrains.kotlin.multiplatform)
+    alias(libs.plugins.android.kmp.library)
+    alias(libs.plugins.maven.publish)
 }
 
-android {
-    namespace = "com.jeluchu.jchucomponents.qr"
-    compileSdk = 37
+group = "io.github.jeluchu"
+version = libs.versions.jchucomponents.get()
 
-    defaultConfig {
-        minSdk = 21
-        proguardFiles(
-            getDefaultProguardFile("proguard-android-optimize.txt"),
-            "proguard-rules.pro"
-        )
+kotlin {
+    android {
+        namespace = "com.jeluchu.jchucomponents.qr"
+        compileSdk = libs.versions.android.compile.sdk.get().toInt()
+        minSdk = libs.versions.android.min.sdk.get().toInt()
+
+        withSourcesJar(publish = true)
+        withHostTest {}
     }
 
-    buildTypes {
-        debug {
-            isMinifyEnabled = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
+    iosArm64()
+    iosX64()
+    iosSimulatorArm64()
+
+    sourceSets {
+        androidMain.dependencies {
+            implementation(libs.androidx.core.core.ktx)
         }
-        release {
-            isMinifyEnabled = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
+
+        commonTest.dependencies {
+            implementation(kotlin(simpleModuleName = "test"))
         }
     }
-
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_21
-        targetCompatibility = JavaVersion.VERSION_21
-    }
-
-    publishing {
-        singleVariant("release") {
-            withSourcesJar()
-        }
-    }
-
 }
 
-dependencies {
-    implementation(libs.bundles.qr.androidx)
-}
+mavenPublishing {
+    publishToMavenCentral(automaticRelease = true)
+    if (providers.gradleProperty("signingInMemoryKey").isPresent) {
+        signAllPublications()
+    }
 
-publishing {
-    publications {
-        register<MavenPublication>("release") {
-            groupId = "com.github.jeluchu"
-            artifactId = "jchucomponents-qr"
-            version = libs.versions.jchucomponents.get()
+    coordinates(
+        groupId = "io.github.jeluchu",
+        artifactId = "jchucomponents-qr",
+        version = libs.versions.jchucomponents.get(),
+    )
 
-            afterEvaluate {
-                from(components["release"])
+    pom {
+        name.set("JchuComponents QR")
+        description.set("Kotlin Multiplatform QR utilities for Android and iOS.")
+        inceptionYear.set("2022")
+        url.set("https://github.com/Jeluchu/jchucomponents")
+
+        licenses {
+            license {
+                name.set("The Apache License, Version 2.0")
+                url.set("https://www.apache.org/licenses/LICENSE-2.0.txt")
+                distribution.set("repo")
             }
+        }
+
+        developers {
+            developer {
+                id.set("jeluchu")
+                name.set("Jeluchu")
+                url.set("https://github.com/Jeluchu")
+            }
+        }
+
+        scm {
+            url.set("https://github.com/Jeluchu/jchucomponents")
+            connection.set("scm:git:git://github.com/Jeluchu/jchucomponents.git")
+            developerConnection.set("scm:git:ssh://git@github.com/Jeluchu/jchucomponents.git")
         }
     }
 }
