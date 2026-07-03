@@ -33,12 +33,44 @@ final class JchuComponentsSwiftUITests: XCTestCase {
         XCTAssertEqual(state.fraction, 1)
     }
 
-    func testNativeSwiftExtensionsUseJchuNamespace() {
-        XCTAssertNil("  \n".jchu.nilIfBlank)
-        XCTAssertEqual("áéí".jchu.removingDiacritics, "aei")
-        XCTAssertEqual("JchuComponents".jchu.truncated(to: 4), "Jchu…")
+    func testNativeSwiftStringExtensionsCanBeUsedDirectly() {
+        XCTAssertEqual(String.empty, "")
+        XCTAssertNil("  \n".nilIfBlank)
+        XCTAssertNil("".nilIfEmpty)
+        XCTAssertEqual("a\nb\rc".withoutNewlines, "abc")
+        XCTAssertEqual("áéí".removingDiacritics, "aei")
+        XCTAssertEqual("JchuComponents".truncated(to: 4), "Jchu…")
+        XCTAssertEqual("123456789".grouped(every: 3), "123 456 789")
+        XCTAssertEqual("12345678".grouped(every: 4), "1234 5678")
+        XCTAssertEqual("hello-world".replacingDashesWithSpaces(), "hello world")
+        XCTAssertEqual("jchu".capitalizingFirstLetter(locale: Locale(identifier: "en_US")), "Jchu")
         XCTAssertEqual([1, 2].jchu[safe: 1], 2)
         XCTAssertNil([1, 2].jchu[safe: 4])
+    }
+
+    func testNativeSwiftStringParsingHelpers() {
+        XCTAssertEqual("A1 B2-C3".onlyDigits, "123")
+        XCTAssertTrue("abc".containsLetters)
+        XCTAssertTrue("abc123".containsNumbers)
+        XCTAssertTrue("12345".isNumeric)
+        XCTAssertTrue("abcXYZ".isAlphabetic)
+        XCTAssertTrue("abc123".isAlphanumeric)
+        XCTAssertFalse("abc-123".isAlphanumeric)
+        XCTAssertTrue("hello@example.com".isValidEmail)
+        XCTAssertFalse("hello@example".isValidEmail)
+        XCTAssertTrue("192.168.1.1".isValidIPv4)
+        XCTAssertFalse("192.168.1.300".isValidIPv4)
+        XCTAssertEqual("one two\nthree".wordCount, 3)
+    }
+
+    func testNativeSwiftStringEncodingAndURLHelpers() {
+        XCTAssertEqual("Jchu".base64Encoded, "SmNodQ==")
+        XCTAssertEqual("SmNodQ==".base64Decoded, "Jchu")
+        XCTAssertNil("***".base64Decoded)
+        XCTAssertEqual("https://example.com/assets/logo.png?size=small".lastPathComponentFromURL, "logo.png")
+        XCTAssertEqual("http://example.com".httpsURLString, "https://example.com")
+        XCTAssertEqual("https://example.com".httpsURLString, "https://example.com")
+        XCTAssertEqual("banana".removing("na"), "ba")
     }
 
     func testSwiftUIThemeCanBeCustomized() {
