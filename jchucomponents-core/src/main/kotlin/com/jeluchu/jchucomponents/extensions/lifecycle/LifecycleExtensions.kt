@@ -9,7 +9,7 @@ package com.jeluchu.jchucomponents.extensions.lifecycle
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
-import com.jeluchu.jchucomponents.core.exception.Failure
+import com.jeluchu.jchucomponents.network.models.Failure
 
 fun <T : Any, L : LiveData<T>> LifecycleOwner.observe(liveData: L, body: (T?) -> Unit) =
     liveData.observe(this, Observer(body))

@@ -8,7 +8,7 @@ package com.jeluchu.jchucomponents.core.platform
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.jeluchu.jchucomponents.core.exception.Failure
+import com.jeluchu.jchucomponents.network.models.Failure
 
 abstract class BaseViewModel : ViewModel() {
 

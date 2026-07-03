@@ -1,7 +1,7 @@
-package com.jeluchu.jchucomponents.extensions.flow
+package com.jeluchu.jchucomponents.network.extensions.flow
 
-import com.jeluchu.jchucomponents.core.exception.Failure
-import com.jeluchu.jchucomponents.utils.network.models.Resource
+import com.jeluchu.jchucomponents.network.models.Failure
+import com.jeluchu.jchucomponents.network.models.Resource
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.SharingStarted
@@ -16,8 +16,8 @@ fun <T> Flow<T>.flowCollector(scope: CoroutineScope, onExecute: (T) -> Unit) {
 }
 
 fun <T, S> Flow<Resource<Failure, T>>.flowResourceCollector(
-    scope: CoroutineScope,
     initialValue: S,
+    scope: CoroutineScope,
     onLoading: () -> Unit,
     onSuccess: (T?) -> Unit,
     onFailure: (Failure?) -> Unit
@@ -32,7 +32,7 @@ fun <T, S> Flow<Resource<Failure, T>>.flowResourceCollector(
     }
     .stateIn(
         scope = scope,
-        started = SharingStarted.WhileSubscribed(),
-        initialValue = initialValue
+        initialValue = initialValue,
+        started = SharingStarted.WhileSubscribed()
     )
     .launchIn(scope)

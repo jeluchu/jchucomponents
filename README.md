@@ -37,6 +37,23 @@ val api = createHttpClient(
 iOS. JSON, cache, timeouts, response validation, logging and sensitive headers
 are configured through `HttpClientConfiguration`.
 
+### Network API migration
+
+The v3 network models and flow helpers are published from
+`jchucomponents-network`:
+
+```kotlin
+import com.jeluchu.jchucomponents.network.extensions.flow.flowCollector
+import com.jeluchu.jchucomponents.network.extensions.flow.flowResourceCollector
+import com.jeluchu.jchucomponents.network.extensions.handleFailure
+import com.jeluchu.jchucomponents.network.models.Failure
+import com.jeluchu.jchucomponents.network.models.Resource
+```
+
+The previous `Failure`, `Resource`, `handleFailure`, `flowCollector` and
+`flowResourceCollector` packages from `jchucomponents-core` were removed during
+the v3 alpha cycle.
+
 ## JchuComponents 3 installation
 
 The following coordinates apply to tagged v3 releases. During development,

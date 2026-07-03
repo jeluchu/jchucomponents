@@ -10,8 +10,8 @@ version = libs.versions.jchucomponents.get()
 kotlin {
     android {
         namespace = "com.jeluchu.jchucomponents.network"
-        compileSdk = 37
-        minSdk = 21
+        compileSdk = libs.versions.android.compile.sdk.get().toInt()
+        minSdk = libs.versions.android.min.sdk.get().toInt()
 
         withSourcesJar(publish = true)
         withHostTest {}
@@ -24,6 +24,7 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             api(libs.ktor.client.core)
+            api(libs.org.jetbrains.kotlinx.kotlinx.coroutines.core)
             implementation(libs.ktor.client.content.negotiation)
             implementation(libs.ktor.client.logging)
             implementation(libs.ktor.serialization.kotlinx.json)
