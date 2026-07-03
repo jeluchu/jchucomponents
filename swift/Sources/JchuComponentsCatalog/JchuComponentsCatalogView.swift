@@ -6,6 +6,8 @@ public struct JchuComponentsCatalogView: View {
     @Environment(\.jchuTheme) private var theme
     @State private var interactiveLoading = false
     @State private var selectedChip = false
+    @State private var searchQuery = ""
+    @State private var notes = ""
 
     public init() {}
 
@@ -48,6 +50,30 @@ public struct JchuComponentsCatalogView: View {
                             selectedChip.toggle()
                         }
                     }
+                }
+
+                Section("Text fields") {
+                    JchuExpandableSearch(
+                        query: $searchQuery,
+                        defaults: SearchBarDefaults(
+                            label: "Search components"
+                        )
+                    )
+
+                    if !searchQuery.isEmpty {
+                        Text("Query: \(searchQuery)")
+                            .font(theme.typography.body)
+                    }
+
+                    JchuGrowingTextField(
+                        value: $notes,
+                        defaults: GrowingTextFieldDefaults(
+                            label: "Notes",
+                            placeholder: "Write a note",
+                            systemImage: "note.text",
+                            maxCharacters: 120
+                        )
+                    )
                 }
 
                 Section(JchuCatalogCategory.loaders.rawValue) {
