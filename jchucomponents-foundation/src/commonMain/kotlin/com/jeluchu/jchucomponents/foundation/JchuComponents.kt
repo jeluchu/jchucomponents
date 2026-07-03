@@ -3,6 +3,6 @@ package com.jeluchu.jchucomponents.foundation
 /**
  * Metadata shared by the Android and iOS distributions of JchuComponents.
  */
-public object JchuComponents {
-    public const val VERSION: String = "3.0.0-alpha03"
+object JchuComponents {
+    const val VERSION: String = "3.0.0-alpha03"
 }

@@ -12,8 +12,8 @@ version = libs.versions.jchucomponents.get()
 kotlin {
     android {
         namespace = "com.jeluchu.jchucomponents.foundation"
-        compileSdk = 37
-        minSdk = 21
+        compileSdk = libs.versions.android.compile.sdk.get().toInt()
+        minSdk = libs.versions.android.min.sdk.get().toInt()
 
         withSourcesJar(publish = true)
         withHostTest {}
@@ -38,6 +38,10 @@ kotlin {
     }
 
     sourceSets {
+        commonMain.dependencies {
+            api(libs.kotlinx.datetime)
+        }
+
         commonTest.dependencies {
             implementation(kotlin(simpleModuleName = "test"))
         }
