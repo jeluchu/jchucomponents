@@ -22,7 +22,7 @@ object PriceUtil {
         var fullPrice = price
         if (divider == 1) return price
         else try {
-            fullPrice = fullPrice.replace("(?<=\\d)\\p{javaSpaceChar}+(?=\\d)".toRegex(), "").trim()
+            fullPrice = fullPrice.removeWhitespaceBetweenDigits().trim()
             fullPrice =
                 if (fullPrice.contains(",") && fullPrice.contains(".") && fullPrice.last() != '.')
                     fullPrice.replace(",", "")
@@ -62,7 +62,7 @@ object PriceUtil {
         var fullPrice = price
         if (divider == 1) return price
         else try {
-            fullPrice = fullPrice.replace("(?<=\\d)\\p{javaSpaceChar}+(?=\\d)".toRegex(), "").trim()
+            fullPrice = fullPrice.removeWhitespaceBetweenDigits().trim()
             fullPrice =
                 if (fullPrice.contains(",") && fullPrice.contains(".") && fullPrice.last() != '.')
                     fullPrice.replace(",", "")
@@ -100,4 +100,13 @@ object PriceUtil {
         val decimal = (rounded % 100).toString().padStart(2, '0')
         return "$integer.$decimal"
     }
+
+    private fun String.removeWhitespaceBetweenDigits(): String =
+        filterIndexed { index, character ->
+            !character.isWhitespace() ||
+                index == 0 ||
+                index == lastIndex ||
+                !this[index - 1].isDigit() ||
+                !this[index + 1].isDigit()
+        }
 }
