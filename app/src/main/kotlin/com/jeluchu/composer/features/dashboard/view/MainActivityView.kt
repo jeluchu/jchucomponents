@@ -22,7 +22,6 @@ import com.jeluchu.composer.core.ui.theme.darkness
 import com.jeluchu.composer.core.ui.theme.milky
 import com.jeluchu.composer.core.ui.theme.primary
 import com.jeluchu.composer.core.ui.theme.secondary
-import com.jeluchu.jchucomponents.ui.accompanist.systemui.SystemStatusBarColors
 import com.jeluchu.jchucomponents.ui.composables.images.NetworkImage
 import com.jeluchu.jchucomponents.ui.composables.toolbars.CenterToolbarColors
 import com.jeluchu.jchucomponents.ui.foundation.lists.ListRow
@@ -31,11 +30,6 @@ import com.jeluchu.jchucomponents.ui.foundation.lists.ListRow
 fun MainView(
     onItemClick: (String) -> Unit
 ) {
-    SystemStatusBarColors(
-        systemBarsColor = primary,
-        statusBarColor = primary
-    )
-
     Main(onItemClick)
 }
 
