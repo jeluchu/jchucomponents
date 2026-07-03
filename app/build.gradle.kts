@@ -6,11 +6,11 @@ plugins {
 }
 
 android {
-    compileSdk = 37
+    compileSdk = libs.versions.android.compile.sdk.get().toInt()
     defaultConfig {
         applicationId = "com.jeluchu.composer"
-        minSdk = 23
-        targetSdk = 37
+        minSdk = libs.versions.sample.min.sdk.get().toInt()
+        targetSdk = libs.versions.android.target.sdk.get().toInt()
         versionCode = 1
         versionName = libs.versions.jchucomponents.get()
     }
@@ -27,8 +27,8 @@ android {
     
     buildFeatures.compose = true
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_21
-        targetCompatibility = JavaVersion.VERSION_21
+        sourceCompatibility = JavaVersion.toVersion(libs.versions.java.get())
+        targetCompatibility = JavaVersion.toVersion(libs.versions.java.get())
         isCoreLibraryDesugaringEnabled = true
     }
 
