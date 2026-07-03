@@ -144,5 +144,8 @@ jobs:
       - name: Publish signed KMP variants
         run: |
           ./gradlew \
+            :jchucomponents-foundation:publishAndReleaseToMavenCentral \
             :jchucomponents-network:publishAndReleaseToMavenCentral \
-            :jchucomponents-prefs:publishAndReleaseToMavenCentral
+            :jchucomponents-pay:publishAndReleaseToMavenCentral \
+            :jchucomponents-prefs:publishAndReleaseToMavenCentral \
+            :jchucomponents-qr:publishAndReleaseToMavenCentral

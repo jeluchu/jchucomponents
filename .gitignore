@@ -23,6 +23,7 @@ out/
 .swiftpm/
 .build/
 build/
+swift/Package.resolved
 
 # Local configuration file (sdk path, etc)
 local.properties

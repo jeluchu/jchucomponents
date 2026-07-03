@@ -90,12 +90,15 @@ Available Android artifacts are `jchucomponents-core`,
 `jchucomponents-ui`.
 
 Kotlin Multiplatform applications with Apple targets must obtain the shared
-network and preferences artifacts from Maven Central:
+foundation, network, payment, preferences and QR artifacts from Maven Central:
 
 ```kotlin
 commonMain.dependencies {
+    implementation("io.github.jeluchu:jchucomponents-foundation:3.0.0-alpha05")
     implementation("io.github.jeluchu:jchucomponents-network:3.0.0-alpha05")
+    implementation("io.github.jeluchu:jchucomponents-pay:3.0.0-alpha05")
     implementation("io.github.jeluchu:jchucomponents-prefs:3.0.0-alpha05")
+    implementation("io.github.jeluchu:jchucomponents-qr:3.0.0-alpha05")
 }
 ```
 
@@ -115,6 +118,13 @@ application:
 import JchuComponentsCore
 import JchuComponentsExtensions
 import JchuComponentsSwiftUI
+```
+
+Applications using native RevenueCat integrations can also select the
+`JchuComponentsPay` product and import it separately:
+
+```swift
+import JchuComponentsPay
 ```
 
 The Swift package requires iOS 26.0 or newer. A separate SwiftPM repository is

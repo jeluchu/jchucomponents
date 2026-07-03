@@ -45,6 +45,9 @@ ditto \
     "${project_root}/swift/Sources/JchuComponentsSwiftUI" \
     "${package_sources}/JchuComponentsSwiftUI"
 ditto \
+    "${project_root}/swift/Sources/JchuComponentsPay" \
+    "${package_sources}/JchuComponentsPay"
+ditto \
     "${project_root}/swift/Tests/JchuComponentsSwiftUITests" \
     "${package_tests}/JchuComponentsSwiftUITests"
 
