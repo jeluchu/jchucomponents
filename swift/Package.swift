@@ -17,9 +17,16 @@ let package = Package(
             ]
         ),
         .library(
+            name: "JchuComponentsPay",
+            targets: ["JchuComponentsPay"]
+        ),
+        .library(
             name: "JchuComponentsCatalog",
             targets: ["JchuComponentsCatalog"]
         )
+    ],
+    dependencies: [
+        .package(url: "https://github.com/RevenueCat/purchases-ios.git", from: "5.77.0")
     ],
     targets: [
         .binaryTarget(
@@ -34,6 +41,12 @@ let package = Package(
             dependencies: [
                 "JchuComponentsCore",
                 "JchuComponentsExtensions"
+            ]
+        ),
+        .target(
+            name: "JchuComponentsPay",
+            dependencies: [
+                .product(name: "RevenueCat", package: "purchases-ios")
             ]
         ),
         .target(
