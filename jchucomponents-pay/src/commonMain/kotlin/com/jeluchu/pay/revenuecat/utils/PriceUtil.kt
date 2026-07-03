@@ -1,10 +1,5 @@
 package com.jeluchu.pay.revenuecat.utils
 
-import android.util.Log
-import com.android.billingclient.api.ProductDetails
-import com.jeluchu.pay.revenuecat.extensions.isInAppPurchase
-import com.jeluchu.pay.revenuecat.extensions.isSubscription
-import java.util.regex.Pattern
 import kotlin.math.roundToLong
 
 object PriceUtil {
@@ -35,10 +30,9 @@ object PriceUtil {
 
             var digit: String? = null
             val currency: String
-            val regex = Pattern.compile("(\\d+(?:\\.\\d+)?)")
-            val matcher = regex.matcher(fullPrice)
-            while (matcher.find()) {
-                digit = matcher.group(1)
+            val regex = Regex("(\\d+(?:\\.\\d+)?)")
+            regex.findAll(fullPrice).forEach { match ->
+                digit = match.groupValues[1]
             }
             if (digit != null) {
                 currency = fullPrice.replace(digit, "")
@@ -47,8 +41,7 @@ object PriceUtil {
                 return if (fullPrice.startsWith(currency)) currency + roundDigitString(digitValue)
                 else roundDigitString(digitValue) + currency
             }
-        } catch (e: Exception) {
-            if (enableLogging) Log.e(TAG, e.message ?: "")
+        } catch (_: Exception) {
         }
 
         return null
@@ -77,10 +70,9 @@ object PriceUtil {
 
             var digit: String? = null
             val currency: String
-            val regex = Pattern.compile("(\\d+(?:\\.\\d+)?)")
-            val matcher = regex.matcher(fullPrice)
-            while (matcher.find()) {
-                digit = matcher.group(1)
+            val regex = Regex("(\\d+(?:\\.\\d+)?)")
+            regex.findAll(fullPrice).forEach { match ->
+                digit = match.groupValues[1]
             }
             if (digit != null) {
                 currency = fullPrice.replace(digit, "")
@@ -89,8 +81,7 @@ object PriceUtil {
                 return if (fullPrice.startsWith(currency)) currency + roundDigitString(digitValue)
                 else roundDigitString(digitValue) + currency
             }
-        } catch (e: Exception) {
-            if (enableLogging) Log.e(TAG, e.message ?: "")
+        } catch (_: Exception) {
         }
 
         return null
@@ -99,37 +90,14 @@ object PriceUtil {
     private fun roundDigitString(digitValue: Double): String {
         val priceValueString =
             if (digitValue > 1000.0) digitValue.roundToLong().toString() else
-                String.format("%.2f", digitValue)
+                digitValue.roundToTwoDecimals()
         return priceValueString.replace(".", ",")
     }
-}
 
-
-/**
- * A helper method making it easier to retrieve a formatted price from product details.
- * Parameters only apply to subscription products.
- *
- * @param subscriptionOfferIndex index of [ProductDetails.getSubscriptionOfferDetails].
- * @param subscriptionPricingPhaseIndex index of [ProductDetails.SubscriptionOfferDetails.getPricingPhases]
- * @return formatted price or null on error
- */
-fun ProductDetails.getFormattedPrice(
-    subscriptionOfferIndex: Int = 0,
-    subscriptionPricingPhaseIndex: Int = 0
-): String? {
-    return if (isInAppPurchase()) {
-        oneTimePurchaseOfferDetails?.formattedPrice
-    } else try {
-        if (isSubscription()) {
-            subscriptionOfferDetails?.getOrNull(subscriptionOfferIndex)
-                ?.pricingPhases
-                ?.pricingPhaseList?.getOrNull(subscriptionPricingPhaseIndex)
-                ?.formattedPrice
-        } else {
-            null
-        }
-    } catch (e: Exception) {
-        if (PriceUtil.enableLogging) Log.e(PriceUtil.TAG, e.message ?: "")
-        null
+    private fun Double.roundToTwoDecimals(): String {
+        val rounded = (this * 100).roundToLong()
+        val integer = rounded / 100
+        val decimal = (rounded % 100).toString().padStart(2, '0')
+        return "$integer.$decimal"
     }
 }

@@ -19,8 +19,8 @@ import com.revenuecat.purchases.PurchasesErrorCode
 import com.revenuecat.purchases.getOfferingsWith
 import com.revenuecat.purchases.interfaces.PurchaseCallback
 import com.revenuecat.purchases.interfaces.ReceiveCustomerInfoCallback
-import com.revenuecat.purchases.models.GoogleReplacementMode
 import com.revenuecat.purchases.models.StoreTransaction
+import com.revenuecat.purchases.models.StoreReplacementMode
 import com.revenuecat.purchases.models.googleProduct
 import com.revenuecat.purchases.purchaseWith
 import com.revenuecat.purchases.restorePurchasesWith
@@ -143,7 +143,7 @@ class Payment {
                 )
             ) SubscriptionState.INACTIVE_UNTIL_RENEWAL
             else SubscriptionState.ACTIVE,
-            managementUrl = customerInfo.managementURL
+            managementUrl = customerInfo.managementURL?.toString()
         )
     }
 
@@ -193,8 +193,8 @@ class Payment {
      *
      */
     enum class ProductsType(val type: String, val packageType: PackageType) {
-        ANNUAL("\$rc_annual", PackageType.ANNUAL),
-        MONTHLY("\$rc_monthly", PackageType.MONTHLY),
+        ANNUAL(type = "\$rc_annual", PackageType.ANNUAL),
+        MONTHLY(type = "\$rc_monthly", PackageType.MONTHLY),
     }
 
     companion object {
@@ -298,7 +298,7 @@ class Payment {
                                         Purchases.sharedInstance.purchase(
                                             PurchaseParams.Builder(activity, product)
                                                 .oldProductId(monthlyProduct.product.googleProduct?.productId.orEmpty())
-                                                .googleReplacementMode(GoogleReplacementMode.WITHOUT_PRORATION)
+                                                .replacementMode(StoreReplacementMode.WITHOUT_PRORATION)
                                                 .build(),
                                             object : PurchaseCallback {
                                                 override fun onCompleted(
@@ -322,7 +322,7 @@ class Payment {
                                         Purchases.sharedInstance.purchase(
                                             PurchaseParams.Builder(activity, product)
                                                 .oldProductId(annualProduct.product.googleProduct?.productId.orEmpty())
-                                                .googleReplacementMode(GoogleReplacementMode.WITHOUT_PRORATION)
+                                                .replacementMode(StoreReplacementMode.WITHOUT_PRORATION)
                                                 .build(),
                                             object : PurchaseCallback {
                                                 override fun onCompleted(

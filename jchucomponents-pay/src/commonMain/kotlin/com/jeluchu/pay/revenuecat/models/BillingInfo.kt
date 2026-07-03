@@ -1,10 +1,8 @@
 package com.jeluchu.pay.revenuecat.models
 
-import com.revenuecat.purchases.Package
-
 data class BillingInfo(
     val info: SubscriptionInfo,
-    val packages: List<Package>,
+    val packages: List<RevenueCatPackage>,
     val products: List<Product>
 ) {
     companion object {
@@ -15,3 +13,5 @@ data class BillingInfo(
         )
     }
 }
+
+expect class RevenueCatPackage

@@ -1,6 +1,5 @@
 package com.jeluchu.pay.revenuecat.models
 
-import android.net.Uri
 import com.jeluchu.pay.revenuecat.extensions.empty
 
 data class SubscriptionInfo(
@@ -8,7 +7,7 @@ data class SubscriptionInfo(
     val expireDate: String,
     val promotional: Boolean,
     val state: SubscriptionState,
-    val managementUrl: Uri?
+    val managementUrl: String?
 ) {
     companion object {
         fun empty() = SubscriptionInfo(

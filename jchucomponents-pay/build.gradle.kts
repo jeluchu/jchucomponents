@@ -1,66 +1,45 @@
 plugins {
-    alias(libs.plugins.android.library)
+    alias(libs.plugins.jetbrains.kotlin.multiplatform)
+    alias(libs.plugins.android.kmp.library)
     alias(libs.plugins.jetbrains.dokka)
     id("maven-publish")
 }
 
-android {
-    namespace = "com.jeluchu.jchucomponents.pay"
-    compileSdk = 37
+group = "com.github.jeluchu"
+version = libs.versions.jchucomponents.get()
 
-    defaultConfig {
-        minSdk = 21
-        proguardFiles(
-            getDefaultProguardFile("proguard-android-optimize.txt"),
-            "proguard-rules.pro"
-        )
+kotlin {
+    android {
+        namespace = "com.jeluchu.jchucomponents.pay"
+        compileSdk = libs.versions.android.compile.sdk.get().toInt()
+        minSdk = libs.versions.android.min.sdk.get().toInt()
+
+        withSourcesJar(publish = true)
+        withHostTest {}
     }
 
-    buildTypes {
-        debug {
-            isMinifyEnabled = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
-        }
-        release {
-            isMinifyEnabled = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
+    iosArm64()
+    iosX64()
+    iosSimulatorArm64()
+
+    targets.withType<org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget> {
+        compilerOptions {
+            freeCompilerArgs.add("-Xexpect-actual-classes")
         }
     }
 
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_21
-        targetCompatibility = JavaVersion.VERSION_21
-    }
-
-    publishing {
-        singleVariant("release") {
-            withSourcesJar()
+    sourceSets {
+        commonMain.dependencies {
+            api(libs.org.jetbrains.kotlinx.kotlinx.coroutines.core)
         }
-    }
 
-}
+        androidMain.dependencies {
+            implementation(libs.revenuecat)
+            implementation(libs.org.jetbrains.kotlinx.kotlinx.coroutines.android)
+        }
 
-dependencies {
-    implementation(libs.bundles.pay.android)
-    implementation(libs.bundles.pay.jetbrains)
-}
-
-publishing {
-    publications {
-        register<MavenPublication>("release") {
-            groupId = "com.github.jeluchu"
-            artifactId = "jchucomponents-pay"
-            version = libs.versions.jchucomponents.get()
-
-            afterEvaluate {
-                from(components["release"])
-            }
+        commonTest.dependencies {
+            implementation(kotlin(simpleModuleName = "test"))
         }
     }
 }
