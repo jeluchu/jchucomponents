@@ -11,8 +11,9 @@ data class JchuProgressState(
     val isIndeterminate: Boolean,
 ) {
     val fraction: Double
-        get() = when {
-            maxValue <= 0.0 -> 0.0
-            else -> (value / maxValue).coerceIn(0.0, 1.0)
-        }
+        get() =
+            when {
+                maxValue <= 0.0 -> 0.0
+                else -> (value / maxValue).coerceIn(0.0, 1.0)
+            }
 }

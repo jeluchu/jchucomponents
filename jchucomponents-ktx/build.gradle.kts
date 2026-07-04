@@ -48,6 +48,7 @@ android {
 
 dependencies {
     api(project(":jchucomponents-network"))
+    api(libs.org.jetbrains.kotlinx.kotlinx.serialization.json)
     implementation(platform(libs.compose.bom))
     implementation(libs.bundles.ktx.google)
     implementation(libs.bundles.ktx.androidx)

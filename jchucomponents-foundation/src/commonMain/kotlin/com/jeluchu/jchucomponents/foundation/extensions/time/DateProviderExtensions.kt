@@ -8,17 +8,15 @@ import kotlinx.datetime.LocalDateTime
 
 fun currentTimeMillis(): Long = TimeProvider.currentTimeMillis()
 
-fun LocalDate.format(pattern: String): String =
-    DateProvider.formatLocalDate(date = this, pattern = pattern)
+fun LocalDate.format(pattern: String): String = DateProvider.formatLocalDate(date = this, pattern = pattern)
 
-fun LocalDateTime.format(pattern: String): String =
-    DateProvider.formatLocalDateTime(dateTime = this, pattern = pattern)
+fun LocalDateTime.format(pattern: String): String = DateProvider.formatLocalDateTime(dateTime = this, pattern = pattern)
 
-fun String.toLocalDate(pattern: String): LocalDate =
-    DateProvider.parseLocalDate(value = this, pattern = pattern)
+@Throws(IllegalArgumentException::class)
+fun String.toLocalDate(pattern: String): LocalDate = DateProvider.parseLocalDate(value = this, pattern = pattern)
 
-fun String.toLocalDateTime(pattern: String): LocalDateTime =
-    DateProvider.parseLocalDateTime(value = this, pattern = pattern)
+@Throws(IllegalArgumentException::class)
+fun String.toLocalDateTime(pattern: String): LocalDateTime = DateProvider.parseLocalDateTime(value = this, pattern = pattern)
 
 fun firstDayOfWeekFromLocale(): DayOfWeek = DateProvider.firstDayOfWeekFromLocale()
 

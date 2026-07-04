@@ -8,7 +8,6 @@ import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
 
 class YearMonthTest {
-
     @Test
     fun exposesMonthBoundaries() {
         val february = YearMonth(2024, 2)

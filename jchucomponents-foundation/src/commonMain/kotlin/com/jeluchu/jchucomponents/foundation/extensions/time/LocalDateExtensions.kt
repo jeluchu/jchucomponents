@@ -24,8 +24,7 @@ fun LocalDate.minusYears(years: Int): LocalDate = minus(years, DateTimeUnit.YEAR
 
 fun LocalDate.startOfMonth(): LocalDate = LocalDate(year, month, 1)
 
-fun LocalDate.endOfMonth(): LocalDate =
-    startOfMonth().plus(1, DateTimeUnit.MONTH).minus(1, DateTimeUnit.DAY)
+fun LocalDate.endOfMonth(): LocalDate = startOfMonth().plus(1, DateTimeUnit.MONTH).minus(1, DateTimeUnit.DAY)
 
 fun LocalDate.startOfYear(): LocalDate = LocalDate(year, 1, 1)
 
@@ -36,12 +35,11 @@ fun LocalDate.startOfWeek(firstDayOfWeek: DayOfWeek = DayOfWeek.MONDAY): LocalDa
     return minus(daysFromStart, DateTimeUnit.DAY)
 }
 
-fun LocalDate.endOfWeek(firstDayOfWeek: DayOfWeek = DayOfWeek.MONDAY): LocalDate =
-    startOfWeek(firstDayOfWeek).plus(6, DateTimeUnit.DAY)
+fun LocalDate.endOfWeek(firstDayOfWeek: DayOfWeek = DayOfWeek.MONDAY): LocalDate = startOfWeek(firstDayOfWeek).plus(6, DateTimeUnit.DAY)
 
 fun LocalDate.isBetween(
     start: LocalDate,
-    endInclusive: LocalDate
+    endInclusive: LocalDate,
 ): Boolean {
     require(start <= endInclusive) { "Start date cannot be after end date" }
     return this in start..endInclusive
@@ -49,21 +47,20 @@ fun LocalDate.isBetween(
 
 fun LocalDate.isToday(
     instant: Instant = JchuDateTime.now(),
-    timeZone: TimeZone = TimeZone.currentSystemDefault()
+    timeZone: TimeZone = TimeZone.currentSystemDefault(),
 ): Boolean = this == JchuDateTime.today(instant, timeZone)
 
 fun LocalDate.isYesterday(
     instant: Instant = JchuDateTime.now(),
-    timeZone: TimeZone = TimeZone.currentSystemDefault()
+    timeZone: TimeZone = TimeZone.currentSystemDefault(),
 ): Boolean = this == JchuDateTime.today(instant, timeZone).minusDays(1)
 
 fun LocalDate.isTomorrow(
     instant: Instant = JchuDateTime.now(),
-    timeZone: TimeZone = TimeZone.currentSystemDefault()
+    timeZone: TimeZone = TimeZone.currentSystemDefault(),
 ): Boolean = this == JchuDateTime.today(instant, timeZone).plusDays(1)
 
-fun LocalDate.isWeekend(): Boolean =
-    dayOfWeek == DayOfWeek.SATURDAY || dayOfWeek == DayOfWeek.SUNDAY
+fun LocalDate.isWeekend(): Boolean = dayOfWeek == DayOfWeek.SATURDAY || dayOfWeek == DayOfWeek.SUNDAY
 
 val LocalDate.yearMonth: YearMonth
     get() = YearMonth.from(this)

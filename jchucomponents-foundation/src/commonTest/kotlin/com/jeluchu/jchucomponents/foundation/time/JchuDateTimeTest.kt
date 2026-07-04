@@ -19,7 +19,6 @@ import kotlin.test.assertTrue
 import kotlin.time.Instant
 
 class JchuDateTimeTest {
-
     @Test
     fun calculatesCalendarBoundaries() {
         val date = LocalDate(2024, 2, 14)

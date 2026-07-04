@@ -23,43 +23,56 @@ object JchuDateTime {
 
     fun today(
         instant: Instant = now(),
-        timeZone: TimeZone = TimeZone.currentSystemDefault()
+        timeZone: TimeZone = TimeZone.currentSystemDefault(),
     ): LocalDate = instant.toLocalDateTime(timeZone).date
 
     fun nowLocal(
         instant: Instant = now(),
-        timeZone: TimeZone = TimeZone.currentSystemDefault()
+        timeZone: TimeZone = TimeZone.currentSystemDefault(),
     ): LocalDateTime = instant.toLocalDateTime(timeZone)
 
+    @Throws(IllegalArgumentException::class)
     fun parseDate(value: String): LocalDate = LocalDate.parse(value)
 
+    @Throws(IllegalArgumentException::class)
     fun parseDateTime(value: String): LocalDateTime = LocalDateTime.parse(value)
 
+    @Throws(IllegalArgumentException::class)
     fun parseInstant(value: String): Instant = Instant.parse(value)
 
-    fun fromEpochMilliseconds(value: Long): Instant =
-        Instant.fromEpochMilliseconds(value)
+    fun fromEpochMilliseconds(value: Long): Instant = Instant.fromEpochMilliseconds(value)
 
     fun fromEpochSeconds(value: Long): Instant = Instant.fromEpochSeconds(value)
 
-    fun daysBetween(start: LocalDate, end: LocalDate): Long =
-        start.until(end, DateTimeUnit.DAY)
+    fun daysBetween(
+        start: LocalDate,
+        end: LocalDate,
+    ): Long = start.until(end, DateTimeUnit.DAY)
 
-    fun monthsBetween(start: LocalDate, end: LocalDate): Long =
-        start.until(end, DateTimeUnit.MONTH)
+    fun monthsBetween(
+        start: LocalDate,
+        end: LocalDate,
+    ): Long = start.until(end, DateTimeUnit.MONTH)
 
-    fun yearsBetween(start: LocalDate, end: LocalDate): Long =
-        start.until(end, DateTimeUnit.YEAR)
+    fun yearsBetween(
+        start: LocalDate,
+        end: LocalDate,
+    ): Long = start.until(end, DateTimeUnit.YEAR)
 
-    fun isLeapYear(year: Int): Boolean =
-        year % 4 == 0 && (year % 100 != 0 || year % 400 == 0)
+    fun isLeapYear(year: Int): Boolean = year % 4 == 0 && (year % 100 != 0 || year % 400 == 0)
 
-    fun daysInMonth(year: Int, month: Int): Int =
-        YearMonth(year, month).lengthOfMonth()
+    fun daysInMonth(
+        year: Int,
+        month: Int,
+    ): Int = YearMonth(year, month).lengthOfMonth()
 
     fun daysInYear(year: Int): Int = if (isLeapYear(year)) 366 else 365
 
-    fun calculateAge(birthDate: LocalDate, referenceDate: LocalDate): Int {
+    @Throws(IllegalArgumentException::class)
+    fun calculateAge(
+        birthDate: LocalDate,
+        referenceDate: LocalDate,
+    ): Int {
         require(referenceDate >= birthDate) { "Reference date cannot be before birth date" }
 
         val birthdayHasPassed =

@@ -7,7 +7,7 @@ package com.jeluchu.jchucomponents.foundation.text
  */
 fun String.formatInGroups(
     groupSize: Int = 4,
-    separator: String = "-"
+    separator: String = "-",
 ): String {
     require(groupSize > 0) { "Group size must be greater than zero" }
     return chunked(groupSize).joinToString(separator)

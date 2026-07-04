@@ -6,7 +6,6 @@ import kotlin.test.assertFalse
 import kotlin.test.assertTrue
 
 class CommonExtensionsTest {
-
     @Test
     fun nullableBooleansUseSafeDefaults() {
         assertFalse(null.orFalse())
@@ -28,5 +27,11 @@ class CommonExtensionsTest {
         assertEquals("", null.orEmpty())
         assertEquals("fallback", null.orEmpty(defaultValue = "fallback"))
         assertEquals("value", "value".orEmpty())
+    }
+
+    @Test
+    fun nullChecksUsePortableExtensions() {
+        assertTrue((null as String?).isNull())
+        assertFalse("value".isNull())
     }
 }

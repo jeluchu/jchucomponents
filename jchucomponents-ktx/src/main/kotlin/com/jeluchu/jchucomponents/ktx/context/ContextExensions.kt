@@ -37,13 +37,13 @@ import androidx.browser.customtabs.CustomTabsIntent
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.getSystemService
-import com.google.gson.Gson
 import com.jeluchu.jchucomponents.ktx.R
 import com.jeluchu.jchucomponents.ktx.constants.INTENT_TYPE_IMG_PNG
 import com.jeluchu.jchucomponents.ktx.context.broadcast.ShareBroadcastReceiver
 import com.jeluchu.jchucomponents.ktx.packageutils.buildIsMarshmallowAndUp
 import com.jeluchu.jchucomponents.ktx.packageutils.buildIsNougatAndUp
 import com.jeluchu.jchucomponents.ktx.packageutils.buildIsQAndUp
+import com.jeluchu.jchucomponents.ktx.serialization.json
 import java.io.File
 import java.util.Locale
 
@@ -129,11 +129,10 @@ fun Context.openPlaystoreSubscriptions(
     }
 }
 
-fun <T> Context.getJsonDataFromAsset(fileName: String, typeClass: Class<T>): T? =
+inline fun <reified T> Context.getJsonDataFromAsset(fileName: String): T? =
     kotlin.runCatching {
-        Gson().fromJson(
-            this.assets.open(fileName).bufferedReader().use { it.readText() },
-            typeClass
+        json.decodeFromString<T>(
+            assets.open(fileName).bufferedReader().use { it.readText() }
         )
     }.onFailure { error -> Log.e("ERROR:", error.message.orEmpty()) }.getOrNull()
 

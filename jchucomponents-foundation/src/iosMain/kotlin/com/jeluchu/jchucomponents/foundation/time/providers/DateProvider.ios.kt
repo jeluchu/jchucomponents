@@ -20,50 +20,68 @@ import platform.Foundation.NSLocale
 import platform.Foundation.currentLocale
 
 actual object DateProvider {
-    actual fun formatLocalDate(date: LocalDate, pattern: String): String {
+    actual fun formatLocalDate(
+        date: LocalDate,
+        pattern: String,
+    ): String {
         val nsDate = date.toNSDate() ?: return date.toString()
         return formatter(pattern).stringFromDate(nsDate)
     }
 
-    actual fun formatLocalDateTime(dateTime: LocalDateTime, pattern: String): String {
+    actual fun formatLocalDateTime(
+        dateTime: LocalDateTime,
+        pattern: String,
+    ): String {
         val nsDate = dateTime.toNSDate() ?: return dateTime.toString()
         return formatter(pattern).stringFromDate(nsDate)
     }
 
-    actual fun parseLocalDate(value: String, pattern: String): LocalDate {
-        val nsDate = formatter(pattern).dateFromString(value)
-            ?: throw IllegalArgumentException("Cannot parse date: $value")
-        val components = NSCalendar.currentCalendar.components(
-            NSCalendarUnitYear or NSCalendarUnitMonth or NSCalendarUnitDay,
-            nsDate
-        )
+    actual fun parseLocalDate(
+        value: String,
+        pattern: String,
+    ): LocalDate {
+        val nsDate =
+            formatter(pattern).dateFromString(value)
+                ?: throw IllegalArgumentException("Cannot parse date: $value")
+        val components =
+            NSCalendar.currentCalendar.components(
+                NSCalendarUnitYear or NSCalendarUnitMonth or NSCalendarUnitDay,
+                nsDate,
+            )
         return LocalDate(
             year = components.year.toInt(),
             month = components.month.toInt().toMonth(),
-            day = components.day.toInt()
+            day = components.day.toInt(),
         )
     }
 
-    actual fun parseLocalDateTime(value: String, pattern: String): LocalDateTime {
-        val nsDate = formatter(pattern).dateFromString(value)
-            ?: throw IllegalArgumentException("Cannot parse date time: $value")
-        val components = NSCalendar.currentCalendar.components(
-            NSCalendarUnitYear or NSCalendarUnitMonth or NSCalendarUnitDay or
-                NSCalendarUnitHour or NSCalendarUnitMinute or NSCalendarUnitSecond,
-            nsDate
-        )
+    actual fun parseLocalDateTime(
+        value: String,
+        pattern: String,
+    ): LocalDateTime {
+        val nsDate =
+            formatter(pattern).dateFromString(value)
+                ?: throw IllegalArgumentException("Cannot parse date time: $value")
+        val components =
+            NSCalendar.currentCalendar.components(
+                NSCalendarUnitYear or NSCalendarUnitMonth or NSCalendarUnitDay or
+                    NSCalendarUnitHour or NSCalendarUnitMinute or NSCalendarUnitSecond,
+                nsDate,
+            )
         return LocalDateTime(
             year = components.year.toInt(),
             month = components.month.toInt().toMonth(),
             day = components.day.toInt(),
             hour = components.hour.toInt(),
             minute = components.minute.toInt(),
-            second = components.second.toInt()
+            second = components.second.toInt(),
         )
     }
 
     actual fun firstDayOfWeekFromLocale(): DayOfWeek =
-        NSCalendar.currentCalendar.firstWeekday.toInt().toDayOfWeek()
+        NSCalendar.currentCalendar.firstWeekday
+            .toInt()
+            .toDayOfWeek()
 
     actual fun currentDayOfWeek(): DayOfWeek {
         val components = NSCalendar.currentCalendar.components(NSCalendarUnitWeekday, NSDate())
@@ -85,7 +103,7 @@ actual object DateProvider {
                 hour = 0
                 minute = 0
                 second = 0
-            }
+            },
         )
 
     private fun LocalDateTime.toNSDate(): NSDate? =
@@ -97,7 +115,7 @@ actual object DateProvider {
                 hour = this@toNSDate.hour.toLong()
                 minute = this@toNSDate.minute.toLong()
                 second = this@toNSDate.second.toLong()
-            }
+            },
         )
 
     private fun Int.toDayOfWeek(): DayOfWeek =

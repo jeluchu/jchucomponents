@@ -10,7 +10,7 @@ import kotlinx.datetime.number
  */
 data class YearMonth(
     val year: Int,
-    val month: Int
+    val month: Int,
 ) {
     init {
         require(value = month in 1..12) { "Month must be between 1 and 12" }
@@ -20,8 +20,7 @@ data class YearMonth(
 
     fun atDay(day: Int): LocalDate = LocalDate(year, month, day)
 
-    fun atEndOfMonth(): LocalDate =
-        plusMonths(1).atStartOfMonth().minus(1, DateTimeUnit.DAY)
+    fun atEndOfMonth(): LocalDate = plusMonths(1).atStartOfMonth().minus(1, DateTimeUnit.DAY)
 
     fun lengthOfMonth(): Int = atEndOfMonth().day
 
@@ -44,12 +43,20 @@ data class YearMonth(
 
     companion object {
         fun now(): YearMonth = from(date = JchuDateTime.today())
-        fun of(year: Int, month: Int): YearMonth = YearMonth(year, month)
+
+        fun of(
+            year: Int,
+            month: Int,
+        ): YearMonth = YearMonth(year, month)
+
         fun from(date: LocalDate): YearMonth = YearMonth(year = date.year, month = date.month.number)
     }
 }
 
-private fun floorDiv(value: Long, divisor: Long): Long {
+private fun floorDiv(
+    value: Long,
+    divisor: Long,
+): Long {
     val quotient = value / divisor
     val remainder = value % divisor
     return if (remainder != 0L && value < 0L) quotient - 1L else quotient

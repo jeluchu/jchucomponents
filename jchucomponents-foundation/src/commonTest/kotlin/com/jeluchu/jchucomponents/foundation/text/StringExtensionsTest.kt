@@ -5,7 +5,6 @@ import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
 
 class StringExtensionsTest {
-
     @Test
     fun formatsStringInGroups() {
         assertEquals("1234-5678-90", "1234567890".formatInGroups())

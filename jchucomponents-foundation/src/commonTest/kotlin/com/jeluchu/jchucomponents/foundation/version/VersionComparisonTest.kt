@@ -6,7 +6,6 @@ import kotlin.test.assertFailsWith
 import kotlin.test.assertTrue
 
 class VersionComparisonTest {
-
     @Test
     fun comparesNumericComponents() {
         assertTrue(compareVersions("1.10.0", "1.9.9") > 0)
