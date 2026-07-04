@@ -7,17 +7,23 @@
 package com.jeluchu.jchucomponents.ui.composables.pager
 
 import androidx.compose.animation.core.Animatable
+import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.Orientation
 import androidx.compose.foundation.gestures.draggable
 import androidx.compose.foundation.gestures.rememberDraggableState
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.size
+import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.Layout
 import androidx.compose.ui.layout.Measurable
 import androidx.compose.ui.layout.ParentDataModifier
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Density
+import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.launch
 import kotlin.math.roundToInt
 
@@ -187,4 +193,24 @@ class PagerScope(
 
     val selectionState: PagerState.SelectionState
         get() = state.selectionState
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun PagerPreview() {
+    val state = remember { PagerState(currentPage = 1, minPage = 0, maxPage = 2) }
+
+    Pager(
+        state = state,
+        modifier = Modifier.size(width = 220.dp, height = 120.dp)
+    ) {
+        Box(
+            modifier = Modifier
+                .size(width = 160.dp, height = 90.dp)
+                .background(Color(0xFFEADDFF)),
+            contentAlignment = Alignment.Center
+        ) {
+            Text(text = "Page $page")
+        }
+    }
 }

@@ -38,6 +38,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import com.jeluchu.jchucomponents.ui.extensions.toImageVector
@@ -159,5 +160,13 @@ internal fun DropdownMenuItemContent(
         CompositionLocalProvider(LocalContentAlpha provides contentAlpha) {
             content()
         }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun DropdownItemPreview() {
+    DropdownItem(onClick = {}) {
+        DropdownItemOption(title = "Share")
     }
 }

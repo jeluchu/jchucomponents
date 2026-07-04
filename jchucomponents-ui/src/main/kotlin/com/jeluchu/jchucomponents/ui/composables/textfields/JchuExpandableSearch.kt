@@ -55,6 +55,7 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
 /**
@@ -278,3 +279,19 @@ data class SearchBarDefaults(
     val clearContentDescription: String = "Clear search",
     val closeContentDescription: String = "Close search"
 )
+
+@Preview(showBackground = true)
+@Composable
+private fun JchuExpandableSearchPreview() {
+    var query by remember { mutableStateOf("Compose") }
+
+    JchuExpandableSearch(
+        query = query,
+        onQueryChange = { query = it },
+        defaults = SearchBarDefaults(
+            label = "Search",
+            initiallyExpanded = true
+        ),
+        modifier = Modifier.padding(16.dp)
+    )
+}

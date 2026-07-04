@@ -18,6 +18,7 @@ import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.TabRowDefaults
+import androidx.compose.material.Text
 import androidx.compose.material.contentColorFor
 import androidx.compose.material.primarySurface
 import androidx.compose.runtime.Composable
@@ -29,6 +30,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.SubcomposeLayout
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -176,3 +178,18 @@ private val ScrollableTabRowScrollSpec: AnimationSpec<Float> = tween(
     durationMillis = 250,
     easing = FastOutSlowInEasing
 )
+
+@Preview(showBackground = true)
+@Composable
+private fun ScrollableChipTabRowPreview() {
+    ScrollableChipTabRow(selectedTabIndex = 1) {
+        repeat(3) { index ->
+            ChipTab(
+                selected = index == 1,
+                onClick = {}
+            ) {
+                Text(text = "Tab ${index + 1}")
+            }
+        }
+    }
+}

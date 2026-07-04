@@ -17,6 +17,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
 @Composable
@@ -37,4 +38,15 @@ fun PageIndicator(
                 .background(tint, RoundedCornerShape(percent = 50))
         )
     }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun PageIndicatorPreview() {
+    PageIndicator(
+        pagesCount = 5,
+        currentPageIndex = 2,
+        color = Color(0xFF6750A4),
+        modifier = Modifier.padding(16.dp)
+    )
 }

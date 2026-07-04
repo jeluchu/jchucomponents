@@ -18,6 +18,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
@@ -34,6 +36,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
 @Composable
@@ -198,5 +201,21 @@ object GrowingTextFieldColorsDefaults {
         cursorColor = cursorColor,
         focusedIndicatorColor = focusedIndicatorColor,
         unfocusedIndicatorColor = unfocusedIndicatorColor
+    )
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun JchuGrowingTextFieldPreview() {
+    JchuGrowingTextField(
+        value = "A reusable growing text field.",
+        onValueChange = {},
+        defaults = GrowingTextFieldDefaults(
+            label = "Notes",
+            placeholder = "Write something",
+            icon = Icons.Default.Edit,
+            maxCharacters = 120
+        ),
+        modifier = Modifier.padding(16.dp)
     )
 }

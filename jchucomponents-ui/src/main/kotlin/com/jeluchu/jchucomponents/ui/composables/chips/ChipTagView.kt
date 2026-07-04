@@ -39,7 +39,7 @@ import com.jeluchu.jchucomponents.ui.composables.images.NetworkImage
  * This component is similar to the Chips,
  * in which you can display a text or a text and an icon
  *
- * @sample ChipTagViewPreview
+ * @sample com.jeluchu.jchucomponents.ui.composables.chips.ChipTagViewPreview
  *
  * @param modifier modifier that will be used to change the color, size...
  * @param title text to be displayed on the chip

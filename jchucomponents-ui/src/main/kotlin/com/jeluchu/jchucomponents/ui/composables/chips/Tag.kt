@@ -33,7 +33,7 @@ import androidx.compose.ui.unit.dp
  * This component is similar to the Chips,
  * in which you can display a text or a text and an icon
  *
- * @sample TagPreview()
+ * @sample com.jeluchu.jchucomponents.ui.composables.chips.TagPreview
  *
  * @param modifier modifier that will be used to change the color, size...
  * @param title text to be displayed on the chip

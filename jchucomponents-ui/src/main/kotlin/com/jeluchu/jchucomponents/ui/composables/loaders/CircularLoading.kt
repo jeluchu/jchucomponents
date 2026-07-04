@@ -21,7 +21,7 @@ import androidx.compose.ui.tooling.preview.Preview
  *
  * This is a component for displaying a circular loading progress
  *
- * @sample CircularLoadingPreview
+ * @sample com.jeluchu.jchucomponents.ui.composables.loaders.CircularLoadingPreview
  *
  * @param isShow the status of whether or not to display
  * @param colorLoading color of the circular progress bar

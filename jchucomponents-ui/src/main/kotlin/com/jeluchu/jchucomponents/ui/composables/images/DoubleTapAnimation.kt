@@ -25,6 +25,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.jeluchu.jchucomponents.ktx.numbers.empty
@@ -88,6 +89,16 @@ fun DoubleTapAnimation(
             if (animatedSize == size) isLike = false
         }
     }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun DoubleTapAnimationPreview() {
+    DoubleTapAnimation(
+        image = com.jeluchu.jchucomponents.ui.R.drawable.ic_btn_qrcode,
+        icon = com.jeluchu.jchucomponents.ui.R.drawable.ic_btn_share,
+        size = 96.dp
+    ) {}
 }
 
 /**

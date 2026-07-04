@@ -28,6 +28,7 @@ import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
@@ -35,6 +36,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.takeOrElse
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.IntOffset
@@ -249,6 +251,20 @@ private const val OutTransitionDuration = 240
 
 // Default timeout before tooltip close
 private const val TooltipTimeout = 2_000L - OutTransitionDuration
+
+@Preview(showBackground = true)
+@Composable
+private fun TooltipPreview() {
+    val expanded = remember { mutableStateOf(true) }
+
+    Box(modifier = Modifier.padding(24.dp)) {
+        Text(text = "Anchor")
+        Tooltip(
+            expanded = expanded,
+            text = "Helpful tooltip"
+        )
+    }
+}
 
 
 // Color helpers

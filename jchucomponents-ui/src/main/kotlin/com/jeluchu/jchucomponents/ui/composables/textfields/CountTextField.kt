@@ -40,7 +40,7 @@ import com.jeluchu.jchucomponents.ui.runtime.remember.rememberMutableStateOf
  * This component is based on EditText in which you can check
  * how many characters you have typed and what is the maximum
  *
- * @sample JchuCountedFieldPreview
+ * @sample com.jeluchu.jchucomponents.ui.composables.textfields.JchuCountedFieldPreview
  *
  * @param title title to be displayed at the top of the EditText / TextField
  * @param maxLength maximum number of characters the user can type

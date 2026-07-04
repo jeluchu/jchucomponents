@@ -27,6 +27,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.layout.Layout
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import kotlin.random.Random
@@ -184,3 +185,14 @@ data class ParticleModel(
     val duration: Int,
     val emoji: String
 )
+
+@Preview(showBackground = true)
+@Composable
+private fun ParticlesPreview() {
+    Particles(
+        modifier = Modifier,
+        quantity = 12,
+        emoji = "*",
+        visible = true
+    )
+}

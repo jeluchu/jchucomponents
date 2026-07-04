@@ -33,7 +33,7 @@ import androidx.compose.ui.unit.dp
  *
  * This component is a loading with pulse animation
  *
- * @sample PulseLoadingPreview
+ * @sample com.jeluchu.jchucomponents.ui.composables.loaders.PulseLoadingPreview
  *
  * @param durationMillis animation duration
  * @param maxPulseSize maximum size of circular animation

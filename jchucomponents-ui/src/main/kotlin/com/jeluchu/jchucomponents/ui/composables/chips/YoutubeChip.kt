@@ -26,7 +26,7 @@ import androidx.compose.ui.unit.dp
  *
  * This component is similar to the chips in the YouTube app
  *
- * @sample YoutubeChipPreview
+ * @sample com.jeluchu.jchucomponents.ui.composables.chips.YoutubeChipPreview
  *
  * @param modifier modifier that will be used to change the color, size...
  * @param selected status (selected or not)

@@ -16,6 +16,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.jeluchu.jchucomponents.ui.composables.images.NetworkImage
@@ -70,5 +71,15 @@ fun PostCardTop(
         text = description,
         style = style,
         fontSize = 16.sp
+    )
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun PostCardTopPreview() {
+    PostCardTop(
+        image = com.jeluchu.jchucomponents.ui.R.drawable.ic_deco_jeluchu.toString(),
+        title = "Preview title",
+        description = "Short preview description for the card."
     )
 }

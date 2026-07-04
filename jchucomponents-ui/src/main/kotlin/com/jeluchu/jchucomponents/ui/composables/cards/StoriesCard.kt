@@ -27,6 +27,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.jeluchu.jchucomponents.ktx.numbers.isNotEmpty
@@ -124,3 +125,13 @@ fun StoryCard(
     }
 }
 
+@Preview(showBackground = true)
+@Composable
+private fun StoryCardPreview() {
+    StoryCard(
+        title = "Story",
+        textColor = Color.White,
+        circleImage = com.jeluchu.jchucomponents.ui.R.drawable.ic_deco_jeluchu,
+        iconMainResource = com.jeluchu.jchucomponents.ui.R.drawable.ic_btn_qrcode
+    ) {}
+}

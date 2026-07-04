@@ -19,11 +19,13 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
 /**
@@ -93,3 +95,16 @@ class BottomSheetSettings constructor(
     val isCloseIconShow: Boolean = false,
     val onClosePressed: () -> Unit = {}
 )
+
+@Preview(showBackground = true)
+@Composable
+private fun BottomSheetWithCloseDialogPreview() {
+    BottomSheetWithCloseDialog(
+        bottomSheetSettings = BottomSheetSettings(isCloseIconShow = true)
+    ) {
+        Text(
+            text = "Bottom sheet content",
+            modifier = Modifier.padding(32.dp)
+        )
+    }
+}

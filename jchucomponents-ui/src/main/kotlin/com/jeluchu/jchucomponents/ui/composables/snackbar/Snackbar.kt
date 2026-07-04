@@ -25,6 +25,7 @@ import androidx.compose.ui.layout.LastBaseline
 import androidx.compose.ui.layout.Layout
 import androidx.compose.ui.layout.layoutId
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import kotlin.math.max
@@ -344,6 +345,21 @@ private fun OneRowSnackbar(
             textPlaceable.placeRelative(0, textPlaceY)
             buttonPlaceable.placeRelative(buttonPlaceX, buttonPlaceY)
         }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun SnackbarPreview() {
+    Snackbar(
+        modifier = Modifier.padding(16.dp),
+        action = {
+            TextButton(onClick = {}) {
+                Text(text = "Action")
+            }
+        }
+    ) {
+        Text(text = "Snackbar message")
     }
 }
 

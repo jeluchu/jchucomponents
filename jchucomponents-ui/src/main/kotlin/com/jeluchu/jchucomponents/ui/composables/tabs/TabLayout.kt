@@ -27,6 +27,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.tooling.preview.Preview
 import com.jeluchu.jchucomponents.ktx.strings.empty
 
 private const val TabFadeInAnimationDuration = 150
@@ -59,6 +60,17 @@ fun ChipTab(
         verticalArrangement = Arrangement.Center,
         content = content
     )
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun ChipTabPreview() {
+    ChipTab(
+        selected = true,
+        onClick = {}
+    ) {
+        androidx.compose.material.Text(text = "Selected")
+    }
 }
 
 @Composable

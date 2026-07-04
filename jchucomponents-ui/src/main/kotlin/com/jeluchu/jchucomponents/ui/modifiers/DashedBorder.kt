@@ -24,7 +24,6 @@ import androidx.compose.ui.unit.Dp
  * Modify element to add border with appearance specified with a [border] and a [shape], pad the
  * content by the [BorderStroke.width] and clip it.
  *
- * @sample androidx.compose.foundation.samples.BorderSample()
  *
  * @param border [BorderStroke] class that specifies border appearance, such as size and color
  * @param shape shape of the border

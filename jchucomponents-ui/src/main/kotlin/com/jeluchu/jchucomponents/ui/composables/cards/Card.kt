@@ -22,6 +22,7 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ColorScheme
 import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.LaunchedEffect
@@ -35,6 +36,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.jeluchu.jchucomponents.ui.extensions.modifier.cornerRadius
@@ -271,6 +273,19 @@ internal suspend fun Animatable<Dp, *>.animateElevation(
         else -> null
     }
     if (spec != null) animateTo(target, spec) else snapTo(target)
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun CardPreview() {
+    Card(
+        onClick = {},
+        modifier = Modifier.padding(16.dp),
+        elevation = CardElevation(shadowElevation = 4.dp)
+    ) {
+        Text(text = "Card")
+        Text(text = "Reusable surface with content padding.")
+    }
 }
 
 private object ElevationDefaults {
