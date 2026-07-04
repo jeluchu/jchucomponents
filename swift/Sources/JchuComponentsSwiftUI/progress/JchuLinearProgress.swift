@@ -15,6 +15,24 @@ public struct JchuLinearProgress: View {
         self.state = state
     }
 
+    public init(
+        _ title: String,
+        value: Double = 0,
+        maxValue: Double = 1,
+        isEnabled: Bool = true,
+        isIndeterminate: Bool = false
+    ) {
+        self.init(
+            state: JchuProgressState(
+                title: title,
+                value: value,
+                maxValue: maxValue,
+                isEnabled: isEnabled,
+                isIndeterminate: isIndeterminate
+            )
+        )
+    }
+
     public var body: some View {
         VStack(alignment: .leading, spacing: 8) {
             Text(state.title)

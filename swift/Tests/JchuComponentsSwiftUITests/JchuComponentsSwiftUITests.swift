@@ -33,6 +33,17 @@ final class JchuComponentsSwiftUITests: XCTestCase {
         XCTAssertEqual(state.fraction, 1)
     }
 
+    func testProgressViewsExposeNativeSwiftInitializers() {
+        _ = JchuLinearProgress("Downloading", value: 45, maxValue: 100)
+        _ = JchuCircularProgress("Preparing", isIndeterminate: true)
+        _ = JchuIconProgress(
+            "Uploading",
+            systemImage: "icloud.and.arrow.up",
+            value: 72,
+            maxValue: 100
+        )
+    }
+
     func testNativeSwiftStringExtensionsCanBeUsedDirectly() {
         XCTAssertEqual(String.empty, "")
         XCTAssertNil("  \n".nilIfBlank)

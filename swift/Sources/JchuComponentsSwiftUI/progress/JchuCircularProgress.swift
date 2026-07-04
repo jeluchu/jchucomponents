@@ -15,6 +15,24 @@ public struct JchuCircularProgress: View {
         self.state = state
     }
 
+    public init(
+        _ title: String,
+        value: Double = 0,
+        maxValue: Double = 1,
+        isEnabled: Bool = true,
+        isIndeterminate: Bool = false
+    ) {
+        self.init(
+            state: JchuProgressState(
+                title: title,
+                value: value,
+                maxValue: maxValue,
+                isEnabled: isEnabled,
+                isIndeterminate: isIndeterminate
+            )
+        )
+    }
+
     public var body: some View {
         VStack(spacing: 8) {
             if state.isIndeterminate {

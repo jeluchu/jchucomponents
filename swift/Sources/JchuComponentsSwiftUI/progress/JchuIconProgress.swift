@@ -20,6 +20,26 @@ public struct JchuIconProgress: View {
         self.systemImage = systemImage
     }
 
+    public init(
+        _ title: String,
+        systemImage: String,
+        value: Double = 0,
+        maxValue: Double = 1,
+        isEnabled: Bool = true,
+        isIndeterminate: Bool = false
+    ) {
+        self.init(
+            state: JchuProgressState(
+                title: title,
+                value: value,
+                maxValue: maxValue,
+                isEnabled: isEnabled,
+                isIndeterminate: isIndeterminate
+            ),
+            systemImage: systemImage
+        )
+    }
+
     public var body: some View {
         VStack(spacing: 12) {
             Image(systemName: systemImage)
