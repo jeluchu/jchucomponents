@@ -1,4 +1,5 @@
 import JchuComponentsCore
+import JchuComponentsExtensions
 import JchuComponentsSwiftUI
 import SwiftUI
 
@@ -52,6 +53,20 @@ public struct JchuComponentsCatalogView: View {
                     }
                 }
 
+                Section(JchuCatalogCategory.extensions.rawValue) {
+                    ForEach(JchuCatalogFixtures.extensionFixtures) { fixture in
+                        VStack(alignment: .leading, spacing: theme.spacing.dimen08) {
+                            Text(fixture.name)
+                                .font(theme.typography.label)
+                                .foregroundStyle(theme.colors.contentSecondary)
+                            Text(fixture.value)
+                                .font(theme.typography.body)
+                                .foregroundStyle(theme.colors.content)
+                        }
+                        .padding(.vertical, theme.spacing.dimen08)
+                    }
+                }
+
                 Section("Text fields") {
                     JchuExpandableSearch(
                         query: $searchQuery,
@@ -80,6 +95,14 @@ public struct JchuComponentsCatalogView: View {
                     JchuLoadingIndicator(label: "Loading")
                         .frame(maxWidth: .infinity)
                         .padding(.vertical, theme.spacing.dimen16)
+                }
+
+                Section(JchuCatalogCategory.images.rawValue) {
+                    JchuNetworkImage(
+                        url: JchuCatalogFixtures.imageURL,
+                        cornerRadius: theme.shapes.corner16
+                    )
+                    .frame(height: 180)
                 }
 
                 Section(JchuCatalogCategory.progress.rawValue) {

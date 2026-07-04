@@ -1,3 +1,10 @@
+//
+//  JchuLinearProgress.swift
+//  JchuComponents
+//
+//  Created by Jeluchu on 04/07/2026.
+//
+
 import SwiftUI
 
 public struct JchuLoadingIndicator: View {

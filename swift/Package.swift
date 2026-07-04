@@ -5,6 +5,7 @@ import PackageDescription
 let package = Package(
     name: "JchuComponents",
     platforms: [
+        .macOS(.v10_15),
         .iOS("26.0")
     ],
     products: [
@@ -26,6 +27,7 @@ let package = Package(
         )
     ],
     dependencies: [
+        .package(url: "https://github.com/onevcat/Kingfisher.git", from: "8.0.0"),
         .package(url: "https://github.com/RevenueCat/purchases-ios.git", from: "5.77.0")
     ],
     targets: [
@@ -40,7 +42,8 @@ let package = Package(
             name: "JchuComponentsSwiftUI",
             dependencies: [
                 "JchuComponentsCore",
-                "JchuComponentsExtensions"
+                "JchuComponentsExtensions",
+                .product(name: "Kingfisher", package: "Kingfisher")
             ]
         ),
         .target(
@@ -53,6 +56,7 @@ let package = Package(
             name: "JchuComponentsCatalog",
             dependencies: [
                 "JchuComponentsCore",
+                "JchuComponentsExtensions",
                 "JchuComponentsSwiftUI"
             ]
         ),

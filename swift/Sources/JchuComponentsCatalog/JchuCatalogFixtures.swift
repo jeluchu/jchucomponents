@@ -1,4 +1,5 @@
 import JchuComponentsCore
+import JchuComponentsExtensions
 import JchuComponentsSwiftUI
 import SwiftUI
 
@@ -6,6 +7,8 @@ enum JchuCatalogCategory: String, CaseIterable, Identifiable {
     case buttons = "Buttons"
     case cards = "Cards"
     case chips = "Chips"
+    case extensions = "Extensions"
+    case images = "Images"
     case lists = "Lists"
     case loaders = "Loaders"
     case progress = "Progress"
@@ -26,6 +29,15 @@ struct JchuCatalogStateFixture<State> {
     let name: String
     let kind: JchuCatalogFixtureKind
     let state: State
+}
+
+struct JchuCatalogExtensionFixture: Identifiable {
+    let name: String
+    let value: String
+
+    var id: String {
+        name
+    }
 }
 
 enum JchuCatalogScenario: String, CaseIterable, Identifiable {
@@ -111,6 +123,61 @@ enum JchuCatalogFixtures {
     ]
 
     static let progressButtonStates = progressButtonStateFixtures.map(\.state)
+
+    static let imageURL = URL(string: "https://picsum.photos/id/1025/600/400")
+
+    static let extensionFixtures = [
+        JchuCatalogExtensionFixture(
+            name: "String.grouped(every:)",
+            value: "123456789".grouped(every: 3)
+        ),
+        JchuCatalogExtensionFixture(
+            name: "String.onlyDigits",
+            value: "A1 B2-C3".onlyDigits
+        ),
+        JchuCatalogExtensionFixture(
+            name: "Bool?.orFalse()",
+            value: String(Optional<Bool>.none.orFalse())
+        ),
+        JchuCatalogExtensionFixture(
+            name: "Int.thousandsFormatted",
+            value: 1234567.thousandsFormatted
+        ),
+        JchuCatalogExtensionFixture(
+            name: "Int.millisecondsToTimer",
+            value: 125000.millisecondsToTimer
+        ),
+        JchuCatalogExtensionFixture(
+            name: "Array.concatenateLowercase()",
+            value: ["Jchu", "Components", "iOS"].concatenateLowercase()
+        ),
+        JchuCatalogExtensionFixture(
+            name: "Date.formatWithTime()",
+            value: sampleDate.formatWithTime(locale: catalogLocale, timeZone: catalogTimeZone)
+        ),
+        JchuCatalogExtensionFixture(
+            name: "Date.firstDayOfTheMonth()",
+            value: sampleDate.firstDayOfTheMonth(calendar: catalogCalendar)
+                .format(locale: catalogLocale, timeZone: catalogTimeZone)
+        ),
+        JchuCatalogExtensionFixture(
+            name: "Int.durationText",
+            value: 3665.durationText
+        ),
+    ]
+
+    private static let catalogLocale = Locale(identifier: "en_US_POSIX")
+
+    private static let catalogTimeZone = TimeZone(secondsFromGMT: 0)!
+
+    private static var catalogCalendar: Calendar {
+        var calendar = Calendar(identifier: .gregorian)
+        calendar.locale = catalogLocale
+        calendar.timeZone = catalogTimeZone
+        return calendar
+    }
+
+    private static let sampleDate = Date(timeIntervalSince1970: 1_720_126_920)
 
     static let progressStateFixtures = [
         JchuCatalogStateFixture(

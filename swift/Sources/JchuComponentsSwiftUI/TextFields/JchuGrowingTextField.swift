@@ -1,3 +1,10 @@
+//
+//  JchuLinearProgress.swift
+//  JchuComponents
+//
+//  Created by Jeluchu on 04/07/2026.
+//
+
 import SwiftUI
 
 public struct JchuGrowingTextField: View {
@@ -106,7 +113,7 @@ public struct GrowingTextFieldDefaults {
     }
 }
 
-#Preview {
+#Preview(traits: .sizeThatFitsLayout) {
     @Previewable @State var value = ""
 
     JchuGrowingTextField(

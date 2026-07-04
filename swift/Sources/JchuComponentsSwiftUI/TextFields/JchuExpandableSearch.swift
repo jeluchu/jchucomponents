@@ -1,3 +1,10 @@
+//
+//  JchuLinearProgress.swift
+//  JchuComponents
+//
+//  Created by Jeluchu on 04/07/2026.
+//
+
 import SwiftUI
 
 public struct JchuExpandableSearch: View {
@@ -176,7 +183,7 @@ public struct SearchBarDefaults {
     }
 }
 
-#Preview {
+#Preview(traits: .sizeThatFitsLayout) {
     @Previewable @State var query = ""
 
     JchuExpandableSearch(
