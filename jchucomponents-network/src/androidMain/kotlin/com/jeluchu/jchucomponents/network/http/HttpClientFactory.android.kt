@@ -7,6 +7,6 @@ import io.ktor.client.plugins.logging.Logger
 
 internal actual fun createPlatformHttpClient(
     configuration: HttpClientConfiguration,
-): HttpClient = HttpClient(Android) {
-    applyJchuConfiguration(configuration, Logger.ANDROID)
+): HttpClient = HttpClient(engineFactory = Android) {
+    applyJchuConfiguration(configuration, platformLogger = Logger.ANDROID)
 }
