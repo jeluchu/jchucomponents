@@ -1,4 +1,5 @@
 plugins {
+    id("jchucomponents.lint") apply false
     alias(libs.plugins.jetbrains.dokka)
     alias(libs.plugins.android.application) apply false
     alias(libs.plugins.android.library) apply false
@@ -8,6 +9,10 @@ plugins {
     alias(libs.plugins.kotlinx.serialization) apply false
     alias(libs.plugins.binary.compatibility.validator)
     alias(libs.plugins.maven.publish) apply false
+}
+
+subprojects {
+    pluginManager.apply("jchucomponents.lint")
 }
 
 dokka {

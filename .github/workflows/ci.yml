@@ -11,6 +11,31 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  code-style:
+    name: Kotlin code style
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "21"
+
+      - uses: gradle/actions/setup-gradle@v4
+
+      - name: Report Kotlin formatting improvements
+        continue-on-error: true
+        run: ./gradlew ktlintCheck
+
+      - name: Upload ktlint reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ktlint-reports
+          path: "**/build/reports/ktlint/**"
+          if-no-files-found: ignore
+
   catalog-readiness:
     name: Catalog visual readiness
     runs-on: ubuntu-latest
@@ -38,6 +63,12 @@ jobs:
       - name: Build and test Android
         run: ./gradlew apiCheck check assembleDebug assembleRelease publishToMavenLocal
 
+      - name: Compile published KMP consumer for Android
+        run: |
+          ./gradlew \
+            -p smoke-tests/kmp-consumer \
+            compileAndroidMain
+
   apple:
     name: Kotlin iOS and SwiftPM
     runs-on: macos-26
@@ -51,10 +82,33 @@ jobs:
 
       - uses: gradle/actions/setup-gradle@v4
 
-      - name: Test shared code and assemble XCFramework
+      - name: Test shared code on iOS
         run: |
           ./gradlew \
-            :jchucomponents-foundation:allTests \
+            :jchucomponents-foundation:iosSimulatorArm64Test \
+            :jchucomponents-network:iosSimulatorArm64Test \
+            :jchucomponents-pay:iosSimulatorArm64Test \
+            :jchucomponents-prefs:iosSimulatorArm64Test \
+            :jchucomponents-qr:iosSimulatorArm64Test
+
+      - name: Publish KMP artifacts for consumer smoke test
+        run: |
+          ./gradlew \
+            :jchucomponents-foundation:publishToMavenLocal \
+            :jchucomponents-network:publishToMavenLocal \
+            :jchucomponents-pay:publishToMavenLocal \
+            :jchucomponents-prefs:publishToMavenLocal \
+            :jchucomponents-qr:publishToMavenLocal
+
+      - name: Compile published KMP consumer for iOS
+        run: |
+          ./gradlew \
+            -p smoke-tests/kmp-consumer \
+            compileKotlinIosSimulatorArm64
+
+      - name: Assemble XCFramework
+        run: |
+          ./gradlew \
             :jchucomponents-foundation:assembleJchuComponentsCoreReleaseXCFramework
 
       - name: Build Swift package

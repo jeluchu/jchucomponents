@@ -12,6 +12,7 @@ kotlin = "2.4.0"
 dokka = "2.2.0"
 binaryCompatibilityValidator = "0.18.1"
 mavenPublish = "0.37.0"
+ktlintGradle = "14.2.0"
 androidx-activity = "1.13.0"
 androidx-lifecycle = "2.11.0"
 androidx-navigation3 = "1.1.4"
@@ -49,6 +50,7 @@ coil-compose = { module = "io.coil-kt.coil3:coil-compose", version.ref = "coil-k
 coil-compose-ktor = { module = "io.coil-kt.coil3:coil-network-ktor3", version.ref = "coil-kt" }
 org-jetbrains-kotlinx-kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "org-jetbrains-kotlinx" }
 org-jetbrains-kotlinx-kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "org-jetbrains-kotlinx" }
+org-jetbrains-kotlinx-kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "org-jetbrains-kotlinx" }
 kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "kotlinx-datetime" }
 androidx-appcompat = "androidx.appcompat:appcompat:1.7.1"
 revenuecat = "com.revenuecat.purchases:purchases:10.11.0"
@@ -70,6 +72,7 @@ jetbrains-dokka = { id = "org.jetbrains.dokka", version.ref = "dokka" }
 compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "org-jetbrains-kotlin" }
 binary-compatibility-validator = { id = "org.jetbrains.kotlinx.binary-compatibility-validator", version.ref = "binaryCompatibilityValidator" }
 maven-publish = { id = "com.vanniktech.maven.publish", version.ref = "mavenPublish" }
+ktlint = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "ktlintGradle" }
 kotlinx-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 
 [bundles]
@@ -91,7 +94,6 @@ ktx-androidx = [
 ]
 ktx-google = [
     "com-google-android-gms-play-services-base",
-    "com-google-code-gson",
 ]
 
 # FOR JCHUCOMPONENTS QR

@@ -1,96 +1,46 @@
 import org.jetbrains.kotlin.gradle.plugin.mpp.apple.XCFramework
 
 plugins {
-    alias(libs.plugins.jetbrains.kotlin.multiplatform)
-    alias(libs.plugins.android.kmp.library)
-    alias(libs.plugins.jetbrains.dokka)
-    alias(libs.plugins.maven.publish)
+    id("jchucomponents.kmp-library")
+    id("jchucomponents.publish")
 }
 
-group = "io.github.jeluchu"
 version = libs.versions.jchucomponents.get()
+description = "Portable state, date, text and utility APIs for Kotlin Multiplatform."
 
 kotlin {
-    compilerOptions {
-        freeCompilerArgs.add("-Xexpect-actual-classes")
-    }
-
     android {
         namespace = "com.jeluchu.jchucomponents.foundation"
-        compileSdk = libs.versions.android.compile.sdk.get().toInt()
-        minSdk = libs.versions.android.min.sdk.get().toInt()
-
-        withSourcesJar(publish = true)
-        withHostTest {}
     }
 
     val xcFramework = XCFramework(xcFrameworkName = "JchuComponentsCore")
 
-    listOf(
-        iosArm64(),
-        iosX64(),
-        iosSimulatorArm64()
-    ).forEach { iosTarget ->
-        iosTarget.binaries.framework {
-            baseName = "JchuComponentsCore"
-            binaryOption(
-                "bundleId",
-                "com.jeluchu.jchucomponents.core"
-            )
-            isStatic = true
-            xcFramework.add(this)
+    targets
+        .withType<org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget>()
+        .matching { it.konanTarget.family.isAppleFamily }
+        .configureEach {
+            binaries.framework {
+                baseName = "JchuComponentsCore"
+                binaryOption(
+                    "bundleId",
+                    "com.jeluchu.jchucomponents.core",
+                )
+                isStatic = true
+                xcFramework.add(this)
+            }
         }
-    }
 
     sourceSets {
         commonMain.dependencies {
             api(libs.kotlinx.datetime)
-        }
-
-        commonTest.dependencies {
-            implementation(kotlin(simpleModuleName = "test"))
+            api(libs.org.jetbrains.kotlinx.kotlinx.serialization.json)
         }
     }
 }
 
 mavenPublishing {
-    publishToMavenCentral(automaticRelease = true)
-    if (providers.gradleProperty("signingInMemoryKey").isPresent) {
-        signAllPublications()
-    }
-
-    coordinates(
-        groupId = "io.github.jeluchu",
-        artifactId = "jchucomponents-foundation",
-        version = libs.versions.jchucomponents.get(),
-    )
-
     pom {
         name.set("JchuComponents Foundation")
-        description.set("Portable state, date, text and utility APIs for Kotlin Multiplatform.")
-        inceptionYear.set("2022")
-        url.set("https://github.com/Jeluchu/jchucomponents")
-
-        licenses {
-            license {
-                name.set("The Apache License, Version 2.0")
-                url.set("https://www.apache.org/licenses/LICENSE-2.0.txt")
-                distribution.set("repo")
-            }
-        }
-
-        developers {
-            developer {
-                id.set("jeluchu")
-                name.set("Jeluchu")
-                url.set("https://github.com/Jeluchu")
-            }
-        }
-
-        scm {
-            url.set("https://github.com/Jeluchu/jchucomponents")
-            connection.set("scm:git:git://github.com/Jeluchu/jchucomponents.git")
-            developerConnection.set("scm:git:ssh://git@github.com/Jeluchu/jchucomponents.git")
-        }
+        description.set(project.description)
     }
 }
