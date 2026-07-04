@@ -66,7 +66,7 @@ object Encoder {
         var encoding = DEFAULT_BYTE_MODE_ENCODING
         val hasEncodingHint = hints != null && hints.containsKey(EncodeHintType.CHARACTER_SET)
         if (hasEncodingHint) {
-            encoding = hints!![EncodeHintType.CHARACTER_SET].toString()
+            encoding = hints[EncodeHintType.CHARACTER_SET].toString()
         }
 
         // Pick an encoding mode appropriate for the content. Note that this will not attempt to use
@@ -87,7 +87,7 @@ object Encoder {
 
         // Append the FNC1 mode header for GS1 formatted data if applicable
         val hasGS1FormatHint = hints != null && hints.containsKey(EncodeHintType.GS1_FORMAT)
-        if (hasGS1FormatHint && hints!![EncodeHintType.GS1_FORMAT].toString().toBoolean()) {
+        if (hasGS1FormatHint && hints[EncodeHintType.GS1_FORMAT].toString().toBoolean()) {
             // GS1 formatted codes are prefixed with a FNC1 in first position mode header
             appendModeInfo(Mode.FNC1_FIRST_POSITION, headerBits)
         }

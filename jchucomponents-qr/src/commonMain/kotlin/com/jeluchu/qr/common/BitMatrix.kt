@@ -164,12 +164,14 @@ class BitMatrix {
             return intArrayOf(x, y)
         }
 
-    override fun equals(o: Any?): Boolean {
-        if (o !is BitMatrix) {
+    override fun equals(other: Any?): Boolean {
+        if (other !is BitMatrix) {
             return false
         }
-        return width == o.width && height == o.height && rowSize == o.rowSize &&
-                bits.contentEquals(o.bits)
+        return width == other.width &&
+            height == other.height &&
+            rowSize == other.rowSize &&
+            bits.contentEquals(other.bits)
     }
 
     override fun hashCode(): Int {

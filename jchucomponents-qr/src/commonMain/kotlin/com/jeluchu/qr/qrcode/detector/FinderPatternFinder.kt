@@ -559,8 +559,8 @@ class FinderPatternFinder constructor(
     }
 
     private class EstimatedModuleComparator : Comparator<FinderPattern> {
-        override fun compare(center1: FinderPattern, center2: FinderPattern): Int {
-            return center1.estimatedModuleSize.compareTo(center2.estimatedModuleSize)
+        override fun compare(a: FinderPattern, b: FinderPattern): Int {
+            return a.estimatedModuleSize.compareTo(b.estimatedModuleSize)
         }
     }
 

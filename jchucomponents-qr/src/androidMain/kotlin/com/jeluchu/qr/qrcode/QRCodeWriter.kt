@@ -69,7 +69,7 @@ class QRCodeWriter {
         val size = multiple * inputWidth + padding * 2
         if (bitmap1 == null || bitmap1.width != size) bitmap1 =
             Bitmap.createBitmap(size, size, Bitmap.Config.ARGB_8888)
-        val canvas = Canvas(bitmap1!!)
+        val canvas = Canvas(bitmap1)
         canvas.drawColor(-0x1)
         val blackPaint = Paint(Paint.ANTI_ALIAS_FLAG)
         blackPaint.color = -0x1000000
@@ -216,7 +216,7 @@ class QRCodeWriter {
                 iconLogo,
             ), imageSize, imageSize, false
         )
-        canvas.drawBitmap(icon!!, imageX.toFloat(), imageX.toFloat(), null)
+        canvas.drawBitmap(icon, imageX.toFloat(), imageX.toFloat(), null)
         icon.recycle()
         canvas.setBitmap(null)
         return bitmap1

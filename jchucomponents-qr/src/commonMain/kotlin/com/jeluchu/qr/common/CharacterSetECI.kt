@@ -89,17 +89,17 @@ enum class CharacterSetECI {
     }
 
     private val values: IntArray
-    private val otherEncodingNames: Array<String>
+    private val otherEncodingNames: List<String>
 
     constructor(value: Int) : this(intArrayOf(value))
     constructor(value: Int, vararg otherEncodingNames: String) {
         values = intArrayOf(value)
-        this.otherEncodingNames = otherEncodingNames as Array<String>
+        this.otherEncodingNames = otherEncodingNames.toList()
     }
 
     constructor(values: IntArray, vararg otherEncodingNames: String) {
         this.values = values
-        this.otherEncodingNames = otherEncodingNames as Array<String>
+        this.otherEncodingNames = otherEncodingNames.toList()
     }
 
     val value: Int

@@ -107,7 +107,6 @@ internal object DecodedBitStreamParser {
                                 hints
                             )
                             Mode.KANJI -> decodeKanjiSegment(bits, result, count)
-                            else -> throw formatInstance
                         }
                     }
                 }
