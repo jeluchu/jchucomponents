@@ -18,6 +18,7 @@ dependencyResolutionManagement {
 
 rootProject.name = "JchuComponents"
 include(
+        ":jchucomponents-bom",
         ":jchucomponents-core",
         ":jchucomponents-ui",
         ":jchucomponents-ktx",

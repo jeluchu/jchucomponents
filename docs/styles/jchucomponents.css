@@ -1,0 +1,98 @@
+@font-face {
+    font-family: "Visby";
+    src: url("../images/light.ttf") format("truetype");
+    font-style: normal;
+    font-weight: 300;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Visby";
+    src: url("../images/regular.ttf") format("truetype");
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Visby";
+    src: url("../images/medium.ttf") format("truetype");
+    font-style: normal;
+    font-weight: 500;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Visby";
+    src: url("../images/bold.ttf") format("truetype");
+    font-style: normal;
+    font-weight: 700;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Visby";
+    src: url("../images/heavy.ttf") format("truetype");
+    font-style: normal;
+    font-weight: 800;
+    font-display: swap;
+}
+
+:root {
+    --default-font-family: "Visby", system-ui, sans-serif;
+    --font-family-default: "Visby", system-ui, sans-serif;
+    --ring-font-family: "Visby", system-ui, sans-serif;
+    --dokka-logo-image-url: url("../images/ic_deco_jeluchu.webp");
+    --dokka-logo-height: 42px;
+    --dokka-logo-width: 42px;
+
+    --color-key-blue: #4f8a68;
+    --color-key-blue-hover: #3f7456;
+    --color-key-blue-50: rgb(79 138 104 / 50%);
+    --active-section-color: #3f7456;
+    --sidemenu-section-active-color: #3f7456;
+    --hover-link-color: #3f7456;
+    --color-background-nav: #dff4e3;
+    --color-background-page: #fbfefb;
+    --color-background-footer: #eaf7ed;
+    --background-color: #fbfefb;
+    --default-font-color: #203c2d;
+    --header-font-color: #183424;
+    --border-color: rgb(79 138 104 / 25%);
+    --navigation-highlight-color: rgb(79 138 104 / 12%);
+    --blockquote-background: rgb(217 242 223 / 55%);
+}
+
+.theme-dark {
+    --color-key-blue: #9dd7ad;
+    --color-key-blue-hover: #b8e5c3;
+    --active-section-color: #b8e5c3;
+    --sidemenu-section-active-color: #b8e5c3;
+    --hover-link-color: #b8e5c3;
+    --color-background-nav-dt: #21392a;
+    --color-background-page-dt: #17281e;
+    --color-background-footer-dt: #21392a;
+    --background-color: #17281e;
+    --default-font-color: #e8f6eb;
+    --header-font-color: #f4fbf5;
+    --border-color: rgb(184 229 195 / 24%);
+    --navigation-highlight-color: rgb(184 229 195 / 10%);
+}
+
+body,
+button,
+input {
+    font-family: "Visby", system-ui, sans-serif;
+}
+
+.navigation-wrapper {
+    color: #203c2d;
+}
+
+.theme-dark .navigation-wrapper {
+    color: #e8f6eb;
+}
+
+.footer {
+    border-top: 1px solid var(--border-color);
+}

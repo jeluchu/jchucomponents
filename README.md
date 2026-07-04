@@ -13,7 +13,7 @@ Shared state lives in `jchucomponents-foundation`. Reusable Ktor APIs live in
 ```kotlin
 commonMain.dependencies {
     implementation(
-        "io.github.jeluchu:jchucomponents-network:3.0.0-alpha06"
+        "io.github.jeluchu:jchucomponents-network:3.0.0-alpha07"
     )
 }
 ```
@@ -57,7 +57,7 @@ the v3 alpha cycle.
 ## JchuComponents 3 installation
 
 The following coordinates apply to tagged v3 releases. During development,
-replace `3.0.0-alpha06` with an available v3 tag.
+replace `3.0.0-alpha07` with an available v3 tag.
 
 Add JitPack to `settings.gradle.kts`:
 
@@ -75,11 +75,23 @@ Then depend only on the Android modules your application needs:
 
 ```kotlin
 dependencies {
+    implementation(platform("io.github.jeluchu:jchucomponents-bom:3.0.0-alpha07"))
+
+    implementation("com.github.jeluchu.jchucomponents:jchucomponents-ui")
+    implementation("com.github.jeluchu.jchucomponents:jchucomponents-ktx")
+}
+```
+
+The BOM keeps all JchuComponents modules on the same release. You can also
+depend on artifacts directly if you prefer declaring each version explicitly:
+
+```kotlin
+dependencies {
     implementation(
-        "com.github.jeluchu.jchucomponents:jchucomponents-ui:3.0.0-alpha06"
+        "com.github.jeluchu.jchucomponents:jchucomponents-ui:3.0.0-alpha07"
     )
     implementation(
-        "com.github.jeluchu.jchucomponents:jchucomponents-ktx:3.0.0-alpha06"
+        "com.github.jeluchu.jchucomponents:jchucomponents-ktx:3.0.0-alpha07"
     )
 }
 ```
@@ -94,11 +106,11 @@ foundation, network, payment, preferences and QR artifacts from Maven Central:
 
 ```kotlin
 commonMain.dependencies {
-    implementation("io.github.jeluchu:jchucomponents-foundation:3.0.0-alpha06")
-    implementation("io.github.jeluchu:jchucomponents-network:3.0.0-alpha06")
-    implementation("io.github.jeluchu:jchucomponents-pay:3.0.0-alpha06")
-    implementation("io.github.jeluchu:jchucomponents-prefs:3.0.0-alpha06")
-    implementation("io.github.jeluchu:jchucomponents-qr:3.0.0-alpha06")
+    implementation("io.github.jeluchu:jchucomponents-foundation:3.0.0-alpha07")
+    implementation("io.github.jeluchu:jchucomponents-network:3.0.0-alpha07")
+    implementation("io.github.jeluchu:jchucomponents-pay:3.0.0-alpha07")
+    implementation("io.github.jeluchu:jchucomponents-prefs:3.0.0-alpha07")
+    implementation("io.github.jeluchu:jchucomponents-qr:3.0.0-alpha07")
 }
 ```
 
@@ -131,6 +143,35 @@ The Swift package requires iOS 26.0 or newer. Releases are distributed through
 the dedicated `Jeluchu/jchucomponents-spm` repository so iOS consumers do not
 clone the full Android/Kotlin monorepo.
 
+## Synchronizing localizations
+
+[`scripts/sync_strings.py`](scripts/sync_strings.py) synchronizes Android
+`strings.xml` resources into an Apple `Localizable.xcstrings` catalog. It adds
+new keys and locales, updates changed translations, converts Android string
+placeholders such as `%1$s` to `%1$@`, and ignores non-translatable strings.
+
+It can be exposed as a Gradle task in the Android application module:
+
+```kotlin
+tasks.register<Exec>("syncIosStrings") {
+    group = "localization"
+    description = "Syncs Android strings into the iOS String Catalog"
+    commandLine(
+        "python3",
+        rootProject.file("scripts/sync_strings.py"),
+        "--xcstrings", rootProject.file(
+            "iosApp/iosApp/resources/strings/Localizable.xcstrings"
+        ),
+        "--android-res", project.file("src/main/res"),
+        "--delete-missing",
+    )
+}
+```
+
+Run `./gradlew :androidApp:syncIosStrings`. Remove `--delete-missing` if keys
+maintained only in Xcode must be preserved, or add `--dry-run` to preview a
+sync without writing the catalog.
+
 ## Publishing a SwiftPM release
 
 SwiftPM publication is launched by pushing a version tag to this repository.
@@ -147,9 +188,9 @@ Before the first release:
 6. Create and push the matching annotated tag:
 
 ```bash
-git tag -a 3.0.0-alpha06 -m "3.0.0-alpha06"
+git tag -a 3.0.0-alpha07 -m "3.0.0-alpha07"
 git push origin v3
-git push origin 3.0.0-alpha06
+git push origin 3.0.0-alpha07
 ```
 
 The release workflow validates Android/KMP, builds and uploads the XCFramework,

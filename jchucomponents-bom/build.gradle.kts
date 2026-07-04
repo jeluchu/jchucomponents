@@ -1,36 +1,32 @@
 plugins {
-    alias(libs.plugins.jetbrains.kotlin.multiplatform)
-    alias(libs.plugins.android.kmp.library)
-    alias(libs.plugins.jetbrains.dokka)
+    `java-platform`
     alias(libs.plugins.maven.publish)
 }
 
 group = "io.github.jeluchu"
 version = libs.versions.jchucomponents.get()
 
-kotlin {
-    android {
-        namespace = "com.jeluchu.jchucomponents.prefs"
-        compileSdk = libs.versions.android.compile.sdk.get().toInt()
-        minSdk = libs.versions.android.min.sdk.get().toInt()
+javaPlatform {
+    allowDependencies()
+}
 
-        withSourcesJar(publish = true)
-        withHostTest {}
-    }
+val jchuComponentsVersion = libs.versions.jchucomponents.get()
 
-    iosArm64()
-    iosX64()
-    iosSimulatorArm64()
+dependencies {
+    constraints {
+        api("io.github.jeluchu:jchucomponents-foundation:$jchuComponentsVersion")
+        api("io.github.jeluchu:jchucomponents-network:$jchuComponentsVersion")
+        api("io.github.jeluchu:jchucomponents-pay:$jchuComponentsVersion")
+        api("io.github.jeluchu:jchucomponents-prefs:$jchuComponentsVersion")
+        api("io.github.jeluchu:jchucomponents-qr:$jchuComponentsVersion")
 
-    sourceSets {
-        commonMain.dependencies {
-            api(libs.androidx.datastore)
-            implementation(libs.org.jetbrains.kotlinx.kotlinx.coroutines.core)
-        }
+        api("com.github.jeluchu:jchucomponents-core:$jchuComponentsVersion")
+        api("com.github.jeluchu:jchucomponents-ktx:$jchuComponentsVersion")
+        api("com.github.jeluchu:jchucomponents-ui:$jchuComponentsVersion")
 
-        commonTest.dependencies {
-            implementation(kotlin(simpleModuleName = "test"))
-        }
+        api("com.github.jeluchu.jchucomponents:jchucomponents-core:$jchuComponentsVersion")
+        api("com.github.jeluchu.jchucomponents:jchucomponents-ktx:$jchuComponentsVersion")
+        api("com.github.jeluchu.jchucomponents:jchucomponents-ui:$jchuComponentsVersion")
     }
 }
 
@@ -42,13 +38,13 @@ mavenPublishing {
 
     coordinates(
         groupId = "io.github.jeluchu",
-        artifactId = "jchucomponents-prefs",
+        artifactId = "jchucomponents-bom",
         version = libs.versions.jchucomponents.get(),
     )
 
     pom {
-        name.set("JchuComponents Preferences")
-        description.set("Kotlin Multiplatform DataStore preferences for Android and iOS.")
+        name.set("JchuComponents BOM")
+        description.set("Bill of materials for aligning JchuComponents artifact versions.")
         inceptionYear.set("2022")
         url.set("https://github.com/Jeluchu/jchucomponents")
 
