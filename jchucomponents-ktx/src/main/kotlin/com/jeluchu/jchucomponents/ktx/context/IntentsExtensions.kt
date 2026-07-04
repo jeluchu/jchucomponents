@@ -150,7 +150,7 @@ fun Context.openNavigationMaps(
  * it will open the profile in the application, in case you do not have it installed
  * it will open a Chrome Tab with the function [openInCustomTab]
  *
- * @param username [String] the profile to be displayed
+ * @param username the profile to be displayed.
  *
  */
 fun Context.openInstagram(username: String) =
@@ -166,7 +166,7 @@ fun Context.openInstagram(username: String) =
  * it will open the profile in the application, in case you do not have it installed
  * it will open a Chrome Tab with the function [openInCustomTab]
  *
- * @param username [String] the profile to be displayed
+ * @param username the profile to be displayed.
  *
  */
 fun Context.openTwitter(username: String) =
@@ -213,7 +213,7 @@ fun Context.openYoutube(videoId: String = String.empty(), channelId: String = St
  * it will open the profile in the application, in case you do not have it installed
  * it will open a Chrome Tab with the function [openInCustomTab]
  *
- * @param username [String] the profile to be displayed
+ * @param username the profile to be displayed.
  *
  */
 fun Context.openTwitchProfile(username: String) =
@@ -225,11 +225,10 @@ fun Context.openTwitchProfile(username: String) =
 
 /**
  *
- * [Context] Extension to open the Twitch profile, if you have the application installed
- * it will open the profile in the application, in case you do not have it installed
- * it will open a Chrome Tab with the function [openInCustomTab]
+ * [Context] extension to open this application in Google Play.
  *
- * @param username [String] the profile to be displayed
+ * @param packageName application package to open in Google Play.
+ * @param customTabColor toolbar color used by the fallback custom tab.
  *
  */
 fun Context.rateUs(packageName: String, @ColorRes customTabColor: Int) =

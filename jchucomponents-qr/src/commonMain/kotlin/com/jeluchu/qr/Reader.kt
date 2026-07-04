@@ -8,7 +8,7 @@ package com.jeluchu.qr
 
 /**
  * Implementations of this interface can decode an image of a barcode in some format into
- * the String it encodes. For example, [com.jeluchu.jchucomponents.utils.zxing.qrcode.QRCodeReader] can
+ * the String it encodes. For example, [com.jeluchu.qr.qrcode.QRCodeReader] can
  * decode a QR code. The decoder may optionally receive hints from the caller which may help
  * it decode more quickly or accurately.
  *

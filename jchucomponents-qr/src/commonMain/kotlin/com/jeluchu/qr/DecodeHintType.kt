@@ -17,13 +17,13 @@ enum class DecodeHintType {
 
     /**
      * Image is a pure monochrome image of a barcode. Doesn't matter what it maps to;
-     * use [Boolean.TRUE].
+     * use `true`.
      */
     PURE_BARCODE,
 
     /**
      * Spend more time to try to find a barcode; optimize for accuracy, not speed.
-     * Doesn't matter what it maps to; use [Boolean.TRUE].
+     * Doesn't matter what it maps to; use `true`.
      */
     TRY_HARDER,
 

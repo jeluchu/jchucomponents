@@ -6,6 +6,7 @@ fun createJchuPreferences(
     context: Context,
     fileName: String = JchuPreferencesFileName
 ): JchuPreferences {
-    val path = context.applicationContext.filesDir.resolve(fileName).absolutePath
+    val preferencesFile = context.applicationContext.filesDir.resolve(relative = fileName)
+    val path = preferencesFile.absolutePath
     return JchuPreferences(dataStore = createJchuPreferencesDataStore(path))
 }

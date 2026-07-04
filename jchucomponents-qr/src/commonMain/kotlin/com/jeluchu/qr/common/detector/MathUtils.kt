@@ -13,9 +13,9 @@ import kotlin.math.sqrt
  */
 object MathUtils {
     /**
-     * Ends up being a bit faster than [Math.round]. This merely rounds its
+     * Ends up being a bit faster than the platform rounding implementation. This merely rounds its
      * argument to the nearest int, where x.5 rounds up to x+1. Semantics of this shortcut
-     * differ slightly from [Math.round] in that half rounds down for negative
+     * differ slightly from platform rounding in that half rounds down for negative
      * values. -2.5 rounds to -3, not -2. For purposes here it makes no difference.
      *
      * @param d real value to round

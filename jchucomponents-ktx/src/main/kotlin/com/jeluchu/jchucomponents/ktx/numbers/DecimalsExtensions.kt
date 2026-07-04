@@ -17,7 +17,7 @@ fun Double.roundTo(n: Int): Double = toBigDecimal().setScale(n, RoundingMode.UP)
 
 /**
  * Return date in specified format.
- * @param milliSeconds Date in milliseconds
+ * The receiver is interpreted as milliseconds since the Unix epoch.
  * @param dateFormat Date format
  * @return String representing date in specified format
  */

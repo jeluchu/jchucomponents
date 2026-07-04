@@ -65,7 +65,7 @@ class CreditCardValidator private constructor() {
 
         /**
          * Get credit card type
-         * @param card Card number (include [-] and [space] bot not any special characters)
+         * @param card Card number; hyphens and spaces are accepted, but no other special characters.
          * @return [CardType]
          */
         private fun getCardType(card: String): CardType {
@@ -78,7 +78,7 @@ class CreditCardValidator private constructor() {
 
         /**
          * Check credit card number is valid
-         * @param card card number (include [-] and [space] bot not any special characters)
+         * @param card Card number; hyphens and spaces are accepted, but no other special characters.
          * @return [Boolean] (credit card is valid)
          */
         fun isValidCard(card: String): Boolean = getCardType(card) != CardType.UNKNOWN
