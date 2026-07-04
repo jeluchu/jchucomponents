@@ -1,3 +1,10 @@
+//
+//  JchuLinearProgress.swift
+//  JchuComponents
+//
+//  Created by Jeluchu on 04/07/2026.
+//
+
 import Foundation
 
 public extension String {
@@ -145,6 +152,47 @@ public extension String {
                 return String(self[start..<end])
             }
             .joined(separator: " ")
+    }
+
+    func formatInGroups(
+        groupSize: Int = 4,
+        separator: String = "-"
+    ) -> String {
+        guard groupSize > 0 else {
+            return self
+        }
+
+        return stride(from: 0, to: count, by: groupSize)
+            .map { offset in
+                let start = index(startIndex, offsetBy: offset)
+                let end = index(start, offsetBy: groupSize, limitedBy: endIndex) ?? endIndex
+                return String(self[start..<end])
+            }
+            .joined(separator: separator)
+    }
+
+    func replacingFirst(
+        _ target: String,
+        with replacement: String
+    ) -> String {
+        guard let range = range(of: target) else {
+            return self
+        }
+        return replacingCharacters(in: range, with: replacement)
+    }
+
+    var isHTTPURL: Bool {
+        guard let scheme = URLComponents(string: self)?.scheme?.lowercased() else {
+            return false
+        }
+        return scheme == "http" || scheme == "https"
+    }
+
+    var isValidURL: Bool {
+        guard let components = URLComponents(string: self) else {
+            return false
+        }
+        return components.scheme != nil && components.host != nil
     }
 
     func capitalizingFirstLetter(locale: Locale = .current) -> String {
