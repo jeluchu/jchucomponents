@@ -19,6 +19,12 @@ android {
 
     buildFeatures.compose = true
 
+    lint {
+        // Full lint still runs through `check`. AGP 9.2 lintVital crashes while
+        // building this Compose library with "Unexpected owner function".
+        checkReleaseBuilds = false
+    }
+
     buildTypes {
         debug {
             isMinifyEnabled = false
@@ -53,6 +59,7 @@ dependencies {
     implementation(platform(libs.compose.bom))
     implementation(libs.bundles.compose.bom)
     implementation(libs.bundles.ui.androidx)
+    api(libs.androidx.navigation3.runtime)
     implementation(project(":jchucomponents-foundation"))
     implementation(project(":jchucomponents-ktx"))
     debugImplementation(libs.androidx.compose.ui.ui.tooling.preview)

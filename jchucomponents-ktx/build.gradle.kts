@@ -48,6 +48,7 @@ android {
 
 dependencies {
     api(project(":jchucomponents-network"))
+    implementation(platform(libs.compose.bom))
     implementation(libs.bundles.ktx.google)
     implementation(libs.bundles.ktx.androidx)
 }
