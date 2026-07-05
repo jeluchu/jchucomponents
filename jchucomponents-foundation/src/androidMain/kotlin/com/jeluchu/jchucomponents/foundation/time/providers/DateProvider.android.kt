@@ -13,17 +13,17 @@ import java.util.Locale
 actual object DateProvider {
     actual fun formatLocalDate(
         date: LocalDate,
-        pattern: String,
+        pattern: String
     ): String = SimpleDateFormat(pattern, Locale.getDefault()).format(date.toDate())
 
     actual fun formatLocalDateTime(
         dateTime: LocalDateTime,
-        pattern: String,
+        pattern: String
     ): String = SimpleDateFormat(pattern, Locale.getDefault()).format(dateTime.toDate())
 
     actual fun parseLocalDate(
         value: String,
-        pattern: String,
+        pattern: String
     ): LocalDate {
         val formatter = SimpleDateFormat(pattern, Locale.getDefault()).apply { isLenient = false }
         val calendar =
@@ -34,13 +34,13 @@ actual object DateProvider {
         return LocalDate(
             year = calendar.get(Calendar.YEAR),
             month = (calendar.get(Calendar.MONTH) + 1).toMonth(),
-            day = calendar.get(Calendar.DAY_OF_MONTH),
+            day = calendar.get(Calendar.DAY_OF_MONTH)
         )
     }
 
     actual fun parseLocalDateTime(
         value: String,
-        pattern: String,
+        pattern: String
     ): LocalDateTime {
         val formatter = SimpleDateFormat(pattern, Locale.getDefault()).apply { isLenient = false }
         val calendar =
@@ -55,7 +55,7 @@ actual object DateProvider {
             hour = calendar.get(Calendar.HOUR_OF_DAY),
             minute = calendar.get(Calendar.MINUTE),
             second = calendar.get(Calendar.SECOND),
-            nanosecond = calendar.get(Calendar.MILLISECOND) * 1_000_000,
+            nanosecond = calendar.get(Calendar.MILLISECOND) * 1_000_000
         )
     }
 

@@ -8,7 +8,7 @@ data class JchuProgressState(
     val value: Double,
     val maxValue: Double,
     val isEnabled: Boolean,
-    val isIndeterminate: Boolean,
+    val isIndeterminate: Boolean
 ) {
     val fraction: Double
         get() =

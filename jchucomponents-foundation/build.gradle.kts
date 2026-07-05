@@ -23,7 +23,7 @@ kotlin {
                 baseName = "JchuComponentsCore"
                 binaryOption(
                     "bundleId",
-                    "com.jeluchu.jchucomponents.core",
+                    "com.jeluchu.jchucomponents.core"
                 )
                 isStatic = true
                 xcFramework.add(this)

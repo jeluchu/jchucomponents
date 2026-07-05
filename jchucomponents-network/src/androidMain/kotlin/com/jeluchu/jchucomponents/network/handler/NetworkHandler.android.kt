@@ -8,7 +8,7 @@ import androidx.annotation.RequiresPermission
 import com.jeluchu.jchucomponents.network.extensions.connectivityManager
 
 actual class NetworkHandler(
-    private val context: Context,
+    private val context: Context
 ) {
     @Suppress("DEPRECATION")
     @RequiresPermission(value = Manifest.permission.ACCESS_NETWORK_STATE)

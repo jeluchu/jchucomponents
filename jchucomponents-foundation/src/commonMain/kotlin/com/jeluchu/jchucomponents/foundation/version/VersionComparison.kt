@@ -11,7 +11,7 @@ package com.jeluchu.jchucomponents.foundation.version
 @Throws(IllegalArgumentException::class)
 fun compareVersions(
     first: String,
-    second: String,
+    second: String
 ): Int = ParsedVersion.parse(first).compareTo(ParsedVersion.parse(second))
 
 @Throws(IllegalArgumentException::class)
@@ -19,7 +19,7 @@ fun String.compareVersionTo(other: String): Int = compareVersions(this, other)
 
 private data class ParsedVersion(
     val core: List<Long>,
-    val prerelease: List<String>?,
+    val prerelease: List<String>?
 ) : Comparable<ParsedVersion> {
     override fun compareTo(other: ParsedVersion): Int {
         val coreSize = maxOf(core.size, other.core.size)
@@ -42,7 +42,7 @@ private data class ParsedVersion(
             val comparison =
                 compareIdentifiers(
                     first = firstPrerelease[index],
-                    second = secondPrerelease[index],
+                    second = secondPrerelease[index]
                 )
             if (comparison != 0) return comparison
         }
@@ -64,7 +64,7 @@ private data class ParsedVersion(
                         "Invalid version: $value"
                     }
                     component.toLongOrNull() ?: throw IllegalArgumentException(
-                        "Version component is too large: $component",
+                        "Version component is too large: $component"
                     )
                 }
             val prerelease =
@@ -73,7 +73,7 @@ private data class ParsedVersion(
                         it.all { identifier ->
                             identifier.isNotEmpty() &&
                                 identifier.all { character -> character.isLetterOrDigit() || character == '-' }
-                        },
+                        }
                     ) {
                         "Invalid version: $value"
                     }
@@ -86,7 +86,7 @@ private data class ParsedVersion(
 
 private fun compareIdentifiers(
     first: String,
-    second: String,
+    second: String
 ): Int {
     val firstNumber = first.toLongOrNull()
     val secondNumber = second.toLongOrNull()

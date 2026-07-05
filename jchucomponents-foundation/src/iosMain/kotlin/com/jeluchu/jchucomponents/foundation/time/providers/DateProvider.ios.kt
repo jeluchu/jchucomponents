@@ -22,7 +22,7 @@ import platform.Foundation.currentLocale
 actual object DateProvider {
     actual fun formatLocalDate(
         date: LocalDate,
-        pattern: String,
+        pattern: String
     ): String {
         val nsDate = date.toNSDate() ?: return date.toString()
         return formatter(pattern).stringFromDate(nsDate)
@@ -30,7 +30,7 @@ actual object DateProvider {
 
     actual fun formatLocalDateTime(
         dateTime: LocalDateTime,
-        pattern: String,
+        pattern: String
     ): String {
         val nsDate = dateTime.toNSDate() ?: return dateTime.toString()
         return formatter(pattern).stringFromDate(nsDate)
@@ -38,7 +38,7 @@ actual object DateProvider {
 
     actual fun parseLocalDate(
         value: String,
-        pattern: String,
+        pattern: String
     ): LocalDate {
         val nsDate =
             formatter(pattern).dateFromString(value)
@@ -46,18 +46,18 @@ actual object DateProvider {
         val components =
             NSCalendar.currentCalendar.components(
                 NSCalendarUnitYear or NSCalendarUnitMonth or NSCalendarUnitDay,
-                nsDate,
+                nsDate
             )
         return LocalDate(
             year = components.year.toInt(),
             month = components.month.toInt().toMonth(),
-            day = components.day.toInt(),
+            day = components.day.toInt()
         )
     }
 
     actual fun parseLocalDateTime(
         value: String,
-        pattern: String,
+        pattern: String
     ): LocalDateTime {
         val nsDate =
             formatter(pattern).dateFromString(value)
@@ -66,7 +66,7 @@ actual object DateProvider {
             NSCalendar.currentCalendar.components(
                 NSCalendarUnitYear or NSCalendarUnitMonth or NSCalendarUnitDay or
                     NSCalendarUnitHour or NSCalendarUnitMinute or NSCalendarUnitSecond,
-                nsDate,
+                nsDate
             )
         return LocalDateTime(
             year = components.year.toInt(),
@@ -74,7 +74,7 @@ actual object DateProvider {
             day = components.day.toInt(),
             hour = components.hour.toInt(),
             minute = components.minute.toInt(),
-            second = components.second.toInt(),
+            second = components.second.toInt()
         )
     }
 
@@ -103,7 +103,7 @@ actual object DateProvider {
                 hour = 0
                 minute = 0
                 second = 0
-            },
+            }
         )
 
     private fun LocalDateTime.toNSDate(): NSDate? =
@@ -115,7 +115,7 @@ actual object DateProvider {
                 hour = this@toNSDate.hour.toLong()
                 minute = this@toNSDate.minute.toLong()
                 second = this@toNSDate.second.toLong()
-            },
+            }
         )
 
     private fun Int.toDayOfWeek(): DayOfWeek =

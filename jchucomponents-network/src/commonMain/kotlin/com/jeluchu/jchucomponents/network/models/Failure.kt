@@ -8,7 +8,7 @@ sealed class Failure {
     abstract val message: String
 
     data class DatabaseError(
-        val errorMessage: String? = null,
+        val errorMessage: String? = null
     ) : Failure() {
         override val code: Int? = null
         override val message: String = errorMessage.orEmpty().ifBlank { "No data available" }
@@ -16,11 +16,11 @@ sealed class Failure {
 
     data class ServerError(
         val statusCode: HttpStatusCode,
-        val errorMessage: String? = null,
+        val errorMessage: String? = null
     ) : Failure() {
         constructor(errorCode: Int, errorMessage: String? = null) : this(
             statusCode = getHttpErrorInfo(errorCode),
-            errorMessage = errorMessage,
+            errorMessage = errorMessage
         )
 
         override val code: Int? = statusCode.code.takeUnless { it == HttpStatusCode.Unknown.code }
@@ -29,7 +29,7 @@ sealed class Failure {
 
     data class CustomError(
         val errorCode: Int? = null,
-        val errorMessage: String,
+        val errorMessage: String
     ) : Failure() {
         override val code: Int? = errorCode
         override val message: String = errorMessage
@@ -37,21 +37,21 @@ sealed class Failure {
 
     data class NetworkConnection(
         val errorCode: Int? = null,
-        val errorMessage: String,
+        val errorMessage: String
     ) : Failure() {
         override val code: Int? = errorCode
         override val message: String = errorMessage.ifBlank { "Network connection failed" }
     }
 
     data class Timeout(
-        val errorMessage: String? = null,
+        val errorMessage: String? = null
     ) : Failure() {
         override val code: Int = HttpStatusCode.RequestTimeout.code
         override val message: String = errorMessage.orEmpty().ifBlank { HttpStatusCode.RequestTimeout.message }
     }
 
     data class UnknownError(
-        val errorMessage: String? = null,
+        val errorMessage: String? = null
     ) : Failure() {
         override val code: Int? = null
         override val message: String = errorMessage.orEmpty().ifBlank { HttpStatusCode.Unknown.message }
@@ -59,7 +59,7 @@ sealed class Failure {
 
     data class LegacyError(
         val errorCode: Int? = null,
-        val errorMessage: String? = null,
+        val errorMessage: String? = null
     ) : Failure() {
         override val code: Int? = errorCode
         override val message: String = errorMessage.orEmpty().ifBlank { HttpStatusCode.Unknown.message }

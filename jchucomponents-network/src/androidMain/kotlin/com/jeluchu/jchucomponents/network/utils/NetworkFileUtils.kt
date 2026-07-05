@@ -23,7 +23,7 @@ import java.io.FileOutputStream
 suspend fun saveResponseBodyToFile(
     filePath: String,
     response: HttpResponse,
-    progress: (percent: Long) -> Unit,
+    progress: (percent: Long) -> Unit
 ) {
     val contentLength = response.headers[HttpHeaders.ContentLength]?.toLongOrNull()
     val channel = response.bodyAsChannel()

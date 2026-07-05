@@ -19,7 +19,7 @@ fun String.capitalizeFirstLetter(): String = replaceFirstChar { char -> char.upp
 
 fun String.remove(
     value: String,
-    ignoreCase: Boolean = false,
+    ignoreCase: Boolean = false
 ): String = replace(oldValue = value, newValue = "", ignoreCase = ignoreCase)
 
 fun String.remove(regex: Regex): String = replace(regex = regex, replacement = "")

@@ -5,7 +5,7 @@ package com.jeluchu.jchucomponents.network.http
  */
 enum class HttpStatusCode(
     val code: Int,
-    val message: String,
+    val message: String
 ) {
     Unknown(code = 0, message = "Unknown status code"),
 
@@ -72,7 +72,7 @@ enum class HttpStatusCode(
     GatewayTimeout(code = 504, message = "Gateway Timeout"),
     HTTPVersionNotSupported(code = 505, message = "HTTP Version Not Supported"),
     NotExtended(code = 510, message = "Not Extended"),
-    NetworkAuthenticationRequired(code = 511, message = "Network Authentication Required"),
+    NetworkAuthenticationRequired(code = 511, message = "Network Authentication Required")
     ;
 
     val isSuccess: Boolean get() = code in 200..299

@@ -7,22 +7,22 @@ import kotlinx.datetime.LocalDateTime
 expect object DateProvider {
     fun formatLocalDate(
         date: LocalDate,
-        pattern: String,
+        pattern: String
     ): String
 
     fun formatLocalDateTime(
         dateTime: LocalDateTime,
-        pattern: String,
+        pattern: String
     ): String
 
     fun parseLocalDate(
         value: String,
-        pattern: String,
+        pattern: String
     ): LocalDate
 
     fun parseLocalDateTime(
         value: String,
-        pattern: String,
+        pattern: String
     ): LocalDateTime
 
     fun firstDayOfWeekFromLocale(): DayOfWeek

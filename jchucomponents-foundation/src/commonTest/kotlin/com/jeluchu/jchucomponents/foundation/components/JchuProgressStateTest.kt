@@ -14,12 +14,12 @@ class JchuProgressStateTest {
 
     private fun state(
         value: Double,
-        maxValue: Double,
+        maxValue: Double
     ) = JchuProgressState(
         title = "Progress",
         value = value,
         maxValue = maxValue,
         isEnabled = true,
-        isIndeterminate = false,
+        isIndeterminate = false
     )
 }

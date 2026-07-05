@@ -40,18 +40,18 @@ class FlowExtensionsTest {
             flowOf(
                 Resource.Loading(),
                 Resource.Success("Loaded"),
-                Resource.Error<Failure, String>(failure),
+                Resource.Error<Failure, String>(failure)
             ).flowResourceCollector(
                 scope = scope,
                 initialValue = Resource.Loading(),
                 onLoading = { events += "loading" },
                 onSuccess = { events += "success:$it" },
-                onFailure = { events += "failure:${it?.message}" },
+                onFailure = { events += "failure:${it?.message}" }
             )
 
             assertEquals(
                 listOf("loading", "loading", "success:Loaded", "failure:Failed"),
-                events,
+                events
             )
             scope.cancel()
         }

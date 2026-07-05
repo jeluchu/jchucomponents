@@ -23,7 +23,7 @@ class DateProviderTest {
         assertEquals(LocalDate(2026, 7, 3), "03/07/2026".toLocalDate("dd/MM/yyyy"))
         assertEquals(
             LocalDateTime(2026, 7, 3, 9, 15, 30),
-            "03/07/2026 09:15:30".toLocalDateTime("dd/MM/yyyy HH:mm:ss"),
+            "03/07/2026 09:15:30".toLocalDateTime("dd/MM/yyyy HH:mm:ss")
         )
     }
 

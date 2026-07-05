@@ -6,5 +6,5 @@ package com.jeluchu.jchucomponents.foundation.components
 data class JchuProgressButtonState(
     val title: String,
     val isLoading: Boolean = false,
-    val isEnabled: Boolean = true,
+    val isEnabled: Boolean = true
 )

@@ -16,7 +16,7 @@ inline fun <ResultType, RequestType> networkBoundResource(
     crossinline fetch: suspend () -> RequestType,
     crossinline dbTransform: (ResultType) -> RequestType,
     crossinline shouldFetch: suspend () -> Boolean = { true },
-    crossinline saveFetchResult: suspend (RequestType) -> Unit,
+    crossinline saveFetchResult: suspend (RequestType) -> Unit
 ) = flow {
     emit(value = Resource.Loading())
 
@@ -28,12 +28,12 @@ inline fun <ResultType, RequestType> networkBoundResource(
             } catch (exception: IOException) {
                 query().mapToResource(
                     transform = dbTransform,
-                    failure = exception.toFailure(),
+                    failure = exception.toFailure()
                 )
             } catch (error: Exception) {
                 query().mapToResource(
                     transform = dbTransform,
-                    failure = error.toFailure(),
+                    failure = error.toFailure()
                 )
             }
         } else {
@@ -45,7 +45,7 @@ inline fun <ResultType, RequestType> networkBoundResource(
 
 inline fun <RequestType> networkResource(
     crossinline fetch: suspend () -> RequestType,
-    crossinline shouldFetch: () -> Boolean = { true },
+    crossinline shouldFetch: () -> Boolean = { true }
 ) = flow {
     emit(value = Resource.Loading())
 
@@ -64,7 +64,7 @@ inline fun <RequestType> networkResource(
 
 inline fun <ResultType, RequestType> Flow<ResultType?>.mapToResource(
     crossinline transform: (ResultType) -> RequestType,
-    failure: Failure? = null,
+    failure: Failure? = null
 ): Flow<Resource<Failure, RequestType>> =
     map { result ->
         val data = result?.let(block = transform)

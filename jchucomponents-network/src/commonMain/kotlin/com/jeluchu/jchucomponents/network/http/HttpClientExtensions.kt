@@ -17,7 +17,7 @@ suspend inline fun <reified T> HttpClient.getRequest(endpoint: ApiEndpoint): T =
 suspend inline fun <reified T> HttpClient.postRequest(
     url: String,
     payload: Any,
-    headers: Map<String, String> = emptyMap(),
+    headers: Map<String, String> = emptyMap()
 ): T =
     post(urlString = url) {
         headers.forEach { (key, value) -> header(key, value) }
@@ -27,7 +27,7 @@ suspend inline fun <reified T> HttpClient.postRequest(
 suspend inline fun <reified T> HttpClient.postRequest(
     endpoint: ApiEndpoint,
     payload: Any? = null,
-    headers: Map<String, String> = emptyMap(),
+    headers: Map<String, String> = emptyMap()
 ): T =
     post(urlString = endpoint.path()) {
         headers.forEach { (key, value) -> header(key, value) }
@@ -37,7 +37,7 @@ suspend inline fun <reified T> HttpClient.postRequest(
 suspend inline fun <reified T> HttpClient.putRequest(
     url: String,
     payload: Any,
-    headers: Map<String, String> = emptyMap(),
+    headers: Map<String, String> = emptyMap()
 ): T =
     put(urlString = url) {
         headers.forEach { (key, value) -> header(key, value) }
@@ -47,7 +47,7 @@ suspend inline fun <reified T> HttpClient.putRequest(
 suspend inline fun <reified T> HttpClient.putRequest(
     endpoint: ApiEndpoint,
     payload: Any,
-    headers: Map<String, String> = emptyMap(),
+    headers: Map<String, String> = emptyMap()
 ): T =
     put(urlString = endpoint.path()) {
         headers.forEach { (key, value) -> header(key, value) }
@@ -57,7 +57,7 @@ suspend inline fun <reified T> HttpClient.putRequest(
 suspend inline fun <reified T> HttpClient.uploadMultipartRequest(
     url: String,
     formData: MultiPartFormDataContent,
-    headers: Map<String, String> = emptyMap(),
+    headers: Map<String, String> = emptyMap()
 ): T =
     post(urlString = url) {
         headers.forEach { (key, value) -> header(key, value) }
@@ -67,7 +67,7 @@ suspend inline fun <reified T> HttpClient.uploadMultipartRequest(
 suspend inline fun <reified T> HttpClient.uploadMultipartRequest(
     endpoint: ApiEndpoint,
     formData: MultiPartFormDataContent,
-    headers: Map<String, String> = emptyMap(),
+    headers: Map<String, String> = emptyMap()
 ): T =
     post(urlString = endpoint.path()) {
         headers.forEach { (key, value) -> header(key, value) }

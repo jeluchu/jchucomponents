@@ -5,7 +5,7 @@ object CaesarCipher {
 
     fun encrypt(
         value: String,
-        key: Int = DEFAULT_KEY,
+        key: Int = DEFAULT_KEY
     ): String {
         val offset = key.mod(ALPHABET_SIZE)
         if (offset == 0) return value
@@ -19,7 +19,7 @@ object CaesarCipher {
 
     fun decrypt(
         value: String,
-        key: Int = DEFAULT_KEY,
+        key: Int = DEFAULT_KEY
     ): String = encrypt(value, ALPHABET_SIZE - key.mod(ALPHABET_SIZE))
 
     private fun Char.shiftLatinLetter(offset: Int): Char =
@@ -32,7 +32,7 @@ object CaesarCipher {
     private fun Char.shiftWithin(
         start: Char,
         end: Char,
-        offset: Int,
+        offset: Int
     ): Char {
         val shifted = this + offset
         return if (shifted > end) shifted - ALPHABET_SIZE else shifted

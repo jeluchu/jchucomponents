@@ -29,7 +29,7 @@ internal expect fun createPlatformHttpClient(configuration: HttpClientConfigurat
 
 internal fun <T : HttpClientEngineConfig> HttpClientConfig<T>.applyJchuConfiguration(
     configuration: HttpClientConfiguration,
-    platformLogger: Logger,
+    platformLogger: Logger
 ) {
     expectSuccess = configuration.expectSuccess
 
@@ -41,7 +41,7 @@ internal fun <T : HttpClientEngineConfig> HttpClientConfig<T>.applyJchuConfigura
                     ignoreUnknownKeys = configuration.ignoreUnknownKeys
                     isLenient = configuration.isLenient
                 },
-            contentType = ContentType.Any,
+            contentType = ContentType.Any
         )
     }
 

@@ -24,6 +24,6 @@ class ApiEndpointTest {
     private class TestEndpoint(
         version: ApiVersion,
         override val endpoint: String,
-        override val format: String = "json",
+        override val format: String = "json"
     ) : ApiEndpoint(version)
 }

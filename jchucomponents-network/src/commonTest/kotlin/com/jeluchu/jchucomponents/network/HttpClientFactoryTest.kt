@@ -22,8 +22,8 @@ class HttpClientFactoryTest {
             createHttpClient(
                 HttpClientConfiguration(
                     baseUrl = "https://example.com/api/",
-                    enableLogging = false,
-                ),
+                    enableLogging = false
+                )
             )
 
         client.close()

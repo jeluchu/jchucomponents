@@ -39,7 +39,7 @@ fun LocalDate.endOfWeek(firstDayOfWeek: DayOfWeek = DayOfWeek.MONDAY): LocalDate
 
 fun LocalDate.isBetween(
     start: LocalDate,
-    endInclusive: LocalDate,
+    endInclusive: LocalDate
 ): Boolean {
     require(start <= endInclusive) { "Start date cannot be after end date" }
     return this in start..endInclusive
@@ -47,17 +47,17 @@ fun LocalDate.isBetween(
 
 fun LocalDate.isToday(
     instant: Instant = JchuDateTime.now(),
-    timeZone: TimeZone = TimeZone.currentSystemDefault(),
+    timeZone: TimeZone = TimeZone.currentSystemDefault()
 ): Boolean = this == JchuDateTime.today(instant, timeZone)
 
 fun LocalDate.isYesterday(
     instant: Instant = JchuDateTime.now(),
-    timeZone: TimeZone = TimeZone.currentSystemDefault(),
+    timeZone: TimeZone = TimeZone.currentSystemDefault()
 ): Boolean = this == JchuDateTime.today(instant, timeZone).minusDays(1)
 
 fun LocalDate.isTomorrow(
     instant: Instant = JchuDateTime.now(),
-    timeZone: TimeZone = TimeZone.currentSystemDefault(),
+    timeZone: TimeZone = TimeZone.currentSystemDefault()
 ): Boolean = this == JchuDateTime.today(instant, timeZone).plusDays(1)
 
 fun LocalDate.isWeekend(): Boolean = dayOfWeek == DayOfWeek.SATURDAY || dayOfWeek == DayOfWeek.SUNDAY

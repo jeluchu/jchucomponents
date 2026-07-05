@@ -16,7 +16,7 @@ fun Throwable.toFailure(): Failure =
                 statusCode =
                     com.jeluchu.jchucomponents.network.http
                         .getHttpErrorInfo(response.status.value),
-                errorMessage = message.orEmpty().ifBlank { response.status.description },
+                errorMessage = message.orEmpty().ifBlank { response.status.description }
             )
         is IOException -> Failure.NetworkConnection(errorMessage = message.orEmpty().ifBlank { "Network connection failed" })
         else ->
@@ -38,7 +38,7 @@ fun Failure?.handleFailure(): String =
         is Failure.CustomError,
         is Failure.LegacyError,
         is Failure.Timeout,
-        is Failure.UnknownError,
+        is Failure.UnknownError
         -> message
         null -> HttpStatusCode.Unknown.message
     }

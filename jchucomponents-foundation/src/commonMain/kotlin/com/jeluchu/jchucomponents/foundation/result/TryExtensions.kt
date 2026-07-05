@@ -4,7 +4,7 @@ inline fun <T> tryOrNull(block: () -> T): T? = tryOrDefault(default = null, bloc
 
 inline fun <T> tryOrDefault(
     default: T?,
-    block: () -> T,
+    block: () -> T
 ): T? =
     try {
         block()
@@ -14,7 +14,7 @@ inline fun <T> tryOrDefault(
 
 inline fun <T> tryOrDefaultNotNull(
     default: T,
-    block: () -> T,
+    block: () -> T
 ): T =
     try {
         block()
@@ -26,7 +26,7 @@ inline fun <T1 : Any, T2 : Any, T3 : Any, R : Any> safeLet(
     first: T1?,
     second: T2?,
     third: T3?,
-    block: (T1, T2, T3) -> R?,
+    block: (T1, T2, T3) -> R?
 ): R? =
     if (first != null && second != null && third != null) {
         block(first, second, third)

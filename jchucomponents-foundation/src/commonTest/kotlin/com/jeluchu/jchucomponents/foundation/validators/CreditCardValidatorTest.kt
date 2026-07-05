@@ -10,11 +10,11 @@ class CreditCardValidatorTest {
     fun detectsKnownCardTypes() {
         assertEquals(
             CreditCardValidator.CardType.Visa,
-            CreditCardValidator.getCardType("4111 1111 1111 1111"),
+            CreditCardValidator.getCardType("4111 1111 1111 1111")
         )
         assertEquals(
             CreditCardValidator.CardType.MasterCard,
-            CreditCardValidator.getCardType("5555-5555-5555-4444"),
+            CreditCardValidator.getCardType("5555-5555-5555-4444")
         )
     }
 

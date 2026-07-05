@@ -14,7 +14,7 @@ fun getDistanceInMeters(
     latitudeEnd: Double,
     longitudeEnd: Double,
     altitudeStart: Double = 0.0,
-    altitudeEnd: Double = 0.0,
+    altitudeEnd: Double = 0.0
 ): Double {
     val latitudeDistance = (latitudeEnd - latitudeStart).toRadians()
     val longitudeDistance = (longitudeEnd - longitudeStart).toRadians()

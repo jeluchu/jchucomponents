@@ -2,11 +2,11 @@ package com.jeluchu.jchucomponents.foundation.functional
 
 sealed class Either<out L, out R> {
     data class Left<out L>(
-        val value: L,
+        val value: L
     ) : Either<L, Nothing>()
 
     data class Right<out R>(
-        val value: R,
+        val value: R
     ) : Either<Nothing, R>()
 
     val isLeft: Boolean get() = this is Left<L>
@@ -14,7 +14,7 @@ sealed class Either<out L, out R> {
 
     inline fun <T> fold(
         onLeft: (L) -> T,
-        onRight: (R) -> T,
+        onRight: (R) -> T
     ): T =
         when (this) {
             is Left -> onLeft(value)
