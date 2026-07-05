@@ -55,3 +55,25 @@ apiValidation {
         "com.jeluchu.jchucomponents.ui.accompanist"
     )
 }
+
+val ciCheck = tasks.register("ciCheck") {
+    group = "verification"
+    description = "Runs the repository-wide Android and Kotlin release checks."
+}
+
+gradle.projectsEvaluated {
+    val verificationTaskNames = setOf(
+        "apiCheck",
+        "check",
+        "assembleDebug",
+        "assembleRelease",
+        "publishToMavenLocal",
+    )
+    ciCheck.configure {
+        dependsOn(
+            allprojects.flatMap { project ->
+                project.tasks.matching { it.name in verificationTaskNames }
+            },
+        )
+    }
+}

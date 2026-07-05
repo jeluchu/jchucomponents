@@ -1,6 +1,7 @@
 name: CI
 
 on:
+  workflow_dispatch:
   pull_request:
   push:
     branches:
@@ -61,7 +62,7 @@ jobs:
       - uses: gradle/actions/setup-gradle@v4
 
       - name: Build and test Android
-        run: ./gradlew apiCheck check assembleDebug assembleRelease publishToMavenLocal
+        run: ./gradlew ciCheck
 
       - name: Compile published KMP consumer for Android
         run: |
