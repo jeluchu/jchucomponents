@@ -80,6 +80,29 @@ ContentView()
     .jchuTheme(theme)
 ```
 
+Use a preset to downsample images near their rendered size:
+
+```swift
+JchuNetworkImage(
+    urlString: product.imageURL,
+    configuration: .galleryThumbnail(
+        size: CGSize(width: 160, height: 160)
+    )
+)
+.frame(width: 160, height: 160)
+```
+
+Warm the cache before presenting an image-heavy destination:
+
+```swift
+@StateObject private var prefetcher = JchuNetworkImagePrefetcher()
+
+prefetcher.prefetch(
+    urlStrings: products.map(\.imageURL),
+    configuration: .poster(size: CGSize(width: 240, height: 360))
+)
+```
+
 ## Topics
 
 ### Actions
@@ -109,3 +132,11 @@ ContentView()
 - ``JchuShapes``
 - ``JchuTypography``
 - ``JchuMotion``
+
+### Images
+
+- ``JchuNetworkImage``
+- ``JchuNetworkImageConfiguration``
+- ``JchuNetworkImagePrefetcher``
+- ``JchuNetworkImagePlaceholder``
+- ``JchuNetworkImageErrorView``

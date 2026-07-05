@@ -315,8 +315,52 @@ final class JchuComponentsSwiftUITests: XCTestCase {
 
     @MainActor
     func testNetworkImageCanBeCreatedFromStringURL() {
-        let view = JchuNetworkImage(urlString: "https://example.com/image.jpg")
+        let configuration = JchuNetworkImageConfiguration.galleryThumbnail(
+            size: CGSize(width: 160, height: 90),
+            cornerRadius: 14
+        )
+        let view = JchuNetworkImage(
+            urlString: "https://example.com/image.jpg",
+            configuration: configuration
+        )
 
         XCTAssertNotNil(view)
+        XCTAssertEqual(configuration.contentMode, .fill)
+        XCTAssertEqual(configuration.cornerRadius, 14)
+        XCTAssertEqual(configuration.targetSize, CGSize(width: 160, height: 90))
+        XCTAssertEqual(configuration.retryCount, 2)
+
+        _ = JchuNetworkImagePlaceholder()
+        _ = JchuNetworkImageErrorView()
+    }
+
+    @MainActor
+    func testNetworkImagePrefetcherAcceptsEmptyInputs() {
+        let prefetcher = JchuNetworkImagePrefetcher()
+
+        prefetcher.prefetch(urls: [])
+        prefetcher.prefetch(urlStrings: ["not a URL"])
+        prefetcher.stop()
+    }
+
+    @MainActor
+    func testUIImageResizePreservesAspectRatio() {
+        let image = UIGraphicsImageRenderer(
+            size: CGSize(width: 200, height: 100)
+        ).image { context in
+            UIColor.red.setFill()
+            context.fill(CGRect(x: 0, y: 0, width: 200, height: 100))
+        }
+
+        let resized = image.resizedToFit(maxDimension: 50)
+
+        XCTAssertEqual(resized.size.width, 50, accuracy: 0.01)
+        XCTAssertEqual(resized.size.height, 25, accuracy: 0.01)
+        XCTAssertNotNil(
+            resized.optimizedJPEG(
+                maxDimension: 50,
+                maximumByteCount: 50_000
+            )
+        )
     }
 }

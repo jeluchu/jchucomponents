@@ -1,6 +1,7 @@
 import Kingfisher
 import SwiftUI
 
+/// Loading, rendering and caching options for ``JchuNetworkImage``.
 public struct JchuNetworkImageConfiguration: Sendable {
     public var contentMode: SwiftUI.ContentMode
     public var cornerRadius: CGFloat
@@ -12,6 +13,18 @@ public struct JchuNetworkImageConfiguration: Sendable {
     public var retryCount: Int
     public var requestModifier: (@Sendable (inout URLRequest) -> Void)?
 
+    /// Creates a network image configuration.
+    ///
+    /// - Parameters:
+    ///   - contentMode: How the downloaded image fits its available space.
+    ///   - cornerRadius: Radius applied after rendering the image or state view.
+    ///   - fadeDuration: Duration of the loaded-image transition in seconds.
+    ///   - targetSize: Optional pixel-independent size used for downsampling.
+    ///   - scaleFactor: Scale used while decoding image data.
+    ///   - cacheOriginalImage: Whether to retain original data in the cache.
+    ///   - backgroundDecode: Whether decoding should run off the main thread.
+    ///   - retryCount: Maximum retry count. Values below one disable retries.
+    ///   - requestModifier: Optional mutation applied to every image request.
     public init(
         contentMode: SwiftUI.ContentMode = .fill,
         cornerRadius: CGFloat = 0,
@@ -34,6 +47,7 @@ public struct JchuNetworkImageConfiguration: Sendable {
         self.requestModifier = requestModifier
     }
 
+    /// Returns a fill configuration suitable for poster artwork.
     public static func poster(
         size: CGSize,
         cornerRadius: CGFloat = 12
@@ -45,6 +59,7 @@ public struct JchuNetworkImageConfiguration: Sendable {
         )
     }
 
+    /// Returns a fill configuration with two retries for gallery thumbnails.
     public static func galleryThumbnail(
         size: CGSize,
         cornerRadius: CGFloat = 18,
@@ -59,6 +74,7 @@ public struct JchuNetworkImageConfiguration: Sendable {
         )
     }
 
+    /// Returns a fit configuration suitable for full-screen presentation.
     public static func fullScreen(
         targetSize: CGSize = CGSize(width: 1280, height: 1280),
         requestModifier: (@Sendable (inout URLRequest) -> Void)? = nil
@@ -104,12 +120,15 @@ public struct JchuNetworkImageConfiguration: Sendable {
     }
 }
 
+/// Starts and cancels cache prefetching for a collection of network images.
 @MainActor
 public final class JchuNetworkImagePrefetcher: ObservableObject {
     private var prefetcher: ImagePrefetcher?
 
+    /// Creates an idle image prefetcher.
     public init() {}
 
+    /// Starts prefetching URLs and cancels any previous prefetch operation.
     public func prefetch(
         urls: [URL],
         configuration: JchuNetworkImageConfiguration = JchuNetworkImageConfiguration()
@@ -123,6 +142,7 @@ public final class JchuNetworkImagePrefetcher: ObservableObject {
         prefetcher?.start()
     }
 
+    /// Starts prefetching valid URLs parsed from strings.
     public func prefetch(
         urlStrings: [String],
         configuration: JchuNetworkImageConfiguration = JchuNetworkImageConfiguration()
@@ -133,15 +153,18 @@ public final class JchuNetworkImagePrefetcher: ObservableObject {
         )
     }
 
+    /// Cancels the active prefetch operation, if one exists.
     public func stop() {
         prefetcher?.stop()
         prefetcher = nil
     }
 }
 
+/// The default neutral state displayed while a network image loads.
 public struct JchuNetworkImagePlaceholder: View {
     private let systemImage: String
 
+    /// Creates a placeholder using an SF Symbol.
     public init(systemImage: String = "photo") {
         self.systemImage = systemImage
     }
@@ -157,9 +180,11 @@ public struct JchuNetworkImagePlaceholder: View {
     }
 }
 
+/// The default state displayed for an invalid URL or failed image request.
 public struct JchuNetworkImageErrorView: View {
     private let systemImage: String
 
+    /// Creates an error view using an SF Symbol.
     public init(systemImage: String = "photo.badge.exclamationmark") {
         self.systemImage = systemImage
     }
@@ -175,6 +200,8 @@ public struct JchuNetworkImageErrorView: View {
     }
 }
 
+/// An asynchronously loaded image with configurable placeholder and failure
+/// content.
 public struct JchuNetworkImage<Placeholder: View, Failure: View>: View {
     private let url: URL?
     private let configuration: JchuNetworkImageConfiguration
@@ -185,6 +212,16 @@ public struct JchuNetworkImage<Placeholder: View, Failure: View>: View {
     private let onSuccess: (() -> Void)?
     @State private var hasFailed = false
 
+    /// Creates a network image with custom loading and failure views.
+    ///
+    /// - Parameters:
+    ///   - url: The image URL. A `nil` URL displays `failure` immediately.
+    ///   - configuration: Loading, rendering and caching behavior.
+    ///   - onLoadingStateChange: Called when loading starts or finishes.
+    ///   - onFailure: Called when Kingfisher exhausts its retry strategy.
+    ///   - onSuccess: Called after the image loads successfully.
+    ///   - placeholder: Content displayed while image data loads.
+    ///   - failure: Content displayed for an invalid URL or failed request.
     public init(
         url: URL?,
         configuration: JchuNetworkImageConfiguration = JchuNetworkImageConfiguration(),
@@ -285,6 +322,7 @@ public struct JchuNetworkImage<Placeholder: View, Failure: View>: View {
 }
 
 public extension JchuNetworkImage where Placeholder == JchuNetworkImagePlaceholder, Failure == JchuNetworkImageErrorView {
+    /// Creates a network image with the standard placeholder and error views.
     init(
         url: URL?,
         contentMode: SwiftUI.ContentMode = .fill,
@@ -307,6 +345,7 @@ public extension JchuNetworkImage where Placeholder == JchuNetworkImagePlacehold
         )
     }
 
+    /// Creates a network image by parsing a string URL.
     init(
         urlString: String?,
         contentMode: SwiftUI.ContentMode = .fill,
@@ -325,6 +364,7 @@ public extension JchuNetworkImage where Placeholder == JchuNetworkImagePlacehold
         )
     }
 
+    /// Creates a string-backed network image with reusable configuration.
     init(
         urlString: String?,
         configuration: JchuNetworkImageConfiguration,

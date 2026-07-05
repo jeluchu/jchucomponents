@@ -1,6 +1,9 @@
 import UIKit
 
 public extension UIImage {
+    /// Returns an aspect-fit image whose longest edge does not exceed a limit.
+    ///
+    /// Images already within the limit are returned unchanged.
     func resizedToFit(
         maxDimension: CGFloat,
         opaque: Bool = false,
@@ -33,6 +36,7 @@ public extension UIImage {
         }
     }
 
+    /// Returns an aspect-fit image contained by the supplied size.
     func resizedToFit(in targetSize: CGSize) -> UIImage {
         guard size.width > 0, size.height > 0,
               targetSize.width > 0, targetSize.height > 0 else {
@@ -46,6 +50,11 @@ public extension UIImage {
         }
     }
 
+    /// Produces JPEG data while reducing dimensions and compression quality to
+    /// approach a maximum byte count.
+    ///
+    /// The smallest generated representation is returned when the byte target
+    /// cannot be reached without dropping below `minimumQuality`.
     func optimizedJPEG(
         maxDimension: CGFloat = 1_024,
         initialQuality: CGFloat = 0.8,
