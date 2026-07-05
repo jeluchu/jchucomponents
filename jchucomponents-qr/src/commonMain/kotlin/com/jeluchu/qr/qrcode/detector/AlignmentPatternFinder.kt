@@ -150,7 +150,9 @@ internal class AlignmentPatternFinder(
      * @return vertical center of alignment pattern, or [Float.NaN] if not found
      */
     private fun crossCheckVertical(
-        startI: Int, centerJ: Int, maxCount: Int,
+        startI: Int,
+        centerJ: Int,
+        maxCount: Int,
         originalStateCountTotal: Int
     ): Float {
         val image = image
@@ -213,7 +215,11 @@ internal class AlignmentPatternFinder(
      * @param j          end of possible alignment pattern in row
      * @return [AlignmentPattern] if we have found the same pattern twice, or null if not
      */
-    private fun handlePossibleCenter(stateCount: IntArray, i: Int, j: Int): AlignmentPattern? {
+    private fun handlePossibleCenter(
+        stateCount: IntArray,
+        i: Int,
+        j: Int
+    ): AlignmentPattern? {
         val stateCountTotal = stateCount[0] + stateCount[1] + stateCount[2]
         val centerJ = centerFromEnd(stateCount, j)
         val centerI = crossCheckVertical(i, centerJ.toInt(), 2 * stateCount[1], stateCountTotal)
@@ -238,9 +244,10 @@ internal class AlignmentPatternFinder(
          * Given a count of black/white/black pixels just seen and an end position,
          * figures the location of the center of this black/white/black run.
          */
-        private fun centerFromEnd(stateCount: IntArray, end: Int): Float {
-            return end - stateCount[2] - stateCount[1] / 2.0f
-        }
+        private fun centerFromEnd(
+            stateCount: IntArray,
+            end: Int
+        ): Float = end - stateCount[2] - stateCount[1] / 2.0f
     }
 
     init {

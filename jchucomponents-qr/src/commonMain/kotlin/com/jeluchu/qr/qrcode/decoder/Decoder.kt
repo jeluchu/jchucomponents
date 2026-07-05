@@ -25,7 +25,6 @@ import com.jeluchu.qr.qrcode.decoder.DecodedBitStreamParser.decode
  * the QR Code from an image.
  */
 class Decoder {
-
     private val rsDecoder: ReedSolomonDecoder = ReedSolomonDecoder(GenericGF.QR_CODE_FIELD_256)
 
     /**
@@ -56,8 +55,10 @@ class Decoder {
      * @throws ChecksumException if error correction fails
      */
     @Throws(FormatException::class, ChecksumException::class)
-    fun decode(bits: BitMatrix?, hints: Map<DecodeHintType?, *>? = null): DecoderResult {
-
+    fun decode(
+        bits: BitMatrix?,
+        hints: Map<DecodeHintType?, *>? = null
+    ): DecoderResult {
         // Construct a parser and read version, error-correction level
         val parser = BitMatrixParser(bits!!)
         var fe: FormatException? = null
@@ -70,7 +71,6 @@ class Decoder {
             ce = e
         }
         return try {
-
             // Revert the bit matrix
             parser.remask()
 
@@ -89,6 +89,7 @@ class Decoder {
              * that the QR code may be mirrored, and we should try once more with a
              * mirrored content.
              */
+
             // Prepare for a mirrored reading.
             parser.mirror()
             val result = decode(parser, hints)
@@ -111,7 +112,10 @@ class Decoder {
     }
 
     @Throws(FormatException::class, ChecksumException::class)
-    private fun decode(parser: BitMatrixParser, hints: Map<DecodeHintType?, *>?): DecoderResult {
+    private fun decode(
+        parser: BitMatrixParser,
+        hints: Map<DecodeHintType?, *>?
+    ): DecoderResult {
         val version = parser.readVersion()
         val ecLevel = parser.readFormatInformation().errorCorrectionLevel
 
@@ -152,7 +156,10 @@ class Decoder {
      * @throws ChecksumException if error correction fails
      */
     @Throws(ChecksumException::class)
-    private fun correctErrors(codewordBytes: ByteArray, numDataCodewords: Int) {
+    private fun correctErrors(
+        codewordBytes: ByteArray,
+        numDataCodewords: Int
+    ) {
         val numCodewords = codewordBytes.size
         // First read into an array of ints
         val codewordsInts = IntArray(numCodewords)
@@ -168,5 +175,4 @@ class Decoder {
             codewordBytes[i] = codewordsInts[i].toByte()
         }
     }
-
 }

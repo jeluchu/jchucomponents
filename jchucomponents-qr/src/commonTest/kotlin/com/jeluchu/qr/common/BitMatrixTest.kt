@@ -6,7 +6,6 @@ import kotlin.test.assertFalse
 import kotlin.test.assertTrue
 
 class BitMatrixTest {
-
     @Test
     fun setsFlipsAndClearsBits() {
         val matrix = BitMatrix(width = 5, height = 4, multiple = 1)

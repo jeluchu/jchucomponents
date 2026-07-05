@@ -8,8 +8,9 @@ package com.jeluchu.qr
 
 import com.jeluchu.qr.common.BitMatrix
 
-abstract class Binarizer protected constructor(private val luminanceSource: LuminanceSource) {
-
+abstract class Binarizer protected constructor(
+    private val luminanceSource: LuminanceSource
+) {
     /**
      * Converts a 2D array of luminance data to 1 bit data. As above, assume this method is expensive
      * and do not call it repeatedly. This method is intended for decoding 2D barcodes and may or

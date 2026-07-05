@@ -6,21 +6,38 @@
 
 package com.jeluchu.qr.qrcode.encoder
 
-class ByteMatrix(val width: Int, val height: Int) {
-
+class ByteMatrix(
+    val width: Int,
+    val height: Int
+) {
     val array: Array<ByteArray> = Array(height) { ByteArray(width) }
 
-    operator fun get(x: Int, y: Int): Byte = array[y][x]
+    operator fun get(
+        x: Int,
+        y: Int
+    ): Byte = array[y][x]
 
-    operator fun set(x: Int, y: Int, value: Byte) {
+    operator fun set(
+        x: Int,
+        y: Int,
+        value: Byte
+    ) {
         array[y][x] = value
     }
 
-    operator fun set(x: Int, y: Int, value: Int) {
+    operator fun set(
+        x: Int,
+        y: Int,
+        value: Int
+    ) {
         array[y][x] = value.toByte()
     }
 
-    operator fun set(x: Int, y: Int, value: Boolean) {
+    operator fun set(
+        x: Int,
+        y: Int,
+        value: Boolean
+    ) {
         array[y][x] = (if (value) 1 else 0).toByte()
     }
 
@@ -45,5 +62,4 @@ class ByteMatrix(val width: Int, val height: Int) {
         }
         return result.toString()
     }
-
 }

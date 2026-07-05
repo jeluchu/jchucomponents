@@ -16,6 +16,7 @@ class QRCode {
     var version: Version? = null
     var maskPattern: Int = -1
     var matrix: ByteMatrix? = null
+
     override fun toString(): String {
         val result = StringBuilder(200)
         result.append("<<\n")
@@ -27,8 +28,9 @@ class QRCode {
         result.append(version)
         result.append("\n maskPattern: ")
         result.append(maskPattern)
-        if (matrix == null) result.append("\n matrix: null\n")
-        else {
+        if (matrix == null) {
+            result.append("\n matrix: null\n")
+        } else {
             result.append("\n matrix:\n")
             result.append(matrix)
         }
@@ -42,5 +44,4 @@ class QRCode {
         // Check if "mask_pattern" is valid.
         fun isValidMaskPattern(maskPattern: Int): Boolean = maskPattern in 0 until NUM_MASK_PATTERNS
     }
-
 }

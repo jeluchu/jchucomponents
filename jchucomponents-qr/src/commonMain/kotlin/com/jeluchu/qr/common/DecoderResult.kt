@@ -33,12 +33,10 @@ class DecoderResult(
     val structuredAppendSequenceNumber: Int,
     val structuredAppendParity: Int
 ) {
-
     /**
      * @return arbitrary additional metadata
      */
     var other: Any? = null
-    fun hasStructuredAppend(): Boolean =
-        structuredAppendParity >= 0 && structuredAppendSequenceNumber >= 0
 
+    fun hasStructuredAppend(): Boolean = structuredAppendParity >= 0 && structuredAppendSequenceNumber >= 0
 }

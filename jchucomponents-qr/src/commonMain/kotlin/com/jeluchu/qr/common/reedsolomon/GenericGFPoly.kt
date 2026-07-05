@@ -16,8 +16,10 @@ package com.jeluchu.qr.common.reedsolomon
  * port of his C++ Reed-Solomon implementation.
  *
  */
-class GenericGFPoly(field: GenericGF, coefficients: IntArray) {
-
+class GenericGFPoly(
+    field: GenericGF,
+    coefficients: IntArray
+) {
     private val field: GenericGF
     val coefficients: IntArray
 
@@ -96,10 +98,11 @@ class GenericGFPoly(field: GenericGF, coefficients: IntArray) {
         for (i in 0 until aLength) {
             val aCoeff = aCoefficients[i]
             for (j in 0 until bLength) {
-                product[i + j] = GenericGF.addOrSubtract(
-                    product[i + j],
-                    field.multiply(aCoeff, bCoefficients[j])
-                )
+                product[i + j] =
+                    GenericGF.addOrSubtract(
+                        product[i + j],
+                        field.multiply(aCoeff, bCoefficients[j])
+                    )
             }
         }
         return GenericGFPoly(field, product)
@@ -120,7 +123,10 @@ class GenericGFPoly(field: GenericGF, coefficients: IntArray) {
         return GenericGFPoly(field, product)
     }
 
-    fun multiplyByMonomial(degree: Int, coefficient: Int): GenericGFPoly {
+    fun multiplyByMonomial(
+        degree: Int,
+        coefficient: Int
+    ): GenericGFPoly {
         require(degree >= 0)
         if (coefficient == 0) {
             return field.zero
@@ -142,10 +148,11 @@ class GenericGFPoly(field: GenericGF, coefficients: IntArray) {
         val inverseDenominatorLeadingTerm = field.inverse(denominatorLeadingTerm)
         while (remainder.degree >= other.degree && !remainder.isZero) {
             val degreeDifference = remainder.degree - other.degree
-            val scale = field.multiply(
-                remainder.getCoefficient(remainder.degree),
-                inverseDenominatorLeadingTerm
-            )
+            val scale =
+                field.multiply(
+                    remainder.getCoefficient(remainder.degree),
+                    inverseDenominatorLeadingTerm
+                )
             val term = other.multiplyByMonomial(degreeDifference, scale)
             val iterationQuotient = field.buildMonomial(degreeDifference, scale)
             quotient = quotient.addOrSubtract(iterationQuotient)
@@ -183,8 +190,9 @@ class GenericGFPoly(field: GenericGF, coefficients: IntArray) {
                     }
                 }
                 if (degree != 0) {
-                    if (degree == 1) result.append('x')
-                    else {
+                    if (degree == 1) {
+                        result.append('x')
+                    } else {
                         result.append("x^")
                         result.append(degree)
                     }
@@ -203,12 +211,14 @@ class GenericGFPoly(field: GenericGF, coefficients: IntArray) {
             while (firstNonZero < coefficientsLength && coefficients[firstNonZero] == 0) {
                 firstNonZero++
             }
-            if (firstNonZero == coefficientsLength) this.coefficients = intArrayOf(0)
-            else {
+            if (firstNonZero == coefficientsLength) {
+                this.coefficients = intArrayOf(0)
+            } else {
                 this.coefficients = IntArray(coefficientsLength - firstNonZero)
                 coefficients.copyInto(this.coefficients, startIndex = firstNonZero)
             }
-        } else this.coefficients = coefficients
-
+        } else {
+            this.coefficients = coefficients
+        }
     }
 }

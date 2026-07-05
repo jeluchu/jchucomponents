@@ -26,27 +26,118 @@ import com.jeluchu.qr.qrcode.encoder.QRCode.Companion.isValidMaskPattern
 import kotlin.math.max
 
 object Encoder {
-
     private const val DEFAULT_BYTE_MODE_ENCODING = "ISO-8859-1"
 
     // The original table is defined in the table 5 of JISX0510:2004 (p.19).
-    private val ALPHANUMERIC_TABLE = intArrayOf(
-        -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,  // 0x00-0x0f
-        -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,  // 0x10-0x1f
-        36, -1, -1, -1, 37, 38, -1, -1, -1, -1, 39, 40, -1, 41, 42, 43,  // 0x20-0x2f
-        0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 44, -1, -1, -1, -1, -1,  // 0x30-0x3f
-        -1, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24,  // 0x40-0x4f
-        25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, -1, -1, -1, -1, -1
-    )
+    private val ALPHANUMERIC_TABLE =
+        intArrayOf(
+            -1,
+            -1,
+            -1,
+            -1,
+            -1,
+            -1,
+            -1,
+            -1,
+            -1,
+            -1,
+            -1,
+            -1,
+            -1,
+            -1,
+            -1,
+            -1, // 0x00-0x0f
+            -1,
+            -1,
+            -1,
+            -1,
+            -1,
+            -1,
+            -1,
+            -1,
+            -1,
+            -1,
+            -1,
+            -1,
+            -1,
+            -1,
+            -1,
+            -1, // 0x10-0x1f
+            36,
+            -1,
+            -1,
+            -1,
+            37,
+            38,
+            -1,
+            -1,
+            -1,
+            -1,
+            39,
+            40,
+            -1,
+            41,
+            42,
+            43, // 0x20-0x2f
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            44,
+            -1,
+            -1,
+            -1,
+            -1,
+            -1, // 0x30-0x3f
+            -1,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20,
+            21,
+            22,
+            23,
+            24, // 0x40-0x4f
+            25,
+            26,
+            27,
+            28,
+            29,
+            30,
+            31,
+            32,
+            33,
+            34,
+            35,
+            -1,
+            -1,
+            -1,
+            -1,
+            -1
+        )
 
     // The mask penalty calculation is complicated.  See Table 21 of JISX0510:2004 (p.45) for details.
     // Basically it applies four rules and summate all penalties.
-    private fun calculateMaskPenalty(matrix: ByteMatrix): Int {
-        return (applyMaskPenaltyRule1(matrix)
-                + applyMaskPenaltyRule2(matrix)
-                + applyMaskPenaltyRule3(matrix)
-                + applyMaskPenaltyRule4(matrix))
-    }
+    private fun calculateMaskPenalty(matrix: ByteMatrix): Int =
+        (
+            applyMaskPenaltyRule1(matrix) +
+                applyMaskPenaltyRule2(matrix) +
+                applyMaskPenaltyRule3(matrix) +
+                applyMaskPenaltyRule4(matrix)
+        )
 
     /**
      * @param content text to encode
@@ -61,7 +152,6 @@ object Encoder {
         ecLevel: ErrorCorrectionLevel,
         hints: HashMap<EncodeHintType, Any?>? = null
     ): QRCode {
-
         // Determine what character encoding has been specified by the caller, if any
         var encoding = DEFAULT_BYTE_MODE_ENCODING
         val hasEncodingHint = hints != null && hints.containsKey(EncodeHintType.CHARACTER_SET)
@@ -124,12 +214,13 @@ object Encoder {
         terminateBits(numDataBytes, headerAndDataBits)
 
         // Interleave data bits with error correction code.
-        val finalBits = interleaveWithECBytes(
-            headerAndDataBits,
-            version.totalCodewords,
-            numDataBytes,
-            ecBlocks.numBlocks
-        )
+        val finalBits =
+            interleaveWithECBytes(
+                headerAndDataBits,
+                version.totalCodewords,
+                numDataBytes,
+                ecBlocks.numBlocks
+            )
         val qrCode = QRCode()
         qrCode.eCLevel = ecLevel
         qrCode.mode = mode
@@ -185,25 +276,27 @@ object Encoder {
         headerBits: BitArray,
         dataBits: BitArray,
         version: Version
-    ): Int {
-        return headerBits.size + mode.getCharacterCountBits(version) + dataBits.size
-    }
+    ): Int = headerBits.size + mode.getCharacterCountBits(version) + dataBits.size
 
     /**
      * @return the code point of the table used in alphanumeric mode or
      * -1 if there is no corresponding code in the table.
      */
-    private fun getAlphanumericCode(code: Int): Int {
-        return if (code < ALPHANUMERIC_TABLE.size) {
+    private fun getAlphanumericCode(code: Int): Int =
+        if (code < ALPHANUMERIC_TABLE.size) {
             ALPHANUMERIC_TABLE[code]
-        } else -1
-    }
+        } else {
+            -1
+        }
 
     /**
      * Choose the best mode by examining the content. Note that 'encoding' is used as a hint;
      * if it is Shift_JIS, and the input is only double-byte Kanji, then we return [Mode.KANJI].
      */
-    private fun chooseMode(content: String, encoding: String?): Mode {
+    private fun chooseMode(
+        content: String,
+        encoding: String?
+    ): Mode {
         if ("Shift_JIS" == encoding && isOnlyDoubleByteKanji(content)) {
             // Choose Kanji mode if all input are double-byte characters
             return Mode.KANJI
@@ -222,13 +315,16 @@ object Encoder {
         }
         return if (hasNumeric) {
             Mode.NUMERIC
-        } else Mode.BYTE
+        } else {
+            Mode.BYTE
+        }
     }
 
     private fun isOnlyDoubleByteKanji(content: String): Boolean {
-        val bytes: ByteArray = runCatching {
-            qrEncodeText(content, "Shift_JIS")
-        }.getOrElse { return false }
+        val bytes: ByteArray =
+            runCatching {
+                qrEncodeText(content, "Shift_JIS")
+            }.getOrElse { return false }
         val length = bytes.size
         if (length % 2 != 0) {
             return false
@@ -266,7 +362,10 @@ object Encoder {
     }
 
     @Throws(WriterException::class)
-    private fun chooseVersion(numInputBits: Int, ecLevel: ErrorCorrectionLevel): Version {
+    private fun chooseVersion(
+        numInputBits: Int,
+        ecLevel: ErrorCorrectionLevel
+    ): Version {
         for (versionNum in 1..40) {
             val version = getVersionForNumber(versionNum)
             if (willFit(numInputBits, version, ecLevel)) {
@@ -301,12 +400,15 @@ object Encoder {
      * Terminate bits as described in 8.4.8 and 8.4.9 of JISX0510:2004 (p.24).
      */
     @Throws(WriterException::class)
-    fun terminateBits(numDataBytes: Int, bits: BitArray) {
+    fun terminateBits(
+        numDataBytes: Int,
+        bits: BitArray
+    ) {
         val capacity = numDataBytes * 8
         if (bits.size > capacity) {
             throw WriterException(
                 "data bits cannot fit in the QR Code" + bits.size + " > " +
-                        capacity
+                    capacity
             )
         }
         run {
@@ -405,7 +507,6 @@ object Encoder {
         numDataBytes: Int,
         numRSBlocks: Int
     ): BitArray {
-
         // "bits" must have "getNumDataBytes" bytes of data.
         if (bits.sizeInBytes != numDataBytes) {
             throw WriterException("Number of bits and data bytes does not match")
@@ -423,8 +524,12 @@ object Encoder {
             val numDataBytesInBlock = IntArray(1)
             val numEcBytesInBlock = IntArray(1)
             getNumDataBytesAndNumECBytesForBlockID(
-                numTotalBytes, numDataBytes, numRSBlocks, i,
-                numDataBytesInBlock, numEcBytesInBlock
+                numTotalBytes,
+                numDataBytes,
+                numRSBlocks,
+                i,
+                numDataBytesInBlock,
+                numEcBytesInBlock
             )
             val size = numDataBytesInBlock[0]
             val dataBytes = ByteArray(size)
@@ -458,16 +563,19 @@ object Encoder {
                 }
             }
         }
-        if (numTotalBytes != result.sizeInBytes) {  // Should be same.
+        if (numTotalBytes != result.sizeInBytes) { // Should be same.
             throw WriterException(
                 "Interleaving error: " + numTotalBytes + " and " +
-                        result.sizeInBytes + " differ."
+                    result.sizeInBytes + " differ."
             )
         }
         return result
     }
 
-    private fun generateECBytes(dataBytes: ByteArray, numEcBytesInBlock: Int): ByteArray {
+    private fun generateECBytes(
+        dataBytes: ByteArray,
+        numEcBytesInBlock: Int
+    ): ByteArray {
         val numDataBytes = dataBytes.size
         val toEncode = IntArray(numDataBytes + numEcBytesInBlock)
         for (i in 0 until numDataBytes) {
@@ -484,7 +592,10 @@ object Encoder {
     /**
      * Append mode info. On success, store the result in "bits".
      */
-    private fun appendModeInfo(mode: Mode, bits: BitArray) {
+    private fun appendModeInfo(
+        mode: Mode,
+        bits: BitArray
+    ) {
         bits.appendBits(mode.bits, 4)
     }
 
@@ -492,7 +603,12 @@ object Encoder {
      * Append length info. On success, store the result in "bits".
      */
     @Throws(WriterException::class)
-    fun appendLengthInfo(numLetters: Int, version: Version?, mode: Mode, bits: BitArray) {
+    fun appendLengthInfo(
+        numLetters: Int,
+        version: Version?,
+        mode: Mode,
+        bits: BitArray
+    ) {
         val numBits = mode.getCharacterCountBits(version!!)
         if (numLetters >= 1 shl numBits) {
             throw WriterException(numLetters.toString() + " is bigger than " + ((1 shl numBits) - 1))
@@ -519,7 +635,10 @@ object Encoder {
         }
     }
 
-    private fun appendNumericBytes(content: CharSequence, bits: BitArray) {
+    private fun appendNumericBytes(
+        content: CharSequence,
+        bits: BitArray
+    ) {
         val length = content.length
         var i = 0
         while (i < length) {
@@ -548,20 +667,25 @@ object Encoder {
     }
 
     @Throws(WriterException::class)
-    fun appendAlphanumericBytes(content: CharSequence, bits: BitArray) {
+    fun appendAlphanumericBytes(
+        content: CharSequence,
+        bits: BitArray
+    ) {
         val length = content.length
         var i = 0
         while (i < length) {
-            val code1 = getAlphanumericCode(
-                content[i].code
-            )
+            val code1 =
+                getAlphanumericCode(
+                    content[i].code
+                )
             if (code1 == -1) {
                 throw WriterException()
             }
             if (i + 1 < length) {
-                val code2 = getAlphanumericCode(
-                    content[i + 1].code
-                )
+                val code2 =
+                    getAlphanumericCode(
+                        content[i + 1].code
+                    )
                 if (code2 == -1) {
                     throw WriterException()
                 }
@@ -577,20 +701,29 @@ object Encoder {
     }
 
     @Throws(WriterException::class)
-    fun append8BitBytes(content: String, bits: BitArray, encoding: String?) {
-        val bytes: ByteArray = runCatching {
-            qrEncodeText(content, encoding!!)
-        }.getOrElse { throw WriterException(it) }
+    fun append8BitBytes(
+        content: String,
+        bits: BitArray,
+        encoding: String?
+    ) {
+        val bytes: ByteArray =
+            runCatching {
+                qrEncodeText(content, encoding!!)
+            }.getOrElse { throw WriterException(it) }
         for (b in bytes) {
             bits.appendBits(b.toInt(), 8)
         }
     }
 
     @Throws(WriterException::class)
-    fun appendKanjiBytes(content: String, bits: BitArray) {
-        val bytes: ByteArray = runCatching {
-            qrEncodeText(content, "Shift_JIS")
-        }.getOrElse { throw WriterException(it) }
+    fun appendKanjiBytes(
+        content: String,
+        bits: BitArray
+    ) {
+        val bytes: ByteArray =
+            runCatching {
+                qrEncodeText(content, "Shift_JIS")
+            }.getOrElse { throw WriterException(it) }
         if (bytes.size % 2 != 0) {
             throw WriterException("Kanji byte size not even")
         }
@@ -615,7 +748,10 @@ object Encoder {
         }
     }
 
-    private fun appendECI(eci: CharacterSetECI, bits: BitArray) {
+    private fun appendECI(
+        eci: CharacterSetECI,
+        bits: BitArray
+    ) {
         bits.appendBits(Mode.ECI.bits, 4)
         // This is correct for values up to 127, which is all we need now.
         bits.appendBits(eci.value, 8)

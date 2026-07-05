@@ -38,7 +38,10 @@ class QRCodeReader : Reader {
     override fun decode(image: BinaryBitmap?): Result = decode(image, null)
 
     @Throws(NotFoundException::class, ChecksumException::class, FormatException::class)
-    override fun decode(image: BinaryBitmap?, hints: Map<DecodeHintType?, *>?): Result {
+    override fun decode(
+        image: BinaryBitmap?,
+        hints: Map<DecodeHintType?, *>?
+    ): Result {
         val decoderResult: DecoderResult
         val points: Array<ResultPoint?>
         if (hints != null && hints.containsKey(DecodeHintType.PURE_BARCODE)) {
@@ -77,7 +80,6 @@ class QRCodeReader : Reader {
     override fun reset() {}
 
     companion object {
-
         /**
          * This method detects a code in a "pure" image -- that is, pure monochrome image
          * which contains only an unrotated, unskewed, image of a code, with some white border
@@ -149,7 +151,10 @@ class QRCodeReader : Reader {
         }
 
         @Throws(NotFoundException::class)
-        private fun moduleSize(leftTopBlack: IntArray, image: BitMatrix): Float {
+        private fun moduleSize(
+            leftTopBlack: IntArray,
+            image: BitMatrix
+        ): Float {
             val height = image.height
             val width = image.width
             var x = leftTopBlack[0]

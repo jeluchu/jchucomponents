@@ -16,8 +16,11 @@ package com.jeluchu.qr.common.reedsolomon
  * for convenience and speed (but at the cost of memory).
  *
  */
-class GenericGF(private val primitive: Int, val size: Int, val generatorBase: Int) {
-
+class GenericGF(
+    private val primitive: Int,
+    val size: Int,
+    val generatorBase: Int
+) {
     private val expTable: IntArray = IntArray(size)
     private val logTable: IntArray = IntArray(size)
     val zero: GenericGFPoly
@@ -26,7 +29,10 @@ class GenericGF(private val primitive: Int, val size: Int, val generatorBase: In
     /**
      * @return the monomial representing coefficient * x^degree
      */
-    fun buildMonomial(degree: Int, coefficient: Int): GenericGFPoly {
+    fun buildMonomial(
+        degree: Int,
+        coefficient: Int
+    ): GenericGFPoly {
         require(degree >= 0)
         if (coefficient == 0) {
             return zero
@@ -39,9 +45,7 @@ class GenericGF(private val primitive: Int, val size: Int, val generatorBase: In
     /**
      * @return 2 to the power of a in GF(size)
      */
-    fun exp(a: Int): Int {
-        return expTable[a]
-    }
+    fun exp(a: Int): Int = expTable[a]
 
     /**
      * @return base 2 log of a in GF(size)
@@ -64,18 +68,19 @@ class GenericGF(private val primitive: Int, val size: Int, val generatorBase: In
     /**
      * @return product of a and b in GF(size)
      */
-    fun multiply(a: Int, b: Int): Int {
-        return if (a == 0 || b == 0) {
+    fun multiply(
+        a: Int,
+        b: Int
+    ): Int =
+        if (a == 0 || b == 0) {
             0
-        } else expTable[(logTable[a] + logTable[b]) % (size - 1)]
-    }
+        } else {
+            expTable[(logTable[a] + logTable[b]) % (size - 1)]
+        }
 
-    override fun toString(): String {
-        return "GF(0x" + primitive.toString(16) + ',' + size + ')'
-    }
+    override fun toString(): String = "GF(0x" + primitive.toString(16) + ',' + size + ')'
 
     companion object {
-
         val QR_CODE_FIELD_256 = GenericGF(0x011D, 256, 0) // x^8 + x^4 + x^3 + x^2 + 1
 
         /**
@@ -83,8 +88,10 @@ class GenericGF(private val primitive: Int, val size: Int, val generatorBase: In
          *
          * @return sum/difference of a and b
          */
-        fun addOrSubtract(a: Int, b: Int): Int = a xor b
-
+        fun addOrSubtract(
+            a: Int,
+            b: Int
+        ): Int = a xor b
     }
 
     init {
@@ -103,5 +110,4 @@ class GenericGF(private val primitive: Int, val size: Int, val generatorBase: In
         zero = GenericGFPoly(this, intArrayOf(0))
         one = GenericGFPoly(this, intArrayOf(1))
     }
-
 }

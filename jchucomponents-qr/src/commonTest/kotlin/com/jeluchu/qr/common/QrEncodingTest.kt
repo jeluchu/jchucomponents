@@ -4,7 +4,6 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 
 class QrEncodingTest {
-
     @Test
     fun roundTripsUnicodeTextUsingPlatformEncoding() {
         val value = "JchuComponents · QR · 你好"
@@ -12,7 +11,7 @@ class QrEncodingTest {
 
         assertEquals(
             value,
-            qrDecodeBytes(qrEncodeText(value, encoding), encoding),
+            qrDecodeBytes(qrEncodeText(value, encoding), encoding)
         )
     }
 }

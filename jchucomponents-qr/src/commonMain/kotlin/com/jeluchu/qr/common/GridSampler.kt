@@ -9,7 +9,6 @@ package com.jeluchu.qr.common
 import com.jeluchu.qr.NotFoundException
 
 abstract class GridSampler {
-
     @Throws(NotFoundException::class)
     abstract fun sampleGrid(
         image: BitMatrix?,

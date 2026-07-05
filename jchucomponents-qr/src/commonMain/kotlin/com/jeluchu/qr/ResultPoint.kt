@@ -8,14 +8,16 @@ package com.jeluchu.qr
 
 import com.jeluchu.qr.common.detector.MathUtils.distance
 
-open class ResultPoint(val x: Float, val y: Float) {
+open class ResultPoint(
+    val x: Float,
+    val y: Float
+) {
     override fun equals(other: Any?): Boolean {
         if (other is ResultPoint) return x == other.x && y == other.y
         return false
     }
 
-    override fun hashCode(): Int =
-        31 * x.toBits() + y.toBits()
+    override fun hashCode(): Int = 31 * x.toBits() + y.toBits()
 
     override fun toString(): String = "($x,$y)"
 
@@ -27,7 +29,6 @@ open class ResultPoint(val x: Float, val y: Float) {
          * @param patterns array of three `ResultPoint` to order
          */
         fun orderBestPatterns(patterns: Array<ResultPoint>) {
-
             // Find distances between pattern centers
             val zeroOneDistance = distance(patterns[0], patterns[1])
             val oneTwoDistance = distance(patterns[1], patterns[2])
@@ -69,8 +70,10 @@ open class ResultPoint(val x: Float, val y: Float) {
          * @param pattern2 second pattern
          * @return distance between two points
          */
-        fun distance(pattern1: ResultPoint, pattern2: ResultPoint): Float =
-            distance(pattern1.x, pattern1.y, pattern2.x, pattern2.y)
+        fun distance(
+            pattern1: ResultPoint,
+            pattern2: ResultPoint
+        ): Float = distance(pattern1.x, pattern1.y, pattern2.x, pattern2.y)
 
         /**
          * Returns the z component of the cross product between vectors BC and BA.

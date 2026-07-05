@@ -12,9 +12,7 @@ class FormatException : ReaderException {
         val formatInstance: FormatException
             get() = if (isStackTrace) FormatException() else INSTANCE
 
-        fun getFormatInstance(cause: Throwable): FormatException =
-            if (isStackTrace) FormatException(cause) else INSTANCE
-
+        fun getFormatInstance(cause: Throwable): FormatException = if (isStackTrace) FormatException(cause) else INSTANCE
 
         init {
         }
@@ -22,5 +20,4 @@ class FormatException : ReaderException {
 
     private constructor()
     private constructor(cause: Throwable) : super(cause)
-
 }

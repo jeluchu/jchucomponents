@@ -8,10 +8,16 @@ package com.jeluchu.qr
 
 import com.jeluchu.qr.common.and
 
-class InvertedLuminanceSource(private val delegate: LuminanceSource?) : LuminanceSource(
-    delegate!!.width, delegate.height
-) {
-    override fun getRow(y: Int, row: ByteArray?): ByteArray {
+class InvertedLuminanceSource(
+    private val delegate: LuminanceSource?
+) : LuminanceSource(
+        delegate!!.width,
+        delegate.height
+    ) {
+    override fun getRow(
+        y: Int,
+        row: ByteArray?
+    ): ByteArray {
         var rowBytes = row
         rowBytes = delegate!!.getRow(y, rowBytes)
         val width = width
@@ -34,8 +40,12 @@ class InvertedLuminanceSource(private val delegate: LuminanceSource?) : Luminanc
     override val isCropSupported: Boolean
         get() = delegate!!.isCropSupported
 
-    override fun crop(left: Int, top: Int, width: Int, height: Int): LuminanceSource =
-        InvertedLuminanceSource(delegate!!.crop(left, top, width, height))
+    override fun crop(
+        left: Int,
+        top: Int,
+        width: Int,
+        height: Int
+    ): LuminanceSource = InvertedLuminanceSource(delegate!!.crop(left, top, width, height))
 
     override val isRotateSupported: Boolean
         get() = delegate!!.isRotateSupported
@@ -45,10 +55,7 @@ class InvertedLuminanceSource(private val delegate: LuminanceSource?) : Luminanc
      */
     override fun invert(): LuminanceSource? = delegate
 
-    override fun rotateCounterClockwise(): LuminanceSource =
-        InvertedLuminanceSource(delegate!!.rotateCounterClockwise())
+    override fun rotateCounterClockwise(): LuminanceSource = InvertedLuminanceSource(delegate!!.rotateCounterClockwise())
 
-    override fun rotateCounterClockwise45(): LuminanceSource =
-        InvertedLuminanceSource(delegate!!.rotateCounterClockwise45())
-
+    override fun rotateCounterClockwise45(): LuminanceSource = InvertedLuminanceSource(delegate!!.rotateCounterClockwise45())
 }

@@ -6,12 +6,9 @@
 
 package com.jeluchu.qr
 
-
 object NotFoundException : ReaderException() {
-
     val notFoundInstance = NotFoundException
 
     init {
     }
-
 }

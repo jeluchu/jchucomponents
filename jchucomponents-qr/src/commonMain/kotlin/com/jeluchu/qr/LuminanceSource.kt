@@ -27,7 +27,6 @@ abstract class LuminanceSource protected constructor(
      */
     val height: Int
 ) {
-
     /**
      * Fetches one row of luminance data from the underlying platform's bitmap. Values range from
      * 0 (black) to 255 (white). Because Java does not have an unsigned byte type, callers will have
@@ -40,7 +39,10 @@ abstract class LuminanceSource protected constructor(
      * Always use the returned object, and ignore the .length of the array.
      * @return An array containing the luminance data.
      */
-    abstract fun getRow(y: Int, row: ByteArray?): ByteArray
+    abstract fun getRow(
+        y: Int,
+        row: ByteArray?
+    ): ByteArray
 
     /**
      * Fetches luminance data for the underlying bitmap. Values should be fetched using:
@@ -68,8 +70,12 @@ abstract class LuminanceSource protected constructor(
      * @param height The height of the rectangle to crop.
      * @return A cropped version of this object.
      */
-    open fun crop(left: Int, top: Int, width: Int, height: Int): LuminanceSource? =
-        throw UnsupportedOperationException("This luminance source does not support cropping.")
+    open fun crop(
+        left: Int,
+        top: Int,
+        width: Int,
+        height: Int
+    ): LuminanceSource? = throw UnsupportedOperationException("This luminance source does not support cropping.")
 
     /**
      * @return Whether this subclass supports counter-clockwise rotation.
@@ -81,9 +87,7 @@ abstract class LuminanceSource protected constructor(
      * @return a wrapper of this `LuminanceSource` which inverts the luminances it returns -- black becomes
      * white and vice versa, and each value becomes (255-value).
      */
-    open fun invert(): LuminanceSource? =
-        InvertedLuminanceSource(this)
-
+    open fun invert(): LuminanceSource? = InvertedLuminanceSource(this)
 
     /**
      * Returns a new object with rotated image data by 90 degrees counterclockwise.
@@ -110,12 +114,13 @@ abstract class LuminanceSource protected constructor(
             row = getRow(y, row)
             for (x in 0 until width) {
                 val luminance: Int = (row[x] and (0xFF).toByte()).toInt()
-                val c: Char = when {
-                    luminance < 0x40 -> '#'
-                    luminance < 0x80 -> '+'
-                    luminance < 0xC0 -> '.'
-                    else -> ' '
-                }
+                val c: Char =
+                    when {
+                        luminance < 0x40 -> '#'
+                        luminance < 0x80 -> '+'
+                        luminance < 0xC0 -> '.'
+                        else -> ' '
+                    }
                 result.append(c)
             }
             result.append('\n')

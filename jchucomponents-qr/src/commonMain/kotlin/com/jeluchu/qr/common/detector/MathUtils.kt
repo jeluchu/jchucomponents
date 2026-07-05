@@ -21,9 +21,7 @@ object MathUtils {
      * @param d real value to round
      * @return nearest `int`
      */
-    fun round(d: Float): Int {
-        return (d + if (d < 0.0f) -0.5f else 0.5f).toInt()
-    }
+    fun round(d: Float): Int = (d + if (d < 0.0f) -0.5f else 0.5f).toInt()
 
     /**
      * @param aX point A x coordinate
@@ -32,7 +30,12 @@ object MathUtils {
      * @param bY point B y coordinate
      * @return Euclidean distance between points A and B
      */
-    fun distance(aX: Float, aY: Float, bX: Float, bY: Float): Float {
+    fun distance(
+        aX: Float,
+        aY: Float,
+        bX: Float,
+        bY: Float
+    ): Float {
         val xDiff = (aX - bX).toDouble()
         val yDiff = (aY - bY).toDouble()
         return sqrt(xDiff * xDiff + yDiff * yDiff).toFloat()
@@ -45,7 +48,12 @@ object MathUtils {
      * @param bY point B y coordinate
      * @return Euclidean distance between points A and B
      */
-    fun distance(aX: Int, aY: Int, bX: Int, bY: Int): Float {
+    fun distance(
+        aX: Int,
+        aY: Int,
+        bX: Int,
+        bY: Int
+    ): Float {
         val xDiff = (aX - bX).toDouble()
         val yDiff = (aY - bY).toDouble()
         return sqrt(xDiff * xDiff + yDiff * yDiff).toFloat()

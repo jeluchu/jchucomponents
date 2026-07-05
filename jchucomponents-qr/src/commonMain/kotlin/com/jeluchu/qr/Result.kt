@@ -35,7 +35,6 @@ class Result(
     val barcodeFormat: BarcodeFormat?,
     val timestamp: Long
 ) {
-
     private var resultMetadata: MutableMap<ResultMetadataType, Any>? = null
 
     constructor(
@@ -45,11 +44,18 @@ class Result(
         format: BarcodeFormat?,
         timestamp: Long = currentTimestamp()
     ) : this(
-        text, rawBytes, if (rawBytes == null) 0 else 8 * rawBytes.size,
-        resultPoints, format, timestamp
+        text,
+        rawBytes,
+        if (rawBytes == null) 0 else 8 * rawBytes.size,
+        resultPoints,
+        format,
+        timestamp
     )
 
-    fun putMetadata(type: ResultMetadataType, value: Any) {
+    fun putMetadata(
+        type: ResultMetadataType,
+        value: Any
+    ) {
         if (resultMetadata == null) {
             resultMetadata = mutableMapOf()
         }
@@ -57,7 +63,6 @@ class Result(
     }
 
     override fun toString(): String = text
-
 }
 
 @OptIn(ExperimentalTime::class)

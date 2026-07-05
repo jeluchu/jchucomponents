@@ -15,12 +15,13 @@ import kotlin.math.min
  *
  * This class is thread-safe but not reentrant -- unless the caller modifies the bytes array
  * it passed in, in which case all bets are off.
- */
-class BitSource
-/**
+ *
  * @param bytes bytes from which this will read bits. Bits will be read from the first byte first.
  * Bits are read within a byte from most-significant to least-significant bit.
- */(private val bytes: ByteArray) {
+ */
+class BitSource(
+    private val bytes: ByteArray
+) {
     private var byteOffset = 0
     private var bitOffset = 0
 
@@ -72,7 +73,5 @@ class BitSource
     /**
      * @return number of bits that can be read successfully
      */
-    fun available(): Int {
-        return 8 * (bytes.size - byteOffset) - bitOffset
-    }
+    fun available(): Int = 8 * (bytes.size - byteOffset) - bitOffset
 }

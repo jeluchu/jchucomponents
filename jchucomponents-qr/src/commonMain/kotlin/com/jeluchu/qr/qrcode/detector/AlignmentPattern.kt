@@ -25,7 +25,11 @@ class AlignmentPattern internal constructor(
      * Determines if this alignment pattern "about equals" an alignment pattern at the stated
      * position and size -- meaning, it is at nearly the same center with nearly the same size.
      */
-    fun aboutEquals(moduleSize: Float, i: Float, j: Float): Boolean {
+    fun aboutEquals(
+        moduleSize: Float,
+        i: Float,
+        j: Float
+    ): Boolean {
         if (abs(i - y) <= moduleSize && abs(j - x) <= moduleSize) {
             val moduleSizeDiff = abs(moduleSize - estimatedModuleSize)
             return moduleSizeDiff <= 1.0f || moduleSizeDiff <= estimatedModuleSize
@@ -37,7 +41,11 @@ class AlignmentPattern internal constructor(
      * Combines this object's current estimate of a finder pattern position and module size
      * with a new estimate. It returns a new `FinderPattern` containing an average of the two.
      */
-    fun combineEstimate(i: Float, j: Float, newModuleSize: Float): AlignmentPattern {
+    fun combineEstimate(
+        i: Float,
+        j: Float,
+        newModuleSize: Float
+    ): AlignmentPattern {
         val combinedX = (x + j) / 2.0f
         val combinedY = (y + i) / 2.0f
         val combinedModuleSize = (estimatedModuleSize + newModuleSize) / 2.0f

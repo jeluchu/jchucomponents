@@ -13,8 +13,10 @@ package com.jeluchu.qr.qrcode.decoder
  * is represented by an instance of this class.
  *
  */
-internal class DataBlock private constructor(val numDataCodewords: Int, val codewords: ByteArray) {
-
+internal class DataBlock private constructor(
+    val numDataCodewords: Int,
+    val codewords: ByteArray
+) {
     companion object {
         /**
          *

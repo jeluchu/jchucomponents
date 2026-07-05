@@ -7,9 +7,15 @@
 package com.jeluchu.qr.common
 
 class PerspectiveTransform private constructor(
-    private val a11: Float, private val a21: Float, private val a31: Float,
-    private val a12: Float, private val a22: Float, private val a32: Float,
-    private val a13: Float, private val a23: Float, private val a33: Float
+    private val a11: Float,
+    private val a21: Float,
+    private val a31: Float,
+    private val a12: Float,
+    private val a22: Float,
+    private val a32: Float,
+    private val a13: Float,
+    private val a23: Float,
+    private val a33: Float
 ) {
     fun transformPoints(points: FloatArray) {
         val a11 = a11
@@ -61,14 +67,22 @@ class PerspectiveTransform private constructor(
 
     companion object {
         fun quadrilateralToQuadrilateral(
-            x0: Float, y0: Float,
-            x1: Float, y1: Float,
-            x2: Float, y2: Float,
-            x3: Float, y3: Float,
-            x0p: Float, y0p: Float,
-            x1p: Float, y1p: Float,
-            x2p: Float, y2p: Float,
-            x3p: Float, y3p: Float
+            x0: Float,
+            y0: Float,
+            x1: Float,
+            y1: Float,
+            x2: Float,
+            y2: Float,
+            x3: Float,
+            y3: Float,
+            x0p: Float,
+            y0p: Float,
+            x1p: Float,
+            y1p: Float,
+            x2p: Float,
+            y2p: Float,
+            x3p: Float,
+            y3p: Float
         ): PerspectiveTransform {
             val qToS = quadrilateralToSquare(x0, y0, x1, y1, x2, y2, x3, y3)
             val sToQ = squareToQuadrilateral(x0p, y0p, x1p, y1p, x2p, y2p, x3p, y3p)
@@ -76,18 +90,28 @@ class PerspectiveTransform private constructor(
         }
 
         private fun squareToQuadrilateral(
-            x0: Float, y0: Float,
-            x1: Float, y1: Float,
-            x2: Float, y2: Float,
-            x3: Float, y3: Float
+            x0: Float,
+            y0: Float,
+            x1: Float,
+            y1: Float,
+            x2: Float,
+            y2: Float,
+            x3: Float,
+            y3: Float
         ): PerspectiveTransform {
             val dx3 = x0 - x1 + x2 - x3
             val dy3 = y0 - y1 + y2 - y3
             return if (dx3 == 0.0f && dy3 == 0.0f) {
                 PerspectiveTransform(
-                    x1 - x0, x2 - x1, x0,
-                    y1 - y0, y2 - y1, y0,
-                    0.0f, 0.0f, 1.0f
+                    x1 - x0,
+                    x2 - x1,
+                    x0,
+                    y1 - y0,
+                    y2 - y1,
+                    y0,
+                    0.0f,
+                    0.0f,
+                    1.0f
                 )
             } else {
                 val dx1 = x1 - x2
@@ -98,20 +122,28 @@ class PerspectiveTransform private constructor(
                 val a13 = (dx3 * dy2 - dx2 * dy3) / denominator
                 val a23 = (dx1 * dy3 - dx3 * dy1) / denominator
                 PerspectiveTransform(
-                    x1 - x0 + a13 * x1, x3 - x0 + a23 * x3, x0,
-                    y1 - y0 + a13 * y1, y3 - y0 + a23 * y3, y0,
-                    a13, a23, 1.0f
+                    x1 - x0 + a13 * x1,
+                    x3 - x0 + a23 * x3,
+                    x0,
+                    y1 - y0 + a13 * y1,
+                    y3 - y0 + a23 * y3,
+                    y0,
+                    a13,
+                    a23,
+                    1.0f
                 )
             }
         }
 
         private fun quadrilateralToSquare(
-            x0: Float, y0: Float,
-            x1: Float, y1: Float,
-            x2: Float, y2: Float,
-            x3: Float, y3: Float
-        ): PerspectiveTransform =
-            squareToQuadrilateral(x0, y0, x1, y1, x2, y2, x3, y3).buildAdjoint()
-
+            x0: Float,
+            y0: Float,
+            x1: Float,
+            y1: Float,
+            x2: Float,
+            y2: Float,
+            x3: Float,
+            y3: Float
+        ): PerspectiveTransform = squareToQuadrilateral(x0, y0, x1, y1, x2, y2, x3, y3).buildAdjoint()
     }
 }

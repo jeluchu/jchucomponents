@@ -12,4 +12,6 @@ package com.jeluchu.qr.common.reedsolomon
  * there are too many errors to correct.
  *
  */
-class ReedSolomonException(message: String?) : Exception(message)
+class ReedSolomonException(
+    message: String?
+) : Exception(message)

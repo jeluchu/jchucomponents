@@ -22,49 +22,55 @@ import com.jeluchu.qr.common.BitMatrix
  */
 internal enum class DataMask {
     // See ISO 18004:2006 6.8.1
+
     /**
      * 000: mask bits for which (x + y) mod 2 == 0
      */
     DATA_MASK_000 {
-        override fun isMasked(i: Int, j: Int): Boolean {
-            return i + j and 0x01 == 0
-        }
+        override fun isMasked(
+            i: Int,
+            j: Int
+        ): Boolean = i + j and 0x01 == 0
     },
 
     /**
      * 001: mask bits for which x mod 2 == 0
      */
     DATA_MASK_001 {
-        override fun isMasked(i: Int, j: Int): Boolean {
-            return i and 0x01 == 0
-        }
+        override fun isMasked(
+            i: Int,
+            j: Int
+        ): Boolean = i and 0x01 == 0
     },
 
     /**
      * 010: mask bits for which y mod 3 == 0
      */
     DATA_MASK_010 {
-        override fun isMasked(i: Int, j: Int): Boolean {
-            return j % 3 == 0
-        }
+        override fun isMasked(
+            i: Int,
+            j: Int
+        ): Boolean = j % 3 == 0
     },
 
     /**
      * 011: mask bits for which (x + y) mod 3 == 0
      */
     DATA_MASK_011 {
-        override fun isMasked(i: Int, j: Int): Boolean {
-            return (i + j) % 3 == 0
-        }
+        override fun isMasked(
+            i: Int,
+            j: Int
+        ): Boolean = (i + j) % 3 == 0
     },
 
     /**
      * 100: mask bits for which (x/2 + y/3) mod 2 == 0
      */
     DATA_MASK_100 {
-        override fun isMasked(i: Int, j: Int): Boolean {
-            return i / 2 + j / 3 and 0x01 == 0
-        }
+        override fun isMasked(
+            i: Int,
+            j: Int
+        ): Boolean = i / 2 + j / 3 and 0x01 == 0
     },
 
     /**
@@ -72,9 +78,10 @@ internal enum class DataMask {
      * equivalently, such that xy mod 6 == 0
      */
     DATA_MASK_101 {
-        override fun isMasked(i: Int, j: Int): Boolean {
-            return i * j % 6 == 0
-        }
+        override fun isMasked(
+            i: Int,
+            j: Int
+        ): Boolean = i * j % 6 == 0
     },
 
     /**
@@ -82,9 +89,10 @@ internal enum class DataMask {
      * equivalently, such that xy mod 6 < 3
      */
     DATA_MASK_110 {
-        override fun isMasked(i: Int, j: Int): Boolean {
-            return i * j % 6 < 3
-        }
+        override fun isMasked(
+            i: Int,
+            j: Int
+        ): Boolean = i * j % 6 < 3
     },
 
     /**
@@ -92,11 +100,14 @@ internal enum class DataMask {
      * equivalently, such that (x + y + xy mod 3) mod 2 == 0
      */
     DATA_MASK_111 {
-        override fun isMasked(i: Int, j: Int): Boolean {
-            return i + j + i * j % 3 and 0x01 == 0
-        }
+        override fun isMasked(
+            i: Int,
+            j: Int
+        ): Boolean = i + j + i * j % 3 and 0x01 == 0
     };
+
     // End of enum constants.
+
     /**
      *
      * Implementations of this method reverse the data masking process applied to a QR Code and
@@ -105,7 +116,10 @@ internal enum class DataMask {
      * @param bits      representation of QR Code bits
      * @param dimension dimension of QR Code, represented by bits, being unmasked
      */
-    fun unmaskBitMatrix(bits: BitMatrix, dimension: Int) {
+    fun unmaskBitMatrix(
+        bits: BitMatrix,
+        dimension: Int
+    ) {
         for (i in 0 until dimension) {
             for (j in 0 until dimension) {
                 if (isMasked(i, j)) {
@@ -115,5 +129,8 @@ internal enum class DataMask {
         }
     }
 
-    abstract fun isMasked(i: Int, j: Int): Boolean
+    abstract fun isMasked(
+        i: Int,
+        j: Int
+    ): Boolean
 }

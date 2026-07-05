@@ -25,18 +25,11 @@ import kotlin.math.abs
 import kotlin.math.max
 import kotlin.math.min
 
-class Detector(private val image: BitMatrix) {
-
+class Detector(
+    private val image: BitMatrix
+) {
     private var resultPointCallback: ResultPointCallback? = null
 
-    /**
-     *
-     * Detects a QR Code in an image.
-     *
-     * @return [DetectorResult] encapsulating results of detecting a QR Code
-     * @throws NotFoundException if QR Code cannot be found
-     * @throws FormatException   if a QR Code cannot be decoded
-     */
     /**
      *
      * Detects a QR Code in an image.
@@ -69,7 +62,6 @@ class Detector(private val image: BitMatrix) {
         var alignmentPattern: AlignmentPattern? = null
         // Anything above version 1 has an alignment pattern
         if (provisionalVersion.alignmentPatternCenters.isNotEmpty()) {
-
             // Guess where a "bottom right" finder pattern would have been
             val bottomRightX = topRight.x - topLeft.x + bottomLeft.x
             val bottomRightY = topRight.y - topLeft.y + bottomLeft.y
@@ -86,12 +78,13 @@ class Detector(private val image: BitMatrix) {
             var i = 4
             while (i <= 16) {
                 runCatching {
-                    alignmentPattern = findAlignmentInRegion(
-                        moduleSize,
-                        estAlignmentX,
-                        estAlignmentY,
-                        i.toFloat()
-                    )
+                    alignmentPattern =
+                        findAlignmentInRegion(
+                            moduleSize,
+                            estAlignmentX,
+                            estAlignmentY,
+                            i.toFloat()
+                        )
                 }
                 i = i shl 1
             }
@@ -121,8 +114,10 @@ class Detector(private val image: BitMatrix) {
         bottomLeft: ResultPoint
     ): Float {
         // Take the average
-        return (calculateModuleSizeOneWay(topLeft, topRight) +
-                calculateModuleSizeOneWay(topLeft, bottomLeft)) / 2.0f
+        return (
+            calculateModuleSizeOneWay(topLeft, topRight) +
+                calculateModuleSizeOneWay(topLeft, bottomLeft)
+        ) / 2.0f
     }
 
     /**
@@ -131,25 +126,32 @@ class Detector(private val image: BitMatrix) {
      * [.sizeOfBlackWhiteBlackRunBothWays] to figure the
      * width of each, measuring along the axis between their centers.
      */
-    private fun calculateModuleSizeOneWay(pattern: ResultPoint, otherPattern: ResultPoint): Float {
-        val moduleSizeEst1 = sizeOfBlackWhiteBlackRunBothWays(
-            pattern.x.toInt(),
-            pattern.y.toInt(),
-            otherPattern.x.toInt(),
-            otherPattern.y.toInt()
-        )
-        val moduleSizeEst2 = sizeOfBlackWhiteBlackRunBothWays(
-            otherPattern.x.toInt(),
-            otherPattern.y.toInt(),
-            pattern.x.toInt(),
-            pattern.y.toInt()
-        )
+    private fun calculateModuleSizeOneWay(
+        pattern: ResultPoint,
+        otherPattern: ResultPoint
+    ): Float {
+        val moduleSizeEst1 =
+            sizeOfBlackWhiteBlackRunBothWays(
+                pattern.x.toInt(),
+                pattern.y.toInt(),
+                otherPattern.x.toInt(),
+                otherPattern.y.toInt()
+            )
+        val moduleSizeEst2 =
+            sizeOfBlackWhiteBlackRunBothWays(
+                otherPattern.x.toInt(),
+                otherPattern.y.toInt(),
+                pattern.x.toInt(),
+                pattern.y.toInt()
+            )
         if (moduleSizeEst1.isNaN()) {
             return moduleSizeEst2 / 7.0f
         }
         return if (moduleSizeEst2.isNaN()) {
             moduleSizeEst1 / 7.0f
-        } else (moduleSizeEst1 + moduleSizeEst2) / 14.0f
+        } else {
+            (moduleSizeEst1 + moduleSizeEst2) / 14.0f
+        }
         // Average them, and divide by 7 since we've counted the width of 3 black modules,
         // and 1 white and 1 black module on either side. Ergo, divide sum by 14.
     }
@@ -203,7 +205,12 @@ class Detector(private val image: BitMatrix) {
      * This is used when figuring out how wide a finder pattern is, when the finder pattern
      * may be skewed or rotated.
      */
-    private fun sizeOfBlackWhiteBlackRun(fromX: Int, fromY: Int, toX: Int, toY: Int): Float {
+    private fun sizeOfBlackWhiteBlackRun(
+        fromX: Int,
+        fromY: Int,
+        toX: Int,
+        toY: Int
+    ): Float {
         // Mild variant of Bresenham's algorithm;
         // see http://en.wikipedia.org/wiki/Bresenham's_line_algorithm
         var mFromX = fromX
@@ -264,7 +271,9 @@ class Detector(private val image: BitMatrix) {
                 mFromX,
                 mFromY
             )
-        } else Float.NaN
+        } else {
+            Float.NaN
+        }
         // else we didn't find even black-white-black; no estimate is really possible
     }
 
@@ -300,15 +309,16 @@ class Detector(private val image: BitMatrix) {
         if (alignmentAreaBottomY - alignmentAreaTopY < overallEstModuleSize * 3) {
             throw notFoundInstance
         }
-        val alignmentFinder = AlignmentPatternFinder(
-            image,
-            alignmentAreaLeftX,
-            alignmentAreaTopY,
-            alignmentAreaRightX - alignmentAreaLeftX,
-            alignmentAreaBottomY - alignmentAreaTopY,
-            overallEstModuleSize,
-            resultPointCallback
-        )
+        val alignmentFinder =
+            AlignmentPatternFinder(
+                image,
+                alignmentAreaLeftX,
+                alignmentAreaTopY,
+                alignmentAreaRightX - alignmentAreaLeftX,
+                alignmentAreaBottomY - alignmentAreaTopY,
+                overallEstModuleSize,
+                resultPointCallback
+            )
         return alignmentFinder.find()
     }
 

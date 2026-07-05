@@ -21,12 +21,12 @@ internal object MaskUtil {
      * Apply mask penalty rule 1 and return the penalty. Find repetitive cells with the same color and
      * give penalty to them. Example: 00000 or 11111.
      */
-    fun applyMaskPenaltyRule1(matrix: ByteMatrix): Int {
-        return applyMaskPenaltyRule1Internal(matrix, true) + applyMaskPenaltyRule1Internal(
-            matrix,
-            false
-        )
-    }
+    fun applyMaskPenaltyRule1(matrix: ByteMatrix): Int =
+        applyMaskPenaltyRule1Internal(matrix, true) +
+            applyMaskPenaltyRule1Internal(
+                matrix,
+                false
+            )
 
     /**
      * Apply mask penalty rule 2 and return the penalty. Find 2x2 blocks with the same color and give
@@ -63,22 +63,42 @@ internal object MaskUtil {
         for (y in 0 until height) {
             for (x in 0 until width) {
                 val arrayY = array[y] // We can at least optimize this access
-                if (x + 6 < width && arrayY[x].toInt() == 1 && arrayY[x + 1].toInt() == 0 && arrayY[x + 2].toInt() == 1 && arrayY[x + 3].toInt() == 1 && arrayY[x + 4].toInt() == 1 && arrayY[x + 5].toInt() == 0 && arrayY[x + 6].toInt() == 1 &&
-                    (isWhiteHorizontal(arrayY, x - 4, x) || isWhiteHorizontal(
-                        arrayY,
-                        x + 7,
-                        x + 11
-                    ))
+                if (x + 6 < width &&
+                    arrayY[x].toInt() == 1 &&
+                    arrayY[x + 1].toInt() == 0 &&
+                    arrayY[x + 2].toInt() == 1 &&
+                    arrayY[x + 3].toInt() == 1 &&
+                    arrayY[x + 4].toInt() == 1 &&
+                    arrayY[x + 5].toInt() == 0 &&
+                    arrayY[x + 6].toInt() == 1 &&
+                    (
+                        isWhiteHorizontal(arrayY, x - 4, x) ||
+                            isWhiteHorizontal(
+                                arrayY,
+                                x + 7,
+                                x + 11
+                            )
+                    )
                 ) {
                     numPenalties++
                 }
-                if (y + 6 < height && array[y][x].toInt() == 1 && array[y + 1][x].toInt() == 0 && array[y + 2][x].toInt() == 1 && array[y + 3][x].toInt() == 1 && array[y + 4][x].toInt() == 1 && array[y + 5][x].toInt() == 0 && array[y + 6][x].toInt() == 1 &&
-                    (isWhiteVertical(array, x, y - 4, y) || isWhiteVertical(
-                        array,
-                        x,
-                        y + 7,
-                        y + 11
-                    ))
+                if (y + 6 < height &&
+                    array[y][x].toInt() == 1 &&
+                    array[y + 1][x].toInt() == 0 &&
+                    array[y + 2][x].toInt() == 1 &&
+                    array[y + 3][x].toInt() == 1 &&
+                    array[y + 4][x].toInt() == 1 &&
+                    array[y + 5][x].toInt() == 0 &&
+                    array[y + 6][x].toInt() == 1 &&
+                    (
+                        isWhiteVertical(array, x, y - 4, y) ||
+                            isWhiteVertical(
+                                array,
+                                x,
+                                y + 7,
+                                y + 11
+                            )
+                    )
                 ) {
                     numPenalties++
                 }
@@ -87,7 +107,11 @@ internal object MaskUtil {
         return numPenalties * N3
     }
 
-    private fun isWhiteHorizontal(rowArray: ByteArray, from: Int, to: Int): Boolean {
+    private fun isWhiteHorizontal(
+        rowArray: ByteArray,
+        from: Int,
+        to: Int
+    ): Boolean {
         var fromFunc = from
         var toFunc = to
         fromFunc = max(fromFunc, 0)
@@ -98,7 +122,12 @@ internal object MaskUtil {
         return true
     }
 
-    private fun isWhiteVertical(array: Array<ByteArray>, col: Int, from: Int, to: Int): Boolean {
+    private fun isWhiteVertical(
+        array: Array<ByteArray>,
+        col: Int,
+        from: Int,
+        to: Int
+    ): Boolean {
         var fromFunc = from
         var toFunc = to
         fromFunc = max(fromFunc, 0)
@@ -135,7 +164,11 @@ internal object MaskUtil {
      * Return the mask bit for "getMaskPattern" at "x" and "y". See 8.8 of JISX0510:2004 for mask
      * pattern conditions.
      */
-    fun getDataMaskBit(maskPattern: Int, x: Int, y: Int): Boolean {
+    fun getDataMaskBit(
+        maskPattern: Int,
+        x: Int,
+        y: Int
+    ): Boolean {
         val intermediate: Int
         val temp: Int
         when (maskPattern) {
@@ -165,7 +198,10 @@ internal object MaskUtil {
      * Helper function for applyMaskPenaltyRule1. We need this for doing this calculation in both
      * vertical and horizontal orders respectively.
      */
-    private fun applyMaskPenaltyRule1Internal(matrix: ByteMatrix, isHorizontal: Boolean): Int {
+    private fun applyMaskPenaltyRule1Internal(
+        matrix: ByteMatrix,
+        isHorizontal: Boolean
+    ): Int {
         var penalty = 0
         val iLimit = if (isHorizontal) matrix.height else matrix.width
         val jLimit = if (isHorizontal) matrix.width else matrix.height

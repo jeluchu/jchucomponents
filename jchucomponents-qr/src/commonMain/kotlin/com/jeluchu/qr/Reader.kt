@@ -42,7 +42,10 @@ interface Reader {
      * @throws FormatException if a potential barcode is found but format is invalid
      */
     @Throws(NotFoundException::class, ChecksumException::class, FormatException::class)
-    fun decode(image: BinaryBitmap?, hints: Map<DecodeHintType?, *>?): Result?
+    fun decode(
+        image: BinaryBitmap?,
+        hints: Map<DecodeHintType?, *>?
+    ): Result?
 
     /**
      * Resets any internal state the implementation has after a decode, to prepare it

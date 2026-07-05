@@ -8,7 +8,9 @@ package com.jeluchu.qr
 
 import com.jeluchu.qr.common.BitMatrix
 
-class BinaryBitmap(binarizer: Binarizer?) {
+class BinaryBitmap(
+    binarizer: Binarizer?
+) {
     private val binarizer: Binarizer
     private var matrix: BitMatrix? = null
 

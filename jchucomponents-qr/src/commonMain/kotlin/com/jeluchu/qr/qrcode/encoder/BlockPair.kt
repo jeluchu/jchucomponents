@@ -6,4 +6,7 @@
 
 package com.jeluchu.qr.qrcode.encoder
 
-internal class BlockPair(val dataBytes: ByteArray, val errorCorrectionBytes: ByteArray)
+internal class BlockPair(
+    val dataBytes: ByteArray,
+    val errorCorrectionBytes: ByteArray
+)

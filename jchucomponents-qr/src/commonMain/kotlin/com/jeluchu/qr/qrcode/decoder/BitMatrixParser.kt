@@ -13,7 +13,9 @@ import com.jeluchu.qr.qrcode.decoder.FormatInformation.Companion.decodeFormatInf
 import com.jeluchu.qr.qrcode.decoder.Version.Companion.decodeVersionInformation
 import com.jeluchu.qr.qrcode.decoder.Version.Companion.getVersionForNumber
 
-internal class BitMatrixParser(bitMatrix: BitMatrix) {
+internal class BitMatrixParser(
+    bitMatrix: BitMatrix
+) {
     private val bitMatrix: BitMatrix
     private var parsedVersion: Version? = null
     private var parsedFormatInfo: FormatInformation? = null
@@ -112,7 +114,11 @@ internal class BitMatrixParser(bitMatrix: BitMatrix) {
         throw formatInstance
     }
 
-    private fun copyBit(i: Int, j: Int, versionBits: Int): Int {
+    private fun copyBit(
+        i: Int,
+        j: Int,
+        versionBits: Int
+    ): Int {
         val bit = if (mirror) bitMatrix[j, i] else bitMatrix[i, j]
         return if (bit) versionBits shl 1 or 0x1 else versionBits shl 1
     }
@@ -185,7 +191,7 @@ internal class BitMatrixParser(bitMatrix: BitMatrix) {
      */
     fun remask() {
         if (parsedFormatInfo == null) {
-            return  // We have no format information, and have no data mask
+            return // We have no format information, and have no data mask
         }
         val dataMask = DataMask.values()[parsedFormatInfo!!.dataMask.toInt()]
         val dimension = bitMatrix.height
@@ -227,5 +233,4 @@ internal class BitMatrixParser(bitMatrix: BitMatrix) {
         }
         this.bitMatrix = bitMatrix
     }
-
 }

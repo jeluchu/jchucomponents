@@ -12,18 +12,24 @@ package com.jeluchu.qr.qrcode.decoder
  * data can be encoded to bits in the QR code standard.
  *
  */
-enum class Mode(private val characterCountBitsForVersions: IntArray, val bits: Int) {
-    TERMINATOR(intArrayOf(0, 0, 0), 0x00),  // Not really a mode...
-    NUMERIC(intArrayOf(10, 12, 14), 0x01), ALPHANUMERIC(
+enum class Mode(
+    private val characterCountBitsForVersions: IntArray,
+    val bits: Int
+) {
+    TERMINATOR(intArrayOf(0, 0, 0), 0x00), // Not really a mode...
+    NUMERIC(intArrayOf(10, 12, 14), 0x01),
+    ALPHANUMERIC(
         intArrayOf(9, 11, 13),
         0x02
     ),
-    STRUCTURED_APPEND(intArrayOf(0, 0, 0), 0x03),  // Not supported
-    BYTE(intArrayOf(8, 16, 16), 0x04), ECI(
+    STRUCTURED_APPEND(intArrayOf(0, 0, 0), 0x03), // Not supported
+    BYTE(intArrayOf(8, 16, 16), 0x04),
+    ECI(
         intArrayOf(0, 0, 0),
         0x07
-    ),  // character counts don't apply
-    KANJI(intArrayOf(8, 10, 12), 0x08), FNC1_FIRST_POSITION(
+    ), // character counts don't apply
+    KANJI(intArrayOf(8, 10, 12), 0x08),
+    FNC1_FIRST_POSITION(
         intArrayOf(0, 0, 0),
         0x05
     ),
@@ -41,11 +47,12 @@ enum class Mode(private val characterCountBitsForVersions: IntArray, val bits: I
      */
     fun getCharacterCountBits(version: Version): Int {
         val number = version.versionNumber
-        val offset: Int = when {
-            number <= 9 -> 0
-            number <= 26 -> 1
-            else -> 2
-        }
+        val offset: Int =
+            when {
+                number <= 9 -> 0
+                number <= 26 -> 1
+                else -> 2
+            }
         return characterCountBitsForVersions[offset]
     }
 
@@ -69,6 +76,5 @@ enum class Mode(private val characterCountBitsForVersions: IntArray, val bits: I
                 0xD -> HANZI // 0xD is defined in GBT 18284-2000, may not be supported in foreign country
                 else -> throw IllegalArgumentException()
             }
-
     }
 }

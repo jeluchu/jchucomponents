@@ -28,7 +28,9 @@ package com.jeluchu.qr.common.reedsolomon
  * port of his C++ Reed-Solomon implementation.
  *
  */
-class ReedSolomonDecoder(private val field: GenericGF) {
+class ReedSolomonDecoder(
+    private val field: GenericGF
+) {
     /**
      *
      * Decodes given set of received codewords, which include both data and error-correction
@@ -40,7 +42,10 @@ class ReedSolomonDecoder(private val field: GenericGF) {
      * @throws ReedSolomonException if decoding fails for any reason
      */
     @Throws(ReedSolomonException::class)
-    fun decode(received: IntArray, twoS: Int) {
+    fun decode(
+        received: IntArray,
+        twoS: Int
+    ) {
         val poly = GenericGFPoly(field, received)
         val syndromeCoefficients = IntArray(twoS)
         var noError = true
@@ -73,7 +78,6 @@ class ReedSolomonDecoder(private val field: GenericGF) {
         b: GenericGFPoly,
         R: Int
     ): Array<GenericGFPoly> {
-
         var a1 = a
         var b1 = b
         if (a1.degree < b1.degree) {
@@ -116,7 +120,6 @@ class ReedSolomonDecoder(private val field: GenericGF) {
 
     @Throws(ReedSolomonException::class)
     private fun findErrorLocations(errorLocator: GenericGFPoly): IntArray {
-
         val numErrors = errorLocator.degree
         if (numErrors == 1) {
             return intArrayOf(errorLocator.getCoefficient(1))
@@ -139,7 +142,6 @@ class ReedSolomonDecoder(private val field: GenericGF) {
         errorEvaluator: GenericGFPoly,
         errorLocations: IntArray
     ): IntArray {
-
         val s = errorLocations.size
         val result = IntArray(s)
         for (i in 0 until s) {
@@ -152,14 +154,14 @@ class ReedSolomonDecoder(private val field: GenericGF) {
                     denominator = field.multiply(denominator, termPlus1)
                 }
             }
-            result[i] = field.multiply(
-                errorEvaluator.evaluateAt(xiInverse),
-                field.inverse(denominator)
-            )
+            result[i] =
+                field.multiply(
+                    errorEvaluator.evaluateAt(xiInverse),
+                    field.inverse(denominator)
+                )
             if (field.generatorBase != 0) result[i] = field.multiply(result[i], xiInverse)
         }
 
         return result
-
     }
 }

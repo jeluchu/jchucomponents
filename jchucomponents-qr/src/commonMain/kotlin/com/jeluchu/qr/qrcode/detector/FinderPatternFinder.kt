@@ -44,7 +44,6 @@ class FinderPatternFinder constructor(
         val stateCount = IntArray(5)
         var i = iSkip - 1
         while (i < maxI && !done) {
-
             // Get a row of black/white values
             clearCounts(stateCount)
             var currentState = 0
@@ -119,14 +118,16 @@ class FinderPatternFinder constructor(
 
         val patternInfo = selectBestPatterns()
 
-        val finderInfo = patternInfo.map {
-            FinderPattern(
-                it?.x ?: 0f,
-                it?.y ?: 0f,
-                it?.estimatedModuleSize ?: 0f,
-                it?.count ?: 0
-            )
-        }.toTypedArray()
+        val finderInfo =
+            patternInfo
+                .map {
+                    FinderPattern(
+                        it?.x ?: 0f,
+                        it?.y ?: 0f,
+                        it?.estimatedModuleSize ?: 0f,
+                        it?.count ?: 0
+                    )
+                }.toTypedArray()
         val resultInfo =
             patternInfo.map { ResultPoint(x = it?.x ?: 0f, y = it?.y ?: 0f) }.toTypedArray()
 
@@ -160,7 +161,10 @@ class FinderPatternFinder constructor(
      * @param centerJ center of the section that appears to cross a finder pattern
      * @return true if proportions are withing expected limits
      */
-    private fun crossCheckDiagonal(centerI: Int, centerJ: Int): Boolean {
+    private fun crossCheckDiagonal(
+        centerI: Int,
+        centerJ: Int
+    ): Boolean {
         val stateCount = getCrossCheckStateCount()
 
         // Start counting up, left from center finding black center mass
@@ -212,7 +216,9 @@ class FinderPatternFinder constructor(
         }
         return if (stateCount[4] == 0) {
             false
-        } else foundPatternDiagonal(stateCount)
+        } else {
+            foundPatternDiagonal(stateCount)
+        }
     }
 
     /**
@@ -228,7 +234,9 @@ class FinderPatternFinder constructor(
      * @return vertical center of finder pattern, or [Float.NaN] if not found
      */
     private fun crossCheckVertical(
-        startI: Int, centerJ: Int, maxCount: Int,
+        startI: Int,
+        centerJ: Int,
+        maxCount: Int,
         originalStateCountTotal: Int
     ): Float {
         val image = image
@@ -286,7 +294,8 @@ class FinderPatternFinder constructor(
 
         // If we found a finder-pattern-like section, but its size is more than 40% different than
         // the original, assume it's a false positive
-        val stateCountTotal = stateCount[0] + stateCount[1] + stateCount[2] + stateCount[3] +
+        val stateCountTotal =
+            stateCount[0] + stateCount[1] + stateCount[2] + stateCount[3] +
                 stateCount[4]
         if (5 * abs(stateCountTotal - originalStateCountTotal) >= 2 * originalStateCountTotal) {
             return Float.NaN
@@ -301,7 +310,9 @@ class FinderPatternFinder constructor(
      * check a vertical cross check and locate the real center of the alignment pattern.
      */
     private fun crossCheckHorizontal(
-        startJ: Int, centerI: Int, maxCount: Int,
+        startJ: Int,
+        centerI: Int,
+        maxCount: Int,
         originalStateCountTotal: Int
     ): Float {
         val image = image
@@ -354,7 +365,8 @@ class FinderPatternFinder constructor(
 
         // If we found a finder-pattern-like section, but its size is significantly different than
         // the original, assume it's a false positive
-        val stateCountTotal = stateCount[0] + stateCount[1] + stateCount[2] + stateCount[3] +
+        val stateCountTotal =
+            stateCount[0] + stateCount[1] + stateCount[2] + stateCount[3] +
                 stateCount[4]
         if (5 * abs(stateCountTotal - originalStateCountTotal) >= originalStateCountTotal) {
             return Float.NaN
@@ -376,9 +388,7 @@ class FinderPatternFinder constructor(
         i: Int,
         j: Int,
         pureBarcode: Boolean
-    ): Boolean {
-        return handlePossibleCenter(stateCount, i, j)
-    }
+    ): Boolean = handlePossibleCenter(stateCount, i, j)
 
     /**
      *
@@ -399,20 +409,27 @@ class FinderPatternFinder constructor(
      * @param j          end of possible finder pattern in row
      * @return true if a finder pattern candidate was found this time
      */
-    private fun handlePossibleCenter(stateCount: IntArray, i: Int, j: Int): Boolean {
-        val stateCountTotal = stateCount[0] + stateCount[1] + stateCount[2] + stateCount[3] +
+    private fun handlePossibleCenter(
+        stateCount: IntArray,
+        i: Int,
+        j: Int
+    ): Boolean {
+        val stateCountTotal =
+            stateCount[0] + stateCount[1] + stateCount[2] + stateCount[3] +
                 stateCount[4]
         var centerJ = centerFromEnd(stateCount, j)
         val centerI = crossCheckVertical(i, centerJ.toInt(), stateCount[2], stateCountTotal)
         if (!centerI.isNaN()) {
             // Re-cross check
-            centerJ = crossCheckHorizontal(
-                centerJ.toInt(),
-                centerI.toInt(),
-                stateCount[2],
-                stateCountTotal
-            )
-            if (!centerJ.isNaN() && crossCheckDiagonal(
+            centerJ =
+                crossCheckHorizontal(
+                    centerJ.toInt(),
+                    centerI.toInt(),
+                    stateCount[2],
+                    stateCountTotal
+                )
+            if (!centerJ.isNaN() &&
+                crossCheckDiagonal(
                     centerI.toInt(),
                     centerJ.toInt()
                 )
@@ -463,8 +480,10 @@ class FinderPatternFinder constructor(
                     // difference in the x / y coordinates of the two centers.
                     // This is the case where you find top left last.
                     hasSkipped = true
-                    return (abs(firstConfirmedCenter.x - center.x) -
-                            abs(firstConfirmedCenter.y - center.y)).toInt() / 2
+                    return (
+                        abs(firstConfirmedCenter.x - center.x) -
+                            abs(firstConfirmedCenter.y - center.y)
+                    ).toInt() / 2
                 }
             }
         }
@@ -540,9 +559,11 @@ class FinderPatternFinder constructor(
                     // we need to check both two equal sides separately.
                     // The value of |c^2 - 2 * b^2| + |c^2 - 2 * a^2| increases as dissimilarity
                     // from isosceles right triangle.
-                    val d = abs(squares[2] - 2 * squares[1]) + abs(
-                        squares[2] - 2 * squares[0]
-                    )
+                    val d =
+                        abs(squares[2] - 2 * squares[1]) +
+                            abs(
+                                squares[2] - 2 * squares[0]
+                            )
                     if (d < distortion) {
                         distortion = d
                         bestPatterns[0] = fpi
@@ -559,9 +580,10 @@ class FinderPatternFinder constructor(
     }
 
     private class EstimatedModuleComparator : Comparator<FinderPattern> {
-        override fun compare(a: FinderPattern, b: FinderPattern): Int {
-            return a.estimatedModuleSize.compareTo(b.estimatedModuleSize)
-        }
+        override fun compare(
+            a: FinderPattern,
+            b: FinderPattern
+        ): Int = a.estimatedModuleSize.compareTo(b.estimatedModuleSize)
     }
 
     companion object {
@@ -574,9 +596,10 @@ class FinderPatternFinder constructor(
          * Given a count of black/white/black/white/black pixels just seen and an end position,
          * figures the location of the center of this run.
          */
-        private fun centerFromEnd(stateCount: IntArray, end: Int): Float {
-            return end - stateCount[4] - stateCount[3] - stateCount[2] / 2.0f
-        }
+        private fun centerFromEnd(
+            stateCount: IntArray,
+            end: Int
+        ): Float = end - stateCount[4] - stateCount[3] - stateCount[2] / 2.0f
 
         /**
          * @param stateCount count of black/white/black/white/black pixels just read
@@ -598,11 +621,15 @@ class FinderPatternFinder constructor(
             val moduleSize = totalModuleSize / 7.0f
             val maxVariance = moduleSize / 2.0f
             // Allow less than 50% variance from 1-1-3-1-1 proportions
-            return abs(moduleSize - stateCount[0]) < maxVariance && abs(moduleSize - stateCount[1]) < maxVariance && abs(
-                3.0f * moduleSize - stateCount[2]
-            ) < 3 * maxVariance && abs(moduleSize - stateCount[3]) < maxVariance && abs(
-                moduleSize - stateCount[4]
-            ) < maxVariance
+            return abs(moduleSize - stateCount[0]) < maxVariance &&
+                abs(moduleSize - stateCount[1]) < maxVariance &&
+                abs(
+                    3.0f * moduleSize - stateCount[2]
+                ) < 3 * maxVariance &&
+                abs(moduleSize - stateCount[3]) < maxVariance &&
+                abs(
+                    moduleSize - stateCount[4]
+                ) < maxVariance
         }
 
         /**
@@ -625,17 +652,24 @@ class FinderPatternFinder constructor(
             val moduleSize = totalModuleSize / 7.0f
             val maxVariance = moduleSize / 1.333f
             // Allow less than 75% variance from 1-1-3-1-1 proportions
-            return abs(moduleSize - stateCount[0]) < maxVariance && abs(moduleSize - stateCount[1]) < maxVariance && abs(
-                3.0f * moduleSize - stateCount[2]
-            ) < 3 * maxVariance && abs(moduleSize - stateCount[3]) < maxVariance && abs(
-                moduleSize - stateCount[4]
-            ) < maxVariance
+            return abs(moduleSize - stateCount[0]) < maxVariance &&
+                abs(moduleSize - stateCount[1]) < maxVariance &&
+                abs(
+                    3.0f * moduleSize - stateCount[2]
+                ) < 3 * maxVariance &&
+                abs(moduleSize - stateCount[3]) < maxVariance &&
+                abs(
+                    moduleSize - stateCount[4]
+                ) < maxVariance
         }
 
         /**
          * Get square of distance between a and b.
          */
-        private fun squaredDistance(a: FinderPattern, b: FinderPattern): Double {
+        private fun squaredDistance(
+            a: FinderPattern,
+            b: FinderPattern
+        ): Double {
             val x = (a.x - b.x).toDouble()
             val y = (a.y - b.y).toDouble()
             return x * x + y * y

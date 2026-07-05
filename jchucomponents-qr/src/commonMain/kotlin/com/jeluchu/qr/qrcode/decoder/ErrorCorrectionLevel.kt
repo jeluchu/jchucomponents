@@ -12,7 +12,9 @@ package com.jeluchu.qr.qrcode.decoder
  * defined by the QR code standard.
  *
  */
-enum class ErrorCorrectionLevel(val bits: Int) {
+enum class ErrorCorrectionLevel(
+    val bits: Int
+) {
     /**
      * L = ~7% correction
      */

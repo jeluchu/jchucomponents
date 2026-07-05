@@ -68,7 +68,10 @@ class BitArray {
      * @param value `int` containing bits to append
      * @param numBits bits from value to append
      */
-    fun appendBits(value: Int, numBits: Int) {
+    fun appendBits(
+        value: Int,
+        numBits: Int
+    ) {
         require(!(numBits < 0 || numBits > 32)) { "Num bits must be between 0 and 32" }
         ensureCapacity(size + numBits)
         for (numBitsLeft in numBits downTo 1) {
@@ -101,7 +104,12 @@ class BitArray {
      * @param offset position in array to start writing
      * @param numBytes how many bytes to write
      */
-    fun toBytes(bitOffset: Int, array: ByteArray, offset: Int, numBytes: Int) {
+    fun toBytes(
+        bitOffset: Int,
+        array: ByteArray,
+        offset: Int,
+        numBytes: Int
+    ) {
         var bitOff = bitOffset
         for (i in 0 until numBytes) {
             var theByte = 0
@@ -138,5 +146,4 @@ class BitArray {
     companion object {
         private fun makeArray(size: Int): IntArray = IntArray((size + 31) / 32)
     }
-
 }

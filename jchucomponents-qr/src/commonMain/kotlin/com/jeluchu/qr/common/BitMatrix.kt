@@ -58,7 +58,10 @@ class BitMatrix {
      * @param y The vertical component (i.e. which row)
      * @return value of given bit in matrix
      */
-    operator fun get(x: Int, y: Int): Boolean {
+    operator fun get(
+        x: Int,
+        y: Int
+    ): Boolean {
         val offset = y * rowSize + x / 32
         return bits[offset] ushr (x and 0x1f) and 1 != 0
     }
@@ -70,7 +73,10 @@ class BitMatrix {
      * @param x The horizontal component (i.e. which column)
      * @param y The vertical component (i.e. which row)
      */
-    operator fun set(x: Int, y: Int) {
+    operator fun set(
+        x: Int,
+        y: Int
+    ) {
         val offset = y * rowSize + x / 32
         bits[offset] = bits[offset] or (1 shl (x and 0x1f))
     }
@@ -82,7 +88,10 @@ class BitMatrix {
      * @param x The horizontal component (i.e. which column)
      * @param y The vertical component (i.e. which row)
      */
-    fun flip(x: Int, y: Int) {
+    fun flip(
+        x: Int,
+        y: Int
+    ) {
         val offset = y * rowSize + x / 32
         bits[offset] = bits[offset] xor (1 shl (x and 0x1f))
     }
@@ -106,7 +115,12 @@ class BitMatrix {
      * @param width  The width of the region
      * @param height The height of the region
      */
-    fun setRegion(left: Int, top: Int, width: Int, height: Int) {
+    fun setRegion(
+        left: Int,
+        top: Int,
+        width: Int,
+        height: Int
+    ) {
         require(!(top < 0 || left < 0)) { "Left and top must be nonnegative" }
         require(!(height < 1 || width < 1)) { "Height and width must be at least 1" }
         val right = left + width
@@ -186,18 +200,17 @@ class BitMatrix {
     /**
      * @return string representation using "X" for set and " " for unset bits
      */
-    override fun toString(): String {
-        return toString("X ", "  ")
-    }
+    override fun toString(): String = toString("X ", "  ")
 
     /**
      * @param setString   representation of a set bit
      * @param unsetString representation of an unset bit
      * @return string representation of entire matrix utilizing given strings
      */
-    fun toString(setString: String, unsetString: String): String {
-        return buildToString(setString, unsetString, "\n")
-    }
+    fun toString(
+        setString: String,
+        unsetString: String
+    ): String = buildToString(setString, unsetString, "\n")
 
     /**
      * @param setString     representation of a set bit
@@ -206,9 +219,11 @@ class BitMatrix {
      * @return string representation of entire matrix utilizing given strings and line separator
      */
     @Deprecated("call {@link #toString(String, String)} only, which uses \n line separator always")
-    fun toString(setString: String, unsetString: String, lineSeparator: String): String {
-        return buildToString(setString, unsetString, lineSeparator)
-    }
+    fun toString(
+        setString: String,
+        unsetString: String,
+        lineSeparator: String
+    ): String = buildToString(setString, unsetString, lineSeparator)
 
     private fun buildToString(
         setString: String,
@@ -225,9 +240,7 @@ class BitMatrix {
         return result.toString()
     }
 
-    fun copy(): BitMatrix {
-        return BitMatrix(width, height, rowSize, bits.copyOf())
-    }
+    fun copy(): BitMatrix = BitMatrix(width, height, rowSize, bits.copyOf())
 
     companion object {
         /**
@@ -270,7 +283,9 @@ class BitMatrix {
                     if (bitsPos > rowStartPos) {
                         if (rowLength == -1) {
                             rowLength = bitsPos - rowStartPos
-                        } else require(bitsPos - rowStartPos == rowLength) { "row lengths do not match" }
+                        } else {
+                            require(bitsPos - rowStartPos == rowLength) { "row lengths do not match" }
+                        }
                         rowStartPos = bitsPos
                         nRows++
                     }
@@ -294,7 +309,9 @@ class BitMatrix {
             if (bitsPos > rowStartPos) {
                 if (rowLength == -1) {
                     rowLength = bitsPos - rowStartPos
-                } else require(bitsPos - rowStartPos == rowLength) { "row lengths do not match" }
+                } else {
+                    require(bitsPos - rowStartPos == rowLength) { "row lengths do not match" }
+                }
                 nRows++
             }
             val matrix = BitMatrix(rowLength, nRows, 1)

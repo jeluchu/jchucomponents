@@ -9,9 +9,13 @@ package com.jeluchu.qr
 /**
  * Simply encapsulates a width and height.
  */
-class Dimension(width: Int, height: Int) {
+class Dimension(
+    width: Int,
+    height: Int
+) {
     val width: Int
     val height: Int
+
     override fun equals(other: Any?): Boolean {
         if (other is Dimension) {
             return width == other.width && height == other.height

@@ -14,7 +14,6 @@ package com.jeluchu.qr
  * @see Reader.decode
  */
 enum class DecodeHintType {
-
     /**
      * Image is a pure monochrome image of a barcode. Doesn't matter what it maps to;
      * use `true`.
@@ -36,7 +35,6 @@ enum class DecodeHintType {
      * The caller needs to be notified via callback when a possible [ResultPoint]
      * is found. Maps to a [ResultPointCallback].
      */
-    NEED_RESULT_POINT_CALLBACK;
+    NEED_RESULT_POINT_CALLBACK
     // End of enumeration values.
-
 }

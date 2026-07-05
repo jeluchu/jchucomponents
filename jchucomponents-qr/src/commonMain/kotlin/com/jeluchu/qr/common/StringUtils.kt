@@ -16,7 +16,8 @@ object StringUtils {
     private const val EUC_JP = "EUC_JP"
     private const val UTF8 = "UTF8"
     private const val ISO88591 = "ISO8859_1"
-    private val ASSUME_SHIFT_JIS = SHIFT_JIS.equals(PLATFORM_DEFAULT_ENCODING, ignoreCase = true) ||
+    private val ASSUME_SHIFT_JIS =
+        SHIFT_JIS.equals(PLATFORM_DEFAULT_ENCODING, ignoreCase = true) ||
             EUC_JP.equals(PLATFORM_DEFAULT_ENCODING, ignoreCase = true)
 
     /**
@@ -26,7 +27,10 @@ object StringUtils {
      * [.SHIFT_JIS], [.UTF8], [.ISO88591], or the platform
      * default encoding if none of these can possibly be correct
      */
-    fun guessEncoding(bytes: ByteArray, hints: Map<DecodeHintType?, *>?): String {
+    fun guessEncoding(
+        bytes: ByteArray,
+        hints: Map<DecodeHintType?, *>?
+    ): String {
         if (hints != null && hints.containsKey(DecodeHintType.CHARACTER_SET)) {
             return hints[DecodeHintType.CHARACTER_SET].toString()
         }
@@ -113,14 +117,14 @@ object StringUtils {
                     }
                 } else if (value > 0x7F) {
                     sjisBytesLeft++
-                    //sjisDoubleBytesChars++;
+                    // sjisDoubleBytesChars++;
                     sjisCurKatakanaWordLength = 0
                     sjisCurDoubleBytesWordLength++
                     if (sjisCurDoubleBytesWordLength > sjisMaxDoubleBytesWordLength) {
                         sjisMaxDoubleBytesWordLength = sjisCurDoubleBytesWordLength
                     }
                 } else {
-                    //sjisLowChars++;
+                    // sjisLowChars++;
                     sjisCurKatakanaWordLength = 0
                     sjisCurDoubleBytesWordLength = 0
                 }
@@ -160,7 +164,9 @@ object StringUtils {
         }
         return if (canBeUTF8) {
             UTF8
-        } else PLATFORM_DEFAULT_ENCODING
+        } else {
+            PLATFORM_DEFAULT_ENCODING
+        }
         // Otherwise, we take a wild guess with platform encoding
     }
 }

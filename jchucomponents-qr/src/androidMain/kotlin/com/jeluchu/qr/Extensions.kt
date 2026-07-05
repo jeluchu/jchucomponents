@@ -13,7 +13,6 @@ fun Context.generateQr(
     width: Int? = 768,
     height: Int? = 768
 ): Bitmap? {
-
     val qrCode: Bitmap? = null
 
     runCatching {
@@ -28,14 +27,12 @@ fun Context.generateQr(
     }
 }
 
-
 fun Activity.generateQr(
     @DrawableRes icon: Int,
     key: String?,
     width: Int? = 768,
     height: Int? = 768
 ): Bitmap? {
-
     val qrCode: Bitmap? = null
 
     runCatching {

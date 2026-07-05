@@ -50,15 +50,17 @@ internal object DecodedBitStreamParser {
             var mode: Mode
             do {
                 // While still another segment to read...
-                mode = if (bits.available() < 4) {
-                    // OK, assume we're done. Really, a TERMINATOR mode should have been recorded here
-                    Mode.TERMINATOR
-                } else {
-                    forBits(bits.readBits(4)) // mode is encoded by 4 bits
-                }
+                mode =
+                    if (bits.available() < 4) {
+                        // OK, assume we're done. Really, a TERMINATOR mode should have been recorded here
+                        Mode.TERMINATOR
+                    } else {
+                        forBits(bits.readBits(4)) // mode is encoded by 4 bits
+                    }
                 when (mode) {
                     Mode.TERMINATOR -> {}
-                    Mode.FNC1_FIRST_POSITION, Mode.FNC1_SECOND_POSITION ->                         // We do little with FNC1 except alter the parsed result a bit according to the spec
+                    // We only use FNC1 to alter the parsed result according to the specification.
+                    Mode.FNC1_FIRST_POSITION, Mode.FNC1_SECOND_POSITION ->
                         fc1InEffect = true
                     Mode.STRUCTURED_APPEND -> {
                         if (bits.available() < 16) {
@@ -92,20 +94,22 @@ internal object DecodedBitStreamParser {
                         val count = bits.readBits(mode.getCharacterCountBits(version!!))
                         when (mode) {
                             Mode.NUMERIC -> decodeNumericSegment(bits, result, count)
-                            Mode.ALPHANUMERIC -> decodeAlphanumericSegment(
-                                bits,
-                                result,
-                                count,
-                                fc1InEffect
-                            )
-                            Mode.BYTE -> decodeByteSegment(
-                                bits,
-                                result,
-                                count,
-                                currentCharacterSetECI,
-                                byteSegments,
-                                hints
-                            )
+                            Mode.ALPHANUMERIC ->
+                                decodeAlphanumericSegment(
+                                    bits,
+                                    result,
+                                    count,
+                                    fc1InEffect
+                                )
+                            Mode.BYTE ->
+                                decodeByteSegment(
+                                    bits,
+                                    result,
+                                    count,
+                                    currentCharacterSetECI,
+                                    byteSegments,
+                                    hints
+                                )
                             Mode.KANJI -> decodeKanjiSegment(bits, result, count)
                         }
                     }
@@ -146,13 +150,14 @@ internal object DecodedBitStreamParser {
             // Each 13 bits encodes a 2-byte character
             val twoBytes = bits.readBits(13)
             var assembledTwoBytes = twoBytes / 0x060 shl 8 or twoBytes % 0x060
-            assembledTwoBytes += if (assembledTwoBytes < 0x00A00) {
-                // In the 0xA1A1 to 0xAAFE range
-                0x0A1A1
-            } else {
-                // In the 0xB0A1 to 0xFAFE range
-                0x0A6A1
-            }
+            assembledTwoBytes +=
+                if (assembledTwoBytes < 0x00A00) {
+                    // In the 0xA1A1 to 0xAAFE range
+                    0x0A1A1
+                } else {
+                    // In the 0xB0A1 to 0xFAFE range
+                    0x0A6A1
+                }
             buffer[offset] = (assembledTwoBytes shr 8 and 0xFF).toByte()
             buffer[offset + 1] = (assembledTwoBytes and 0xFF).toByte()
             offset += 2
@@ -183,13 +188,14 @@ internal object DecodedBitStreamParser {
             // Each 13 bits encodes a 2-byte character
             val twoBytes = bits.readBits(13)
             var assembledTwoBytes = twoBytes / 0x0C0 shl 8 or twoBytes % 0x0C0
-            assembledTwoBytes += if (assembledTwoBytes < 0x01F00) {
-                // In the 0x8140 to 0x9FFC range
-                0x08140
-            } else {
-                // In the 0xE040 to 0xEBBF range
-                0x0C140
-            }
+            assembledTwoBytes +=
+                if (assembledTwoBytes < 0x01F00) {
+                    // In the 0x8140 to 0x9FFC range
+                    0x08140
+                } else {
+                    // In the 0xE040 to 0xEBBF range
+                    0x0C140
+                }
             buffer[offset] = (assembledTwoBytes shr 8).toByte()
             buffer[offset + 1] = assembledTwoBytes.toByte()
             offset += 2
@@ -199,7 +205,6 @@ internal object DecodedBitStreamParser {
         runCatching {
             result.append(qrDecodeBytes(buffer, StringUtils.SHIFT_JIS))
         }.getOrElse { throw formatInstance }
-
     }
 
     @Throws(FormatException::class)
@@ -219,13 +224,14 @@ internal object DecodedBitStreamParser {
         for (i in 0 until count) {
             readBytes[i] = bits.readBits(8).toByte()
         }
-        val encoding: String = currentCharacterSetECI?.name
-            ?: // The spec isn't clear on this mode; see
-            // section 6.4.5: t does not say which encoding to assuming
-            // upon decoding. I have seen ISO-8859-1 used as well as
-            // Shift_JIS -- without anything like an ECI designator to
-            // give a hint.
-            guessEncoding(readBytes, hints)
+        val encoding: String =
+            currentCharacterSetECI?.name
+                ?: // The spec isn't clear on this mode; see
+                // section 6.4.5: t does not say which encoding to assuming
+                // upon decoding. I have seen ISO-8859-1 used as well as
+                // Shift_JIS -- without anything like an ECI designator to
+                // give a hint.
+                guessEncoding(readBytes, hints)
         runCatching {
             result.append(qrDecodeBytes(readBytes, encoding))
         }.getOrElse { throw formatInstance }

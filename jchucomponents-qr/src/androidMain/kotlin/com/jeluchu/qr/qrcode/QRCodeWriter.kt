@@ -18,7 +18,8 @@ import com.jeluchu.qr.WriterException
 import com.jeluchu.qr.qrcode.decoder.ErrorCorrectionLevel
 import com.jeluchu.qr.qrcode.encoder.ByteMatrix
 import com.jeluchu.qr.qrcode.encoder.Encoder
-import java.util.*
+import java.util.Arrays
+import java.util.HashMap
 import kotlin.math.max
 import kotlin.math.min
 import kotlin.math.roundToInt
@@ -46,10 +47,14 @@ class QRCodeWriter {
         require(!(width < 0 || height < 0)) { "Requested dimensions are too small: " + width + 'x' + height }
         var errorCorrectionLevel = ErrorCorrectionLevel.L
         var quietZone = QUIET_ZONE_SIZE
-        if (hints.containsKey(EncodeHintType.ERROR_CORRECTION)) errorCorrectionLevel =
-            ErrorCorrectionLevel.valueOf(hints[EncodeHintType.ERROR_CORRECTION].toString())
-        if (hints.containsKey(EncodeHintType.MARGIN)) quietZone =
-            hints[EncodeHintType.MARGIN].toString().toInt()
+        if (hints.containsKey(EncodeHintType.ERROR_CORRECTION)) {
+            errorCorrectionLevel =
+                ErrorCorrectionLevel.valueOf(hints[EncodeHintType.ERROR_CORRECTION].toString())
+        }
+        if (hints.containsKey(EncodeHintType.MARGIN)) {
+            quietZone =
+                hints[EncodeHintType.MARGIN].toString().toInt()
+        }
 
         val code = Encoder.encode(contents.orEmpty(), errorCorrectionLevel, hints)
         input = code.matrix
@@ -57,8 +62,11 @@ class QRCodeWriter {
         val inputWidth = input!!.width
         val inputHeight = input!!.height
         for (x in 0 until inputWidth) {
-            if (has(x, 0)) sideQuadSize++
-            else break
+            if (has(x, 0)) {
+                sideQuadSize++
+            } else {
+                break
+            }
         }
         val qrWidth = inputWidth + quietZone * 2
         val qrHeight = inputHeight + quietZone * 2
@@ -67,8 +75,10 @@ class QRCodeWriter {
         val multiple = min(outputWidth / qrWidth, outputHeight / qrHeight)
         val padding = 16
         val size = multiple * inputWidth + padding * 2
-        if (bitmap1 == null || bitmap1.width != size) bitmap1 =
-            Bitmap.createBitmap(size, size, Bitmap.Config.ARGB_8888)
+        if (bitmap1 == null || bitmap1.width != size) {
+            bitmap1 =
+                Bitmap.createBitmap(size, size, Bitmap.Config.ARGB_8888)
+        }
         val canvas = Canvas(bitmap1)
         canvas.drawColor(-0x1)
         val blackPaint = Paint(Paint.ANTI_ALIAS_FLAG)
@@ -210,24 +220,34 @@ class QRCodeWriter {
             outputY += multiple
         }
 
-        val icon = Bitmap.createScaledBitmap(
-            BitmapFactory.decodeResource(
-                context?.resources,
-                iconLogo,
-            ), imageSize, imageSize, false
-        )
+        val icon =
+            Bitmap.createScaledBitmap(
+                BitmapFactory.decodeResource(
+                    context?.resources,
+                    iconLogo
+                ),
+                imageSize,
+                imageSize,
+                false
+            )
         canvas.drawBitmap(icon, imageX.toFloat(), imageX.toFloat(), null)
         icon.recycle()
         canvas.setBitmap(null)
         return bitmap1
     }
 
-    private fun has(x: Int, y: Int): Boolean {
+    private fun has(
+        x: Int,
+        y: Int
+    ): Boolean {
         if (x >= imageBlockX && x < imageBlockX + imageBloks && y >= imageBlockX && y < imageBlockX + imageBloks) return false
         if ((x < sideQuadSize || x >= input!!.width - sideQuadSize) && y < sideQuadSize) return false
 
-        return if (x < sideQuadSize && y >= input!!.height - sideQuadSize) false
-        else x >= 0 && y >= 0 && x < input!!.width && y < input!!.height && input!![x, y].toInt() == 1
+        return if (x < sideQuadSize && y >= input!!.height - sideQuadSize) {
+            false
+        } else {
+            x >= 0 && y >= 0 && x < input!!.width && y < input!!.height && input!![x, y].toInt() == 1
+        }
     }
 
     companion object {
