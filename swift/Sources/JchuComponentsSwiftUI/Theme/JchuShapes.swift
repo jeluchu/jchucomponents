@@ -7,6 +7,11 @@
 
 import SwiftUI
 
+/// Corner-radius tokens used to keep component shapes consistent.
+///
+/// Token names encode their default point value. For example, `corner16`
+/// defaults to 16 points. Supply overrides when constructing the scale to
+/// align JchuComponents with an application design system.
 public struct JchuShapes: Sendable {
     public let corner00: CGFloat
     public let corner02: CGFloat

@@ -63,6 +63,23 @@ JchuGrowingTextField(
 )
 ```
 
+Provide a theme once at the root of a feature or application:
+
+```swift
+let theme = JchuTheme(
+    colors: JchuColors(
+        primary: .mint,
+        error: .orange
+    ),
+    spacing: JchuSpacing(dimen16: 18),
+    shapes: JchuShapes(corner16: 20),
+    motion: JchuMotion(durationMedium: 0.3)
+)
+
+ContentView()
+    .jchuTheme(theme)
+```
+
 ## Topics
 
 ### Actions
@@ -83,3 +100,12 @@ JchuGrowingTextField(
 - ``SearchBarDefaults``
 - ``JchuGrowingTextField``
 - ``GrowingTextFieldDefaults``
+
+### Theme
+
+- ``JchuTheme``
+- ``JchuColors``
+- ``JchuSpacing``
+- ``JchuShapes``
+- ``JchuTypography``
+- ``JchuMotion``

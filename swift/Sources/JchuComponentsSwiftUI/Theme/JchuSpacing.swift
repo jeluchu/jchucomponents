@@ -7,6 +7,11 @@
 
 import SwiftUI
 
+/// Spacing and sizing tokens shared by JchuComponents views.
+///
+/// Token names encode their default point value. For example, `dimen24`
+/// defaults to 24 points. A custom scale can override only the values that
+/// differ from the defaults.
 public struct JchuSpacing: Sendable {
     public let dimen00: CGFloat
     public let dimen01: CGFloat

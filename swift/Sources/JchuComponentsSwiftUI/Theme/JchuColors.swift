@@ -7,6 +7,10 @@
 
 import SwiftUI
 
+/// Semantic color roles used by JchuComponents views.
+///
+/// Values default to dynamic system colors and therefore adapt to the current
+/// appearance and accessibility settings.
 public struct JchuColors: Sendable {
     public let background: Color
     public let surface: Color
@@ -15,6 +19,15 @@ public struct JchuColors: Sendable {
     public let contentSecondary: Color
     public let error: Color
 
+    /// Creates a semantic color palette.
+    ///
+    /// - Parameters:
+    ///   - background: The color behind primary screen content.
+    ///   - surface: The color for cards and elevated containers.
+    ///   - primary: The accent color for prominent actions.
+    ///   - content: The primary foreground color.
+    ///   - contentSecondary: The secondary foreground color.
+    ///   - error: The color for destructive actions and failure states.
     public init(
         background: Color = Color(.systemGroupedBackground),
         surface: Color = Color(.secondarySystemGroupedBackground),

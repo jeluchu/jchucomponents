@@ -299,6 +299,21 @@ final class JchuComponentsSwiftUITests: XCTestCase {
     }
 
     @MainActor
+    func testSwiftUIThemeExposesStableDefaultsAndModifier() {
+        let theme = JchuTheme.standard
+
+        XCTAssertEqual(theme.spacing.dimen16, 16)
+        XCTAssertEqual(theme.spacing.dimen24, 24)
+        XCTAssertEqual(theme.shapes.corner16, 16)
+        XCTAssertEqual(theme.shapes.corner999, 999)
+        XCTAssertEqual(theme.motion.durationShort, 0.15)
+        XCTAssertEqual(theme.motion.durationMedium, 0.25)
+        XCTAssertEqual(theme.motion.durationLong, 0.4)
+
+        _ = EmptyView().jchuTheme(theme)
+    }
+
+    @MainActor
     func testNetworkImageCanBeCreatedFromStringURL() {
         let view = JchuNetworkImage(urlString: "https://example.com/image.jpg")
 
