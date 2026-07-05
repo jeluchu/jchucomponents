@@ -61,6 +61,7 @@ io.github.jeluchu:jchucomponents-network
 io.github.jeluchu:jchucomponents-pay
 io.github.jeluchu:jchucomponents-prefs
 io.github.jeluchu:jchucomponents-qr
+io.github.jeluchu:jchucomponents-bom
 ```
 
 These artifacts contain Android and Apple variants. JitPack's Linux builds do
@@ -183,11 +184,15 @@ practical.
 The repository includes an Android catalog in `app` and an iOS catalog in
 `samples/iosApp`.
 
-Run the shared checks:
+Run the repository-wide Android and Kotlin checks:
 
 ```bash
-./gradlew apiCheck check
+./gradlew ciCheck
 ```
+
+This validates binary APIs, tests, debug and release assemblies, and all local
+Maven publications. See the [consumer guide](docs/getting-started.md) for
+focused setup and examples for every module.
 
 Inspect Kotlin formatting without modifying source files:
 
@@ -300,8 +305,8 @@ Remove `--delete-missing` when Apple-only keys must be preserved. Add
 
 Tagged `3.*` versions trigger the release workflow. It validates the Gradle
 version, API compatibility, tests, Android publications and the Swift package;
-then it publishes signed KMP variants to Maven Central and prepares the
-dedicated SwiftPM repository.
+then it publishes the signed KMP variants and BOM to Maven Central and prepares
+the dedicated SwiftPM repository.
 
 Before tagging, update `jchucomponents` in `gradle/libs.versions.toml` and make
 sure CI passes on `v3`:
