@@ -4,6 +4,9 @@ import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -13,6 +16,27 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
 private val previewItems = arrayOf("One", "Two", "Three", "Four", "Five", "Six")
+
+@Preview(showBackground = true, heightDp = 240)
+@Composable
+private fun DraggableListPreview() {
+    val listState = rememberLazyListState()
+    val dragDropState = rememberDragDropState(listState, onMove = { _, _ -> })
+
+    LazyColumn(
+        state = listState,
+        modifier = Modifier.dragContainer(dragDropState)
+    ) {
+        itemsIndexed(previewItems) { index, item ->
+            DraggableItem(
+                dragDropState = dragDropState,
+                index = index
+            ) {
+                PreviewListItem(item)
+            }
+        }
+    }
+}
 
 @Preview(showBackground = true, heightDp = 240)
 @Composable
