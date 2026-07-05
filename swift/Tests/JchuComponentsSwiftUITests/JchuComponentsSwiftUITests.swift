@@ -33,7 +33,18 @@ final class JchuComponentsSwiftUITests: XCTestCase {
         XCTAssertEqual(state.fraction, 1)
     }
 
+    @MainActor
     func testProgressViewsExposeNativeSwiftInitializers() {
+        _ = JchuProgressButton("Continue") {}
+        _ = JchuProgressButton(
+            state: JchuProgressButtonState(
+                title: "Continue",
+                isLoading: true,
+                isEnabled: true
+            )
+        ) {}
+        _ = JchuChip("Selected", isSelected: true) {}
+        _ = JchuLoadingIndicator(label: "Loading")
         _ = JchuLinearProgress("Downloading", value: 45, maxValue: 100)
         _ = JchuCircularProgress("Preparing", isIndeterminate: true)
         _ = JchuIconProgress(
@@ -254,6 +265,7 @@ final class JchuComponentsSwiftUITests: XCTestCase {
         XCTAssertEqual(theme.shapes.corner100, 100)
     }
 
+    @MainActor
     func testNetworkImageCanBeCreatedFromStringURL() {
         let view = JchuNetworkImage(urlString: "https://example.com/image.jpg")
 

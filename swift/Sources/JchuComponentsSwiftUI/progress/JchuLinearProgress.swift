@@ -8,13 +8,25 @@
 import SwiftUI
 import JchuComponentsCore
 
+/// A labeled linear representation of determinate or indeterminate progress.
 public struct JchuLinearProgress: View {
     private let state: JchuProgressState
 
+    /// Creates linear progress from shared Kotlin Multiplatform state.
+    ///
+    /// - Parameter state: The shared progress value and presentation state.
     public init(state: JchuProgressState) {
         self.state = state
     }
 
+    /// Creates linear progress from native Swift values.
+    ///
+    /// - Parameters:
+    ///   - title: Text displayed above the progress indicator.
+    ///   - value: The completed amount.
+    ///   - maxValue: The amount representing completion.
+    ///   - isEnabled: Whether the view uses its enabled appearance.
+    ///   - isIndeterminate: Whether to ignore `value` and show ongoing work.
     public init(
         _ title: String,
         value: Double = 0,

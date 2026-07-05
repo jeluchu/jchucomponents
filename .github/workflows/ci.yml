@@ -120,6 +120,14 @@ jobs:
             -destination 'generic/platform=iOS Simulator' \
             build
 
+      - name: Build Swift documentation
+        working-directory: swift
+        run: |
+          xcodebuild \
+            -scheme JchuComponents-Package \
+            -destination 'generic/platform=iOS Simulator' \
+            docbuild
+
       - name: Build iOS catalog app
         working-directory: samples/iosApp
         run: |
