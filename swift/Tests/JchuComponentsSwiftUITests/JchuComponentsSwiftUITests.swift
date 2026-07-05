@@ -1,6 +1,7 @@
 import JchuComponentsCore
 import JchuComponentsExtensions
 @testable import JchuComponentsSwiftUI
+import SwiftUI
 import XCTest
 
 final class JchuComponentsSwiftUITests: XCTestCase {
@@ -52,6 +53,38 @@ final class JchuComponentsSwiftUITests: XCTestCase {
             systemImage: "icloud.and.arrow.up",
             value: 72,
             maxValue: 100
+        )
+    }
+
+    @MainActor
+    func testInputViewsExposeControlledAndUncontrolledInitializers() {
+        var query = ""
+        var isExpanded = false
+        var notes = ""
+
+        _ = JchuExpandableSearch(
+            query: Binding(get: { query }, set: { query = $0 }),
+            defaults: SearchBarDefaults(label: "Search")
+        )
+        _ = JchuExpandableSearch(
+            query: Binding(get: { query }, set: { query = $0 }),
+            isExpanded: Binding(
+                get: { isExpanded },
+                set: { isExpanded = $0 }
+            ),
+            defaults: SearchBarDefaults(
+                label: "Search",
+                initiallyExpanded: true
+            )
+        )
+        _ = JchuGrowingTextField(
+            value: Binding(get: { notes }, set: { notes = $0 }),
+            defaults: GrowingTextFieldDefaults(
+                label: "Notes",
+                minLines: 2,
+                maxLines: 4,
+                maxCharacters: 200
+            )
         )
     }
 

@@ -36,6 +36,33 @@ They can also consume shared state directly:
 JchuCircularProgress(state: sharedProgressState)
 ```
 
+Choose controlled state when the parent needs to coordinate search expansion:
+
+```swift
+JchuExpandableSearch(
+    query: $query,
+    isExpanded: $isSearchExpanded,
+    defaults: SearchBarDefaults(label: "Search")
+) { expanded in
+    analytics.trackSearch(expanded: expanded)
+} onSearch: { query in
+    search(query)
+}
+```
+
+Use a growing field for multiline input with a hard character limit:
+
+```swift
+JchuGrowingTextField(
+    value: $notes,
+    defaults: GrowingTextFieldDefaults(
+        label: "Notes",
+        placeholder: "Add context…",
+        maxCharacters: 200
+    )
+)
+```
+
 ## Topics
 
 ### Actions
@@ -49,3 +76,10 @@ JchuCircularProgress(state: sharedProgressState)
 - ``JchuLinearProgress``
 - ``JchuCircularProgress``
 - ``JchuIconProgress``
+
+### Inputs
+
+- ``JchuExpandableSearch``
+- ``SearchBarDefaults``
+- ``JchuGrowingTextField``
+- ``GrowingTextFieldDefaults``

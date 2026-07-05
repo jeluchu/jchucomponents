@@ -7,11 +7,18 @@
 
 import SwiftUI
 
+/// A vertically growing text field with an optional character limit.
 public struct JchuGrowingTextField: View {
     @Binding private var value: String
     private let defaults: GrowingTextFieldDefaults
     private let onValueChange: (String) -> Void
 
+    /// Creates a growing text field.
+    ///
+    /// - Parameters:
+    ///   - value: The text edited by the user.
+    ///   - defaults: Labels, sizing, colors and character-limit behavior.
+    ///   - onValueChange: Called with the limited value after each change.
     public init(
         value: Binding<String>,
         defaults: GrowingTextFieldDefaults,
@@ -75,6 +82,7 @@ public struct JchuGrowingTextField: View {
     }
 }
 
+/// Visual and behavioral defaults for ``JchuGrowingTextField``.
 public struct GrowingTextFieldDefaults {
     public var label: LocalizedStringKey
     public var placeholder: LocalizedStringKey
@@ -86,6 +94,18 @@ public struct GrowingTextFieldDefaults {
     public var contentColor: Color
     public var animateContentChanges: Bool
 
+    /// Creates growing text field defaults.
+    ///
+    /// - Parameters:
+    ///   - label: The localized label displayed above the field.
+    ///   - placeholder: The localized placeholder displayed while empty.
+    ///   - systemImage: An optional SF Symbol displayed beside the label.
+    ///   - minLines: Minimum visible line count. Must be greater than zero.
+    ///   - maxLines: Optional maximum line count. Must not be below `minLines`.
+    ///   - maxCharacters: Optional character limit. Must not be negative.
+    ///   - containerColor: The field background color.
+    ///   - contentColor: The foreground color for the label, text and count.
+    ///   - animateContentChanges: Whether value changes animate.
     public init(
         label: LocalizedStringKey,
         placeholder: LocalizedStringKey = "",

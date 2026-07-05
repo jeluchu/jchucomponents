@@ -7,6 +7,11 @@
 
 import SwiftUI
 
+/// A search field that transitions between a compact button and an editable
+/// search bar.
+///
+/// Use the initializer with `isExpanded` when expansion belongs to application
+/// state. Use the simpler initializer when the view can own that state.
 public struct JchuExpandableSearch: View {
     @Binding private var query: String
     private let defaults: SearchBarDefaults
@@ -18,6 +23,13 @@ public struct JchuExpandableSearch: View {
     @FocusState private var isFocused: Bool
     @Namespace private var searchAnimation
 
+    /// Creates a search field that manages its own expansion state.
+    ///
+    /// - Parameters:
+    ///   - query: The text entered by the user.
+    ///   - defaults: Labels, colors, symbols and initial expansion state.
+    ///   - onExpandedChange: Called after the expansion state changes.
+    ///   - onSearch: Called when the user submits the search field.
     public init(
         query: Binding<String>,
         defaults: SearchBarDefaults,
@@ -32,6 +44,14 @@ public struct JchuExpandableSearch: View {
         _internalExpansion = State(initialValue: defaults.initiallyExpanded)
     }
 
+    /// Creates a search field with externally controlled expansion state.
+    ///
+    /// - Parameters:
+    ///   - query: The text entered by the user.
+    ///   - isExpanded: A binding that controls whether the search bar is open.
+    ///   - defaults: Labels, colors and symbols used by the field.
+    ///   - onExpandedChange: Called after the expansion state changes.
+    ///   - onSearch: Called when the user submits the search field.
     public init(
         query: Binding<String>,
         isExpanded: Binding<Bool>,
@@ -155,6 +175,7 @@ public struct JchuExpandableSearch: View {
     }
 }
 
+/// Visual and behavioral defaults for ``JchuExpandableSearch``.
 public struct SearchBarDefaults {
     public var label: LocalizedStringKey
     public var initiallyExpanded: Bool
@@ -164,6 +185,16 @@ public struct SearchBarDefaults {
     public var clearSystemImage: String
     public var closeSystemImage: String
 
+    /// Creates search bar defaults.
+    ///
+    /// - Parameters:
+    ///   - label: The localized compact-button label and field placeholder.
+    ///   - initiallyExpanded: Whether an uncontrolled search starts open.
+    ///   - containerColor: The search container background color.
+    ///   - contentColor: The foreground color for text and symbols.
+    ///   - searchSystemImage: The SF Symbol used for search.
+    ///   - clearSystemImage: The SF Symbol used to clear the query.
+    ///   - closeSystemImage: The SF Symbol used to collapse the field.
     public init(
         label: LocalizedStringKey,
         initiallyExpanded: Bool = false,
