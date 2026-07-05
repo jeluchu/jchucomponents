@@ -1,5 +1,6 @@
 import JchuComponentsCore
 import JchuComponentsExtensions
+import JchuComponentsPay
 @testable import JchuComponentsSwiftUI
 import SwiftUI
 import XCTest
@@ -396,5 +397,32 @@ final class JchuComponentsSwiftUITests: XCTestCase {
         } failureContent: { error in
             Text(error ?? "Error")
         }
+    }
+
+    @MainActor
+    func testPaymentModelsExposeNativeInitializers() {
+        let info = JchuSubscriptionInfo(
+            renewalType: .yearly,
+            expireDate: "05/07/2027",
+            promotional: false,
+            state: .active,
+            managementUrl: "https://apps.apple.com/account/subscriptions"
+        )
+        let billing = JchuBillingInfo(
+            info: info,
+            packages: [],
+            products: []
+        )
+
+        XCTAssertEqual(info.renewalType, .yearly)
+        XCTAssertEqual(info.state, .active)
+        XCTAssertEqual(billing.info, info)
+        XCTAssertTrue(billing.packages.isEmpty)
+        XCTAssertTrue(billing.products.isEmpty)
+        XCTAssertEqual(JchuSubscriptionInfo.empty.state, .none)
+        XCTAssertTrue(JchuBillingInfo.empty.products.isEmpty)
+
+        JchuPayment.shared.setSubscriptionName("premium")
+        XCTAssertEqual(JchuPayment.shared.subscriptionName, "premium")
     }
 }

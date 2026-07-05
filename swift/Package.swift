@@ -65,7 +65,8 @@ let package = Package(
             dependencies: [
                 "JchuComponentsCore",
                 "JchuComponentsExtensions",
-                "JchuComponentsSwiftUI"
+                "JchuComponentsSwiftUI",
+                "JchuComponentsPay"
             ]
         )
     ]

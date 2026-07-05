@@ -1,6 +1,7 @@
 import Foundation
 import RevenueCat
 
+/// The billing period or promotional source of a subscription.
 public enum JchuSubscriptionType: Equatable, Sendable {
     case none
     case monthly
@@ -8,12 +9,14 @@ public enum JchuSubscriptionType: Equatable, Sendable {
     case promo
 }
 
+/// The current lifecycle state of a subscription.
 public enum JchuSubscriptionState: Equatable, Sendable {
     case none
     case active
     case inactiveUntilRenewal
 }
 
+/// Consumer-facing subscription metadata derived from RevenueCat.
 public struct JchuSubscriptionInfo: Equatable, Sendable {
     public let renewalType: JchuSubscriptionType
     public let expireDate: String
@@ -21,6 +24,22 @@ public struct JchuSubscriptionInfo: Equatable, Sendable {
     public let state: JchuSubscriptionState
     public let managementUrl: String?
 
+    /// Creates subscription metadata.
+    public init(
+        renewalType: JchuSubscriptionType,
+        expireDate: String,
+        promotional: Bool,
+        state: JchuSubscriptionState,
+        managementUrl: String?
+    ) {
+        self.renewalType = renewalType
+        self.expireDate = expireDate
+        self.promotional = promotional
+        self.state = state
+        self.managementUrl = managementUrl
+    }
+
+    /// Subscription metadata representing a user without an entitlement.
     public static let empty = JchuSubscriptionInfo(
         renewalType: .none,
         expireDate: "",
@@ -30,19 +49,48 @@ public struct JchuSubscriptionInfo: Equatable, Sendable {
     )
 }
 
+/// A display-ready RevenueCat package and its calculated pricing metadata.
 public struct JchuPaymentProduct: Sendable {
     public let isMonthly: Bool
     public let price: String
     public let priceConversion: String?
     public let saveAmount: String?
     public let package: Package
+
+    /// Creates display-ready product metadata.
+    public init(
+        isMonthly: Bool,
+        price: String,
+        priceConversion: String?,
+        saveAmount: String?,
+        package: Package
+    ) {
+        self.isMonthly = isMonthly
+        self.price = price
+        self.priceConversion = priceConversion
+        self.saveAmount = saveAmount
+        self.package = package
+    }
 }
 
+/// The subscription and product state exposed to a billing interface.
 public struct JchuBillingInfo: Sendable {
     public let info: JchuSubscriptionInfo
     public let packages: [Package]
     public let products: [JchuPaymentProduct]
 
+    /// Creates billing information from subscription and package data.
+    public init(
+        info: JchuSubscriptionInfo,
+        packages: [Package],
+        products: [JchuPaymentProduct]
+    ) {
+        self.info = info
+        self.packages = packages
+        self.products = products
+    }
+
+    /// Billing information representing an unloaded or unavailable offering.
     public static let empty = JchuBillingInfo(
         info: .empty,
         packages: [],
@@ -50,8 +98,10 @@ public struct JchuBillingInfo: Sendable {
     )
 }
 
+/// A shared RevenueCat-backed subscription service for Swift applications.
 @MainActor
 public final class JchuPayment: ObservableObject {
+    /// The process-wide payment service.
     public static let shared = JchuPayment()
 
     @Published public private(set) var billingInfo: JchuBillingInfo = .empty
@@ -70,12 +120,16 @@ public final class JchuPayment: ObservableObject {
         "rc_promo_pro_lifetime"
     ]
 
+    /// The configured RevenueCat application user identifier.
     public var userId: String {
         Purchases.shared.appUserID
     }
 
     private init() {}
 
+    /// Configures RevenueCat and selects the entitlement used by checks.
+    ///
+    /// Call this once during application startup before requesting products.
     public func configure(
         apiKey: String,
         isDebug: Bool,
@@ -93,10 +147,13 @@ public final class JchuPayment: ObservableObject {
         setSubscriptionName(subscriptionName)
     }
 
+    /// Replaces the entitlement name used by subscription operations.
     public func setSubscriptionName(_ name: String) {
         subscriptionName = name
     }
 
+    /// Loads the current offering and updates ``billingInfo`` or
+    /// ``billingError``.
     public func getProducts() {
         Purchases.shared.getOfferings { [weak self] offerings, error in
             Task { @MainActor in
@@ -128,6 +185,10 @@ public final class JchuPayment: ObservableObject {
         }
     }
 
+    /// Purchases the first loaded package matching a RevenueCat package type.
+    ///
+    /// This method returns without callbacks when no matching package has been
+    /// loaded.
     public func purchase(
         type: PackageType,
         onSuccess: @escaping (Bool, String) -> Void = { _, _ in },
@@ -150,6 +211,8 @@ public final class JchuPayment: ObservableObject {
         }
     }
 
+    /// Restores purchases and reports whether the configured entitlement is
+    /// active.
     public func restorePurchases(
         onRestored: @escaping (Bool, String) -> Void = { _, _ in }
     ) {
@@ -169,6 +232,7 @@ public final class JchuPayment: ObservableObject {
         }
     }
 
+    /// Checks the configured entitlement against current customer information.
     public func isSubscriptionActive(
         onChecked: @escaping (Bool, String) -> Void = { _, _ in }
     ) {
