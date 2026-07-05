@@ -103,6 +103,38 @@ prefetcher.prefetch(
 )
 ```
 
+Compose a screen from a reusable top bar and state-aware content:
+
+```swift
+JchuStateScaffold(
+    "Library",
+    isLoading: viewModel.isLoading,
+    isEmpty: viewModel.items.isEmpty
+) {
+    ItemsView(items: viewModel.items)
+}
+```
+
+Resolve remote data independently when a complete scaffold is unnecessary:
+
+```swift
+JchuRemoteScreenContent(
+    data: viewModel.profile,
+    isLoading: viewModel.isLoading,
+    error: viewModel.errorMessage
+) {
+    ProgressView()
+} successContent: { profile in
+    ProfileView(profile: profile)
+} failureContent: { message in
+    ContentUnavailableView(
+        "Unable to load profile",
+        systemImage: "person.crop.circle.badge.exclamationmark",
+        description: Text(message ?? "Try again later")
+    )
+}
+```
+
 ## Topics
 
 ### Actions
@@ -140,3 +172,18 @@ prefetcher.prefetch(
 - ``JchuNetworkImagePrefetcher``
 - ``JchuNetworkImagePlaceholder``
 - ``JchuNetworkImageErrorView``
+
+### Screen structure
+
+- ``JchuScaffold``
+- ``JchuScaffoldTopBar``
+- ``JchuScaffoldTopBarConfig``
+- ``JchuScaffoldBackButton``
+- ``JchuScaffoldBottomBar``
+- ``JchuScaffoldBottomBarItem``
+- ``JchuScrollableScaffold``
+- ``JchuStateScaffold``
+- ``JchuDefaultEmptyState``
+- ``JchuRemoteScreenContent``
+- ``JchuDetailsScaffold``
+- ``JchuSettingsScaffold``

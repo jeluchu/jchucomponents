@@ -363,4 +363,38 @@ final class JchuComponentsSwiftUITests: XCTestCase {
             )
         )
     }
+
+    @MainActor
+    func testGeneralScaffoldsExposeConvenienceInitializers() {
+        _ = JchuScaffold {
+            Text("Content")
+        }
+        _ = JchuScrollableScaffold("Library") {
+            Text("Scrollable content")
+        }
+        _ = JchuStateScaffold(
+            "Library",
+            isLoading: false,
+            isEmpty: false
+        ) {
+            Text("Loaded")
+        }
+        _ = JchuSettingsScaffold("Settings") {
+            Text("Preferences")
+        }
+        _ = JchuDetailsScaffold("Details", details: "Loaded") { value in
+            Text(value)
+        }
+        _ = JchuRemoteScreenContent(
+            data: "Loaded",
+            isLoading: false,
+            error: nil
+        ) {
+            ProgressView()
+        } successContent: { value in
+            Text(value)
+        } failureContent: { error in
+            Text(error ?? "Error")
+        }
+    }
 }

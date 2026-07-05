@@ -1,5 +1,7 @@
 import SwiftUI
 
+/// A screen container with optional top and bottom bars over a full-size
+/// content region.
 public struct JchuScaffold<Content: View, TopBar: View, BottomBar: View>: View {
     private let backgroundColor: Color
     private let hidesNavigationBar: Bool
@@ -8,6 +10,15 @@ public struct JchuScaffold<Content: View, TopBar: View, BottomBar: View>: View {
     private let topBar: TopBar?
     private let bottomBar: BottomBar?
 
+    /// Creates a scaffold with optional bar content.
+    ///
+    /// - Parameters:
+    ///   - backgroundColor: Color drawn behind the complete screen.
+    ///   - hidesNavigationBar: Whether to hide SwiftUI's navigation bar.
+    ///   - showsTopBarOverlay: Whether to draw a short gradient below the top bar.
+    ///   - topBar: Optional content displayed above the main content.
+    ///   - bottomBar: Optional content overlaid at the bottom.
+    ///   - content: The main screen content.
     public init(
         backgroundColor: Color = Color(uiColor: .systemBackground),
         hidesNavigationBar: Bool = true,
@@ -111,11 +122,13 @@ public extension JchuScaffold where TopBar == EmptyView, BottomBar == EmptyView 
     }
 }
 
+/// Typography and icon configuration for ``JchuScaffoldTopBar``.
 public struct JchuScaffoldTopBarConfig {
     public let titleFont: Font
     public let backSystemImage: String
     public let backIconFont: Font
 
+    /// Creates a top-bar configuration.
     public init(
         titleFont: Font = .system(size: 18, weight: .medium),
         backSystemImage: String = "chevron.left",
@@ -127,6 +140,7 @@ public struct JchuScaffoldTopBarConfig {
     }
 }
 
+/// A themed title bar with customizable leading and trailing content.
 public struct JchuScaffoldTopBar<Leading: View, Trailing: View>: View {
     @Environment(\.jchuTheme) private var theme
 
@@ -138,6 +152,7 @@ public struct JchuScaffoldTopBar<Leading: View, Trailing: View>: View {
     private let leading: Leading
     private let trailing: Trailing
 
+    /// Creates a scaffold top bar.
     public init(
         _ title: LocalizedStringKey,
         backgroundColor: Color? = nil,
@@ -282,6 +297,7 @@ public extension JchuScaffoldTopBar where Trailing == EmptyView {
     }
 }
 
+/// A back button that invokes a custom action or dismisses its presentation.
 public struct JchuScaffoldBackButton: View {
     @Environment(\.presentationMode) private var presentationMode
     @Environment(\.jchuTheme) private var theme
@@ -290,6 +306,7 @@ public struct JchuScaffoldBackButton: View {
     private let iconFont: Font
     private let action: (() -> Void)?
 
+    /// Creates a scaffold back button.
     public init(
         tint: Color? = nil,
         systemImage: String = "chevron.left",
@@ -323,12 +340,14 @@ public struct JchuScaffoldBackButton: View {
     }
 }
 
+/// A selectable action displayed by ``JchuScaffoldBottomBar``.
 public struct JchuScaffoldBottomBarItem: Identifiable {
     public let id: String
     public let systemImage: String
     public let label: LocalizedStringKey
     public let action: () -> Void
 
+    /// Creates a bottom-bar item.
     public init(
         id: String,
         systemImage: String,
@@ -342,12 +361,14 @@ public struct JchuScaffoldBottomBarItem: Identifiable {
     }
 }
 
+/// A themed bottom navigation bar driven by a selected item identifier.
 public struct JchuScaffoldBottomBar: View {
     @Environment(\.jchuTheme) private var theme
 
     private let items: [JchuScaffoldBottomBarItem]
     @Binding private var selectedID: String
 
+    /// Creates a scaffold bottom bar.
     public init(
         items: [JchuScaffoldBottomBarItem],
         selectedID: Binding<String>
@@ -385,6 +406,7 @@ public struct JchuScaffoldBottomBar: View {
     }
 }
 
+/// A scaffold that places its content in a vertical scroll view.
 public struct JchuScrollableScaffold<Content: View>: View {
     @Environment(\.jchuTheme) private var theme
 
@@ -395,6 +417,7 @@ public struct JchuScrollableScaffold<Content: View>: View {
     private let onBack: (() -> Void)?
     private let content: Content
 
+    /// Creates a scrollable scaffold with a standard top bar.
     public init(
         _ title: LocalizedStringKey,
         backgroundColor: Color? = nil,
@@ -431,6 +454,8 @@ public struct JchuScrollableScaffold<Content: View>: View {
     }
 }
 
+/// A scrollable scaffold that switches between loading, empty and content
+/// states.
 public struct JchuStateScaffold<Content: View, EmptyContent: View, LoadingContent: View>: View {
     @Environment(\.jchuTheme) private var theme
 
@@ -443,6 +468,7 @@ public struct JchuStateScaffold<Content: View, EmptyContent: View, LoadingConten
     private let emptyContent: EmptyContent
     private let loadingContent: LoadingContent
 
+    /// Creates a state scaffold with custom empty and loading views.
     public init(
         _ title: LocalizedStringKey,
         isLoading: Bool,
@@ -510,12 +536,14 @@ public extension JchuStateScaffold where EmptyContent == JchuDefaultEmptyState, 
     }
 }
 
+/// The standard empty-state presentation used by scaffold conveniences.
 public struct JchuDefaultEmptyState: View {
     @Environment(\.jchuTheme) private var theme
 
     private let title: LocalizedStringKey
     private let systemImage: String
 
+    /// Creates an empty state with localized text and an SF Symbol.
     public init(
         _ title: LocalizedStringKey = "No items",
         systemImage: String = "tray"

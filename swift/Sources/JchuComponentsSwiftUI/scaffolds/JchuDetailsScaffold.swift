@@ -1,5 +1,6 @@
 import SwiftUI
 
+/// A detail screen that resolves loading, empty/error and loaded states.
 public struct JchuDetailsScaffold<Details, Content: View, BottomBar: View, EmptyContent: View, LoadingContent: View>: View {
     @Environment(\.presentationMode) private var presentationMode
     @Environment(\.jchuTheme) private var theme
@@ -16,6 +17,7 @@ public struct JchuDetailsScaffold<Details, Content: View, BottomBar: View, Empty
     private let emptyContent: EmptyContent
     private let loadingContent: LoadingContent
 
+    /// Creates a detail scaffold with custom state and bottom-bar content.
     public init(
         _ title: LocalizedStringKey,
         details: Details?,

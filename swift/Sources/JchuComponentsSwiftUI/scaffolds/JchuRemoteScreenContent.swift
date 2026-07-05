@@ -1,5 +1,9 @@
 import SwiftUI
 
+/// Resolves loading, success and failure content for optional remote data.
+///
+/// Loading takes precedence over available data. When loading finishes,
+/// non-`nil` data selects success; otherwise failure receives the error text.
 public struct JchuRemoteScreenContent<Data, LoadingContent: View, SuccessContent: View, FailureContent: View>: View {
     private let data: Data?
     private let isLoading: Bool
@@ -8,6 +12,15 @@ public struct JchuRemoteScreenContent<Data, LoadingContent: View, SuccessContent
     private let successContent: (Data) -> SuccessContent
     private let failureContent: (String?) -> FailureContent
 
+    /// Creates a remote-content state resolver.
+    ///
+    /// - Parameters:
+    ///   - data: Successfully loaded data, when available.
+    ///   - isLoading: Whether to display loading content.
+    ///   - error: Optional error text passed to failure content.
+    ///   - loadingContent: Content displayed while loading.
+    ///   - successContent: Content built from loaded data.
+    ///   - failureContent: Content built when no data is available.
     public init(
         data: Data?,
         isLoading: Bool,

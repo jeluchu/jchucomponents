@@ -1,5 +1,6 @@
 import SwiftUI
 
+/// A settings screen with a themed top bar and rounded scrolling surface.
 public struct JchuSettingsScaffold<Content: View>: View {
     @Environment(\.presentationMode) private var presentationMode
     @Environment(\.jchuTheme) private var theme
@@ -12,6 +13,9 @@ public struct JchuSettingsScaffold<Content: View>: View {
     private let onBack: (() -> Void)?
     private let content: Content
 
+    /// Creates a settings scaffold.
+    ///
+    /// Explicit colors override the current ``JchuTheme`` values.
     public init(
         _ title: LocalizedStringKey,
         backgroundColor: Color? = nil,
