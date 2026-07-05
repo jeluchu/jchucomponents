@@ -96,13 +96,13 @@ fun String.deleteDouble() = this.split(".")[0]
 /** ---- DATE ---------------------------------------------------------------------------------- **/
 
 fun String.parserDate(): String {
-    val parser = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale("es", "ES"))
-    val formatter = SimpleDateFormat("dd/MM/yyyy", Locale("es", "ES"))
+    val parser = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.forLanguageTag("es-ES"))
+    val formatter = SimpleDateFormat("dd/MM/yyyy", Locale.forLanguageTag("es-ES"))
     return formatter.format(parser.parse(this) ?: Date())
 }
 
 fun String?.compareDate(): Boolean {
-    val sdf = SimpleDateFormat("dd/M/yyyy", Locale("es", "ES"))
+    val sdf = SimpleDateFormat("dd/M/yyyy", Locale.forLanguageTag("es-ES"))
     val currentDate = sdf.format(Date())
     return if (this.isNullOrEmpty()) {
         false
@@ -315,8 +315,10 @@ fun String.Companion.empty() = ""
 
 fun String?.orEmpty(defaultValue: String = String.empty()) = this ?: defaultValue
 
+@Suppress("EXTENSION_SHADOWED_BY_MEMBER")
 fun CharSequence.isEmpty(): Boolean = length == 0
 
+@Suppress("EXTENSION_SHADOWED_BY_MEMBER")
 fun String.isEmpty(): Boolean = length == 0
 
 fun String.replace(): String = replace("-", " ")
