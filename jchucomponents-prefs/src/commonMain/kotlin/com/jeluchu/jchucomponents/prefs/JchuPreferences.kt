@@ -10,6 +10,7 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import okio.Path.Companion.toPath
 
+@Suppress("ktlint:standard:property-naming")
 const val JchuPreferencesFileName: String = "jchucomponents.preferences_pb"
 
 class JchuPreferences(
