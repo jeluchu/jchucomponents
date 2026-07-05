@@ -15,6 +15,7 @@ import androidx.compose.ui.graphics.TileMode
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.graphics.drawscope.drawIntoCanvas
 import androidx.compose.ui.graphics.nativeCanvas
+import androidx.compose.ui.graphics.nativePaint
 import androidx.compose.ui.platform.LocalContext
 import com.jeluchu.jchucomponents.ui.extensions.getBitmapFromVectorDrawable
 
@@ -39,7 +40,7 @@ fun CanvasBackground(
                 ).asImageBitmap()
 
         val paint =
-            Paint().asFrameworkPaint().apply {
+            Paint().nativePaint.apply {
                 isAntiAlias = true
                 shader = ImageShader(pattern, TileMode.Repeated, TileMode.Repeated)
             }

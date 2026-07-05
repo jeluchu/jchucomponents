@@ -22,6 +22,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Paint
 import androidx.compose.ui.graphics.drawscope.drawIntoCanvas
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.graphics.nativePaint
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.input.nestedscroll.NestedScrollConnection
 import androidx.compose.ui.input.nestedscroll.NestedScrollSource
@@ -92,7 +93,7 @@ fun Modifier.coloredShadow(
     this.drawBehind {
         this.drawIntoCanvas {
             val paint = Paint()
-            val frameworkPaint = paint.asFrameworkPaint()
+            val frameworkPaint = paint.nativePaint
             frameworkPaint.color = transparent
 
             frameworkPaint.setShadowLayer(

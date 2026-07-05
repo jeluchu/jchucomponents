@@ -14,8 +14,8 @@ import androidx.compose.animation.core.MutableTransitionState
 import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.animateInt
 import androidx.compose.animation.core.keyframes
+import androidx.compose.animation.core.rememberTransition
 import androidx.compose.animation.core.tween
-import androidx.compose.animation.core.updateTransition
 import androidx.compose.animation.slideInVertically
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentSize
@@ -60,7 +60,7 @@ fun Particles(
                     targetState = MAX_HEIGHT
                 }
             }
-        val transition = updateTransition(transitionState, label = "height transition")
+        val transition = rememberTransition(transitionState, label = "height transition")
         val height by transition.animateInt(
             transitionSpec = {
                 tween(
@@ -141,7 +141,7 @@ private fun Particle(model: ParticleModel) {
 
     val targetScale = remember { model.initialScale * TARGET_PARTICLE_SCALE_MULTIPLIER }
 
-    val transition = updateTransition(transitionState, label = "particle transition")
+    val transition = rememberTransition(transitionState, label = "particle transition")
 
     val alpha by transition.animateFloat(
         transitionSpec = {

@@ -31,7 +31,7 @@ fun CenterToolbar(
     modifier = modifier,
     navigationIcon = navigationIcon,
     colors =
-        TopAppBarDefaults.centerAlignedTopAppBarColors(
+        TopAppBarDefaults.topAppBarColors(
             containerColor = colors.containerColor,
             titleContentColor = colors.contentColor,
             actionIconContentColor = colors.contentColor,

@@ -8,8 +8,8 @@ package com.jeluchu.jchucomponents.ui.composables.accessibility
 
 import androidx.compose.animation.core.MutableTransitionState
 import androidx.compose.animation.core.animateFloat
+import androidx.compose.animation.core.rememberTransition
 import androidx.compose.animation.core.tween
-import androidx.compose.animation.core.updateTransition
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
@@ -206,7 +206,7 @@ private fun TooltipContent(
     content: @Composable ColumnScope.() -> Unit
 ) {
     // Tooltip open/close animation.
-    val transition = updateTransition(expandedStates, "Tooltip")
+    val transition = rememberTransition(expandedStates, "Tooltip")
 
     val alpha by transition.animateFloat(
         label = "alpha",

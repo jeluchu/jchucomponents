@@ -128,11 +128,7 @@ fun Modifier.dashedBorder(
                                 when (outline) {
                                     is Outline.Rounded -> Path().apply { addRoundRect(outline.roundRect) }
                                     is Outline.Generic -> outline.path
-                                    else -> {
-                                        // should not get here because we check for Outline.Rectangle
-                                        // above
-                                        null
-                                    }
+                                    is Outline.Rectangle -> null
                                 }
 
                             insetPath =
@@ -178,7 +174,7 @@ fun Modifier.dashedBorder(
                                     if (isSimpleRoundRect) {
                                         // If we don't have an insetPath then we are drawing
                                         // a simple round rect with the corner radii all identical
-                                        val rrect = (insetOutline as Outline.Rounded).roundRect
+                                        val rrect = insetOutline.roundRect
                                         drawRoundRect(
                                             brush = brush,
                                             topLeft = Offset(rrect.left, rrect.top),
