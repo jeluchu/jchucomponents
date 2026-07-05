@@ -28,10 +28,11 @@ fun <T> LazyGrid(
         Row {
             elements.forEachIndexed { rowIndex, item ->
                 Box(
-                    modifier = Modifier
-                        .weight(1f)
-                        .align(Alignment.Top)
-                        .padding(5.dp),
+                    modifier =
+                        Modifier
+                            .weight(1f)
+                            .align(Alignment.Top)
+                            .padding(5.dp),
                     contentAlignment = Alignment.Center
                 ) { itemContent(item, index * rows + rowIndex) }
             }

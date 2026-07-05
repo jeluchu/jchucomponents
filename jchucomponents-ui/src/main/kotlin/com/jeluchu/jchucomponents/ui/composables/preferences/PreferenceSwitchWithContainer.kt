@@ -40,40 +40,48 @@ fun PreferenceSwitchWithContainer(
     colors: SwitchWithContainerColors = SwitchWithContainerColors(),
     switchColors: SwitchColors = SwitchDefaults.colors(),
     isChecked: Boolean,
-    onClick: () -> Unit,
+    onClick: () -> Unit
 ) {
-    val thumbContent: (@Composable () -> Unit)? = if (isChecked) { {
-            Icon(
-                imageVector = Icons.Outlined.Check,
-                contentDescription = null,
-                modifier = Modifier.size(SwitchDefaults.IconSize),
-            )
+    val thumbContent: (@Composable () -> Unit)? =
+        if (isChecked) {
+            {
+                Icon(
+                    imageVector = Icons.Outlined.Check,
+                    contentDescription = null,
+                    modifier = Modifier.size(SwitchDefaults.IconSize)
+                )
+            }
+        } else {
+            null
         }
-    } else null
 
     Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 16.dp, vertical = 12.dp)
-            .clip(MaterialTheme.shapes.extraLarge)
-            .background(if (isChecked) colors.backgroundEnabled else colors.backgroundDisabled)
-            .toggleable(value = isChecked) { onClick() }
-            .padding(horizontal = 16.dp, vertical = 20.dp),
-        verticalAlignment = Alignment.CenterVertically,
+        modifier =
+            Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp, vertical = 12.dp)
+                .clip(MaterialTheme.shapes.extraLarge)
+                .background(if (isChecked) colors.backgroundEnabled else colors.backgroundDisabled)
+                .toggleable(value = isChecked) { onClick() }
+                .padding(horizontal = 16.dp, vertical = 20.dp),
+        verticalAlignment = Alignment.CenterVertically
     ) {
         icon?.let {
-            Icon(imageVector = icon,
+            Icon(
+                imageVector = icon,
                 contentDescription = null,
-                modifier = Modifier
-                    .padding(start = 8.dp, end = 16.dp)
-                    .size(24.dp),
+                modifier =
+                    Modifier
+                        .padding(start = 8.dp, end = 16.dp)
+                        .size(24.dp),
                 tint = if (isChecked) colors.iconEnabled else colors.iconDisabled
             )
         }
         Column(
-            modifier = Modifier
-                .weight(1f)
-                .padding(start = if (icon == null) 12.dp else 0.dp, end = 12.dp)
+            modifier =
+                Modifier
+                    .weight(1f)
+                    .padding(start = if (icon == null) 12.dp else 0.dp, end = 12.dp)
         ) {
             Text(
                 text = title,
@@ -99,7 +107,7 @@ class SwitchWithContainerColors constructor(
     val textEnabled: Color = artichoke,
     val textDisabled: Color = cosmicLatte,
     val backgroundEnabled: Color = cosmicLatte,
-    val backgroundDisabled: Color = artichoke,
+    val backgroundDisabled: Color = artichoke
 )
 
 @Composable

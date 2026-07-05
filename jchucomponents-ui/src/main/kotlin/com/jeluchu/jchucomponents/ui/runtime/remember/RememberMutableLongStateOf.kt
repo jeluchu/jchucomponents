@@ -33,9 +33,7 @@ import androidx.compose.runtime.snapshots.Snapshot
  * @see MutableLongState
  */
 @Composable
-fun rememberMutableLongStateOf(
-    value: Long
-): MutableLongState = remember { mutableLongStateOf(value) }
+fun rememberMutableLongStateOf(value: Long): MutableLongState = remember { mutableLongStateOf(value) }
 
 /**
  *
@@ -58,7 +56,6 @@ fun rememberMutableLongStateOf(
     key1: Any?,
     value: Long
 ): MutableLongState = remember(key1) { mutableLongStateOf(value) }
-
 
 /**
  *

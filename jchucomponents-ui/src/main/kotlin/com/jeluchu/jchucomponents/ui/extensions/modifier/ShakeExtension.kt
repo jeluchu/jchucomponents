@@ -30,22 +30,23 @@ fun Modifier.shake(
     factory = {
         val initialPosition = if (fromLeft) -rotation else rotation
         val rotationValue by
-        infiniteTransition.animateFloat(
-            initialValue = initialPosition,
-            targetValue = -initialPosition,
-            animationSpec = infiniteRepeatable(
-                animation = animation,
-                repeatMode = RepeatMode.Reverse
+            infiniteTransition.animateFloat(
+                initialValue = initialPosition,
+                targetValue = -initialPosition,
+                animationSpec =
+                    infiniteRepeatable(
+                        animation = animation,
+                        repeatMode = RepeatMode.Reverse
+                    )
             )
-        )
 
         Modifier.graphicsLayer { rotationZ = if (enabled) rotationValue else 0f }
     },
     inspectorInfo =
-    debugInspectorInfo {
-        name = "shake"
-        properties["enabled"] = enabled
-        properties["fromLeft"] = fromLeft
-        properties["infiniteTransition"] = infiniteTransition
-    }
+        debugInspectorInfo {
+            name = "shake"
+            properties["enabled"] = enabled
+            properties["fromLeft"] = fromLeft
+            properties["infiniteTransition"] = infiniteTransition
+        }
 )

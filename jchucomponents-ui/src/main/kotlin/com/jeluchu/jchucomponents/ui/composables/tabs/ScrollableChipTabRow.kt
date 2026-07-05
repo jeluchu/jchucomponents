@@ -52,12 +52,13 @@ fun ScrollableChipTabRow(
 ) {
     val scrollState = rememberScrollState()
     val coroutineScope = rememberCoroutineScope()
-    val scrollableTabData = remember(scrollState, coroutineScope) {
-        ScrollableTabData(
-            scrollState = scrollState,
-            coroutineScope = coroutineScope
-        )
-    }
+    val scrollableTabData =
+        remember(scrollState, coroutineScope) {
+            ScrollableTabData(
+                scrollState = scrollState,
+                coroutineScope = coroutineScope
+            )
+        }
     SubcomposeLayout(
         Modifier
             .fillMaxWidth()
@@ -70,8 +71,9 @@ fun ScrollableChipTabRow(
         val padding = edgePadding.roundToPx()
         val tabConstraints = constraints.copy(minWidth = minTabWidth)
 
-        val tabPlaceables = subcompose(TabSlots.Tabs, tabs)
-            .map { it.measure(tabConstraints) }
+        val tabPlaceables =
+            subcompose(TabSlots.Tabs, tabs)
+                .map { it.measure(tabConstraints) }
 
         var layoutWidth = padding * 2
         var layoutHeight = 0
@@ -81,7 +83,6 @@ fun ScrollableChipTabRow(
         }
 
         layout(layoutWidth, layoutHeight) {
-
             val tabPositions = mutableListOf<TabPosition>()
             var left = padding
             tabPlaceables.forEach {
@@ -101,7 +102,10 @@ fun ScrollableChipTabRow(
 }
 
 @Immutable
-class TabPosition internal constructor(val left: Dp, val width: Dp) {
+class TabPosition internal constructor(
+    val left: Dp,
+    val width: Dp
+) {
     val right: Dp get() = left + width
 
     override fun equals(other: Any?): Boolean {
@@ -120,9 +124,7 @@ class TabPosition internal constructor(val left: Dp, val width: Dp) {
         return result
     }
 
-    override fun toString(): String {
-        return "TabPosition(left=$left, right=$right, width=$width)"
-    }
+    override fun toString(): String = "TabPosition(left=$left, right=$right, width=$width)"
 }
 
 private enum class TabSlots {
@@ -141,7 +143,6 @@ private class ScrollableTabData(
         tabPositions: List<TabPosition>,
         selectedTab: Int
     ) {
-
         if (this.selectedTab != selectedTab) {
             this.selectedTab = selectedTab
             tabPositions.getOrNull(selectedTab)?.let {
@@ -160,24 +161,26 @@ private class ScrollableTabData(
         density: Density,
         edgeOffset: Int,
         tabPositions: List<TabPosition>
-    ): Int = with(density) {
-        val totalTabRowWidth = tabPositions.last().right.roundToPx() + edgeOffset
-        val visibleWidth = totalTabRowWidth - scrollState.maxValue
-        val tabOffset = left.roundToPx()
-        val scrollerCenter = visibleWidth / 2
-        val tabWidth = width.roundToPx()
-        val centeredTabOffset = tabOffset - (scrollerCenter - tabWidth / 2)
-        val availableSpace = (totalTabRowWidth - visibleWidth).coerceAtLeast(0)
-        return centeredTabOffset.coerceIn(0, availableSpace)
-    }
+    ): Int =
+        with(density) {
+            val totalTabRowWidth = tabPositions.last().right.roundToPx() + edgeOffset
+            val visibleWidth = totalTabRowWidth - scrollState.maxValue
+            val tabOffset = left.roundToPx()
+            val scrollerCenter = visibleWidth / 2
+            val tabWidth = width.roundToPx()
+            val centeredTabOffset = tabOffset - (scrollerCenter - tabWidth / 2)
+            val availableSpace = (totalTabRowWidth - visibleWidth).coerceAtLeast(0)
+            return centeredTabOffset.coerceIn(0, availableSpace)
+        }
 }
 
 private val ScrollableTabRowMinimumTabWidth = 90.dp
 
-private val ScrollableTabRowScrollSpec: AnimationSpec<Float> = tween(
-    durationMillis = 250,
-    easing = FastOutSlowInEasing
-)
+private val ScrollableTabRowScrollSpec: AnimationSpec<Float> =
+    tween(
+        durationMillis = 250,
+        easing = FastOutSlowInEasing
+    )
 
 @Preview(showBackground = true)
 @Composable

@@ -13,9 +13,9 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.jeluchu.jchucomponents.ui.extensions.toImageVector
 import com.jeluchu.jchucomponents.ui.R
 import com.jeluchu.jchucomponents.ui.extensions.modifier.cornerRadius
+import com.jeluchu.jchucomponents.ui.extensions.toImageVector
 import com.jeluchu.jchucomponents.ui.theme.artichoke
 import com.jeluchu.jchucomponents.ui.theme.cosmicLatte
 
@@ -52,6 +52,6 @@ data class CategoryIconColors(
 @Composable
 fun CategoryIconPreview() {
     CategoryIcon(
-        icon = R.drawable.ic_btn_qrcode,
+        icon = R.drawable.ic_btn_qrcode
     )
 }

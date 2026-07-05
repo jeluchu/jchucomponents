@@ -41,22 +41,25 @@ fun Particles(
 ) {
     AnimatedVisibility(
         visible = visible,
-        enter = slideInVertically(
-            initialOffsetY = { it },
-            animationSpec = tween(
-                durationMillis = MAX_ANIMATION_DURATION.toInt() - 300,
-                easing = LinearEasing,
-                delayMillis = 300
-            )
-        ),
+        enter =
+            slideInVertically(
+                initialOffsetY = { it },
+                animationSpec =
+                    tween(
+                        durationMillis = MAX_ANIMATION_DURATION.toInt() - 300,
+                        easing = LinearEasing,
+                        delayMillis = 300
+                    )
+            ),
         exit = ExitTransition.None
     ) {
         val particles = remember { calculateParticleParams(quantity, emoji) }
-        val transitionState = remember {
-            MutableTransitionState(MIN_HEIGHT).apply {
-                targetState = MAX_HEIGHT
+        val transitionState =
+            remember {
+                MutableTransitionState(MIN_HEIGHT).apply {
+                    targetState = MAX_HEIGHT
+                }
             }
-        }
         val transition = updateTransition(transitionState, label = "height transition")
         val height by transition.animateInt(
             transitionSpec = {
@@ -90,7 +93,10 @@ fun Particles(
     }
 }
 
-private fun calculateParticleParams(quantity: Int, emoji: String): List<ParticleModel> {
+private fun calculateParticleParams(
+    quantity: Int,
+    emoji: String
+): List<ParticleModel> {
     val random = Random(System.currentTimeMillis().toInt())
     val result = mutableListOf<ParticleModel>()
     for (i in 0 until quantity) {
@@ -102,11 +108,12 @@ private fun calculateParticleParams(quantity: Int, emoji: String): List<Particle
                 verticalFraction = verticalFraction,
                 horizontalFraction = horizontalFraction,
                 initialScale = lerp(MIN_PARTICLE_SIZE, MAX_PARTICLE_SIZE, verticalFraction),
-                duration = lerp(
-                    MIN_ANIMATION_DURATION,
-                    MAX_ANIMATION_DURATION,
-                    verticalFraction
-                ).toInt(),
+                duration =
+                    lerp(
+                        MIN_ANIMATION_DURATION,
+                        MAX_ANIMATION_DURATION,
+                        verticalFraction
+                    ).toInt(),
                 emoji = emoji
             )
         result.add(
@@ -115,19 +122,22 @@ private fun calculateParticleParams(quantity: Int, emoji: String): List<Particle
     }
 
     return result
-
 }
 
-private fun lerp(start: Float, stop: Float, fraction: Float) =
-    (start * (1 - fraction) + stop * fraction)
+private fun lerp(
+    start: Float,
+    stop: Float,
+    fraction: Float
+) = (start * (1 - fraction) + stop * fraction)
 
 @Composable
 private fun Particle(model: ParticleModel) {
-    val transitionState = remember {
-        MutableTransitionState(0.1f).apply {
-            targetState = 0f
+    val transitionState =
+        remember {
+            MutableTransitionState(0.1f).apply {
+                targetState = 0f
+            }
         }
-    }
 
     val targetScale = remember { model.initialScale * TARGET_PARTICLE_SCALE_MULTIPLIER }
 
@@ -159,10 +169,11 @@ private fun Particle(model: ParticleModel) {
     ) { it }
 
     Text(
-        modifier = Modifier
-            .wrapContentSize()
-            .scale(scale)
-            .alpha(alpha),
+        modifier =
+            Modifier
+                .wrapContentSize()
+                .scale(scale)
+                .alpha(alpha),
         text = model.emoji,
         fontSize = PARTICLE_TEXT_SIZE.sp
     )

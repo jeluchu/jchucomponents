@@ -31,29 +31,29 @@ fun TimeCard(
     colors: TimeCardColors = TimeCardColors(),
     style: TextStyle = MaterialTheme.typography.subtitle2
 ) = Column(
-    modifier = Modifier
-        .bounceClick {
-        }
-        .background(
-            shape = 16.cornerRadius(),
-            color = colors.containerColor
-        )
-        .border(
-            1.dp,
-            color = colors.contentPrimaryColor,
-            shape = 16.cornerRadius(),
-        ),
+    modifier =
+        Modifier
+            .bounceClick {
+            }.background(
+                shape = 16.cornerRadius(),
+                color = colors.containerColor
+            ).border(
+                1.dp,
+                color = colors.contentPrimaryColor,
+                shape = 16.cornerRadius()
+            ),
     horizontalAlignment = Alignment.CenterHorizontally,
     verticalArrangement = Arrangement.spacedBy(15.dp)
 ) {
     Text(
         text = title,
         color = colors.contentPrimaryColor,
-        style = style.copy(
-            fontSize = 16.sp,
-            fontWeight = FontWeight.W600,
-            lineHeight = 25.sp
-        ),
+        style =
+            style.copy(
+                fontSize = 16.sp,
+                fontWeight = FontWeight.W600,
+                lineHeight = 25.sp
+            ),
         textAlign = TextAlign.Center,
         modifier = Modifier.padding(top = 15.dp)
     )
@@ -64,23 +64,25 @@ fun TimeCard(
     Text(
         text = amount,
         color = colors.contentSecondaryColor,
-        style = style.copy(
-            fontSize = 16.sp,
-            fontWeight = FontWeight.W600,
-            lineHeight = 25.sp
-        ),
-        textAlign = TextAlign.Center,
-        //modifier = Modifier.padding(15.dp)
+        style =
+            style.copy(
+                fontSize = 16.sp,
+                fontWeight = FontWeight.W600,
+                lineHeight = 25.sp
+            ),
+        textAlign = TextAlign.Center
+        // modifier = Modifier.padding(15.dp)
     )
 
     Text(
         text = description,
         color = colors.contentSecondaryColor.copy(.5f),
-        style = style.copy(
-            fontSize = 12.sp,
-            fontWeight = FontWeight.W500,
-            lineHeight = 25.sp
-        ),
+        style =
+            style.copy(
+                fontSize = 12.sp,
+                fontWeight = FontWeight.W500,
+                lineHeight = 25.sp
+            ),
         textAlign = TextAlign.Center,
         modifier = Modifier.padding(bottom = 15.dp)
     )
@@ -92,7 +94,6 @@ data class TimeCardColors(
     val contentPrimaryColor: Color = primary,
     val contentSecondaryColor: Color = Color.White
 )
-
 
 @Preview
 @Composable

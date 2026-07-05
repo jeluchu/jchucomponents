@@ -56,34 +56,37 @@ fun DoubleTapAnimation(
     var isLike by rememberMutableStateOf(false)
     val animatedSize by animateDpAsState(
         targetValue = if (isLike) size else 0.dp,
-        animationSpec = spring(
-            dampingRatio = Spring.DampingRatioMediumBouncy,
-            stiffness = 500f
-        )
+        animationSpec =
+            spring(
+                dampingRatio = Spring.DampingRatioMediumBouncy,
+                stiffness = 500f
+            )
     )
     Box(modifier = Modifier.fillMaxSize()) {
-
         Image(
             imageVector = ImageVector.vectorResource(id = image),
             contentDescription = String.empty(),
-            modifier = Modifier
-                .align(Alignment.Center)
-                .pointerInput(Unit) {
-                    detectTapGestures(
-                        onDoubleTap = {
-                            isLike = true
-                            onDoubleTap()
-                        }
-                    )
-                })
+            modifier =
+                Modifier
+                    .align(Alignment.Center)
+                    .pointerInput(Unit) {
+                        detectTapGestures(
+                            onDoubleTap = {
+                                isLike = true
+                                onDoubleTap()
+                            }
+                        )
+                    }
+        )
 
         if (isLike) {
             Icon(
                 painterResource(id = icon),
                 tint = Color.White,
-                modifier = Modifier
-                    .size(animatedSize)
-                    .align(Alignment.Center),
+                modifier =
+                    Modifier
+                        .size(animatedSize)
+                        .align(Alignment.Center),
                 contentDescription = String.empty()
             )
             if (animatedSize == size) isLike = false
@@ -125,36 +128,38 @@ fun DoubleTapAnimation(
     var isLike by rememberMutableStateOf(false)
     val animatedSize by animateDpAsState(
         targetValue = if (isLike) size else 0.dp,
-        animationSpec = spring(
-            dampingRatio = Spring.DampingRatioMediumBouncy,
-            stiffness = 500f
-        )
+        animationSpec =
+            spring(
+                dampingRatio = Spring.DampingRatioMediumBouncy,
+                stiffness = 500f
+            )
     )
     Box(modifier = Modifier.fillMaxSize()) {
         NetworkImage(
             url = url,
-            modifier = Modifier
-                .align(Alignment.Center)
-                .pointerInput(Unit) {
-                    detectTapGestures(
-                        onDoubleTap = {
-                            isLike = true
-                            onDoubleTap()
-                        }
-                    )
-                }
+            modifier =
+                Modifier
+                    .align(Alignment.Center)
+                    .pointerInput(Unit) {
+                        detectTapGestures(
+                            onDoubleTap = {
+                                isLike = true
+                                onDoubleTap()
+                            }
+                        )
+                    }
         )
         if (isLike) {
             Icon(
                 painterResource(id = icon),
                 tint = Color.White,
-                modifier = Modifier
-                    .size(animatedSize)
-                    .align(Alignment.Center),
+                modifier =
+                    Modifier
+                        .size(animatedSize)
+                        .align(Alignment.Center),
                 contentDescription = String.empty()
             )
             if (animatedSize == size) isLike = false
         }
-
     }
 }

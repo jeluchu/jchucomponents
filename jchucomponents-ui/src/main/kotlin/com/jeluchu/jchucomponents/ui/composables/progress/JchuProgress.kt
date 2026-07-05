@@ -1,9 +1,9 @@
 package com.jeluchu.jchucomponents.ui.composables.progress
 
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CloudUpload
 import androidx.compose.material3.CircularProgressIndicator
@@ -18,7 +18,7 @@ import com.jeluchu.jchucomponents.foundation.components.JchuProgressState
 @Composable
 fun JchuLinearProgress(
     state: JchuProgressState,
-    icon: ImageVector,
+    icon: ImageVector
 ) {
     if (state.isIndeterminate) {
         LinearProgressIndicator()
@@ -27,7 +27,7 @@ fun JchuLinearProgress(
             icon = icon,
             enabled = state.isEnabled,
             number = state.value.toFloat(),
-            maxNumber = state.maxValue.toFloat(),
+            maxNumber = state.maxValue.toFloat()
         )
     }
 }
@@ -35,7 +35,7 @@ fun JchuLinearProgress(
 @Composable
 fun JchuCircularProgress(
     state: JchuProgressState,
-    icon: ImageVector,
+    icon: ImageVector
 ) {
     if (state.isIndeterminate) {
         CircularProgressIndicator(modifier = Modifier.size(45.dp))
@@ -44,7 +44,7 @@ fun JchuCircularProgress(
             icon = icon,
             enabled = state.isEnabled,
             number = state.value.toFloat(),
-            maxNumber = state.maxValue.toFloat(),
+            maxNumber = state.maxValue.toFloat()
         )
     }
 }
@@ -52,7 +52,7 @@ fun JchuCircularProgress(
 @Composable
 fun JchuIconProgress(
     state: JchuProgressState,
-    icon: ImageVector,
+    icon: ImageVector
 ) {
     if (state.isIndeterminate) {
         CircularProgressIndicator()
@@ -61,7 +61,7 @@ fun JchuIconProgress(
             icon = icon,
             enabled = state.isEnabled,
             number = state.value.toFloat(),
-            maxNumber = state.maxValue.toFloat(),
+            maxNumber = state.maxValue.toFloat()
         )
     }
 }
@@ -69,13 +69,14 @@ fun JchuIconProgress(
 @Preview(showBackground = true)
 @Composable
 private fun JchuProgressPreview() {
-    val state = JchuProgressState(
-        title = "Upload",
-        value = 72.0,
-        maxValue = 100.0,
-        isEnabled = true,
-        isIndeterminate = false
-    )
+    val state =
+        JchuProgressState(
+            title = "Upload",
+            value = 72.0,
+            maxValue = 100.0,
+            isEnabled = true,
+            isIndeterminate = false
+        )
 
     Column(
         modifier = Modifier.padding(16.dp),

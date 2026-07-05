@@ -10,9 +10,9 @@ import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.core.graphics.drawable.toBitmap
+import com.jeluchu.jchucomponents.ui.R
 import com.jeluchu.jchucomponents.ui.extensions.toImageVector
 import com.jeluchu.jchucomponents.ui.extensions.toPainter
-import com.jeluchu.jchucomponents.ui.R
 
 /**
  *
@@ -32,10 +32,25 @@ import com.jeluchu.jchucomponents.ui.R
  */
 @Immutable
 sealed interface JchImage {
-    @Immutable @JvmInline value class Custom(val image: Painter): JchImage
-    @Immutable @JvmInline value class Vector(val image: ImageVector): JchImage
-    @Immutable @JvmInline value class Resource(@DrawableRes val id: Int): JchImage
-    @Immutable @JvmInline value class DrawableImages( val image: Drawable): JchImage
+    @Immutable @JvmInline
+    value class Custom(
+        val image: Painter
+    ) : JchImage
+
+    @Immutable @JvmInline
+    value class Vector(
+        val image: ImageVector
+    ) : JchImage
+
+    @Immutable @JvmInline
+    value class Resource(
+        @DrawableRes val id: Int
+    ) : JchImage
+
+    @Immutable @JvmInline
+    value class DrawableImages(
+        val image: Drawable
+    ) : JchImage
 }
 
 /**
@@ -53,12 +68,13 @@ sealed interface JchImage {
  *
  */
 inline val JchImage.painter
-    @Composable get() = when(this) {
-        is JchImage.Custom -> image
-        is JchImage.Resource -> id.toPainter()
-        is JchImage.Vector -> rememberVectorPainter(image = image)
-        is JchImage.DrawableImages -> image.toBitmap().asImageBitmap().run { BitmapPainter(this) }
-    }
+    @Composable get() =
+        when (this) {
+            is JchImage.Custom -> image
+            is JchImage.Resource -> id.toPainter()
+            is JchImage.Vector -> rememberVectorPainter(image = image)
+            is JchImage.DrawableImages -> image.toBitmap().asImageBitmap().run { BitmapPainter(this) }
+        }
 
 /**
  *
@@ -80,9 +96,10 @@ inline val JchImage.painter
  *
  */
 inline val JchImage.imageVector
-    @Composable get() = when(this) {
-        is JchImage.Vector -> image
-        is JchImage.Resource -> id.toImageVector()
-        is JchImage.Custom -> R.drawable.ic_deco_jeluchu.toImageVector()
-        is JchImage.DrawableImages -> R.drawable.ic_deco_jeluchu.toImageVector()
-    }
+    @Composable get() =
+        when (this) {
+            is JchImage.Vector -> image
+            is JchImage.Resource -> id.toImageVector()
+            is JchImage.Custom -> R.drawable.ic_deco_jeluchu.toImageVector()
+            is JchImage.DrawableImages -> R.drawable.ic_deco_jeluchu.toImageVector()
+        }

@@ -23,13 +23,15 @@ import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.layout.positionInWindow
 import com.jeluchu.jchucomponents.ui.dragndrop.states.ReorderableState
 
-fun Modifier.detectReorder(state: ReorderableState<*>) = detect(state) {
-    awaitDragOrCancellation(it)
-}
+fun Modifier.detectReorder(state: ReorderableState<*>) =
+    detect(state) {
+        awaitDragOrCancellation(it)
+    }
 
-fun Modifier.detectReorderAfterLongPress(state: ReorderableState<*>) = detect(state) {
-    awaitLongPressOrCancellation(it)
-}
+fun Modifier.detectReorderAfterLongPress(state: ReorderableState<*>) =
+    detect(state) {
+        awaitLongPressOrCancellation(it)
+    }
 
 private fun Modifier.detect(
     state: ReorderableState<*>,

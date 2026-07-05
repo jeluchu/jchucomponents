@@ -4,6 +4,8 @@
  *
  */
 
+@file:Suppress("ktlint:standard:no-wildcard-imports")
+
 package com.jeluchu.jchucomponents.ui.composables.pager
 
 import androidx.compose.animation.core.Animatable
@@ -59,12 +61,13 @@ class PagerState(
 
     var selectionState: SelectionState by mutableStateOf(SelectionState.Selected)
 
-    suspend inline fun <R> selectPage(block: PagerState.() -> R): R = try {
-        selectionState = SelectionState.Undecided
-        block()
-    } finally {
-        selectPage()
-    }
+    suspend inline fun <R> selectPage(block: PagerState.() -> R): R =
+        try {
+            selectionState = SelectionState.Undecided
+            block()
+        } finally {
+            selectPage()
+        }
 
     suspend fun selectPage() {
         currentPage -= currentPageOffset.roundToInt()
@@ -72,9 +75,10 @@ class PagerState(
         selectionState = SelectionState.Selected
     }
 
-    private var _currentPageOffset = Animatable(0f).apply {
-        updateBounds(-1f, 1f)
-    }
+    private var _currentPageOffset =
+        Animatable(0f).apply {
+            updateBounds(-1f, 1f)
+        }
     val currentPageOffset: Float
         get() = _currentPageOffset.value
 
@@ -92,12 +96,15 @@ class PagerState(
         selectPage()
     }
 
-    override fun toString(): String = "PagerState{minPage=$minPage, maxPage=$maxPage, " +
+    override fun toString(): String =
+        "PagerState{minPage=$minPage, maxPage=$maxPage, " +
             "currentPage=$currentPage, currentPageOffset=$currentPageOffset}"
 }
 
 @Immutable
-private data class PageData(val page: Int) : ParentDataModifier {
+private data class PageData(
+    val page: Int
+) : ParentDataModifier {
     override fun Density.modifyParentData(parentData: Any?): Any = this@PageData
 }
 
@@ -128,30 +135,32 @@ fun Pager(
                 }
             }
         },
-        modifier = modifier.draggable(
-            orientation = Orientation.Horizontal,
-            onDragStarted = {
-                state.selectionState = PagerState.SelectionState.Undecided
-            },
-            onDragStopped = { velocity ->
-                coroutineScope.launch {
-                    // Velocity is in pixels per second, but we deal in percentage offsets, so we
-                    // need to scale the velocity to match
-                    state.fling(velocity / pageSize)
-                }
-            },
-            state = rememberDraggableState { dy ->
-                coroutineScope.launch {
-                    with(state) {
-                        val pos = pageSize * currentPageOffset
-                        val max = if (currentPage == minPage) 0 else pageSize * offscreenLimit
-                        val min = if (currentPage == maxPage) 0 else -pageSize * offscreenLimit
-                        val newPos = (pos + dy).coerceIn(min.toFloat(), max.toFloat())
-                        snapToOffset(newPos / pageSize)
+        modifier =
+            modifier.draggable(
+                orientation = Orientation.Horizontal,
+                onDragStarted = {
+                    state.selectionState = PagerState.SelectionState.Undecided
+                },
+                onDragStopped = { velocity ->
+                    coroutineScope.launch {
+                        // Velocity is in pixels per second, but we deal in percentage offsets, so we
+                        // need to scale the velocity to match
+                        state.fling(velocity / pageSize)
                     }
-                }
-            },
-        )
+                },
+                state =
+                    rememberDraggableState { dy ->
+                        coroutineScope.launch {
+                            with(state) {
+                                val pos = pageSize * currentPageOffset
+                                val max = if (currentPage == minPage) 0 else pageSize * offscreenLimit
+                                val min = if (currentPage == maxPage) 0 else -pageSize * offscreenLimit
+                                val newPos = (pos + dy).coerceIn(min.toFloat(), max.toFloat())
+                                snapToOffset(newPos / pageSize)
+                            }
+                        }
+                    }
+            )
     ) { measurables, constraints ->
         layout(constraints.maxWidth, constraints.maxHeight) {
             val currentPage = state.currentPage
@@ -161,8 +170,7 @@ fun Pager(
             measurables
                 .map {
                     it.measure(childConstraints) to it.page
-                }
-                .forEach { (placeable, page) ->
+                }.forEach { (placeable, page) ->
                     val xCenterOffset = (constraints.maxWidth - placeable.width) / 2
                     val yCenterOffset = (constraints.maxHeight - placeable.height) / 2
 
@@ -205,9 +213,10 @@ private fun PagerPreview() {
         modifier = Modifier.size(width = 220.dp, height = 120.dp)
     ) {
         Box(
-            modifier = Modifier
-                .size(width = 160.dp, height = 90.dp)
-                .background(Color(0xFFEADDFF)),
+            modifier =
+                Modifier
+                    .size(width = 160.dp, height = 90.dp)
+                    .background(Color(0xFFEADDFF)),
             contentAlignment = Alignment.Center
         ) {
             Text(text = "Page $page")

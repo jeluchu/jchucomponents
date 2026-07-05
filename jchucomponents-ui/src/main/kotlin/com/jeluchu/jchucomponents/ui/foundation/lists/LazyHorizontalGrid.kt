@@ -70,7 +70,9 @@ sealed class GridCells {
      * of the parent wide.
      */
     @ExperimentalFoundationApi
-    class Fixed(val count: Int) : GridCells()
+    class Fixed(
+        val count: Int
+    ) : GridCells()
 
     /**
      * Combines cells with adaptive number of rows or columns. It will try to position as many rows
@@ -82,7 +84,9 @@ sealed class GridCells {
      * have equal width. If the screen is 88.dp wide then there will be 4 columns 22.dp each.
      */
     @ExperimentalFoundationApi
-    class Adaptive(val minSize: Dp) : GridCells()
+    class Adaptive(
+        val minSize: Dp
+    ) : GridCells()
 }
 
 /**
@@ -103,7 +107,10 @@ interface LazyGridScope {
      * @param count the items count
      * @param itemContent the content displayed by a single item
      */
-    fun items(count: Int, itemContent: @Composable LazyItemScope.(index: Int) -> Unit)
+    fun items(
+        count: Int,
+        itemContent: @Composable LazyItemScope.(index: Int) -> Unit
+    )
 }
 
 /**
@@ -175,7 +182,7 @@ private fun FixedLazyGrid(
     LazyRow(
         modifier = modifier,
         state = state,
-        contentPadding = contentPadding,
+        contentPadding = contentPadding
     ) {
         items(columns) { columnIndex ->
             Column {
@@ -203,7 +210,10 @@ internal class LazyGridScopeImpl : LazyGridScope {
 
     val totalSize get() = intervals.totalSize
 
-    fun contentFor(index: Int, scope: LazyItemScope): @Composable () -> Unit {
+    fun contentFor(
+        index: Int,
+        scope: LazyItemScope
+    ): @Composable () -> Unit {
         val interval = intervals.intervalForIndex(index)
         val localIntervalIndex = index - interval.startIndex
 
@@ -214,7 +224,10 @@ internal class LazyGridScopeImpl : LazyGridScope {
         intervals.add(1) { @Composable { content() } }
     }
 
-    override fun items(count: Int, itemContent: @Composable LazyItemScope.(index: Int) -> Unit) {
+    override fun items(
+        count: Int,
+        itemContent: @Composable LazyItemScope.(index: Int) -> Unit
+    ) {
         intervals.add(count) {
             @Composable { itemContent(it) }
         }
@@ -232,16 +245,20 @@ internal class IntervalList<T> {
     internal var totalSize = 0
         private set
 
-    fun add(size: Int, content: T) {
+    fun add(
+        size: Int,
+        content: T
+    ) {
         if (size == 0) {
             return
         }
 
-        val interval = IntervalHolder(
-            startIndex = totalSize,
-            size = size,
-            content = content
-        )
+        val interval =
+            IntervalHolder(
+                startIndex = totalSize,
+                size = size,
+                content = content
+            )
         totalSize += size
         intervals.add(interval)
     }
@@ -257,7 +274,10 @@ internal class IntervalList<T> {
      * Finds the index of the [list] which contains the highest value of [IntervalHolder.startIndex]
      * that is less than or equal to the given [value].
      */
-    private fun findIndexOfHighestValueLesserThan(list: List<IntervalHolder<T>>, value: Int): Int {
+    private fun findIndexOfHighestValueLesserThan(
+        list: List<IntervalHolder<T>>,
+        value: Int
+    ): Int {
         var left = 0
         var right = list.lastIndex
 

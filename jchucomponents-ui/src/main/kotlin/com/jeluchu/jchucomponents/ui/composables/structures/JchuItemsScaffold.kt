@@ -1,5 +1,6 @@
 package com.jeluchu.jchucomponents.ui.composables.structures
 
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -7,12 +8,9 @@ import androidx.compose.runtime.Immutable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.foundation.layout.padding
 
 @Composable
-fun JchuDefaultLoadingContent(
-    modifier: Modifier = Modifier
-) {
+fun JchuDefaultLoadingContent(modifier: Modifier = Modifier) {
     androidx.compose.material3.CircularProgressIndicator(
         modifier = modifier.padding(24.dp)
     )

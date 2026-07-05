@@ -361,7 +361,7 @@ fun <T> ListRow(
         modifier = modifier,
         contentPadding = contentPadding,
         horizontalArrangement = horizontalArrangement,
-        verticalAlignment = verticalAlignment,
+        verticalAlignment = verticalAlignment
     ) { items(items) { item -> content(item) } }
 }
 
@@ -378,6 +378,6 @@ fun <T> ListRow(
         modifier = modifier,
         contentPadding = contentPadding,
         horizontalArrangement = horizontalArrangement,
-        verticalAlignment = verticalAlignment,
+        verticalAlignment = verticalAlignment
     ) { itemsIndexed(items) { index, item -> content(index, item) } }
 }

@@ -13,8 +13,7 @@ import androidx.compose.runtime.CompositionLocalProvider
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun ListNotOverScroll(
-    content: @Composable () -> Unit
-) = CompositionLocalProvider(
-    LocalOverscrollFactory provides null
-) { content() }
+fun ListNotOverScroll(content: @Composable () -> Unit) =
+    CompositionLocalProvider(
+        LocalOverscrollFactory provides null
+    ) { content() }

@@ -16,9 +16,10 @@ fun rememberCountdownTimerState(
     LaunchedEffect(initialMillis, step) {
         val startTime = withFrameMillis { it }
         while (isActive && timeLeft.value > 0) {
-            val duration = withFrameMillis { time ->
-                (time - startTime).coerceAtLeast(0)
-            }
+            val duration =
+                withFrameMillis { time ->
+                    (time - startTime).coerceAtLeast(0)
+                }
             timeLeft.value = (initialMillis - duration).coerceAtLeast(0)
             delay(step.coerceAtMost(timeLeft.value))
         }

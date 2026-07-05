@@ -50,12 +50,13 @@ fun JchuSearchField(
     focusManager: FocusManager = LocalFocusManager.current,
     searchField: SearchField = SearchField(),
     searchContentDescription: String = String.empty(),
-    clearContentDescription: String = String.empty(),
+    clearContentDescription: String = String.empty()
 ) = TextField(
-    modifier = modifier
-        .fillMaxWidth()
-        .clip(RoundedCornerShape(searchField.cornerRadious))
-        .background(searchField.backgroundColor),
+    modifier =
+        modifier
+            .fillMaxWidth()
+            .clip(RoundedCornerShape(searchField.cornerRadious))
+            .background(searchField.backgroundColor),
     label = {
         Text(
             text = labelText,
@@ -64,59 +65,65 @@ fun JchuSearchField(
         )
     },
     value = value,
-    textStyle = TextStyle(
-        fontSize = 16.sp,
-        fontWeight = FontWeight.Bold
-    ),
+    textStyle =
+        TextStyle(
+            fontSize = 16.sp,
+            fontWeight = FontWeight.Bold
+        ),
     onValueChange = onValueChange,
-    colors = TextFieldDefaults.colors(
-        focusedTextColor = searchField.contentColor,
-        unfocusedTextColor = searchField.contentColor,
-        disabledTextColor = Color.Transparent,
-        focusedContainerColor = searchField.backgroundColor,
-        unfocusedContainerColor = searchField.backgroundColor,
-        disabledContainerColor = searchField.backgroundColor,
-        focusedIndicatorColor = Color.Transparent,
-        errorIndicatorColor = Color.Transparent,
-        unfocusedIndicatorColor = Color.Transparent,
-        disabledIndicatorColor = Color.Transparent,
-        cursorColor = searchField.contentColor
-    ),
+    colors =
+        TextFieldDefaults.colors(
+            focusedTextColor = searchField.contentColor,
+            unfocusedTextColor = searchField.contentColor,
+            disabledTextColor = Color.Transparent,
+            focusedContainerColor = searchField.backgroundColor,
+            unfocusedContainerColor = searchField.backgroundColor,
+            disabledContainerColor = searchField.backgroundColor,
+            focusedIndicatorColor = Color.Transparent,
+            errorIndicatorColor = Color.Transparent,
+            unfocusedIndicatorColor = Color.Transparent,
+            disabledIndicatorColor = Color.Transparent,
+            cursorColor = searchField.contentColor
+        ),
     leadingIcon = {
         Icon(
             Icons.Default.Search,
             tint = searchField.contentColor,
             contentDescription = searchContentDescription,
-            modifier = Modifier
-                .padding(15.dp)
-                .size(24.dp)
+            modifier =
+                Modifier
+                    .padding(15.dp)
+                    .size(24.dp)
         )
     },
     trailingIcon = {
         IconButton(
             onClick = {
                 onValueChange(String.empty())
-            },
+            }
         ) {
             Icon(
                 imageVector = Icons.Filled.Close,
                 tint = searchField.contentColor,
                 contentDescription = clearContentDescription,
-                modifier = Modifier
-                    .padding(5.dp)
-                    .size(24.dp)
+                modifier =
+                    Modifier
+                        .padding(5.dp)
+                        .size(24.dp)
             )
         }
     },
     singleLine = true,
-    keyboardActions = KeyboardActions(
-        onDone = {
-            focusManager.clearFocus()
-        }
-    ),
-    keyboardOptions = KeyboardOptions.Default.copy(
-        imeAction = ImeAction.Done
-    )
+    keyboardActions =
+        KeyboardActions(
+            onDone = {
+                focusManager.clearFocus()
+            }
+        ),
+    keyboardOptions =
+        KeyboardOptions.Default.copy(
+            imeAction = ImeAction.Done
+        )
 )
 
 @Immutable

@@ -33,9 +33,7 @@ import androidx.compose.runtime.snapshots.Snapshot
  * @see MutableIntState
  */
 @Composable
-fun rememberMutableIntStateOf(
-    value: Int,
-): MutableIntState = remember { mutableIntStateOf(value) }
+fun rememberMutableIntStateOf(value: Int): MutableIntState = remember { mutableIntStateOf(value) }
 
 /**
  *
@@ -58,7 +56,6 @@ fun rememberMutableIntStateOf(
     key1: Any?,
     value: Int
 ): MutableIntState = remember(key1) { mutableIntStateOf(value) }
-
 
 /**
  *

@@ -1,6 +1,5 @@
 package com.jeluchu.jchucomponents.ui.composables.preferences
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -39,41 +38,47 @@ fun PreferenceSwitch(
     checkedIcon: ImageVector = Icons.Outlined.Check,
     titleStyle: TextStyle = MaterialTheme.typography.titleLarge,
     descriptionStyle: TextStyle = MaterialTheme.typography.bodyMedium,
-    onClick: (() -> Unit) = {},
+    onClick: (() -> Unit) = {}
 ) {
-    val thumbContent: (@Composable () -> Unit)? = if (isChecked) {
-        {
-            Icon(
-                imageVector = checkedIcon,
-                contentDescription = null,
-                modifier = Modifier.size(SwitchDefaults.IconSize),
-            )
+    val thumbContent: (@Composable () -> Unit)? =
+        if (isChecked) {
+            {
+                Icon(
+                    imageVector = checkedIcon,
+                    contentDescription = null,
+                    modifier = Modifier.size(SwitchDefaults.IconSize)
+                )
+            }
+        } else {
+            null
         }
-    } else null
 
     Surface(
-        modifier = Modifier
-            .toggleable(
-                value = isChecked,
-                enabled = enabled,
-                onValueChange = { onClick() }
-            ),
+        modifier =
+            Modifier
+                .toggleable(
+                    value = isChecked,
+                    enabled = enabled,
+                    onValueChange = { onClick() }
+                ),
         color = containerColor
     ) {
         Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(8.dp, 16.dp)
-                .padding(start = if (icon == null) 12.dp else 0.dp),
-            verticalAlignment = Alignment.CenterVertically,
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .padding(8.dp, 16.dp)
+                    .padding(start = if (icon == null) 12.dp else 0.dp),
+            verticalAlignment = Alignment.CenterVertically
         ) {
             icon?.let {
                 Icon(
                     imageVector = icon,
                     contentDescription = null,
-                    modifier = Modifier
-                        .padding(start = 8.dp, end = 16.dp)
-                        .size(30.dp),
+                    modifier =
+                        Modifier
+                            .padding(start = 8.dp, end = 16.dp)
+                            .size(30.dp),
                     tint = contentColor.opacity(enabled)
                 )
             }
@@ -86,12 +91,14 @@ fun PreferenceSwitch(
                     style = titleStyle,
                     color = contentColor
                 )
-                if (!description.isNullOrEmpty()) PreferenceItemDescription(
-                    enabled = enabled,
-                    text = description,
-                    color = contentColor,
-                    style = descriptionStyle
-                )
+                if (!description.isNullOrEmpty()) {
+                    PreferenceItemDescription(
+                        enabled = enabled,
+                        text = description,
+                        color = contentColor,
+                        style = descriptionStyle
+                    )
+                }
             }
             Switch(
                 checked = isChecked,

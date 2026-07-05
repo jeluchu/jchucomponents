@@ -40,28 +40,30 @@ fun CategoryImageCard(
     verticalArrangement = Arrangement.spacedBy(5.dp)
 ) {
     Box(
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(180.dp)
-            .padding(bottom = 10.dp)
-            .clip(
-                RoundedCornerShape(
-                    topEnd = shape / 2,
-                    topStart = shape / 2,
-                    bottomStart = shape / 2
-                )
-            )
-            .background(Color.Red)
+        modifier =
+            Modifier
+                .fillMaxWidth()
+                .height(180.dp)
+                .padding(bottom = 10.dp)
+                .clip(
+                    RoundedCornerShape(
+                        topEnd = shape / 2,
+                        topStart = shape / 2,
+                        bottomStart = shape / 2
+                    )
+                ).background(Color.Red)
     ) {
         Icon(
-            modifier = Modifier
-                .align(Alignment.BottomEnd)
-                .background(
-                    color = colors.containerColor,
-                    shape = RoundedCornerShape(topStart = shape / 2)
-                )
-                .padding(10.dp),
-            imageVector = com.jeluchu.jchucomponents.ktx.R.drawable.ic_btn_share.toImageVector(),
+            modifier =
+                Modifier
+                    .align(Alignment.BottomEnd)
+                    .background(
+                        color = colors.containerColor,
+                        shape = RoundedCornerShape(topStart = shape / 2)
+                    ).padding(10.dp),
+            imageVector =
+                com.jeluchu.jchucomponents.ktx.R.drawable.ic_btn_share
+                    .toImageVector(),
             contentDescription = null
         )
     }
@@ -82,10 +84,12 @@ fun CategoryImageCard(
 
 @Preview
 @Composable
-fun CategoryImageCardPreview() = CategoryImageCard(
-    modifier = Modifier
-        .fillMaxWidth()
-        .padding(10.dp),
-    title = R.string.sample_title.toStringRes(),
-    description = R.string.sample_description.toStringRes()
-) {}
+fun CategoryImageCardPreview() =
+    CategoryImageCard(
+        modifier =
+            Modifier
+                .fillMaxWidth()
+                .padding(10.dp),
+        title = R.string.sample_title.toStringRes(),
+        description = R.string.sample_description.toStringRes()
+    ) {}

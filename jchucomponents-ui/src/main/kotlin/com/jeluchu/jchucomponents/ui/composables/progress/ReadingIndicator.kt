@@ -41,27 +41,27 @@ fun ReadingIndicator(
         modifier = Modifier.fillMaxWidth().padding(20.dp).height(20.dp)
     ) {
         Box(
-            modifier = modifier
-                .fillMaxWidth()
-                .drawBehind {
-                    width = size.width
-                    drawLine(
-                        color = color,
-                        start = Offset.Zero,
-                        end = Offset(size.width, 0f),
-                        cap = StrokeCap.Round,
-                        strokeWidth = 20f
-                    )
-                }
-                .drawBehind {
-                    drawLine(
-                        color = Color.DarkGray,
-                        start = Offset.Zero,
-                        end = Offset(anim, 0f),
-                        cap = StrokeCap.Round,
-                        strokeWidth = 20f
-                    )
-                }
+            modifier =
+                modifier
+                    .fillMaxWidth()
+                    .drawBehind {
+                        width = size.width
+                        drawLine(
+                            color = color,
+                            start = Offset.Zero,
+                            end = Offset(size.width, 0f),
+                            cap = StrokeCap.Round,
+                            strokeWidth = 20f
+                        )
+                    }.drawBehind {
+                        drawLine(
+                            color = Color.DarkGray,
+                            start = Offset.Zero,
+                            end = Offset(anim, 0f),
+                            cap = StrokeCap.Round,
+                            strokeWidth = 20f
+                        )
+                    }
         )
     }
 }
@@ -71,6 +71,6 @@ fun ReadingIndicator(
 fun ReadingIndicatorPreview() {
     ReadingIndicator(
         lastPage = 2f,
-        totalPage = 10f,
+        totalPage = 10f
     )
 }

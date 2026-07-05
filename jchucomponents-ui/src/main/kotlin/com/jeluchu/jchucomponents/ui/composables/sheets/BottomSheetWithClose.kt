@@ -47,34 +47,37 @@ fun BottomSheetWithCloseDialog(
     bottomSheetSettings: BottomSheetSettings = BottomSheetSettings(),
     content: @Composable () -> Unit
 ) = Box(modifier.fillMaxWidth()) {
-
-    if (bottomSheetSettings.isCardCloseShow)
+    if (bottomSheetSettings.isCardCloseShow) {
         Card(
             modifier = bottomSheetSettings.contentModifier.align(Alignment.TopCenter),
-            colors = CardDefaults.cardColors(
-                containerColor = bottomSheetSettings.buttonTint.copy(.6f)
-            ),
-            elevation = CardDefaults.cardElevation(
-                defaultElevation = 0.dp,
-                pressedElevation = 0.dp,
-                focusedElevation = 0.dp,
-                hoveredElevation = 0.dp,
-                draggedElevation = 0.dp,
-                disabledElevation = 0.dp,
-            ),
+            colors =
+                CardDefaults.cardColors(
+                    containerColor = bottomSheetSettings.buttonTint.copy(.6f)
+                ),
+            elevation =
+                CardDefaults.cardElevation(
+                    defaultElevation = 0.dp,
+                    pressedElevation = 0.dp,
+                    focusedElevation = 0.dp,
+                    hoveredElevation = 0.dp,
+                    draggedElevation = 0.dp,
+                    disabledElevation = 0.dp
+                ),
             shape = CircleShape,
             content = {}
         )
+    }
 
     content()
 
-    if (bottomSheetSettings.isCloseIconShow)
+    if (bottomSheetSettings.isCloseIconShow) {
         IconButton(
             onClick = bottomSheetSettings.onClosePressed,
-            modifier = Modifier
-                .align(Alignment.TopEnd)
-                .padding(16.dp)
-                .size(29.dp)
+            modifier =
+                Modifier
+                    .align(Alignment.TopEnd)
+                    .padding(16.dp)
+                    .size(29.dp)
         ) {
             Icon(
                 imageVector = Icons.Filled.Close,
@@ -82,14 +85,16 @@ fun BottomSheetWithCloseDialog(
                 contentDescription = null
             )
         }
+    }
 }
 
 @Immutable
 class BottomSheetSettings constructor(
-    val contentModifier: Modifier = Modifier
-        .width(125.dp)
-        .height(20.dp)
-        .padding(vertical = 8.dp),
+    val contentModifier: Modifier =
+        Modifier
+            .width(125.dp)
+            .height(20.dp)
+            .padding(vertical = 8.dp),
     val buttonTint: Color = Color.Gray,
     val isCardCloseShow: Boolean = true,
     val isCloseIconShow: Boolean = false,

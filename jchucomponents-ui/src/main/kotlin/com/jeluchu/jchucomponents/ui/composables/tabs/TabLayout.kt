@@ -46,16 +46,16 @@ fun ChipTab(
     content: @Composable ColumnScope.() -> Unit
 ) = TabTransition(selectedContentColor, unselectedContentColor, selected) {
     Column(
-        modifier = modifier
-            .selectable(
-                selected = selected,
-                onClick = onClick,
-                enabled = enabled,
-                role = Role.Tab,
-                interactionSource = interactionSource,
-                indication = null
-            )
-            .fillMaxWidth(),
+        modifier =
+            modifier
+                .selectable(
+                    selected = selected,
+                    onClick = onClick,
+                    enabled = enabled,
+                    role = Role.Tab,
+                    interactionSource = interactionSource,
+                    indication = null
+                ).fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center,
         content = content
@@ -95,7 +95,8 @@ private fun TabTransition(
                     easing = LinearEasing
                 )
             }
-        }, label = String.empty()
+        },
+        label = String.empty()
     ) {
         if (it) activeColor else inactiveColor
     }

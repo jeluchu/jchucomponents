@@ -2,14 +2,14 @@ package com.jeluchu.jchucomponents.ui.composables.textfields
 
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.animateContentSize
+import androidx.compose.animation.core.Spring
+import androidx.compose.animation.core.snap
+import androidx.compose.animation.core.spring
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
 import androidx.compose.animation.togetherWith
-import androidx.compose.animation.core.Spring
-import androidx.compose.animation.core.snap
-import androidx.compose.animation.core.spring
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -52,24 +52,27 @@ fun JchuGrowingTextField(
     val colors = defaults.colors ?: GrowingTextFieldColorsDefaults.colors()
 
     Column(
-        modifier = modifier.then(
-            if (defaults.animateContentChanges) {
-                Modifier.animateContentSize(
-                    animationSpec = spring(
-                        dampingRatio = Spring.DampingRatioNoBouncy,
-                        stiffness = Spring.StiffnessMediumLow
+        modifier =
+            modifier.then(
+                if (defaults.animateContentChanges) {
+                    Modifier.animateContentSize(
+                        animationSpec =
+                            spring(
+                                dampingRatio = Spring.DampingRatioNoBouncy,
+                                stiffness = Spring.StiffnessMediumLow
+                            )
                     )
-                )
-            } else {
-                Modifier
-            }
-        ),
+                } else {
+                    Modifier
+                }
+            ),
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 4.dp),
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 4.dp),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
@@ -105,20 +108,22 @@ fun JchuGrowingTextField(
             textStyle = defaults.textStyle,
             minLines = defaults.minLines,
             maxLines = defaults.maxLines,
-            keyboardOptions = KeyboardOptions(
-                capitalization = defaults.capitalization,
-                keyboardType = defaults.keyboardType
-            ),
+            keyboardOptions =
+                KeyboardOptions(
+                    capitalization = defaults.capitalization,
+                    keyboardType = defaults.keyboardType
+                ),
             shape = defaults.shape,
-            colors = TextFieldDefaults.colors(
-                focusedTextColor = colors.contentColor,
-                unfocusedTextColor = colors.contentColor,
-                focusedContainerColor = colors.containerColor,
-                unfocusedContainerColor = colors.containerColor,
-                focusedIndicatorColor = colors.focusedIndicatorColor,
-                unfocusedIndicatorColor = colors.unfocusedIndicatorColor,
-                cursorColor = colors.cursorColor
-            )
+            colors =
+                TextFieldDefaults.colors(
+                    focusedTextColor = colors.contentColor,
+                    unfocusedTextColor = colors.contentColor,
+                    focusedContainerColor = colors.containerColor,
+                    unfocusedContainerColor = colors.containerColor,
+                    focusedIndicatorColor = colors.focusedIndicatorColor,
+                    unfocusedIndicatorColor = colors.unfocusedIndicatorColor,
+                    cursorColor = colors.cursorColor
+                )
         )
 
         defaults.maxCharacters?.let { maximum ->
@@ -129,9 +134,9 @@ fun JchuGrowingTextField(
                     if (defaults.animateContentChanges) {
                         (
                             slideInVertically { height -> height / 2 } + fadeIn()
-                            ) togetherWith (
+                        ) togetherWith (
                             slideOutVertically { height -> -height / 2 } + fadeOut()
-                            )
+                        )
                     } else {
                         fadeIn(animationSpec = snap()) togetherWith
                             fadeOut(animationSpec = snap())
@@ -181,7 +186,6 @@ data class GrowingTextFieldColors(
 )
 
 object GrowingTextFieldColorsDefaults {
-
     @Composable
     fun colors(
         containerColor: Color = MaterialTheme.colorScheme.surfaceContainer,
@@ -210,12 +214,13 @@ private fun JchuGrowingTextFieldPreview() {
     JchuGrowingTextField(
         value = "A reusable growing text field.",
         onValueChange = {},
-        defaults = GrowingTextFieldDefaults(
-            label = "Notes",
-            placeholder = "Write something",
-            icon = Icons.Default.Edit,
-            maxCharacters = 120
-        ),
+        defaults =
+            GrowingTextFieldDefaults(
+                label = "Notes",
+                placeholder = "Write something",
+                icon = Icons.Default.Edit,
+                maxCharacters = 120
+            ),
         modifier = Modifier.padding(16.dp)
     )
 }

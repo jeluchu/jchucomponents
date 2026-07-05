@@ -34,17 +34,18 @@ fun rememberReorderableLazyGridState(
 ): ReorderableLazyGridState {
     val maxScroll = with(LocalDensity.current) { maxScrollPerFrame.toPx() }
     val scope = rememberCoroutineScope()
-    val state = remember(gridState) {
-        ReorderableLazyGridState(
-            gridState = gridState,
-            scope = scope,
-            maxScrollPerFrame = maxScroll,
-            onMove = onMove,
-            canDragOver = canDragOver,
-            onDragEnd = onDragEnd,
-            dragCancelledAnimation = dragCancelledAnimation
-        )
-    }
+    val state =
+        remember(gridState) {
+            ReorderableLazyGridState(
+                gridState = gridState,
+                scope = scope,
+                maxScrollPerFrame = maxScroll,
+                onMove = onMove,
+                canDragOver = canDragOver,
+                onDragEnd = onDragEnd,
+                dragCancelledAnimation = dragCancelledAnimation
+            )
+        }
     LaunchedEffect(state) {
         state.visibleItemsChanged().collect { state.onDrag(0, 0) }
     }
@@ -67,13 +68,13 @@ class ReorderableLazyGridState(
     onDragEnd: ((startIndex: Int, endIndex: Int) -> (Unit))? = null,
     dragCancelledAnimation: DragCancelledAnimation = SpringDragCancelledAnimation()
 ) : ReorderableState<LazyGridItemInfo>(
-    scope = scope,
-    maxScrollPerFrame = maxScrollPerFrame,
-    onMove = onMove,
-    canDragOver = canDragOver,
-    onDragEnd = onDragEnd,
-    dragCancelledAnimation = dragCancelledAnimation
-) {
+        scope = scope,
+        maxScrollPerFrame = maxScrollPerFrame,
+        onMove = onMove,
+        canDragOver = canDragOver,
+        onDragEnd = onDragEnd,
+        dragCancelledAnimation = dragCancelledAnimation
+    ) {
     override val isVerticalScroll: Boolean
         get() = gridState.layoutInfo.orientation == Orientation.Vertical
     override val LazyGridItemInfo.left: Int
@@ -103,6 +104,8 @@ class ReorderableLazyGridState(
     override val firstVisibleItemScrollOffset: Int
         get() = gridState.firstVisibleItemScrollOffset
 
-    override suspend fun scrollToItem(index: Int, offset: Int) =
-        gridState.scrollToItem(index, offset)
+    override suspend fun scrollToItem(
+        index: Int,
+        offset: Int
+    ) = gridState.scrollToItem(index, offset)
 }

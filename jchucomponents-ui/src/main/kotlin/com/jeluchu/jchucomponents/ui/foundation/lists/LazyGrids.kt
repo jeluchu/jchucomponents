@@ -53,18 +53,20 @@ fun VerticalGrid(
     modifier = modifier
 ) { measurables, constraints ->
     val itemWidth = constraints.maxWidth / columns
-    val itemConstraints = constraints.copy(
-        minWidth = itemWidth,
-        maxWidth = itemWidth
-    )
+    val itemConstraints =
+        constraints.copy(
+            minWidth = itemWidth,
+            maxWidth = itemWidth
+        )
     val placeables = measurables.map { it.measure(itemConstraints) }
     val columnHeights = Array(columns) { 0 }
     placeables.forEachIndexed { index, placeable ->
         val column = index % columns
         columnHeights[column] += placeable.height
     }
-    val height = (columnHeights.maxOrNull() ?: constraints.minHeight)
-        .coerceAtMost(constraints.maxHeight)
+    val height =
+        (columnHeights.maxOrNull() ?: constraints.minHeight)
+            .coerceAtMost(constraints.maxHeight)
     layout(
         width = constraints.maxWidth,
         height = height
@@ -89,7 +91,7 @@ fun LazyStaticGrid(
     fillLastRow: Boolean = true,
     rowContentAlignment: RowContentAlignment = RowContentAlignment(),
     columnContentAlignment: ColumnContentAlignment = ColumnContentAlignment(),
-    content: @Composable RowScope.(itemIndex: Int) -> Unit,
+    content: @Composable RowScope.(itemIndex: Int) -> Unit
 ) = Column(
     modifier = modifier,
     verticalArrangement = columnContentAlignment.verticalArrangement,
@@ -103,8 +105,11 @@ fun LazyStaticGrid(
         ) {
             repeat(columns) { columnIndex ->
                 val itemIndex = rowIndex * columns + columnIndex
-                if (itemIndex < itemCount) content(itemIndex)
-                else if (fillLastRow) Spacer(Modifier.weight(1f))
+                if (itemIndex < itemCount) {
+                    content(itemIndex)
+                } else if (fillLastRow) {
+                    Spacer(Modifier.weight(1f))
+                }
             }
         }
     }
@@ -118,7 +123,7 @@ fun <T> LazyStaticGrid(
     fillLastRow: Boolean = true,
     rowContentAlignment: RowContentAlignment = RowContentAlignment(),
     columnContentAlignment: ColumnContentAlignment = ColumnContentAlignment(),
-    content: @Composable RowScope.(itemIndex: T) -> Unit,
+    content: @Composable RowScope.(itemIndex: T) -> Unit
 ) = Column(
     modifier = modifier,
     verticalArrangement = columnContentAlignment.verticalArrangement,
@@ -133,8 +138,11 @@ fun <T> LazyStaticGrid(
         ) {
             repeat(columns) { columnIndex ->
                 val itemIndex = rowIndex * columns + columnIndex
-                if (itemIndex < itemsCount) content(items[itemIndex])
-                else if (fillLastRow) Spacer(Modifier.weight(1f))
+                if (itemIndex < itemsCount) {
+                    content(items[itemIndex])
+                } else if (fillLastRow) {
+                    Spacer(Modifier.weight(1f))
+                }
             }
         }
     }
@@ -175,7 +183,7 @@ fun LazyStaticGridPreview(
                 .clip(15.cornerRadius())
                 .background(primary)
                 .padding(8.dp),
-            Alignment.Center,
+            Alignment.Center
         ) {
             Text(
                 text = itemIndex.toString(),
@@ -188,19 +196,20 @@ fun LazyStaticGridPreview(
     Text(text = "LazyStaticGrid with simple list of String")
     LazyStaticGrid(
         columns = 3,
-        itemCount = listOf(
-            "Spanish",
-            "Catalan",
-            "Galician",
-            "Basque",
-            "English",
-            "Italian",
-            "French",
-            "Portuguese",
-            "Portuguese por tu",
-            "Polish",
-            "Disabled",
-        ).size,
+        itemCount =
+            listOf(
+                "Spanish",
+                "Catalan",
+                "Galician",
+                "Basque",
+                "English",
+                "Italian",
+                "French",
+                "Portuguese",
+                "Portuguese por tu",
+                "Polish",
+                "Disabled"
+            ).size,
         modifier = Modifier.padding(bottom = 20.dp)
     ) { itemIndex ->
         Box(
@@ -211,7 +220,7 @@ fun LazyStaticGridPreview(
                 .clip(15.cornerRadius())
                 .background(primary)
                 .padding(8.dp),
-            Alignment.Center,
+            Alignment.Center
         ) {
             Text(
                 text = itemIndex.toString(),
@@ -224,32 +233,33 @@ fun LazyStaticGridPreview(
     Text(text = "LazyStaticGrid with simple list of custom object")
     LazyStaticGrid(
         columns = 3,
-        items = listOf(
-            LazyGridPeview(
-                id = 0,
-                name = "Spanish"
+        items =
+            listOf(
+                LazyGridPeview(
+                    id = 0,
+                    name = "Spanish"
+                ),
+                LazyGridPeview(
+                    id = 1,
+                    name = "Catalan"
+                ),
+                LazyGridPeview(
+                    id = 2,
+                    name = "Galician"
+                ),
+                LazyGridPeview(
+                    id = 3,
+                    name = "Basque"
+                ),
+                LazyGridPeview(
+                    id = 4,
+                    name = "English"
+                ),
+                LazyGridPeview(
+                    id = 5,
+                    name = "Italian"
+                )
             ),
-            LazyGridPeview(
-                id = 1,
-                name = "Catalan"
-            ),
-            LazyGridPeview(
-                id = 2,
-                name = "Galician"
-            ),
-            LazyGridPeview(
-                id = 3,
-                name = "Basque"
-            ),
-            LazyGridPeview(
-                id = 4,
-                name = "English"
-            ),
-            LazyGridPeview(
-                id = 5,
-                name = "Italian"
-            )
-        ),
         modifier = Modifier.padding(bottom = 20.dp)
     ) { item ->
         Box(
@@ -260,7 +270,7 @@ fun LazyStaticGridPreview(
                 .clip(15.cornerRadius())
                 .background(primary)
                 .padding(8.dp),
-            Alignment.Center,
+            Alignment.Center
         ) {
             Text(
                 text = item.name,

@@ -6,17 +6,17 @@ import androidx.compose.ui.tooling.preview.Preview
     name = "small font",
     group = "font scales",
     fontScale = 0.5f,
-    showBackground = true,
+    showBackground = true
 )
 @Preview(
     name = "large font",
     group = "font scales",
     fontScale = 1.5f,
-    showBackground = true,
+    showBackground = true
 )
 @Preview(
     name = "normal font",
     group = "font scales",
-    showBackground = true,
+    showBackground = true
 )
 annotation class FontScalingPreview

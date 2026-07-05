@@ -56,24 +56,30 @@ abstract class ReorderableState<T>(
     protected abstract val viewportEndOffset: Int
     internal val scrollChannel = Channel<Float>()
     val draggingItemLeft: Float
-        get() = draggingLayoutInfo?.let { item ->
-            (selected?.left ?: 0) + draggingDelta.x - item.left
-        } ?: 0f
+        get() =
+            draggingLayoutInfo?.let { item ->
+                (selected?.left ?: 0) + draggingDelta.x - item.left
+            } ?: 0f
     val draggingItemTop: Float
-        get() = draggingLayoutInfo?.let { item ->
-            (selected?.top ?: 0) + draggingDelta.y - item.top
-        } ?: 0f
+        get() =
+            draggingLayoutInfo?.let { item ->
+                (selected?.top ?: 0) + draggingDelta.y - item.top
+            } ?: 0f
     abstract val isVerticalScroll: Boolean
     private val draggingLayoutInfo: T?
-        get() = visibleItemsInfo
-            .firstOrNull { it.itemIndex == draggingItemIndex }
+        get() =
+            visibleItemsInfo
+                .firstOrNull { it.itemIndex == draggingItemIndex }
     private var draggingDelta by mutableStateOf(Offset.Zero)
     private var selected by mutableStateOf<T?>(null)
     private var autoscroller: Job? = null
     private val targets = mutableListOf<T>()
     private val distances = mutableListOf<Int>()
 
-    protected abstract suspend fun scrollToItem(index: Int, offset: Int)
+    protected abstract suspend fun scrollToItem(
+        index: Int,
+        offset: Int
+    )
 
     @OptIn(ExperimentalCoroutinesApi::class)
     internal fun visibleItemsChanged() =
@@ -82,7 +88,10 @@ abstract class ReorderableState<T>(
             .filterNotNull()
             .distinctUntilChanged { old, new -> old.firstOrNull()?.itemIndex == new.firstOrNull()?.itemIndex && old.count() == new.count() }
 
-    internal open fun onDragStart(offsetX: Int, offsetY: Int): Boolean {
+    internal open fun onDragStart(
+        offsetX: Int,
+        offsetY: Int
+    ): Boolean {
         val x: Int
         val y: Int
         if (isVerticalScroll) {
@@ -122,7 +131,10 @@ abstract class ReorderableState<T>(
         }
     }
 
-    internal fun onDrag(offsetX: Int, offsetY: Int) {
+    internal fun onDrag(
+        offsetX: Int,
+        offsetY: Int
+    ) {
         val selected = selected ?: return
         draggingDelta = Offset(draggingDelta.x + offsetX, draggingDelta.y + offsetY)
         val draggingItem = draggingLayoutInfo ?: return
@@ -161,20 +173,21 @@ abstract class ReorderableState<T>(
             if (autoscroller?.isActive == true) {
                 return
             }
-            autoscroller = scope.launch {
-                var scroll = scrollOffset
-                var start = 0L
-                while (scroll != 0f && autoscroller?.isActive == true) {
-                    withFrameMillis {
-                        if (start == 0L) {
-                            start = it
-                        } else {
-                            scroll = calcAutoScrollOffset(it - start, maxScrollPerFrame)
+            autoscroller =
+                scope.launch {
+                    var scroll = scrollOffset
+                    var start = 0L
+                    while (scroll != 0f && autoscroller?.isActive == true) {
+                        withFrameMillis {
+                            if (start == 0L) {
+                                start = it
+                            } else {
+                                scroll = calcAutoScrollOffset(it - start, maxScrollPerFrame)
+                            }
                         }
+                        scrollChannel.trySend(scroll)
                     }
-                    scrollChannel.trySend(scroll)
                 }
-            }
         } else {
             cancelAutoScroll()
         }
@@ -185,7 +198,11 @@ abstract class ReorderableState<T>(
         autoscroller = null
     }
 
-    protected open fun findTargets(x: Int, y: Int, selected: T): List<T> {
+    protected open fun findTargets(
+        x: Int,
+        y: Int,
+        selected: T
+    ): List<T> {
         targets.clear()
         distances.clear()
         val left = x + selected.left
@@ -196,11 +213,11 @@ abstract class ReorderableState<T>(
         val centerY = (top + bottom) / 2
         visibleItemsInfo.forEach { item ->
             if (
-                item.itemIndex == draggingItemIndex
-                || item.bottom < top
-                || item.top > bottom
-                || item.right < left
-                || item.left > right
+                item.itemIndex == draggingItemIndex ||
+                item.bottom < top ||
+                item.top > bottom ||
+                item.right < left ||
+                item.left > right
             ) {
                 return@forEach
             }
@@ -288,7 +305,10 @@ abstract class ReorderableState<T>(
         return target
     }
 
-    private fun calcAutoScrollOffset(time: Long, maxScroll: Float): Float {
+    private fun calcAutoScrollOffset(
+        time: Long,
+        maxScroll: Float
+    ): Float {
         val draggingItem = draggingLayoutInfo ?: return 0f
         val startOffset: Float
         val endOffset: Float
@@ -310,17 +330,15 @@ abstract class ReorderableState<T>(
                 (startOffset - viewportStartOffset).coerceAtMost(0f)
 
             else -> 0f
+        }.let {
+            interpolateOutOfBoundsScroll(
+                (endOffset - startOffset).toInt(),
+                it,
+                time,
+                maxScroll
+            )
         }
-            .let {
-                interpolateOutOfBoundsScroll(
-                    (endOffset - startOffset).toInt(),
-                    it,
-                    time,
-                    maxScroll
-                )
-            }
     }
-
 
     companion object {
         private const val ACCELERATION_LIMIT_TIME_MS: Long = 1500
@@ -336,7 +354,7 @@ abstract class ReorderableState<T>(
             viewSize: Int,
             viewSizeOutOfBounds: Float,
             time: Long,
-            maxScroll: Float,
+            maxScroll: Float
         ): Float {
             if (viewSizeOutOfBounds == 0f) return 0f
             val outOfBoundsRatio = min(1f, 1f * viewSizeOutOfBounds.absoluteValue / viewSize)

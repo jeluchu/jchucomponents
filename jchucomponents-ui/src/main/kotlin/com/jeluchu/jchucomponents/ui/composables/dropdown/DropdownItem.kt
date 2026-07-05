@@ -41,9 +41,9 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
-import com.jeluchu.jchucomponents.ui.extensions.toImageVector
 import com.jeluchu.jchucomponents.ktx.strings.empty
 import com.jeluchu.jchucomponents.ui.R
+import com.jeluchu.jchucomponents.ui.extensions.toImageVector
 
 @Composable
 fun DropdownItem(
@@ -138,20 +138,19 @@ internal fun DropdownMenuItemContent(
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     content: @Composable RowScope.() -> Unit
 ) = Row(
-    modifier = modifier
-        .clickable(
-            enabled = enabled,
-            onClick = onClick,
-            interactionSource = interactionSource,
-            indication = null
-        )
-        .fillMaxWidth()
-        .sizeIn(
-            minWidth = DropdownMenuItemDefaultMinWidth,
-            maxWidth = DropdownMenuItemDefaultMaxWidth,
-            minHeight = DropdownMenuItemDefaultMinHeight
-        )
-        .padding(contentPadding),
+    modifier =
+        modifier
+            .clickable(
+                enabled = enabled,
+                onClick = onClick,
+                interactionSource = interactionSource,
+                indication = null
+            ).fillMaxWidth()
+            .sizeIn(
+                minWidth = DropdownMenuItemDefaultMinWidth,
+                maxWidth = DropdownMenuItemDefaultMaxWidth,
+                minHeight = DropdownMenuItemDefaultMinHeight
+            ).padding(contentPadding),
     verticalAlignment = Alignment.CenterVertically
 ) {
     val typography = MaterialTheme.typography

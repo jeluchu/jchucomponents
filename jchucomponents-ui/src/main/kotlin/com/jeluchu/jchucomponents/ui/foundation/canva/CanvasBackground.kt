@@ -25,28 +25,28 @@ fun CanvasBackground(
     height: Int,
     drawable: Int
 ) {
-
     val context = LocalContext.current
 
     Canvas(
         modifier = modifier
     ) {
-
         val pattern =
-            context.getBitmapFromVectorDrawable(
-                with, height,
-                drawable
-            ).asImageBitmap()
+            context
+                .getBitmapFromVectorDrawable(
+                    with,
+                    height,
+                    drawable
+                ).asImageBitmap()
 
-        val paint = Paint().asFrameworkPaint().apply {
-            isAntiAlias = true
-            shader = ImageShader(pattern, TileMode.Repeated, TileMode.Repeated)
-        }
+        val paint =
+            Paint().asFrameworkPaint().apply {
+                isAntiAlias = true
+                shader = ImageShader(pattern, TileMode.Repeated, TileMode.Repeated)
+            }
 
         drawIntoCanvas {
             it.nativeCanvas.drawPaint(paint)
         }
         paint.reset()
     }
-
 }

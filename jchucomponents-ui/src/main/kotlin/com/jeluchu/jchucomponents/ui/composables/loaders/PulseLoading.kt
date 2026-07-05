@@ -55,46 +55,53 @@ fun PulseLoading(
     val size by infiniteTransition.animateFloat(
         initialValue = minPulseSize,
         targetValue = maxPulseSize,
-        animationSpec = infiniteRepeatable(
-            animation = tween(durationMillis, easing = LinearEasing),
-            repeatMode = RepeatMode.Restart
-        )
+        animationSpec =
+            infiniteRepeatable(
+                animation = tween(durationMillis, easing = LinearEasing),
+                repeatMode = RepeatMode.Restart
+            )
     )
     val alpha by infiniteTransition.animateFloat(
         initialValue = 1f,
         targetValue = 0f,
-        animationSpec = infiniteRepeatable(
-            animation = tween(durationMillis, easing = LinearEasing),
-            repeatMode = RepeatMode.Restart
-        )
+        animationSpec =
+            infiniteRepeatable(
+                animation = tween(durationMillis, easing = LinearEasing),
+                repeatMode = RepeatMode.Restart
+            )
     )
     Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
         Card(
             shape = CircleShape,
-            modifier = Modifier
-                .size(size.dp)
-                .align(Alignment.Center)
-                .alpha(alpha),
-            colors = CardDefaults.cardColors(
-                containerColor = pulseColor
-            ),
-            elevation = CardDefaults.cardElevation(
-                defaultElevation = 0.dp,
-                pressedElevation = 0.dp,
-                focusedElevation = 0.dp,
-                hoveredElevation = 0.dp,
-                draggedElevation = 0.dp,
-                disabledElevation = 0.dp
-            )
+            modifier =
+                Modifier
+                    .size(size.dp)
+                    .align(Alignment.Center)
+                    .alpha(alpha),
+            colors =
+                CardDefaults.cardColors(
+                    containerColor = pulseColor
+                ),
+            elevation =
+                CardDefaults.cardElevation(
+                    defaultElevation = 0.dp,
+                    pressedElevation = 0.dp,
+                    focusedElevation = 0.dp,
+                    hoveredElevation = 0.dp,
+                    draggedElevation = 0.dp,
+                    disabledElevation = 0.dp
+                )
         ) {}
         Card(
-            modifier = Modifier
-                .size(minPulseSize.dp)
-                .align(Alignment.Center),
+            modifier =
+                Modifier
+                    .size(minPulseSize.dp)
+                    .align(Alignment.Center),
             shape = CircleShape,
-            colors = CardDefaults.cardColors(
-                containerColor = centreColor
-            ),
+            colors =
+                CardDefaults.cardColors(
+                    containerColor = centreColor
+                )
         ) {}
     }
 }

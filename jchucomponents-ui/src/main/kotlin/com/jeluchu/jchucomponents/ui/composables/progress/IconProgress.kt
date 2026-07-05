@@ -33,11 +33,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.jeluchu.jchucomponents.ktx.colors.toColorFilter
-import com.jeluchu.jchucomponents.ui.extensions.toImageVector
-import com.jeluchu.jchucomponents.ui.extensions.toPainter
 import com.jeluchu.jchucomponents.ktx.strings.empty
 import com.jeluchu.jchucomponents.ui.R
 import com.jeluchu.jchucomponents.ui.extensions.modifier.cornerRadius
+import com.jeluchu.jchucomponents.ui.extensions.toImageVector
+import com.jeluchu.jchucomponents.ui.extensions.toPainter
 import com.jeluchu.jchucomponents.ui.runtime.remember.rememberMutableStateOf
 import com.jeluchu.jchucomponents.ui.theme.cosmicLatte
 
@@ -59,42 +59,51 @@ fun IconProgress(
     val numberTimes by rememberMutableStateOf(key1 = checkMaxValue, value = checkMaxValue)
     val animateNumber by animateFloatAsState(
         targetValue = if (numberTimes > maxNumber) maxNumber else numberTimes,
-        animationSpec = tween(
-            durationMillis = animationDuration,
-            delayMillis = animationDelay
-        )
+        animationSpec =
+            tween(
+                durationMillis = animationDuration,
+                delayMillis = animationDelay
+            )
     )
 
     Column(
-        modifier = modifier
-            .clip(10.cornerRadius())
-            .background(iconProgressCustom.container)
-            .padding(10.dp),
+        modifier =
+            modifier
+                .clip(10.cornerRadius())
+                .background(iconProgressCustom.container)
+                .padding(10.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(5.dp)
     ) {
         androidx.compose.material3.Icon(
-            modifier = Modifier
-                .size(iconProgressCustom.iconSize)
-                .padding(iconProgressCustom.iconPadding),
+            modifier =
+                Modifier
+                    .size(iconProgressCustom.iconSize)
+                    .padding(iconProgressCustom.iconPadding),
             imageVector = icon,
-            tint = when {
-                !enabled -> iconProgressCounter.disabledIndicator
-                numberTimes != maxNumber -> iconProgressCustom.content
-                else -> iconProgressCustom.foregroundIndicatorComplete
-            },
+            tint =
+                when {
+                    !enabled -> iconProgressCounter.disabledIndicator
+                    numberTimes != maxNumber -> iconProgressCustom.content
+                    else -> iconProgressCustom.foregroundIndicatorComplete
+                },
             contentDescription = String.empty()
         )
 
         Canvas(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(5.dp)
-                .height(indicatorHeight)
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .padding(5.dp)
+                    .height(indicatorHeight)
         ) {
             drawLine(
-                color = if (enabled) iconProgressCustom.containerIndicator
-                else iconProgressCustom.disabledIndicator,
+                color =
+                    if (enabled) {
+                        iconProgressCustom.containerIndicator
+                    } else {
+                        iconProgressCustom.disabledIndicator
+                    },
                 cap = StrokeCap.Round,
                 strokeWidth = size.height,
                 start = Offset(x = 0f, y = center.y),
@@ -103,27 +112,35 @@ fun IconProgress(
 
             if (enabled) {
                 val progress = (animateNumber / maxNumber) * size.width
-                if (animateNumber != 0f)
+                if (animateNumber != 0f) {
                     drawLine(
-                        color = if (numberTimes != maxNumber) iconProgressCustom.foregroundIndicator
-                        else iconProgressCustom.foregroundIndicatorComplete,
+                        color =
+                            if (numberTimes != maxNumber) {
+                                iconProgressCustom.foregroundIndicator
+                            } else {
+                                iconProgressCustom.foregroundIndicatorComplete
+                            },
                         cap = StrokeCap.Round,
                         strokeWidth = size.height,
                         start = Offset(x = 0f, y = center.y),
                         end = Offset(x = progress, y = center.y)
                     )
+                }
             }
         }
 
         Text(
-            modifier = Modifier
-                .padding(bottom = 5.dp)
-                .clip(iconProgressCounter.shape.cornerRadius())
-                .background(
-                    if (enabled) iconProgressCounter.container
-                    else iconProgressCounter.disabledIndicator
-                )
-                .padding(horizontal = 15.dp),
+            modifier =
+                Modifier
+                    .padding(bottom = 5.dp)
+                    .clip(iconProgressCounter.shape.cornerRadius())
+                    .background(
+                        if (enabled) {
+                            iconProgressCounter.container
+                        } else {
+                            iconProgressCounter.disabledIndicator
+                        }
+                    ).padding(horizontal = 15.dp),
             text = if (enabled) "${numberTimes.toInt()}/${maxNumber.toInt()}" else "- / -",
             style = style,
             textAlign = TextAlign.Center,
@@ -150,42 +167,51 @@ fun IconProgress(
     val numberTimes by rememberMutableStateOf(key1 = checkMaxValue, value = checkMaxValue)
     val animateNumber by animateFloatAsState(
         targetValue = if (numberTimes > maxNumber) maxNumber else numberTimes,
-        animationSpec = tween(
-            durationMillis = animationDuration,
-            delayMillis = animationDelay
-        )
+        animationSpec =
+            tween(
+                durationMillis = animationDuration,
+                delayMillis = animationDelay
+            )
     )
 
     Column(
-        modifier = modifier
-            .clip(10.cornerRadius())
-            .background(iconProgressCustom.container)
-            .padding(10.dp),
+        modifier =
+            modifier
+                .clip(10.cornerRadius())
+                .background(iconProgressCustom.container)
+                .padding(10.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(5.dp)
     ) {
         Image(
-            modifier = Modifier
-                .size(iconProgressCustom.iconSize)
-                .padding(iconProgressCustom.iconPadding),
+            modifier =
+                Modifier
+                    .size(iconProgressCustom.iconSize)
+                    .padding(iconProgressCustom.iconPadding),
             painter = icon,
-            colorFilter = when {
-                !enabled -> iconProgressCounter.disabledIndicator
-                numberTimes != maxNumber -> iconProgressCustom.container
-                else -> iconProgressCustom.foregroundIndicatorComplete
-            }.toColorFilter(),
+            colorFilter =
+                when {
+                    !enabled -> iconProgressCounter.disabledIndicator
+                    numberTimes != maxNumber -> iconProgressCustom.container
+                    else -> iconProgressCustom.foregroundIndicatorComplete
+                }.toColorFilter(),
             contentDescription = null
         )
 
         Canvas(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(5.dp)
-                .height(indicatorHeight)
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .padding(5.dp)
+                    .height(indicatorHeight)
         ) {
             drawLine(
-                color = if (enabled) iconProgressCustom.containerIndicator
-                else iconProgressCustom.disabledIndicator,
+                color =
+                    if (enabled) {
+                        iconProgressCustom.containerIndicator
+                    } else {
+                        iconProgressCustom.disabledIndicator
+                    },
                 cap = StrokeCap.Round,
                 strokeWidth = size.height,
                 start = Offset(x = 0f, y = center.y),
@@ -194,27 +220,35 @@ fun IconProgress(
 
             if (enabled) {
                 val progress = (animateNumber / maxNumber) * size.width
-                if (animateNumber != 0f)
+                if (animateNumber != 0f) {
                     drawLine(
-                        color = if (numberTimes != maxNumber) iconProgressCustom.foregroundIndicator
-                        else iconProgressCustom.foregroundIndicatorComplete,
+                        color =
+                            if (numberTimes != maxNumber) {
+                                iconProgressCustom.foregroundIndicator
+                            } else {
+                                iconProgressCustom.foregroundIndicatorComplete
+                            },
                         cap = StrokeCap.Round,
                         strokeWidth = size.height,
                         start = Offset(x = 0f, y = center.y),
                         end = Offset(x = progress, y = center.y)
                     )
+                }
             }
         }
 
         Text(
-            modifier = Modifier
-                .padding(bottom = 5.dp)
-                .clip(iconProgressCounter.shape.cornerRadius())
-                .background(
-                    if (enabled) iconProgressCounter.container
-                    else iconProgressCounter.disabledIndicator
-                )
-                .padding(horizontal = 15.dp),
+            modifier =
+                Modifier
+                    .padding(bottom = 5.dp)
+                    .clip(iconProgressCounter.shape.cornerRadius())
+                    .background(
+                        if (enabled) {
+                            iconProgressCounter.container
+                        } else {
+                            iconProgressCounter.disabledIndicator
+                        }
+                    ).padding(horizontal = 15.dp),
             text = if (enabled) "${numberTimes.toInt()}/${maxNumber.toInt()}" else "- / -",
             style = style,
             textAlign = TextAlign.Center,
@@ -266,15 +300,17 @@ fun IconProgressbarPreview(
                     enabled = true,
                     number = number.toFloat() + 1f,
                     maxNumber = 5f,
-                    iconProgressCustom = IconProgressCustom(
-                        container = primary,
-                        content = secondary,
-                        containerIndicator = secondary,
-                        foregroundIndicator = milky
-                    ),
-                    iconProgressCounter = IconProgressCounter(
-                        container = secondary
-                    )
+                    iconProgressCustom =
+                        IconProgressCustom(
+                            container = primary,
+                            content = secondary,
+                            containerIndicator = secondary,
+                            foregroundIndicator = milky
+                        ),
+                    iconProgressCounter =
+                        IconProgressCounter(
+                            container = secondary
+                        )
                 )
             }
         }
@@ -287,15 +323,17 @@ fun IconProgressbarPreview(
         enabled = false,
         number = 0f,
         maxNumber = 1000f,
-        iconProgressCustom = IconProgressCustom(
-            container = primary,
-            content = secondary,
-            containerIndicator = secondary,
-            foregroundIndicator = milky
-        ),
-        iconProgressCounter = IconProgressCounter(
-            container = secondary
-        )
+        iconProgressCustom =
+            IconProgressCustom(
+                container = primary,
+                content = secondary,
+                containerIndicator = secondary,
+                foregroundIndicator = milky
+            ),
+        iconProgressCounter =
+            IconProgressCounter(
+                container = secondary
+            )
     )
 
     Text(text = "Enabled")
@@ -303,15 +341,17 @@ fun IconProgressbarPreview(
         icon = R.drawable.ic_btn_share.toImageVector(),
         number = 0f,
         maxNumber = 1000f,
-        iconProgressCustom = IconProgressCustom(
-            container = primary,
-            content = secondary,
-            containerIndicator = secondary,
-            foregroundIndicator = milky
-        ),
-        iconProgressCounter = IconProgressCounter(
-            container = secondary
-        )
+        iconProgressCustom =
+            IconProgressCustom(
+                container = primary,
+                content = secondary,
+                containerIndicator = secondary,
+                foregroundIndicator = milky
+            ),
+        iconProgressCounter =
+            IconProgressCounter(
+                container = secondary
+            )
     )
 
     Text(text = "When the number is less than the maximum")
@@ -319,15 +359,17 @@ fun IconProgressbarPreview(
         icon = R.drawable.ic_btn_share.toImageVector(),
         number = 400f,
         maxNumber = 1000f,
-        iconProgressCustom = IconProgressCustom(
-            container = primary,
-            content = secondary,
-            containerIndicator = secondary,
-            foregroundIndicator = milky
-        ),
-        iconProgressCounter = IconProgressCounter(
-            container = secondary
-        )
+        iconProgressCustom =
+            IconProgressCustom(
+                container = primary,
+                content = secondary,
+                containerIndicator = secondary,
+                foregroundIndicator = milky
+            ),
+        iconProgressCounter =
+            IconProgressCounter(
+                container = secondary
+            )
     )
 
     Text(text = "When the number is equal to the maximum")
@@ -335,15 +377,17 @@ fun IconProgressbarPreview(
         icon = R.drawable.ic_btn_share.toImageVector(),
         number = 1000f,
         maxNumber = 1000f,
-        iconProgressCustom = IconProgressCustom(
-            container = primary,
-            content = secondary,
-            containerIndicator = secondary,
-            foregroundIndicator = milky
-        ),
-        iconProgressCounter = IconProgressCounter(
-            container = secondary
-        )
+        iconProgressCustom =
+            IconProgressCustom(
+                container = primary,
+                content = secondary,
+                containerIndicator = secondary,
+                foregroundIndicator = milky
+            ),
+        iconProgressCounter =
+            IconProgressCounter(
+                container = secondary
+            )
     )
 
     Text(text = "When the number is greater than the maximum")
@@ -351,15 +395,17 @@ fun IconProgressbarPreview(
         icon = R.drawable.ic_btn_share.toImageVector(),
         number = 2000f,
         maxNumber = 1000f,
-        iconProgressCustom = IconProgressCustom(
-            container = primary,
-            content = secondary,
-            containerIndicator = secondary,
-            foregroundIndicator = milky
-        ),
-        iconProgressCounter = IconProgressCounter(
-            container = secondary
-        )
+        iconProgressCustom =
+            IconProgressCustom(
+                container = primary,
+                content = secondary,
+                containerIndicator = secondary,
+                foregroundIndicator = milky
+            ),
+        iconProgressCounter =
+            IconProgressCounter(
+                container = secondary
+            )
     )
 
     Divider()
@@ -372,15 +418,17 @@ fun IconProgressbarPreview(
         enabled = false,
         number = 0f,
         maxNumber = 1000f,
-        iconProgressCustom = IconProgressCustom(
-            container = primary,
-            content = secondary,
-            containerIndicator = secondary,
-            foregroundIndicator = milky
-        ),
-        iconProgressCounter = IconProgressCounter(
-            container = secondary
-        )
+        iconProgressCustom =
+            IconProgressCustom(
+                container = primary,
+                content = secondary,
+                containerIndicator = secondary,
+                foregroundIndicator = milky
+            ),
+        iconProgressCounter =
+            IconProgressCounter(
+                container = secondary
+            )
     )
 
     Text(text = "Enable")
@@ -388,15 +436,17 @@ fun IconProgressbarPreview(
         icon = R.drawable.ic_deco_jeluchu.toPainter(),
         number = 0f,
         maxNumber = 1000f,
-        iconProgressCustom = IconProgressCustom(
-            container = primary,
-            content = secondary,
-            containerIndicator = secondary,
-            foregroundIndicator = milky
-        ),
-        iconProgressCounter = IconProgressCounter(
-            container = secondary
-        )
+        iconProgressCustom =
+            IconProgressCustom(
+                container = primary,
+                content = secondary,
+                containerIndicator = secondary,
+                foregroundIndicator = milky
+            ),
+        iconProgressCounter =
+            IconProgressCounter(
+                container = secondary
+            )
     )
 
     Text(text = "When the number is less than the maximum")
@@ -404,15 +454,17 @@ fun IconProgressbarPreview(
         icon = R.drawable.ic_deco_jeluchu.toPainter(),
         number = 400f,
         maxNumber = 1000f,
-        iconProgressCustom = IconProgressCustom(
-            container = primary,
-            content = secondary,
-            containerIndicator = secondary,
-            foregroundIndicator = milky
-        ),
-        iconProgressCounter = IconProgressCounter(
-            container = secondary
-        )
+        iconProgressCustom =
+            IconProgressCustom(
+                container = primary,
+                content = secondary,
+                containerIndicator = secondary,
+                foregroundIndicator = milky
+            ),
+        iconProgressCounter =
+            IconProgressCounter(
+                container = secondary
+            )
     )
 
     Text(text = "When the number is equal to the maximum")
@@ -420,15 +472,17 @@ fun IconProgressbarPreview(
         icon = R.drawable.ic_deco_jeluchu.toPainter(),
         number = 1000f,
         maxNumber = 1000f,
-        iconProgressCustom = IconProgressCustom(
-            container = primary,
-            content = secondary,
-            containerIndicator = secondary,
-            foregroundIndicator = milky
-        ),
-        iconProgressCounter = IconProgressCounter(
-            container = secondary
-        )
+        iconProgressCustom =
+            IconProgressCustom(
+                container = primary,
+                content = secondary,
+                containerIndicator = secondary,
+                foregroundIndicator = milky
+            ),
+        iconProgressCounter =
+            IconProgressCounter(
+                container = secondary
+            )
     )
 
     Text(text = "When the number is greater than the maximum")
@@ -436,14 +490,16 @@ fun IconProgressbarPreview(
         icon = R.drawable.ic_deco_jeluchu.toPainter(),
         number = 2000f,
         maxNumber = 1000f,
-        iconProgressCustom = IconProgressCustom(
-            container = primary,
-            content = secondary,
-            containerIndicator = secondary,
-            foregroundIndicator = milky
-        ),
-        iconProgressCounter = IconProgressCounter(
-            container = secondary
-        )
+        iconProgressCustom =
+            IconProgressCustom(
+                container = primary,
+                content = secondary,
+                containerIndicator = secondary,
+                foregroundIndicator = milky
+            ),
+        iconProgressCounter =
+            IconProgressCounter(
+                container = secondary
+            )
     )
 }

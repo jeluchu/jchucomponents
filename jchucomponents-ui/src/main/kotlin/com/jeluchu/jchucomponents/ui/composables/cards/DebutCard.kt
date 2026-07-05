@@ -70,45 +70,43 @@ fun DebutCard(
     debutShape: RoundedCornerShape = RoundedCornerShape(bottomEnd = 20.dp),
     navigateToScreen: () -> Unit = {}
 ) = Column(
-    modifier = modifier
-        .width(130.dp)
-        .height(190.dp)
-        .padding(4.dp)
-        .clip(RoundedCornerShape(12.dp))
-        .background(Color.Transparent)
-        .clickable(onClick = navigateToScreen)
+    modifier =
+        modifier
+            .width(130.dp)
+            .height(190.dp)
+            .padding(4.dp)
+            .clip(RoundedCornerShape(12.dp))
+            .background(Color.Transparent)
+            .clickable(onClick = navigateToScreen)
 ) {
-
     Box {
-
         NetworkImage(url = image)
 
         if (isDebut) {
-
             Box(
-                modifier = Modifier
-                    .clip(debutShape)
-                    .background(bgDebut)
-                    .align(debubtAlignment),
+                modifier =
+                    Modifier
+                        .clip(debutShape)
+                        .background(bgDebut)
+                        .align(debubtAlignment)
             ) {
-
                 Row(
                     modifier = Modifier.wrapContentWidth(),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-
                     NetworkImage(
                         contentScale = ContentScale.Fit,
-                        modifier = Modifier
-                            .size(35.dp)
-                            .padding(
-                                start = 8.dp,
-                                end = if (nameOfDebut.isNotEmpty()) 0.dp else 5.dp
-                            ),
+                        modifier =
+                            Modifier
+                                .size(35.dp)
+                                .padding(
+                                    start = 8.dp,
+                                    end = if (nameOfDebut.isNotEmpty()) 0.dp else 5.dp
+                                ),
                         url = iconDebut
                     )
 
-                    if (nameOfDebut.isNotEmpty())
+                    if (nameOfDebut.isNotEmpty()) {
                         Text(
                             text = nameOfDebut,
                             modifier = Modifier.padding(8.dp, 6.dp, 12.dp, 6.dp),
@@ -118,27 +116,25 @@ fun DebutCard(
                             style = MaterialTheme.typography.overline,
                             textAlign = TextAlign.Start
                         )
-
+                    }
                 }
-
             }
-
         }
-
     }
 
-    if (title.isNotEmpty())
+    if (title.isNotEmpty()) {
         MarqueeText(
             text = title,
             fontSize = 12.sp,
             color = titleColor,
-            modifier = Modifier
-                .width(130.dp)
-                .padding(7.dp),
+            modifier =
+                Modifier
+                    .width(130.dp)
+                    .padding(7.dp),
             style = style,
             fontWeight = FontWeight.Bold
         )
-
+    }
 }
 
 @Preview

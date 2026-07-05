@@ -33,31 +33,34 @@ fun PreferencesHintCard(
     isDarkTheme: Boolean = false,
     backgroundColor: Color = MaterialTheme.colorScheme.run { if (isDarkTheme) onPrimaryContainer else secondaryContainer },
     contentColor: Color = MaterialTheme.colorScheme.run { if (isDarkTheme) surface else onSecondaryContainer },
-    onClick: () -> Unit = {},
+    onClick: () -> Unit = {}
 ) = Row(
-    modifier = Modifier
-        .fillMaxWidth()
-        .padding(horizontal = 16.dp, vertical = 12.dp)
-        .clip(MaterialTheme.shapes.extraLarge)
-        .background(backgroundColor)
-        .clickable { onClick() }
-        .padding(horizontal = 12.dp, vertical = 16.dp),
-    verticalAlignment = Alignment.CenterVertically,
+    modifier =
+        Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 16.dp, vertical = 12.dp)
+            .clip(MaterialTheme.shapes.extraLarge)
+            .background(backgroundColor)
+            .clickable { onClick() }
+            .padding(horizontal = 12.dp, vertical = 16.dp),
+    verticalAlignment = Alignment.CenterVertically
 ) {
     icon?.let {
         Icon(
             imageVector = icon,
             contentDescription = null,
-            modifier = Modifier
-                .padding(start = 8.dp, end = 16.dp)
-                .size(24.dp),
+            modifier =
+                Modifier
+                    .padding(start = 8.dp, end = 16.dp)
+                    .size(24.dp),
             tint = contentColor
         )
     }
     Column(
-        modifier = Modifier
-            .weight(1f)
-            .padding(start = if (icon == null) 12.dp else 0.dp, end = 12.dp)
+        modifier =
+            Modifier
+                .weight(1f)
+                .padding(start = if (icon == null) 12.dp else 0.dp, end = 12.dp)
     ) {
         Text(
             text = title,
@@ -65,14 +68,16 @@ fun PreferencesHintCard(
             style = style.copy(fontSize = 17.sp),
             color = contentColor
         )
-        if (description != null) Text(
-            text = description,
-            color = contentColor.copy(.6f),
-            maxLines = 2,
-            fontSize = 13.sp,
-            overflow = TextOverflow.Ellipsis,
-            style = style
-        )
+        if (description != null) {
+            Text(
+                text = description,
+                color = contentColor.copy(.6f),
+                maxLines = 2,
+                fontSize = 13.sp,
+                overflow = TextOverflow.Ellipsis,
+                style = style
+            )
+        }
     }
 }
 

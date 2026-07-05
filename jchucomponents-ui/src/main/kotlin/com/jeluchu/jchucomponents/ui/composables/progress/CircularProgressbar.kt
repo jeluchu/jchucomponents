@@ -29,12 +29,12 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.jeluchu.jchucomponents.ui.extensions.toImageVector
-import com.jeluchu.jchucomponents.ui.extensions.toPainter
 import com.jeluchu.jchucomponents.ktx.strings.empty
 import com.jeluchu.jchucomponents.ui.R
 import com.jeluchu.jchucomponents.ui.composables.column.ScrollableColumn
 import com.jeluchu.jchucomponents.ui.extensions.modifier.noRippleClickable
+import com.jeluchu.jchucomponents.ui.extensions.toImageVector
+import com.jeluchu.jchucomponents.ui.extensions.toPainter
 import com.jeluchu.jchucomponents.ui.runtime.remember.rememberMutableStateOf
 import com.jeluchu.jchucomponents.ui.theme.artichoke
 
@@ -71,20 +71,23 @@ fun CircularProgressbar(
 ) {
     val checkMaxValue = if (number > maxNumber) maxNumber else number
     val numberTimes = rememberMutableStateOf(key1 = checkMaxValue, value = checkMaxValue)
-    val animateNumber = animateFloatAsState(
-        targetValue = numberTimes.value,
-        animationSpec = tween(
-            durationMillis = animationDuration,
-            delayMillis = animationDelay
+    val animateNumber =
+        animateFloatAsState(
+            targetValue = numberTimes.value,
+            animationSpec =
+                tween(
+                    durationMillis = animationDuration,
+                    delayMillis = animationDelay
+                )
         )
-    )
 
     Box(
-        modifier = Modifier
-            .padding(5.dp)
-            .size(size = size)
-            .noRippleClickable { onClick(numberTimes, maxNumber) },
-        contentAlignment = Alignment.Center,
+        modifier =
+            Modifier
+                .padding(5.dp)
+                .size(size = size)
+                .noRippleClickable { onClick(numberTimes, maxNumber) },
+        contentAlignment = Alignment.Center
     ) {
         CircularBar(
             size = size,
@@ -99,11 +102,12 @@ fun CircularProgressbar(
         Icon(
             modifier = Modifier.size(25.dp),
             imageVector = icon,
-            tint = when {
-                !enabled -> circularProgressCustom.disabledIndicator
-                numberTimes.value != maxNumber -> circularProgressCustom.iconTint
-                else -> circularProgressCustom.foregroundIndicatorComplete
-            },
+            tint =
+                when {
+                    !enabled -> circularProgressCustom.disabledIndicator
+                    numberTimes.value != maxNumber -> circularProgressCustom.iconTint
+                    else -> circularProgressCustom.foregroundIndicatorComplete
+                },
             contentDescription = String.empty()
         )
     }
@@ -142,20 +146,23 @@ fun CircularProgressbar(
 ) {
     val checkMaxValue = if (number > maxNumber) maxNumber else number
     val numberTimes = rememberMutableStateOf(key1 = checkMaxValue, value = checkMaxValue)
-    val animateNumber = animateFloatAsState(
-        targetValue = numberTimes.value,
-        animationSpec = tween(
-            durationMillis = animationDuration,
-            delayMillis = animationDelay
+    val animateNumber =
+        animateFloatAsState(
+            targetValue = numberTimes.value,
+            animationSpec =
+                tween(
+                    durationMillis = animationDuration,
+                    delayMillis = animationDelay
+                )
         )
-    )
 
     Box(
-        modifier = Modifier
-            .padding(5.dp)
-            .size(size = size)
-            .noRippleClickable { onClick(numberTimes, maxNumber) },
-        contentAlignment = Alignment.Center,
+        modifier =
+            Modifier
+                .padding(5.dp)
+                .size(size = size)
+                .noRippleClickable { onClick(numberTimes, maxNumber) },
+        contentAlignment = Alignment.Center
     ) {
         CircularBar(
             size = size,
@@ -183,23 +190,28 @@ fun CircularBar(
     numberTimes: Float,
     animateNumber: Float,
     indicatorThickness: Dp,
-    circularProgressCustom: CircularProgressCustom,
+    circularProgressCustom: CircularProgressCustom
 ) = Canvas(modifier = Modifier.size(size = size)) {
     val sweepAngle = (animateNumber / maxNumber) * 360
 
     drawCircle(
-        color = if (enabled) circularProgressCustom.backgroundIndicator
-        else circularProgressCustom.disabledBackground,
+        color =
+            if (enabled) {
+                circularProgressCustom.backgroundIndicator
+            } else {
+                circularProgressCustom.disabledBackground
+            },
         radius = size.toPx() / 2,
         style = Stroke(width = indicatorThickness.toPx(), cap = StrokeCap.Round)
     )
 
     drawArc(
-        color = when {
-            !enabled -> circularProgressCustom.disabledIndicator
-            numberTimes != maxNumber -> circularProgressCustom.foregroundIndicator
-            else -> circularProgressCustom.foregroundIndicatorComplete
-        },
+        color =
+            when {
+                !enabled -> circularProgressCustom.disabledIndicator
+                numberTimes != maxNumber -> circularProgressCustom.foregroundIndicator
+                else -> circularProgressCustom.foregroundIndicatorComplete
+            },
         startAngle = -90f,
         sweepAngle = sweepAngle,
         useCenter = false,

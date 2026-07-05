@@ -30,41 +30,43 @@ inline fun Modifier.noRippleClickable(
     ) { onClick() }
 }
 
-fun Modifier.interceptionClickable(): Modifier = composed {
-    clickable(
-        indication = null,
-        interactionSource = remember { MutableInteractionSource() }
-    ) {}
-}
+fun Modifier.interceptionClickable(): Modifier =
+    composed {
+        clickable(
+            indication = null,
+            interactionSource = remember { MutableInteractionSource() }
+        ) {}
+    }
 
-fun Modifier.bounceClick(onClick: () -> Unit = {}) = composed {
-    var buttonState by remember { mutableStateOf(ButtonState.Idle) }
-    val scale by animateFloatAsState(if (buttonState == ButtonState.Pressed) 0.90f else 1f)
+fun Modifier.bounceClick(onClick: () -> Unit = {}) =
+    composed {
+        var buttonState by remember { mutableStateOf(ButtonState.Idle) }
+        val scale by animateFloatAsState(if (buttonState == ButtonState.Pressed) 0.90f else 1f)
 
-    this
-        .graphicsLayer {
-            scaleX = scale
-            scaleY = scale
-        }
-        .click {
-            onClick()
-        }
-        .pointerInput(buttonState) {
-            awaitPointerEventScope {
-                buttonState = if (buttonState == ButtonState.Pressed) {
-                    waitForUpOrCancellation()
-                    ButtonState.Idle
-                } else {
-                    awaitFirstDown(false)
-                    ButtonState.Pressed
+        this
+            .graphicsLayer {
+                scaleX = scale
+                scaleY = scale
+            }.click {
+                onClick()
+            }.pointerInput(buttonState) {
+                awaitPointerEventScope {
+                    buttonState =
+                        if (buttonState == ButtonState.Pressed) {
+                            waitForUpOrCancellation()
+                            ButtonState.Idle
+                        } else {
+                            awaitFirstDown(false)
+                            ButtonState.Pressed
+                        }
                 }
             }
-        }
-}
+    }
 
 enum class ButtonState { Pressed, Idle }
 
-fun Modifier.click(onClick: () -> Unit = {}) = composed {
+fun Modifier.click(onClick: () -> Unit = {}) =
+    composed {
         clickable(
             interactionSource = remember { MutableInteractionSource() },
             indication = null,
@@ -72,4 +74,4 @@ fun Modifier.click(onClick: () -> Unit = {}) = composed {
                 onClick()
             }
         )
-}
+    }

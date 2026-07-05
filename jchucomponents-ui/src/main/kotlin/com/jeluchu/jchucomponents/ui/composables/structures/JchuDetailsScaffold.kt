@@ -58,28 +58,31 @@ fun <T> JchuDetailsScaffold(
         when {
             isLoading -> onLoading(paddingValues)
             !error.isNullOrEmpty() || details == null -> onEmpty(paddingValues)
-            else -> LazyColumn(
-                state = listState,
-                modifier = Modifier.fillMaxSize(),
-                verticalArrangement = Arrangement.spacedBy(config.itemSpacing),
-                contentPadding = PaddingValues(
-                    start = config.contentHorizontalPadding,
-                    top = paddingValues.calculateTopPadding(),
-                    end = config.contentHorizontalPadding,
-                    bottom = paddingValues.calculateBottomPadding() + config.contentBottomPadding
-                ),
-                content = { content(details) }
-            )
+            else ->
+                LazyColumn(
+                    state = listState,
+                    modifier = Modifier.fillMaxSize(),
+                    verticalArrangement = Arrangement.spacedBy(config.itemSpacing),
+                    contentPadding =
+                        PaddingValues(
+                            start = config.contentHorizontalPadding,
+                            top = paddingValues.calculateTopPadding(),
+                            end = config.contentHorizontalPadding,
+                            bottom = paddingValues.calculateBottomPadding() + config.contentBottomPadding
+                        ),
+                    content = { content(details) }
+                )
         }
     }
 }
 
 @Immutable
 class JchuDetailsScaffoldConfig(
-    val colors: JchuScaffoldColors = JchuScaffoldColors(
-        contentColor = androidx.compose.ui.graphics.Color.Black,
-        containerColor = androidx.compose.ui.graphics.Color.White
-    ),
+    val colors: JchuScaffoldColors =
+        JchuScaffoldColors(
+            contentColor = androidx.compose.ui.graphics.Color.Black,
+            containerColor = androidx.compose.ui.graphics.Color.White
+        ),
     val itemSpacing: Dp = 10.dp,
     val contentHorizontalPadding: Dp = 15.dp,
     val contentBottomPadding: Dp = 20.dp

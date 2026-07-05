@@ -38,7 +38,7 @@ import androidx.compose.runtime.structuralEqualityPolicy
 @Composable
 fun <T> rememberMutableStateOf(
     value: T,
-    policy: SnapshotMutationPolicy<T> = structuralEqualityPolicy(),
+    policy: SnapshotMutationPolicy<T> = structuralEqualityPolicy()
 ): MutableState<T> = remember { mutableStateOf(value, policy) }
 
 /**
@@ -63,9 +63,8 @@ fun <T> rememberMutableStateOf(
 fun <T> rememberMutableStateOf(
     key1: Any?,
     value: T,
-    policy: SnapshotMutationPolicy<T> = structuralEqualityPolicy(),
+    policy: SnapshotMutationPolicy<T> = structuralEqualityPolicy()
 ): MutableState<T> = remember(key1) { mutableStateOf(value, policy) }
-
 
 /**
  *
@@ -90,7 +89,7 @@ fun <T> rememberMutableStateOf(
     key1: Any?,
     key2: Any?,
     value: T,
-    policy: SnapshotMutationPolicy<T> = structuralEqualityPolicy(),
+    policy: SnapshotMutationPolicy<T> = structuralEqualityPolicy()
 ): MutableState<T> = remember(key1, key2) { mutableStateOf(value, policy) }
 
 /**
@@ -117,7 +116,7 @@ fun <T> rememberMutableStateOf(
     key2: Any?,
     key3: Any?,
     value: T,
-    policy: SnapshotMutationPolicy<T> = structuralEqualityPolicy(),
+    policy: SnapshotMutationPolicy<T> = structuralEqualityPolicy()
 ): MutableState<T> = remember(key1, key2, key3) { mutableStateOf(value, policy) }
 
 /**
@@ -142,5 +141,5 @@ fun <T> rememberMutableStateOf(
 fun <T> rememberMutableStateOf(
     vararg keys: Any?,
     value: T,
-    policy: SnapshotMutationPolicy<T> = structuralEqualityPolicy(),
+    policy: SnapshotMutationPolicy<T> = structuralEqualityPolicy()
 ): MutableState<T> = remember(keys) { mutableStateOf(value, policy) }

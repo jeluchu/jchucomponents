@@ -17,29 +17,29 @@ import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.layout.positionInWindow
 import com.jeluchu.jchucomponents.ui.dragndrop.states.ReorderableState
 
-fun Modifier.reorderable(
-    state: ReorderableState<*>
-) = then(
-    Modifier
-        .onGloballyPositioned { state.layoutWindowPosition.value = it.positionInWindow() }
-        .pointerInput(Unit) {
-            awaitEachGesture {
-                val down = awaitFirstDown(requireUnconsumed = false)
+fun Modifier.reorderable(state: ReorderableState<*>) =
+    then(
+        Modifier
+            .onGloballyPositioned { state.layoutWindowPosition.value = it.positionInWindow() }
+            .pointerInput(Unit) {
+                awaitEachGesture {
+                    val down = awaitFirstDown(requireUnconsumed = false)
 
-                val dragResult = drag(down.id) {
-                    if (state.draggingItemIndex != null) {
-                        state.onDrag(it.positionChange().x.toInt(), it.positionChange().y.toInt())
-                        it.consume()
+                    val dragResult =
+                        drag(down.id) {
+                            if (state.draggingItemIndex != null) {
+                                state.onDrag(it.positionChange().x.toInt(), it.positionChange().y.toInt())
+                                it.consume()
+                            }
+                        }
+
+                    if (dragResult) {
+                        currentEvent.changes.forEach {
+                            if (it.changedToUp()) it.consume()
+                        }
                     }
-                }
 
-                if (dragResult) {
-                    currentEvent.changes.forEach {
-                        if (it.changedToUp()) it.consume()
-                    }
+                    state.onDragCanceled()
                 }
-
-                state.onDragCanceled()
             }
-        }
-)
+    )

@@ -43,11 +43,12 @@ fun JchuScaffold(
         topBar = {
             Toolbar(
                 title = title,
-                topBarSettings = TopBarSettings(
-                    navIcon = colors.navigationIcon,
-                    backgroundColor = colors.containerColor,
-                    contentColor = colors.contentColor
-                ),
+                topBarSettings =
+                    TopBarSettings(
+                        navIcon = colors.navigationIcon,
+                        backgroundColor = colors.containerColor,
+                        contentColor = colors.contentColor
+                    ),
                 navigateToBackScreen = onBackClick
             )
         },
@@ -274,17 +275,19 @@ class JchuFloatingButtonConfig(
     val onClick: () -> Unit = {}
 )
 
-fun JchuScaffoldColors.toCenterToolbarColors() = CenterToolbarColors(
-    contentColor = contentColor,
-    containerColor = containerColor
-)
+fun JchuScaffoldColors.toCenterToolbarColors() =
+    CenterToolbarColors(
+        contentColor = contentColor,
+        containerColor = containerColor
+    )
 
 private fun PaddingValues.withHorizontalPadding(
     horizontalPadding: Dp,
     layoutDirection: LayoutDirection
-): PaddingValues = PaddingValues(
-    start = calculateStartPadding(layoutDirection) + horizontalPadding,
-    top = calculateTopPadding(),
-    end = calculateEndPadding(layoutDirection) + horizontalPadding,
-    bottom = calculateBottomPadding()
-)
+): PaddingValues =
+    PaddingValues(
+        start = calculateStartPadding(layoutDirection) + horizontalPadding,
+        top = calculateTopPadding(),
+        end = calculateEndPadding(layoutDirection) + horizontalPadding,
+        bottom = calculateBottomPadding()
+    )

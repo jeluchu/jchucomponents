@@ -1,3 +1,5 @@
+@file:Suppress("ktlint:standard:filename")
+
 package com.jeluchu.jchucomponents.ui.theme
 
 import androidx.compose.runtime.Composable

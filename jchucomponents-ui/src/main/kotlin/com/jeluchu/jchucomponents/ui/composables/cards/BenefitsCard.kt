@@ -23,10 +23,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.jeluchu.jchucomponents.ui.extensions.toImageVector
 import com.jeluchu.jchucomponents.ktx.strings.empty
 import com.jeluchu.jchucomponents.ui.R
 import com.jeluchu.jchucomponents.ui.extensions.modifier.cornerRadius
+import com.jeluchu.jchucomponents.ui.extensions.toImageVector
 
 @Composable
 fun BenefitsCard(
@@ -39,15 +39,15 @@ fun BenefitsCard(
     benefitsDefaults: BenefitsDefaults = BenefitsDefaults(),
     onClick: () -> Unit = {}
 ) = Row(
-    modifier = modifier
-        .clip(shape)
-        .clickable(
-            role = Role.Button,
-            enabled = benefitsDefaults.isClickEnabled,
-            onClick = onClick
-        )
-        .background(benefitsDefaults.colors.containerColor)
-        .padding(15.dp),
+    modifier =
+        modifier
+            .clip(shape)
+            .clickable(
+                role = Role.Button,
+                enabled = benefitsDefaults.isClickEnabled,
+                onClick = onClick
+            ).background(benefitsDefaults.colors.containerColor)
+            .padding(15.dp),
     verticalAlignment = Alignment.CenterVertically,
     horizontalArrangement = Arrangement.spacedBy(15.dp)
 ) {
@@ -89,10 +89,11 @@ fun BenefitsCard(
                     Text(
                         text = "New",
                         fontSize = 16.sp,
-                        modifier = Modifier.padding(
-                            vertical = 3.dp,
-                            horizontal = 9.dp
-                        ),
+                        modifier =
+                            Modifier.padding(
+                                vertical = 3.dp,
+                                horizontal = 9.dp
+                            ),
                         fontWeight = FontWeight.ExtraBold,
                         color = benefitsDefaults.colors.badgeContentColor
                     )
@@ -100,13 +101,12 @@ fun BenefitsCard(
             }
         }
 
-
         description?.let { description ->
             Text(
                 fontSize = 12.sp,
                 lineHeight = 17.sp,
                 text = description,
-                color = benefitsDefaults.colors.contentColor.copy(.7f),
+                color = benefitsDefaults.colors.contentColor.copy(.7f)
             )
         }
     }
@@ -143,7 +143,9 @@ class BenefitsColors(
 @Composable
 fun BenefitsCardPreview(
     name: String = "Benefit name",
-    description: String = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus pharetra cursus sapien. Sed aliquam tellus nulla, eget congue lectus iaculis."
+    description: String =
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus pharetra cursus " +
+            "sapien. Sed aliquam tellus nulla, eget congue lectus iaculis."
 ) = Column(
     modifier = Modifier.padding(horizontal = 10.dp),
     verticalArrangement = Arrangement.spacedBy(10.dp)
@@ -162,9 +164,10 @@ fun BenefitsCardPreview(
 
     BenefitsCard(
         title = name,
-        benefitsDefaults = BenefitsDefaults(
-            isNew = true
-        ),
+        benefitsDefaults =
+            BenefitsDefaults(
+                isNew = true
+            ),
         description = description,
         leftIcon = R.drawable.ic_btn_share,
         rightIcon = R.drawable.ic_btn_qrcode

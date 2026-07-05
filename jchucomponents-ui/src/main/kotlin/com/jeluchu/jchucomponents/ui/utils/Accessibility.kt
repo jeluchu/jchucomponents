@@ -12,17 +12,21 @@ import androidx.compose.ui.text.AnnotatedString
  * @property accessibleString
  * The text to be spelled by the talkback.
  */
-data class AccessibleString(val displayString: AnnotatedString, val accessibleString: String? = null)
+data class AccessibleString(
+    val displayString: AnnotatedString,
+    val accessibleString: String? = null
+)
 
-fun buildContentDescription(list: List<CharSequence?>): String = buildString {
-    list.forEach {
-        append(it)
-        if (it?.endsWith('.') == false) {
-            append(".")
+fun buildContentDescription(list: List<CharSequence?>): String =
+    buildString {
+        list.forEach {
+            append(it)
+            if (it?.endsWith('.') == false) {
+                append(".")
+            }
+            appendLine()
         }
-        appendLine()
     }
-}
 
 /**
  *

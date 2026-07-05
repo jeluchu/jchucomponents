@@ -4,6 +4,8 @@
  *
  */
 
+@file:Suppress("ktlint:standard:no-wildcard-imports")
+
 package com.jeluchu.jchucomponents.ui.composables.snackbar
 
 import androidx.compose.foundation.layout.Box
@@ -148,17 +150,18 @@ fun CustomSnackbar(
     elevation: Dp = 6.dp
 ) {
     val actionLabel = snackbarData.actionLabel
-    val actionComposable: (@Composable () -> Unit)? = if (actionLabel != null) {
-        @Composable {
-            TextButton(
-                colors = ButtonDefaults.textButtonColors(contentColor = actionColor),
-                onClick = { snackbarData.performAction() },
-                content = { Text(actionLabel) }
-            )
+    val actionComposable: (@Composable () -> Unit)? =
+        if (actionLabel != null) {
+            @Composable {
+                TextButton(
+                    colors = ButtonDefaults.textButtonColors(contentColor = actionColor),
+                    onClick = { snackbarData.performAction() },
+                    content = { Text(actionLabel) }
+                )
+            }
+        } else {
+            null
         }
-    } else {
-        null
-    }
     Snackbar(
         modifier = modifier.padding(12.dp),
         content = {
@@ -180,7 +183,6 @@ fun CustomSnackbar(
  * Object to hold defaults used by [Snackbar]
  */
 object SnackbarDefaults {
-
     /**
      * Default alpha of the overlay applied to the [backgroundColor]
      */
@@ -229,12 +231,13 @@ object SnackbarDefaults {
 private fun TextOnlySnackbar(content: @Composable () -> Unit) {
     Layout(
         content,
-        modifier = Modifier.padding(
-            start = HorizontalSpacing,
-            end = HorizontalSpacing,
-            top = SnackbarVerticalPadding,
-            bottom = SnackbarVerticalPadding
-        )
+        modifier =
+            Modifier.padding(
+                start = HorizontalSpacing,
+                end = HorizontalSpacing,
+                top = SnackbarVerticalPadding,
+                bottom = SnackbarVerticalPadding
+            )
     ) { measurables, constraints ->
         require(measurables.size == 1) {
             "text for Snackbar expected to have exactly only one child"
@@ -265,13 +268,14 @@ private fun NewLineButtonSnackbar(
     action: @Composable () -> Unit
 ) {
     Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(
-                start = HorizontalSpacing,
-                end = HorizontalSpacingButtonSide,
-                bottom = SeparateButtonExtraY
-            )
+        modifier =
+            Modifier
+                .fillMaxWidth()
+                .padding(
+                    start = HorizontalSpacing,
+                    end = HorizontalSpacingButtonSide,
+                    bottom = SeparateButtonExtraY
+                )
     ) {
         Box(
             Modifier
@@ -294,20 +298,22 @@ private fun OneRowSnackbar(
             Box(Modifier.layoutId(textTag)) { text() }
             Box(Modifier.layoutId(actionTag)) { action() }
         },
-        modifier = Modifier.padding(
-            start = HorizontalSpacing,
-            end = HorizontalSpacingButtonSide,
-            top = SnackbarVerticalPadding,
-            bottom = SnackbarVerticalPadding
-        )
+        modifier =
+            Modifier.padding(
+                start = HorizontalSpacing,
+                end = HorizontalSpacingButtonSide,
+                top = SnackbarVerticalPadding,
+                bottom = SnackbarVerticalPadding
+            )
     ) { measurables, constraints ->
         val buttonPlaceable = measurables.first { it.layoutId == actionTag }.measure(constraints)
         val textMaxWidth =
             (constraints.maxWidth - buttonPlaceable.width - TextEndExtraSpacing.roundToPx())
                 .coerceAtLeast(constraints.minWidth)
-        val textPlaceable = measurables.first { it.layoutId == textTag }.measure(
-            constraints.copy(minHeight = 0, maxWidth = textMaxWidth)
-        )
+        val textPlaceable =
+            measurables.first { it.layoutId == textTag }.measure(
+                constraints.copy(minHeight = 0, maxWidth = textMaxWidth)
+            )
 
         val firstTextBaseline = textPlaceable[FirstBaseline]
         require(firstTextBaseline != AlignmentLine.Unspecified) { "No baselines for text" }
@@ -325,13 +331,14 @@ private fun OneRowSnackbar(
             containerHeight = max(minContainerHeight, contentHeight)
             textPlaceY = (containerHeight - textPlaceable.height) / 2
             val buttonBaseline = buttonPlaceable[FirstBaseline]
-            buttonPlaceY = buttonBaseline.let {
-                if (it != AlignmentLine.Unspecified) {
-                    textPlaceY + firstTextBaseline - it
-                } else {
-                    0
+            buttonPlaceY =
+                buttonBaseline.let {
+                    if (it != AlignmentLine.Unspecified) {
+                        textPlaceY + firstTextBaseline - it
+                    } else {
+                        0
+                    }
                 }
-            }
         } else {
             val baselineOffset = HeightToFirstLine.roundToPx()
             textPlaceY = baselineOffset - firstTextBaseline - SnackbarVerticalPadding.roundToPx()

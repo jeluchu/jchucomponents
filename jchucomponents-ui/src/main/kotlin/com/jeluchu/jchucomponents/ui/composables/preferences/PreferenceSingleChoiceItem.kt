@@ -36,24 +36,27 @@ fun PreferenceSingleChoiceItem(
     contentPadding: PaddingValues = PaddingValues(horizontal = 8.dp, vertical = 18.dp),
     onClick: () -> Unit
 ) = Surface(
-    modifier = Modifier.selectable(
-        selected = selected,
-        onClick = onClick
-    ),
+    modifier =
+        Modifier.selectable(
+            selected = selected,
+            onClick = onClick
+        ),
     shape = shape,
     contentColor = colors.contentColor,
     color = colors.containerColor
 ) {
     Row(
-        modifier = modifier
-            .fillMaxWidth()
-            .padding(contentPadding),
-        verticalAlignment = Alignment.CenterVertically,
+        modifier =
+            modifier
+                .fillMaxWidth()
+                .padding(contentPadding),
+        verticalAlignment = Alignment.CenterVertically
     ) {
         Column(
-            modifier = Modifier
-                .weight(1f)
-                .padding(start = 10.dp)
+            modifier =
+                Modifier
+                    .weight(1f)
+                    .padding(start = 10.dp)
         ) {
             Text(
                 text = text,
@@ -65,13 +68,15 @@ fun PreferenceSingleChoiceItem(
         RadioButton(
             selected = selected,
             onClick = onClick,
-            colors = RadioButtonDefaults.colors(
-                selectedColor = colors.selectedRadioColor,
-                unselectedColor = colors.unselectedRadioColor
-            ),
-            modifier = Modifier
-                .padding()
-                .clearAndSetSemantics { },
+            colors =
+                RadioButtonDefaults.colors(
+                    selectedColor = colors.selectedRadioColor,
+                    unselectedColor = colors.unselectedRadioColor
+                ),
+            modifier =
+                Modifier
+                    .padding()
+                    .clearAndSetSemantics { }
         )
     }
 }
@@ -84,11 +89,11 @@ class PreferenceChoiceColors(
     val contentColor: Color = Color.DarkGray
 )
 
-
 @Preview
 @Composable
-fun PreferenceSingleChoiceItemPreview() = PreferenceSingleChoiceItem(
-    text = "Test",
-    selected = true,
-    onClick = {}
-)
+fun PreferenceSingleChoiceItemPreview() =
+    PreferenceSingleChoiceItem(
+        text = "Test",
+        selected = true,
+        onClick = {}
+    )

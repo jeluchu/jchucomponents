@@ -16,7 +16,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Card
-import androidx.compose.material3.CardColors
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
@@ -63,15 +62,17 @@ fun StoryCard(
     navigateToScreen: () -> Unit
 ) = Card(
     shape = 12.cornerRadius(),
-    modifier = modifier
-        .width(130.dp)
-        .height(190.dp)
-        .padding(4.dp)
-        .clip(12.cornerRadius())
-        .noRippleClickable { navigateToScreen() },
-    colors = CardDefaults.cardColors().copy(
-        containerColor = Color.DarkGray
-    )
+    modifier =
+        modifier
+            .width(130.dp)
+            .height(190.dp)
+            .padding(4.dp)
+            .clip(12.cornerRadius())
+            .noRippleClickable { navigateToScreen() },
+    colors =
+        CardDefaults.cardColors().copy(
+            containerColor = Color.DarkGray
+        )
 ) {
     Box(modifier = Modifier.fillMaxSize()) {
         when {
@@ -79,14 +80,15 @@ fun StoryCard(
                 NetworkImage(
                     url = iconMainUrl,
                     modifier = Modifier.fillMaxSize(),
-                    contentScale = ContentScale.Crop,
+                    contentScale = ContentScale.Crop
                 )
             }
             iconMainResource.isNotEmpty() -> {
                 Icon(
-                    modifier = Modifier
-                        .size(23.dp)
-                        .padding(start = 7.dp),
+                    modifier =
+                        Modifier
+                            .size(23.dp)
+                            .padding(start = 7.dp),
                     painter = painterResource(id = iconMainResource),
                     contentDescription = null
                 )
@@ -97,29 +99,30 @@ fun StoryCard(
             text = title,
             fontSize = 13.sp,
             color = textColor,
-            modifier = Modifier
-                .align(Alignment.BottomStart)
-                .padding(8.dp)
+            modifier =
+                Modifier
+                    .align(Alignment.BottomStart)
+                    .padding(8.dp)
         )
 
         Card(
             shape = CircleShape,
-            modifier = Modifier
-                .align(Alignment.TopStart)
-                .padding(8.dp)
-                .width(40.dp)
-                .height(40.dp)
-                .border(
-                    width = 2.dp,
-                    color = Color.Blue,
-                    shape = CircleShape
-                )
-                .padding(4.dp)
+            modifier =
+                Modifier
+                    .align(Alignment.TopStart)
+                    .padding(8.dp)
+                    .width(40.dp)
+                    .height(40.dp)
+                    .border(
+                        width = 2.dp,
+                        color = Color.Blue,
+                        shape = CircleShape
+                    ).padding(4.dp)
         ) {
             Image(
                 painter = painterResource(circleImage),
                 contentDescription = "",
-                contentScale = ContentScale.Crop,
+                contentScale = ContentScale.Crop
             )
         }
     }

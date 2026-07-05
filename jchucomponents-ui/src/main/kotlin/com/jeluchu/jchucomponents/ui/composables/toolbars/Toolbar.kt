@@ -40,54 +40,59 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.jeluchu.jchucomponents.ui.extensions.toImageVector
 import com.jeluchu.jchucomponents.ktx.strings.empty
 import com.jeluchu.jchucomponents.ui.R
 import com.jeluchu.jchucomponents.ui.composables.column.ScrollableColumn
 import com.jeluchu.jchucomponents.ui.extensions.modifier.noRippleClickable
+import com.jeluchu.jchucomponents.ui.extensions.toImageVector
 import com.jeluchu.jchucomponents.ui.foundation.icon.IconLink
 
 @Composable
 fun Toolbar(
     modifier: Modifier = Modifier,
     title: String = String.empty(),
-    shapeActions: Shape = RoundedCornerShape(
-        topStart = 0.dp,
-        bottomStart = 0.dp,
-        topEnd = 6.dp,
-        bottomEnd = 6.dp
-    ),
+    shapeActions: Shape =
+        RoundedCornerShape(
+            topStart = 0.dp,
+            bottomStart = 0.dp,
+            topEnd = 6.dp,
+            bottomEnd = 6.dp
+        ),
     style: TextStyle = LocalTextStyle.current,
     topBarSettings: TopBarSettings = TopBarSettings(),
     navigateToCustomAction: () -> Unit,
     navigateToBackScreen: () -> Unit
 ) = Box(
-    modifier = modifier
-        .fillMaxWidth()
-        .height(52.dp)
-        .background(topBarSettings.backgroundColor)
+    modifier =
+        modifier
+            .fillMaxWidth()
+            .height(52.dp)
+            .background(topBarSettings.backgroundColor)
 ) {
     Row(
-        modifier = Modifier
-            .clip(shapeActions)
-            .background(topBarSettings.actionsBackgroundColor)
-            .align(Alignment.CenterStart)
+        modifier =
+            Modifier
+                .clip(shapeActions)
+                .background(topBarSettings.actionsBackgroundColor)
+                .align(Alignment.CenterStart)
     ) {
         Icon(
-            modifier = Modifier
-                .size(40.dp)
-                .padding(8.dp)
-                .clip(CircleShape)
-                .clickable(onClick = navigateToBackScreen),
+            modifier =
+                Modifier
+                    .size(40.dp)
+                    .padding(8.dp)
+                    .clip(CircleShape)
+                    .clickable(onClick = navigateToBackScreen),
             tint = topBarSettings.tintActionsColor,
             imageVector = ImageVector.vectorResource(id = topBarSettings.navIcon),
             contentDescription = null
         )
         Icon(
-            modifier = Modifier
-                .size(40.dp)
-                .padding(8.dp)
-                .noRippleClickable { navigateToCustomAction() },
+            modifier =
+                Modifier
+                    .size(40.dp)
+                    .padding(8.dp)
+                    .noRippleClickable { navigateToCustomAction() },
             tint = topBarSettings.tintActionsColor,
             imageVector = ImageVector.vectorResource(id = topBarSettings.actionIcon),
             contentDescription = null
@@ -100,13 +105,13 @@ fun Toolbar(
         color = topBarSettings.contentColor,
         style = style,
         textAlign = TextAlign.End,
-        modifier = Modifier
-            .fillMaxWidth()
-            .align(Alignment.CenterEnd)
-            .padding(end = 10.dp)
+        modifier =
+            Modifier
+                .fillMaxWidth()
+                .align(Alignment.CenterEnd)
+                .padding(end = 10.dp)
     )
 }
-
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -120,9 +125,10 @@ fun Toolbar(
     modifier = modifier,
     title = {
         Text(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(end = 5.dp),
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .padding(end = 5.dp),
             text = title,
             fontSize = 20.sp,
             color = topBarSettings.contentColor,
@@ -131,15 +137,17 @@ fun Toolbar(
             maxLines = 1
         )
     },
-    colors = TopAppBarDefaults.topAppBarColors(
-        containerColor = topBarSettings.backgroundColor
-    ),
+    colors =
+        TopAppBarDefaults.topAppBarColors(
+            containerColor = topBarSettings.backgroundColor
+        ),
     navigationIcon = {
         IconButton(onClick = navigateToBackScreen) {
             Icon(
-                modifier = Modifier
-                    .size(40.dp)
-                    .padding(8.dp),
+                modifier =
+                    Modifier
+                        .size(40.dp)
+                        .padding(8.dp),
                 tint = topBarSettings.contentColor,
                 imageVector = ImageVector.vectorResource(id = topBarSettings.navIcon),
                 contentDescription = null
@@ -161,12 +169,13 @@ fun Toolbar(
     actions = actions,
     modifier = modifier,
     navigationIcon = navigationIcon,
-    colors = TopAppBarDefaults.topAppBarColors(
-        containerColor = colors.containerColor,
-        titleContentColor = colors.contentColor,
-        actionIconContentColor = colors.contentColor,
-        navigationIconContentColor = colors.contentColor
-    )
+    colors =
+        TopAppBarDefaults.topAppBarColors(
+            containerColor = colors.containerColor,
+            titleContentColor = colors.contentColor,
+            actionIconContentColor = colors.contentColor,
+            navigationIconContentColor = colors.contentColor
+        )
 )
 
 @Immutable
@@ -188,9 +197,10 @@ fun ToolbarActionsPreview() {
         Toolbar(
             modifier = Modifier,
             title = "Villagers",
-            topBarSettings = TopBarSettings(
-                actionIcon = R.drawable.ic_btn_qrcode
-            ),
+            topBarSettings =
+                TopBarSettings(
+                    actionIcon = R.drawable.ic_btn_qrcode
+                ),
             navigateToCustomAction = { },
             navigateToBackScreen = { }
         )

@@ -19,19 +19,21 @@ import androidx.compose.animation.slideOutHorizontally
 val enterTransition: (AnimatedContentScope.() -> EnterTransition) = {
     slideInHorizontally(
         initialOffsetX = { fullWidth -> fullWidth },
-        animationSpec = tween(
-            durationMillis = 500,
-            easing = FastOutSlowInEasing
-        )
+        animationSpec =
+            tween(
+                durationMillis = 500,
+                easing = FastOutSlowInEasing
+            )
     ) + fadeIn(animationSpec = tween(200))
 }
 
 val exitTransition: (AnimatedContentScope.() -> ExitTransition) = {
     slideOutHorizontally(
         targetOffsetX = { fullWidth -> fullWidth },
-        animationSpec = tween(
-            durationMillis = 500,
-            easing = FastOutLinearInEasing
-        )
+        animationSpec =
+            tween(
+                durationMillis = 500,
+                easing = FastOutLinearInEasing
+            )
     )
 }

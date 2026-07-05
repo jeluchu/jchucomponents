@@ -41,34 +41,40 @@ fun Int.Height() = Spacer(modifier = Modifier.height(this.dp))
 @Composable
 fun Int.Width() = Spacer(modifier = Modifier.width(this.dp))
 
-
 /** ---- ANIMATION ----------------------------------------------------------------------------- **/
 
-fun Modifier.graphicsCollapse(
-    state: LazyListState
-) = this.composed {
-    var scrolledY by rememberMutableFloatStateOf(0f)
-    var previousOffset by rememberMutableIntStateOf(0)
-    graphicsLayer {
-        scrolledY += state.firstVisibleItemScrollOffset - previousOffset
-        translationY = scrolledY * 0.5f
-        previousOffset = state.firstVisibleItemScrollOffset
+fun Modifier.graphicsCollapse(state: LazyListState) =
+    this.composed {
+        var scrolledY by rememberMutableFloatStateOf(0f)
+        var previousOffset by rememberMutableIntStateOf(0)
+        graphicsLayer {
+            scrolledY += state.firstVisibleItemScrollOffset - previousOffset
+            translationY = scrolledY * 0.5f
+            previousOffset = state.firstVisibleItemScrollOffset
+        }
     }
-}
 
 /** ---- LISTS  -------------------------------------------------------------------------------- **/
 
 fun Modifier.disableVerticalScroll() =
-    this.nestedScroll(object : NestedScrollConnection {
-        override fun onPreScroll(available: Offset, source: NestedScrollSource) =
-            available.copy(x = 0f)
-    })
+    this.nestedScroll(
+        object : NestedScrollConnection {
+            override fun onPreScroll(
+                available: Offset,
+                source: NestedScrollSource
+            ) = available.copy(x = 0f)
+        }
+    )
 
 fun Modifier.disableHorizontalScroll() =
-    this.nestedScroll(object : NestedScrollConnection {
-        override fun onPreScroll(available: Offset, source: NestedScrollSource) =
-            available.copy(y = 0f)
-    })
+    this.nestedScroll(
+        object : NestedScrollConnection {
+            override fun onPreScroll(
+                available: Offset,
+                source: NestedScrollSource
+            ) = available.copy(y = 0f)
+        }
+    )
 
 /** ---- COLORS  ------------------------------------------------------------------------------- **/
 
@@ -80,12 +86,10 @@ fun Modifier.coloredShadow(
     offsetY: Dp = 0.dp,
     offsetX: Dp = 0.dp
 ) = composed {
-
     val shadowColor = color.copy(alpha = alpha).toArgb()
     val transparent = color.copy(alpha = 0f).toArgb()
 
     this.drawBehind {
-
         this.drawIntoCanvas {
             val paint = Paint()
             val frameworkPaint = paint.asFrameworkPaint()
@@ -108,5 +112,4 @@ fun Modifier.coloredShadow(
             )
         }
     }
-
 }

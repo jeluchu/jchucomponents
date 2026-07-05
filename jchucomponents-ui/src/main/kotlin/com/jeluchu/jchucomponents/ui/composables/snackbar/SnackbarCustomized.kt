@@ -23,7 +23,7 @@ fun SnackbarCustomized(
     bgColor: Color = artichoke,
     contentColor: Color = cosmicLatte,
     textStyle: TextStyle = LocalTextStyle.current,
-    shape: Shape = RoundedCornerShape(15.dp),
+    shape: Shape = RoundedCornerShape(15.dp)
 ) = SnackbarHost(snackHost) { data ->
     CustomSnackbar(
         modifier = modifier,

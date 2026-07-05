@@ -34,9 +34,7 @@ import androidx.compose.runtime.snapshots.Snapshot
  * @see MutableLongState
  */
 @Composable
-fun rememberMutableFloatStateOf(
-    value: Float
-): MutableFloatState = remember { mutableFloatStateOf(value) }
+fun rememberMutableFloatStateOf(value: Float): MutableFloatState = remember { mutableFloatStateOf(value) }
 
 /**
  *
@@ -59,7 +57,6 @@ fun rememberMutableFloatStateOf(
     key1: Any?,
     value: Float
 ): MutableFloatState = remember(key1) { mutableFloatStateOf(value) }
-
 
 /**
  *

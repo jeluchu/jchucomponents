@@ -18,19 +18,28 @@ import androidx.compose.ui.geometry.Offset
 import com.jeluchu.jchucomponents.ui.dragndrop.models.ItemPosition
 
 interface DragCancelledAnimation {
-    suspend fun dragCancelled(position: ItemPosition, offset: Offset)
+    suspend fun dragCancelled(
+        position: ItemPosition,
+        offset: Offset
+    )
+
     val position: ItemPosition?
     val offset: Offset
 }
 
 class NoDragCancelledAnimation : DragCancelledAnimation {
-    override suspend fun dragCancelled(position: ItemPosition, offset: Offset) {}
+    override suspend fun dragCancelled(
+        position: ItemPosition,
+        offset: Offset
+    ) {}
+
     override val position: ItemPosition? = null
     override val offset: Offset = Offset.Zero
 }
 
-class SpringDragCancelledAnimation(private val stiffness: Float = Spring.StiffnessMediumLow) :
-    DragCancelledAnimation {
+class SpringDragCancelledAnimation(
+    private val stiffness: Float = Spring.StiffnessMediumLow
+) : DragCancelledAnimation {
     private val animatable = Animatable(Offset.Zero, Offset.VectorConverter)
     override val offset: Offset
         get() = animatable.value
@@ -38,7 +47,10 @@ class SpringDragCancelledAnimation(private val stiffness: Float = Spring.Stiffne
     override var position by mutableStateOf<ItemPosition?>(null)
         private set
 
-    override suspend fun dragCancelled(position: ItemPosition, offset: Offset) {
+    override suspend fun dragCancelled(
+        position: ItemPosition,
+        offset: Offset
+    ) {
         this.position = position
         animatable.snapTo(offset)
         animatable.animateTo(

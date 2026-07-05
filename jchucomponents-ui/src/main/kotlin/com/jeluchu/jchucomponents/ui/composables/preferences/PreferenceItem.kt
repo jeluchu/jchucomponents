@@ -38,31 +38,34 @@ fun PreferenceItem(
     onClickLabel: String? = null,
     titleStyle: TextStyle = MaterialTheme.typography.titleLarge,
     descriptionStyle: TextStyle = MaterialTheme.typography.bodyMedium,
-    onClick: () -> Unit = {},
+    onClick: () -> Unit = {}
 ) = Surface(
-    modifier = Modifier.combinedClickable(
-        onClick = onClick,
-        onClickLabel = onClickLabel,
-        enabled = enabled,
-        onLongClickLabel = onLongClickLabel,
-        onLongClick = onLongClick
-    ),
+    modifier =
+        Modifier.combinedClickable(
+            onClick = onClick,
+            onClickLabel = onClickLabel,
+            enabled = enabled,
+            onLongClickLabel = onLongClickLabel,
+            onLongClick = onLongClick
+        ),
     color = containerColor
 ) {
     Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(8.dp, 16.dp),
-        verticalAlignment = Alignment.CenterVertically,
+        modifier =
+            Modifier
+                .fillMaxWidth()
+                .padding(8.dp, 16.dp),
+        verticalAlignment = Alignment.CenterVertically
     ) {
         when (icon) {
             is ImageVector -> {
                 Icon(
                     imageVector = icon,
                     contentDescription = null,
-                    modifier = Modifier
-                        .padding(start = 8.dp, end = 16.dp)
-                        .size(30.dp),
+                    modifier =
+                        Modifier
+                            .padding(start = 8.dp, end = 16.dp)
+                            .size(30.dp),
                     tint = contentColor.opacity(enabled)
                 )
             }
@@ -71,9 +74,10 @@ fun PreferenceItem(
                 Icon(
                     painter = icon,
                     contentDescription = null,
-                    modifier = Modifier
-                        .padding(start = 8.dp, end = 16.dp)
-                        .size(30.dp),
+                    modifier =
+                        Modifier
+                            .padding(start = 8.dp, end = 16.dp)
+                            .size(30.dp),
                     tint = contentColor.opacity(enabled)
                 )
             }
@@ -81,19 +85,21 @@ fun PreferenceItem(
             is Int -> {
                 CircularProgressIndicator(
                     color = contentColor,
-                    modifier = Modifier
-                        .padding(start = 8.dp, end = 16.dp)
-                        .size(30.dp)
-                        .padding(2.dp)
+                    modifier =
+                        Modifier
+                            .padding(start = 8.dp, end = 16.dp)
+                            .size(30.dp)
+                            .padding(2.dp)
                 )
             }
         }
 
         Column(
-            modifier = Modifier
-                .weight(1f)
-                .padding(horizontal = if (icon == null) 12.dp else 0.dp)
-                .padding(end = 8.dp)
+            modifier =
+                Modifier
+                    .weight(1f)
+                    .padding(horizontal = if (icon == null) 12.dp else 0.dp)
+                    .padding(end = 8.dp)
         ) {
             PreferenceItemTitle(
                 text = title,
@@ -102,12 +108,14 @@ fun PreferenceItem(
                 color = contentColor
             )
 
-            if (description != null) PreferenceItemDescription(
-                enabled = enabled,
-                text = description,
-                color = contentColor,
-                style = descriptionStyle
-            )
+            if (description != null) {
+                PreferenceItemDescription(
+                    enabled = enabled,
+                    text = description,
+                    color = contentColor,
+                    style = descriptionStyle
+                )
+            }
         }
     }
 }
@@ -127,4 +135,3 @@ fun PreferenceItemPreview() {
         PreferenceItem(title = "title", description = "description", icon = Icons.Outlined.Update)
     }
 }
-

@@ -4,6 +4,8 @@
  *
  */
 
+@file:Suppress("ktlint:standard:no-wildcard-imports")
+
 package com.jeluchu.jchucomponents.ui.composables.cards
 
 import android.annotation.SuppressLint
@@ -30,9 +32,9 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.jeluchu.jchucomponents.ui.extensions.toPainter
 import com.jeluchu.jchucomponents.ui.R
 import com.jeluchu.jchucomponents.ui.extensions.modifier.noRippleClickable
+import com.jeluchu.jchucomponents.ui.extensions.toPainter
 import com.jeluchu.jchucomponents.ui.foundation.icon.IconLink
 import com.jeluchu.jchucomponents.ui.runtime.remember.rememberMutableStateOf
 
@@ -55,11 +57,12 @@ fun ExpandableCard(
     onCardArrowClick: () -> Unit,
     expanded: Boolean
 ) {
-    val transitionState = remember {
-        MutableTransitionState(expanded).apply {
-            targetState = !expanded
+    val transitionState =
+        remember {
+            MutableTransitionState(expanded).apply {
+                targetState = !expanded
+            }
         }
-    }
     val transition = updateTransition(targetState = transitionState, label = "transition")
     val background by transition.animateColor({
         tween(durationMillis = ExpandAnimation)
@@ -82,19 +85,21 @@ fun ExpandableCard(
     }
 
     Column(
-        modifier = modifier
-            .fillMaxWidth()
-            .clip(RoundedCornerShape(cardRoundedCorners))
-            .background(background)
+        modifier =
+            modifier
+                .fillMaxWidth()
+                .clip(RoundedCornerShape(cardRoundedCorners))
+                .background(background)
     ) {
         Row(
             modifier = Modifier.padding(horizontal = 15.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
             Column(
-                modifier = Modifier
-                    .weight(if (showArrow) 0.85f else 1f)
-                    .noRippleClickable { if (!showArrow) onCardArrowClick() }
+                modifier =
+                    Modifier
+                        .weight(if (showArrow) 0.85f else 1f)
+                        .noRippleClickable { if (!showArrow) onCardArrowClick() }
             ) {
                 Text(
                     text = title,
@@ -103,7 +108,7 @@ fun ExpandableCard(
                     style = style
                 )
             }
-            if (showArrow)
+            if (showArrow) {
                 IconLink(
                     tint = tint,
                     onClick = onCardArrowClick,
@@ -111,11 +116,12 @@ fun ExpandableCard(
                     painter = R.drawable.ic_up_arrow.toPainter(),
                     modifier = Modifier.rotate(arrowRotationDegree)
                 )
+            }
         }
 
         AnimatedVisibility(
             modifier = Modifier.animateContentSize(),
-            visible = expanded,
+            visible = expanded
         ) { content() }
     }
 }
@@ -141,9 +147,10 @@ fun ExpandableCardPreview() {
             title = "Elemento",
             content = {
                 Text(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(15.dp),
+                    modifier =
+                        Modifier
+                            .fillMaxWidth()
+                            .padding(15.dp),
                     text = "Expanded!",
                     color = Color.Yellow
                 )

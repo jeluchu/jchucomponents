@@ -29,28 +29,25 @@ import androidx.core.splashscreen.SplashScreen
 
 class SplashScreenController(
     private val splashScreen: SplashScreen,
-    private val defaultExitDuration: Long = 300,
+    private val defaultExitDuration: Long = 300
 ) {
-
     fun customizeSplashScreenExit(
         keys: List<SplashAnimations>,
         onExitExtraActions: () -> Unit = {}
-    ) =
-        splashScreen.setOnExitAnimationListener { splashScreenViewProvider ->
-            val onExit = {
-                splashScreenViewProvider.remove()
-                onExitExtraActions()
-            }
-            showSplashExitAnimator(splashScreenViewProvider.view, keys, onExit)
-            showSplashIconExitAnimator(splashScreenViewProvider.iconView, onExit)
+    ) = splashScreen.setOnExitAnimationListener { splashScreenViewProvider ->
+        val onExit = {
+            splashScreenViewProvider.remove()
+            onExitExtraActions()
         }
+        showSplashExitAnimator(splashScreenViewProvider.view, keys, onExit)
+        showSplashIconExitAnimator(splashScreenViewProvider.iconView, onExit)
+    }
 
     private fun showSplashExitAnimator(
         splashScreenView: View,
         keys: List<SplashAnimations>,
         onExit: () -> Unit = {}
     ) {
-
         AnimatorSet().run {
             duration = defaultExitDuration
             interpolator = AnticipateInterpolator()
@@ -60,34 +57,38 @@ class SplashScreenController(
             doOnEnd { onExit() }
             start()
         }
-
     }
 
-    private fun showSplashIconExitAnimator(iconView: View, onExit: () -> Unit = {}) {
+    private fun showSplashIconExitAnimator(
+        iconView: View,
+        onExit: () -> Unit = {}
+    ) {
+        val alphaOut =
+            ObjectAnimator.ofFloat(
+                iconView,
+                View.ALPHA,
+                1f,
+                0f
+            )
 
-        val alphaOut = ObjectAnimator.ofFloat(
-            iconView,
-            View.ALPHA,
-            1f,
-            0f
-        )
+        val scaleOut =
+            ObjectAnimator.ofFloat(
+                iconView,
+                View.SCALE_X,
+                View.SCALE_Y,
+                Path().apply {
+                    moveTo(1.0f, 1.0f)
+                    lineTo(0.3f, 0.3f)
+                }
+            )
 
-        val scaleOut = ObjectAnimator.ofFloat(
-            iconView,
-            View.SCALE_X,
-            View.SCALE_Y,
-            Path().apply {
-                moveTo(1.0f, 1.0f)
-                lineTo(0.3f, 0.3f)
-            }
-        )
-
-        val slideUp = ObjectAnimator.ofFloat(
-            iconView,
-            View.TRANSLATION_Y,
-            0f,
-            -(iconView.height).toFloat() * 2.25f
-        )
+        val slideUp =
+            ObjectAnimator.ofFloat(
+                iconView,
+                View.TRANSLATION_Y,
+                0f,
+                -(iconView.height).toFloat() * 2.25f
+            )
 
         AnimatorSet().run {
             interpolator = AnticipateInterpolator()
@@ -103,45 +104,50 @@ class SplashScreenController(
         keys: List<SplashAnimations>,
         splashScreenView: View
     ): MutableList<ObjectAnimator> {
-
         val listAnimations: MutableList<ObjectAnimator> = mutableListOf()
 
         for (key in keys) {
-            val animation = when (key) {
-                SplashAnimations.SlideUp -> ObjectAnimator.ofFloat(
-                    splashScreenView,
-                    View.TRANSLATION_Y,
-                    0f,
-                    -splashScreenView.height.toFloat()
-                )
-                SplashAnimations.SlideLeft -> ObjectAnimator.ofFloat(
-                    splashScreenView,
-                    View.TRANSLATION_X,
-                    0f,
-                    -splashScreenView.width.toFloat()
-                )
-                SplashAnimations.ScaleXOut -> ObjectAnimator.ofFloat(
-                    splashScreenView,
-                    View.SCALE_X,
-                    1.0f,
-                    0f
-                )
-                SplashAnimations.AlphaOut -> ObjectAnimator.ofFloat(
-                    splashScreenView,
-                    View.ALPHA,
-                    1f,
-                    0f
-                )
-                SplashAnimations.ScaleOut -> ObjectAnimator.ofFloat(
-                    splashScreenView,
-                    View.SCALE_X,
-                    View.SCALE_Y,
-                    Path().apply {
-                        moveTo(1.0f, 1.0f)
-                        lineTo(0f, 0f)
-                    }
-                )
-            }
+            val animation =
+                when (key) {
+                    SplashAnimations.SlideUp ->
+                        ObjectAnimator.ofFloat(
+                            splashScreenView,
+                            View.TRANSLATION_Y,
+                            0f,
+                            -splashScreenView.height.toFloat()
+                        )
+                    SplashAnimations.SlideLeft ->
+                        ObjectAnimator.ofFloat(
+                            splashScreenView,
+                            View.TRANSLATION_X,
+                            0f,
+                            -splashScreenView.width.toFloat()
+                        )
+                    SplashAnimations.ScaleXOut ->
+                        ObjectAnimator.ofFloat(
+                            splashScreenView,
+                            View.SCALE_X,
+                            1.0f,
+                            0f
+                        )
+                    SplashAnimations.AlphaOut ->
+                        ObjectAnimator.ofFloat(
+                            splashScreenView,
+                            View.ALPHA,
+                            1f,
+                            0f
+                        )
+                    SplashAnimations.ScaleOut ->
+                        ObjectAnimator.ofFloat(
+                            splashScreenView,
+                            View.SCALE_X,
+                            View.SCALE_Y,
+                            Path().apply {
+                                moveTo(1.0f, 1.0f)
+                                lineTo(0f, 0f)
+                            }
+                        )
+                }
 
             listAnimations.add(animation)
         }

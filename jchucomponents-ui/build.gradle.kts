@@ -7,10 +7,16 @@ plugins {
 
 android {
     namespace = "com.jeluchu.jchucomponents.ui"
-    compileSdk = libs.versions.android.compile.sdk.get().toInt()
+    compileSdk =
+        libs.versions.android.compile.sdk
+            .get()
+            .toInt()
 
     defaultConfig {
-        minSdk = libs.versions.android.min.sdk.get().toInt()
+        minSdk =
+            libs.versions.android.min.sdk
+                .get()
+                .toInt()
         proguardFiles(
             getDefaultProguardFile("proguard-android-optimize.txt"),
             "proguard-rules.pro"
@@ -52,7 +58,6 @@ android {
             withSourcesJar()
         }
     }
-
 }
 
 dependencies {

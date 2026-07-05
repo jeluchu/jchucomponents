@@ -4,14 +4,14 @@ import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.SizeTransform
 import androidx.compose.animation.animateContentSize
+import androidx.compose.animation.core.Spring
+import androidx.compose.animation.core.spring
+import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.scaleIn
 import androidx.compose.animation.scaleOut
 import androidx.compose.animation.togetherWith
-import androidx.compose.animation.core.Spring
-import androidx.compose.animation.core.spring
-import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -104,15 +104,18 @@ fun JchuExpandableSearch(
     val focusManager = LocalFocusManager.current
     val focusRequester = remember { FocusRequester() }
     val keyboardController = LocalSoftwareKeyboardController.current
-    val containerColor = defaults.containerColor.takeOrElse {
-        MaterialTheme.colorScheme.surfaceContainer
-    }
-    val contentColor = defaults.contentColor.takeOrElse {
-        MaterialTheme.colorScheme.onSurface
-    }
-    val cursorColor = defaults.cursorColor.takeOrElse {
-        MaterialTheme.colorScheme.primary
-    }
+    val containerColor =
+        defaults.containerColor.takeOrElse {
+            MaterialTheme.colorScheme.surfaceContainer
+        }
+    val contentColor =
+        defaults.contentColor.takeOrElse {
+            MaterialTheme.colorScheme.onSurface
+        }
+    val cursorColor =
+        defaults.cursorColor.takeOrElse {
+            MaterialTheme.colorScheme.primary
+        }
 
     fun close() {
         onExpandedChange(false)
@@ -132,14 +135,16 @@ fun JchuExpandableSearch(
         contentAlignment = Alignment.Center
     ) {
         Surface(
-            modifier = Modifier
-                .then(if (expanded) Modifier.fillMaxWidth() else Modifier.wrapContentWidth())
-                .animateContentSize(
-                    animationSpec = spring(
-                        dampingRatio = Spring.DampingRatioMediumBouncy,
-                        stiffness = Spring.StiffnessLow
-                    )
-                ),
+            modifier =
+                Modifier
+                    .then(if (expanded) Modifier.fillMaxWidth() else Modifier.wrapContentWidth())
+                    .animateContentSize(
+                        animationSpec =
+                            spring(
+                                dampingRatio = Spring.DampingRatioMediumBouncy,
+                                stiffness = Spring.StiffnessLow
+                            )
+                    ),
             color = containerColor,
             contentColor = contentColor,
             shape = defaults.shape
@@ -153,18 +158,19 @@ fun JchuExpandableSearch(
                                 initialScale = 0.96f,
                                 animationSpec = spring(stiffness = Spring.StiffnessMediumLow)
                             )
-                        ) togetherWith (
+                    ) togetherWith (
                         fadeOut(animationSpec = tween(120)) +
                             scaleOut(targetScale = 0.98f, animationSpec = tween(120))
-                        ) using SizeTransform(
-                        clip = false,
-                        sizeAnimationSpec = { _, _ ->
-                            spring(
-                                dampingRatio = Spring.DampingRatioMediumBouncy,
-                                stiffness = Spring.StiffnessLow
-                            )
-                        }
-                    )
+                    ) using
+                        SizeTransform(
+                            clip = false,
+                            sizeAnimationSpec = { _, _ ->
+                                spring(
+                                    dampingRatio = Spring.DampingRatioMediumBouncy,
+                                    stiffness = Spring.StiffnessLow
+                                )
+                            }
+                        )
                 },
                 label = "JchuExpandableSearch"
             ) { isExpanded ->
@@ -172,9 +178,10 @@ fun JchuExpandableSearch(
                     TextField(
                         value = query,
                         onValueChange = onQueryChange,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .focusRequester(focusRequester),
+                        modifier =
+                            Modifier
+                                .fillMaxWidth()
+                                .focusRequester(focusRequester),
                         textStyle = defaults.textStyle,
                         leadingIcon = {
                             Icon(
@@ -184,13 +191,13 @@ fun JchuExpandableSearch(
                         },
                         trailingIcon = {
                             Row(
-                                modifier = Modifier
-                                    .background(
-                                        color = contentColor.copy(alpha = 0.08f),
-                                        shape = RoundedCornerShape(12.dp)
-                                    )
-                                    .animateContentSize()
-                                    .padding(horizontal = 2.dp),
+                                modifier =
+                                    Modifier
+                                        .background(
+                                            color = contentColor.copy(alpha = 0.08f),
+                                            shape = RoundedCornerShape(12.dp)
+                                        ).animateContentSize()
+                                        .padding(horizontal = 2.dp),
                                 verticalAlignment = Alignment.CenterVertically,
                                 horizontalArrangement = Arrangement.spacedBy(2.dp)
                             ) {
@@ -216,28 +223,31 @@ fun JchuExpandableSearch(
                             }
                         },
                         singleLine = true,
-                        keyboardActions = KeyboardActions(
-                            onSearch = {
-                                onSearch(query)
-                                close()
-                            }
-                        ),
+                        keyboardActions =
+                            KeyboardActions(
+                                onSearch = {
+                                    onSearch(query)
+                                    close()
+                                }
+                            ),
                         keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
-                        colors = TextFieldDefaults.colors(
-                            focusedTextColor = contentColor,
-                            unfocusedTextColor = contentColor,
-                            focusedContainerColor = containerColor,
-                            unfocusedContainerColor = containerColor,
-                            focusedIndicatorColor = Color.Transparent,
-                            unfocusedIndicatorColor = Color.Transparent,
-                            cursorColor = cursorColor
-                        )
+                        colors =
+                            TextFieldDefaults.colors(
+                                focusedTextColor = contentColor,
+                                unfocusedTextColor = contentColor,
+                                focusedContainerColor = containerColor,
+                                unfocusedContainerColor = containerColor,
+                                focusedIndicatorColor = Color.Transparent,
+                                unfocusedIndicatorColor = Color.Transparent,
+                                cursorColor = cursorColor
+                            )
                     )
                 } else {
                     Row(
-                        modifier = Modifier
-                            .clickable { onExpandedChange(true) }
-                            .padding(horizontal = 16.dp, vertical = 10.dp),
+                        modifier =
+                            Modifier
+                                .clickable { onExpandedChange(true) }
+                                .padding(horizontal = 16.dp, vertical = 10.dp),
                         verticalAlignment = Alignment.CenterVertically,
                         horizontalArrangement = Arrangement.spacedBy(10.dp)
                     ) {
@@ -288,10 +298,11 @@ private fun JchuExpandableSearchPreview() {
     JchuExpandableSearch(
         query = query,
         onQueryChange = { query = it },
-        defaults = SearchBarDefaults(
-            label = "Search",
-            initiallyExpanded = true
-        ),
+        defaults =
+            SearchBarDefaults(
+                label = "Search",
+                initiallyExpanded = true
+            ),
         modifier = Modifier.padding(16.dp)
     )
 }

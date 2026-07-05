@@ -44,10 +44,11 @@ fun Type(
     fontSize: TextUnit = 12.sp,
     style: TextStyle = LocalTextStyle.current
 ) = MarqueeText(
-    modifier = modifier
-        .clip(shape)
-        .background(colors.container)
-        .padding(10.dp, 2.dp),
+    modifier =
+        modifier
+            .clip(shape)
+            .background(colors.container)
+            .padding(10.dp, 2.dp),
     text = text,
     style = style,
     fontSize = fontSize,
@@ -61,7 +62,7 @@ fun Type(
 class TypeColors constructor(
     val content: Color = artichoke,
     val gradientEdge: Color = Color.White,
-    val container: Color = artichoke.copy(alpha = 0.1f),
+    val container: Color = artichoke.copy(alpha = 0.1f)
 )
 
 @ExperimentalFoundationApi
@@ -79,21 +80,23 @@ fun TypePreview() {
         Text("A long simple text with custom gradients")
         Type(
             text = "The world is a Vampire! And this text is a example text of Marquee Type to check feature",
-            colors = TypeColors(
-                container = artichoke,
-                content = cosmicLatte,
-                gradientEdge = artichoke
-            )
+            colors =
+                TypeColors(
+                    container = artichoke,
+                    content = cosmicLatte,
+                    gradientEdge = artichoke
+                )
         )
         Text("A long simple text with custom shape")
         Type(
             text = "The world is a Vampire! And this text is a example text of Marquee Type to check feature",
             shape = 5.cornerRadius(),
-            colors = TypeColors(
-                container = artichoke,
-                content = cosmicLatte,
-                gradientEdge = artichoke
-            )
+            colors =
+                TypeColors(
+                    container = artichoke,
+                    content = cosmicLatte,
+                    gradientEdge = artichoke
+                )
         )
 
         Text("An example in a Row Composable")
@@ -104,20 +107,22 @@ fun TypePreview() {
                 modifier = Modifier.weight(1f),
                 text = "The world is a Vampire! And this text is a example text of Marquee Type to check feature",
                 shape = 5.cornerRadius(),
-                colors = TypeColors(
-                    container = artichoke,
-                    content = cosmicLatte,
-                    gradientEdge = artichoke
-                )
+                colors =
+                    TypeColors(
+                        container = artichoke,
+                        content = cosmicLatte,
+                        gradientEdge = artichoke
+                    )
             )
             Type(
                 modifier = Modifier.weight(1f),
                 text = "The world is a Vampire! And this text is a example text of Marquee Type to check feature",
-                colors = TypeColors(
-                    container = artichoke,
-                    content = cosmicLatte,
-                    gradientEdge = artichoke
-                )
+                colors =
+                    TypeColors(
+                        container = artichoke,
+                        content = cosmicLatte,
+                        gradientEdge = artichoke
+                    )
             )
         }
     }

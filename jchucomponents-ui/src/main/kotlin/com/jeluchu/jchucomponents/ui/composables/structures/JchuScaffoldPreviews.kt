@@ -3,13 +3,12 @@ package com.jeluchu.jchucomponents.ui.composables.structures
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Card
@@ -20,7 +19,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
@@ -217,9 +215,10 @@ private fun JchuShareScaffoldPreview() {
 private fun JchuPreviewSurface(content: @Composable () -> Unit) {
     MaterialTheme {
         Surface(
-            modifier = Modifier
-                .fillMaxSize()
-                .background(MaterialTheme.colorScheme.background),
+            modifier =
+                Modifier
+                    .fillMaxSize()
+                    .background(MaterialTheme.colorScheme.background),
             content = content
         )
     }
@@ -249,8 +248,9 @@ private fun JchuPreviewCard(text: String) {
     }
 }
 
-private fun previewTabs() = listOf(
-    JchuScaffoldTabItem(label = "One"),
-    JchuScaffoldTabItem(label = "Two"),
-    JchuScaffoldTabItem(label = "Three")
-)
+private fun previewTabs() =
+    listOf(
+        JchuScaffoldTabItem(label = "One"),
+        JchuScaffoldTabItem(label = "Two"),
+        JchuScaffoldTabItem(label = "Three")
+    )

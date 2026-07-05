@@ -34,11 +34,12 @@ inline fun DashedDivider(
     height: Dp = 1.dp,
     crossinline offsetStart: DrawScope.() -> Offset = { Offset.Zero },
     crossinline offsetEnd: DrawScope.() -> Offset = { Offset(size.width, 0f) },
-    phase: Float = 0f,
+    phase: Float = 0f
 ) = Canvas(
-    modifier = modifier
-        .fillMaxWidth()
-        .height(height)
+    modifier =
+        modifier
+            .fillMaxWidth()
+            .height(height)
 ) {
     drawLine(
         color = color,
@@ -52,35 +53,36 @@ inline fun DashedDivider(
 @Preview(showBackground = true)
 @Composable
 fun DashedDividerStaticPreview() {
-    val samples = remember {
-        listOf(
-            5f to 5f,
-            5f to 10f,
-            5f to 25f,
-            10f to 5f,
-            10f to 10f,
-            10f to 25f,
-            25f to 5f,
-            25f to 10f,
-            25f to 25f,
-        )
-    }
+    val samples =
+        remember {
+            listOf(
+                5f to 5f,
+                5f to 10f,
+                5f to 25f,
+                10f to 5f,
+                10f to 10f,
+                10f to 25f,
+                25f to 5f,
+                25f to 10f,
+                25f to 25f
+            )
+        }
 
     Column {
         samples.forEach { (dashWidth, dashGap) ->
             Row(
                 modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
                 horizontalArrangement = Arrangement.spacedBy(32.dp),
-                verticalAlignment = Alignment.CenterVertically,
+                verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    text = "dash width = $dashWidth\ndash gap = $dashGap",
+                    text = "dash width = $dashWidth\ndash gap = $dashGap"
                 )
 
                 DashedDivider(
                     dashWidth = dashWidth,
                     dashGap = dashGap,
-                    color = Color.DarkGray,
+                    color = Color.DarkGray
                 )
             }
         }
@@ -104,7 +106,7 @@ fun DashedDividerInteractivePreview(
         label: String,
         value: Float,
         onValueChanged: (Float) -> Unit,
-        valueRange: ClosedFloatingPointRange<Float> = 1f..100f,
+        valueRange: ClosedFloatingPointRange<Float> = 1f..100f
     ) {
         Column {
             Text(label)
@@ -112,52 +114,53 @@ fun DashedDividerInteractivePreview(
                 value = value,
                 onValueChange = onValueChanged,
                 valueRange = valueRange,
-                colors = SliderDefaults.colors(
-                    thumbColor = primary,
-                    activeTrackColor = primary,
-                    activeTickColor = secondary,
-                    inactiveTrackColor = milky.copy(.6f)
-                )
+                colors =
+                    SliderDefaults.colors(
+                        thumbColor = primary,
+                        activeTrackColor = primary,
+                        activeTickColor = secondary,
+                        inactiveTrackColor = milky.copy(.6f)
+                    )
             )
         }
     }
 
     Column(
         modifier = Modifier.padding(16.dp),
-        verticalArrangement = Arrangement.spacedBy(24.dp),
+        verticalArrangement = Arrangement.spacedBy(24.dp)
     ) {
         DashedDivider(
             color = Color.DarkGray,
             dashWidth = dashWidth,
             dashGap = dashGap,
             height = height,
-            phase = phase,
+            phase = phase
         )
 
         ValueSlider(
             label = "dash width = $dashWidth",
             value = dashWidth,
-            onValueChanged = { dashWidth = it },
+            onValueChanged = { dashWidth = it }
         )
 
         ValueSlider(
             label = "dash gap = $dashGap",
             value = dashGap,
-            onValueChanged = { dashGap = it },
+            onValueChanged = { dashGap = it }
         )
 
         ValueSlider(
             label = "height = $height",
             value = height.value,
             onValueChanged = { height = it.dp },
-            valueRange = 1f..25f,
+            valueRange = 1f..25f
         )
 
         ValueSlider(
             label = "phase = $phase",
             value = phase,
             onValueChanged = { phase = it },
-            valueRange = 0f..100f,
+            valueRange = 0f..100f
         )
     }
 }

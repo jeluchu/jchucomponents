@@ -18,7 +18,6 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
-import androidx.compose.material3.TextFieldColors
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
@@ -63,9 +62,10 @@ fun JchuCountedField(
 
     Text(
         text = title,
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(bottom = 4.dp),
+        modifier =
+            Modifier
+                .fillMaxWidth()
+                .padding(bottom = 4.dp),
         textAlign = TextAlign.Start,
         color = countField.counterTextColor,
         style = styleLabel
@@ -74,13 +74,14 @@ fun JchuCountedField(
     TextField(
         modifier = Modifier.fillMaxWidth(),
         value = displayValue,
-        colors = TextFieldDefaults.colors(
-            focusedContainerColor = countField.backgroundColor,
-            cursorColor = countField.cursorColor,
-            disabledLabelColor = countField.disabledLabelColor,
-            focusedIndicatorColor = Color.Transparent,
-            unfocusedIndicatorColor = Color.Transparent
-        ),
+        colors =
+            TextFieldDefaults.colors(
+                focusedContainerColor = countField.backgroundColor,
+                cursorColor = countField.cursorColor,
+                disabledLabelColor = countField.disabledLabelColor,
+                focusedIndicatorColor = Color.Transparent,
+                unfocusedIndicatorColor = Color.Transparent
+            ),
         onValueChange = {
             if (it.length <= maxLength) onValueChange(it)
         },
@@ -100,9 +101,10 @@ fun JchuCountedField(
     )
     Text(
         text = "${displayValue.length} / $maxLength",
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(top = 4.dp),
+        modifier =
+            Modifier
+                .fillMaxWidth()
+                .padding(top = 4.dp),
         textAlign = TextAlign.End,
         color = countField.counterTextColor,
         style = styleLabel
@@ -127,10 +129,11 @@ fun JchuCountedFieldPreview() {
         value = textState,
         onValueChange = { textState = it },
         maxLength = 110,
-        countField = CountField(
-            backgroundColor = Color(0xffd8e6ff),
-            disabledLabelColor = Color(0xffd8e6ff),
-            counterTextColor = Color(0xff76a9ff)
-        )
+        countField =
+            CountField(
+                backgroundColor = Color(0xffd8e6ff),
+                disabledLabelColor = Color(0xffd8e6ff),
+                counterTextColor = Color(0xff76a9ff)
+            )
     )
 }

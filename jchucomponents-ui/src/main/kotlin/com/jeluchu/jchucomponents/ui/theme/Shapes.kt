@@ -1,8 +1,8 @@
 package com.jeluchu.jchucomponents.ui.theme
 
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Stable
 import androidx.compose.runtime.staticCompositionLocalOf
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.unit.dp
 import com.jeluchu.jchucomponents.ui.extensions.modifier.cornerRadius
@@ -41,24 +41,27 @@ class Shapes(
     val corner50: Shape = 50.cornerRadius(),
     val corner100: Shape = 100.cornerRadius(),
     val corner999: Shape = 999.cornerRadius(),
-    val bottomSheetShape: Shape = RoundedCornerShape(
-        topStart = 20.dp,
-        topEnd = 20.dp,
-        bottomEnd = 0.dp,
-        bottomStart = 0.dp
-    ),
-    val topSheetShape: Shape = RoundedCornerShape(
-        topStart = 0.dp,
-        bottomStart = 20.dp,
-        topEnd = 0.dp,
-        bottomEnd = 20.dp
-    ),
-    val endSheetShape: Shape = RoundedCornerShape(
-        topStart = 0.dp,
-        bottomStart = 0.dp,
-        topEnd = 10.dp,
-        bottomEnd = 10.dp
-    )
+    val bottomSheetShape: Shape =
+        RoundedCornerShape(
+            topStart = 20.dp,
+            topEnd = 20.dp,
+            bottomEnd = 0.dp,
+            bottomStart = 0.dp
+        ),
+    val topSheetShape: Shape =
+        RoundedCornerShape(
+            topStart = 0.dp,
+            bottomStart = 20.dp,
+            topEnd = 0.dp,
+            bottomEnd = 20.dp
+        ),
+    val endSheetShape: Shape =
+        RoundedCornerShape(
+            topStart = 0.dp,
+            bottomStart = 0.dp,
+            topEnd = 10.dp,
+            bottomEnd = 10.dp
+        )
 )
 
 val LocalShapes = staticCompositionLocalOf { Shapes() }

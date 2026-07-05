@@ -75,10 +75,11 @@ fun <T> JchuPurchaseElementsScaffold(
             Column {
                 Toolbar(
                     title = title,
-                    topBarSettings = TopBarSettings(
-                        contentColor = config.scaffoldColors.contentColor,
-                        backgroundColor = config.scaffoldColors.containerColor
-                    ),
+                    topBarSettings =
+                        TopBarSettings(
+                            contentColor = config.scaffoldColors.contentColor,
+                            backgroundColor = config.scaffoldColors.containerColor
+                        ),
                     navigateToBackScreen = onBackClick
                 )
                 topContent?.invoke()
@@ -86,10 +87,11 @@ fun <T> JchuPurchaseElementsScaffold(
         },
         bottomBar = {
             JchuPurchaseSearchBottomBar(
-                isVisible = !isLoading &&
-                    error.isNullOrEmpty() &&
-                    items?.isNotEmpty() == true &&
-                    config.searchConfig.isActive,
+                isVisible =
+                    !isLoading &&
+                        error.isNullOrEmpty() &&
+                        items?.isNotEmpty() == true &&
+                        config.searchConfig.isActive,
                 config = config
             )
         }
@@ -140,32 +142,35 @@ fun <T> JchuPurchaseStates(
             val filteredItems = filtered(sourceItems)
             when {
                 config.headerConfig.isCompletedByHiddenFavorites &&
-                    config.searchConfig.query.value.isEmpty() -> config.hiddenFavoritesContent()
+                    config.searchConfig.query.value
+                        .isEmpty() -> config.hiddenFavoritesContent()
 
                 filteredItems.isEmpty() -> config.emptyContent()
 
-                isColumnList -> JchuPurchaseColumnContent(
-                    key = key,
-                    config = config,
-                    modifier = modifier,
-                    listState = listState,
-                    items = filteredItems,
-                    headerContent = headerContent,
-                    paddingValues = paddingValues,
-                    content = { content(JchuPurchaseItemType.Horizontal, it) }
-                )
+                isColumnList ->
+                    JchuPurchaseColumnContent(
+                        key = key,
+                        config = config,
+                        modifier = modifier,
+                        listState = listState,
+                        items = filteredItems,
+                        headerContent = headerContent,
+                        paddingValues = paddingValues,
+                        content = { content(JchuPurchaseItemType.Horizontal, it) }
+                    )
 
-                else -> JchuPurchaseGridContent(
-                    key = key,
-                    cells = cells,
-                    config = config,
-                    modifier = modifier,
-                    items = filteredItems,
-                    gridState = gridState,
-                    headerContent = headerContent,
-                    paddingValues = paddingValues,
-                    content = { content(JchuPurchaseItemType.Vertical, it) }
-                )
+                else ->
+                    JchuPurchaseGridContent(
+                        key = key,
+                        cells = cells,
+                        config = config,
+                        modifier = modifier,
+                        items = filteredItems,
+                        gridState = gridState,
+                        headerContent = headerContent,
+                        paddingValues = paddingValues,
+                        content = { content(JchuPurchaseItemType.Vertical, it) }
+                    )
             }
         }
     )
@@ -201,25 +206,28 @@ fun JchuPurchaseTabItemsScaffold(
         topBar = {
             Toolbar(
                 title = title,
-                topBarSettings = TopBarSettings(
-                    contentColor = config.scaffoldColors.contentColor,
-                    backgroundColor = config.scaffoldColors.containerColor
-                ),
+                topBarSettings =
+                    TopBarSettings(
+                        contentColor = config.scaffoldColors.contentColor,
+                        backgroundColor = config.scaffoldColors.containerColor
+                    ),
                 navigateToBackScreen = onBackClick
             )
         },
         bottomBar = {
             Column(
-                modifier = Modifier
-                    .animateContentSize()
-                    .imePadding(),
+                modifier =
+                    Modifier
+                        .animateContentSize()
+                        .imePadding(),
                 verticalArrangement = Arrangement.Bottom
             ) {
                 JchuPurchaseTabSearchBar(
-                    isVisible = config.searchConfig.isActive &&
-                        !isLoading &&
-                        error.isNullOrEmpty() &&
-                        tabs.isNotEmpty(),
+                    isVisible =
+                        config.searchConfig.isActive &&
+                            !isLoading &&
+                            error.isNullOrEmpty() &&
+                            tabs.isNotEmpty(),
                     config = config
                 )
 
@@ -260,13 +268,14 @@ fun JchuPurchaseTabBar(
                 icon = item.icon,
                 label = { Text(item.label) },
                 alwaysShowLabel = item.alwaysShowLabel,
-                colors = NavigationBarItemDefaults.colors(
-                    selectedIconColor = colors.selectedContentColor,
-                    selectedTextColor = colors.selectedContentColor,
-                    indicatorColor = colors.selectedContainerColor,
-                    unselectedIconColor = colors.unselectedContentColor,
-                    unselectedTextColor = colors.unselectedContentColor
-                )
+                colors =
+                    NavigationBarItemDefaults.colors(
+                        selectedIconColor = colors.selectedContentColor,
+                        selectedTextColor = colors.selectedContentColor,
+                        indicatorColor = colors.selectedContainerColor,
+                        unselectedIconColor = colors.unselectedContentColor,
+                        unselectedTextColor = colors.unselectedContentColor
+                    )
             )
         }
     }
@@ -315,7 +324,7 @@ private fun <T> JchuPurchaseGridContent(
         modifier = modifier.fillMaxSize(),
         contentPadding = JchuPurchaseContentPadding(paddingValues, includeBottom = false),
         verticalArrangement = Arrangement.spacedBy(10.dp),
-        horizontalArrangement = Arrangement.spacedBy(10.dp),
+        horizontalArrangement = Arrangement.spacedBy(10.dp)
     ) {
         item(span = { GridItemSpan(maxLineSpan) }) {
             JchuPurchaseHeader(config = config)
@@ -328,9 +337,10 @@ private fun <T> JchuPurchaseGridContent(
         }
         item(span = { GridItemSpan(maxLineSpan) }) {
             Spacer(
-                modifier = Modifier.height(
-                    paddingValues.calculateBottomPadding() + 20.dp
-                )
+                modifier =
+                    Modifier.height(
+                        paddingValues.calculateBottomPadding() + 20.dp
+                    )
             )
         }
     }
@@ -353,27 +363,31 @@ private fun JchuPurchaseSearchBottomBar(
         visible = isVisible,
         enter = scaleIn(),
         exit = scaleOut(),
-        modifier = Modifier.background(
-            brush = Brush.verticalGradient(
-                colors = listOf(
-                    Color.Transparent,
-                    config.scaffoldColors.containerColor
-                ),
-                startY = 0f,
-                endY = Float.POSITIVE_INFINITY
+        modifier =
+            Modifier.background(
+                brush =
+                    Brush.verticalGradient(
+                        colors =
+                            listOf(
+                                Color.Transparent,
+                                config.scaffoldColors.containerColor
+                            ),
+                        startY = 0f,
+                        endY = Float.POSITIVE_INFINITY
+                    )
             )
-        )
     ) {
         JchuExpandableSearch(
             query = config.searchConfig.query.value,
             onQueryChange = { config.searchConfig.query.value = it },
             defaults = config.searchConfig.toSearchBarDefaults(),
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(8.dp)
-                .padding(bottom = 30.dp)
-                .navigationBarsPadding()
-                .imePadding()
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .padding(8.dp)
+                    .padding(bottom = 30.dp)
+                    .navigationBarsPadding()
+                    .imePadding()
         )
     }
 }
@@ -392,9 +406,10 @@ private fun JchuPurchaseTabSearchBar(
             query = config.searchConfig.query.value,
             onQueryChange = { config.searchConfig.query.value = it },
             defaults = config.searchConfig.toSearchBarDefaults(),
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(8.dp)
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .padding(8.dp)
         )
     }
 }
@@ -402,9 +417,10 @@ private fun JchuPurchaseTabSearchBar(
 private fun JchuPurchaseContentPadding(
     paddingValues: PaddingValues,
     includeBottom: Boolean = true
-): PaddingValues = PaddingValues(
-    start = 15.dp,
-    end = 15.dp,
-    top = paddingValues.calculateTopPadding(),
-    bottom = if (includeBottom) paddingValues.calculateBottomPadding() + 20.dp else 15.dp
-)
+): PaddingValues =
+    PaddingValues(
+        start = 15.dp,
+        end = 15.dp,
+        top = paddingValues.calculateTopPadding(),
+        bottom = if (includeBottom) paddingValues.calculateBottomPadding() + 20.dp else 15.dp
+    )

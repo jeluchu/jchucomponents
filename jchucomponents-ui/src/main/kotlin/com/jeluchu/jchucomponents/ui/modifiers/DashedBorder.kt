@@ -4,6 +4,8 @@
  *
  */
 
+@file:Suppress("ktlint:standard:no-wildcard-imports")
+
 package com.jeluchu.jchucomponents.ui.modifiers
 
 import androidx.compose.foundation.BorderStroke
@@ -28,8 +30,12 @@ import androidx.compose.ui.unit.Dp
  * @param border [BorderStroke] class that specifies border appearance, such as size and color
  * @param shape shape of the border
  */
-fun Modifier.dashedBorder(border: BorderStroke, shape: Shape = RectangleShape, on: Dp, off: Dp) =
-    dashedBorder(width = border.width, brush = border.brush, shape = shape, on, off)
+fun Modifier.dashedBorder(
+    border: BorderStroke,
+    shape: Shape = RectangleShape,
+    on: Dp,
+    off: Dp
+) = dashedBorder(width = border.width, brush = border.brush, shape = shape, on, off)
 
 /**
  *
@@ -43,8 +49,13 @@ fun Modifier.dashedBorder(border: BorderStroke, shape: Shape = RectangleShape, o
  * @param off the size of the space between dashes
  *
  */
-fun Modifier.dashedBorder(width: Dp, color: Color, shape: Shape = RectangleShape, on: Dp, off: Dp) =
-    dashedBorder(width, SolidColor(color), shape, on, off)
+fun Modifier.dashedBorder(
+    width: Dp,
+    color: Color,
+    shape: Shape = RectangleShape,
+    on: Dp,
+    off: Dp
+) = dashedBorder(width, SolidColor(color), shape, on, off)
 
 /**
  *
@@ -56,7 +67,13 @@ fun Modifier.dashedBorder(width: Dp, color: Color, shape: Shape = RectangleShape
  * @param shape shape of the border
  *
  */
-fun Modifier.dashedBorder(width: Dp, brush: Brush, shape: Shape, on: Dp, off: Dp): Modifier =
+fun Modifier.dashedBorder(
+    width: Dp,
+    brush: Brush,
+    shape: Shape,
+    on: Dp,
+    off: Dp
+): Modifier =
     composed(
         factory = {
             this.then(
@@ -72,11 +89,14 @@ fun Modifier.dashedBorder(width: Dp, brush: Brush, shape: Shape, on: Dp, off: Dp
                     var insetPath: Path? = null
                     if (borderSize > 0 && size.minDimension > 0f) {
                         if (outline is Outline.Rectangle) {
-                            stroke = Stroke(
-                                borderSize, pathEffect = PathEffect.dashPathEffect(
-                                    floatArrayOf(on.toPx(), off.toPx())
+                            stroke =
+                                Stroke(
+                                    borderSize,
+                                    pathEffect =
+                                        PathEffect.dashPathEffect(
+                                            floatArrayOf(on.toPx(), off.toPx())
+                                        )
                                 )
-                            )
                         } else {
                             // Multiplier to apply to the border size to get a stroke width that is
                             // large enough to cover the corners while not being too large to overly
@@ -90,25 +110,30 @@ fun Modifier.dashedBorder(width: Dp, brush: Brush, shape: Shape, on: Dp, off: Dp
                             // border
                             val strokeWidth = 1.2f * borderSize
                             inset = borderSize - strokeWidth / 2
-                            val insetSize = Size(
-                                size.width - inset * 2,
-                                size.height - inset * 2
-                            )
-                            insetOutline = shape.createOutline(insetSize, layoutDirection, this)
-                            stroke = Stroke(
-                                strokeWidth, pathEffect = PathEffect.dashPathEffect(
-                                    floatArrayOf(on.toPx(), off.toPx())
+                            val insetSize =
+                                Size(
+                                    size.width - inset * 2,
+                                    size.height - inset * 2
                                 )
-                            )
-                            pathClip = when (outline) {
-                                is Outline.Rounded -> Path().apply { addRoundRect(outline.roundRect) }
-                                is Outline.Generic -> outline.path
-                                else -> {
-                                    // should not get here because we check for Outline.Rectangle
-                                    // above
-                                    null
+                            insetOutline = shape.createOutline(insetSize, layoutDirection, this)
+                            stroke =
+                                Stroke(
+                                    strokeWidth,
+                                    pathEffect =
+                                        PathEffect.dashPathEffect(
+                                            floatArrayOf(on.toPx(), off.toPx())
+                                        )
+                                )
+                            pathClip =
+                                when (outline) {
+                                    is Outline.Rounded -> Path().apply { addRoundRect(outline.roundRect) }
+                                    is Outline.Generic -> outline.path
+                                    else -> {
+                                        // should not get here because we check for Outline.Rectangle
+                                        // above
+                                        null
+                                    }
                                 }
-                            }
 
                             insetPath =
                                 if (insetOutline is Outline.Rounded &&
@@ -139,7 +164,8 @@ fun Modifier.dashedBorder(width: Dp, brush: Brush, shape: Shape, on: Dp, off: Dp
                         // an invalid border size we will just draw the content
                         if (stroke != null) {
                             if (insetOutline != null && pathClip != null) {
-                                val isSimpleRoundRect = insetOutline is Outline.Rounded &&
+                                val isSimpleRoundRect =
+                                    insetOutline is Outline.Rounded &&
                                         insetOutline.roundRect.isSimple
                                 withTransform({
                                     clipPath(pathClip)
@@ -176,21 +202,27 @@ fun Modifier.dashedBorder(width: Dp, brush: Brush, shape: Shape, on: Dp, off: Dp
                                             topLeft = Offset(rrect.left, rrect.top),
                                             size = Size(rrect.width, rrect.height),
                                             cornerRadius = rrect.topLeftCornerRadius,
-                                            style = Stroke(
-                                                Stroke.HairlineWidth,
-                                                pathEffect = PathEffect.dashPathEffect(
-                                                    floatArrayOf(on.toPx(), off.toPx())
+                                            style =
+                                                Stroke(
+                                                    Stroke.HairlineWidth,
+                                                    pathEffect =
+                                                        PathEffect.dashPathEffect(
+                                                            floatArrayOf(on.toPx(), off.toPx())
+                                                        )
                                                 )
-                                            )
                                         )
                                     } else {
                                         drawPath(
-                                            pathClip, brush = brush, style = Stroke(
-                                                Stroke.HairlineWidth,
-                                                pathEffect = PathEffect.dashPathEffect(
-                                                    floatArrayOf(on.toPx(), off.toPx())
+                                            pathClip,
+                                            brush = brush,
+                                            style =
+                                                Stroke(
+                                                    Stroke.HairlineWidth,
+                                                    pathEffect =
+                                                        PathEffect.dashPathEffect(
+                                                            floatArrayOf(on.toPx(), off.toPx())
+                                                        )
                                                 )
-                                            )
                                         )
                                     }
                                 }
@@ -201,10 +233,11 @@ fun Modifier.dashedBorder(width: Dp, brush: Brush, shape: Shape, on: Dp, off: Dp
                                 drawRect(
                                     brush = brush,
                                     topLeft = Offset(halfStrokeWidth, halfStrokeWidth),
-                                    size = Size(
-                                        size.width - strokeWidth,
-                                        size.height - strokeWidth
-                                    ),
+                                    size =
+                                        Size(
+                                            size.width - strokeWidth,
+                                            size.height - strokeWidth
+                                        ),
                                     style = stroke
                                 )
                             }
@@ -213,15 +246,16 @@ fun Modifier.dashedBorder(width: Dp, brush: Brush, shape: Shape, on: Dp, off: Dp
                 }
             )
         },
-        inspectorInfo = debugInspectorInfo {
-            name = "border"
-            properties["width"] = width
-            if (brush is SolidColor) {
-                properties["color"] = brush.value
-                value = brush.value
-            } else {
-                properties["brush"] = brush
+        inspectorInfo =
+            debugInspectorInfo {
+                name = "border"
+                properties["width"] = width
+                if (brush is SolidColor) {
+                    properties["color"] = brush.value
+                    value = brush.value
+                } else {
+                    properties["brush"] = brush
+                }
+                properties["shape"] = shape
             }
-            properties["shape"] = shape
-        }
     )

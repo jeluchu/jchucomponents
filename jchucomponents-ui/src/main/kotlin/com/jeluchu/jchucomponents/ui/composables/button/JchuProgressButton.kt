@@ -34,7 +34,7 @@ fun JchuProgressButton(
     fontSize: TextUnit = 16.sp,
     textStyle: TextStyle = MaterialTheme.typography.bodyLarge,
     colors: ButtonColors = ButtonDefaults.filledTonalButtonColors(),
-    onClick: () -> Unit,
+    onClick: () -> Unit
 ) = JchuProgressButton(
     modifier = modifier,
     text = state.title,
@@ -44,7 +44,7 @@ fun JchuProgressButton(
     fontSize = fontSize,
     textStyle = textStyle,
     colors = colors,
-    onClick = onClick,
+    onClick = onClick
 )
 
 @Composable
@@ -57,7 +57,7 @@ fun JchuProgressButton(
     fontSize: TextUnit = 16.sp,
     textStyle: TextStyle = MaterialTheme.typography.bodyLarge,
     colors: ButtonColors = ButtonDefaults.filledTonalButtonColors(),
-    onClick: () -> Unit,
+    onClick: () -> Unit
 ) = FilledTonalButton(
     modifier = modifier,
     onClick = onClick,
@@ -65,20 +65,23 @@ fun JchuProgressButton(
     colors = colors,
     contentPadding = ButtonDefaults.ButtonWithIconContentPadding
 ) {
-    if (isLoading)
+    if (isLoading) {
         Box(modifier = Modifier.size(18.dp)) {
             CircularProgressIndicator(
-                modifier = Modifier
-                    .size(16.dp)
-                    .align(Alignment.Center),
-                strokeWidth = 3.dp,
+                modifier =
+                    Modifier
+                        .size(16.dp)
+                        .align(Alignment.Center),
+                strokeWidth = 3.dp
             )
         }
-    else Icon(
-        imageVector = icon,
-        contentDescription = null,
-        modifier = Modifier.size(18.dp),
-    )
+    } else {
+        Icon(
+            imageVector = icon,
+            contentDescription = null,
+            modifier = Modifier.size(18.dp)
+        )
+    }
     Text(
         text = text,
         modifier = Modifier.padding(start = 8.dp),

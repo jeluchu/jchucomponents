@@ -116,7 +116,7 @@ fun MarqueeText(
     overflow: TextOverflow = TextOverflow.Clip,
     softWrap: Boolean = true,
     onTextLayout: (TextLayoutResult) -> Unit = {},
-    style: TextStyle = LocalTextStyle.current,
+    style: TextStyle = LocalTextStyle.current
 ) {
     val createText = @Composable { localModifier: Modifier ->
         Text(
@@ -135,7 +135,7 @@ fun MarqueeText(
             softWrap = softWrap,
             maxLines = 1,
             onTextLayout = onTextLayout,
-            style = style,
+            style = style
         )
     }
     var offset by remember { mutableStateOf(0) }
@@ -147,19 +147,22 @@ fun MarqueeText(
         val delay = 1000L
 
         do {
-            val animation = TargetBasedAnimation(
-                animationSpec = infiniteRepeatable(
-                    animation = tween(
-                        durationMillis = duration,
-                        delayMillis = 1000,
-                        easing = LinearEasing,
-                    ),
-                    repeatMode = RepeatMode.Restart
-                ),
-                typeConverter = Int.VectorConverter,
-                initialValue = 0,
-                targetValue = -textLayoutInfo.textWidth
-            )
+            val animation =
+                TargetBasedAnimation(
+                    animationSpec =
+                        infiniteRepeatable(
+                            animation =
+                                tween(
+                                    durationMillis = duration,
+                                    delayMillis = 1000,
+                                    easing = LinearEasing
+                                ),
+                            repeatMode = RepeatMode.Restart
+                        ),
+                    typeConverter = Int.VectorConverter,
+                    initialValue = 0,
+                    targetValue = -textLayoutInfo.textWidth
+                )
             val startTime = withFrameNanos { it }
             do {
                 val playTime = withFrameNanos { it } - startTime
@@ -173,24 +176,27 @@ fun MarqueeText(
         modifier = modifier.clipToBounds()
     ) { constraints ->
         val infiniteWidthConstraints = constraints.copy(maxWidth = Int.MAX_VALUE)
-        var mainText = subcompose(MarqueeLayers.MainText) {
-            createText(textModifier)
-        }.first().measure(infiniteWidthConstraints)
+        var mainText =
+            subcompose(MarqueeLayers.MainText) {
+                createText(textModifier)
+            }.first().measure(infiniteWidthConstraints)
 
         var gradient: Placeable? = null
 
         var secondPlaceableWithOffset: Pair<Placeable, Int>? = null
         if (mainText.width <= constraints.maxWidth) {
-            mainText = subcompose(MarqueeLayers.SecondaryText) {
-                createText(textModifier.fillMaxWidth())
-            }.first().measure(constraints)
+            mainText =
+                subcompose(MarqueeLayers.SecondaryText) {
+                    createText(textModifier.fillMaxWidth())
+                }.first().measure(constraints)
             textLayoutInfoState.value = null
         } else {
             val spacing = constraints.maxWidth * 2 / 3
-            textLayoutInfoState.value = TextLayoutInfo(
-                textWidth = mainText.width + spacing,
-                containerWidth = constraints.maxWidth
-            )
+            textLayoutInfoState.value =
+                TextLayoutInfo(
+                    textWidth = mainText.width + spacing,
+                    containerWidth = constraints.maxWidth
+                )
             val secondTextOffset = mainText.width + offset + spacing
             val secondTextSpace = constraints.maxWidth - secondTextOffset
             if (secondTextSpace > 0) {
@@ -198,13 +204,14 @@ fun MarqueeText(
                     createText(textModifier)
                 }.first().measure(infiniteWidthConstraints) to secondTextOffset
             }
-            gradient = subcompose(MarqueeLayers.EdgesGradient) {
-                Row {
-                    GradientEdge(gradientEdgeColor, Color.Transparent)
-                    Spacer(Modifier.weight(1f))
-                    GradientEdge(Color.Transparent, gradientEdgeColor)
-                }
-            }.first().measure(constraints.copy(maxHeight = mainText.height))
+            gradient =
+                subcompose(MarqueeLayers.EdgesGradient) {
+                    Row {
+                        GradientEdge(gradientEdgeColor, Color.Transparent)
+                        Spacer(Modifier.weight(1f))
+                        GradientEdge(Color.Transparent, gradientEdgeColor)
+                    }
+                }.first().measure(constraints.copy(maxHeight = mainText.height))
         }
 
         layout(
@@ -222,22 +229,30 @@ fun MarqueeText(
 
 @Composable
 private fun GradientEdge(
-    startColor: Color, endColor: Color,
+    startColor: Color,
+    endColor: Color
 ) {
     Box(
-        modifier = Modifier
-            .width(10.dp)
-            .fillMaxHeight()
-            .background(
-                brush = Brush.horizontalGradient(
-                    0f to startColor, 1f to endColor,
+        modifier =
+            Modifier
+                .width(10.dp)
+                .fillMaxHeight()
+                .background(
+                    brush =
+                        Brush.horizontalGradient(
+                            0f to startColor,
+                            1f to endColor
+                        )
                 )
-            )
     )
 }
 
 private enum class MarqueeLayers { MainText, SecondaryText, EdgesGradient }
-private data class TextLayoutInfo(val textWidth: Int, val containerWidth: Int)
+
+private data class TextLayoutInfo(
+    val textWidth: Int,
+    val containerWidth: Int
+)
 
 fun ContentDrawScope.drawFadedEdge(
     leftEdge: Boolean,
@@ -247,11 +262,12 @@ fun ContentDrawScope.drawFadedEdge(
     drawRect(
         topLeft = Offset(if (leftEdge) 0f else size.width - edgeWidthPx, 0f),
         size = Size(edgeWidthPx, size.height),
-        brush = Brush.horizontalGradient(
-            colors = listOf(Color.Transparent, Color.Black),
-            startX = if (leftEdge) 0f else size.width,
-            endX = if (leftEdge) edgeWidthPx else size.width - edgeWidthPx
-        ),
+        brush =
+            Brush.horizontalGradient(
+                colors = listOf(Color.Transparent, Color.Black),
+                startX = if (leftEdge) 0f else size.width,
+                endX = if (leftEdge) edgeWidthPx else size.width - edgeWidthPx
+            ),
         blendMode = BlendMode.DstIn
     )
 }
@@ -284,21 +300,21 @@ fun MarqueeText(
     style: TextStyle = LocalTextStyle.current
 ) = Text(
     text = text,
-    modifier = modifier
-        .fillMaxWidth()
-        .graphicsLayer { compositingStrategy = CompositingStrategy.Offscreen }
-        .drawWithContent {
-            drawContent()
-            drawFadedEdge(leftEdge = true, edgeWidth = edgeWidthGradient)
-            drawFadedEdge(leftEdge = false, edgeWidth = edgeWidthGradient)
-        }
-        .basicMarquee(
-            animationMode = animationMode,
-            iterations = iterations,
-            repeatDelayMillis = delayMillis,
-            spacing = marqueeSpacing,
-            velocity = velocity
-        ),
+    modifier =
+        modifier
+            .fillMaxWidth()
+            .graphicsLayer { compositingStrategy = CompositingStrategy.Offscreen }
+            .drawWithContent {
+                drawContent()
+                drawFadedEdge(leftEdge = true, edgeWidth = edgeWidthGradient)
+                drawFadedEdge(leftEdge = false, edgeWidth = edgeWidthGradient)
+            }.basicMarquee(
+                animationMode = animationMode,
+                iterations = iterations,
+                repeatDelayMillis = delayMillis,
+                spacing = marqueeSpacing,
+                velocity = velocity
+            ),
     color = color,
     fontSize = fontSize,
     fontStyle = fontStyle,
@@ -343,20 +359,20 @@ fun MarqueeText(
     style: TextStyle = LocalTextStyle.current
 ) = Text(
     text = text.toStringRes(),
-    modifier = modifier
-        .graphicsLayer { compositingStrategy = CompositingStrategy.Offscreen }
-        .drawWithContent {
-            drawContent()
-            drawFadedEdge(leftEdge = true, edgeWidth = edgeWidthGradient)
-            drawFadedEdge(leftEdge = false, edgeWidth = edgeWidthGradient)
-        }
-        .basicMarquee(
-            animationMode = animationMode,
-            iterations = iterations,
-            repeatDelayMillis = delayMillis,
-            spacing = marqueeSpacing,
-            velocity = velocity
-        ),
+    modifier =
+        modifier
+            .graphicsLayer { compositingStrategy = CompositingStrategy.Offscreen }
+            .drawWithContent {
+                drawContent()
+                drawFadedEdge(leftEdge = true, edgeWidth = edgeWidthGradient)
+                drawFadedEdge(leftEdge = false, edgeWidth = edgeWidthGradient)
+            }.basicMarquee(
+                animationMode = animationMode,
+                iterations = iterations,
+                repeatDelayMillis = delayMillis,
+                spacing = marqueeSpacing,
+                velocity = velocity
+            ),
     color = color,
     fontSize = fontSize,
     fontStyle = fontStyle,

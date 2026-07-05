@@ -27,10 +27,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.jeluchu.jchucomponents.ui.extensions.toImageVector
 import com.jeluchu.jchucomponents.ui.R
 import com.jeluchu.jchucomponents.ui.composables.images.NetworkImage
 import com.jeluchu.jchucomponents.ui.extensions.modifier.cornerRadius
+import com.jeluchu.jchucomponents.ui.extensions.toImageVector
 import com.jeluchu.jchucomponents.ui.theme.JchuTheme
 
 /**
@@ -133,13 +133,14 @@ fun InfoCardPreviewLight() {
         InfoCard(
             text = "Info",
             icon = R.drawable.ic_up_arrow,
-            modifier = Modifier
-                .clip(10.cornerRadius())
-                .background(Color.Blue.copy(.4f))
-                .padding(
-                    vertical = 5.dp,
-                    horizontal = 10.dp
-                ),
+            modifier =
+                Modifier
+                    .clip(10.cornerRadius())
+                    .background(Color.Blue.copy(.4f))
+                    .padding(
+                        vertical = 5.dp,
+                        horizontal = 10.dp
+                    ),
             color = Color.DarkGray,
             tint = Color.DarkGray
         )

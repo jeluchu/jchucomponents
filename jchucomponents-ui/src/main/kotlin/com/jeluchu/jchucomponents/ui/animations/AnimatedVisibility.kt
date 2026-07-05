@@ -20,10 +20,11 @@ import com.jeluchu.jchucomponents.ui.composables.cards.FadeOutAnimation
 val enterFadeIn: @Composable () -> EnterTransition = {
     remember {
         fadeIn(
-            animationSpec = TweenSpec(
-                durationMillis = FadeInAnimation,
-                easing = FastOutLinearInEasing
-            )
+            animationSpec =
+                TweenSpec(
+                    durationMillis = FadeInAnimation,
+                    easing = FastOutLinearInEasing
+                )
         )
     }
 }
@@ -37,10 +38,11 @@ val enterExpand: @Composable () -> EnterTransition = {
 val exitFadeOut: @Composable () -> ExitTransition = {
     remember {
         fadeOut(
-            animationSpec = TweenSpec(
-                durationMillis = FadeOutAnimation,
-                easing = LinearOutSlowInEasing
-            )
+            animationSpec =
+                TweenSpec(
+                    durationMillis = FadeOutAnimation,
+                    easing = LinearOutSlowInEasing
+                )
         )
     }
 }

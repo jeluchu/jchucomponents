@@ -47,10 +47,11 @@ fun JchuShareScaffold(
         topBar = {
             Toolbar(
                 title = title,
-                topBarSettings = TopBarSettings(
-                    contentColor = config.scaffoldColors.contentColor,
-                    backgroundColor = config.scaffoldColors.containerColor
-                )
+                topBarSettings =
+                    TopBarSettings(
+                        contentColor = config.scaffoldColors.contentColor,
+                        backgroundColor = config.scaffoldColors.containerColor
+                    )
             ) {
                 onBackClick()
             }
@@ -86,47 +87,51 @@ fun JchuShareBottomBar(
     downloadIcon: ImageVector = ImageVector.vectorResource(R.drawable.ic_btn_share)
 ) {
     Row(
-        modifier = modifier
-            .background(
-                color = colors.containerColor,
-                shape = RoundedCornerShape(
-                    topEnd = 20.dp,
-                    topStart = 20.dp
-                )
-            )
-            .animateContentSize()
-            .navigationBarsPadding()
+        modifier =
+            modifier
+                .background(
+                    color = colors.containerColor,
+                    shape =
+                        RoundedCornerShape(
+                            topEnd = 20.dp,
+                            topStart = 20.dp
+                        )
+                ).animateContentSize()
+                .navigationBarsPadding()
     ) {
         Button(
             onClick = onShareClick,
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(11.dp)
-                .weight(2f),
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .padding(11.dp)
+                    .weight(2f),
             shape = RoundedCornerShape(14.dp),
-            colors = ButtonDefaults.buttonColors(
-                contentColor = colors.shareContentColor,
-                containerColor = colors.shareContainerColor
-            )
+            colors =
+                ButtonDefaults.buttonColors(
+                    contentColor = colors.shareContentColor,
+                    containerColor = colors.shareContainerColor
+                )
         ) {
             Text(text = shareText)
         }
 
         OutlinedButton(
             onClick = onDownloadClick,
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(
-                    top = 11.dp,
-                    bottom = 11.dp,
-                    end = 12.dp
-                )
-                .weight(1f),
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .padding(
+                        top = 11.dp,
+                        bottom = 11.dp,
+                        end = 12.dp
+                    ).weight(1f),
             shape = RoundedCornerShape(14.dp),
-            border = BorderStroke(
-                width = 1.dp,
-                color = colors.downloadContainerColor
-            )
+            border =
+                BorderStroke(
+                    width = 1.dp,
+                    color = colors.downloadContainerColor
+                )
         ) {
             Icon(
                 tint = colors.downloadContentColor,

@@ -364,7 +364,7 @@ fun <T> ListColumn(
         modifier = modifier,
         contentPadding = contentPadding,
         verticalArrangement = verticalArrangement,
-        horizontalAlignment = horizontalAlignment,
+        horizontalAlignment = horizontalAlignment
     ) { items(items) { item -> content(item) } }
 }
 
@@ -383,6 +383,6 @@ fun <T> ListColumn(
         modifier = modifier,
         contentPadding = contentPadding,
         verticalArrangement = verticalArrangement,
-        horizontalAlignment = horizontalAlignment,
+        horizontalAlignment = horizontalAlignment
     ) { itemsIndexed(items) { index, item -> content(index, item) } }
 }

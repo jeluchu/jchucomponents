@@ -30,17 +30,15 @@ import kotlin.math.abs
  * Creates a [PagerSnapState] that is remembered across compositions.
  */
 @Composable
-fun rememberPagerSnapState(): PagerSnapState {
-    return remember {
+fun rememberPagerSnapState(): PagerSnapState =
+    remember {
         PagerSnapState()
     }
-}
 
 /**
  * This class maintains the state of the pager snap.
  */
 class PagerSnapState {
-
     val isSwiping = mutableStateOf(false)
 
     val firstVisibleItemIndex = mutableStateOf(0)
@@ -54,7 +52,10 @@ class PagerSnapState {
         }
     }
 
-    internal suspend fun scrollItemToSnapPosition(listState: LazyListState, position: Int) {
+    internal suspend fun scrollItemToSnapPosition(
+        listState: LazyListState,
+        position: Int
+    ) {
         listState.animateScrollToItem(position)
     }
 }
@@ -67,8 +68,10 @@ class PagerSnapNestedScrollConnection(
     private val listState: LazyListState,
     private val scrollTo: () -> Unit
 ) : NestedScrollConnection {
-
-    override fun onPreScroll(available: Offset, source: NestedScrollSource): Offset =
+    override fun onPreScroll(
+        available: Offset,
+        source: NestedScrollSource
+    ): Offset =
         when (source) {
             NestedScrollSource.UserInput -> onScroll()
             else -> Offset.Zero
@@ -78,32 +81,35 @@ class PagerSnapNestedScrollConnection(
         consumed: Offset,
         available: Offset,
         source: NestedScrollSource
-    ): Offset = when (source) {
-        NestedScrollSource.UserInput -> onScroll()
-        else -> Offset.Zero
-    }
+    ): Offset =
+        when (source) {
+            NestedScrollSource.UserInput -> onScroll()
+            else -> Offset.Zero
+        }
 
     private fun onScroll(): Offset {
         state.isSwiping.value = true
         return Offset.Zero
     }
 
-    override suspend fun onPostFling(consumed: Velocity, available: Velocity): Velocity = when {
-        state.isSwiping.value -> {
+    override suspend fun onPostFling(
+        consumed: Velocity,
+        available: Velocity
+    ): Velocity =
+        when {
+            state.isSwiping.value -> {
+                state.updateScrollToItemPosition(listState.layoutInfo.visibleItemsInfo.firstOrNull())
 
-            state.updateScrollToItemPosition(listState.layoutInfo.visibleItemsInfo.firstOrNull())
+                scrollTo()
 
-            scrollTo()
-
-            Velocity.Zero
+                Velocity.Zero
+            }
+            else -> {
+                Velocity.Zero
+            }
+        }.also {
+            state.isSwiping.value = false
         }
-        else -> {
-            Velocity.Zero
-        }
-    }.also {
-        state.isSwiping.value = false
-    }
-
 }
 
 /**
@@ -123,33 +129,33 @@ fun ComposePagerSnapHelper(
     width: Dp = 0.dp,
     content: @Composable (LazyListState) -> Unit
 ) {
-
     val state = rememberPagerSnapState()
     val listState = rememberLazyListState()
 
     val scope = rememberCoroutineScope()
 
-    val widthPx = with(LocalDensity.current) {
-        width.roundToPx()
-    }
-
-    val connection = remember(state, listState) {
-        PagerSnapNestedScrollConnection(state, listState) {
-
-            val firstItemIndex = state.firstVisibleItemIndex.value
-            val firstItemOffset = abs(state.offsetInfo.value)
-
-            val position = when {
-                firstItemOffset <= widthPx.div(2) -> firstItemIndex
-                else -> firstItemIndex.plus(1)
-            }
-
-            scope.launch {
-                state.scrollItemToSnapPosition(listState, position)
-            }
-
+    val widthPx =
+        with(LocalDensity.current) {
+            width.roundToPx()
         }
-    }
+
+    val connection =
+        remember(state, listState) {
+            PagerSnapNestedScrollConnection(state, listState) {
+                val firstItemIndex = state.firstVisibleItemIndex.value
+                val firstItemOffset = abs(state.offsetInfo.value)
+
+                val position =
+                    when {
+                        firstItemOffset <= widthPx.div(2) -> firstItemIndex
+                        else -> firstItemIndex.plus(1)
+                    }
+
+                scope.launch {
+                    state.scrollItemToSnapPosition(listState, position)
+                }
+            }
+        }
 
     Box(modifier = Modifier.nestedScroll(connection)) { content(listState) }
 }

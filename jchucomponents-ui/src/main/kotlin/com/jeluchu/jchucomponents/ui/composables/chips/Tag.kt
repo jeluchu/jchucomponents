@@ -53,12 +53,13 @@ fun Tag(
     style: TextStyle = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Bold),
     navigateToScreen: () -> Unit = {}
 ) = Text(
-    modifier = modifier
-        .padding(4.dp)
-        .clickable(onClick = navigateToScreen)
-        .clip(shape = shape)
-        .background(colors.backgroundColor(enabled = true).value)
-        .padding(horizontal = 8.dp, vertical = 4.dp),
+    modifier =
+        modifier
+            .padding(4.dp)
+            .clickable(onClick = navigateToScreen)
+            .clip(shape = shape)
+            .background(colors.backgroundColor(enabled = true).value)
+            .padding(horizontal = 8.dp, vertical = 4.dp),
     text = title,
     color = colors.contentColor(enabled = true).value,
     style = style
@@ -79,14 +80,10 @@ private class DefaultTagColors(
     private val contentColor: Color
 ) : TagColors {
     @Composable
-    override fun backgroundColor(enabled: Boolean): State<Color> {
-        return rememberUpdatedState(newValue = backgroundColor)
-    }
+    override fun backgroundColor(enabled: Boolean): State<Color> = rememberUpdatedState(newValue = backgroundColor)
 
     @Composable
-    override fun contentColor(enabled: Boolean): State<Color> {
-        return rememberUpdatedState(newValue = contentColor)
-    }
+    override fun contentColor(enabled: Boolean): State<Color> = rememberUpdatedState(newValue = contentColor)
 }
 
 object TagDefaults {

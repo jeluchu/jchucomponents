@@ -38,11 +38,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.jeluchu.jchucomponents.ktx.colors.toColorFilter
-import com.jeluchu.jchucomponents.ui.extensions.toImageVector
-import com.jeluchu.jchucomponents.ui.extensions.toPainter
 import com.jeluchu.jchucomponents.ktx.strings.empty
 import com.jeluchu.jchucomponents.ui.R
 import com.jeluchu.jchucomponents.ui.extensions.modifier.cornerRadius
+import com.jeluchu.jchucomponents.ui.extensions.toImageVector
+import com.jeluchu.jchucomponents.ui.extensions.toPainter
 import com.jeluchu.jchucomponents.ui.runtime.remember.rememberMutableStateOf
 import com.jeluchu.jchucomponents.ui.theme.cosmicLatte
 import com.jeluchu.jchucomponents.ui.theme.darkGreen
@@ -84,10 +84,11 @@ fun LinearProgressbar(
     val numberTimes by rememberMutableStateOf(key1 = checkMaxValue, value = checkMaxValue)
     val animateNumber by animateFloatAsState(
         targetValue = if (numberTimes > maxNumber) maxNumber else numberTimes,
-        animationSpec = tween(
-            durationMillis = animationDuration,
-            delayMillis = animationDelay
-        )
+        animationSpec =
+            tween(
+                durationMillis = animationDuration,
+                delayMillis = animationDelay
+            )
     )
 
     Row(
@@ -96,26 +97,33 @@ fun LinearProgressbar(
         horizontalArrangement = Arrangement.spacedBy(15.dp)
     ) {
         Icon(
-            modifier = Modifier
-                .size(40.dp)
-                .padding(start = 10.dp),
+            modifier =
+                Modifier
+                    .size(40.dp)
+                    .padding(start = 10.dp),
             imageVector = icon,
-            tint = when {
-                !enabled -> linearProgressCounter.disabledIndicator
-                numberTimes != maxNumber -> linearProgressCustom.iconTint
-                else -> linearProgressCustom.foregroundIndicatorComplete
-            },
+            tint =
+                when {
+                    !enabled -> linearProgressCounter.disabledIndicator
+                    numberTimes != maxNumber -> linearProgressCustom.iconTint
+                    else -> linearProgressCustom.foregroundIndicatorComplete
+                },
             contentDescription = String.empty()
         )
 
         Canvas(
-            modifier = Modifier
-                .height(indicatorHeight)
-                .weight(1f)
+            modifier =
+                Modifier
+                    .height(indicatorHeight)
+                    .weight(1f)
         ) {
             drawLine(
-                color = if (enabled) linearProgressCustom.backgroundIndicator
-                else linearProgressCustom.disabledIndicator,
+                color =
+                    if (enabled) {
+                        linearProgressCustom.backgroundIndicator
+                    } else {
+                        linearProgressCustom.disabledIndicator
+                    },
                 cap = StrokeCap.Round,
                 strokeWidth = size.height,
                 start = Offset(x = 0f, y = center.y),
@@ -124,36 +132,51 @@ fun LinearProgressbar(
 
             if (enabled) {
                 val progress = (animateNumber / maxNumber) * size.width
-                if (animateNumber != 0f)
+                if (animateNumber != 0f) {
                     drawLine(
-                        color = if (numberTimes != maxNumber) linearProgressCustom.foregroundIndicator
-                        else linearProgressCustom.foregroundIndicatorComplete,
+                        color =
+                            if (numberTimes != maxNumber) {
+                                linearProgressCustom.foregroundIndicator
+                            } else {
+                                linearProgressCustom.foregroundIndicatorComplete
+                            },
                         cap = StrokeCap.Round,
                         strokeWidth = size.height,
                         start = Offset(x = 0f, y = center.y),
                         end = Offset(x = progress, y = center.y)
                     )
+                }
             }
         }
 
         Surface(
-            modifier = Modifier
-                .weight(.5f)
-                .padding(end = 10.dp),
+            modifier =
+                Modifier
+                    .weight(.5f)
+                    .padding(end = 10.dp),
             shape = linearProgressCounter.shape.cornerRadius(),
-            color = if (enabled) linearProgressCounter.background
-            else linearProgressCounter.disabledIndicator,
-            contentColor = if (enabled) linearProgressCounter.content
-            else linearProgressCounter.disabledContent
+            color =
+                if (enabled) {
+                    linearProgressCounter.background
+                } else {
+                    linearProgressCounter.disabledIndicator
+                },
+            contentColor =
+                if (enabled) {
+                    linearProgressCounter.content
+                } else {
+                    linearProgressCounter.disabledContent
+                }
         ) {
             Text(
-                modifier = Modifier.padding(
-                    vertical = 2.dp,
-                    horizontal = 8.dp
-                ),
+                modifier =
+                    Modifier.padding(
+                        vertical = 2.dp,
+                        horizontal = 8.dp
+                    ),
                 text = if (enabled) "${numberTimes.toInt()}/${maxNumber.toInt()}" else "- / -",
                 style = style,
-                textAlign = TextAlign.Center,
+                textAlign = TextAlign.Center
             )
         }
     }
@@ -195,10 +218,11 @@ fun LinearProgressbar(
     val numberTimes by rememberMutableStateOf(key1 = checkMaxValue, value = checkMaxValue)
     val animateNumber by animateFloatAsState(
         targetValue = if (numberTimes > maxNumber) maxNumber else numberTimes,
-        animationSpec = tween(
-            durationMillis = animationDuration,
-            delayMillis = animationDelay
-        )
+        animationSpec =
+            tween(
+                durationMillis = animationDuration,
+                delayMillis = animationDelay
+            )
     )
 
     Row(
@@ -207,26 +231,33 @@ fun LinearProgressbar(
         horizontalArrangement = Arrangement.spacedBy(15.dp)
     ) {
         Image(
-            modifier = Modifier
-                .size(40.dp)
-                .padding(start = 10.dp),
+            modifier =
+                Modifier
+                    .size(40.dp)
+                    .padding(start = 10.dp),
             painter = icon,
-            colorFilter = when {
-                !enabled -> linearProgressCounter.disabledIndicator
-                numberTimes != maxNumber -> linearProgressCustom.iconTint
-                else -> linearProgressCustom.foregroundIndicatorComplete
-            }.toColorFilter(),
+            colorFilter =
+                when {
+                    !enabled -> linearProgressCounter.disabledIndicator
+                    numberTimes != maxNumber -> linearProgressCustom.iconTint
+                    else -> linearProgressCustom.foregroundIndicatorComplete
+                }.toColorFilter(),
             contentDescription = null
         )
 
         Canvas(
-            modifier = Modifier
-                .height(indicatorHeight)
-                .weight(1f)
+            modifier =
+                Modifier
+                    .height(indicatorHeight)
+                    .weight(1f)
         ) {
             drawLine(
-                color = if (enabled) linearProgressCustom.backgroundIndicator
-                else linearProgressCustom.disabledIndicator,
+                color =
+                    if (enabled) {
+                        linearProgressCustom.backgroundIndicator
+                    } else {
+                        linearProgressCustom.disabledIndicator
+                    },
                 cap = StrokeCap.Round,
                 strokeWidth = size.height,
                 start = Offset(x = 0f, y = center.y),
@@ -235,36 +266,51 @@ fun LinearProgressbar(
 
             if (enabled) {
                 val progress = (animateNumber / maxNumber) * size.width
-                if (animateNumber != 0f)
+                if (animateNumber != 0f) {
                     drawLine(
-                        color = if (numberTimes != maxNumber) linearProgressCustom.foregroundIndicator
-                        else linearProgressCustom.foregroundIndicatorComplete,
+                        color =
+                            if (numberTimes != maxNumber) {
+                                linearProgressCustom.foregroundIndicator
+                            } else {
+                                linearProgressCustom.foregroundIndicatorComplete
+                            },
                         cap = StrokeCap.Round,
                         strokeWidth = size.height,
                         start = Offset(x = 0f, y = center.y),
                         end = Offset(x = progress, y = center.y)
                     )
+                }
             }
         }
 
         Surface(
-            modifier = Modifier
-                .weight(.5f)
-                .padding(end = 10.dp),
+            modifier =
+                Modifier
+                    .weight(.5f)
+                    .padding(end = 10.dp),
             shape = linearProgressCounter.shape.cornerRadius(),
-            color = if (enabled) linearProgressCounter.background
-            else linearProgressCounter.disabledIndicator,
-            contentColor = if (enabled) linearProgressCounter.content
-            else linearProgressCounter.disabledContent
+            color =
+                if (enabled) {
+                    linearProgressCounter.background
+                } else {
+                    linearProgressCounter.disabledIndicator
+                },
+            contentColor =
+                if (enabled) {
+                    linearProgressCounter.content
+                } else {
+                    linearProgressCounter.disabledContent
+                }
         ) {
             Text(
-                modifier = Modifier.padding(
-                    vertical = 2.dp,
-                    horizontal = 8.dp
-                ),
+                modifier =
+                    Modifier.padding(
+                        vertical = 2.dp,
+                        horizontal = 8.dp
+                    ),
                 text = if (enabled) "${numberTimes.toInt()}/${maxNumber.toInt()}" else "- / -",
                 style = style,
-                textAlign = TextAlign.Center,
+                textAlign = TextAlign.Center
             )
         }
     }

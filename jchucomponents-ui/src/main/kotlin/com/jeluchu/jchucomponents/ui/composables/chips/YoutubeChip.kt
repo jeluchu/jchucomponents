@@ -38,39 +38,46 @@ import androidx.compose.ui.unit.dp
 fun YoutubeChip(
     modifier: Modifier = Modifier,
     selected: Boolean,
-    text: String,
+    text: String
 ) {
     Surface(
-        color = when {
-            selected -> MaterialTheme.colorScheme.onSurface.copy(
-                alpha = if (isSystemInDarkTheme()) 0.7f else 1f
-            )
-            else -> MaterialTheme.colorScheme.onSurface.copy(
-                alpha = if (isSystemInDarkTheme()) 0.04f else 0.07f
-            )
-        },
-        contentColor = when {
-            selected -> MaterialTheme.colorScheme.surface
-            else -> MaterialTheme.colorScheme.onSurface
-        },
-        shape = CircleShape,
-        border = BorderStroke(
-            width = 1.dp,
-            color = when {
+        color =
+            when {
+                selected ->
+                    MaterialTheme.colorScheme.onSurface.copy(
+                        alpha = if (isSystemInDarkTheme()) 0.7f else 1f
+                    )
+                else ->
+                    MaterialTheme.colorScheme.onSurface.copy(
+                        alpha = if (isSystemInDarkTheme()) 0.04f else 0.07f
+                    )
+            },
+        contentColor =
+            when {
                 selected -> MaterialTheme.colorScheme.surface
-                else -> if (isSystemInDarkTheme()) Color.LightGray else Color.DarkGray
-            }
-        ),
+                else -> MaterialTheme.colorScheme.onSurface
+            },
+        shape = CircleShape,
+        border =
+            BorderStroke(
+                width = 1.dp,
+                color =
+                    when {
+                        selected -> MaterialTheme.colorScheme.surface
+                        else -> if (isSystemInDarkTheme()) Color.LightGray else Color.DarkGray
+                    }
+            ),
         modifier = modifier
     ) {
         Text(
             text = text,
             textAlign = TextAlign.Center,
             style = MaterialTheme.typography.labelLarge,
-            modifier = Modifier.padding(
-                vertical = 8.dp,
-                horizontal = 12.dp,
-            )
+            modifier =
+                Modifier.padding(
+                    vertical = 8.dp,
+                    horizontal = 12.dp
+                )
         )
     }
 }

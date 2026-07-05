@@ -44,22 +44,26 @@ fun ScrollableColumn(
     horizontalAlignment: Alignment.Horizontal = Alignment.Start,
     state: ScrollState = rememberScrollState(),
     content: @Composable () -> Unit
-) = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S)
+) = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
     Column(
-        modifier = modifier
-            .fillMaxSize()
-            .verticalScroll(state),
+        modifier =
+            modifier
+                .fillMaxSize()
+                .verticalScroll(state),
         verticalArrangement = verticalArrangement,
         horizontalAlignment = horizontalAlignment
     ) { content() }
-else ListNotOverScroll {
-    Column(
-        modifier = modifier
-            .fillMaxSize()
-            .verticalScroll(state),
-        verticalArrangement = verticalArrangement,
-        horizontalAlignment = horizontalAlignment
-    ) { content() }
+} else {
+    ListNotOverScroll {
+        Column(
+            modifier =
+                modifier
+                    .fillMaxSize()
+                    .verticalScroll(state),
+            verticalArrangement = verticalArrangement,
+            horizontalAlignment = horizontalAlignment
+        ) { content() }
+    }
 }
 
 @Preview(showBackground = true)

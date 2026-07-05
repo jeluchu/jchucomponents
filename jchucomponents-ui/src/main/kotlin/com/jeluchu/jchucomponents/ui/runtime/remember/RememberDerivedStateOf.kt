@@ -35,10 +35,11 @@ import androidx.compose.runtime.snapshots.Snapshot
 @Composable
 fun <T> rememberDerivedStateOf(
     key1: Any?,
-    calculation: () -> T,
-): State<T> = remember(key1) {
-    derivedStateOf(calculation)
-}
+    calculation: () -> T
+): State<T> =
+    remember(key1) {
+        derivedStateOf(calculation)
+    }
 
 /**
  *
@@ -61,10 +62,11 @@ fun <T> rememberDerivedStateOf(
 fun <T> rememberDerivedStateOf(
     key1: Any?,
     key2: Any?,
-    calculation: () -> T,
-): State<T> = remember(key1, key2) {
-    derivedStateOf(calculation)
-}
+    calculation: () -> T
+): State<T> =
+    remember(key1, key2) {
+        derivedStateOf(calculation)
+    }
 
 /**
  *
@@ -88,7 +90,7 @@ fun <T> rememberDerivedStateOf(
     key1: Any?,
     key2: Any?,
     key3: Any?,
-    calculation: () -> T,
+    calculation: () -> T
 ): State<T> = remember(key1, key2, key3) { derivedStateOf(calculation) }
 
 /**
@@ -112,5 +114,5 @@ fun <T> rememberDerivedStateOf(
 @Composable
 fun <T> rememberDerivedStateOf(
     vararg keys: Any?,
-    calculation: () -> T,
+    calculation: () -> T
 ): State<T> = remember(keys) { derivedStateOf(calculation) }

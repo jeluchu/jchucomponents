@@ -58,17 +58,22 @@ fun JchuFloatingButton(
     exit = exit
 ) {
     FloatingActionButton(
-        modifier = modifier
-            .size(size.buttonSize)
-            .then(
-                if (enabled) Modifier
-                else Modifier.semantics { disabled() }
-            ),
+        modifier =
+            modifier
+                .size(size.buttonSize)
+                .then(
+                    if (enabled) {
+                        Modifier
+                    } else {
+                        Modifier.semantics { disabled() }
+                    }
+                ),
         containerColor = if (enabled) floatButton.background else floatButton.disabledBackground,
-        elevation = FloatingActionButtonDefaults.elevation(
-            defaultElevation = 0.dp,
-            pressedElevation = 0.dp
-        ),
+        elevation =
+            FloatingActionButtonDefaults.elevation(
+                defaultElevation = 0.dp,
+                pressedElevation = 0.dp
+            ),
         shape = RoundedCornerShape(size.shape),
         onClick = {
             if (enabled) onClick()
@@ -89,11 +94,15 @@ class FloatingButtonSettings(
     val tint: Color = cosmicLatte,
     val background: Color = artichoke,
     val disabledBackground: Color = Color.LightGray,
-    val disabledTint: Color = Color.Gray,
+    val disabledTint: Color = Color.Gray
 )
 
 @Immutable
-sealed class FloatingButtonSize(val buttonSize: Dp, val iconSize: Dp, val shape: Dp) {
+sealed class FloatingButtonSize(
+    val buttonSize: Dp,
+    val iconSize: Dp,
+    val shape: Dp
+) {
     @Immutable
     data object Large : FloatingButtonSize(buttonSize = 64.dp, iconSize = 30.dp, shape = 15.dp)
 
@@ -107,8 +116,11 @@ sealed class FloatingButtonSize(val buttonSize: Dp, val iconSize: Dp, val shape:
     data object Border : FloatingButtonSize(buttonSize = 32.dp, iconSize = 24.dp, shape = 8.dp)
 
     @Immutable
-    class Custom(buttonSize: Dp, iconSize: Dp, shape: Dp) :
-        FloatingButtonSize(buttonSize, iconSize, shape)
+    class Custom(
+        buttonSize: Dp,
+        iconSize: Dp,
+        shape: Dp
+    ) : FloatingButtonSize(buttonSize, iconSize, shape)
 }
 
 @Preview
@@ -145,45 +157,53 @@ private fun FloatingButtonPreview(
         Box(modifier = Modifier.weight(1f), contentAlignment = Alignment.Center) {
             JchuFloatingButton(
                 size = FloatingButtonSize.Large,
-                floatButton = FloatingButtonSettings(
-                    tint = Color.DarkGray,
-                    background = primary
-                )
+                floatButton =
+                    FloatingButtonSettings(
+                        tint = Color.DarkGray,
+                        background = primary
+                    )
             )
         }
         Box(
-            modifier = Modifier
-                .weight(1f)
-                .padding(start = 16.dp), contentAlignment = Alignment.Center
+            modifier =
+                Modifier
+                    .weight(1f)
+                    .padding(start = 16.dp),
+            contentAlignment = Alignment.Center
         ) {
             JchuFloatingButton(
                 size = FloatingButtonSize.Medium,
-                floatButton = FloatingButtonSettings(
-                    tint = Color.DarkGray,
-                    background = primary
-                )
+                floatButton =
+                    FloatingButtonSettings(
+                        tint = Color.DarkGray,
+                        background = primary
+                    )
             )
         }
         Box(
-            modifier = Modifier
-                .weight(1f)
-                .padding(start = 8.dp), contentAlignment = Alignment.Center
+            modifier =
+                Modifier
+                    .weight(1f)
+                    .padding(start = 8.dp),
+            contentAlignment = Alignment.Center
         ) {
             JchuFloatingButton(
                 size = FloatingButtonSize.Small,
-                floatButton = FloatingButtonSettings(
-                    tint = Color.DarkGray,
-                    background = primary
-                )
+                floatButton =
+                    FloatingButtonSettings(
+                        tint = Color.DarkGray,
+                        background = primary
+                    )
             )
         }
         Box(modifier = Modifier.weight(1f), contentAlignment = Alignment.Center) {
             JchuFloatingButton(
                 size = FloatingButtonSize.Border,
-                floatButton = FloatingButtonSettings(
-                    tint = Color.DarkGray,
-                    background = primary
-                )
+                floatButton =
+                    FloatingButtonSettings(
+                        tint = Color.DarkGray,
+                        background = primary
+                    )
             )
         }
     }
@@ -195,13 +215,15 @@ private fun FloatingButtonPreview(
         Box(modifier = Modifier.weight(1f), contentAlignment = Alignment.Center) {
             JchuFloatingButton(
                 enabled = false,
-                size = FloatingButtonSize.Large,
+                size = FloatingButtonSize.Large
             )
         }
         Box(
-            modifier = Modifier
-                .weight(1f)
-                .padding(start = 16.dp), contentAlignment = Alignment.Center
+            modifier =
+                Modifier
+                    .weight(1f)
+                    .padding(start = 16.dp),
+            contentAlignment = Alignment.Center
         ) {
             JchuFloatingButton(
                 enabled = false,
@@ -209,9 +231,11 @@ private fun FloatingButtonPreview(
             )
         }
         Box(
-            modifier = Modifier
-                .weight(1f)
-                .padding(start = 8.dp), contentAlignment = Alignment.Center
+            modifier =
+                Modifier
+                    .weight(1f)
+                    .padding(start = 8.dp),
+            contentAlignment = Alignment.Center
         ) {
             JchuFloatingButton(
                 enabled = false,

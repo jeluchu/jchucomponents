@@ -44,23 +44,26 @@ fun PostCardTop(
     description: String,
     style: TextStyle = LocalTextStyle.current
 ) = Column(
-    modifier = modifier
-        .fillMaxWidth()
-        .padding(16.dp)
+    modifier =
+        modifier
+            .fillMaxWidth()
+            .padding(16.dp)
 ) {
     NetworkImage(
-        modifier = Modifier
-            .heightIn(min = 180.dp)
-            .fillMaxWidth()
-            .clip(10.cornerRadius()),
+        modifier =
+            Modifier
+                .heightIn(min = 180.dp)
+                .fillMaxWidth()
+                .clip(10.cornerRadius()),
         url = image
     )
 
     Text(
-        modifier = Modifier.padding(
-            top = 10.dp,
-            bottom = 2.dp
-        ),
+        modifier =
+            Modifier.padding(
+                top = 10.dp,
+                bottom = 2.dp
+            ),
         text = title,
         style = style,
         fontSize = 20.sp
@@ -78,7 +81,9 @@ fun PostCardTop(
 @Composable
 private fun PostCardTopPreview() {
     PostCardTop(
-        image = com.jeluchu.jchucomponents.ui.R.drawable.ic_deco_jeluchu.toString(),
+        image =
+            com.jeluchu.jchucomponents.ui.R.drawable.ic_deco_jeluchu
+                .toString(),
         title = "Preview title",
         description = "Short preview description for the card."
     )

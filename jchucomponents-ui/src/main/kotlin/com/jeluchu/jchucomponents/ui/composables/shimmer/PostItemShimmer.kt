@@ -26,33 +26,39 @@ fun ShimmerItemBig(
     floatAnim: Float = 0f,
     isVertical: Boolean
 ) {
-
-    val brush = if (isVertical) Brush.verticalGradient(lists, 0f, floatAnim) else
-        Brush.horizontalGradient(lists, 0f, floatAnim)
+    val brush =
+        if (isVertical) {
+            Brush.verticalGradient(lists, 0f, floatAnim)
+        } else {
+            Brush.horizontalGradient(lists, 0f, floatAnim)
+        }
 
     Column(modifier = Modifier.padding(16.dp)) {
         Spacer(
-            modifier = Modifier
-                .fillMaxWidth()
-                .size(200.dp)
-                .background(
-                    brush = brush
-                )
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .size(200.dp)
+                    .background(
+                        brush = brush
+                    )
         )
         Spacer(modifier = Modifier.height(8.dp))
         Spacer(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(30.dp)
-                .padding(vertical = 8.dp)
-                .background(brush = brush)
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .height(30.dp)
+                    .padding(vertical = 8.dp)
+                    .background(brush = brush)
         )
         Spacer(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(30.dp)
-                .padding(vertical = 8.dp)
-                .background(brush = brush)
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .height(30.dp)
+                    .padding(vertical = 8.dp)
+                    .background(brush = brush)
         )
     }
 }

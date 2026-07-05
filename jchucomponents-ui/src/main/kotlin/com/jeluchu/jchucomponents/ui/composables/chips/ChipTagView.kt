@@ -61,61 +61,60 @@ fun ChipTagView(
     iconUrl: String = String.empty(),
     iconResource: Int = 0,
     iconTintColor: Color = Color.White,
-    modifierIcon: Modifier = Modifier.padding(8.dp, 6.dp, 12.dp, 6.dp),
+    modifierIcon: Modifier = Modifier.padding(8.dp, 6.dp, 12.dp, 6.dp)
 ) {
     Box(
         modifier = modifier
     ) {
-
         Row(
             modifier = Modifier.wrapContentWidth(),
             verticalAlignment = Alignment.CenterVertically
         ) {
-
             if (isIconShow) {
-
                 Column {
-
                     if (iconUrl.isNotEmpty()) {
                         NetworkImage(
-                            modifier = Modifier
-                                .size(23.dp)
-                                .padding(start = 7.dp),
+                            modifier =
+                                Modifier
+                                    .size(23.dp)
+                                    .padding(start = 7.dp),
                             contentScale = ContentScale.Fit,
                             url = iconUrl
                         )
                     } else if (iconResource.isNotEmpty()) {
                         Icon(
-                            modifier = Modifier
-                                .size(23.dp)
-                                .padding(start = 7.dp),
+                            modifier =
+                                Modifier
+                                    .size(23.dp)
+                                    .padding(start = 7.dp),
                             painter = painterResource(id = iconResource),
                             tint = iconTintColor,
                             contentDescription = null
                         )
                     }
-
                 }
-
             }
 
             Column {
                 Text(
                     text = title,
-                    modifier = if (isIconShow) modifierIcon else Modifier.padding(
-                        12.dp,
-                        6.dp,
-                        12.dp,
-                        6.dp
-                    ),
+                    modifier =
+                        if (isIconShow) {
+                            modifierIcon
+                        } else {
+                            Modifier.padding(
+                                12.dp,
+                                6.dp,
+                                12.dp,
+                                6.dp
+                            )
+                        },
                     fontWeight = FontWeight.Bold,
                     style = MaterialTheme.typography.labelMedium,
                     color = textColor
                 )
             }
-
         }
-
     }
 }
 
@@ -123,10 +122,11 @@ fun ChipTagView(
 @Composable
 fun ChipTagViewPreview() {
     ChipTagView(
-        modifier = Modifier
-            .wrapContentSize()
-            .clip(RoundedCornerShape(10.dp))
-            .background(Color.Blue.copy(.2f)),
+        modifier =
+            Modifier
+                .wrapContentSize()
+                .clip(RoundedCornerShape(10.dp))
+                .background(Color.Blue.copy(.2f)),
         title = "Name",
         textColor = Color.White
     )

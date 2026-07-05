@@ -86,7 +86,7 @@ fun Tooltip(
     backgroundColor: Color = Color.Black,
     offset: DpOffset = TooltipOffset,
     properties: PopupProperties = TooltipPopupProperties,
-    content: @Composable ColumnScope.() -> Unit,
+    content: @Composable ColumnScope.() -> Unit
 ) {
     val expandedStates = remember { MutableTransitionState(false) }
     expandedStates.targetState = expanded.value
@@ -102,11 +102,11 @@ fun Tooltip(
         Popup(
             onDismissRequest = { expanded.value = false },
             popupPositionProvider = DropdownMenuPositionProvider(offset, LocalDensity.current),
-            properties = properties,
+            properties = properties
         ) {
             Box(
                 // Add space for elevation shadow
-                modifier = Modifier.padding(TooltipElevation),
+                modifier = Modifier.padding(TooltipElevation)
             ) {
                 TooltipContent(expandedStates, backgroundColor, modifier, content)
             }
@@ -139,35 +139,37 @@ internal data class DropdownMenuPositionProvider(
         val toLeft = anchorBounds.right - contentOffsetX - popupContentSize.width
         val toDisplayRight = windowSize.width - popupContentSize.width
         val toDisplayLeft = 0
-        val x = if (layoutDirection == LayoutDirection.Ltr) {
-            sequenceOf(
-                toRight,
-                toLeft,
-                // If the anchor gets outside of the window on the left, we want to position
-                // toDisplayLeft for proximity to the anchor. Otherwise, toDisplayRight.
-                if (anchorBounds.left >= 0) toDisplayRight else toDisplayLeft
-            )
-        } else {
-            sequenceOf(
-                toLeft,
-                toRight,
-                // If the anchor gets outside of the window on the right, we want to position
-                // toDisplayRight for proximity to the anchor. Otherwise, toDisplayLeft.
-                if (anchorBounds.right <= windowSize.width) toDisplayLeft else toDisplayRight
-            )
-        }.firstOrNull {
-            it >= 0 && it + popupContentSize.width <= windowSize.width
-        } ?: toLeft
+        val x =
+            if (layoutDirection == LayoutDirection.Ltr) {
+                sequenceOf(
+                    toRight,
+                    toLeft,
+                    // If the anchor gets outside of the window on the left, we want to position
+                    // toDisplayLeft for proximity to the anchor. Otherwise, toDisplayRight.
+                    if (anchorBounds.left >= 0) toDisplayRight else toDisplayLeft
+                )
+            } else {
+                sequenceOf(
+                    toLeft,
+                    toRight,
+                    // If the anchor gets outside of the window on the right, we want to position
+                    // toDisplayRight for proximity to the anchor. Otherwise, toDisplayLeft.
+                    if (anchorBounds.right <= windowSize.width) toDisplayLeft else toDisplayRight
+                )
+            }.firstOrNull {
+                it >= 0 && it + popupContentSize.width <= windowSize.width
+            } ?: toLeft
 
         // Compute vertical position.
         val toBottom = maxOf(anchorBounds.bottom + contentOffsetY, verticalMargin)
         val toTop = anchorBounds.top - contentOffsetY - popupContentSize.height
         val toCenter = anchorBounds.top - popupContentSize.height / 2
         val toDisplayBottom = windowSize.height - popupContentSize.height - verticalMargin
-        val y = sequenceOf(toBottom, toTop, toCenter, toDisplayBottom).firstOrNull {
-            it >= verticalMargin &&
+        val y =
+            sequenceOf(toBottom, toTop, toCenter, toDisplayBottom).firstOrNull {
+                it >= verticalMargin &&
                     it + popupContentSize.height <= windowSize.height - verticalMargin
-        } ?: toTop
+            } ?: toTop
 
         onPositionCalculated(
             anchorBounds,
@@ -176,7 +178,6 @@ internal data class DropdownMenuPositionProvider(
         return IntOffset(x, y)
     }
 }
-
 
 /**
  * Simple text version of [Tooltip]
@@ -189,13 +190,12 @@ fun Tooltip(
     timeoutMillis: Long = TooltipTimeout,
     backgroundColor: Color = Color.Black,
     offset: DpOffset = TooltipOffset,
-    properties: PopupProperties = TooltipPopupProperties,
+    properties: PopupProperties = TooltipPopupProperties
 ) {
     Tooltip(expanded, modifier, timeoutMillis, backgroundColor, offset, properties) {
         Text(text)
     }
 }
-
 
 /** @see androidx.compose.material.DropdownMenuContent */
 @Composable
@@ -203,7 +203,7 @@ private fun TooltipContent(
     expandedStates: MutableTransitionState<Boolean>,
     backgroundColor: Color,
     modifier: Modifier,
-    content: @Composable ColumnScope.() -> Unit,
+    content: @Composable ColumnScope.() -> Unit
 ) {
     // Tooltip open/close animation.
     val transition = updateTransition(expandedStates, "Tooltip")
@@ -223,18 +223,21 @@ private fun TooltipContent(
 
     Card(
         backgroundColor = backgroundColor.copy(alpha = 0.75f),
-        contentColor = MaterialTheme.colors.contentColorFor(backgroundColor)
-            .takeOrElse { backgroundColor.onColor() },
+        contentColor =
+            MaterialTheme.colors
+                .contentColorFor(backgroundColor)
+                .takeOrElse { backgroundColor.onColor() },
         modifier = Modifier.alpha(alpha),
-        elevation = TooltipElevation,
+        elevation = TooltipElevation
     ) {
         val p = TooltipPadding
         Column(
-            modifier = modifier
-                .padding(start = p, top = p * 0.5f, end = p, bottom = p * 0.7f)
-                .width(IntrinsicSize.Max)
-                .verticalScroll(rememberScrollState()),
-            content = content,
+            modifier =
+                modifier
+                    .padding(start = p, top = p * 0.5f, end = p, bottom = p * 0.7f)
+                    .width(IntrinsicSize.Max)
+                    .verticalScroll(rememberScrollState()),
+            content = content
         )
     }
 }
@@ -266,7 +269,6 @@ private fun TooltipPreview() {
     }
 }
 
-
 // Color helpers
 
 /**
@@ -274,9 +276,7 @@ private fun TooltipPreview() {
  *
  * @return [Color.Black] or [Color.White], depending on [isLightColor].
  */
-fun Color.onColor(): Color {
-    return if (isLightColor()) Color.Black else Color.White
-}
+fun Color.onColor(): Color = if (isLightColor()) Color.Black else Color.White
 
 /**
  * Calculates if this color is considered light.
@@ -289,6 +289,4 @@ fun Color.isLightColor(): Boolean {
     return contrastForBlack > contrastForWhite
 }
 
-fun Color.calculateContrastFor(foreground: Color): Double {
-    return ColorUtils.calculateContrast(foreground.toArgb(), toArgb())
-}
+fun Color.calculateContrastFor(foreground: Color): Double = ColorUtils.calculateContrast(foreground.toArgb(), toArgb())

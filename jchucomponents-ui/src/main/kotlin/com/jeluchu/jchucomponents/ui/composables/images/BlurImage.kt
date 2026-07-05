@@ -1,8 +1,8 @@
 package com.jeluchu.jchucomponents.ui.composables.images
 
+import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
-import androidx.compose.foundation.layout.size
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.DefaultAlpha
 import androidx.compose.ui.layout.ContentScale
@@ -28,17 +28,18 @@ fun BlurImage(
     contentDescription: String? = null
 ) = AsyncImage(
     modifier = modifier,
-    model = ImageRequest.Builder(LocalContext.current)
-        .data(url)
-        .transformations(
-            BlurTransformation(
-                scale = blurTransformation.scale,
-                radius = blurTransformation.radius
-            )
-        )
-        .crossfade(isCrossfade)
-        .allowHardware(isAllowHardware)
-        .build(),
+    model =
+        ImageRequest
+            .Builder(LocalContext.current)
+            .data(url)
+            .transformations(
+                BlurTransformation(
+                    scale = blurTransformation.scale,
+                    radius = blurTransformation.radius
+                )
+            ).crossfade(isCrossfade)
+            .allowHardware(isAllowHardware)
+            .build(),
     alpha = alpha,
     contentScale = contentScale,
     contentDescription = null

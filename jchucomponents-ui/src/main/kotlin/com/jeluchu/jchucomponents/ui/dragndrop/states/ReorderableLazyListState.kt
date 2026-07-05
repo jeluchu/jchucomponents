@@ -36,20 +36,22 @@ fun rememberReorderableLazyListState(
 ): ReorderableLazyListState {
     val maxScroll = with(LocalDensity.current) { maxScrollPerFrame.toPx() }
     val scope = rememberCoroutineScope()
-    val state = remember(listState) {
-        ReorderableLazyListState(
-            listState = listState,
-            scope = scope,
-            maxScrollPerFrame = maxScroll,
-            onMove = onMove,
-            canDragOver = canDragOver,
-            onDragEnd = onDragEnd,
-            dragCancelledAnimation = dragCancelledAnimation
-        )
-    }
+    val state =
+        remember(listState) {
+            ReorderableLazyListState(
+                listState = listState,
+                scope = scope,
+                maxScrollPerFrame = maxScroll,
+                onMove = onMove,
+                canDragOver = canDragOver,
+                onDragEnd = onDragEnd,
+                dragCancelledAnimation = dragCancelledAnimation
+            )
+        }
     val isRtl = LocalLayoutDirection.current == LayoutDirection.Rtl
     LaunchedEffect(state) {
-        state.visibleItemsChanged()
+        state
+            .visibleItemsChanged()
             .collect { state.onDrag(0, 0) }
     }
 
@@ -76,39 +78,43 @@ class ReorderableLazyListState(
     onDragEnd: ((startIndex: Int, endIndex: Int) -> (Unit))? = null,
     dragCancelledAnimation: DragCancelledAnimation = SpringDragCancelledAnimation()
 ) : ReorderableState<LazyListItemInfo>(
-    scope = scope,
-    maxScrollPerFrame = maxScrollPerFrame,
-    onMove = onMove,
-    canDragOver = canDragOver,
-    onDragEnd = onDragEnd,
-    dragCancelledAnimation = dragCancelledAnimation
-) {
+        scope = scope,
+        maxScrollPerFrame = maxScrollPerFrame,
+        onMove = onMove,
+        canDragOver = canDragOver,
+        onDragEnd = onDragEnd,
+        dragCancelledAnimation = dragCancelledAnimation
+    ) {
     override val isVerticalScroll: Boolean
         get() = listState.layoutInfo.orientation == Orientation.Vertical
     override val LazyListItemInfo.left: Int
-        get() = when {
-            isVerticalScroll -> 0
-            listState.layoutInfo.reverseLayout -> listState.layoutInfo.viewportSize.width - offset - size
-            else -> offset
-        }
+        get() =
+            when {
+                isVerticalScroll -> 0
+                listState.layoutInfo.reverseLayout -> listState.layoutInfo.viewportSize.width - offset - size
+                else -> offset
+            }
     override val LazyListItemInfo.top: Int
-        get() = when {
-            !isVerticalScroll -> 0
-            listState.layoutInfo.reverseLayout -> listState.layoutInfo.viewportSize.height - offset - size
-            else -> offset
-        }
+        get() =
+            when {
+                !isVerticalScroll -> 0
+                listState.layoutInfo.reverseLayout -> listState.layoutInfo.viewportSize.height - offset - size
+                else -> offset
+            }
     override val LazyListItemInfo.right: Int
-        get() = when {
-            isVerticalScroll -> 0
-            listState.layoutInfo.reverseLayout -> listState.layoutInfo.viewportSize.width - offset
-            else -> offset + size
-        }
+        get() =
+            when {
+                isVerticalScroll -> 0
+                listState.layoutInfo.reverseLayout -> listState.layoutInfo.viewportSize.width - offset
+                else -> offset + size
+            }
     override val LazyListItemInfo.bottom: Int
-        get() = when {
-            !isVerticalScroll -> 0
-            listState.layoutInfo.reverseLayout -> listState.layoutInfo.viewportSize.height - offset
-            else -> offset + size
-        }
+        get() =
+            when {
+                !isVerticalScroll -> 0
+                listState.layoutInfo.reverseLayout -> listState.layoutInfo.viewportSize.height - offset
+                else -> offset + size
+            }
     override val LazyListItemInfo.width: Int
         get() = if (isVerticalScroll) 0 else size
     override val LazyListItemInfo.height: Int
@@ -128,22 +134,39 @@ class ReorderableLazyListState(
     override val firstVisibleItemScrollOffset: Int
         get() = listState.firstVisibleItemScrollOffset
 
-    override suspend fun scrollToItem(index: Int, offset: Int) =
-        listState.scrollToItem(index, offset)
+    override suspend fun scrollToItem(
+        index: Int,
+        offset: Int
+    ) = listState.scrollToItem(index, offset)
 
-    override fun onDragStart(offsetX: Int, offsetY: Int): Boolean =
-        if (isVerticalScroll) super.onDragStart(0, offsetY)
-        else super.onDragStart(offsetX, 0)
+    override fun onDragStart(
+        offsetX: Int,
+        offsetY: Int
+    ): Boolean =
+        if (isVerticalScroll) {
+            super.onDragStart(0, offsetY)
+        } else {
+            super.onDragStart(offsetX, 0)
+        }
 
-    override fun findTargets(x: Int, y: Int, selected: LazyListItemInfo) =
-        if (isVerticalScroll) super.findTargets(0, y, selected)
-        else super.findTargets(x, 0, selected)
+    override fun findTargets(
+        x: Int,
+        y: Int,
+        selected: LazyListItemInfo
+    ) = if (isVerticalScroll) {
+        super.findTargets(0, y, selected)
+    } else {
+        super.findTargets(x, 0, selected)
+    }
 
     override fun chooseDropItem(
         draggedItemInfo: LazyListItemInfo?,
         items: List<LazyListItemInfo>,
         curX: Int,
         curY: Int
-    ) = if (isVerticalScroll) super.chooseDropItem(draggedItemInfo, items, 0, curY)
-    else super.chooseDropItem(draggedItemInfo, items, curX, 0)
+    ) = if (isVerticalScroll) {
+        super.chooseDropItem(draggedItemInfo, items, 0, curY)
+    } else {
+        super.chooseDropItem(draggedItemInfo, items, curX, 0)
+    }
 }

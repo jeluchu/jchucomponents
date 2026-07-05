@@ -8,6 +8,7 @@ package com.jeluchu.jchucomponents.ui.composables.images
 
 import android.content.Context
 import androidx.annotation.DrawableRes
+import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.DefaultAlpha
@@ -15,7 +16,6 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.foundation.layout.size
 import coil3.compose.AsyncImage
 import coil3.request.ImageRequest
 import coil3.request.allowHardware
@@ -23,8 +23,8 @@ import coil3.request.crossfade
 import coil3.request.transformations
 import coil3.size.Size
 import coil3.transform.Transformation
-import com.jeluchu.jchucomponents.ui.extensions.toPainter
 import com.jeluchu.jchucomponents.ui.R
+import com.jeluchu.jchucomponents.ui.extensions.toPainter
 
 /**
  *
@@ -66,14 +66,16 @@ fun NetworkImage(
     contentDescription: String? = null
 ) = AsyncImage(
     modifier = modifier,
-    model = ImageRequest.Builder(LocalContext.current)
-        .data(image)
-        .apply { size?.let { size(it) } }
-        .transformations(transformations)
-        .crossfade(isCrossfade)
-        .allowHardware(isAllowHardware)
-        .apply(requestBuilder)
-        .build(),
+    model =
+        ImageRequest
+            .Builder(LocalContext.current)
+            .data(image)
+            .apply { size?.let { size(it) } }
+            .transformations(transformations)
+            .crossfade(isCrossfade)
+            .allowHardware(isAllowHardware)
+            .apply(requestBuilder)
+            .build(),
     alpha = alpha,
     placeholder = loading.toPainter(),
     error = error.toPainter(),
@@ -124,14 +126,16 @@ fun NetworkImage(
     contentDescription: String? = null
 ) = AsyncImage(
     modifier = modifier,
-    model = ImageRequest.Builder(LocalContext.current)
-        .data(url)
-        .apply { size?.let { size(it) } }
-        .transformations(transformations)
-        .crossfade(isCrossfade)
-        .allowHardware(isAllowHardware)
-        .apply(requestBuilder)
-        .build(),
+    model =
+        ImageRequest
+            .Builder(LocalContext.current)
+            .data(url)
+            .apply { size?.let { size(it) } }
+            .transformations(transformations)
+            .crossfade(isCrossfade)
+            .allowHardware(isAllowHardware)
+            .apply(requestBuilder)
+            .build(),
     alpha = alpha,
     onLoading = { onLoading?.invoke() },
     onSuccess = { onSuccess?.invoke() },

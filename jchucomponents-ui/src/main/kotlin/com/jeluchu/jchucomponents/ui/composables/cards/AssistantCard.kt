@@ -34,40 +34,42 @@ fun AssistantCard(
     description: String,
     onClick: () -> Unit
 ) = Box(
-    modifier = Modifier
-        .clip(16.cornerRadius())
-        .clickable(
-            onClick = onClick,
-            role = Role.Button
-        )
-        .size(140.dp)
-        .height(200.dp)
-        .background(MaterialTheme.colorScheme.onPrimary)
-        .padding(15.dp)
+    modifier =
+        Modifier
+            .clip(16.cornerRadius())
+            .clickable(
+                onClick = onClick,
+                role = Role.Button
+            ).size(140.dp)
+            .height(200.dp)
+            .background(MaterialTheme.colorScheme.onPrimary)
+            .padding(15.dp)
 ) {
     Image(
         painter = painterResource(image),
         contentDescription = String.empty(),
-        modifier = Modifier
-            .size(width = 50.dp, height = 50.dp)
-            .background(shape = 10.cornerRadius(), color = color)
-            .padding(10.dp)
+        modifier =
+            Modifier
+                .size(width = 50.dp, height = 50.dp)
+                .background(shape = 10.cornerRadius(), color = color)
+                .padding(10.dp)
     )
-
 
     Type(
         modifier = Modifier.align(Alignment.BottomStart),
         text = name,
-        colors = TypeColors(
-            //content = colors.contentColor,
-            //container = colors.tint.opacity(enabled)
-        ),
-        style = TextStyle(
-            fontSize = 18.sp,
-            fontWeight = FontWeight.W700,
-            //fontFamily = Urbanist,
-            lineHeight = 25.sp
-        )
+        colors =
+            TypeColors(
+                // content = colors.contentColor,
+                // container = colors.tint.opacity(enabled)
+            ),
+        style =
+            TextStyle(
+                fontSize = 18.sp,
+                fontWeight = FontWeight.W700,
+                // fontFamily = Urbanist,
+                lineHeight = 25.sp
+            )
     )
 }
 

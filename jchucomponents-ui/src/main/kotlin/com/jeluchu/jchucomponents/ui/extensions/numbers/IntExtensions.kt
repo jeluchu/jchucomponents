@@ -12,7 +12,8 @@ import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 
 inline val Int.dpToSp: TextUnit
-    @Composable @ReadOnlyComposable get() = LocalDensity.current.run { dp.toSp() }
+    @Composable @ReadOnlyComposable
+    get() = LocalDensity.current.run { dp.toSp() }
 
 @SuppressLint("ComposableNaming")
 @Composable

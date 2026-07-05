@@ -30,9 +30,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.jeluchu.jchucomponents.ui.extensions.toPainter
 import com.jeluchu.jchucomponents.ui.R
 import com.jeluchu.jchucomponents.ui.composables.images.NetworkImage
+import com.jeluchu.jchucomponents.ui.extensions.toPainter
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
@@ -59,16 +59,18 @@ fun Te(
 
         tag?.let { tag ->
             Box(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(16.dp),
+                modifier =
+                    Modifier
+                        .fillMaxSize()
+                        .padding(16.dp),
                 contentAlignment = Alignment.TopStart
             ) {
                 Card(
                     backgroundColor = MaterialTheme.colors.secondary,
                     shape = RoundedCornerShape(9.dp),
-                    modifier = Modifier
-                        .size(height = 30.dp, width = 100.dp),
+                    modifier =
+                        Modifier
+                            .size(height = 30.dp, width = 100.dp),
                     elevation = 0.dp
                 ) {
                     Text(
@@ -84,9 +86,10 @@ fun Te(
         }
 
         Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(16.dp),
+            modifier =
+                Modifier
+                    .fillMaxSize()
+                    .padding(16.dp),
             contentAlignment = Alignment.BottomStart
         ) {
             Row(
@@ -96,20 +99,23 @@ fun Te(
             ) {
                 Button(
                     onClick = onPrimaryButtonClick,
-                    modifier = Modifier
-                        .width(176.dp)
-                        .height(40.dp),
-                    elevation = ButtonDefaults.elevation(
-                        defaultElevation = 0.dp,
-                        pressedElevation = 0.dp,
-                        disabledElevation = 0.dp,
-                        hoveredElevation = 0.dp,
-                        focusedElevation = 0.dp,
-                    ),
+                    modifier =
+                        Modifier
+                            .width(176.dp)
+                            .height(40.dp),
+                    elevation =
+                        ButtonDefaults.elevation(
+                            defaultElevation = 0.dp,
+                            pressedElevation = 0.dp,
+                            disabledElevation = 0.dp,
+                            hoveredElevation = 0.dp,
+                            focusedElevation = 0.dp
+                        ),
                     shape = RoundedCornerShape(45.dp),
-                    colors = ButtonDefaults.buttonColors(
-                        backgroundColor = colors.containerPrimaryButtonColor
-                    )
+                    colors =
+                        ButtonDefaults.buttonColors(
+                            backgroundColor = colors.containerPrimaryButtonColor
+                        )
                 ) {
                     Text(
                         text = "Bid Now",
@@ -141,7 +147,7 @@ data class TeColors(
     val containerPrimaryButtonColor: Color = Color.DarkGray,
     val contentPrimaryButtonColor: Color = Color.White,
     val containerSecondaryButtonColor: Color = Color.LightGray,
-    val contentSecondaryButtonColor: Color = Color.DarkGray,
+    val contentSecondaryButtonColor: Color = Color.DarkGray
 )
 
 @Preview

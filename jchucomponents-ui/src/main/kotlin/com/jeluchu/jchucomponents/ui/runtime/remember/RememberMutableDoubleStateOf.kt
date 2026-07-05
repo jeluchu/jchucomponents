@@ -33,9 +33,7 @@ import androidx.compose.runtime.snapshots.Snapshot
  * @see MutableDoubleState
  */
 @Composable
-fun rememberMutableDoubleStateOf(
-    value: Double,
-): MutableDoubleState = remember { mutableDoubleStateOf(value) }
+fun rememberMutableDoubleStateOf(value: Double): MutableDoubleState = remember { mutableDoubleStateOf(value) }
 
 /**
  *
@@ -58,7 +56,6 @@ fun rememberMutableDoubleStateOf(
     key1: Any?,
     value: Double
 ): MutableDoubleState = remember(key1) { mutableDoubleStateOf(value) }
-
 
 /**
  *

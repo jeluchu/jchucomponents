@@ -32,7 +32,7 @@ fun BlurText(
     overflow: TextOverflow = TextOverflow.Ellipsis,
     maxLines: Int = Int.MAX_VALUE,
     blurRadius: Dp = Dp.Unspecified,
-    blurEnabled: Boolean = false,
+    blurEnabled: Boolean = false
 ) = AndroidView(::TextView, modifier) { textView ->
     with(textView) {
         setFontResource(font)
@@ -48,21 +48,23 @@ fun BlurText(
             val radius = blurRadius.takeUnless { it == Dp.Unspecified }?.value ?: (textSize / 2f)
             setLayerType(View.LAYER_TYPE_SOFTWARE, null)
             paint.maskFilter = BlurMaskFilter(radius, BlurMaskFilter.Blur.NORMAL)
-            this.text = buildSpannedString {
-                inSpans(LeadingMarginSpan.Standard(radius.roundToInt())) {
-                    append(text)
+            this.text =
+                buildSpannedString {
+                    inSpans(LeadingMarginSpan.Standard(radius.roundToInt())) {
+                        append(text)
+                    }
                 }
-            }
         } else {
             setLayerType(View.LAYER_TYPE_HARDWARE, null)
             paint.maskFilter = null
             this.text = text
         }
 
-        ellipsize = when {
-            overflow != TextOverflow.Ellipsis -> null
-            else -> TextUtils.TruncateAt.END
-        }
+        ellipsize =
+            when {
+                overflow != TextOverflow.Ellipsis -> null
+                else -> TextUtils.TruncateAt.END
+            }
         textAlignment = textAlign.toAndroid()
         this.maxLines = maxLines
     }
@@ -78,6 +80,8 @@ internal fun TextAlign?.toAndroid() =
         else -> View.TEXT_ALIGNMENT_GRAVITY
     }
 
-internal fun TextView.setFontResource(@FontRes id: Int) {
+internal fun TextView.setFontResource(
+    @FontRes id: Int
+) {
     typeface = ResourcesCompat.getFont(context, id)
 }

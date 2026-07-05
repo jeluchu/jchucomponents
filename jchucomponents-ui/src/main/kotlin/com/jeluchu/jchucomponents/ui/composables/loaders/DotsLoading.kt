@@ -51,13 +51,15 @@ private val Float.alphaFromRadians: Float
 @Stable
 interface ProgressState {
     fun start(scope: CoroutineScope)
+
     operator fun get(index: Int): Float
 }
 
 class ProgressStateImpl : ProgressState {
-    private val animationValues: List<MutableState<Float>> = List(NumDots) {
-        mutableStateOf(0f)
-    }
+    private val animationValues: List<MutableState<Float>> =
+        List(NumDots) {
+            mutableStateOf(0f)
+        }
 
     override operator fun get(index: Int) = animationValues[index].value
 
@@ -67,18 +69,20 @@ class ProgressStateImpl : ProgressState {
                 animate(
                     initialValue = 0f,
                     targetValue = (2f * PI).toFloat(),
-                    animationSpec = infiniteRepeatable(
-                        animation = keyframes {
-                            durationMillis = AnimationDuration
-                            0f at 0
-                            (.5 * PI).toFloat() at 2 * AnimationSegment
-                            PI.toFloat() at 3 * AnimationSegment
-                            (1.5 * PI).toFloat() at 4 * AnimationSegment
-                            (2f * PI).toFloat() at 6 * AnimationSegment
-                        },
-                        repeatMode = RepeatMode.Restart,
-                        initialStartOffset = StartOffset(offsetMillis = 100 * index)
-                    ),
+                    animationSpec =
+                        infiniteRepeatable(
+                            animation =
+                                keyframes {
+                                    durationMillis = AnimationDuration
+                                    0f at 0
+                                    (.5 * PI).toFloat() at 2 * AnimationSegment
+                                    PI.toFloat() at 3 * AnimationSegment
+                                    (1.5 * PI).toFloat() at 4 * AnimationSegment
+                                    (2f * PI).toFloat() at 6 * AnimationSegment
+                                },
+                            repeatMode = RepeatMode.Restart,
+                            initialStartOffset = StartOffset(offsetMillis = 100 * index)
+                        )
                 ) { value, _ ->
                     animationValues[index].value = value
                 }
@@ -103,7 +107,7 @@ class ProgressStateImpl : ProgressState {
 @Composable
 fun ProgressIndicator(
     modifier: Modifier = Modifier,
-    color: Color = MaterialTheme.colorScheme.primary,
+    color: Color = MaterialTheme.colorScheme.primary
 ) {
     val state = remember { ProgressStateImpl() }
     LaunchedEffect(key1 = Unit) {
@@ -117,24 +121,26 @@ fun ProgressIndicator(
                 val size = JchuTheme.spacing.dimen07 * (1f - step * index)
                 Dot(
                     color = color,
-                    modifier = Modifier
-                        .requiredSize(size)
-                        .graphicsLayer {
-                            alpha = state[index].alphaFromRadians
-                        },
+                    modifier =
+                        Modifier
+                            .requiredSize(size)
+                            .graphicsLayer {
+                                alpha = state[index].alphaFromRadians
+                            }
                 )
             }
         },
-        modifier = modifier,
+        modifier = modifier
     ) { measurables, constraints ->
-        val looseConstraints = constraints.copy(
-            minWidth = 0,
-            minHeight = 0,
-        )
+        val looseConstraints =
+            constraints.copy(
+                minWidth = 0,
+                minHeight = 0
+            )
         val placeables = measurables.map { measurable -> measurable.measure(looseConstraints) }
         layout(
             width = constraints.maxWidth,
-            height = constraints.maxHeight,
+            height = constraints.maxHeight
         ) {
             val radius = min(constraints.maxWidth, constraints.maxHeight) / 2f
             placeables.forEachIndexed { index, placeable ->
@@ -143,7 +149,7 @@ fun ProgressIndicator(
                 val y = (radius - radius * cos(animatedValue)).roundToInt()
                 placeable.placeRelative(
                     x = x,
-                    y = y,
+                    y = y
                 )
             }
         }
@@ -156,14 +162,16 @@ fun DotsLoading(
     bgColor: Color = Color.Transparent,
     loaderColor: Color
 ) = Box(
-    modifier = modifier
-        .fillMaxSize()
-        .background(bgColor)
+    modifier =
+        modifier
+            .fillMaxSize()
+            .background(bgColor)
 ) {
     ProgressIndicator(
-        modifier = Modifier
-            .size(50.dp)
-            .align(Alignment.Center),
+        modifier =
+            Modifier
+                .size(50.dp)
+                .align(Alignment.Center),
         color = loaderColor
     )
 }
@@ -173,9 +181,10 @@ private fun Dot(
     color: Color,
     modifier: Modifier = Modifier
 ) = Box(
-    modifier = modifier
-        .clip(shape = CircleShape)
-        .background(color = color)
+    modifier =
+        modifier
+            .clip(shape = CircleShape)
+            .background(color = color)
 )
 
 @Preview(widthDp = 360, showBackground = true)
@@ -183,9 +192,10 @@ private fun Dot(
 fun PreviewDot() {
     Dot(
         color = artichoke,
-        modifier = Modifier
-            .padding(all = 32.dp)
-            .requiredSize(32.dp)
+        modifier =
+            Modifier
+                .padding(all = 32.dp)
+                .requiredSize(32.dp)
     )
 }
 

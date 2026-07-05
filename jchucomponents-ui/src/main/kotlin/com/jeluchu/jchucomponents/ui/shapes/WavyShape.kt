@@ -20,31 +20,35 @@ import kotlin.math.ceil
 
 class WavyShape(
     private val period: Dp,
-    private val amplitude: Dp,
+    private val amplitude: Dp
 ) : Shape {
     override fun createOutline(
         size: Size,
         layoutDirection: LayoutDirection,
-        density: Density,
-    ) = Outline.Generic(Path().apply {
-        val wavyPath = Path().apply {
-            val halfPeriod = with(density) { period.toPx() } / 2
-            val amplitude = with(density) { amplitude.toPx() }
-            moveTo(x = -halfPeriod / 2, y = amplitude)
-            repeat(ceil(size.width / halfPeriod + 1).toInt()) { i ->
-                relativeQuadraticBezierTo(
-                    dx1 = halfPeriod / 2,
-                    dy1 = 2 * amplitude * (if (i % 2 == 0) 1 else -1),
-                    dx2 = halfPeriod,
-                    dy2 = 0f,
-                )
-            }
-            lineTo(size.width, size.height)
-            lineTo(0f, size.height)
+        density: Density
+    ) = Outline.Generic(
+        Path().apply {
+            val wavyPath =
+                Path().apply {
+                    val halfPeriod = with(density) { period.toPx() } / 2
+                    val amplitude = with(density) { amplitude.toPx() }
+                    moveTo(x = -halfPeriod / 2, y = amplitude)
+                    repeat(ceil(size.width / halfPeriod + 1).toInt()) { i ->
+                        relativeQuadraticBezierTo(
+                            dx1 = halfPeriod / 2,
+                            dy1 = 2 * amplitude * (if (i % 2 == 0) 1 else -1),
+                            dx2 = halfPeriod,
+                            dy2 = 0f
+                        )
+                    }
+                    lineTo(size.width, size.height)
+                    lineTo(0f, size.height)
+                }
+            val boundsPath =
+                Path().apply {
+                    addRect(Rect(offset = Offset.Zero, size = size))
+                }
+            op(wavyPath, boundsPath, PathOperation.Intersect)
         }
-        val boundsPath = Path().apply {
-            addRect(Rect(offset = Offset.Zero, size = size))
-        }
-        op(wavyPath, boundsPath, PathOperation.Intersect)
-    })
+    )
 }

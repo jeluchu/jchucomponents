@@ -263,7 +263,7 @@ fun TextLink(
         maxLines = maxLines,
         minLines = minLines,
         onTextLayout = onTextLayout,
-        style = style,
+        style = style
     )
 }
 
@@ -383,6 +383,6 @@ fun TextLink(
         maxLines = maxLines,
         minLines = minLines,
         onTextLayout = onTextLayout,
-        style = style,
+        style = style
     )
 }

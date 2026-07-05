@@ -51,12 +51,13 @@ fun Chip(
     onClick: () -> Unit = { }
 ) {
     Surface(
-        modifier = modifier
-            .clip(shape)
-            .clickable(
-                enabled = isClickable,
-                onClick = { onClick() }
-            ),
+        modifier =
+            modifier
+                .clip(shape)
+                .clickable(
+                    enabled = isClickable,
+                    onClick = { onClick() }
+                ),
         tonalElevation = elevation,
         shadowElevation = elevation,
         shape = shape,
@@ -71,10 +72,11 @@ fun Chip(
                     imageVector = leader,
                     contentDescription = contentDescription,
                     tint = startIconTint,
-                    modifier = Modifier
-                        .clip(shape)
-                        .clickable(enabled = isStartIconEnabled, onClick = onStartIconClicked)
-                        .padding(horizontal = 4.dp)
+                    modifier =
+                        Modifier
+                            .clip(shape)
+                            .clickable(enabled = isStartIconEnabled, onClick = onStartIconClicked)
+                            .padding(horizontal = 4.dp)
                 )
             }
 
@@ -89,13 +91,13 @@ fun Chip(
                     imageVector = trailer,
                     contentDescription = contentDescription,
                     tint = endIconTint,
-                    modifier = Modifier
-                        .clip(shape)
-                        .clickable(enabled = isEndIconEnabled, onClick = onEndIconClicked)
-                        .padding(horizontal = 4.dp)
+                    modifier =
+                        Modifier
+                            .clip(shape)
+                            .clickable(enabled = isEndIconEnabled, onClick = onEndIconClicked)
+                            .padding(horizontal = 4.dp)
                 )
             }
-
         }
     }
 }

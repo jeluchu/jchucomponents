@@ -28,14 +28,19 @@ fun PageIndicator(
     modifier: Modifier = Modifier
 ) = Row(modifier = modifier.wrapContentSize()) {
     for (pageIndex in 0 until pagesCount) {
-        val (tint, width) = if (currentPageIndex == pageIndex) color to 16.dp
-        else color.copy(alpha = 0.5f) to 4.dp
+        val (tint, width) =
+            if (currentPageIndex == pageIndex) {
+                color to 16.dp
+            } else {
+                color.copy(alpha = 0.5f) to 4.dp
+            }
         Spacer(
-            modifier = Modifier
-                .padding(4.dp)
-                .height(4.dp)
-                .width(width)
-                .background(tint, RoundedCornerShape(percent = 50))
+            modifier =
+                Modifier
+                    .padding(4.dp)
+                    .height(4.dp)
+                    .width(width)
+                    .background(tint, RoundedCornerShape(percent = 50))
         )
     }
 }

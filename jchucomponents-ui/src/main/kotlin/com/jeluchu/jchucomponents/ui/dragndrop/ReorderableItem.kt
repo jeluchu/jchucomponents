@@ -84,10 +84,11 @@ fun LazyStaggeredGridItemScope.ReorderableItem(
  */
 @ExperimentalFoundationApi
 fun Modifier.animateDraggeableItemPlacement(
-    animationSpec: FiniteAnimationSpec<IntOffset> = spring(
-        stiffness = Spring.StiffnessMediumLow,
-        visibilityThreshold = IntOffset.VisibilityThreshold
-    )
+    animationSpec: FiniteAnimationSpec<IntOffset> =
+        spring(
+            stiffness = Spring.StiffnessMediumLow,
+            visibilityThreshold = IntOffset.VisibilityThreshold
+        )
 ): Modifier = this
 
 @Composable
@@ -100,8 +101,12 @@ fun ReorderableItem(
     index: Int? = null,
     content: @Composable BoxScope.(isDragging: Boolean) -> Unit
 ) {
-    val isDragging = if (index != null) index == state.draggingItemIndex
-    else key == state.draggingItemKey
+    val isDragging =
+        if (index != null) {
+            index == state.draggingItemIndex
+        } else {
+            key == state.draggingItemKey
+        }
     val draggingModifier =
         if (isDragging) {
             Modifier
@@ -113,8 +118,12 @@ fun ReorderableItem(
                         if (!orientationLocked || state.isVerticalScroll) state.draggingItemTop else 0f
                 }
         } else {
-            val cancel = if (index != null) index == state.dragCancelledAnimation.position?.index
-            else key == state.dragCancelledAnimation.position?.key
+            val cancel =
+                if (index != null) {
+                    index == state.dragCancelledAnimation.position?.index
+                } else {
+                    key == state.dragCancelledAnimation.position?.key
+                }
             if (cancel) {
                 Modifier
                     .zIndex(1f)
@@ -124,7 +133,9 @@ fun ReorderableItem(
                         translationY =
                             if (!orientationLocked || state.isVerticalScroll) state.dragCancelledAnimation.offset.y else 0f
                     }
-            } else defaultDraggingModifier
+            } else {
+                defaultDraggingModifier
+            }
         }
     Box(modifier = modifier.then(draggingModifier)) { content(isDragging) }
 }
