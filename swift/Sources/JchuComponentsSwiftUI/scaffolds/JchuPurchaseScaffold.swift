@@ -1,10 +1,12 @@
 import SwiftUI
 
+/// The layout orientation supplied to purchase item content.
 public enum JchuPurchaseItemType {
     case horizontal
     case vertical
 }
 
+/// A state-aware grid or list scaffold with optional search and header content.
 public struct JchuPurchaseElementsScaffold<Item, ID: Hashable, Content: View, TopContent: View, HeaderContent: View>: View {
     @Environment(\.presentationMode) private var presentationMode
     @Environment(\.jchuTheme) private var theme
@@ -24,6 +26,7 @@ public struct JchuPurchaseElementsScaffold<Item, ID: Hashable, Content: View, To
     private let headerContent: (() -> HeaderContent)?
     private let content: (JchuPurchaseItemType, Item) -> Content
 
+    /// Creates a purchase-elements scaffold.
     public init(
         _ title: LocalizedStringKey,
         cells: Int = 2,
@@ -205,6 +208,7 @@ public extension JchuPurchaseElementsScaffold where TopContent == EmptyView {
     }
 }
 
+/// Resolves loading, failure, empty and populated purchase collection states.
 public struct JchuPurchaseStates<Item, ID: Hashable, Content: View, HeaderContent: View>: View {
     @Environment(\.jchuTheme) private var theme
 
@@ -219,6 +223,7 @@ public struct JchuPurchaseStates<Item, ID: Hashable, Content: View, HeaderConten
     private let headerContent: (() -> HeaderContent)?
     private let content: (JchuPurchaseItemType, Item) -> Content
 
+    /// Creates a purchase-state collection renderer.
     public init(
         cells: Int = 2,
         items: [Item]?,
@@ -318,6 +323,7 @@ public struct JchuPurchaseStates<Item, ID: Hashable, Content: View, HeaderConten
     }
 }
 
+/// A purchase scaffold with selectable tabs and an optional search field.
 public struct JchuPurchaseTabItemsScaffold<Content: View>: View {
     @Environment(\.presentationMode) private var presentationMode
 
@@ -332,6 +338,7 @@ public struct JchuPurchaseTabItemsScaffold<Content: View>: View {
     private let onBack: (() -> Void)?
     private let content: Content
 
+    /// Creates a tabbed purchase scaffold.
     public init(
         _ title: LocalizedStringKey,
         tabs: [JchuScaffoldTabItem],
@@ -402,6 +409,7 @@ public struct JchuPurchaseTabItemsScaffold<Content: View>: View {
     }
 }
 
+/// A themed selectable tab bar for purchase destinations.
 public struct JchuPurchaseTabBar: View {
     @Environment(\.jchuTheme) private var theme
     @Namespace private var selectionNamespace
@@ -412,6 +420,7 @@ public struct JchuPurchaseTabBar: View {
     private let isScrollable: Bool
     private let selectionAnimation = Animation.spring(response: 0.3, dampingFraction: 0.75)
 
+    /// Creates a purchase tab bar.
     public init(
         tabs: [JchuScaffoldTabItem],
         selectedID: Binding<String>,

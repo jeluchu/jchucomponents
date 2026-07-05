@@ -425,4 +425,56 @@ final class JchuComponentsSwiftUITests: XCTestCase {
         JchuPayment.shared.setSubscriptionName("premium")
         XCTAssertEqual(JchuPayment.shared.subscriptionName, "premium")
     }
+
+    @MainActor
+    func testPurchaseAndShareScaffoldsExposeConveniences() {
+        struct Item: Identifiable {
+            let id: Int
+            let title: String
+        }
+
+        let items = [Item(id: 1, title: "Annual")]
+        var selectedTab = "plans"
+
+        _ = JchuPurchaseElementsScaffold(
+            "Products",
+            items: items,
+            isLoading: false,
+            id: \.id
+        ) { layout, item in
+            Text("\(String(describing: layout)): \(item.title)")
+        }
+        _ = JchuPurchaseTabItemsScaffold(
+            "Products",
+            tabs: [
+                JchuScaffoldTabItem(
+                    id: "plans",
+                    title: "Plans",
+                    systemImage: "creditcard"
+                )
+            ],
+            selectedTabID: Binding(
+                get: { selectedTab },
+                set: { selectedTab = $0 }
+            ),
+            isLoading: false
+        ) {
+            Text("Plans")
+        }
+        _ = JchuShareScaffold(
+            "Preview",
+            onShare: {},
+            onDownload: {}
+        ) {
+            Text("Preview")
+        }
+
+        let theme = JchuScreenColorTheme(
+            primary: .blue,
+            secondary: .white
+        )
+        XCTAssertTrue(theme.toPurchaseScaffoldConfig().searchConfig.isActive)
+        XCTAssertTrue(theme.toPurchaseTabScaffoldConfig().searchConfig.isActive)
+        _ = theme.toShareScaffoldConfig()
+    }
 }

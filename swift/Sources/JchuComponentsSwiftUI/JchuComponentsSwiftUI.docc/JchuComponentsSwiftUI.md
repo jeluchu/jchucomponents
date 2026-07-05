@@ -135,6 +135,33 @@ JchuRemoteScreenContent(
 }
 ```
 
+Present a searchable grid while keeping loading and empty states consistent:
+
+```swift
+JchuPurchaseElementsScaffold(
+    "Products",
+    items: products,
+    isLoading: isLoading,
+    error: errorMessage,
+    id: \.id,
+    config: purchaseConfig
+) { layout, product in
+    ProductCard(product: product, layout: layout)
+}
+```
+
+Use a share scaffold when primary content needs persistent export actions:
+
+```swift
+JchuShareScaffold(
+    "Preview",
+    onShare: share,
+    onDownload: download
+) {
+    PreviewContent()
+}
+```
+
 ## Topics
 
 ### Actions
@@ -187,3 +214,22 @@ JchuRemoteScreenContent(
 - ``JchuRemoteScreenContent``
 - ``JchuDetailsScaffold``
 - ``JchuSettingsScaffold``
+
+### Purchase and sharing
+
+- ``JchuPurchaseElementsScaffold``
+- ``JchuPurchaseStates``
+- ``JchuPurchaseItemType``
+- ``JchuPurchaseTabItemsScaffold``
+- ``JchuPurchaseTabBar``
+- ``JchuPurchaseScaffoldConfig``
+- ``JchuPurchaseTabScaffoldConfig``
+- ``JchuPurchaseSearchConfig``
+- ``JchuPurchaseHeaderConfig``
+- ``JchuPurchaseScaffoldColors``
+- ``JchuPurchaseTabColors``
+- ``JchuScreenColorTheme``
+- ``JchuShareScaffold``
+- ``JchuShareBottomBar``
+- ``JchuShareScaffoldConfig``
+- ``JchuShareBarColors``

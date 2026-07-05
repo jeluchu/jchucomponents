@@ -1,5 +1,6 @@
 import SwiftUI
 
+/// A four-role color palette used to derive screen-specific configurations.
 public struct JchuScreenColorTheme: Sendable {
     public var primary: Color
     public var secondary: Color
@@ -19,6 +20,10 @@ public struct JchuScreenColorTheme: Sendable {
     }
 }
 
+/// Built-in application color presets.
+///
+/// These presets are conveniences; reusable components accept custom
+/// ``JchuScreenColorTheme`` values and do not require a preset.
 public enum JchuAppColorThemes {
     public static let ableSisters = JchuScreenColorTheme(primary: Color(red: 0.73, green: 0.29, blue: 0.47), secondary: Color(red: 0.96, green: 0.70, blue: 0.80))
     public static let nooksCranny = JchuScreenColorTheme(primary: Color(red: 0.54, green: 0.42, blue: 0.26), secondary: Color(red: 0.92, green: 0.85, blue: 0.72))
@@ -55,6 +60,7 @@ public enum JchuAppColorThemes {
     public static let weather = amiibos
 }
 
+/// Foreground and background colors for purchase scaffolds.
 public struct JchuPurchaseScaffoldColors {
     public var contentColor: Color
     public var containerColor: Color
@@ -68,6 +74,7 @@ public struct JchuPurchaseScaffoldColors {
     }
 }
 
+/// Search behavior and appearance for purchase scaffolds.
 public struct JchuPurchaseSearchConfig {
     public var isActive: Bool
     public var label: LocalizedStringKey
@@ -98,6 +105,7 @@ public struct JchuPurchaseSearchConfig {
     }
 }
 
+/// Optional content displayed above a purchase collection.
 public struct JchuPurchaseHeaderConfig {
     public var isCompletedByHiddenFavorites: Bool
     public var progressContent: AnyView?
@@ -114,6 +122,7 @@ public struct JchuPurchaseHeaderConfig {
     }
 }
 
+/// State views, search behavior and colors for a purchase-elements scaffold.
 public struct JchuPurchaseScaffoldConfig {
     public var headerConfig: JchuPurchaseHeaderConfig
     public var searchConfig: JchuPurchaseSearchConfig
@@ -142,6 +151,7 @@ public struct JchuPurchaseScaffoldConfig {
     }
 }
 
+/// Semantic colors for ``JchuPurchaseTabBar``.
 public struct JchuPurchaseTabColors {
     public var selectedContentColor: Color
     public var unselectedContentColor: Color
@@ -164,6 +174,7 @@ public struct JchuPurchaseTabColors {
     }
 }
 
+/// Search, tab and scaffold configuration for tabbed purchase screens.
 public struct JchuPurchaseTabScaffoldConfig {
     public var tabColors: JchuPurchaseTabColors
     public var searchConfig: JchuPurchaseSearchConfig
@@ -180,6 +191,7 @@ public struct JchuPurchaseTabScaffoldConfig {
     }
 }
 
+/// Colors used by ``JchuDetailsScaffold``.
 public struct JchuDetailsScaffoldConfig {
     public var scaffoldColors: JchuPurchaseScaffoldColors
 

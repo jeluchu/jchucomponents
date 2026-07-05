@@ -1,10 +1,12 @@
 import SwiftUI
 
+/// A stable identifier, localized title and SF Symbol for scaffold tabs.
 public struct JchuScaffoldTabItem: Identifiable, Hashable {
     public let id: String
     public let title: LocalizedStringKey
     public let systemImage: String
 
+    /// Creates a scaffold tab item.
     public init(
         id: String,
         title: LocalizedStringKey,

@@ -1,5 +1,6 @@
 import SwiftUI
 
+/// A state-aware screen with persistent share and download actions.
 public struct JchuShareScaffold<Content: View, LoadingContent: View, FailureContent: View>: View {
     @Environment(\.presentationMode) private var presentationMode
 
@@ -15,6 +16,7 @@ public struct JchuShareScaffold<Content: View, LoadingContent: View, FailureCont
     private let loadingContent: LoadingContent
     private let failureContent: (String?) -> FailureContent
 
+    /// Creates a share scaffold with custom loading and failure content.
     public init(
         _ title: LocalizedStringKey,
         isLoading: Bool = false,
@@ -117,6 +119,7 @@ public extension JchuShareScaffold where LoadingContent == JchuLoadingIndicator,
     }
 }
 
+/// The share and download action bar used by ``JchuShareScaffold``.
 public struct JchuShareBottomBar: View {
     @Environment(\.jchuTheme) private var theme
 
@@ -126,6 +129,7 @@ public struct JchuShareBottomBar: View {
     private let onShare: () -> Void
     private let onDownload: () -> Void
 
+    /// Creates a share action bar.
     public init(
         colors: JchuShareBarColors = JchuShareBarColors(),
         shareTitle: LocalizedStringKey = "Share",
@@ -172,6 +176,7 @@ public struct JchuShareBottomBar: View {
     }
 }
 
+/// Colors used by the share bar and its surrounding scaffold.
 public struct JchuShareScaffoldConfig {
     public var shareBarColors: JchuShareBarColors
     public var scaffoldColors: JchuPurchaseScaffoldColors
@@ -185,6 +190,7 @@ public struct JchuShareScaffoldConfig {
     }
 }
 
+/// Semantic colors for ``JchuShareBottomBar`` actions.
 public struct JchuShareBarColors {
     public var containerColor: Color
     public var shareContentColor: Color
