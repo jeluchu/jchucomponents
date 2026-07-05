@@ -26,10 +26,12 @@ import android.view.Window
  */
 
 class ScreenCapture {
-
-    fun captureView(view: View, window: Window, bitmapCallback: (Bitmap) -> Unit) {
+    fun captureView(
+        view: View,
+        window: Window,
+        bitmapCallback: (Bitmap) -> Unit
+    ) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-
             val bitmap = Bitmap.createBitmap(view.width, view.height, Bitmap.Config.ARGB_8888)
             val location = IntArray(2)
             view.getLocationInWindow(location)
@@ -41,20 +43,20 @@ class ScreenCapture {
                     if (it == PixelCopy.SUCCESS) {
                         bitmapCallback.invoke(bitmap)
                     }
-                }, Handler(Looper.getMainLooper())
+                },
+                Handler(Looper.getMainLooper())
             )
-
         } else {
-
-            val tBitmap = Bitmap.createBitmap(
-                view.width, view.height, Bitmap.Config.RGB_565
-            )
+            val tBitmap =
+                Bitmap.createBitmap(
+                    view.width,
+                    view.height,
+                    Bitmap.Config.RGB_565
+                )
             val canvas = Canvas(tBitmap)
             view.draw(canvas)
             canvas.setBitmap(null)
             bitmapCallback.invoke(tBitmap)
-
         }
     }
-
 }

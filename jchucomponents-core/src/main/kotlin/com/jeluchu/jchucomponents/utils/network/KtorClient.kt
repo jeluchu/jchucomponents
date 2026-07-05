@@ -7,9 +7,9 @@
 package com.jeluchu.jchucomponents.utils.network
 
 import android.os.Build
-import io.ktor.client.HttpClient
 import com.jeluchu.jchucomponents.network.http.HttpClientConfiguration
 import com.jeluchu.jchucomponents.network.http.createHttpClient
+import io.ktor.client.HttpClient
 import java.text.Normalizer
 import java.util.Locale
 import java.util.TimeZone
@@ -19,13 +19,14 @@ import java.util.TimeZone
  */
 @Deprecated(
     message = "Use createHttpClient from jchucomponents-network",
-    replaceWith = ReplaceWith(
-        expression = "createHttpClient(HttpClientConfiguration(baseUrl = baseUrl, enableLogging = isDebug))",
-        imports = [
-            "com.jeluchu.jchucomponents.network.HttpClientConfiguration",
-            "com.jeluchu.jchucomponents.network.createHttpClient",
-        ],
-    ),
+    replaceWith =
+        ReplaceWith(
+            expression = "createHttpClient(HttpClientConfiguration(baseUrl = baseUrl, enableLogging = isDebug))",
+            imports = [
+                "com.jeluchu.jchucomponents.network.HttpClientConfiguration",
+                "com.jeluchu.jchucomponents.network.createHttpClient"
+            ]
+        )
 )
 public object KtorClient {
     private const val DEFAULT_TIMEOUT_MILLIS: Long = 90_000
@@ -34,33 +35,36 @@ public object KtorClient {
         baseUrl: String = "",
         headers: ClientHeaders? = null,
         isDebug: Boolean = false,
-        timeoutMillis: Long = DEFAULT_TIMEOUT_MILLIS,
-    ): HttpClient = createHttpClient(
-        HttpClientConfiguration(
-            baseUrl = baseUrl,
-            requestTimeoutMillis = timeoutMillis,
-            connectTimeoutMillis = timeoutMillis,
-            socketTimeoutMillis = timeoutMillis,
-            enableLogging = isDebug,
-            defaultHeaders = headers?.toDefaultHeaders().orEmpty(),
-            sensitiveHeaders = setOfNotNull(
-                "Authorization",
-                headers?.keyHeader?.takeIf(String::isNotEmpty),
-            ),
+        timeoutMillis: Long = DEFAULT_TIMEOUT_MILLIS
+    ): HttpClient =
+        createHttpClient(
+            HttpClientConfiguration(
+                baseUrl = baseUrl,
+                requestTimeoutMillis = timeoutMillis,
+                connectTimeoutMillis = timeoutMillis,
+                socketTimeoutMillis = timeoutMillis,
+                enableLogging = isDebug,
+                defaultHeaders = headers?.toDefaultHeaders().orEmpty(),
+                sensitiveHeaders =
+                    setOfNotNull(
+                        "Authorization",
+                        headers?.keyHeader?.takeIf(String::isNotEmpty)
+                    )
+            )
         )
-    )
 
-    private fun ClientHeaders.toDefaultHeaders(): Map<String, String> = buildMap {
-        put("User-Agent", userAgent.value)
-        put("X-Client", "$client-android")
-        put("Accept-Language", Locale.getDefault().toLanguageTag())
-        put("X-Request-AppVersion", userAgent.versionName)
-        put("X-Request-OsVersion", osVersion)
-        put("X-Request-Device", deviceName)
-        put("X-Mobile-Native", "Android")
-        put("X-User-TimezoneOffset", TimeZone.getDefault().id)
-        if (key.isNotEmpty() && keyHeader.isNotEmpty()) put(keyHeader, key)
-    }
+    private fun ClientHeaders.toDefaultHeaders(): Map<String, String> =
+        buildMap {
+            put("User-Agent", userAgent.value)
+            put("X-Client", "$client-android")
+            put("Accept-Language", Locale.getDefault().toLanguageTag())
+            put("X-Request-AppVersion", userAgent.versionName)
+            put("X-Request-OsVersion", osVersion)
+            put("X-Request-Device", deviceName)
+            put("X-Mobile-Native", "Android")
+            put("X-User-TimezoneOffset", TimeZone.getDefault().id)
+            if (key.isNotEmpty() && keyHeader.isNotEmpty()) put(keyHeader, key)
+        }
 
     private val ClientHeaders.UserAgent.value: String
         get() = "$appName/$versionName (rv $versionCode) ktor"
@@ -70,7 +74,8 @@ public object KtorClient {
             val manufacturer = Build.MANUFACTURER
             val model = Build.MODEL
             val value = if (model.startsWith(manufacturer, ignoreCase = true)) model else "$manufacturer $model"
-            return Normalizer.normalize(value, Normalizer.Form.NFD)
+            return Normalizer
+                .normalize(value, Normalizer.Form.NFD)
                 .replace("[^\\x00-\\x7F]".toRegex(), "")
         }
 

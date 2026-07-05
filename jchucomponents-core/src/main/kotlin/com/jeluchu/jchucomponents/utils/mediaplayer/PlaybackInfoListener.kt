@@ -7,7 +7,7 @@
 package com.jeluchu.jchucomponents.utils.mediaplayer
 
 abstract class PlaybackInfoListener {
-
+    @Suppress("ktlint:standard:property-naming")
     internal annotation class State {
         companion object {
             var INVALID = -1
@@ -19,15 +19,23 @@ abstract class PlaybackInfoListener {
     }
 
     open fun onLogUpdated(formattedMessage: String?) {}
+
     open fun onDurationChanged(duration: Int) {}
+
     open fun onPositionChanged(position: Int) {}
-    open fun onStateChanged(@State state: Int) {}
+
+    open fun onStateChanged(
+        @State state: Int
+    ) {}
+
     open fun onPlaybackCompleted() {}
 
     companion object {
         @JvmStatic
-        fun convertStateToString(@State state: Int): String {
-            return when (state) {
+        fun convertStateToString(
+            @State state: Int
+        ): String =
+            when (state) {
                 State.COMPLETED -> "COMPLETED"
                 State.INVALID -> "INVALID"
                 State.PAUSED -> "PAUSED"
@@ -35,6 +43,5 @@ abstract class PlaybackInfoListener {
                 State.RESET -> "RESET"
                 else -> "N/A"
             }
-        }
     }
 }

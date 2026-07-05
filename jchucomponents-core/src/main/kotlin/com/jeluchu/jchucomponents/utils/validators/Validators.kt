@@ -21,11 +21,12 @@ import androidx.core.util.PatternsCompat
 
 @SuppressLint("RestrictedApi")
 object Validators {
-
     val String.isValidEmail: Boolean
         get() =
-            !TextUtils.isEmpty(this) && PatternsCompat.AUTOLINK_EMAIL_ADDRESS.matcher(this)
-                .matches()
+            !TextUtils.isEmpty(this) &&
+                PatternsCompat.AUTOLINK_EMAIL_ADDRESS
+                    .matcher(this)
+                    .matches()
 
     val String.isValidUrl: Boolean
         get() =
@@ -54,9 +55,7 @@ object Validators {
         get() =
             matches("^[a-zA-Z]*$".toRegex())
 
-    fun String.isLocal() =
-        !isEmptyString() && (startsWith("http://") || startsWith("https://"))
+    fun String.isLocal() = !isEmptyString() && (startsWith("http://") || startsWith("https://"))
 
-    fun CharSequence.isEmptyString(): Boolean =
-        this.isEmpty() || this.toString().equals("null", true)
+    fun CharSequence.isEmptyString(): Boolean = this.isEmpty() || this.toString().equals("null", true)
 }

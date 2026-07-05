@@ -11,7 +11,6 @@ import androidx.lifecycle.ViewModel
 import com.jeluchu.jchucomponents.network.models.Failure
 
 abstract class BaseViewModel : ViewModel() {
-
     var failure: MutableLiveData<Failure> = MutableLiveData()
     var showSpinner: MutableLiveData<Boolean> = MutableLiveData()
 

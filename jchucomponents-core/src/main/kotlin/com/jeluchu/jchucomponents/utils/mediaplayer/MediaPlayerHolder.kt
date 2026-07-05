@@ -29,9 +29,9 @@ import java.util.concurrent.TimeUnit
  *
  */
 
-
-class MediaPlayerHolder(context: Context) : PlayerAdapter {
-
+class MediaPlayerHolder(
+    context: Context
+) : PlayerAdapter {
     private val mContext: Context = context.applicationContext
     private var mMediaPlayer: MediaPlayer? = null
     private var mResourceId = ""
@@ -56,20 +56,33 @@ class MediaPlayerHolder(context: Context) : PlayerAdapter {
         get() = if (mMediaPlayer != null) mMediaPlayer?.isPlaying == true else false
 
     override val currentProgress: Float
-        get() = if (mMediaPlayer != null) {
-            val currentSeconds: Long = ((mMediaPlayer?.currentPosition ?: 0) / 1000).toLong()
-            val totalSeconds: Long = ((mMediaPlayer?.duration ?: 0) / 1000).toLong()
-            (currentSeconds.toDouble() / totalSeconds * 100).toFloat()
-        } else 0F
+        get() =
+            if (mMediaPlayer != null) {
+                val currentSeconds: Long = ((mMediaPlayer?.currentPosition ?: 0) / 1000).toLong()
+                val totalSeconds: Long = ((mMediaPlayer?.duration ?: 0) / 1000).toLong()
+                (currentSeconds.toDouble() / totalSeconds * 100).toFloat()
+            } else {
+                0F
+            }
 
     override val currentTime: String
-        get() = if (mMediaPlayer != null) mMediaPlayer?.currentPosition?.milliSecondsToTimer()
-            .orEmpty()
-        else ""
+        get() =
+            if (mMediaPlayer != null) {
+                mMediaPlayer
+                    ?.currentPosition
+                    ?.milliSecondsToTimer()
+                    .orEmpty()
+            } else {
+                ""
+            }
 
     override val totalTime: String
-        get() = if (mMediaPlayer != null) mMediaPlayer?.duration?.milliSecondsToTimer().orEmpty()
-        else ""
+        get() =
+            if (mMediaPlayer != null) {
+                mMediaPlayer?.duration?.milliSecondsToTimer().orEmpty()
+            } else {
+                ""
+            }
 
     override fun togglePlaying(isPlaying: Boolean) {
         if (mMediaPlayer != null) {
@@ -102,7 +115,6 @@ class MediaPlayerHolder(context: Context) : PlayerAdapter {
             mMediaPlayer = null
         }
     }
-
 
     override fun play() {
         if (mMediaPlayer != null && mMediaPlayer?.isPlaying == false) {
@@ -196,7 +208,6 @@ class MediaPlayerHolder(context: Context) : PlayerAdapter {
     }
 
     private fun Int.milliSecondsToTimer(): String {
-
         var finalTimerString = ""
         val secondsString: String
 
@@ -205,14 +216,14 @@ class MediaPlayerHolder(context: Context) : PlayerAdapter {
         val seconds = (this % (1000 * 60 * 60) % (1000 * 60) / 1000)
         if (hours > 0) finalTimerString = "$hours:"
 
-        secondsString = if (seconds < 10) {
-            "0$seconds"
-        } else {
-            "" + seconds
-        }
+        secondsString =
+            if (seconds < 10) {
+                "0$seconds"
+            } else {
+                "" + seconds
+            }
         finalTimerString = "$finalTimerString$minutes:$secondsString"
 
         return finalTimerString
     }
-
 }

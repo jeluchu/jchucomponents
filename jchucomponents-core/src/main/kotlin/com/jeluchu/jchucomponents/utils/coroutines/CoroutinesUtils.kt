@@ -11,13 +11,17 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
-fun noCrash(enableLog: Boolean = true, func: () -> Unit): String? =
+fun noCrash(
+    enableLog: Boolean = true,
+    func: () -> Unit
+): String? =
     runCatching {
         func()
         null
     }.getOrElse {
-        if (enableLog)
+        if (enableLog) {
             it.printStackTrace()
+        }
         it.message
     }
 
@@ -25,7 +29,7 @@ fun noCrash(enableLog: Boolean = true, func: () -> Unit): String? =
 fun doOnGlobal(
     enableLog: Boolean = true,
     onLog: (text: String) -> Unit = {},
-    func: suspend () -> Unit,
+    func: suspend () -> Unit
 ) {
     GlobalScope.launch {
         noCrashSuspend(enableLog) {
@@ -38,7 +42,7 @@ fun doOnGlobal(
 fun doOnUI(
     enableLog: Boolean = true,
     onLog: (text: String) -> Unit = {},
-    func: suspend () -> Unit,
+    func: suspend () -> Unit
 ) {
     GlobalScope.launch(Dispatchers.Main) {
         noCrashSuspend(enableLog) {
@@ -51,7 +55,7 @@ fun doOnUI(
 fun doOnMain(
     enableLog: Boolean = true,
     onLog: (text: String) -> Unit = {},
-    func: suspend () -> Unit,
+    func: suspend () -> Unit
 ) {
     GlobalScope.launch(Dispatchers.IO) {
         noCrashSuspend(enableLog) {
@@ -60,12 +64,16 @@ fun doOnMain(
     }
 }
 
-suspend fun noCrashSuspend(enableLog: Boolean = true, func: suspend () -> Unit): String? =
+suspend fun noCrashSuspend(
+    enableLog: Boolean = true,
+    func: suspend () -> Unit
+): String? =
     runCatching {
         func()
         null
     }.getOrElse {
-        if (enableLog)
+        if (enableLog) {
             it.printStackTrace()
+        }
         it.message
     }

@@ -4,18 +4,20 @@
  *
  */
 
-package  com.jeluchu.jchucomponents.utils
+package com.jeluchu.jchucomponents.utils
 
 import com.google.gson.TypeAdapter
 import com.google.gson.stream.JsonReader
 import com.google.gson.stream.JsonWriter
-import java.io.IOException
 import org.json.JSONObject
+import java.io.IOException
 
 class JsonConverterObjectToString : TypeAdapter<String?>() {
-
     @Throws(IOException::class)
-    override fun write(out: JsonWriter, value: String?) {
+    override fun write(
+        out: JsonWriter,
+        value: String?
+    ) {
         runCatching {
             val jsonObject = JSONObject(value.orEmpty())
             out.beginObject()
@@ -23,7 +25,8 @@ class JsonConverterObjectToString : TypeAdapter<String?>() {
             while (iterator.hasNext()) {
                 val key = iterator.next()
                 val keyValue = jsonObject.getString(key)
-                out.name(key)
+                out
+                    .name(key)
                     .value(keyValue)
             }
             out.endObject()
@@ -44,5 +47,4 @@ class JsonConverterObjectToString : TypeAdapter<String?>() {
         `in`.endObject()
         return jsonObject.toString()
     }
-
 }

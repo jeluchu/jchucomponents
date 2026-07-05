@@ -8,6 +8,8 @@ package com.jeluchu.jchucomponents.core.platform
 
 import android.content.Context
 
-class ContextHandler(context: Context) {
+class ContextHandler(
+    context: Context
+) {
     val appContext: Context = context.applicationContext
 }
