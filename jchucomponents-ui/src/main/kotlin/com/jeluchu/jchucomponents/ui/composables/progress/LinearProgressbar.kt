@@ -38,7 +38,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.jeluchu.jchucomponents.ktx.colors.toColorFilter
-import com.jeluchu.jchucomponents.ktx.strings.empty
 import com.jeluchu.jchucomponents.ui.R
 import com.jeluchu.jchucomponents.ui.extensions.modifier.cornerRadius
 import com.jeluchu.jchucomponents.ui.extensions.toImageVector
@@ -92,7 +91,10 @@ fun LinearProgressbar(
     )
 
     Row(
-        modifier = Modifier.fillMaxWidth(),
+        modifier =
+            Modifier
+                .fillMaxWidth()
+                .progressSemantics(numberTimes, maxNumber, enabled),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(15.dp)
     ) {
@@ -108,7 +110,7 @@ fun LinearProgressbar(
                     numberTimes != maxNumber -> linearProgressCustom.iconTint
                     else -> linearProgressCustom.foregroundIndicatorComplete
                 },
-            contentDescription = String.empty()
+            contentDescription = null
         )
 
         Canvas(
@@ -226,7 +228,10 @@ fun LinearProgressbar(
     )
 
     Row(
-        modifier = Modifier.fillMaxWidth(),
+        modifier =
+            Modifier
+                .fillMaxWidth()
+                .progressSemantics(numberTimes, maxNumber, enabled),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(15.dp)
     ) {

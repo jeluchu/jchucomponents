@@ -33,7 +33,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.jeluchu.jchucomponents.ktx.colors.toColorFilter
-import com.jeluchu.jchucomponents.ktx.strings.empty
 import com.jeluchu.jchucomponents.ui.R
 import com.jeluchu.jchucomponents.ui.extensions.modifier.cornerRadius
 import com.jeluchu.jchucomponents.ui.extensions.toImageVector
@@ -71,6 +70,7 @@ fun IconProgress(
             modifier
                 .clip(10.cornerRadius())
                 .background(iconProgressCustom.container)
+                .progressSemantics(numberTimes, maxNumber, enabled)
                 .padding(10.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(5.dp)
@@ -87,7 +87,7 @@ fun IconProgress(
                     numberTimes != maxNumber -> iconProgressCustom.content
                     else -> iconProgressCustom.foregroundIndicatorComplete
                 },
-            contentDescription = String.empty()
+            contentDescription = null
         )
 
         Canvas(
@@ -179,6 +179,7 @@ fun IconProgress(
             modifier
                 .clip(10.cornerRadius())
                 .background(iconProgressCustom.container)
+                .progressSemantics(numberTimes, maxNumber, enabled)
                 .padding(10.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(5.dp)

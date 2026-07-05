@@ -29,7 +29,6 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.jeluchu.jchucomponents.ktx.strings.empty
 import com.jeluchu.jchucomponents.ui.R
 import com.jeluchu.jchucomponents.ui.composables.column.ScrollableColumn
 import com.jeluchu.jchucomponents.ui.extensions.modifier.noRippleClickable
@@ -86,6 +85,7 @@ fun CircularProgressbar(
             Modifier
                 .padding(5.dp)
                 .size(size = size)
+                .progressSemantics(numberTimes.value, maxNumber, enabled)
                 .noRippleClickable { onClick(numberTimes, maxNumber) },
         contentAlignment = Alignment.Center
     ) {
@@ -108,7 +108,7 @@ fun CircularProgressbar(
                     numberTimes.value != maxNumber -> circularProgressCustom.iconTint
                     else -> circularProgressCustom.foregroundIndicatorComplete
                 },
-            contentDescription = String.empty()
+            contentDescription = null
         )
     }
 }
@@ -161,6 +161,7 @@ fun CircularProgressbar(
             Modifier
                 .padding(5.dp)
                 .size(size = size)
+                .progressSemantics(numberTimes.value, maxNumber, enabled)
                 .noRippleClickable { onClick(numberTimes, maxNumber) },
         contentAlignment = Alignment.Center
     ) {
