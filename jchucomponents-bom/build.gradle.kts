@@ -42,7 +42,7 @@ mavenPublishing {
     coordinates(
         groupId = "io.github.jeluchu",
         artifactId = "jchucomponents-bom",
-        version = libs.versions.jchucomponents.get(),
+        version = libs.versions.jchucomponents.get()
     )
 
     pom {
