@@ -15,13 +15,13 @@ fun BenefitsView(onItemClick: (String) -> Unit) {
 }
 
 @Composable
-private fun Benefits(
-    onItemClick: (String) -> Unit
-) = ScaffoldStructure(
-    title = Names.benefitCards,
-    colors = CenterToolbarColors(
-        containerColor = secondary,
-        contentColor = milky
-    ),
-    onNavIconClick = { onItemClick(DestinationsIds.back) }
-) { BenefitsCardPreview() }
+private fun Benefits(onItemClick: (String) -> Unit) =
+    ScaffoldStructure(
+        title = Names.benefitCards,
+        colors =
+            CenterToolbarColors(
+                containerColor = secondary,
+                contentColor = milky
+            ),
+        onNavIconClick = { onItemClick(DestinationsIds.back) }
+    ) { BenefitsCardPreview() }

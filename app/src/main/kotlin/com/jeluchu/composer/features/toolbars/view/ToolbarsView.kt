@@ -22,23 +22,24 @@ fun ToolbarsView(onItemClick: (String) -> Unit) {
 }
 
 @Composable
-private fun Toolbars(
-    onItemClick: (String) -> Unit
-) = ScaffoldStructure(
-    title = Names.toolbars,
-    colors = CenterToolbarColors(
-        containerColor = secondary,
-        contentColor = milky
-    ),
-    onNavIconClick = { onItemClick(DestinationsIds.back) }
-) {
-    MenuOptions.toolbars.forEach { option ->
-        SimpleButton(
-            modifier = Modifier
-                .clip(JchuTheme.shapes.corner10)
-                .background(primary.copy(.7f)),
-            label = option.name,
-            color = Color.DarkGray
-        ) { onItemClick(option.id) }
+private fun Toolbars(onItemClick: (String) -> Unit) =
+    ScaffoldStructure(
+        title = Names.toolbars,
+        colors =
+            CenterToolbarColors(
+                containerColor = secondary,
+                contentColor = milky
+            ),
+        onNavIconClick = { onItemClick(DestinationsIds.back) }
+    ) {
+        MenuOptions.toolbars.forEach { option ->
+            SimpleButton(
+                modifier =
+                    Modifier
+                        .clip(JchuTheme.shapes.corner10)
+                        .background(primary.copy(.7f)),
+                label = option.name,
+                color = Color.DarkGray
+            ) { onItemClick(option.id) }
+        }
     }
-}

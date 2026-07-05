@@ -27,17 +27,16 @@ fun IconProgressbarView(onItemClick: (String) -> Unit) {
 }
 
 @Composable
-private fun IconProgressbar(
-    onItemClick: (String) -> Unit
-) {
+private fun IconProgressbar(onItemClick: (String) -> Unit) {
     val fixtures = CatalogFixtures.progressStateFixtures
 
     ScaffoldStructure(
         title = Names.iconProgress,
-        colors = CenterToolbarColors(
-            containerColor = secondary,
-            contentColor = milky
-        ),
+        colors =
+            CenterToolbarColors(
+                containerColor = secondary,
+                contentColor = milky
+            ),
         onNavIconClick = { onItemClick(DestinationsIds.back) }
     ) {
         Column(
@@ -47,11 +46,11 @@ private fun IconProgressbar(
                 Text(
                     text = fixture.name,
                     style = JchuCatalogTheme.typography.section,
-                    color = JchuCatalogTheme.colors.content,
+                    color = JchuCatalogTheme.colors.content
                 )
                 JchuIconProgress(
                     state = fixture.state,
-                    icon = Icons.Default.Check,
+                    icon = Icons.Default.Check
                 )
             }
         }

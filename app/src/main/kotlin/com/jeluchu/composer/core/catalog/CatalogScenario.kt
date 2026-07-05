@@ -2,7 +2,7 @@ package com.jeluchu.composer.core.catalog
 
 enum class CatalogScenario(
     val title: String,
-    val description: String,
+    val description: String
 ) {
     LIGHT(
         title = "Light",
@@ -15,5 +15,5 @@ enum class CatalogScenario(
     ACCESSIBILITY(
         title = "Accessibility",
         description = "Large text and long-content review for layout resilience."
-    ),
+    )
 }

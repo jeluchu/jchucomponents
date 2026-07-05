@@ -15,13 +15,13 @@ fun LazyStaticGridView(onItemClick: (String) -> Unit) {
 }
 
 @Composable
-private fun LazyStaticGrid(
-    onItemClick: (String) -> Unit
-) = ScaffoldStructure(
-    title = Names.lazyStaticGrids,
-    colors = CenterToolbarColors(
-        containerColor = secondary,
-        contentColor = milky
-    ),
-    onNavIconClick = { onItemClick(DestinationsIds.back) }
-) { LazyStaticGridPreview() }
+private fun LazyStaticGrid(onItemClick: (String) -> Unit) =
+    ScaffoldStructure(
+        title = Names.lazyStaticGrids,
+        colors =
+            CenterToolbarColors(
+                containerColor = secondary,
+                contentColor = milky
+            ),
+        onNavIconClick = { onItemClick(DestinationsIds.back) }
+    ) { LazyStaticGridPreview() }

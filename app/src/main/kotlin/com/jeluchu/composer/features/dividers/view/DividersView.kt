@@ -28,47 +28,51 @@ fun DividersView() {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun Dividers() = Scaffold(
-    topBar = {
-        TopAppBar(
-            title = {
-                Text(
-                    text = Names.dividers,
-                    color = milky,
-                    fontWeight = FontWeight.ExtraBold
-                )
-            },
-            colors = TopAppBarDefaults.topAppBarColors(
-                containerColor = secondary
+private fun Dividers() =
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                title = {
+                    Text(
+                        text = Names.dividers,
+                        color = milky,
+                        fontWeight = FontWeight.ExtraBold
+                    )
+                },
+                colors =
+                    TopAppBarDefaults.topAppBarColors(
+                        containerColor = secondary
+                    )
             )
-        )
-    },
-    containerColor = secondary
-) { contentPadding ->
-    ScrollableColumn(
-        modifier = Modifier.padding(contentPadding),
-        verticalArrangement = Arrangement.spacedBy(10.dp)
-    ) {
-        Text(
-            text = "Static samples",
-            modifier = Modifier
-                .fillMaxWidth()
-                .background(primary)
-                .padding(15.dp),
-            fontWeight = FontWeight.Bold
-        )
+        },
+        containerColor = secondary
+    ) { contentPadding ->
+        ScrollableColumn(
+            modifier = Modifier.padding(contentPadding),
+            verticalArrangement = Arrangement.spacedBy(10.dp)
+        ) {
+            Text(
+                text = "Static samples",
+                modifier =
+                    Modifier
+                        .fillMaxWidth()
+                        .background(primary)
+                        .padding(15.dp),
+                fontWeight = FontWeight.Bold
+            )
 
-        DashedDividerStaticPreview()
+            DashedDividerStaticPreview()
 
-        Text(
-            text = "Interactive sample",
-            modifier = Modifier
-                .fillMaxWidth()
-                .background(primary)
-                .padding(15.dp),
-            fontWeight = FontWeight.Bold
-        )
+            Text(
+                text = "Interactive sample",
+                modifier =
+                    Modifier
+                        .fillMaxWidth()
+                        .background(primary)
+                        .padding(15.dp),
+                fontWeight = FontWeight.Bold
+            )
 
-        DashedDividerInteractivePreview()
+            DashedDividerInteractivePreview()
+        }
     }
-}

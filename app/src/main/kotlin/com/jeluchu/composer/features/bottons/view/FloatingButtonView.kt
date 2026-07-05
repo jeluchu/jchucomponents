@@ -29,41 +29,42 @@ fun FloatingButtonView(onItemClick: (String) -> Unit) {
 }
 
 @Composable
-private fun FloatingButtonCatalog(
-    onItemClick: (String) -> Unit
-) = ScaffoldStructure(
-    title = Names.floatingButtons,
-    colors = CenterToolbarColors(
-        containerColor = secondary,
-        contentColor = milky
-    ),
-    onNavIconClick = { onItemClick(DestinationsIds.back) }
-) {
-    Column(
-        verticalArrangement = Arrangement.spacedBy(JchuCatalogTheme.spacing.dimen16)
+private fun FloatingButtonCatalog(onItemClick: (String) -> Unit) =
+    ScaffoldStructure(
+        title = Names.floatingButtons,
+        colors =
+            CenterToolbarColors(
+                containerColor = secondary,
+                contentColor = milky
+            ),
+        onNavIconClick = { onItemClick(DestinationsIds.back) }
     ) {
-        Text(
-            text = "Floating buttons",
-            style = JchuCatalogTheme.typography.section,
-            color = JchuCatalogTheme.colors.content,
-        )
-
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(vertical = JchuCatalogTheme.spacing.dimen08),
-            horizontalArrangement = Arrangement.SpaceEvenly,
+        Column(
+            verticalArrangement = Arrangement.spacedBy(JchuCatalogTheme.spacing.dimen16)
         ) {
-            CatalogFixtures.floatingButtonFixtures.forEach { fixture ->
-                JchuFloatingButton(
-                    enabled = fixture.isEnabled,
-                    size = fixture.size,
-                    contentDescription = fixture.contentDescription,
-                )
+            Text(
+                text = "Floating buttons",
+                style = JchuCatalogTheme.typography.section,
+                color = JchuCatalogTheme.colors.content
+            )
+
+            Row(
+                modifier =
+                    Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = JchuCatalogTheme.spacing.dimen08),
+                horizontalArrangement = Arrangement.SpaceEvenly
+            ) {
+                CatalogFixtures.floatingButtonFixtures.forEach { fixture ->
+                    JchuFloatingButton(
+                        enabled = fixture.isEnabled,
+                        size = fixture.size,
+                        contentDescription = fixture.contentDescription
+                    )
+                }
             }
         }
     }
-}
 
 @Preview(name = "Floating Buttons - Light", showBackground = true)
 @Composable

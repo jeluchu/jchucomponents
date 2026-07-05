@@ -22,23 +22,24 @@ fun CardsView(onItemClick: (String) -> Unit) {
 }
 
 @Composable
-private fun Toolbars(
-    onItemClick: (String) -> Unit
-) = ScaffoldStructure(
-    title = Names.cards,
-    colors = CenterToolbarColors(
-        containerColor = secondary,
-        contentColor = milky
-    ),
-    onNavIconClick = { onItemClick(DestinationsIds.back) }
-) {
-    MenuOptions.cards.forEach { option ->
-        SimpleButton(
-            modifier = Modifier
-                .clip(10.cornerRadius())
-                .background(primary.copy(.7f)),
-            label = option.name,
-            color = Color.DarkGray
-        ) { onItemClick(option.id) }
+private fun Toolbars(onItemClick: (String) -> Unit) =
+    ScaffoldStructure(
+        title = Names.cards,
+        colors =
+            CenterToolbarColors(
+                containerColor = secondary,
+                contentColor = milky
+            ),
+        onNavIconClick = { onItemClick(DestinationsIds.back) }
+    ) {
+        MenuOptions.cards.forEach { option ->
+            SimpleButton(
+                modifier =
+                    Modifier
+                        .clip(10.cornerRadius())
+                        .background(primary.copy(.7f)),
+                label = option.name,
+                color = Color.DarkGray
+            ) { onItemClick(option.id) }
+        }
     }
-}

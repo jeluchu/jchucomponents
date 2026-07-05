@@ -24,8 +24,8 @@ import com.jeluchu.composer.core.catalog.JchuCatalogTheme
 import com.jeluchu.composer.core.catalog.ProvideJchuCatalogTheme
 import com.jeluchu.composer.core.ui.composables.ScaffoldStructure
 import com.jeluchu.composer.core.ui.theme.JeluchuTheme
-import com.jeluchu.jchucomponents.ui.composables.chips.ChipTagView
 import com.jeluchu.jchucomponents.ui.composables.chips.Chip
+import com.jeluchu.jchucomponents.ui.composables.chips.ChipTagView
 import com.jeluchu.jchucomponents.ui.composables.chips.RemovableChip
 import com.jeluchu.jchucomponents.ui.composables.chips.SelectableChip
 import com.jeluchu.jchucomponents.ui.composables.chips.Tag
@@ -54,7 +54,7 @@ private fun ChipsCatalog(onBack: () -> Unit) {
             Text(
                 text = "Basic",
                 style = JchuCatalogTheme.typography.section,
-                color = JchuCatalogTheme.colors.content,
+                color = JchuCatalogTheme.colors.content
             )
             Row(horizontalArrangement = Arrangement.spacedBy(JchuCatalogTheme.spacing.dimen08)) {
                 Chip(label = fixtures[0].label)
@@ -69,7 +69,7 @@ private fun ChipsCatalog(onBack: () -> Unit) {
             Text(
                 text = "Selection",
                 style = JchuCatalogTheme.typography.section,
-                color = JchuCatalogTheme.colors.content,
+                color = JchuCatalogTheme.colors.content
             )
             SelectableChip(
                 label = if (selected) fixtures[2].label else "Not selected",
@@ -82,7 +82,7 @@ private fun ChipsCatalog(onBack: () -> Unit) {
                 Text(
                     text = "Removable",
                     style = JchuCatalogTheme.typography.section,
-                    color = JchuCatalogTheme.colors.content,
+                    color = JchuCatalogTheme.colors.content
                 )
                 RemovableChip(
                     label = fixtures[3].label,
@@ -94,46 +94,47 @@ private fun ChipsCatalog(onBack: () -> Unit) {
             Text(
                 text = "Long content",
                 style = JchuCatalogTheme.typography.section,
-                color = JchuCatalogTheme.colors.content,
+                color = JchuCatalogTheme.colors.content
             )
             Chip(
                 modifier = Modifier.fillMaxWidth(),
                 label = fixtures[4].label,
-                contentDescription = fixtures[4].contentDescription,
+                contentDescription = fixtures[4].contentDescription
             )
 
             Text(
                 text = "Tag variants",
                 style = JchuCatalogTheme.typography.section,
-                color = JchuCatalogTheme.colors.content,
+                color = JchuCatalogTheme.colors.content
             )
             Row(horizontalArrangement = Arrangement.spacedBy(JchuCatalogTheme.spacing.dimen08)) {
                 Tag(title = tagFixtures[0].label)
                 ChipTagView(
-                    modifier = Modifier
-                        .wrapContentSize()
-                        .clip(RoundedCornerShape(JchuCatalogTheme.spacing.dimen10))
-                        .background(JchuCatalogTheme.colors.primary.copy(alpha = .2f)),
+                    modifier =
+                        Modifier
+                            .wrapContentSize()
+                            .clip(RoundedCornerShape(JchuCatalogTheme.spacing.dimen10))
+                            .background(JchuCatalogTheme.colors.primary.copy(alpha = .2f)),
                     title = tagFixtures[1].label,
-                    textColor = JchuCatalogTheme.colors.content,
+                    textColor = JchuCatalogTheme.colors.content
                 )
             }
 
             Text(
                 text = "YouTube variants",
                 style = JchuCatalogTheme.typography.section,
-                color = JchuCatalogTheme.colors.content,
+                color = JchuCatalogTheme.colors.content
             )
             Row(horizontalArrangement = Arrangement.spacedBy(JchuCatalogTheme.spacing.dimen08)) {
                 YoutubeChip(
                     modifier = Modifier.padding(horizontal = JchuCatalogTheme.spacing.dimen04),
                     selected = true,
-                    text = youtubeFixtures[0].label,
+                    text = youtubeFixtures[0].label
                 )
                 YoutubeChip(
                     modifier = Modifier.padding(horizontal = JchuCatalogTheme.spacing.dimen04),
                     selected = false,
-                    text = youtubeFixtures[1].label,
+                    text = youtubeFixtures[1].label
                 )
             }
         }

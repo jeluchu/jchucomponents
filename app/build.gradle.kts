@@ -6,11 +6,20 @@ plugins {
 }
 
 android {
-    compileSdk = libs.versions.android.compile.sdk.get().toInt()
+    compileSdk =
+        libs.versions.android.compile.sdk
+            .get()
+            .toInt()
     defaultConfig {
         applicationId = "com.jeluchu.composer"
-        minSdk = libs.versions.sample.min.sdk.get().toInt()
-        targetSdk = libs.versions.android.target.sdk.get().toInt()
+        minSdk =
+            libs.versions.sample.min.sdk
+                .get()
+                .toInt()
+        targetSdk =
+            libs.versions.android.target.sdk
+                .get()
+                .toInt()
         versionCode = 1
         versionName = libs.versions.jchucomponents.get()
     }
@@ -24,7 +33,7 @@ android {
             )
         }
     }
-    
+
     buildFeatures.compose = true
     compileOptions {
         sourceCompatibility = JavaVersion.toVersion(libs.versions.java.get())

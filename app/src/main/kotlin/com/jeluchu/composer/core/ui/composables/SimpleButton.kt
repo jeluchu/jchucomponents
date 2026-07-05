@@ -20,15 +20,15 @@ fun SimpleButton(
     modifier: Modifier = Modifier,
     onClick: () -> Unit
 ) = Box(
-    modifier = modifier
-        .fillMaxWidth()
-        .clickable(
-            enabled = true,
-            role = Role.Button,
-            onClick = onClick,
-        )
-        .padding(10.dp),
-    contentAlignment = Alignment.CenterStart,
+    modifier =
+        modifier
+            .fillMaxWidth()
+            .clickable(
+                enabled = true,
+                role = Role.Button,
+                onClick = onClick
+            ).padding(10.dp),
+    contentAlignment = Alignment.CenterStart
 ) {
     Text(
         text = label,

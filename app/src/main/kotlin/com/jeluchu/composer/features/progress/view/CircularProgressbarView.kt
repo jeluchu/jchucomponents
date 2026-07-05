@@ -32,10 +32,11 @@ private fun CircularProgressbar(onItemClick: (String) -> Unit) {
 
     ScaffoldStructure(
         title = Names.circularProgress,
-        colors = CenterToolbarColors(
-            containerColor = secondary,
-            contentColor = milky
-        ),
+        colors =
+            CenterToolbarColors(
+                containerColor = secondary,
+                contentColor = milky
+            ),
         onNavIconClick = { onItemClick(DestinationsIds.back) }
     ) {
         Column(
@@ -45,11 +46,11 @@ private fun CircularProgressbar(onItemClick: (String) -> Unit) {
                 Text(
                     text = fixture.name,
                     style = JchuCatalogTheme.typography.section,
-                    color = JchuCatalogTheme.colors.content,
+                    color = JchuCatalogTheme.colors.content
                 )
                 JchuCircularProgress(
                     state = fixture.state,
-                    icon = Icons.Default.Check,
+                    icon = Icons.Default.Check
                 )
             }
         }

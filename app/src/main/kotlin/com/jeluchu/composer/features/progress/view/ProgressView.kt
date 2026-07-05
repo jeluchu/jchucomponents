@@ -28,30 +28,31 @@ fun ProgressView(onItemClick: (String) -> Unit) {
 }
 
 @Composable
-private fun Progress(
-    onItemClick: (String) -> Unit
-) = ScaffoldStructure(
-    title = Names.progress,
-    colors = CenterToolbarColors(
-        containerColor = secondary,
-        contentColor = milky
-    ),
-    onNavIconClick = { onItemClick(DestinationsIds.back) }
-) {
-    Column(
-        verticalArrangement = Arrangement.spacedBy(JchuCatalogTheme.spacing.dimen12)
+private fun Progress(onItemClick: (String) -> Unit) =
+    ScaffoldStructure(
+        title = Names.progress,
+        colors =
+            CenterToolbarColors(
+                containerColor = secondary,
+                contentColor = milky
+            ),
+        onNavIconClick = { onItemClick(DestinationsIds.back) }
     ) {
-        MenuOptions.progress.forEach { option ->
-            SimpleButton(
-                modifier = Modifier
-                    .clip(JchuCatalogTheme.shapes.corner10)
-                    .background(JchuCatalogTheme.colors.primary.copy(.7f)),
-                label = option.name,
-                color = Color.DarkGray
-            ) { onItemClick(option.id) }
+        Column(
+            verticalArrangement = Arrangement.spacedBy(JchuCatalogTheme.spacing.dimen12)
+        ) {
+            MenuOptions.progress.forEach { option ->
+                SimpleButton(
+                    modifier =
+                        Modifier
+                            .clip(JchuCatalogTheme.shapes.corner10)
+                            .background(JchuCatalogTheme.colors.primary.copy(.7f)),
+                    label = option.name,
+                    color = Color.DarkGray
+                ) { onItemClick(option.id) }
+            }
         }
     }
-}
 
 @Preview(name = "Progress - Light", showBackground = true)
 @Composable

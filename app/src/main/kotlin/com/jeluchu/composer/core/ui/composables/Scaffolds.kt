@@ -13,12 +13,12 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.jeluchu.composer.core.ui.theme.milky
 import com.jeluchu.composer.core.ui.theme.secondary
-import com.jeluchu.jchucomponents.ui.extensions.toImageVector
-import com.jeluchu.jchucomponents.ui.extensions.toPainter
 import com.jeluchu.jchucomponents.ui.R
 import com.jeluchu.jchucomponents.ui.composables.column.ScrollableColumn
 import com.jeluchu.jchucomponents.ui.composables.toolbars.CenterToolbarColors
 import com.jeluchu.jchucomponents.ui.composables.toolbars.Toolbar
+import com.jeluchu.jchucomponents.ui.extensions.toImageVector
+import com.jeluchu.jchucomponents.ui.extensions.toPainter
 import com.jeluchu.jchucomponents.ui.foundation.icon.IconLink
 import com.jeluchu.jchucomponents.ui.foundation.lists.ListColumn
 
@@ -26,7 +26,7 @@ import com.jeluchu.jchucomponents.ui.foundation.lists.ListColumn
 fun ScaffoldStructure(
     title: String,
     navigationIcon: @Composable () -> Unit = {},
-    content: @Composable () -> Unit,
+    content: @Composable () -> Unit
 ) = Scaffold(
     topBar = {
         Toolbar(
@@ -37,10 +37,11 @@ fun ScaffoldStructure(
                 )
             },
             navigationIcon = navigationIcon,
-            colors = CenterToolbarColors(
-                containerColor = secondary,
-                contentColor = milky
-            )
+            colors =
+                CenterToolbarColors(
+                    containerColor = secondary,
+                    contentColor = milky
+                )
         )
     },
     containerColor = secondary
@@ -58,7 +59,7 @@ fun ScaffoldStructure(
     @DrawableRes navIcon: Int = R.drawable.ic_arrow_left,
     actionsIcons: @Composable (RowScope.() -> Unit) = {},
     colors: CenterToolbarColors = CenterToolbarColors(),
-    content: @Composable () -> Unit,
+    content: @Composable () -> Unit
 ) = Scaffold(
     topBar = {
         Toolbar(
@@ -81,9 +82,10 @@ fun ScaffoldStructure(
     containerColor = colors.containerColor
 ) { contentPadding ->
     ScrollableColumn(
-        modifier = Modifier
-            .padding(contentPadding)
-            .padding(horizontal = 15.dp),
+        modifier =
+            Modifier
+                .padding(contentPadding)
+                .padding(horizontal = 15.dp),
         verticalArrangement = Arrangement.spacedBy(10.dp)
     ) { content() }
 }

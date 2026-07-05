@@ -27,17 +27,16 @@ fun LinearProgressbarView(onItemClick: (String) -> Unit) {
 }
 
 @Composable
-private fun LinearProgressbar(
-    onItemClick: (String) -> Unit
-) {
+private fun LinearProgressbar(onItemClick: (String) -> Unit) {
     val fixtures = CatalogFixtures.progressStateFixtures
 
     ScaffoldStructure(
         title = Names.linearProgress,
-        colors = CenterToolbarColors(
-            containerColor = secondary,
-            contentColor = milky
-        ),
+        colors =
+            CenterToolbarColors(
+                containerColor = secondary,
+                contentColor = milky
+            ),
         onNavIconClick = { onItemClick(DestinationsIds.back) }
     ) {
         Column(
@@ -47,11 +46,11 @@ private fun LinearProgressbar(
                 Text(
                     text = fixture.name,
                     style = JchuCatalogTheme.typography.section,
-                    color = JchuCatalogTheme.colors.content,
+                    color = JchuCatalogTheme.colors.content
                 )
                 JchuLinearProgress(
                     state = fixture.state,
-                    icon = Icons.Default.Check,
+                    icon = Icons.Default.Check
                 )
             }
         }

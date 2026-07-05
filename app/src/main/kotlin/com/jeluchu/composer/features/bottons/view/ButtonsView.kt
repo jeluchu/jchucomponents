@@ -40,64 +40,66 @@ fun ButtonsView(onItemClick: (String) -> Unit) {
 }
 
 @Composable
-private fun Buttons(
-    onItemClick: (String) -> Unit
-) = ScaffoldStructure(
-    title = Names.buttons,
-    colors = CenterToolbarColors(
-        containerColor = secondary,
-        contentColor = milky
-    ),
-    onNavIconClick = { onItemClick(DestinationsIds.back) }
-) {
-    var interactiveLoading by remember { mutableStateOf(false) }
-
-    Column(
-        verticalArrangement = Arrangement.spacedBy(JchuCatalogTheme.spacing.dimen16)
+private fun Buttons(onItemClick: (String) -> Unit) =
+    ScaffoldStructure(
+        title = Names.buttons,
+        colors =
+            CenterToolbarColors(
+                containerColor = secondary,
+                contentColor = milky
+            ),
+        onNavIconClick = { onItemClick(DestinationsIds.back) }
     ) {
-        Text(
-            text = "Progress buttons",
-            style = JchuCatalogTheme.typography.section,
-            color = JchuCatalogTheme.colors.content,
-        )
+        var interactiveLoading by remember { mutableStateOf(false) }
 
-        val states = CatalogFixtures.progressButtonStateFixtures.map { it.state } +
-            CatalogFixtures.progressButtonStates.first().copy(
-                title = "Interactive",
-                isLoading = interactiveLoading
+        Column(
+            verticalArrangement = Arrangement.spacedBy(JchuCatalogTheme.spacing.dimen16)
+        ) {
+            Text(
+                text = "Progress buttons",
+                style = JchuCatalogTheme.typography.section,
+                color = JchuCatalogTheme.colors.content
             )
 
-        states.forEach { state ->
-            JchuProgressButton(
-                state = state,
-                modifier = Modifier.fillMaxWidth(),
-                icon = Icons.Default.Check,
-                onClick = {
-                    if (state.title == "Interactive") {
-                        interactiveLoading = !interactiveLoading
+            val states =
+                CatalogFixtures.progressButtonStateFixtures.map { it.state } +
+                    CatalogFixtures.progressButtonStates.first().copy(
+                        title = "Interactive",
+                        isLoading = interactiveLoading
+                    )
+
+            states.forEach { state ->
+                JchuProgressButton(
+                    state = state,
+                    modifier = Modifier.fillMaxWidth(),
+                    icon = Icons.Default.Check,
+                    onClick = {
+                        if (state.title == "Interactive") {
+                            interactiveLoading = !interactiveLoading
+                        }
                     }
-                }
+                )
+            }
+
+            Text(
+                text = "Other buttons",
+                modifier = Modifier.padding(top = JchuCatalogTheme.spacing.dimen08),
+                style = JchuCatalogTheme.typography.section,
+                color = JchuCatalogTheme.colors.content
             )
-        }
 
-        Text(
-            text = "Other buttons",
-            modifier = Modifier.padding(top = JchuCatalogTheme.spacing.dimen08),
-            style = JchuCatalogTheme.typography.section,
-            color = JchuCatalogTheme.colors.content,
-        )
-
-        MenuOptions.buttons.forEach { option ->
-            SimpleButton(
-                modifier = Modifier
-                    .clip(10.cornerRadius())
-                    .background(JchuCatalogTheme.colors.primary.copy(.7f)),
-                label = option.name,
-                color = Color.DarkGray
-            ) { onItemClick(option.id) }
+            MenuOptions.buttons.forEach { option ->
+                SimpleButton(
+                    modifier =
+                        Modifier
+                            .clip(10.cornerRadius())
+                            .background(JchuCatalogTheme.colors.primary.copy(.7f)),
+                    label = option.name,
+                    color = Color.DarkGray
+                ) { onItemClick(option.id) }
+            }
         }
     }
-}
 
 @Preview(name = "Buttons - Light", showBackground = true)
 @Composable

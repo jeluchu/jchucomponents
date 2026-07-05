@@ -41,12 +41,13 @@ private fun LoadersCatalog(onBack: () -> Unit) {
             Text(
                 text = fixtures[0].name,
                 style = JchuCatalogTheme.typography.section,
-                color = JchuCatalogTheme.colors.content,
+                color = JchuCatalogTheme.colors.content
             )
             Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(96.dp)
+                modifier =
+                    Modifier
+                        .fillMaxWidth()
+                        .height(96.dp)
             ) {
                 CircularLoading(
                     isShow = true,
@@ -57,12 +58,13 @@ private fun LoadersCatalog(onBack: () -> Unit) {
             Text(
                 text = fixtures[1].name,
                 style = JchuCatalogTheme.typography.section,
-                color = JchuCatalogTheme.colors.content,
+                color = JchuCatalogTheme.colors.content
             )
             Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(96.dp),
+                modifier =
+                    Modifier
+                        .fillMaxWidth()
+                        .height(96.dp),
                 contentAlignment = Alignment.Center
             ) {
                 DotsLoading(
@@ -74,18 +76,19 @@ private fun LoadersCatalog(onBack: () -> Unit) {
             Text(
                 text = fixtures[2].name,
                 style = JchuCatalogTheme.typography.section,
-                color = JchuCatalogTheme.colors.content,
+                color = JchuCatalogTheme.colors.content
             )
             Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(160.dp)
+                modifier =
+                    Modifier
+                        .fillMaxWidth()
+                        .height(160.dp)
             ) {
                 PulseLoading(
                     maxPulseSize = 140f,
                     minPulseSize = 40f,
                     pulseColor = JchuCatalogTheme.colors.primary.copy(alpha = .18f),
-                    centreColor = JchuCatalogTheme.colors.primary,
+                    centreColor = JchuCatalogTheme.colors.primary
                 )
             }
         }

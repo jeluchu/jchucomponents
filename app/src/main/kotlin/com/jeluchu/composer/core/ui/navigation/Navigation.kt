@@ -35,118 +35,120 @@ fun Navigation() {
     NavDisplay(
         backStack = backStack,
         onBack = { backStack.back() },
-        entryDecorators = listOf(
-            rememberSaveableStateHolderNavEntryDecorator(),
-            rememberViewModelStoreNavEntryDecorator(),
-        ),
-        entryProvider = entryProvider {
-            entry<CatalogRoute.Dashboard> {
-                MainView { id ->
-                    when (id) {
-                        DestinationsIds.buttons -> backStack.navigateSingleTop(CatalogRoute.Buttons)
-                        DestinationsIds.cards -> backStack.navigateSingleTop(CatalogRoute.Cards)
-                        DestinationsIds.chips -> backStack.navigateSingleTop(CatalogRoute.Chips)
-                        DestinationsIds.inputs -> backStack.navigateSingleTop(CatalogRoute.Inputs)
-                        DestinationsIds.loaders -> backStack.navigateSingleTop(CatalogRoute.Loaders)
-                        DestinationsIds.progress -> backStack.navigateSingleTop(CatalogRoute.Progress)
-                        DestinationsIds.lazyGrids -> backStack.navigateSingleTop(CatalogRoute.LazyGrids)
-                        DestinationsIds.dividers -> backStack.navigateSingleTop(CatalogRoute.Dividers)
-                        DestinationsIds.toolbars -> backStack.navigateSingleTop(CatalogRoute.Toolbars)
+        entryDecorators =
+            listOf(
+                rememberSaveableStateHolderNavEntryDecorator(),
+                rememberViewModelStoreNavEntryDecorator()
+            ),
+        entryProvider =
+            entryProvider {
+                entry<CatalogRoute.Dashboard> {
+                    MainView { id ->
+                        when (id) {
+                            DestinationsIds.buttons -> backStack.navigateSingleTop(CatalogRoute.Buttons)
+                            DestinationsIds.cards -> backStack.navigateSingleTop(CatalogRoute.Cards)
+                            DestinationsIds.chips -> backStack.navigateSingleTop(CatalogRoute.Chips)
+                            DestinationsIds.inputs -> backStack.navigateSingleTop(CatalogRoute.Inputs)
+                            DestinationsIds.loaders -> backStack.navigateSingleTop(CatalogRoute.Loaders)
+                            DestinationsIds.progress -> backStack.navigateSingleTop(CatalogRoute.Progress)
+                            DestinationsIds.lazyGrids -> backStack.navigateSingleTop(CatalogRoute.LazyGrids)
+                            DestinationsIds.dividers -> backStack.navigateSingleTop(CatalogRoute.Dividers)
+                            DestinationsIds.toolbars -> backStack.navigateSingleTop(CatalogRoute.Toolbars)
+                        }
                     }
                 }
-            }
-            entry<CatalogRoute.Buttons> {
-                ButtonsView { id ->
-                    when (id) {
-                        DestinationsIds.floatingButton ->
-                            backStack.navigateSingleTop(CatalogRoute.FloatingButtons)
-                        DestinationsIds.back -> backStack.back()
+                entry<CatalogRoute.Buttons> {
+                    ButtonsView { id ->
+                        when (id) {
+                            DestinationsIds.floatingButton ->
+                                backStack.navigateSingleTop(CatalogRoute.FloatingButtons)
+                            DestinationsIds.back -> backStack.back()
+                        }
                     }
                 }
-            }
-            entry<CatalogRoute.FloatingButtons> {
-                FloatingButtonView { backStack.back() }
-            }
-            entry<CatalogRoute.Chips> {
-                ChipsView { backStack.back() }
-            }
-            entry<CatalogRoute.Inputs> {
-                InputsView { backStack.back() }
-            }
-            entry<CatalogRoute.Loaders> {
-                LoadersView { backStack.back() }
-            }
-            entry<CatalogRoute.Progress> {
-                ProgressView { id ->
-                    when (id) {
-                        DestinationsIds.circularProgress ->
-                            backStack.navigateSingleTop(CatalogRoute.CircularProgress)
-                        DestinationsIds.linearProgress ->
-                            backStack.navigateSingleTop(CatalogRoute.LinearProgress)
-                        DestinationsIds.iconProgress ->
-                            backStack.navigateSingleTop(CatalogRoute.IconProgress)
-                        DestinationsIds.back -> backStack.back()
+                entry<CatalogRoute.FloatingButtons> {
+                    FloatingButtonView { backStack.back() }
+                }
+                entry<CatalogRoute.Chips> {
+                    ChipsView { backStack.back() }
+                }
+                entry<CatalogRoute.Inputs> {
+                    InputsView { backStack.back() }
+                }
+                entry<CatalogRoute.Loaders> {
+                    LoadersView { backStack.back() }
+                }
+                entry<CatalogRoute.Progress> {
+                    ProgressView { id ->
+                        when (id) {
+                            DestinationsIds.circularProgress ->
+                                backStack.navigateSingleTop(CatalogRoute.CircularProgress)
+                            DestinationsIds.linearProgress ->
+                                backStack.navigateSingleTop(CatalogRoute.LinearProgress)
+                            DestinationsIds.iconProgress ->
+                                backStack.navigateSingleTop(CatalogRoute.IconProgress)
+                            DestinationsIds.back -> backStack.back()
+                        }
                     }
                 }
-            }
-            entry<CatalogRoute.CircularProgress> {
-                CircularProgressbarView { backStack.back() }
-            }
-            entry<CatalogRoute.LinearProgress> {
-                LinearProgressbarView { backStack.back() }
-            }
-            entry<CatalogRoute.IconProgress> {
-                IconProgressbarView { backStack.back() }
-            }
-            entry<CatalogRoute.LazyGrids> {
-                LazyGridsView { id ->
-                    when (id) {
-                        DestinationsIds.lazyStaticGrids ->
-                            backStack.navigateSingleTop(CatalogRoute.LazyStaticGrids)
-                        DestinationsIds.back -> backStack.back()
+                entry<CatalogRoute.CircularProgress> {
+                    CircularProgressbarView { backStack.back() }
+                }
+                entry<CatalogRoute.LinearProgress> {
+                    LinearProgressbarView { backStack.back() }
+                }
+                entry<CatalogRoute.IconProgress> {
+                    IconProgressbarView { backStack.back() }
+                }
+                entry<CatalogRoute.LazyGrids> {
+                    LazyGridsView { id ->
+                        when (id) {
+                            DestinationsIds.lazyStaticGrids ->
+                                backStack.navigateSingleTop(CatalogRoute.LazyStaticGrids)
+                            DestinationsIds.back -> backStack.back()
+                        }
                     }
                 }
-            }
-            entry<CatalogRoute.LazyStaticGrids> {
-                LazyStaticGridView { backStack.back() }
-            }
-            entry<CatalogRoute.Dividers> {
-                DividersView()
-            }
-            entry<CatalogRoute.Toolbars> {
-                ToolbarsView { id ->
-                    when (id) {
-                        DestinationsIds.simpleToolbars ->
-                            backStack.navigateSingleTop(CatalogRoute.SimpleToolbars)
-                        DestinationsIds.centerToolbars ->
-                            backStack.navigateSingleTop(CatalogRoute.CenterToolbars)
-                        DestinationsIds.largeToolbars ->
-                            backStack.navigateSingleTop(CatalogRoute.LargeToolbars)
-                        DestinationsIds.back -> backStack.back()
+                entry<CatalogRoute.LazyStaticGrids> {
+                    LazyStaticGridView { backStack.back() }
+                }
+                entry<CatalogRoute.Dividers> {
+                    DividersView()
+                }
+                entry<CatalogRoute.Toolbars> {
+                    ToolbarsView { id ->
+                        when (id) {
+                            DestinationsIds.simpleToolbars ->
+                                backStack.navigateSingleTop(CatalogRoute.SimpleToolbars)
+                            DestinationsIds.centerToolbars ->
+                                backStack.navigateSingleTop(CatalogRoute.CenterToolbars)
+                            DestinationsIds.largeToolbars ->
+                                backStack.navigateSingleTop(CatalogRoute.LargeToolbars)
+                            DestinationsIds.back -> backStack.back()
+                        }
                     }
                 }
-            }
-            entry<CatalogRoute.SimpleToolbars> {
-                ToolbarActionsPreview()
-            }
-            entry<CatalogRoute.CenterToolbars> {
-                CenterToolbarActionsPreview()
-            }
-            entry<CatalogRoute.LargeToolbars> {
-                // Soon
-            }
-            entry<CatalogRoute.Cards> {
-                CardsView { id ->
-                    when (id) {
-                        DestinationsIds.benefitCards ->
-                            backStack.navigateSingleTop(CatalogRoute.BenefitCards)
-                        DestinationsIds.back -> backStack.back()
+                entry<CatalogRoute.SimpleToolbars> {
+                    ToolbarActionsPreview()
+                }
+                entry<CatalogRoute.CenterToolbars> {
+                    CenterToolbarActionsPreview()
+                }
+                entry<CatalogRoute.LargeToolbars> {
+                    // Soon
+                }
+                entry<CatalogRoute.Cards> {
+                    CardsView { id ->
+                        when (id) {
+                            DestinationsIds.benefitCards ->
+                                backStack.navigateSingleTop(CatalogRoute.BenefitCards)
+                            DestinationsIds.back -> backStack.back()
+                        }
                     }
                 }
+                entry<CatalogRoute.BenefitCards> {
+                    BenefitsView { backStack.back() }
+                }
             }
-            entry<CatalogRoute.BenefitCards> {
-                BenefitsView { backStack.back() }
-            }
-        }
     )
 }

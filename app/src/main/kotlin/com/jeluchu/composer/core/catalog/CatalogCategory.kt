@@ -1,6 +1,8 @@
 package com.jeluchu.composer.core.catalog
 
-enum class CatalogCategory(val title: String) {
+enum class CatalogCategory(
+    val title: String
+) {
     BUTTONS("Buttons"),
     CARDS("Cards"),
     CHIPS("Chips"),

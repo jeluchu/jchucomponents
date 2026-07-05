@@ -22,23 +22,24 @@ fun LazyGridsView(onItemClick: (String) -> Unit) {
 }
 
 @Composable
-private fun LazyGrids(
-    onItemClick: (String) -> Unit
-) = ScaffoldStructure(
-    title = Names.lazyGrids,
-    colors = CenterToolbarColors(
-        containerColor = secondary,
-        contentColor = milky
-    ),
-    onNavIconClick = { onItemClick(DestinationsIds.back) }
-) {
-    MenuOptions.lazyGrids.forEach { option ->
-        SimpleButton(
-            modifier = Modifier
-                .clip(10.cornerRadius())
-                .background(primary.copy(.7f)),
-            label = option.name,
-            color = Color.DarkGray
-        ) { onItemClick(option.id) }
+private fun LazyGrids(onItemClick: (String) -> Unit) =
+    ScaffoldStructure(
+        title = Names.lazyGrids,
+        colors =
+            CenterToolbarColors(
+                containerColor = secondary,
+                contentColor = milky
+            ),
+        onNavIconClick = { onItemClick(DestinationsIds.back) }
+    ) {
+        MenuOptions.lazyGrids.forEach { option ->
+            SimpleButton(
+                modifier =
+                    Modifier
+                        .clip(10.cornerRadius())
+                        .background(primary.copy(.7f)),
+                label = option.name,
+                color = Color.DarkGray
+            ) { onItemClick(option.id) }
+        }
     }
-}
