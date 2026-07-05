@@ -22,13 +22,10 @@ import kotlinx.serialization.json.Json
  *
  * The caller owns the returned client and must close it when it is no longer needed.
  */
-fun createHttpClient(
-    configuration: HttpClientConfiguration = HttpClientConfiguration(),
-): HttpClient = createPlatformHttpClient(configuration)
+fun createHttpClient(configuration: HttpClientConfiguration = HttpClientConfiguration()): HttpClient =
+    createPlatformHttpClient(configuration)
 
-internal expect fun createPlatformHttpClient(
-    configuration: HttpClientConfiguration,
-): HttpClient
+internal expect fun createPlatformHttpClient(configuration: HttpClientConfiguration): HttpClient
 
 internal fun <T : HttpClientEngineConfig> HttpClientConfig<T>.applyJchuConfiguration(
     configuration: HttpClientConfiguration,
@@ -38,11 +35,12 @@ internal fun <T : HttpClientEngineConfig> HttpClientConfig<T>.applyJchuConfigura
 
     install(plugin = ContentNegotiation) {
         json(
-            json = Json {
-                coerceInputValues = configuration.coerceInputValues
-                ignoreUnknownKeys = configuration.ignoreUnknownKeys
-                isLenient = configuration.isLenient
-            },
+            json =
+                Json {
+                    coerceInputValues = configuration.coerceInputValues
+                    ignoreUnknownKeys = configuration.ignoreUnknownKeys
+                    isLenient = configuration.isLenient
+                },
             contentType = ContentType.Any,
         )
     }
@@ -75,10 +73,11 @@ internal fun <T : HttpClientEngineConfig> HttpClientConfig<T>.applyJchuConfigura
     }
 }
 
-private fun HttpClientLogLevel.toKtorLogLevel(): LogLevel = when (this) {
-    HttpClientLogLevel.NONE -> LogLevel.NONE
-    HttpClientLogLevel.INFO -> LogLevel.INFO
-    HttpClientLogLevel.HEADERS -> LogLevel.HEADERS
-    HttpClientLogLevel.BODY -> LogLevel.BODY
-    HttpClientLogLevel.ALL -> LogLevel.ALL
-}
+private fun HttpClientLogLevel.toKtorLogLevel(): LogLevel =
+    when (this) {
+        HttpClientLogLevel.NONE -> LogLevel.NONE
+        HttpClientLogLevel.INFO -> LogLevel.INFO
+        HttpClientLogLevel.HEADERS -> LogLevel.HEADERS
+        HttpClientLogLevel.BODY -> LogLevel.BODY
+        HttpClientLogLevel.ALL -> LogLevel.ALL
+    }

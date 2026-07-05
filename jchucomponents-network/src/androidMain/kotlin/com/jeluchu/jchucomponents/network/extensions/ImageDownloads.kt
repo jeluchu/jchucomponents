@@ -19,13 +19,14 @@ fun String.saveImage(destinationFile: File) {
     }
 }
 
-fun String.getBitmapFromUrl(): Bitmap? = runCatching {
-    val connection = URL(this).openConnection() as HttpURLConnection
-    try {
-        connection.doInput = true
-        connection.connect()
-        connection.inputStream.use(block = BitmapFactory::decodeStream)
-    } finally {
-        connection.disconnect()
-    }
-}.getOrNull()
+fun String.getBitmapFromUrl(): Bitmap? =
+    runCatching {
+        val connection = URL(this).openConnection() as HttpURLConnection
+        try {
+            connection.doInput = true
+            connection.connect()
+            connection.inputStream.use(block = BitmapFactory::decodeStream)
+        } finally {
+            connection.disconnect()
+        }
+    }.getOrNull()

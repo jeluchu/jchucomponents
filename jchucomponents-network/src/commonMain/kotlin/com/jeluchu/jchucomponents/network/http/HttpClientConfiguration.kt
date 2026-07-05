@@ -18,7 +18,7 @@ data class HttpClientConfiguration(
     val requestTimeoutMillis: Long = DEFAULT_TIMEOUT_MILLIS,
     val connectTimeoutMillis: Long = DEFAULT_TIMEOUT_MILLIS,
     val logLevel: HttpClientLogLevel = HttpClientLogLevel.ALL,
-    val sensitiveHeaders: Set<String> = setOf("Authorization")
+    val sensitiveHeaders: Set<String> = setOf("Authorization"),
 ) {
     companion object {
         const val DEFAULT_TIMEOUT_MILLIS: Long = 90_000
@@ -31,5 +31,5 @@ enum class HttpClientLogLevel {
     INFO,
     HEADERS,
     BODY,
-    ALL
+    ALL,
 }

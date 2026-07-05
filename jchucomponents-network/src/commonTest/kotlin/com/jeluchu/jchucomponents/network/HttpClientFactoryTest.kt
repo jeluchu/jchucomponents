@@ -18,12 +18,13 @@ class HttpClientFactoryTest {
 
     @Test
     fun createsAndClosesPlatformClient() {
-        val client = createHttpClient(
-            HttpClientConfiguration(
-                baseUrl = "https://example.com/api/",
-                enableLogging = false,
+        val client =
+            createHttpClient(
+                HttpClientConfiguration(
+                    baseUrl = "https://example.com/api/",
+                    enableLogging = false,
+                ),
             )
-        )
 
         client.close()
     }

@@ -7,7 +7,9 @@ sealed class Failure {
     abstract val code: Int?
     abstract val message: String
 
-    data class DatabaseError(val errorMessage: String? = null) : Failure() {
+    data class DatabaseError(
+        val errorMessage: String? = null,
+    ) : Failure() {
         override val code: Int? = null
         override val message: String = errorMessage.orEmpty().ifBlank { "No data available" }
     }
@@ -41,19 +43,23 @@ sealed class Failure {
         override val message: String = errorMessage.ifBlank { "Network connection failed" }
     }
 
-    data class Timeout(val errorMessage: String? = null) : Failure() {
+    data class Timeout(
+        val errorMessage: String? = null,
+    ) : Failure() {
         override val code: Int = HttpStatusCode.RequestTimeout.code
         override val message: String = errorMessage.orEmpty().ifBlank { HttpStatusCode.RequestTimeout.message }
     }
 
-    data class UnknownError(val errorMessage: String? = null) : Failure() {
+    data class UnknownError(
+        val errorMessage: String? = null,
+    ) : Failure() {
         override val code: Int? = null
         override val message: String = errorMessage.orEmpty().ifBlank { HttpStatusCode.Unknown.message }
     }
 
     data class LegacyError(
         val errorCode: Int? = null,
-        val errorMessage: String? = null
+        val errorMessage: String? = null,
     ) : Failure() {
         override val code: Int? = errorCode
         override val message: String = errorMessage.orEmpty().ifBlank { HttpStatusCode.Unknown.message }

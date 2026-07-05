@@ -15,43 +15,44 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 
 class FlowExtensionsTest {
-
     @Test
-    fun flowCollectorCollectsEveryValue() = runBlocking {
-        val values = mutableListOf<Int>()
-        val collected = CompletableDeferred<Unit>()
+    fun flowCollectorCollectsEveryValue() =
+        runBlocking {
+            val values = mutableListOf<Int>()
+            val collected = CompletableDeferred<Unit>()
 
-        flowOf(1, 2, 3).flowCollector(this) {
-            values += it
-            if (it == 3) collected.complete(Unit)
+            flowOf(1, 2, 3).flowCollector(this) {
+                values += it
+                if (it == 3) collected.complete(Unit)
+            }
+            collected.await()
+
+            assertEquals(listOf(1, 2, 3), values)
         }
-        collected.await()
-
-        assertEquals(listOf(1, 2, 3), values)
-    }
 
     @Test
-    fun flowResourceCollectorDispatchesEveryResourceState() = runBlocking {
-        val scope = CoroutineScope(SupervisorJob() + Dispatchers.Unconfined)
-        val events = mutableListOf<String>()
-        val failure = Failure.CustomError(errorMessage = "Failed")
+    fun flowResourceCollectorDispatchesEveryResourceState() =
+        runBlocking {
+            val scope = CoroutineScope(SupervisorJob() + Dispatchers.Unconfined)
+            val events = mutableListOf<String>()
+            val failure = Failure.CustomError(errorMessage = "Failed")
 
-        flowOf(
-            Resource.Loading(),
-            Resource.Success("Loaded"),
-            Resource.Error<Failure, String>(failure),
-        ).flowResourceCollector(
-            scope = scope,
-            initialValue = Resource.Loading(),
-            onLoading = { events += "loading" },
-            onSuccess = { events += "success:$it" },
-            onFailure = { events += "failure:${it?.message}" },
-        )
+            flowOf(
+                Resource.Loading(),
+                Resource.Success("Loaded"),
+                Resource.Error<Failure, String>(failure),
+            ).flowResourceCollector(
+                scope = scope,
+                initialValue = Resource.Loading(),
+                onLoading = { events += "loading" },
+                onSuccess = { events += "success:$it" },
+                onFailure = { events += "failure:${it?.message}" },
+            )
 
-        assertEquals(
-            listOf("loading", "loading", "success:Loaded", "failure:Failed"),
-            events,
-        )
-        scope.cancel()
-    }
+            assertEquals(
+                listOf("loading", "loading", "success:Loaded", "failure:Failed"),
+                events,
+            )
+            scope.cancel()
+        }
 }

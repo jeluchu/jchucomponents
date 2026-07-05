@@ -1,8 +1,8 @@
 package com.jeluchu.jchucomponents.network
 
+import com.jeluchu.jchucomponents.network.extensions.handleFailure
 import com.jeluchu.jchucomponents.network.http.HttpStatusCode
 import com.jeluchu.jchucomponents.network.http.getHttpErrorInfo
-import com.jeluchu.jchucomponents.network.extensions.handleFailure
 import com.jeluchu.jchucomponents.network.models.Failure
 import com.jeluchu.jchucomponents.network.models.Resource
 import com.jeluchu.jchucomponents.network.resource.mapToResource
@@ -34,14 +34,16 @@ class NetworkResourceTest {
     }
 
     @Test
-    fun mapToResourceKeepsCachedDataWhenFailureExists() = runBlocking {
-        val failure = Failure.ServerError(errorCode = 500)
-        val emissions = flowOf("cached")
-            .mapToResource(transform = { it.uppercase() }, failure = failure)
-            .toList()
+    fun mapToResourceKeepsCachedDataWhenFailureExists() =
+        runBlocking {
+            val failure = Failure.ServerError(errorCode = 500)
+            val emissions =
+                flowOf("cached")
+                    .mapToResource(transform = { it.uppercase() }, failure = failure)
+                    .toList()
 
-        val error = assertIs<Resource.Error<Failure, String>>(emissions.single())
-        assertEquals("CACHED", error.data)
-        assertEquals(failure, error.error)
-    }
+            val error = assertIs<Resource.Error<Failure, String>>(emissions.single())
+            assertEquals("CACHED", error.data)
+            assertEquals(failure, error.error)
+        }
 }

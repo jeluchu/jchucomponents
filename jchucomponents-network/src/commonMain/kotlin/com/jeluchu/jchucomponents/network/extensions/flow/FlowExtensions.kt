@@ -11,7 +11,10 @@ import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
-fun <T> Flow<T>.flowCollector(scope: CoroutineScope, onExecute: (T) -> Unit) {
+fun <T> Flow<T>.flowCollector(
+    scope: CoroutineScope,
+    onExecute: (T) -> Unit,
+) {
     scope.launch { runCatching { collect { onExecute(it) } } }
 }
 
@@ -20,7 +23,7 @@ fun <T, S> Flow<Resource<Failure, T>>.flowResourceCollector(
     scope: CoroutineScope,
     onLoading: () -> Unit,
     onSuccess: (T?) -> Unit,
-    onFailure: (Failure?) -> Unit
+    onFailure: (Failure?) -> Unit,
 ) = this
     .onStart { onLoading() }
     .onEach {
@@ -29,10 +32,8 @@ fun <T, S> Flow<Resource<Failure, T>>.flowResourceCollector(
             is Resource.Loading -> onLoading()
             is Resource.Error -> onFailure(it.error)
         }
-    }
-    .stateIn(
+    }.stateIn(
         scope = scope,
         initialValue = initialValue,
-        started = SharingStarted.WhileSubscribed()
-    )
-    .launchIn(scope)
+        started = SharingStarted.WhileSubscribed(),
+    ).launchIn(scope)
