@@ -35,10 +35,7 @@ jobs:
           scripts/check-visual-readiness.sh
           scripts/check-api-readiness.sh
           ./gradlew \
-            apiCheck \
-            check \
-            assembleRelease \
-            publishToMavenLocal
+            ciCheck
 
       - name: Prepare Swift release
         run: ./scripts/prepare-swift-release.sh
@@ -144,6 +141,7 @@ jobs:
       - name: Publish signed KMP variants
         run: |
           ./gradlew \
+            :jchucomponents-bom:publishAndReleaseToMavenCentral \
             :jchucomponents-foundation:publishAndReleaseToMavenCentral \
             :jchucomponents-network:publishAndReleaseToMavenCentral \
             :jchucomponents-pay:publishAndReleaseToMavenCentral \
