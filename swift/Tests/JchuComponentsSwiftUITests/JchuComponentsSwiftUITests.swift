@@ -193,6 +193,12 @@ final class JchuComponentsSwiftUITests: XCTestCase {
 
         XCTAssertEqual(values, [1, 2, 3, 4])
         XCTAssertEqual(["Jchu", "Components", "iOS"].concatenateLowercase(), "jchucomponentsios")
+        XCTAssertTrue(Set([1]).jchu.isNotEmpty)
+        XCTAssertTrue(["name": "Jchu"].jchu.isNotEmpty)
+
+        let metadata = ["name": "Jchu"]
+        XCTAssertEqual(metadata.jchu[safe: metadata.startIndex]?.value, "Jchu")
+        XCTAssertNil(metadata.jchu[safe: metadata.endIndex])
     }
 
     func testNativeSwiftCodableJsonExtensions() {
