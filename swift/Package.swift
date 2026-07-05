@@ -5,7 +5,6 @@ import PackageDescription
 let package = Package(
     name: "JchuComponents",
     platforms: [
-        .macOS(.v10_15),
         .iOS("26.0")
     ],
     products: [
@@ -57,7 +56,8 @@ let package = Package(
             dependencies: [
                 "JchuComponentsCore",
                 "JchuComponentsExtensions",
-                "JchuComponentsSwiftUI"
+                "JchuComponentsSwiftUI",
+                "JchuComponentsPay"
             ]
         ),
         .testTarget(
