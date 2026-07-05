@@ -28,7 +28,6 @@ import android.provider.MediaStore
 import android.telephony.TelephonyManager
 import android.util.Log
 import android.view.LayoutInflater
-import android.view.accessibility.AccessibilityManager
 import android.widget.Toast
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
@@ -49,14 +48,14 @@ import java.util.Locale
 
 /** ---- PERMISSIONS --------------------------------------------------------------------------- **/
 
-fun Context.checkSelfPermissionCompat(permission: String) =
-    ActivityCompat.checkSelfPermission(this, permission)
+fun Context.checkSelfPermissionCompat(permission: String) = ActivityCompat.checkSelfPermission(this, permission)
 
 inline val Context.checkPermissionStorage: Boolean
-    get() = ContextCompat.checkSelfPermission(
-        this, Manifest.permission.WRITE_EXTERNAL_STORAGE
-    ) == PackageManager.PERMISSION_DENIED
-
+    get() =
+        ContextCompat.checkSelfPermission(
+            this,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE
+        ) == PackageManager.PERMISSION_DENIED
 
 /** ---- CLIPBOARD ----------------------------------------------------------------------------- **/
 
@@ -69,14 +68,14 @@ fun Context.addToClipboard(str: CharSequence?) {
     }
 }
 
-
 /** ---- PRIVATE METHODS ----------------------------------------------------------------------- **/
 
 val Context.layoutInflater
     get() = getSystemService(LAYOUT_INFLATER_SERVICE) as LayoutInflater
 
-fun Context.getCompatDrawable(@DrawableRes drawableRes: Int): Drawable? =
-    ContextCompat.getDrawable(this, drawableRes)
+fun Context.getCompatDrawable(
+    @DrawableRes drawableRes: Int
+): Drawable? = ContextCompat.getDrawable(this, drawableRes)
 
 inline val Context.notificationManager: NotificationManager
     get() = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
@@ -87,20 +86,24 @@ fun Context.saveBitmap(
     bitmap: Bitmap,
     filename: String = System.currentTimeMillis().toString()
 ): Uri? {
-    val contentValues = ContentValues().apply {
-        put(MediaStore.MediaColumns.DISPLAY_NAME, filename)
-        put(MediaStore.MediaColumns.MIME_TYPE, INTENT_TYPE_IMG_PNG)
-        if (buildIsQAndUp) put(
-            MediaStore.MediaColumns.RELATIVE_PATH,
-            Environment.DIRECTORY_PICTURES
-        )
-    }
+    val contentValues =
+        ContentValues().apply {
+            put(MediaStore.MediaColumns.DISPLAY_NAME, filename)
+            put(MediaStore.MediaColumns.MIME_TYPE, INTENT_TYPE_IMG_PNG)
+            if (buildIsQAndUp) {
+                put(
+                    MediaStore.MediaColumns.RELATIVE_PATH,
+                    Environment.DIRECTORY_PICTURES
+                )
+            }
+        }
 
     with(contentResolver) {
-        val imageUri: Uri? = insert(
-            MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
-            contentValues
-        )
+        val imageUri: Uri? =
+            insert(
+                MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                contentValues
+            )
 
         return imageUri?.also { uri ->
             openOutputStream(uri)?.let { outputStream ->
@@ -110,8 +113,6 @@ fun Context.saveBitmap(
         }
     }
 }
-
-
 
 fun Context.openPlaystoreSubscriptions(
     productId: String,
@@ -130,12 +131,13 @@ fun Context.openPlaystoreSubscriptions(
 }
 
 inline fun <reified T> Context.getJsonDataFromAsset(fileName: String): T? =
-    kotlin.runCatching {
-        json.decodeFromString<T>(
-            assets.open(fileName).bufferedReader().use { it.readText() }
-        )
-    }.onFailure { error -> Log.e("ERROR:", error.message.orEmpty()) }.getOrNull()
-
+    kotlin
+        .runCatching {
+            json.decodeFromString<T>(
+                assets.open(fileName).bufferedReader().use { it.readText() }
+            )
+        }.onFailure { error -> Log.e("ERROR:", error.message.orEmpty()) }
+        .getOrNull()
 
 fun Context.isSimCardReady(): Boolean {
     val telephonyManager = getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager
@@ -150,7 +152,6 @@ fun Context.isPackageInstalled(packageName: String): Boolean =
         false
     }
 
-
 private fun intentView(url: String) = Intent(Intent.ACTION_VIEW, Uri.parse(url))
 
 /**
@@ -163,8 +164,12 @@ private fun intentView(url: String) = Intent(Intent.ACTION_VIEW, Uri.parse(url))
  */
 @Suppress("DEPRECATION")
 val Context.locale: Locale
-    get() = if (buildIsNougatAndUp) resources.configuration.locales[0]
-    else resources.configuration.locale
+    get() =
+        if (buildIsNougatAndUp) {
+            resources.configuration.locales[0]
+        } else {
+            resources.configuration.locale
+        }
 
 /**
  *
@@ -206,49 +211,58 @@ fun Context.openInCustomTab(
     url: String,
     @ColorRes colorBar: Int = R.color.browserActionsBgGrey
 ) {
-
     runCatching {
-
-        val share: PendingIntent = if (buildIsMarshmallowAndUp)
-            PendingIntent.getBroadcast(
-                this, 0, Intent(
+        val share: PendingIntent =
+            if (buildIsMarshmallowAndUp) {
+                PendingIntent.getBroadcast(
                     this,
-                    ShareBroadcastReceiver::class.java
-                ), PendingIntent.FLAG_IMMUTABLE
-            ) else
-            PendingIntent.getBroadcast(
-                this, 0, Intent(
+                    0,
+                    Intent(
+                        this,
+                        ShareBroadcastReceiver::class.java
+                    ),
+                    PendingIntent.FLAG_IMMUTABLE
+                )
+            } else {
+                PendingIntent.getBroadcast(
                     this,
-                    ShareBroadcastReceiver::class.java
-                ), PendingIntent.FLAG_UPDATE_CURRENT
-            )
+                    0,
+                    Intent(
+                        this,
+                        ShareBroadcastReceiver::class.java
+                    ),
+                    PendingIntent.FLAG_UPDATE_CURRENT
+                )
+            }
 
-        val customTabColorSchemeParams = CustomTabColorSchemeParams.Builder()
-            .setToolbarColor(ContextCompat.getColor(this, colorBar))
-            .build()
+        val customTabColorSchemeParams =
+            CustomTabColorSchemeParams
+                .Builder()
+                .setToolbarColor(ContextCompat.getColor(this, colorBar))
+                .build()
 
-        CustomTabsIntent.Builder().apply {
-            setDefaultColorSchemeParams(customTabColorSchemeParams)
-            setShowTitle(true)
-            setActionButton(
-                BitmapFactory.decodeResource(resources, R.drawable.ic_btn_share),
-                "Compartir",
-                share,
-                true
-            )
-        }.build().launchUrl(this, Uri.parse(url))
-
+        CustomTabsIntent
+            .Builder()
+            .apply {
+                setDefaultColorSchemeParams(customTabColorSchemeParams)
+                setShowTitle(true)
+                setActionButton(
+                    BitmapFactory.decodeResource(resources, R.drawable.ic_btn_share),
+                    "Compartir",
+                    share,
+                    true
+                )
+            }.build()
+            .launchUrl(this, Uri.parse(url))
     }.getOrElse {
-
-        val intent = intentView(url).apply {
-            putExtra(Browser.EXTRA_CREATE_NEW_TAB, true)
-            putExtra(Browser.EXTRA_APPLICATION_ID, packageName)
-        }
+        val intent =
+            intentView(url).apply {
+                putExtra(Browser.EXTRA_CREATE_NEW_TAB, true)
+                putExtra(Browser.EXTRA_APPLICATION_ID, packageName)
+            }
 
         startActivity(intent)
-
     }
-
 }
 
 /**
@@ -276,6 +290,9 @@ private fun deleteDir(dir: File?): Boolean {
             }
         }
         dir.delete()
-    } else if (dir != null && dir.isFile) dir.delete()
-    else false
+    } else if (dir != null && dir.isFile) {
+        dir.delete()
+    } else {
+        false
+    }
 }

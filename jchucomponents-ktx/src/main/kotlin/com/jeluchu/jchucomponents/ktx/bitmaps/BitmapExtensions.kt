@@ -10,12 +10,12 @@ import android.graphics.Bitmap
 import android.util.Base64
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.asImageBitmap
+import androidx.core.graphics.createBitmap
+import androidx.core.graphics.scale
 import com.jeluchu.jchucomponents.ktx.constants.SIZE_2MB_BYTES
 import java.io.ByteArrayOutputStream
 import kotlin.math.floor
 import kotlin.math.sqrt
-import androidx.core.graphics.scale
-import androidx.core.graphics.createBitmap
 
 /**
  *
@@ -28,9 +28,7 @@ import androidx.core.graphics.createBitmap
  * by default it will be an empty one
  *
  */
-fun Bitmap?.orEmpty(
-    defaultValue: Bitmap = createBitmap(1, 1)
-): Bitmap = this ?: defaultValue
+fun Bitmap?.orEmpty(defaultValue: Bitmap = createBitmap(1, 1)): Bitmap = this ?: defaultValue
 
 /**
  *
@@ -45,9 +43,7 @@ fun Bitmap?.orEmpty(
  * @see androidx.compose.ui.graphics.ImageBitmap
  *
  */
-fun ImageBitmap?.orEmpty(
-    defaultValue: ImageBitmap = createBitmap(1, 1).asImageBitmap()
-): ImageBitmap = this ?: defaultValue
+fun ImageBitmap?.orEmpty(defaultValue: ImageBitmap = createBitmap(1, 1).asImageBitmap()): ImageBitmap = this ?: defaultValue
 
 /**
  * Bitmap to base 64.

@@ -31,9 +31,10 @@ private fun intentView(url: String) = Intent(Intent.ACTION_VIEW, Uri.parse(url))
  * @param number [String] phone number to be moved to the Phone application
  *
  */
-fun Context.openPhoneCall(number: String) = startActivity(
-    Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", number, null))
-)
+fun Context.openPhoneCall(number: String) =
+    startActivity(
+        Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", number, null))
+    )
 
 /**
  *
@@ -72,7 +73,6 @@ fun Context.share(
     message: String,
     bitmap: Bitmap
 ) {
-
     bitmap.compress(Bitmap.CompressFormat.PNG, 100, ByteArrayOutputStream())
     val path = MediaStore.Images.Media.insertImage(contentResolver, bitmap, imageName, null)
     val uri = Uri.parse(path)
@@ -85,7 +85,6 @@ fun Context.share(
         addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
         startActivity(Intent.createChooser(this, title))
     }
-
 }
 
 /**
@@ -122,7 +121,10 @@ fun Context.share(
  * @see android.content.pm.PackageManager
  *
  */
-fun Context.openOtherApp(packageName: String, packageManager: PackageManager) {
+fun Context.openOtherApp(
+    packageName: String,
+    packageManager: PackageManager
+) {
     val launchIntent = packageManager.getLaunchIntentForPackage(packageName)
     if (launchIntent != null) startActivity(launchIntent)
 }
@@ -138,7 +140,7 @@ fun Context.openOtherApp(packageName: String, packageManager: PackageManager) {
  */
 fun Context.openNavigationMaps(
     latitude: Double,
-    longitude: Double,
+    longitude: Double
 ) = intentView("http://maps.google.com/maps?daddr=$latitude,$longitude").apply {
     setPackage("com.google.android.apps.maps")
     startActivity(this)
@@ -189,8 +191,10 @@ fun Context.openTwitter(username: String) =
  * @param channelId [String] the channel to be displayed for default is empty [String]
  *
  */
-fun Context.openYoutube(videoId: String = String.empty(), channelId: String = String.empty()) {
-
+fun Context.openYoutube(
+    videoId: String = String.empty(),
+    channelId: String = String.empty()
+) {
     if (videoId.isNotEmpty()) {
         runCatching {
             startActivity(intentView("vnd.youtube:$videoId"))
@@ -204,7 +208,6 @@ fun Context.openYoutube(videoId: String = String.empty(), channelId: String = St
             openInCustomTab("http://www.youtube.com/channel/$channelId")
         }
     }
-
 }
 
 /**
@@ -231,16 +234,18 @@ fun Context.openTwitchProfile(username: String) =
  * @param customTabColor toolbar color used by the fallback custom tab.
  *
  */
-fun Context.rateUs(packageName: String, @ColorRes customTabColor: Int) =
-    runCatching {
-        startActivity(
-            intentView("https://play.google.com/store/apps/details?id=${packageName}").setPackage(
-                "com.android.vending"
-            )
+fun Context.rateUs(
+    packageName: String,
+    @ColorRes customTabColor: Int
+) = runCatching {
+    startActivity(
+        intentView("https://play.google.com/store/apps/details?id=$packageName").setPackage(
+            "com.android.vending"
         )
-    }.getOrElse {
-        openInCustomTab(
-            url = "https://play.google.com/store/apps/details?id=${packageName}",
-            colorBar = customTabColor
-        )
-    }
+    )
+}.getOrElse {
+    openInCustomTab(
+        url = "https://play.google.com/store/apps/details?id=$packageName",
+        colorBar = customTabColor
+    )
+}

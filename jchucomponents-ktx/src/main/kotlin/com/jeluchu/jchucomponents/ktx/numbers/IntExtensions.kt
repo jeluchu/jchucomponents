@@ -14,21 +14,26 @@ import java.util.Calendar
 import kotlin.math.roundToInt
 
 fun Int.Companion.empty() = 0
+
 fun Int?.orEmpty(defaultValue: Int = Int.empty()) = this ?: defaultValue
+
 fun Int.isNotEmpty() = this != Int.empty()
+
 fun Long.bytesToMeg(): String = (this / (1024L * 1024L)).toString()
 
 fun Double.Companion.empty() = 0.0
+
 fun Double?.orEmpty(defaultValue: Double = Double.empty()): Double = this ?: defaultValue
 
 fun Float.Companion.empty() = 0f
+
 fun Float?.orEmpty(defaultValue: Float = Float.empty()): Float = this ?: defaultValue
 
 fun Long.Companion.empty() = 0L
+
 fun Long?.orEmpty(defaultValue: Long = Long.empty()): Long = this ?: defaultValue
 
 fun Int.milliSecondsToTimer(): String {
-
     var finalTimerString = String.empty()
     val secondsString: String
 
@@ -37,11 +42,12 @@ fun Int.milliSecondsToTimer(): String {
     val seconds = (this % (1000 * 60 * 60) % (1000 * 60) / 1000)
     if (hours > 0) finalTimerString = "$hours:"
 
-    secondsString = if (seconds < 10) {
-        "0$seconds"
-    } else {
-        "" + seconds
-    }
+    secondsString =
+        if (seconds < 10) {
+            "0$seconds"
+        } else {
+            "" + seconds
+        }
     finalTimerString = "$finalTimerString$minutes:$secondsString"
 
     return finalTimerString
@@ -57,12 +63,15 @@ fun Int.getMonths(): List<Calendar> =
     mutableListOf<Calendar>().also { months ->
         Calendar.getInstance().let { calendar ->
             val maxMonth =
-                if (this == calendar.get(Calendar.YEAR)) calendar.get(Calendar.MONTH)
-                else Calendar.DECEMBER
+                if (this == calendar.get(Calendar.YEAR)) {
+                    calendar.get(Calendar.MONTH)
+                } else {
+                    Calendar.DECEMBER
+                }
 
             calendar.set(Calendar.YEAR, this)
 
-            for (i in Calendar.JANUARY..maxMonth)
+            for (i in Calendar.JANUARY..maxMonth) {
                 months.add(
                     Calendar.getInstance().apply {
                         set(Calendar.YEAR, calendar.get(Calendar.YEAR))
@@ -70,14 +79,14 @@ fun Int.getMonths(): List<Calendar> =
                         set(Calendar.DAY_OF_MONTH, FIRST_DAY_OF_MONTH)
                     }
                 )
+            }
         }
     }
 
-fun Int.thousandsFormat(): String {
-    return try {
+fun Int.thousandsFormat(): String =
+    try {
         val df = DecimalFormat("#,##0", DecimalFormatSymbols().apply { groupingSeparator = '.' }).apply { groupingSize = 3 }
         df.format(this)
     } catch (e: Exception) {
         toString()
     }
-}

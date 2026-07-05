@@ -12,6 +12,8 @@ const val INTENT_TYPE_JSON = "application/json"
 const val INTENT_TYPE_TEXT_HTML = "text/html"
 const val INTENT_TYPE_IMG_JPG = "image/jpg"
 const val INTENT_TYPE_IMG_PNG = "image/png"
+
+@Suppress("ktlint:standard:property-naming")
 const val INTENT_TYPE_IMGs = "image/*"
 const val INTENT_TYPE_APK = "application/vnd.android.package-archive"
 const val INTENT_TYPE_PDF = "application/pdf"

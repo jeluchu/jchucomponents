@@ -9,19 +9,21 @@ package com.jeluchu.jchucomponents.ktx.activities
 import android.Manifest
 import android.app.Activity
 import android.content.pm.PackageManager
-import androidx.compose.runtime.Composable
 import androidx.core.app.ActivityCompat
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.GoogleApiAvailability
 
-private val permissionsList = arrayOf(
-    Manifest.permission.WRITE_EXTERNAL_STORAGE,
-    Manifest.permission.READ_EXTERNAL_STORAGE
-)
+private val permissionsList =
+    arrayOf(
+        Manifest.permission.WRITE_EXTERNAL_STORAGE,
+        Manifest.permission.READ_EXTERNAL_STORAGE
+    )
 
-private fun Activity.getPermissionCheck(permission: String) = ActivityCompat.checkSelfPermission(
-    this, permission
-)
+private fun Activity.getPermissionCheck(permission: String) =
+    ActivityCompat.checkSelfPermission(
+        this,
+        permission
+    )
 
 /**
  *
@@ -51,8 +53,9 @@ fun Activity.isGooglePlayServicesAvailable(withDialog: Boolean = false): Boolean
     with(GoogleApiAvailability.getInstance()) {
         val status = isGooglePlayServicesAvailable(this@isGooglePlayServicesAvailable)
         if (status != ConnectionResult.SUCCESS) {
-            if (isUserResolvableError(status) && withDialog)
+            if (isUserResolvableError(status) && withDialog) {
                 getErrorDialog(this@isGooglePlayServicesAvailable, status, 2404)?.show()
+            }
             return false
         }
         return true

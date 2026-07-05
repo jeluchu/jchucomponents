@@ -8,9 +8,13 @@ package com.jeluchu.jchucomponents.ktx.notifications
 
 import android.Manifest
 import android.annotation.SuppressLint
-import android.app.*
-import android.content.pm.PackageManager
+import android.app.Notification
+import android.app.NotificationChannel
+import android.app.NotificationChannelGroup
+import android.app.NotificationManager
+import android.app.PendingIntent
 import android.content.Context
+import android.content.pm.PackageManager
 import android.os.Build
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
@@ -19,16 +23,12 @@ import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
 
 /**
- * NotificationExtensions.kt
- * is a class that contain all extension functions
- * to help us easy to create and update notification
- * from anywhere that has context object.
- */
-
-/**
  * Create notification group
  */
-fun Context.createNotificationChannelGroup(@StringRes groupId: Int, @StringRes groupName: Int) {
+fun Context.createNotificationChannelGroup(
+    @StringRes groupId: Int,
+    @StringRes groupName: Int
+) {
     val id = this.getString(groupId)
     val name = this.getString(groupName)
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -42,18 +42,18 @@ fun Context.createNotificationChannelGroup(@StringRes groupId: Int, @StringRes g
  * @param channelId
  * @return [NotificationChannel]
  */
-fun Context.getNotificationChannel(@StringRes channelId: Int): NotificationChannel? {
-    return NotificationManagerCompat.from(this).getNotificationChannel(this.getString(channelId))
-}
+fun Context.getNotificationChannel(
+    @StringRes channelId: Int
+): NotificationChannel? = NotificationManagerCompat.from(this).getNotificationChannel(this.getString(channelId))
 
 /**
  * Get notification channel group
  * @param groupId
  * @return [NotificationChannelGroup]
  */
-fun Context.getNotificationChannelGroup(@StringRes groupId: Int): NotificationChannelGroup? {
-    return NotificationManagerCompat.from(this).getNotificationChannelGroup(this.getString(groupId))
-}
+fun Context.getNotificationChannelGroup(
+    @StringRes groupId: Int
+): NotificationChannelGroup? = NotificationManagerCompat.from(this).getNotificationChannelGroup(this.getString(groupId))
 
 /**
  * Create notification channel
@@ -68,17 +68,18 @@ fun Context.createNotificationChannel(
         val id = this.getString(channelId)
         val name = this.getString(channelName)
         val descriptionText = this.getString(channelDescription)
-        val channel = NotificationChannel(id, name, importance).also {
-            it.description = descriptionText
-            if (importance >= NotificationManager.IMPORTANCE_HIGH) {
-                it.enableVibration(true)
-                it.enableLights(true)
-            } else if (importance < NotificationManager.IMPORTANCE_DEFAULT) {
-                it.enableVibration(false)
-                it.enableLights(false)
-                it.setSound(null, null)
+        val channel =
+            NotificationChannel(id, name, importance).also {
+                it.description = descriptionText
+                if (importance >= NotificationManager.IMPORTANCE_HIGH) {
+                    it.enableVibration(true)
+                    it.enableLights(true)
+                } else if (importance < NotificationManager.IMPORTANCE_DEFAULT) {
+                    it.enableVibration(false)
+                    it.enableLights(false)
+                    it.setSound(null, null)
+                }
             }
-        }
         val notificationManager = this.getSystemService(NotificationManager::class.java)
         notificationManager?.createNotificationChannel(channel)
     }
@@ -96,7 +97,8 @@ fun Context.getNotificationBuilder(
     importance: Int = NotificationCompat.PRIORITY_DEFAULT,
     pendingIntent: PendingIntent? = null
 ): NotificationCompat.Builder =
-    NotificationCompat.Builder(this, this.getString(channelId))
+    NotificationCompat
+        .Builder(this, this.getString(channelId))
         .setSmallIcon(icon)
         .setContentTitle(this.getString(title))
         .setContentText(this.getString(text))
@@ -107,7 +109,10 @@ fun Context.getNotificationBuilder(
 /**
  * Update notification
  */
-fun Context.notifyNotification(notificationId: Int, notification: Notification) {
+fun Context.notifyNotification(
+    notificationId: Int,
+    notification: Notification
+) {
     val canPostNotifications =
         Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU ||
             ContextCompat.checkSelfPermission(

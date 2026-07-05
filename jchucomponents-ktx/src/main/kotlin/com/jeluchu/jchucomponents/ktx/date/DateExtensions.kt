@@ -8,7 +8,9 @@ package com.jeluchu.jchucomponents.ktx.date
 
 import java.text.DateFormatSymbols
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Calendar
+import java.util.Date
+import java.util.Locale
 import kotlin.math.absoluteValue
 
 /**
@@ -98,7 +100,6 @@ fun Date.formatToServerDateTimeDefaults(): String = simpleFormat("yyyy-MM-dd HH:
  */
 fun Date.formatToServerDateDefaults(): String = simpleFormat("yyyy-MM-dd").format(this)
 
-
 fun Date.formatToTruncatedDateTime(): String = simpleFormat("yyyyMMddHHmmss").format(this)
 
 /**
@@ -130,7 +131,10 @@ fun Date.formatToViewTimeDefaults(): String {
 /**
  * Add field date to current date
  */
-fun Date.add(field: Int, amount: Int): Date {
+fun Date.add(
+    field: Int,
+    amount: Int
+): Date {
     Calendar.getInstance().apply {
         time = this@add
         add(field, amount)
@@ -141,16 +145,25 @@ fun Date.add(field: Int, amount: Int): Date {
 /**
  * Convert time in **seconds** to `hh:mm:ss` or `mm:ss`
  */
-fun Int.toDurationText(): String = this.run {
-    if (this > 3600) "%d:%02d:%02d".format(this / 3600, (this % 3600) / 60, this % 60)
-    else "%02d:%02d".format(this / 60, this % 60)
-}
+fun Int.toDurationText(): String =
+    this.run {
+        if (this > 3600) {
+            "%d:%02d:%02d".format(this / 3600, (this % 3600) / 60, this % 60)
+        } else {
+            "%02d:%02d".format(this / 60, this % 60)
+        }
+    }
 
 fun Date.addYears(years: Int): Date = add(Calendar.YEAR, years)
+
 fun Date.addMonths(months: Int): Date = add(Calendar.MONTH, months)
+
 fun Date.addDays(days: Int): Date = add(Calendar.DAY_OF_MONTH, days)
+
 fun Date.addHours(hours: Int): Date = add(Calendar.HOUR_OF_DAY, hours)
+
 fun Date.addMinutes(minutes: Int): Date = add(Calendar.MINUTE, minutes)
+
 fun Date.addSeconds(seconds: Int): Date = add(Calendar.SECOND, seconds)
 
 /** ---- CALENDAR ------------------------------------------------------------------------------ **/
@@ -162,18 +175,25 @@ fun Date.toCalendar(): Calendar {
 }
 
 fun Date.backInYears(years: Int): Date =
-    Calendar.getInstance().also { calendar ->
-        calendar.time = this
-        calendar.add(Calendar.YEAR, -years)
-    }.time
+    Calendar
+        .getInstance()
+        .also { calendar ->
+            calendar.time = this
+            calendar.add(Calendar.YEAR, -years)
+        }.time
 
 fun Date.forwardInYears(years: Int): Date =
-    Calendar.getInstance().also { calendar ->
-        calendar.time = this
-        calendar.add(Calendar.YEAR, years)
-    }.time
+    Calendar
+        .getInstance()
+        .also { calendar ->
+            calendar.time = this
+            calendar.add(Calendar.YEAR, years)
+        }.time
 
-fun Date.isAfterOrEqualThan(numberDaysBeforeToday: Int, now: Date? = null): Boolean {
+fun Date.isAfterOrEqualThan(
+    numberDaysBeforeToday: Int,
+    now: Date? = null
+): Boolean {
     val calendar = Calendar.getInstance()
     now?.let { calendar.time = it }
     calendar[Calendar.HOUR_OF_DAY] = 0
@@ -194,16 +214,18 @@ fun Date.plusDays(days: Int): Date {
     return calendar.time
 }
 
-fun Date.isBeforeThan(numberDaysBeforeToday: Int, now: Date? = null) =
-    !isAfterOrEqualThan(numberDaysBeforeToday, now)
+fun Date.isBeforeThan(
+    numberDaysBeforeToday: Int,
+    now: Date? = null
+) = !isAfterOrEqualThan(numberDaysBeforeToday, now)
 
 fun Date.getDateTime(daysNumber: Int): Date =
-    Calendar.getInstance()
+    Calendar
+        .getInstance()
         .also {
             it.time = this
             it.add(Calendar.DAY_OF_MONTH, -daysNumber)
-        }
-        .time
+        }.time
 
 fun Date.getDayEndCalendar(): Calendar =
     Calendar.getInstance().apply {

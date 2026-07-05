@@ -6,6 +6,4 @@ fun <T> MutableList<T>.addAllIfNotExist(elements: Collection<T>) {
     }
 }
 
-fun MutableList<String>.concatenateLowercase() : String {
-    return this.joinToString("") { s -> s.lowercase() }
-}
+fun MutableList<String>.concatenateLowercase(): String = this.joinToString("") { s -> s.lowercase() }

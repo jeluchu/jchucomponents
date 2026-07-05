@@ -12,7 +12,6 @@ import java.io.InputStream
 import java.nio.charset.StandardCharsets
 
 class InputStreamToString {
-
     @Throws(IOException::class)
     fun convertInputStreamToString(`is`: InputStream): String {
         val result = ByteArrayOutputStream()
@@ -23,5 +22,4 @@ class InputStreamToString {
         }
         return result.toString(StandardCharsets.UTF_8.name())
     }
-
 }

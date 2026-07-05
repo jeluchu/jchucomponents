@@ -28,13 +28,10 @@ inline fun <reified T> JsonObject.toObject(): T = json.decodeFromJsonElement(thi
 inline fun <reified T> T.toMap(): JsonObject = json.encodeToJsonElement(this).jsonObject
 
 /** Converts a serializable object of type [T] to another serializable type [R]. */
-inline fun <reified T, reified R> T.convert(): R =
-    json.decodeFromJsonElement(json.encodeToJsonElement(this))
+inline fun <reified T, reified R> T.convert(): R = json.decodeFromJsonElement(json.encodeToJsonElement(this))
 
 /** Decodes JSON, returning `null` when the input is null or invalid. */
-inline fun <reified T> Json.decodeOrNull(value: String?): T? =
-    value?.let { runCatching { decodeFromString<T>(it) }.getOrNull() }
+inline fun <reified T> Json.decodeOrNull(value: String?): T? = value?.let { runCatching { decodeFromString<T>(it) }.getOrNull() }
 
 /** Decodes a JSON list, returning `null` when the input is null or invalid. */
-inline fun <reified T> Json.decodeListOrNull(value: String?): List<T>? =
-    decodeOrNull<List<T>>(value)
+inline fun <reified T> Json.decodeListOrNull(value: String?): List<T>? = decodeOrNull<List<T>>(value)

@@ -22,15 +22,19 @@ import com.jeluchu.jchucomponents.ktx.context.addToClipboard
  */
 
 class CustomTabsCopyReceiver : BroadcastReceiver() {
-    override fun onReceive(context: Context?, intent: Intent) {
+    override fun onReceive(
+        context: Context?,
+        intent: Intent
+    ) {
         val url = intent.dataString
         if (url != null) {
             context?.addToClipboard(url)
-            Toast.makeText(
-                context,
-                "Enlace copiado al portapapeles",
-                Toast.LENGTH_SHORT
-            ).show()
+            Toast
+                .makeText(
+                    context,
+                    "Enlace copiado al portapapeles",
+                    Toast.LENGTH_SHORT
+                ).show()
         }
     }
 }
