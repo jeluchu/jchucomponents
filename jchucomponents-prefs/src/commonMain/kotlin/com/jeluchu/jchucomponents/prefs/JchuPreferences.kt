@@ -4,14 +4,7 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.MutablePreferences
 import androidx.datastore.preferences.core.PreferenceDataStoreFactory
 import androidx.datastore.preferences.core.Preferences
-import androidx.datastore.preferences.core.booleanPreferencesKey
-import androidx.datastore.preferences.core.doublePreferencesKey
 import androidx.datastore.preferences.core.edit
-import androidx.datastore.preferences.core.floatPreferencesKey
-import androidx.datastore.preferences.core.intPreferencesKey
-import androidx.datastore.preferences.core.longPreferencesKey
-import androidx.datastore.preferences.core.stringPreferencesKey
-import androidx.datastore.preferences.core.stringSetPreferencesKey
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
@@ -19,13 +12,16 @@ import okio.Path.Companion.toPath
 
 const val JchuPreferencesFileName: String = "jchucomponents.preferences_pb"
 
-class JchuPreferences(val dataStore: DataStore<Preferences>) {
+class JchuPreferences(
+    val dataStore: DataStore<Preferences>
+) {
     fun <T> observe(
         key: Preferences.Key<T>,
         defaultValue: T
-    ): Flow<T> = dataStore.data.map { preferences ->
-        preferences[key] ?: defaultValue
-    }
+    ): Flow<T> =
+        dataStore.data.map { preferences ->
+            preferences[key] ?: defaultValue
+        }
 
     suspend fun <T> get(
         key: Preferences.Key<T>,
@@ -41,9 +37,7 @@ class JchuPreferences(val dataStore: DataStore<Preferences>) {
         }
     }
 
-    suspend fun edit(
-        transform: suspend (MutablePreferences) -> Unit
-    ): Preferences = dataStore.edit(transform)
+    suspend fun edit(transform: suspend (MutablePreferences) -> Unit): Preferences = dataStore.edit(transform)
 
     fun observeInt(
         key: String,
@@ -150,9 +144,10 @@ class JchuPreferences(val dataStore: DataStore<Preferences>) {
         value: Set<String>
     ): Unit = set(JchuPreferenceKeys.stringSet(key), value)
 
-    fun contains(key: String): Flow<Boolean> = dataStore.data.map { preferences ->
-        preferences.asMap().keys.any { it.name == key }
-    }
+    fun contains(key: String): Flow<Boolean> =
+        dataStore.data.map { preferences ->
+            preferences.asMap().keys.any { it.name == key }
+        }
 
     suspend fun remove(vararg keys: String) {
         dataStore.edit { preferences ->
@@ -169,15 +164,12 @@ class JchuPreferences(val dataStore: DataStore<Preferences>) {
     }
 }
 
-fun createJchuPreferencesDataStore(
-    path: String
-): DataStore<Preferences> = PreferenceDataStoreFactory.createWithPath {
-    path.toPath()
-}
+fun createJchuPreferencesDataStore(path: String): DataStore<Preferences> =
+    PreferenceDataStoreFactory.createWithPath {
+        path.toPath()
+    }
 
-fun createJchuPreferences(
-    dataStore: DataStore<Preferences>
-): JchuPreferences = JchuPreferences(dataStore)
+fun createJchuPreferences(dataStore: DataStore<Preferences>): JchuPreferences = JchuPreferences(dataStore)
 
 private fun MutablePreferences.removeAllTypes(key: String) {
     remove(JchuPreferenceKeys.int(key))
