@@ -24,6 +24,45 @@ import androidx.compose.ui.unit.dp
 
 private val previewItems = listOf("Villagers", "Furniture", "Fossils", "Music")
 
+@Preview(name = "Remote content - Loading", showBackground = true)
+@Composable
+private fun JchuRemoteScreenLoadingPreview() {
+    JchuRemoteScreenContent(
+        data = null,
+        isLoading = true,
+        error = null,
+        onLoading = { JchuPreviewContent(title = "Loading…") },
+        onSuccess = { JchuPreviewContent(title = it) },
+        onFailure = { JchuPreviewContent(title = it ?: "No content") }
+    )
+}
+
+@Preview(name = "Remote content - Success", showBackground = true)
+@Composable
+private fun JchuRemoteScreenSuccessPreview() {
+    JchuRemoteScreenContent(
+        data = "Loaded content",
+        isLoading = false,
+        error = null,
+        onLoading = { JchuPreviewContent(title = "Loading…") },
+        onSuccess = { JchuPreviewContent(title = it) },
+        onFailure = { JchuPreviewContent(title = it ?: "No content") }
+    )
+}
+
+@Preview(name = "Remote content - Error", showBackground = true)
+@Composable
+private fun JchuRemoteScreenErrorPreview() {
+    JchuRemoteScreenContent(
+        data = null,
+        isLoading = false,
+        error = "Unable to load content",
+        onLoading = { JchuPreviewContent(title = "Loading…") },
+        onSuccess = { JchuPreviewContent(title = it) },
+        onFailure = { JchuPreviewContent(title = it ?: "No content") }
+    )
+}
+
 @Preview(showBackground = true)
 @Composable
 private fun JchuScaffoldPreview() {
