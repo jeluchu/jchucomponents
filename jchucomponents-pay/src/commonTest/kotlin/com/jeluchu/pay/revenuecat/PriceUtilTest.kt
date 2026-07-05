@@ -6,7 +6,6 @@ import kotlin.test.assertEquals
 import kotlin.test.assertNull
 
 class PriceUtilTest {
-
     @Test
     fun dividesPricesWithPrefixAndSuffixCurrencies() {
         assertEquals("3,20 EUR", PriceUtil.toDividedPrice("12,80 EUR", 4))

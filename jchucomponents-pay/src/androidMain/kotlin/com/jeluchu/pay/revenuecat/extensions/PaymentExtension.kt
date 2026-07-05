@@ -38,29 +38,24 @@ fun Context.initPayment(
 /**
  * Determine if purchaseState is purchased ([Purchase.PurchaseState.PURCHASED])
  */
-fun Purchase.isPurchased(): Boolean =
-    purchaseState == Purchase.PurchaseState.PURCHASED
+fun Purchase.isPurchased(): Boolean = purchaseState == Purchase.PurchaseState.PURCHASED
 
 /**
  * Filters out in app purchases ([BillingClient] with type [BillingClient.ProductType.INAPP])
  */
-fun List<ProductDetails>.getInAppPurchases(): List<ProductDetails> =
-    this.filter { it.productType == BillingClient.ProductType.INAPP }
+fun List<ProductDetails>.getInAppPurchases(): List<ProductDetails> = this.filter { it.productType == BillingClient.ProductType.INAPP }
 
 /**
  * Filters out subscriptions ([BillingClient] with type [BillingClient.ProductType.SUBS])
  */
-fun List<ProductDetails>.getSubscriptions(): List<ProductDetails> =
-    this.filter { it.productType == BillingClient.ProductType.SUBS }
+fun List<ProductDetails>.getSubscriptions(): List<ProductDetails> = this.filter { it.productType == BillingClient.ProductType.SUBS }
 
 /**
  * Determine if type is in app purchase ([BillingClient.ProductType.INAPP])
  */
-fun ProductDetails.isInAppPurchase(): Boolean =
-    productType == BillingClient.ProductType.INAPP
+fun ProductDetails.isInAppPurchase(): Boolean = productType == BillingClient.ProductType.INAPP
 
 /**
  * Determine if type is a subscription ([BillingClient.SkuType.SUBS])
  */
-fun ProductDetails.isSubscription(): Boolean =
-    productType == BillingClient.ProductType.SUBS
+fun ProductDetails.isSubscription(): Boolean = productType == BillingClient.ProductType.SUBS

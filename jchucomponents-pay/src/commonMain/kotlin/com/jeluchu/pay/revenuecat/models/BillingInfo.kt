@@ -6,11 +6,12 @@ data class BillingInfo(
     val products: List<Product>
 ) {
     companion object {
-        fun empty() = BillingInfo(
-            packages = emptyList(),
-            products = emptyList(),
-            info = SubscriptionInfo.empty()
-        )
+        fun empty() =
+            BillingInfo(
+                packages = emptyList(),
+                products = emptyList(),
+                info = SubscriptionInfo.empty()
+            )
     }
 }
 

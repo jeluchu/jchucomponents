@@ -11,7 +11,6 @@ import kotlin.test.assertNull
 import kotlin.test.assertTrue
 
 class PaymentModelsTest {
-
     @Test
     fun emptySubscriptionHasNoActiveEntitlement() {
         val subscription = SubscriptionInfo.empty()

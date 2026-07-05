@@ -10,12 +10,13 @@ data class SubscriptionInfo(
     val managementUrl: String?
 ) {
     companion object {
-        fun empty() = SubscriptionInfo(
-            renewalType = SubscriptionsType.NONE,
-            expireDate = String.empty(),
-            promotional = false,
-            state = SubscriptionState.NONE,
-            managementUrl = null
-        )
+        fun empty() =
+            SubscriptionInfo(
+                renewalType = SubscriptionsType.NONE,
+                expireDate = String.empty(),
+                promotional = false,
+                state = SubscriptionState.NONE,
+                managementUrl = null
+            )
     }
 }

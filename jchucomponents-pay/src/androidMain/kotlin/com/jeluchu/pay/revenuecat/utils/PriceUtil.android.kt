@@ -16,18 +16,23 @@ import com.jeluchu.pay.revenuecat.extensions.isSubscription
 fun ProductDetails.getFormattedPrice(
     subscriptionOfferIndex: Int = 0,
     subscriptionPricingPhaseIndex: Int = 0
-): String? {
-    return if (isInAppPurchase()) {
+): String? =
+    if (isInAppPurchase()) {
         oneTimePurchaseOfferDetails?.formattedPrice
-    } else try {
-        if (isSubscription()) {
-            subscriptionOfferDetails?.getOrNull(subscriptionOfferIndex)
-                ?.pricingPhases
-                ?.pricingPhaseList?.getOrNull(subscriptionPricingPhaseIndex)
-                ?.formattedPrice
-        } else null
-    } catch (e: Exception) {
-        if (PriceUtil.enableLogging) Log.e(PriceUtil.TAG, e.message.orEmpty())
-        null
+    } else {
+        try {
+            if (isSubscription()) {
+                subscriptionOfferDetails
+                    ?.getOrNull(subscriptionOfferIndex)
+                    ?.pricingPhases
+                    ?.pricingPhaseList
+                    ?.getOrNull(subscriptionPricingPhaseIndex)
+                    ?.formattedPrice
+            } else {
+                null
+            }
+        } catch (e: Exception) {
+            if (PriceUtil.enableLogging) Log.e(PriceUtil.TAG, e.message.orEmpty())
+            null
+        }
     }
-}

@@ -19,8 +19,8 @@ import com.revenuecat.purchases.PurchasesErrorCode
 import com.revenuecat.purchases.getOfferingsWith
 import com.revenuecat.purchases.interfaces.PurchaseCallback
 import com.revenuecat.purchases.interfaces.ReceiveCustomerInfoCallback
-import com.revenuecat.purchases.models.StoreTransaction
 import com.revenuecat.purchases.models.StoreReplacementMode
+import com.revenuecat.purchases.models.StoreTransaction
 import com.revenuecat.purchases.models.googleProduct
 import com.revenuecat.purchases.purchaseWith
 import com.revenuecat.purchases.restorePurchasesWith
@@ -41,7 +41,6 @@ import kotlin.math.roundToLong
  *
  */
 class Payment {
-
     /**
      *
      * This variable stores the name of the subscription for which you want
@@ -60,11 +59,12 @@ class Payment {
                 offerings.current?.availablePackages?.takeUnless { it.isEmpty() }?.let { packages ->
                     onSuccess(
                         BillingInfo(
-                            info = buildSubscriptionInfo(
-                                entitlement = subscriptionName,
-                                customerInfo = info,
-                                products = packages
-                            ),
+                            info =
+                                buildSubscriptionInfo(
+                                    entitlement = subscriptionName,
+                                    customerInfo = info,
+                                    products = packages
+                                ),
                             packages = packages,
                             products = buildSubscriptionProducts(packages)
                         )
@@ -79,8 +79,14 @@ class Payment {
         val annual = products.find { it.identifier == ProductsType.ANNUAL.type }
 
         if (monthly != null && annual != null) {
-            val annualPricePerMonth = (annual.product.price.amountMicros.toDouble() / 1000000) / 12
-            val pricePerMonth = monthly.product.price.amountMicros.toDouble() / 1000000
+            val annualPricePerMonth =
+                (
+                    annual.product.price.amountMicros
+                        .toDouble() / 1000000
+                ) / 12
+            val pricePerMonth =
+                monthly.product.price.amountMicros
+                    .toDouble() / 1000000
             val savings = 100 - ((annualPricePerMonth / pricePerMonth) * 100)
 
             return listOf(
@@ -94,9 +100,14 @@ class Payment {
                 Product(
                     isMonthly = false,
                     price = annual.product.price.formatted,
-                    priceConversion = ((annual.product.price.amountMicros.toDouble() / 1000000) / 12)
-                        .roundTo(2)
-                        .toString(),
+                    priceConversion =
+                        (
+                            (
+                                annual.product.price.amountMicros
+                                    .toDouble() / 1000000
+                            ) / 12
+                        ).roundTo(2)
+                            .toString(),
                     saveAmount = savings.roundToLong().toString(),
                     storeProduct = annual.product
                 )
@@ -117,32 +128,41 @@ class Payment {
         var isPromotional = false
 
         runCatching {
-            expire = if (isSubscriptionExpired(customerInfo)) String.empty()
-            else SimpleDateFormat(
-                "dd/MM/yyyy HH:mm aaa",
-                Locale.ROOT
-            ).format(customerInfo.entitlements[entitlement]?.expirationDate ?: Date())
+            expire =
+                if (isSubscriptionExpired(customerInfo)) {
+                    String.empty()
+                } else {
+                    SimpleDateFormat(
+                        "dd/MM/yyyy HH:mm aaa",
+                        Locale.ROOT
+                    ).format(customerInfo.entitlements[entitlement]?.expirationDate ?: Date())
+                }
         }
 
         return SubscriptionInfo(
-            renewalType = when {
-                product?.identifier == ProductsType.MONTHLY.type -> SubscriptionsType.MONTHLY
-                product?.identifier == ProductsType.ANNUAL.type -> SubscriptionsType.YEARLY
-                PaymentProducts.promos.find { prom -> customerInfo.activeSubscriptions.find { it == prom } != null } != null -> {
-                    isPromotional = true
-                    SubscriptionsType.PROMO
-                }
+            renewalType =
+                when {
+                    product?.identifier == ProductsType.MONTHLY.type -> SubscriptionsType.MONTHLY
+                    product?.identifier == ProductsType.ANNUAL.type -> SubscriptionsType.YEARLY
+                    PaymentProducts.promos.find { prom -> customerInfo.activeSubscriptions.find { it == prom } != null } != null -> {
+                        isPromotional = true
+                        SubscriptionsType.PROMO
+                    }
 
-                else -> SubscriptionsType.NONE
-            },
+                    else -> SubscriptionsType.NONE
+                },
             promotional = isPromotional,
             expireDate = expire,
-            state = if (isSubscriptionPaused(
-                    entitlement,
-                    customerInfo
-                )
-            ) SubscriptionState.INACTIVE_UNTIL_RENEWAL
-            else SubscriptionState.ACTIVE,
+            state =
+                if (isSubscriptionPaused(
+                        entitlement,
+                        customerInfo
+                    )
+                ) {
+                    SubscriptionState.INACTIVE_UNTIL_RENEWAL
+                } else {
+                    SubscriptionState.ACTIVE
+                },
             managementUrl = customerInfo.managementURL?.toString()
         )
     }
@@ -151,9 +171,12 @@ class Payment {
         customerInfo: CustomerInfo,
         onActiveSubscription: (Boolean, String) -> Unit
     ) = customerInfo.entitlements[subscriptionName]?.let { entitlementInfo ->
-        if (entitlementInfo.isActive) onActiveSubscription(
-            true, entitlementInfo.productIdentifier
-        )
+        if (entitlementInfo.isActive) {
+            onActiveSubscription(
+                true,
+                entitlementInfo.productIdentifier
+            )
+        }
     }
 
     private fun isSubscriptionExpired(customerInfo: CustomerInfo): Boolean {
@@ -164,24 +187,29 @@ class Payment {
         val date: Date =
             if (currentTime.before(calendar.time)) customerInfo.requestDate else currentTime
 
-        return customerInfo.entitlements[subscriptionName]?.expirationDate != null
-                && customerInfo.entitlements[subscriptionName]?.expirationDate?.after(date) == false
+        return customerInfo.entitlements[subscriptionName]?.expirationDate != null &&
+            customerInfo.entitlements[subscriptionName]?.expirationDate?.after(date) == false
     }
 
-    private fun subscriptionActive(customerInfo: CustomerInfo): Boolean {
-        return customerInfo.entitlements[subscriptionName]?.isActive == true && !isSubscriptionExpired(
-            customerInfo
-        )
-    }
+    private fun subscriptionActive(customerInfo: CustomerInfo): Boolean =
+        customerInfo.entitlements[subscriptionName]?.isActive == true &&
+            !isSubscriptionExpired(
+                customerInfo
+            )
 
-    private fun isSubscriptionPaused(entitlement: String, customerInfo: CustomerInfo) =
-        !subscriptionActive(customerInfo) && customerInfo.entitlements[entitlement]?.willRenew == true
+    private fun isSubscriptionPaused(
+        entitlement: String,
+        customerInfo: CustomerInfo
+    ) = !subscriptionActive(customerInfo) && customerInfo.entitlements[entitlement]?.willRenew == true
 
     private fun getCustomerInfo(callback: (CustomerInfo?) -> Unit) {
-        Purchases.sharedInstance.getCustomerInfo(object : ReceiveCustomerInfoCallback {
-            override fun onError(error: PurchasesError) = callback.invoke(null)
-            override fun onReceived(customerInfo: CustomerInfo) = callback.invoke(customerInfo)
-        })
+        Purchases.sharedInstance.getCustomerInfo(
+            object : ReceiveCustomerInfoCallback {
+                override fun onError(error: PurchasesError) = callback.invoke(null)
+
+                override fun onReceived(customerInfo: CustomerInfo) = callback.invoke(customerInfo)
+            }
+        )
     }
 
     /**
@@ -192,9 +220,12 @@ class Payment {
      * of the [Payment] functions to obtain the necessary information.
      *
      */
-    enum class ProductsType(val type: String, val packageType: PackageType) {
+    enum class ProductsType(
+        val type: String,
+        val packageType: PackageType
+    ) {
         ANNUAL(type = "\$rc_annual", PackageType.ANNUAL),
-        MONTHLY(type = "\$rc_monthly", PackageType.MONTHLY),
+        MONTHLY(type = "\$rc_monthly", PackageType.MONTHLY)
     }
 
     companion object {
@@ -221,10 +252,11 @@ class Payment {
          * @see <a href="https://www.revenuecat.com/docs/getting-started/displaying-products">Displaying products</a>
          *
          */
-        fun getProducts() = payment.getProducts(
-            onSuccess = { _billingInfo.value = it },
-            onFailure = { _billingError.value = it }
-        )
+        fun getProducts() =
+            payment.getProducts(
+                onSuccess = { _billingInfo.value = it },
+                onFailure = { _billingError.value = it }
+            )
 
         /**
          *
@@ -292,19 +324,26 @@ class Payment {
 
                     info.entitlements[payment.subscriptionName]?.let { entitlementInfo ->
                         when {
-                            entitlementInfo.isActive && entitlementInfo.productIdentifier == monthlyProduct?.product?.googleProduct?.productId -> {
+                            entitlementInfo.isActive &&
+                                entitlementInfo.productIdentifier == monthlyProduct?.product?.googleProduct?.productId -> {
                                 context.findActivity()?.let { activity ->
                                     annualProduct?.let { product ->
                                         Purchases.sharedInstance.purchase(
-                                            PurchaseParams.Builder(activity, product)
-                                                .oldProductId(monthlyProduct.product.googleProduct?.productId.orEmpty())
-                                                .replacementMode(StoreReplacementMode.WITHOUT_PRORATION)
+                                            PurchaseParams
+                                                .Builder(activity, product)
+                                                .oldProductId(
+                                                    monthlyProduct.product.googleProduct
+                                                        ?.productId
+                                                        .orEmpty()
+                                                ).replacementMode(StoreReplacementMode.WITHOUT_PRORATION)
                                                 .build(),
                                             object : PurchaseCallback {
                                                 override fun onCompleted(
                                                     storeTransaction: StoreTransaction,
                                                     customerInfo: CustomerInfo
-                                                ) { payment.activateSubscription(customerInfo, onSuccess) }
+                                                ) {
+                                                    payment.activateSubscription(customerInfo, onSuccess)
+                                                }
 
                                                 override fun onError(
                                                     error: PurchasesError,
@@ -316,19 +355,26 @@ class Payment {
                                 }
                             }
 
-                            entitlementInfo.isActive && entitlementInfo.productIdentifier == annualProduct?.product?.googleProduct?.productId -> {
+                            entitlementInfo.isActive &&
+                                entitlementInfo.productIdentifier == annualProduct?.product?.googleProduct?.productId -> {
                                 context.findActivity()?.let { activity ->
                                     monthlyProduct?.let { product ->
                                         Purchases.sharedInstance.purchase(
-                                            PurchaseParams.Builder(activity, product)
-                                                .oldProductId(annualProduct.product.googleProduct?.productId.orEmpty())
-                                                .replacementMode(StoreReplacementMode.WITHOUT_PRORATION)
+                                            PurchaseParams
+                                                .Builder(activity, product)
+                                                .oldProductId(
+                                                    annualProduct.product.googleProduct
+                                                        ?.productId
+                                                        .orEmpty()
+                                                ).replacementMode(StoreReplacementMode.WITHOUT_PRORATION)
                                                 .build(),
                                             object : PurchaseCallback {
                                                 override fun onCompleted(
                                                     storeTransaction: StoreTransaction,
                                                     customerInfo: CustomerInfo
-                                                ) { payment.activateSubscription(customerInfo, onSuccess) }
+                                                ) {
+                                                    payment.activateSubscription(customerInfo, onSuccess)
+                                                }
 
                                                 override fun onError(
                                                     error: PurchasesError,
@@ -343,8 +389,12 @@ class Payment {
                             else -> {}
                         }
                     }
-                } else onFailure(PurchasesError(PurchasesErrorCode.NetworkError), false)
-            } else onFailure(PurchasesError(PurchasesErrorCode.NetworkError), false)
+                } else {
+                    onFailure(PurchasesError(PurchasesErrorCode.NetworkError), false)
+                }
+            } else {
+                onFailure(PurchasesError(PurchasesErrorCode.NetworkError), false)
+            }
         }
 
         /**
@@ -361,16 +411,18 @@ class Payment {
          * @see <a href="https://www.revenuecat.com/docs/getting-started/restoring-purchases">Restoring purchases</a>
          *
          */
-        fun restorePurchases(
-            onRestored: (Boolean, String) -> Unit = { _, _ -> },
-        ) = Purchases.sharedInstance.restorePurchasesWith { customerInfo ->
-            customerInfo.let { info ->
-                info.entitlements[payment.subscriptionName]?.let { entitlementInfo ->
-                    if (entitlementInfo.isActive) onRestored(true, entitlementInfo.productIdentifier)
-                    else onRestored(false, String.empty())
+        fun restorePurchases(onRestored: (Boolean, String) -> Unit = { _, _ -> }) =
+            Purchases.sharedInstance.restorePurchasesWith { customerInfo ->
+                customerInfo.let { info ->
+                    info.entitlements[payment.subscriptionName]?.let { entitlementInfo ->
+                        if (entitlementInfo.isActive) {
+                            onRestored(true, entitlementInfo.productIdentifier)
+                        } else {
+                            onRestored(false, String.empty())
+                        }
+                    }
                 }
             }
-        }
 
         /**
          *
@@ -381,29 +433,31 @@ class Payment {
          * product will be returned in the unit.
          *
          */
-        fun isSubscriptionActive(
-            onChecked: (Boolean, String) -> Unit = { _, _ -> },
-        ) = payment.getCustomerInfo { customerInfo ->
-            customerInfo?.let { info ->
-                info.entitlements[payment.subscriptionName]?.let { entitlementInfo ->
-                    if (entitlementInfo.isActive && payment.subscriptionActive(customerInfo))
-                        onChecked(true, entitlementInfo.productIdentifier)
-                    else onChecked(false, String.empty())
+        fun isSubscriptionActive(onChecked: (Boolean, String) -> Unit = { _, _ -> }) =
+            payment.getCustomerInfo { customerInfo ->
+                customerInfo?.let { info ->
+                    info.entitlements[payment.subscriptionName]?.let { entitlementInfo ->
+                        if (entitlementInfo.isActive && payment.subscriptionActive(customerInfo)) {
+                            onChecked(true, entitlementInfo.productIdentifier)
+                        } else {
+                            onChecked(false, String.empty())
+                        }
+                    }
                 }
             }
-        }
     }
 
     object PaymentProducts {
-        val promos = listOf(
-            "rc_promo_pro_daily",
-            "rc_promo_pro_three_day",
-            "rc_promo_pro_weekly",
-            "rc_promo_pro_monthly",
-            "rc_promo_pro_three_month",
-            "rc_promo_pro_six_month",
-            "rc_promo_pro_yearly",
-            "rc_promo_pro_lifetime",
-        )
+        val promos =
+            listOf(
+                "rc_promo_pro_daily",
+                "rc_promo_pro_three_day",
+                "rc_promo_pro_weekly",
+                "rc_promo_pro_monthly",
+                "rc_promo_pro_three_month",
+                "rc_promo_pro_six_month",
+                "rc_promo_pro_yearly",
+                "rc_promo_pro_lifetime"
+            )
     }
 }

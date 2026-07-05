@@ -20,28 +20,36 @@ object PriceUtil {
         divider: Int
     ): String? {
         var fullPrice = price
-        if (divider == 1) return price
-        else try {
-            fullPrice = fullPrice.removeWhitespaceBetweenDigits().trim()
-            fullPrice =
-                if (fullPrice.contains(",") && fullPrice.contains(".") && fullPrice.last() != '.')
-                    fullPrice.replace(",", "")
-                else fullPrice.replace(",", ".")
+        if (divider == 1) {
+            return price
+        } else {
+            try {
+                fullPrice = fullPrice.removeWhitespaceBetweenDigits().trim()
+                fullPrice =
+                    if (fullPrice.contains(",") && fullPrice.contains(".") && fullPrice.last() != '.') {
+                        fullPrice.replace(",", "")
+                    } else {
+                        fullPrice.replace(",", ".")
+                    }
 
-            var digit: String? = null
-            val currency: String
-            val regex = Regex("(\\d+(?:\\.\\d+)?)")
-            regex.findAll(fullPrice).forEach { match ->
-                digit = match.groupValues[1]
-            }
-            if (digit != null) {
-                currency = fullPrice.replace(digit, "")
-                val digitValue = digit.toDouble() / divider
+                var digit: String? = null
+                val currency: String
+                val regex = Regex("(\\d+(?:\\.\\d+)?)")
+                regex.findAll(fullPrice).forEach { match ->
+                    digit = match.groupValues[1]
+                }
+                if (digit != null) {
+                    currency = fullPrice.replace(digit, "")
+                    val digitValue = digit.toDouble() / divider
 
-                return if (fullPrice.startsWith(currency)) currency + roundDigitString(digitValue)
-                else roundDigitString(digitValue) + currency
+                    return if (fullPrice.startsWith(currency)) {
+                        currency + roundDigitString(digitValue)
+                    } else {
+                        roundDigitString(digitValue) + currency
+                    }
+                }
+            } catch (_: Exception) {
             }
-        } catch (_: Exception) {
         }
 
         return null
@@ -60,28 +68,36 @@ object PriceUtil {
         divider: Int
     ): String? {
         var fullPrice = price
-        if (divider == 1) return price
-        else try {
-            fullPrice = fullPrice.removeWhitespaceBetweenDigits().trim()
-            fullPrice =
-                if (fullPrice.contains(",") && fullPrice.contains(".") && fullPrice.last() != '.')
-                    fullPrice.replace(",", "")
-                else fullPrice.replace(",", ".")
+        if (divider == 1) {
+            return price
+        } else {
+            try {
+                fullPrice = fullPrice.removeWhitespaceBetweenDigits().trim()
+                fullPrice =
+                    if (fullPrice.contains(",") && fullPrice.contains(".") && fullPrice.last() != '.') {
+                        fullPrice.replace(",", "")
+                    } else {
+                        fullPrice.replace(",", ".")
+                    }
 
-            var digit: String? = null
-            val currency: String
-            val regex = Regex("(\\d+(?:\\.\\d+)?)")
-            regex.findAll(fullPrice).forEach { match ->
-                digit = match.groupValues[1]
-            }
-            if (digit != null) {
-                currency = fullPrice.replace(digit, "")
-                val digitValue = digit.toDouble() * divider
+                var digit: String? = null
+                val currency: String
+                val regex = Regex("(\\d+(?:\\.\\d+)?)")
+                regex.findAll(fullPrice).forEach { match ->
+                    digit = match.groupValues[1]
+                }
+                if (digit != null) {
+                    currency = fullPrice.replace(digit, "")
+                    val digitValue = digit.toDouble() * divider
 
-                return if (fullPrice.startsWith(currency)) currency + roundDigitString(digitValue)
-                else roundDigitString(digitValue) + currency
+                    return if (fullPrice.startsWith(currency)) {
+                        currency + roundDigitString(digitValue)
+                    } else {
+                        roundDigitString(digitValue) + currency
+                    }
+                }
+            } catch (_: Exception) {
             }
-        } catch (_: Exception) {
         }
 
         return null
@@ -89,8 +105,11 @@ object PriceUtil {
 
     private fun roundDigitString(digitValue: Double): String {
         val priceValueString =
-            if (digitValue > 1000.0) digitValue.roundToLong().toString() else
+            if (digitValue > 1000.0) {
+                digitValue.roundToLong().toString()
+            } else {
                 digitValue.roundToTwoDecimals()
+            }
         return priceValueString.replace(".", ",")
     }
 
