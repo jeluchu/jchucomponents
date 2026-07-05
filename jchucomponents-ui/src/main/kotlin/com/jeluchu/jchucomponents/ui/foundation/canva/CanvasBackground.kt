@@ -7,6 +7,7 @@
 package com.jeluchu.jchucomponents.ui.foundation.canva
 
 import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ImageShader
@@ -17,6 +18,9 @@ import androidx.compose.ui.graphics.drawscope.drawIntoCanvas
 import androidx.compose.ui.graphics.nativeCanvas
 import androidx.compose.ui.graphics.nativePaint
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import com.jeluchu.jchucomponents.ui.R
 import com.jeluchu.jchucomponents.ui.extensions.getBitmapFromVectorDrawable
 
 @Composable
@@ -50,4 +54,15 @@ fun CanvasBackground(
         }
         paint.reset()
     }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun CanvasBackgroundPreview() {
+    CanvasBackground(
+        modifier = Modifier.size(160.dp),
+        with = 32,
+        height = 32,
+        drawable = R.drawable.ic_deco_jeluchu
+    )
 }

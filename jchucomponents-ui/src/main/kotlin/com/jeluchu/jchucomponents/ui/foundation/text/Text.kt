@@ -18,7 +18,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.TextUnit
+import com.jeluchu.jchucomponents.ui.R
 
 /**
  *
@@ -105,3 +107,9 @@ fun Text(
     onTextLayout = onTextLayout,
     style = style
 )
+
+@Preview(showBackground = true)
+@Composable
+private fun TextPreview() {
+    Text(text = R.string.sample_title)
+}

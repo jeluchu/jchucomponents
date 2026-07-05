@@ -12,7 +12,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
+import com.jeluchu.jchucomponents.ui.R
 
 /**
  *
@@ -45,6 +48,15 @@ fun Icon(
     modifier = modifier,
     tint = tint
 )
+
+@Preview(showBackground = true)
+@Composable
+private fun IconPreview() {
+    Icon(
+        painter = painterResource(R.drawable.ic_btn_share),
+        contentDescription = R.string.sample_title
+    )
+}
 
 /**
  *

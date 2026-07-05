@@ -1,6 +1,7 @@
 package com.jeluchu.jchucomponents.ui.composables.text
 
 import android.graphics.BlurMaskFilter
+import android.graphics.Typeface
 import android.text.TextUtils
 import android.text.style.LeadingMarginSpan
 import android.util.TypedValue
@@ -13,8 +14,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.text.buildSpannedString
@@ -70,6 +74,18 @@ fun BlurText(
     }
 }
 
+@Preview(showBackground = true)
+@Composable
+private fun BlurTextPreview() {
+    BlurText(
+        text = "Protected content",
+        font = 0,
+        fontSize = 20.sp,
+        blurRadius = 6.dp,
+        blurEnabled = true
+    )
+}
+
 internal fun TextAlign?.toAndroid() =
     when (this) {
         TextAlign.Left -> View.TEXT_ALIGNMENT_TEXT_START
@@ -83,5 +99,5 @@ internal fun TextAlign?.toAndroid() =
 internal fun TextView.setFontResource(
     @FontRes id: Int
 ) {
-    typeface = ResourcesCompat.getFont(context, id)
+    typeface = if (id == 0) Typeface.DEFAULT else ResourcesCompat.getFont(context, id)
 }

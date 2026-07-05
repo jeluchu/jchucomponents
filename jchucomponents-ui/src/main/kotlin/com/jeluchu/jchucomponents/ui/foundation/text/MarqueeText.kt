@@ -58,6 +58,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
@@ -330,6 +331,16 @@ fun MarqueeText(
     onTextLayout = onTextLayout,
     style = style
 )
+
+@Preview(showBackground = true, widthDp = 240)
+@Composable
+private fun MarqueeTextPreview() {
+    MarqueeText(
+        text = "A long title that demonstrates the marquee animation",
+        modifier = Modifier.fillMaxWidth(),
+        maxLines = 1
+    )
+}
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
