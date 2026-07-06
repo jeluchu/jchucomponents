@@ -36,6 +36,14 @@ data class MenuOptions(
                     name = CatalogCategory.LOADERS.title
                 ),
                 MenuOptions(
+                    id = DestinationsIds.previews,
+                    name = Names.previews
+                ),
+                MenuOptions(
+                    id = DestinationsIds.extensions,
+                    name = Names.extensions
+                ),
+                MenuOptions(
                     id = DestinationsIds.progress,
                     name = CatalogCategory.PROGRESS.title
                 ),
@@ -102,6 +110,34 @@ data class MenuOptions(
                 MenuOptions(
                     id = DestinationsIds.benefitCards,
                     name = Names.benefitCards
+                ),
+                MenuOptions(
+                    id = DestinationsIds.assistantCards,
+                    name = Names.assistantCards
+                ),
+                MenuOptions(
+                    id = DestinationsIds.categoryCards,
+                    name = Names.categoryCards
+                ),
+                MenuOptions(
+                    id = DestinationsIds.categoryIconCards,
+                    name = Names.categoryIconCards
+                ),
+                MenuOptions(
+                    id = DestinationsIds.debutCards,
+                    name = Names.debutCards
+                ),
+                MenuOptions(
+                    id = DestinationsIds.expandableCards,
+                    name = Names.expandableCards
+                ),
+                MenuOptions(
+                    id = DestinationsIds.infoCards,
+                    name = Names.infoCards
+                ),
+                MenuOptions(
+                    id = DestinationsIds.teCards,
+                    name = Names.teCards
                 )
             )
     }

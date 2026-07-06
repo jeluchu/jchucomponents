@@ -8,6 +8,8 @@ object DestinationsIds {
     const val chips = "chips"
     const val inputs = "inputs"
     const val loaders = "loaders"
+    const val previews = "previews"
+    const val extensions = "extensions"
 
     const val floatingButton = "floatingButton"
     const val linearProgress = "linearProgress"
@@ -26,6 +28,13 @@ object DestinationsIds {
 
     const val cards = "cards"
     const val benefitCards = "benefitCards"
+    const val assistantCards = "assistantCards"
+    const val categoryCards = "categoryCards"
+    const val categoryIconCards = "categoryIconCards"
+    const val debutCards = "debutCards"
+    const val expandableCards = "expandableCards"
+    const val infoCards = "infoCards"
+    const val teCards = "teCards"
 }
 
 object NavigationIds {
@@ -38,6 +47,8 @@ object NavigationIds {
     const val chips = "chipsNav"
     const val inputs = "inputsNav"
     const val loaders = "loadersNav"
+    const val previews = "previewsNav"
+    const val extensions = "extensionsNav"
 }
 
 object Names {
@@ -46,6 +57,8 @@ object Names {
     const val chips = "Chips"
     const val inputs = "Inputs"
     const val loaders = "Loaders"
+    const val previews = "Previews"
+    const val extensions = "Extensions"
     const val floatingButtons = "FloatingButtons"
     const val linearProgress = "LinearProgress"
     const val circularProgress = "CircularProgress"
@@ -58,4 +71,11 @@ object Names {
     const val largeToolbars = "LargeToolbars"
     const val cards = "Cards"
     const val benefitCards = "BenefitCards"
+    const val assistantCards = "AssistantCards"
+    const val categoryCards = "CategoryCards"
+    const val categoryIconCards = "CategoryIconCards"
+    const val debutCards = "DebutCards"
+    const val expandableCards = "ExpandableCards"
+    const val infoCards = "InfoCards"
+    const val teCards = "TeCards"
 }

@@ -14,16 +14,25 @@ import com.jeluchu.composer.features.cards.view.CardsView
 import com.jeluchu.composer.features.chips.view.ChipsView
 import com.jeluchu.composer.features.dashboard.view.MainView
 import com.jeluchu.composer.features.dividers.view.DividersView
+import com.jeluchu.composer.features.extensions.view.ExtensionsView
 import com.jeluchu.composer.features.inputs.view.InputsView
 import com.jeluchu.composer.features.lists.view.LazyGridsView
 import com.jeluchu.composer.features.lists.view.LazyStaticGridView
 import com.jeluchu.composer.features.loaders.view.LoadersView
+import com.jeluchu.composer.features.previews.view.PreviewsView
 import com.jeluchu.composer.features.progress.view.CircularProgressbarView
 import com.jeluchu.composer.features.progress.view.IconProgressbarView
 import com.jeluchu.composer.features.progress.view.LinearProgressbarView
 import com.jeluchu.composer.features.progress.view.ProgressView
 import com.jeluchu.composer.features.toolbars.view.ToolbarsView
 import com.jeluchu.jchucomponents.ui.composables.toolbars.CenterToolbarActionsPreview
+import com.jeluchu.jchucomponents.ui.composables.cards.AssistantCardPreview
+import com.jeluchu.jchucomponents.ui.composables.cards.CategoryCardPreview
+import com.jeluchu.jchucomponents.ui.composables.cards.CategoryIconPreview
+import com.jeluchu.jchucomponents.ui.composables.cards.DebutCardPreview
+import com.jeluchu.jchucomponents.ui.composables.cards.ExpandableCardPreview
+import com.jeluchu.jchucomponents.ui.composables.cards.InfoCardPreviewLight
+import com.jeluchu.jchucomponents.ui.composables.cards.TePreview
 import com.jeluchu.jchucomponents.ui.composables.toolbars.ToolbarActionsPreview
 import com.jeluchu.jchucomponents.ui.extensions.navigation.back
 import com.jeluchu.jchucomponents.ui.extensions.navigation.navigateSingleTop
@@ -50,6 +59,8 @@ fun Navigation() {
                             DestinationsIds.chips -> backStack.navigateSingleTop(CatalogRoute.Chips)
                             DestinationsIds.inputs -> backStack.navigateSingleTop(CatalogRoute.Inputs)
                             DestinationsIds.loaders -> backStack.navigateSingleTop(CatalogRoute.Loaders)
+                            DestinationsIds.previews -> backStack.navigateSingleTop(CatalogRoute.Previews)
+                            DestinationsIds.extensions -> backStack.navigateSingleTop(CatalogRoute.Extensions)
                             DestinationsIds.progress -> backStack.navigateSingleTop(CatalogRoute.Progress)
                             DestinationsIds.lazyGrids -> backStack.navigateSingleTop(CatalogRoute.LazyGrids)
                             DestinationsIds.dividers -> backStack.navigateSingleTop(CatalogRoute.Dividers)
@@ -77,6 +88,12 @@ fun Navigation() {
                 }
                 entry<CatalogRoute.Loaders> {
                     LoadersView { backStack.back() }
+                }
+                entry<CatalogRoute.Previews> {
+                    PreviewsView { backStack.back() }
+                }
+                entry<CatalogRoute.Extensions> {
+                    ExtensionsView { backStack.back() }
                 }
                 entry<CatalogRoute.Progress> {
                     ProgressView { id ->
@@ -142,12 +159,47 @@ fun Navigation() {
                         when (id) {
                             DestinationsIds.benefitCards ->
                                 backStack.navigateSingleTop(CatalogRoute.BenefitCards)
+                            DestinationsIds.assistantCards ->
+                                backStack.navigateSingleTop(CatalogRoute.AssistantCards)
+                            DestinationsIds.categoryCards ->
+                                backStack.navigateSingleTop(CatalogRoute.CategoryCards)
+                            DestinationsIds.categoryIconCards ->
+                                backStack.navigateSingleTop(CatalogRoute.CategoryIconCards)
+                            DestinationsIds.debutCards ->
+                                backStack.navigateSingleTop(CatalogRoute.DebutCards)
+                            DestinationsIds.expandableCards ->
+                                backStack.navigateSingleTop(CatalogRoute.ExpandableCards)
+                            DestinationsIds.infoCards ->
+                                backStack.navigateSingleTop(CatalogRoute.InfoCards)
+                            DestinationsIds.teCards ->
+                                backStack.navigateSingleTop(CatalogRoute.TeCards)
                             DestinationsIds.back -> backStack.back()
                         }
                     }
                 }
                 entry<CatalogRoute.BenefitCards> {
                     BenefitsView { backStack.back() }
+                }
+                entry<CatalogRoute.AssistantCards> {
+                    AssistantCardPreview()
+                }
+                entry<CatalogRoute.CategoryCards> {
+                    CategoryCardPreview()
+                }
+                entry<CatalogRoute.CategoryIconCards> {
+                    CategoryIconPreview()
+                }
+                entry<CatalogRoute.DebutCards> {
+                    DebutCardPreview()
+                }
+                entry<CatalogRoute.ExpandableCards> {
+                    ExpandableCardPreview()
+                }
+                entry<CatalogRoute.InfoCards> {
+                    InfoCardPreviewLight()
+                }
+                entry<CatalogRoute.TeCards> {
+                    TePreview()
                 }
             }
     )
