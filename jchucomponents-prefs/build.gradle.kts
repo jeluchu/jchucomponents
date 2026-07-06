@@ -4,7 +4,7 @@ plugins {
 }
 
 version = libs.versions.jchucomponents.get()
-description = "Kotlin Multiplatform DataStore preferences for Android and iOS."
+description = "Kotlin Multiplatform DataStore preferences for Android, iOS and macOS."
 
 kotlin {
     android {

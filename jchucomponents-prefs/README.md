@@ -2,7 +2,7 @@
 
 `jchucomponents-prefs` provides a Kotlin Multiplatform preferences API backed
 by AndroidX DataStore Preferences. It can be used from shared Kotlin code on
-Android and iOS.
+Android, iOS and macOS.
 
 ## Installation
 
@@ -74,9 +74,9 @@ val preferences = createJchuPreferences(
 )
 ```
 
-### iOS
+### Apple
 
-Create the instance from the iOS Kotlin source set:
+Create the instance from an iOS or macOS Kotlin source set:
 
 ```kotlin
 val preferences = createJchuPreferences()
@@ -144,7 +144,8 @@ single {
 }
 ```
 
-On iOS, create the same application dependency graph with the iOS factory:
+On iOS and macOS, create the same application dependency graph with the Apple
+factory:
 
 ```kotlin
 val preferences = createJchuPreferences(

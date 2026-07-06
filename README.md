@@ -12,17 +12,17 @@ and Apple applications with less repeated infrastructure.
 
 ## Modules and platforms
 
-| Module | Android | iOS | Purpose |
-| --- | :---: | :---: | --- |
-| `jchucomponents-foundation` | ✅ | ✅ | Portable state, dates, text and utilities |
-| `jchucomponents-network` | ✅ | ✅ | Ktor client configuration, resources and flow helpers |
-| `jchucomponents-prefs` | ✅ | ✅ | Multiplatform DataStore preferences |
-| `jchucomponents-pay` | ✅ | ✅ | Shared payment models and platform integrations |
-| `jchucomponents-qr` | ✅ | ✅ | QR encoding and decoding utilities |
-| `jchucomponents-core` | ✅ | — | Android architecture and lifecycle utilities |
-| `jchucomponents-ktx` | ✅ | — | Android and Kotlin extensions |
-| `jchucomponents-ui` | ✅ | — | Jetpack Compose components |
-| `jchucomponents-bom` | ✅ | — | Aligned Android module versions |
+| Module | Android | iOS | macOS | Purpose |
+| --- | :---: | :---: | :---: | --- |
+| `jchucomponents-foundation` | ✅ | ✅ | ✅ | Portable state, dates, text and utilities |
+| `jchucomponents-network` | ✅ | ✅ | ✅ | Ktor client configuration, resources and flow helpers |
+| `jchucomponents-prefs` | ✅ | ✅ | ✅ | Multiplatform DataStore preferences |
+| `jchucomponents-pay` | ✅ | ✅ | ✅ | Shared payment models and platform integrations |
+| `jchucomponents-qr` | ✅ | ✅ | ✅ | QR encoding and decoding utilities |
+| `jchucomponents-core` | ✅ | — | — | Android architecture and lifecycle utilities |
+| `jchucomponents-ktx` | ✅ | — | — | Android and Kotlin extensions |
+| `jchucomponents-ui` | ✅ | — | — | Jetpack Compose components |
+| `jchucomponents-bom` | ✅ | — | — | Aligned Android module versions |
 
 The Swift package complements the shared Kotlin code with
 `JchuComponentsCore`, `JchuComponentsExtensions`, `JchuComponentsSwiftUI` and
@@ -64,9 +64,9 @@ io.github.jeluchu:jchucomponents-qr
 io.github.jeluchu:jchucomponents-bom
 ```
 
-These artifacts contain Android and Apple variants. JitPack's Linux builds do
-not produce the Apple KLIB variants, so KMP applications targeting iOS should
-use Maven Central.
+These artifacts contain Android, iOS and macOS variants. JitPack's Linux
+builds do not produce the Apple KLIB variants, so KMP applications targeting
+iOS or macOS should use Maven Central.
 
 ### Android
 
@@ -147,8 +147,8 @@ val client = createHttpClient(
 ```
 
 `createHttpClient` uses Ktor's Android engine on Android and Darwin engine on
-iOS. `HttpClientConfiguration` controls JSON, caching, timeouts, response
-validation, logging and sensitive headers.
+iOS and macOS. `HttpClientConfiguration` controls JSON, caching, timeouts,
+response validation, logging and sensitive headers.
 
 The v3 network result models and flow helpers belong to
 `jchucomponents-network`:
@@ -230,7 +230,8 @@ Verify the artifacts as an external KMP consumer after publishing them locally:
 ./gradlew \
   -p smoke-tests/kmp-consumer \
   compileAndroidMain \
-  compileKotlinIosSimulatorArm64
+  compileKotlinIosSimulatorArm64 \
+  compileKotlinMacosArm64
 ```
 
 The smoke project reserves `io.github.jeluchu` for Maven Local, ensuring the

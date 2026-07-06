@@ -23,13 +23,13 @@ kotlin {
 
 Available modules:
 
-| Artifact | Use it for |
-| --- | --- |
-| `jchucomponents-foundation` | Portable state, date, text and version helpers |
-| `jchucomponents-network` | Ktor configuration, resources and flow helpers |
-| `jchucomponents-pay` | Shared payment and subscription models |
-| `jchucomponents-prefs` | Typed observable preferences |
-| `jchucomponents-qr` | QR encoding and decoding |
+| Artifact | Platforms | Use it for |
+| --- | --- | --- |
+| `jchucomponents-foundation` | Android, iOS, macOS | Portable state, date, text and version helpers |
+| `jchucomponents-network` | Android, iOS, macOS | Ktor configuration, resources and flow helpers |
+| `jchucomponents-pay` | Android, iOS, macOS | Shared payment and subscription models |
+| `jchucomponents-prefs` | Android, iOS, macOS | Typed observable preferences |
+| `jchucomponents-qr` | Android, iOS, macOS | QR encoding and decoding |
 
 ## Android
 
@@ -91,4 +91,13 @@ xcodebuild \
   -scheme JchuComponents-Package \
   -destination 'generic/platform=iOS Simulator' \
   build
+```
+
+Compile an external KMP consumer for macOS after publishing the modules to
+Maven Local:
+
+```bash
+./gradlew \
+  -p smoke-tests/kmp-consumer \
+  compileKotlinMacosArm64
 ```

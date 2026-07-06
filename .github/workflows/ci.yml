@@ -71,7 +71,7 @@ jobs:
             compileAndroidMain
 
   apple:
-    name: Kotlin iOS and SwiftPM
+    name: Kotlin Apple and SwiftPM
     runs-on: macos-26
     steps:
       - uses: actions/checkout@v4
@@ -92,6 +92,15 @@ jobs:
             :jchucomponents-prefs:iosSimulatorArm64Test \
             :jchucomponents-qr:iosSimulatorArm64Test
 
+      - name: Test shared code on macOS
+        run: |
+          ./gradlew \
+            :jchucomponents-foundation:macosArm64Test \
+            :jchucomponents-network:macosArm64Test \
+            :jchucomponents-pay:macosArm64Test \
+            :jchucomponents-prefs:macosArm64Test \
+            :jchucomponents-qr:macosArm64Test
+
       - name: Publish KMP artifacts for consumer smoke test
         run: |
           ./gradlew \
@@ -106,6 +115,12 @@ jobs:
           ./gradlew \
             -p smoke-tests/kmp-consumer \
             compileKotlinIosSimulatorArm64
+
+      - name: Compile published KMP consumer for macOS
+        run: |
+          ./gradlew \
+            -p smoke-tests/kmp-consumer \
+            compileKotlinMacosArm64
 
       - name: Assemble XCFramework
         run: |

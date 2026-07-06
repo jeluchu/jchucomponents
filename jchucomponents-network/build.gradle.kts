@@ -4,7 +4,7 @@ plugins {
 }
 
 version = libs.versions.jchucomponents.get()
-description = "Kotlin Multiplatform networking utilities for Android and iOS."
+description = "Kotlin Multiplatform networking utilities for Android, iOS and macOS."
 
 kotlin {
     android {
@@ -25,7 +25,7 @@ kotlin {
             implementation(libs.androidx.core.core.ktx)
         }
 
-        iosMain.dependencies {
+        appleMain.dependencies {
             implementation(libs.ktor.darwin)
         }
     }
