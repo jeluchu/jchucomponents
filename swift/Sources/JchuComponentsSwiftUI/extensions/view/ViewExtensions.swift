@@ -9,6 +9,7 @@ import SwiftUI
 import UIKit
 
 public extension View {
+    /// Applies a transform only when a condition is true.
     @ViewBuilder
     func `if`<TransformedContent: View>(
         _ condition: Bool,
@@ -21,6 +22,7 @@ public extension View {
         }
     }
 
+    /// Selects one of two transforms based on a condition.
     @ViewBuilder
     func `if`<TrueContent: View, FalseContent: View>(
         _ condition: Bool,
@@ -34,6 +36,7 @@ public extension View {
         }
     }
 
+    /// Clips only the selected UIKit corners with a radius.
     func cornerRadius(
         _ radius: CGFloat,
         corners: UIRectCorner
@@ -41,10 +44,15 @@ public extension View {
         clipShape(JchuRoundedCorner(radius: radius, corners: corners))
     }
 
+    /// Erases this view's concrete type.
     func eraseToAnyView() -> AnyView {
         AnyView(self)
     }
 
+    /// Renders this view into a UIKit image.
+    ///
+    /// - Parameter scale: Output scale. Use the destination display scale when
+    ///   pixel density matters.
     @MainActor
     func snapshot(
         scale: CGFloat = 1
@@ -54,34 +62,42 @@ public extension View {
         return renderer.uiImage
     }
 
+    /// Overlays placeholder content while retaining this view in the hierarchy.
     func placeholder<Content: View>(
         when shouldShow: Bool,
         alignment: Alignment = .leading,
-        @ViewBuilder placeholder: () -> Content) -> some View {
-
+        @ViewBuilder placeholder: () -> Content
+    ) -> some View {
         ZStack(alignment: alignment) {
             placeholder().opacity(shouldShow ? 1 : 0)
             self
         }
     }
     
+    /// Overlays gray placeholder text while retaining this view.
     func placeholder(
         _ text: String,
         when shouldShow: Bool,
-        alignment: Alignment = .leading) -> some View {
-            
-        placeholder(when: shouldShow, alignment: alignment) { Text(text).foregroundColor(.gray) }
+        alignment: Alignment = .leading
+    ) -> some View {
+        placeholder(when: shouldShow, alignment: alignment) {
+            Text(text).foregroundColor(.gray)
+        }
     }
-    
+
+    /// Returns the safe-area insets of the first connected application window.
+    @MainActor
     func getSafeArea() -> UIEdgeInsets {
         if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
            let window = windowScene.windows.first {
-           return window.safeAreaInsets
+            return window.safeAreaInsets
         } else {
             return UIEdgeInsets.zero
         }
     }
-    
+
+    /// Returns the top safe-area inset of the first connected window.
+    @MainActor
     func getSafeAreaTop() -> CGFloat {
         if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
            let window = windowScene.windows.first {
@@ -90,7 +106,9 @@ public extension View {
             return 0
         }
     }
-    
+
+    /// Returns the bottom safe-area inset of the first connected window.
+    @MainActor
     func getSafeAreaBottom() -> CGFloat {
         if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
            let window = windowScene.windows.first {
@@ -99,11 +117,10 @@ public extension View {
             return 0
         }
     }
-    
-    // MARK: VIEW SWIFTUI ELEMENTS
-    
+
+    /// Expands this view toward an edge or across the horizontal center.
     @ViewBuilder
-    func alignment(_ alignment: FrameAlignment) -> some View {
+    func alignment(_ alignment: JchuFrameAlignment) -> some View {
         switch alignment {
         case .top:
             self.frame(maxHeight: .infinity, alignment: .top)
@@ -117,17 +134,20 @@ public extension View {
             self.frame(maxWidth: .infinity, alignment: .center)
         }
     }
-    
+
+    /// Draws a filled rounded rectangle behind this view.
     @ViewBuilder
     func roundBackground(corner: CGFloat, color: Color) -> some View {
         self.background(RoundedRectangle(cornerRadius: corner).fill(color))
     }
-    
+
+    /// Draws a stroked rounded rectangle behind this view.
     @ViewBuilder
     func roundStrokeBackground(corner: CGFloat, color: Color, lineWidth: CGFloat = 1) -> some View {
         self.background(RoundedRectangle(cornerRadius: corner).stroke(color, lineWidth: lineWidth))
     }
-    
+
+    /// Draws a filled and stroked rounded rectangle behind this view.
     @ViewBuilder
     func roundWithStrokeBackground(corner: CGFloat, container: Color, stroke: Color, lineWidth: CGFloat = 1) -> some View {
         self.background(
@@ -138,10 +158,12 @@ public extension View {
     }
 }
 
+/// A shape that rounds a selected set of UIKit corners.
 public struct JchuRoundedCorner: Shape {
     public var radius: CGFloat
     public var corners: UIRectCorner
 
+    /// Creates a selective rounded-corner shape.
     public init(
         radius: CGFloat,
         corners: UIRectCorner = .allCorners
@@ -161,6 +183,10 @@ public struct JchuRoundedCorner: Shape {
     }
 }
 
-public enum FrameAlignment {
+/// Frame expansion directions used by the `View.alignment(_:)` helper.
+public enum JchuFrameAlignment {
     case top, bottom, leading, trailing, center
 }
+
+@available(*, deprecated, renamed: "JchuFrameAlignment")
+public typealias FrameAlignment = JchuFrameAlignment

@@ -162,6 +162,20 @@ JchuShareScaffold(
 }
 ```
 
+Apply reusable view transforms without branching the surrounding hierarchy:
+
+```swift
+content
+    .if(isHighlighted) {
+        $0.roundWithStrokeBackground(
+            corner: 12,
+            container: .blue.opacity(0.1),
+            stroke: .blue
+        )
+    }
+    .alignment(.leading)
+```
+
 ## Topics
 
 ### Actions
@@ -233,3 +247,8 @@ JchuShareScaffold(
 - ``JchuShareBottomBar``
 - ``JchuShareScaffoldConfig``
 - ``JchuShareBarColors``
+
+### View utilities
+
+- ``JchuRoundedCorner``
+- ``JchuFrameAlignment``

@@ -541,4 +541,26 @@ final class JchuComponentsSwiftUITests: XCTestCase {
         XCTAssertTrue(theme.toPurchaseTabScaffoldConfig().searchConfig.isActive)
         _ = theme.toShareScaffoldConfig()
     }
+
+    @MainActor
+    func testSwiftUIViewExtensionsComposeWithoutTypeErasureLeaks() {
+        let view = Text("JchuComponents")
+            .if(true) { $0.bold() }
+            .if(false, transform: { $0.hidden() }, else: { $0 })
+            .placeholder("Loading", when: false)
+            .cornerRadius(12, corners: [.topLeft, .bottomRight])
+            .roundBackground(corner: 12, color: .blue.opacity(0.1))
+            .roundStrokeBackground(corner: 12, color: .blue)
+            .roundWithStrokeBackground(
+                corner: 12,
+                container: .clear,
+                stroke: .blue
+            )
+            .alignment(JchuFrameAlignment.leading)
+
+        _ = view.eraseToAnyView()
+        _ = JchuRoundedCorner(radius: 12, corners: .allCorners)
+        XCTAssertEqual(view.getSafeAreaTop(), view.getSafeArea().top)
+        XCTAssertEqual(view.getSafeAreaBottom(), view.getSafeArea().bottom)
+    }
 }
