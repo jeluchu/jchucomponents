@@ -53,6 +53,23 @@ await notifications.observe(
 )
 ```
 
+Keep calendar and time-zone behavior explicit in deterministic formatting:
+
+```swift
+let value = date.formatToServerDateTimeDefaults(
+    locale: Locale(identifier: "en_US_POSIX"),
+    timeZone: TimeZone(secondsFromGMT: 0)!
+)
+```
+
+Timestamp refresh helpers accept Unix milliseconds:
+
+```swift
+if isFetchSevenDays(lastFetchTime: cachedAtMilliseconds) {
+    await refresh()
+}
+```
+
 ## Topics
 
 ### Namespace
@@ -83,3 +100,13 @@ await notifications.observe(
 - ``Foundation/Data/detectedImageFileExtension``
 - ``Foundation/Data/detectedImageMIMEType``
 - ``Foundation/Data/dataURI(mimeType:)``
+
+### Dates and numbers
+
+- ``Foundation/Date/format(locale:timeZone:)``
+- ``Foundation/Date/formatted(pattern:locale:timeZone:)``
+- ``Foundation/Date/adding(_:amount:calendar:)``
+- ``Foundation/Date/diffInDays(to:calendar:)``
+- ``Swift/Int/durationText``
+- ``Swift/Int/millisecondsToTimer``
+- ``Swift/Int/roundedUpToNearestTen``

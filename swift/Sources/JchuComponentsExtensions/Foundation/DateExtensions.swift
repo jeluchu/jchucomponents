@@ -1,11 +1,16 @@
 import Foundation
 
+/// Day, month and year display pattern.
 public let jchuDateFormatVerbose = "dd/MM/yyyy"
+/// Day, month, year, hour and minute display pattern.
 public let jchuDateFormatTimestamp = "dd/MM/yyyy HH:mm"
+/// Hour and minute display pattern.
 public let jchuDateFormatOnlyTime = "HH:mm 'H'"
+/// Localized weekday, month and time display pattern.
 public let jchuDateFormatWeekAndMonthTime = "EEEE, MMMM d, yyyy - hh:mm:ss a"
 
 public extension DateFormatter {
+    /// Creates a formatter with an explicit pattern, locale and time zone.
     static func jchu(
         pattern: String,
         locale: Locale = .current,
@@ -20,6 +25,7 @@ public extension DateFormatter {
 }
 
 public extension Date {
+    /// Formats this date as day, month and year.
     func format(
         locale: Locale = .current,
         timeZone: TimeZone = .current
@@ -27,6 +33,7 @@ public extension Date {
         formatted(pattern: jchuDateFormatVerbose, locale: locale, timeZone: timeZone)
     }
 
+    /// Formats this date as day, month, year, hour and minute.
     func formatWithTime(
         locale: Locale = .current,
         timeZone: TimeZone = .current
@@ -34,6 +41,7 @@ public extension Date {
         formatted(pattern: jchuDateFormatTimestamp, locale: locale, timeZone: timeZone)
     }
 
+    /// Formats this date as hour and minute.
     func formatOnlyTime(
         locale: Locale = .current,
         timeZone: TimeZone = .current
@@ -41,6 +49,7 @@ public extension Date {
         formatted(pattern: jchuDateFormatOnlyTime, locale: locale, timeZone: timeZone)
     }
 
+    /// Formats this date with an explicit Unicode date pattern.
     func formatted(
         pattern: String,
         locale: Locale = .current,
@@ -102,6 +111,7 @@ public extension Date {
         formatted(pattern: "HH:mm:ss", locale: locale, timeZone: timeZone)
     }
 
+    /// Adds a calendar component, returning this date if calculation fails.
     func adding(
         _ component: Calendar.Component,
         amount: Int,
@@ -163,6 +173,7 @@ public extension Date {
         return calendar.date(from: components) ?? firstHourOfTheDay(calendar: calendar)
     }
 
+    /// Returns the final representable instant of this date's calendar day.
     func dayEnd(calendar: Calendar = .current) -> Date {
         let start = firstHourOfTheDay(calendar: calendar)
         return calendar.date(
@@ -202,6 +213,7 @@ public extension Date {
         addDays(-daysNumber, calendar: calendar)
     }
 
+    /// Returns the absolute number of calendar-day boundaries between dates.
     func diffInDays(to next: Date, calendar: Calendar = .current) -> Int {
         let start = calendar.startOfDay(for: self)
         let end = calendar.startOfDay(for: next)
@@ -217,8 +229,9 @@ public extension Date {
 }
 
 public extension Int {
+    /// Formats a duration expressed in seconds as `mm:ss` or `h:mm:ss`.
     var durationText: String {
-        if self > 3600 {
+        if self >= 3600 {
             return String(format: "%d:%02d:%02d", self / 3600, (self % 3600) / 60, self % 60)
         }
 
@@ -226,6 +239,7 @@ public extension Int {
     }
 }
 
+/// Returns the current date.
 public func now() -> Date {
     Date()
 }
@@ -246,6 +260,7 @@ public func currentYearString(calendar: Calendar = .current) -> String {
     String(calendar.component(.year, from: Date()))
 }
 
+/// Formats a Unix timestamp expressed in milliseconds as a display date.
 public func getDateTime(
     currentMillis: String,
     locale: Locale = .current,
@@ -262,6 +277,7 @@ public func getDateTime(
     )
 }
 
+/// Whether a millisecond timestamp belongs to a different calendar day.
 public func isNextDay(
     lastFetchTime: TimeInterval,
     now: Date = Date(),
@@ -270,6 +286,7 @@ public func isNextDay(
     !calendar.isDate(Date(timeIntervalSince1970: lastFetchTime / 1000), inSameDayAs: now)
 }
 
+/// Whether a duration in milliseconds has elapsed since a millisecond timestamp.
 public func isCustomTimePassed(
     lastFetchTime: TimeInterval,
     time: TimeInterval = 480 * 60 * 60 * 1000,
@@ -319,7 +336,7 @@ public func isFetchSixDays(lastFetchTime: TimeInterval, now: Date = Date()) -> B
 }
 
 public func isFetchSevenDays(lastFetchTime: TimeInterval, now: Date = Date()) -> Bool {
-    isCustomTimePassed(lastFetchTime: lastFetchTime, time: 144 * 60 * 60 * 1000, now: now)
+    isCustomTimePassed(lastFetchTime: lastFetchTime, time: 168 * 60 * 60 * 1000, now: now)
 }
 
 public func isFetchTenDays(lastFetchTime: TimeInterval, now: Date = Date()) -> Bool {

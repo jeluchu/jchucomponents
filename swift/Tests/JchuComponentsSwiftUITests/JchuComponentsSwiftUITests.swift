@@ -229,9 +229,13 @@ final class JchuComponentsSwiftUITests: XCTestCase {
         XCTAssertEqual(Optional<Int64>.none.orEmpty(), 0)
         XCTAssertEqual(Int64(5_242_880).bytesToMegabytes, "5")
         XCTAssertEqual(125_000.millisecondsToTimer, "2:05")
-        XCTAssertEqual(3_725_000.millisecondsToTimer, "1:2:05")
-        XCTAssertEqual(Optional<Int>.none.roundedUpToNearestTen, 10)
+        XCTAssertEqual(3_725_000.millisecondsToTimer, "1:02:05")
+        XCTAssertEqual(Optional<Int>.none.roundedUpToNearestTen, 0)
+        XCTAssertEqual(10.roundedUpToNearestTen, 10)
+        XCTAssertEqual(11.roundedUpToNearestTen, 20)
         XCTAssertEqual(14.roundedUpToNearestTen, 20)
+        XCTAssertEqual((-14).roundedUpToNearestTen, -10)
+        XCTAssertEqual(Int.max.roundedUpToNearestTen, Int.max)
         XCTAssertEqual(1_234_567.thousandsFormatted, "1.234.567")
     }
 
@@ -319,11 +323,16 @@ final class JchuComponentsSwiftUITests: XCTestCase {
         XCTAssertTrue(isFetchFiveMinutes(lastFetchTime: tenMinutesBefore, now: nowDate))
         XCTAssertFalse(isFetchThirtyMinutes(lastFetchTime: tenMinutesBefore, now: nowDate))
         XCTAssertTrue(isFetchThirtyMinutes(lastFetchTime: oneHourBefore, now: nowDate))
+        let sixDaysBefore = nowDate.timeIntervalSince1970 * 1000 - 6 * 24 * 60 * 60 * 1000
+        let sevenDaysBefore = nowDate.timeIntervalSince1970 * 1000 - 7 * 24 * 60 * 60 * 1000
+        XCTAssertFalse(isFetchSevenDays(lastFetchTime: sixDaysBefore, now: nowDate))
+        XCTAssertTrue(isFetchSevenDays(lastFetchTime: sevenDaysBefore, now: nowDate))
         XCTAssertTrue(isNextDay(lastFetchTime: previousDay, now: nowDate, calendar: calendar))
         XCTAssertTrue(nowDate.isAfterOrEqualThan(numberDaysBeforeToday: 1, now: nowDate, calendar: calendar))
         XCTAssertFalse(nowDate.addDays(-3, calendar: calendar).isAfterOrEqualThan(numberDaysBeforeToday: 1, now: nowDate, calendar: calendar))
         XCTAssertTrue(nowDate.addDays(-3, calendar: calendar).isBeforeThan(numberDaysBeforeToday: 1, now: nowDate, calendar: calendar))
         XCTAssertEqual(65.durationText, "01:05")
+        XCTAssertEqual(3600.durationText, "1:00:00")
         XCTAssertEqual(3665.durationText, "1:01:05")
     }
 
