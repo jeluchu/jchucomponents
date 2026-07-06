@@ -1,4 +1,8 @@
 public extension AsyncSequence {
+    /// Observes each element and routes completion or failure to async callbacks.
+    ///
+    /// Errors thrown while iterating, including cancellation errors, call
+    /// `onFailure`; `onComplete` runs only after normal completion.
     func observe(
         onStart: () async -> Void = {},
         onEach: (Element) async -> Void,
@@ -19,6 +23,9 @@ public extension AsyncSequence {
 }
 
 public extension Task where Failure == Error {
+    /// Starts a throwing task and routes its result through async callbacks.
+    ///
+    /// Failure callbacks run before the original error is rethrown by the task.
     @discardableResult
     static func perform(
         priority: TaskPriority? = nil,

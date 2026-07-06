@@ -8,25 +8,30 @@
 import Foundation
 
 public extension String {
+    /// An empty string convenience value.
     static var empty: String {
         ""
     }
 
+    /// The trimmed string, or `nil` when it contains only whitespace.
     var nilIfBlank: String? {
         let trimmed = trimmingCharacters(in: .whitespacesAndNewlines)
         return trimmed.isEmpty ? nil : trimmed
     }
 
+    /// This string, or `nil` when it contains no characters.
     var nilIfEmpty: String? {
         isEmpty ? nil : self
     }
 
+    /// A copy with carriage-return and newline characters removed.
     var withoutNewlines: String {
         self
             .replacingOccurrences(of: "\n", with: "")
             .replacingOccurrences(of: "\r", with: "")
     }
 
+    /// A locale-aware copy with diacritics and width variants folded.
     var removingDiacritics: String {
         folding(
             options: [.diacriticInsensitive, .widthInsensitive],
@@ -34,30 +39,37 @@ public extension String {
         )
     }
 
+    /// All Unicode numeric characters contained in this string.
     var onlyDigits: String {
         filter(\.isNumber)
     }
 
+    /// Whether the string contains at least one letter.
     var containsLetters: Bool {
         rangeOfCharacter(from: .letters) != nil
     }
 
+    /// Whether the string contains at least one decimal digit.
     var containsNumbers: Bool {
         rangeOfCharacter(from: .decimalDigits) != nil
     }
 
+    /// Whether this non-empty string contains only numeric characters.
     var isNumeric: Bool {
         !isEmpty && allSatisfy(\.isNumber)
     }
 
+    /// Whether this non-empty string contains only letters.
     var isAlphabetic: Bool {
         !isEmpty && allSatisfy(\.isLetter)
     }
 
+    /// Whether this non-empty string contains only letters and numbers.
     var isAlphanumeric: Bool {
         !isEmpty && allSatisfy { $0.isLetter || $0.isNumber }
     }
 
+    /// Whether this string matches a practical, non-exhaustive email pattern.
     var isValidEmail: Bool {
         range(
             of: #"^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$"#,
@@ -65,6 +77,7 @@ public extension String {
         ) != nil
     }
 
+    /// Whether this string contains exactly four IPv4 octets from 0 through 255.
     var isValidIPv4: Bool {
         let parts = split(separator: ".", omittingEmptySubsequences: false)
         guard parts.count == 4 else {
@@ -80,11 +93,13 @@ public extension String {
         }
     }
 
+    /// The number of whitespace-separated words.
     var wordCount: Int {
         split(whereSeparator: \.isWhitespace)
             .count
     }
 
+    /// The last path component parsed from a URL-like string.
     var lastPathComponentFromURL: String {
         if let url = URL(string: self), !url.lastPathComponent.isEmpty {
             return url.lastPathComponent
@@ -98,6 +113,7 @@ public extension String {
             .map(String.init) ?? self
     }
 
+    /// A copy whose `http` scheme is upgraded to `https`.
     var httpsURLString: String {
         guard lowercased().hasPrefix("http:") else {
             return self
@@ -106,10 +122,12 @@ public extension String {
         return "https:" + dropFirst("http:".count)
     }
 
+    /// The UTF-8 representation encoded as Base64.
     var base64Encoded: String {
         Data(utf8).base64EncodedString()
     }
 
+    /// The UTF-8 string decoded from Base64, or `nil` for invalid data.
     var base64Decoded: String? {
         guard let data = Data(base64Encoded: self) else {
             return nil
@@ -118,6 +136,9 @@ public extension String {
         return String(data: data, encoding: .utf8)
     }
 
+    /// Returns at most `maximumLength` characters followed by trailing text.
+    ///
+    /// Negative limits and strings already within the limit are unchanged.
     func truncated(
         to maximumLength: Int,
         trailing: String = "…"
@@ -129,6 +150,7 @@ public extension String {
         return String(prefix(maximumLength)) + trailing
     }
 
+    /// Removes every occurrence of a substring.
     func removing(
         _ value: String,
         options: String.CompareOptions = []
@@ -136,10 +158,14 @@ public extension String {
         replacingOccurrences(of: value, with: "", options: options)
     }
 
+    /// Replaces hyphens with spaces.
     func replacingDashesWithSpaces() -> String {
         replacingOccurrences(of: "-", with: " ")
     }
 
+    /// Splits this string into space-separated groups.
+    ///
+    /// Non-positive group sizes return the original string.
     func grouped(every groupSize: Int) -> String {
         guard groupSize > 0 else {
             return self
@@ -154,6 +180,9 @@ public extension String {
             .joined(separator: " ")
     }
 
+    /// Splits this string into groups joined by a custom separator.
+    ///
+    /// Non-positive group sizes return the original string.
     func formatInGroups(
         groupSize: Int = 4,
         separator: String = "-"
@@ -171,6 +200,7 @@ public extension String {
             .joined(separator: separator)
     }
 
+    /// Replaces only the first occurrence of a substring.
     func replacingFirst(
         _ target: String,
         with replacement: String
@@ -181,6 +211,7 @@ public extension String {
         return replacingCharacters(in: range, with: replacement)
     }
 
+    /// Whether this string has an HTTP or HTTPS URL scheme.
     var isHTTPURL: Bool {
         guard let scheme = URLComponents(string: self)?.scheme?.lowercased() else {
             return false
@@ -188,6 +219,7 @@ public extension String {
         return scheme == "http" || scheme == "https"
     }
 
+    /// Whether this string contains both a URL scheme and host.
     var isValidURL: Bool {
         guard let components = URLComponents(string: self) else {
             return false
@@ -195,6 +227,7 @@ public extension String {
         return components.scheme != nil && components.host != nil
     }
 
+    /// Returns a copy with its first character capitalized for a locale.
     func capitalizingFirstLetter(locale: Locale = .current) -> String {
         guard let first else {
             return self

@@ -155,6 +155,55 @@ final class JchuComponentsSwiftUITests: XCTestCase {
         XCTAssertEqual(values, [1, 2])
     }
 
+    func testNativeSwiftAsyncSequenceLifecycleCallbacks() async {
+        enum FixtureError: Error {
+            case expected
+        }
+
+        var events: [String] = []
+        await AsyncThrowingStream<Int, Error> { continuation in
+            continuation.yield(1)
+            continuation.finish(throwing: FixtureError.expected)
+        }.observe(
+            onStart: {
+                events.append("start")
+            },
+            onEach: { value in
+                events.append("value:\(value)")
+            },
+            onComplete: {
+                events.append("complete")
+            },
+            onFailure: { _ in
+                events.append("failure")
+            }
+        )
+
+        XCTAssertEqual(events, ["start", "value:1", "failure"])
+    }
+
+    func testNativeSwiftTaskPerformRoutesSuccessAndFailure() async {
+        enum FixtureError: Error {
+            case expected
+        }
+
+        let success = Task<Int, Error>.perform(
+            operation: { 42 }
+        )
+        let failure = Task<Int, Error>.perform(
+            operation: { throw FixtureError.expected }
+        )
+
+        let value = try? await success.value
+        XCTAssertEqual(value, 42)
+        do {
+            _ = try await failure.value
+            XCTFail("Expected task failure")
+        } catch {
+            XCTAssertTrue(error is FixtureError)
+        }
+    }
+
     func testNativeSwiftBooleanExtensions() {
         let enabled: Bool? = true
         let disabled: Bool? = false
