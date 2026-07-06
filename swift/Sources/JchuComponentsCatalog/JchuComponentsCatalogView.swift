@@ -22,55 +22,131 @@ public struct JchuComponentsCatalogView: View {
 private struct CatalogRootView: View {
     @Environment(\.jchuTheme) private var theme
     @Binding var scenario: JchuCatalogScenario
+    @State private var selectedDestination: JchuCatalogDestination?
 
     var body: some View {
         NavigationStack {
-            List {
-                Section("Review mode") {
-                    Picker("Scenario", selection: $scenario) {
-                        ForEach(JchuCatalogFixtures.scenarios) { scenario in
-                            Text(scenario.rawValue).tag(scenario)
-                        }
-                    }
-                    .pickerStyle(.segmented)
-                    .listRowBackground(theme.colors.surface)
-                }
+            ScrollView {
+                CatalogHomeHeader(scenario: $scenario)
 
-                Section("UI Components") {
-                    ForEach(JchuCatalogFixtures.uiMenu) { option in
-                        NavigationLink(value: option.id) {
-                            CatalogMenuRow(option: option)
+                VStack(spacing: 0) {
+                    ForEach(JchuCatalogFixtures.moduleSections) { section in
+                        CatalogModuleHeader(section: section)
+
+                        VStack(spacing: 18) {
+                            ForEach(section.options) { option in
+                                Button {
+                                    selectedDestination = .route(option.id)
+                                } label: {
+                                    CatalogHomeCard(
+                                        option: option,
+                                        subtitle: capabilityDescription(for: option.id)
+                                    )
+                                }
+                                .buttonStyle(.plain)
+                            }
                         }
-                        .listRowBackground(theme.colors.surface)
+                        .padding(.horizontal, 16)
+                        .padding(.top, 22)
+                        .padding(.bottom, 28)
                     }
                 }
             }
-            .scrollContentBackground(.hidden)
-            .background(theme.colors.background)
+            .background(theme.colors.background.ignoresSafeArea())
             .foregroundStyle(theme.colors.content)
-            .toolbarBackground(theme.colors.background, for: .navigationBar)
-            .toolbarColorScheme(scenario.colorScheme, for: .navigationBar)
-            .navigationTitle("JchuComponents")
-            .navigationDestination(for: String.self) { route in
-                CatalogDestinationView(route: route)
+            .toolbar(.hidden, for: .navigationBar)
+            .navigationDestination(item: $selectedDestination) { destination in
+                CatalogDestinationView(destination: destination)
             }
+        }
+    }
+
+    private func capabilityDescription(for route: String) -> String {
+        switch route {
+        case "buttons":
+            "Progress buttons, loading states and floating actions."
+        case "cards":
+            "Benefit cards and reusable content surfaces."
+        case "chips":
+            "Default, tag, selected and removable chip states."
+        case "inputs":
+            "Search, counted text and growing multiline fields."
+        case "lists":
+            "Static grid layouts and repeated item composition."
+        case "loaders":
+            "Circular and compact loading indicators."
+        case "progress":
+            "Linear, circular and icon progress feedback."
+        case "dividers":
+            "Horizontal, inset and vertical separators."
+        case "toolbars":
+            "Top bars, centered titles and large toolbar variants."
+        case "scaffolds":
+            "Base, state, detail, settings, share and purchase screens."
+        case "images":
+            "Network images, placeholders, failures and prefetching."
+        case "extensions":
+            "Strings, numbers, dates, collections, concurrency and view helpers."
+        case "pay":
+            "Subscription types, billing info and RevenueCat integration flow."
+        case "themeTokens":
+            "Colors, spacing, shapes, motion and preset palettes."
+        case "info":
+            "Package version, covered modules and catalog parity notes."
+        default:
+            "Catalog examples and behavior checks."
+        }
+    }
+}
+
+private enum JchuCatalogDestination: Identifiable, Hashable {
+    case route(String)
+
+    var id: String {
+        route
+    }
+
+    var route: String {
+        switch self {
+        case .route(let route):
+            route
         }
     }
 }
 
 private struct CatalogDestinationView: View {
-    let route: String
+    let destination: JchuCatalogDestination
+    @State private var selectedDestination: JchuCatalogDestination?
 
     var body: some View {
+        routeView(destination.route)
+            .navigationDestination(item: $selectedDestination) { destination in
+                CatalogDestinationView(destination: destination)
+            }
+    }
+
+    private func navigate(to route: String) {
+        selectedDestination = .route(route)
+    }
+
+    @ViewBuilder
+    private func menu(_ title: LocalizedStringKey, options: [JchuCatalogMenuOption]) -> some View {
+        CatalogMenuScreen(title: title, options: options) { route in
+            navigate(to: route)
+        }
+    }
+
+    @ViewBuilder
+    private func routeView(_ route: String) -> some View {
         switch route {
         case "buttons":
-            CatalogMenuScreen(title: "Buttons", options: JchuCatalogFixtures.buttonsMenu)
+            menu("Buttons", options: JchuCatalogFixtures.buttonsMenu)
         case "progressButtons":
             ProgressButtonsCatalogScreen()
         case "floatingButtons":
             FloatingButtonsCatalogScreen()
         case "cards":
-            CatalogMenuScreen(title: "Cards", options: JchuCatalogFixtures.cardsMenu)
+            menu("Cards", options: JchuCatalogFixtures.cardsMenu)
         case "benefitCards":
             BenefitsCatalogScreen()
         case "chips":
@@ -78,13 +154,13 @@ private struct CatalogDestinationView: View {
         case "inputs":
             InputsCatalogScreen()
         case "lists":
-            CatalogMenuScreen(title: "Lists", options: JchuCatalogFixtures.listsMenu)
+            menu("Lists", options: JchuCatalogFixtures.listsMenu)
         case "lazyStaticGrids":
             LazyStaticGridCatalogScreen()
         case "loaders":
             LoadersCatalogScreen()
         case "progress":
-            CatalogMenuScreen(title: "Progress", options: JchuCatalogFixtures.progressMenu)
+            menu("Progress", options: JchuCatalogFixtures.progressMenu)
         case "circularProgress":
             CircularProgressCatalogScreen()
         case "linearProgress":
@@ -94,7 +170,7 @@ private struct CatalogDestinationView: View {
         case "dividers":
             DividersCatalogScreen()
         case "toolbars":
-            CatalogMenuScreen(title: "Toolbars", options: JchuCatalogFixtures.toolbarsMenu)
+            menu("Toolbars", options: JchuCatalogFixtures.toolbarsMenu)
         case "simpleToolbars":
             ToolbarCatalogScreen(title: "Toolbars", alignment: .trailing)
         case "centerToolbars":
@@ -102,7 +178,7 @@ private struct CatalogDestinationView: View {
         case "largeToolbars":
             LargeToolbarCatalogScreen()
         case "scaffolds":
-            CatalogMenuScreen(title: "Scaffolds", options: JchuCatalogFixtures.scaffoldsMenu)
+            menu("Scaffolds", options: JchuCatalogFixtures.scaffoldsMenu)
         case "basicScaffolds":
             ScaffoldsCatalogScreen()
         case "detailsScaffold":
@@ -122,7 +198,7 @@ private struct CatalogDestinationView: View {
         case "purchaseStates":
             PurchaseStatesCatalogScreen()
         case "images":
-            CatalogMenuScreen(title: "Images", options: JchuCatalogFixtures.imagesMenu)
+            menu("Images", options: JchuCatalogFixtures.imagesMenu)
         case "networkImage":
             ImagesCatalogScreen()
         case "networkImageStates":
@@ -130,7 +206,7 @@ private struct CatalogDestinationView: View {
         case "networkPrefetcher":
             NetworkPrefetcherCatalogScreen()
         case "extensions":
-            CatalogMenuScreen(title: "Extensions", options: JchuCatalogFixtures.extensionsMenu)
+            menu("Extensions", options: JchuCatalogFixtures.extensionsMenu)
         case "foundationExtensions":
             ExtensionsCatalogScreen()
         case "dateUtilities":
@@ -157,15 +233,98 @@ private struct CatalogDestinationView: View {
     }
 }
 
+private struct CatalogHomeHeader: View {
+    @Environment(\.jchuTheme) private var theme
+    @Binding var scenario: JchuCatalogScenario
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 22) {
+            HStack(spacing: 16) {
+                ZStack {
+                    Image(systemName: "swift")
+                        .font(.system(size: 28, weight: .bold))
+                        .foregroundStyle(theme.colors.content)
+                }
+                .frame(width: 42, height: 42)
+
+                Text("Jchucomponents")
+                    .font(.system(size: 30, weight: .bold, design: .rounded))
+                    .foregroundStyle(theme.colors.content)
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.72)
+            }
+
+            Picker("Scenario", selection: $scenario) {
+                ForEach(JchuCatalogFixtures.scenarios) { scenario in
+                    Text(scenario.rawValue).tag(scenario)
+                }
+            }
+            .pickerStyle(.segmented)
+            .labelsHidden()
+        }
+        .padding(.horizontal, 18)
+        .padding(.top, 22)
+        .padding(.bottom, 18)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .background(theme.colors.primary)
+    }
+}
+
+private struct CatalogModuleHeader: View {
+    @Environment(\.jchuTheme) private var theme
+    let section: JchuCatalogModuleSection
+
+    var body: some View {
+        Text(section.title)
+            .font(.system(size: 30, weight: .semibold, design: .rounded))
+            .foregroundStyle(.white.opacity(0.92))
+            .lineLimit(1)
+            .minimumScaleFactor(0.76)
+            .padding(.horizontal, 18)
+            .padding(.vertical, 20)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .background(theme.colors.contentSecondary)
+    }
+}
+
+private struct CatalogHomeCard: View {
+    @Environment(\.jchuTheme) private var theme
+    let option: JchuCatalogMenuOption
+    let subtitle: String
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 7) {
+            Text(option.name)
+                .font(.system(size: 27, weight: .medium, design: .rounded))
+                .foregroundStyle(theme.colors.contentSecondary)
+                .lineLimit(1)
+                .minimumScaleFactor(0.72)
+
+            Text(subtitle)
+                .font(.system(size: 13, weight: .medium, design: .rounded))
+                .foregroundStyle(theme.colors.contentSecondary.opacity(0.82))
+                .lineLimit(1)
+                .fixedSize(horizontal: false, vertical: true)
+        }
+        .padding(.horizontal, 18)
+        .frame(maxWidth: .infinity, minHeight: 78, alignment: .leading)
+        .background(theme.colors.surface, in: .rect(cornerRadius: 14))
+        .contentShape(.rect(cornerRadius: 14))
+    }
+}
+
 private struct CatalogMenuScreen: View {
     let title: LocalizedStringKey
     let options: [JchuCatalogMenuOption]
+    let navigate: (String) -> Void
 
     var body: some View {
         JchuScrollableScaffold(title) {
             VStack(spacing: 12) {
                 ForEach(options) { option in
-                    NavigationLink(value: option.id) {
+                    Button {
+                        navigate(option.id)
+                    } label: {
                         CatalogMenuCard(option: option)
                     }
                     .buttonStyle(.plain)

@@ -78,6 +78,13 @@ struct JchuCatalogMenuOption: Identifiable, Hashable {
     let systemImage: String
 }
 
+struct JchuCatalogModuleSection: Identifiable {
+    let id: String
+    let title: String
+    let subtitle: String
+    let options: [JchuCatalogMenuOption]
+}
+
 struct JchuCatalogFloatingButtonFixture: Identifiable {
     let name: String
     let kind: JchuCatalogFixtureKind
@@ -144,8 +151,8 @@ enum JchuCatalogScenario: String, CaseIterable, Identifiable {
         case .light:
             return JchuTheme(
                 colors: JchuColors(
-                    background: Color(red: 0.47, green: 0.73, blue: 0.60),
-                    surface: Color(red: 0.66, green: 0.82, blue: 0.71).opacity(0.42),
+                    background: Color(red: 0.66, green: 0.82, blue: 0.71),
+                    surface: Color(red: 0.58, green: 0.78, blue: 0.67),
                     primary: Color(red: 0.66, green: 0.82, blue: 0.71),
                     content: Color(red: 0.20, green: 0.20, blue: 0.20),
                     contentSecondary: Color(red: 0.30, green: 0.49, blue: 0.39),
@@ -211,6 +218,59 @@ enum JchuCatalogFixtures {
         JchuCatalogMenuOption(id: "pay", name: JchuCatalogCategory.pay.rawValue, systemImage: JchuCatalogCategory.pay.systemImage),
         JchuCatalogMenuOption(id: "themeTokens", name: JchuCatalogCategory.theme.rawValue, systemImage: JchuCatalogCategory.theme.systemImage),
         JchuCatalogMenuOption(id: "info", name: JchuCatalogCategory.info.rawValue, systemImage: JchuCatalogCategory.info.systemImage),
+    ]
+
+    static let moduleSections = [
+        JchuCatalogModuleSection(
+            id: "swiftuiComponents",
+            title: "UI Components",
+            subtitle: "Reusable SwiftUI controls, inputs, feedback and layout basics.",
+            options: [
+                JchuCatalogMenuOption(id: "buttons", name: JchuCatalogCategory.buttons.rawValue, systemImage: JchuCatalogCategory.buttons.systemImage),
+                JchuCatalogMenuOption(id: "cards", name: JchuCatalogCategory.cards.rawValue, systemImage: JchuCatalogCategory.cards.systemImage),
+                JchuCatalogMenuOption(id: "chips", name: JchuCatalogCategory.chips.rawValue, systemImage: JchuCatalogCategory.chips.systemImage),
+                JchuCatalogMenuOption(id: "inputs", name: JchuCatalogCategory.inputs.rawValue, systemImage: JchuCatalogCategory.inputs.systemImage),
+                JchuCatalogMenuOption(id: "lists", name: JchuCatalogCategory.lists.rawValue, systemImage: JchuCatalogCategory.lists.systemImage),
+                JchuCatalogMenuOption(id: "loaders", name: JchuCatalogCategory.loaders.rawValue, systemImage: JchuCatalogCategory.loaders.systemImage),
+                JchuCatalogMenuOption(id: "progress", name: JchuCatalogCategory.progress.rawValue, systemImage: JchuCatalogCategory.progress.systemImage),
+                JchuCatalogMenuOption(id: "dividers", name: JchuCatalogCategory.dividers.rawValue, systemImage: JchuCatalogCategory.dividers.systemImage),
+                JchuCatalogMenuOption(id: "toolbars", name: JchuCatalogCategory.toolbars.rawValue, systemImage: JchuCatalogCategory.toolbars.systemImage),
+            ]
+        ),
+        JchuCatalogModuleSection(
+            id: "swiftuiScreens",
+            title: "SwiftUI Screens",
+            subtitle: "Scaffolds, remote states, purchase layouts, images and app theme tokens.",
+            options: [
+                JchuCatalogMenuOption(id: "scaffolds", name: JchuCatalogCategory.scaffolds.rawValue, systemImage: JchuCatalogCategory.scaffolds.systemImage),
+                JchuCatalogMenuOption(id: "images", name: JchuCatalogCategory.images.rawValue, systemImage: JchuCatalogCategory.images.systemImage),
+                JchuCatalogMenuOption(id: "themeTokens", name: JchuCatalogCategory.theme.rawValue, systemImage: JchuCatalogCategory.theme.systemImage),
+            ]
+        ),
+        JchuCatalogModuleSection(
+            id: "extensions",
+            title: "Extensions",
+            subtitle: "Foundation, collections, dates, concurrency, URL, UIImage and View helpers.",
+            options: [
+                JchuCatalogMenuOption(id: "extensions", name: JchuCatalogCategory.extensions.rawValue, systemImage: JchuCatalogCategory.extensions.systemImage),
+            ]
+        ),
+        JchuCatalogModuleSection(
+            id: "pay",
+            title: "Pay",
+            subtitle: "Subscription models, billing empty states and RevenueCat flow surface.",
+            options: [
+                JchuCatalogMenuOption(id: "pay", name: JchuCatalogCategory.pay.rawValue, systemImage: JchuCatalogCategory.pay.systemImage),
+            ]
+        ),
+        JchuCatalogModuleSection(
+            id: "core",
+            title: "Core",
+            subtitle: "Package metadata and shared binary information exposed to Swift.",
+            options: [
+                JchuCatalogMenuOption(id: "info", name: JchuCatalogCategory.info.rawValue, systemImage: JchuCatalogCategory.info.systemImage),
+            ]
+        ),
     ]
 
     static let buttonsMenu = [
