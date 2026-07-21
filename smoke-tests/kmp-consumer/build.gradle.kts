@@ -17,9 +17,9 @@ kotlin {
     macosX64()
 
     sourceSets {
-        commonMain.dependencies {
-            val jchuComponentsVersion = libs.versions.jchucomponents.get()
+        val jchuComponentsVersion = libs.versions.jchucomponents.get()
 
+        commonMain.dependencies {
             implementation(
                 "io.github.jeluchu:jchucomponents-foundation:$jchuComponentsVersion"
             )
@@ -34,6 +34,21 @@ kotlin {
             )
             implementation(
                 "io.github.jeluchu:jchucomponents-qr:$jchuComponentsVersion"
+            )
+            implementation(
+                "io.github.jeluchu:jchucomponents-supabase:$jchuComponentsVersion"
+            )
+        }
+
+        androidMain.dependencies {
+            implementation(
+                "io.github.jeluchu:jchucomponents-room:$jchuComponentsVersion"
+            )
+        }
+
+        iosSimulatorArm64Main.dependencies {
+            implementation(
+                "io.github.jeluchu:jchucomponents-room:$jchuComponentsVersion"
             )
         }
     }

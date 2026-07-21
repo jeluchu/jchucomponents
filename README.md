@@ -19,6 +19,8 @@ and Apple applications with less repeated infrastructure.
 | `jchucomponents-prefs` | ✅ | ✅ | ✅ | Multiplatform DataStore preferences |
 | `jchucomponents-pay` | ✅ | ✅ | ✅ | Shared payment models and platform integrations |
 | `jchucomponents-qr` | ✅ | ✅ | ✅ | QR encoding and decoding utilities |
+| `jchucomponents-room` | ✅ | ✅ | — | Room 3 runtime configuration and SQL migrations |
+| `jchucomponents-supabase` | ✅ | ✅ | ✅ | Supabase Auth, database, realtime, Edge Functions and Koin setup |
 | `jchucomponents-core` | ✅ | — | — | Android architecture and lifecycle utilities |
 | `jchucomponents-ktx` | ✅ | — | — | Android and Kotlin extensions |
 | `jchucomponents-ui` | ✅ | — | — | Jetpack Compose components |
@@ -61,12 +63,15 @@ io.github.jeluchu:jchucomponents-network
 io.github.jeluchu:jchucomponents-pay
 io.github.jeluchu:jchucomponents-prefs
 io.github.jeluchu:jchucomponents-qr
+io.github.jeluchu:jchucomponents-room
+io.github.jeluchu:jchucomponents-supabase
 io.github.jeluchu:jchucomponents-bom
 ```
 
-These artifacts contain Android, iOS and macOS variants. JitPack's Linux
-builds do not produce the Apple KLIB variants, so KMP applications targeting
-iOS or macOS should use Maven Central.
+These artifacts contain Android, iOS and macOS variants except
+`jchucomponents-room`, which currently contains Android, `iosArm64`, and
+`iosSimulatorArm64`. JitPack's Linux builds do not produce the Apple KLIB
+variants, so KMP applications targeting iOS or macOS should use Maven Central.
 
 ### Android
 
@@ -164,6 +169,78 @@ import com.jeluchu.jchucomponents.network.models.Resource
 Their previous `jchucomponents-core` packages were removed during the v3 alpha
 cycle.
 
+## Room quick start
+
+Apply the shared runtime defaults to a Room 3 builder while retaining access to
+all application-specific configuration:
+
+```kotlin
+val database = Room.databaseBuilder<AppDatabase>(context, "app.db")
+    .configureJchuRoom {
+        addMigrations(
+            sqlMigration(
+                startVersion = 1,
+                endVersion = 2,
+                "ALTER TABLE task ADD COLUMN archived INTEGER NOT NULL DEFAULT 0"
+            )
+        )
+    }
+    .build()
+```
+
+The consuming module must apply KSP and add the
+`androidx.room3:room3-compiler` dependency itself. The runtime module does not
+enable destructive migrations or choose a database path.
+
+## Supabase quick start
+
+Register the shared Supabase client from the same Koin graph used by the app
+repositories:
+
+```kotlin
+val supabaseModule = jchuSupabaseModule(
+    JchuSupabaseConfig(
+        url = BuildKonfig.SUPABASE_URL,
+        publishableKey = BuildKonfig.SUPABASE_PUBLISHABLE_KEY
+    )
+)
+```
+
+Repositories can depend on `JchuSupabaseDatabase`, `JchuSupabaseAuth`,
+`JchuSupabaseFunctions` or `JchuSupabaseRealtime` and keep returning
+`Flow<Resource<Failure, T>>`:
+
+```kotlin
+@Serializable
+data class Profile(
+    val id: String,
+    val name: String
+)
+
+object ProfileTable : JchuSupabaseTable<Profile> {
+    override val name: String = "profiles"
+}
+
+class ProfileRepository(
+    database: JchuSupabaseDatabase
+) {
+    private val profiles = database.table(ProfileTable)
+
+    fun profile(id: String): Flow<Resource<Failure, Profile>> =
+        profiles.findById(id)
+
+    fun updateProfile(profile: Profile): Flow<Resource<Failure, Profile>> =
+        profiles.updateById(
+            id = profile.id,
+            value = profile
+        )
+}
+```
+
+The first Supabase module intentionally excludes Storage. It focuses on Auth,
+PostgREST database access, Realtime wiring, Edge Functions, Koin and resource
+flow helpers for Android, iOS and macOS KMP apps.
+
 ## API stability
 
 - Alpha releases may introduce source and binary-breaking changes.
@@ -225,7 +302,9 @@ Verify the artifacts as an external KMP consumer after publishing them locally:
   :jchucomponents-network:publishToMavenLocal \
   :jchucomponents-pay:publishToMavenLocal \
   :jchucomponents-prefs:publishToMavenLocal \
-  :jchucomponents-qr:publishToMavenLocal
+  :jchucomponents-qr:publishToMavenLocal \
+  :jchucomponents-room:publishToMavenLocal \
+  :jchucomponents-supabase:publishToMavenLocal
 
 ./gradlew \
   -p smoke-tests/kmp-consumer \

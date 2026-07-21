@@ -45,6 +45,8 @@ dependencies {
     dokka(project(":jchucomponents-pay"))
     dokka(project(":jchucomponents-prefs"))
     dokka(project(":jchucomponents-qr"))
+    dokka(project(":jchucomponents-room"))
+    dokka(project(":jchucomponents-supabase"))
     dokka(project(":jchucomponents-ui"))
 }
 

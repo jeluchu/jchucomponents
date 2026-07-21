@@ -90,7 +90,9 @@ jobs:
             :jchucomponents-network:iosSimulatorArm64Test \
             :jchucomponents-pay:iosSimulatorArm64Test \
             :jchucomponents-prefs:iosSimulatorArm64Test \
-            :jchucomponents-qr:iosSimulatorArm64Test
+            :jchucomponents-qr:iosSimulatorArm64Test \
+            :jchucomponents-room:iosSimulatorArm64Test \
+            :jchucomponents-supabase:iosSimulatorArm64Test
 
       - name: Test shared code on macOS
         run: |
@@ -99,7 +101,8 @@ jobs:
             :jchucomponents-network:macosArm64Test \
             :jchucomponents-pay:macosArm64Test \
             :jchucomponents-prefs:macosArm64Test \
-            :jchucomponents-qr:macosArm64Test
+            :jchucomponents-qr:macosArm64Test \
+            :jchucomponents-supabase:macosArm64Test
 
       - name: Publish KMP artifacts for consumer smoke test
         run: |
@@ -108,7 +111,9 @@ jobs:
             :jchucomponents-network:publishToMavenLocal \
             :jchucomponents-pay:publishToMavenLocal \
             :jchucomponents-prefs:publishToMavenLocal \
-            :jchucomponents-qr:publishToMavenLocal
+            :jchucomponents-qr:publishToMavenLocal \
+            :jchucomponents-room:publishToMavenLocal \
+            :jchucomponents-supabase:publishToMavenLocal
 
       - name: Compile published KMP consumer for iOS
         run: |
