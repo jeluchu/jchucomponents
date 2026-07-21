@@ -24,6 +24,8 @@ import com.jeluchu.composer.features.progress.view.CircularProgressbarView
 import com.jeluchu.composer.features.progress.view.IconProgressbarView
 import com.jeluchu.composer.features.progress.view.LinearProgressbarView
 import com.jeluchu.composer.features.progress.view.ProgressView
+import com.jeluchu.composer.features.room.view.RoomView
+import com.jeluchu.composer.features.supabase.view.SupabaseView
 import com.jeluchu.composer.features.toolbars.view.ToolbarsView
 import com.jeluchu.jchucomponents.ui.composables.toolbars.CenterToolbarActionsPreview
 import com.jeluchu.jchucomponents.ui.composables.cards.AssistantCardPreview
@@ -61,6 +63,8 @@ fun Navigation() {
                             DestinationsIds.loaders -> backStack.navigateSingleTop(CatalogRoute.Loaders)
                             DestinationsIds.previews -> backStack.navigateSingleTop(CatalogRoute.Previews)
                             DestinationsIds.extensions -> backStack.navigateSingleTop(CatalogRoute.Extensions)
+                            DestinationsIds.supabase -> backStack.navigateSingleTop(CatalogRoute.Supabase)
+                            DestinationsIds.room -> backStack.navigateSingleTop(CatalogRoute.Room)
                             DestinationsIds.progress -> backStack.navigateSingleTop(CatalogRoute.Progress)
                             DestinationsIds.lazyGrids -> backStack.navigateSingleTop(CatalogRoute.LazyGrids)
                             DestinationsIds.dividers -> backStack.navigateSingleTop(CatalogRoute.Dividers)
@@ -94,6 +98,12 @@ fun Navigation() {
                 }
                 entry<CatalogRoute.Extensions> {
                     ExtensionsView { backStack.back() }
+                }
+                entry<CatalogRoute.Supabase> {
+                    SupabaseView { backStack.back() }
+                }
+                entry<CatalogRoute.Room> {
+                    RoomView { backStack.back() }
                 }
                 entry<CatalogRoute.Progress> {
                     ProgressView { id ->

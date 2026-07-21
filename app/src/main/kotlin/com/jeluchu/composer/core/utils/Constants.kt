@@ -10,6 +10,8 @@ object DestinationsIds {
     const val loaders = "loaders"
     const val previews = "previews"
     const val extensions = "extensions"
+    const val supabase = "supabase"
+    const val room = "room"
 
     const val floatingButton = "floatingButton"
     const val linearProgress = "linearProgress"
@@ -59,6 +61,8 @@ object Names {
     const val loaders = "Loaders"
     const val previews = "Previews"
     const val extensions = "Extensions"
+    const val supabase = "Supabase Lab"
+    const val room = "Room 3 Lab"
     const val floatingButtons = "FloatingButtons"
     const val linearProgress = "LinearProgress"
     const val circularProgress = "CircularProgress"

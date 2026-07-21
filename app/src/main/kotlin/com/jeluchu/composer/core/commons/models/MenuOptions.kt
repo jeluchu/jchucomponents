@@ -44,6 +44,14 @@ data class MenuOptions(
                     name = Names.extensions
                 ),
                 MenuOptions(
+                    id = DestinationsIds.supabase,
+                    name = Names.supabase
+                ),
+                MenuOptions(
+                    id = DestinationsIds.room,
+                    name = Names.room
+                ),
+                MenuOptions(
                     id = DestinationsIds.progress,
                     name = CatalogCategory.PROGRESS.title
                 ),

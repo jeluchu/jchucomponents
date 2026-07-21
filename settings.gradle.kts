@@ -26,7 +26,9 @@ include(
         ":jchucomponents-qr",
         ":jchucomponents-pay",
         ":jchucomponents-prefs",
+        ":jchucomponents-room",
         ":jchucomponents-foundation",
         ":jchucomponents-network",
+        ":jchucomponents-supabase",
         "app"
 )

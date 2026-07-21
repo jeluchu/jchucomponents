@@ -30,6 +30,12 @@ sealed interface CatalogRoute : NavKey {
     data object Extensions : CatalogRoute
 
     @Serializable
+    data object Supabase : CatalogRoute
+
+    @Serializable
+    data object Room : CatalogRoute
+
+    @Serializable
     data object Progress : CatalogRoute
 
     @Serializable

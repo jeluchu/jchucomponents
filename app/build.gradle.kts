@@ -1,9 +1,22 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.dokka)
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.kotlinx.serialization)
+    alias(libs.plugins.ksp)
 }
+
+val localProperties =
+    Properties().apply {
+        val localPropertiesFile = rootProject.file("local.properties")
+        if (localPropertiesFile.exists()) {
+            localPropertiesFile.inputStream().use { input ->
+                load(input)
+            }
+        }
+    }
 
 android {
     compileSdk =
@@ -22,6 +35,7 @@ android {
                 .toInt()
         versionCode = 1
         versionName = libs.versions.jchucomponents.get()
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
@@ -34,7 +48,22 @@ android {
         }
     }
 
-    buildFeatures.compose = true
+    buildFeatures {
+        buildConfig = true
+        compose = true
+    }
+    defaultConfig {
+        buildConfigField(
+            "String",
+            "SUPABASE_URL",
+            "\"${localProperties.getProperty("supabase.url").orEmpty()}\""
+        )
+        buildConfigField(
+            "String",
+            "SUPABASE_PUBLISHABLE_KEY",
+            "\"${localProperties.getProperty("supabase.publishableKey").orEmpty()}\""
+        )
+    }
     compileOptions {
         sourceCompatibility = JavaVersion.toVersion(libs.versions.java.get())
         targetCompatibility = JavaVersion.toVersion(libs.versions.java.get())
@@ -56,4 +85,13 @@ dependencies {
     implementation(project(":jchucomponents-ktx"))
     implementation(project(":jchucomponents-qr"))
     implementation(project(":jchucomponents-pay"))
+    implementation(project(":jchucomponents-room"))
+    implementation(project(":jchucomponents-supabase"))
+
+    androidTestImplementation(project(":jchucomponents-room"))
+    androidTestImplementation(libs.androidx.test.ext.junit)
+    androidTestImplementation(libs.androidx.test.runner)
+
+    kspAndroidTest(libs.androidx.room3.compiler)
+    ksp(libs.androidx.room3.compiler)
 }
