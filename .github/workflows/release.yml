@@ -146,4 +146,6 @@ jobs:
             :jchucomponents-network:publishAndReleaseToMavenCentral \
             :jchucomponents-pay:publishAndReleaseToMavenCentral \
             :jchucomponents-prefs:publishAndReleaseToMavenCentral \
-            :jchucomponents-qr:publishAndReleaseToMavenCentral
+            :jchucomponents-qr:publishAndReleaseToMavenCentral \
+            :jchucomponents-room:publishAndReleaseToMavenCentral \
+            :jchucomponents-supabase:publishAndReleaseToMavenCentral

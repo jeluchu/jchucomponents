@@ -13,9 +13,9 @@ Declare only the capabilities used by the application:
 kotlin {
     sourceSets {
         commonMain.dependencies {
-            implementation("io.github.jeluchu:jchucomponents-foundation:3.0.0-alpha07")
-            implementation("io.github.jeluchu:jchucomponents-network:3.0.0-alpha07")
-            implementation("io.github.jeluchu:jchucomponents-prefs:3.0.0-alpha07")
+            implementation("io.github.jeluchu:jchucomponents-foundation:3.0.0-alpha08")
+            implementation("io.github.jeluchu:jchucomponents-network:3.0.0-alpha08")
+            implementation("io.github.jeluchu:jchucomponents-prefs:3.0.0-alpha08")
         }
     }
 }
@@ -39,7 +39,7 @@ JchuComponents versions:
 ```kotlin
 dependencies {
     implementation(
-        platform("io.github.jeluchu:jchucomponents-bom:3.0.0-alpha07")
+        platform("io.github.jeluchu:jchucomponents-bom:3.0.0-alpha08")
     )
 
     implementation("io.github.jeluchu:jchucomponents-foundation")
