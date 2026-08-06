@@ -32,7 +32,7 @@ the optional native `JchuComponentsPay` product.
 
 ## Installation
 
-The examples below use `3.0.0-alpha08`. Replace it with the
+The examples below use `3.0.0-alpha09`. Replace it with the
 [latest available release](https://github.com/Jeluchu/jchucomponents/releases).
 
 ### Kotlin Multiplatform
@@ -45,10 +45,10 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             implementation(
-                "io.github.jeluchu:jchucomponents-foundation:3.0.0-alpha08"
+                "io.github.jeluchu:jchucomponents-foundation:3.0.0-alpha09"
             )
             implementation(
-                "io.github.jeluchu:jchucomponents-network:3.0.0-alpha08"
+                "io.github.jeluchu:jchucomponents-network:3.0.0-alpha09"
             )
         }
     }
@@ -92,7 +92,7 @@ Use the BOM to keep Android modules on the same version:
 ```kotlin
 dependencies {
     implementation(
-        platform("io.github.jeluchu:jchucomponents-bom:3.0.0-alpha08")
+        platform("io.github.jeluchu:jchucomponents-bom:3.0.0-alpha09")
     )
     implementation("com.github.jeluchu.jchucomponents:jchucomponents-ui")
     implementation("com.github.jeluchu.jchucomponents:jchucomponents-ktx")
@@ -104,7 +104,7 @@ Alternatively, specify each JitPack artifact version directly:
 ```kotlin
 dependencies {
     implementation(
-        "com.github.jeluchu.jchucomponents:jchucomponents-ui:3.0.0-alpha08"
+        "com.github.jeluchu.jchucomponents:jchucomponents-ui:3.0.0-alpha09"
     )
 }
 ```
@@ -392,9 +392,9 @@ Before tagging, update `jchucomponents` in `gradle/libs.versions.toml` and make
 sure CI passes on `v3`:
 
 ```bash
-git tag -a 3.0.0-alpha08 -m "3.0.0-alpha08"
+git tag -a 3.0.0-alpha09 -m "3.0.0-alpha09"
 git push origin v3
-git push origin 3.0.0-alpha08
+git push origin 3.0.0-alpha09
 ```
 
 SwiftPM publication additionally requires the repository variable
