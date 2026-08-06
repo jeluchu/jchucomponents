@@ -3,7 +3,11 @@ package com.jeluchu.jchucomponents.prefs
 import kotlinx.cinterop.ExperimentalForeignApi
 import platform.Foundation.NSDocumentDirectory
 import platform.Foundation.NSFileManager
+import platform.Foundation.NSRecursiveLock
 import platform.Foundation.NSUserDomainMask
+
+private val preferencesByPath = mutableMapOf<String, JchuPreferences>()
+private val preferencesByPathLock = NSRecursiveLock()
 
 @OptIn(ExperimentalForeignApi::class)
 fun createJchuPreferences(fileName: String = JchuPreferencesFileName): JchuPreferences {
@@ -16,5 +20,12 @@ fun createJchuPreferences(fileName: String = JchuPreferencesFileName): JchuPrefe
             error = null
         )
     val path = requireNotNull(documentDirectory?.path) + "/$fileName"
-    return JchuPreferences(dataStore = createJchuPreferencesDataStore(path))
+    preferencesByPathLock.lock()
+    return try {
+        preferencesByPath.getOrPut(path) {
+            JchuPreferences(dataStore = createJchuPreferencesDataStore(path))
+        }
+    } finally {
+        preferencesByPathLock.unlock()
+    }
 }

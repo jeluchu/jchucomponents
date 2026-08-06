@@ -52,8 +52,10 @@ import com.jeluchu.jchucomponents.prefs.createJchuPreferences
 
 ## Creating the preferences instance
 
-Create only one `JchuPreferences` instance for each preferences file and keep
-it as an application-level singleton.
+The platform factories cache one `JchuPreferences` instance for each file.
+Keep that instance at the application boundary and inject it into repositories;
+do not construct a `DataStore` for the same file through
+`createJchuPreferencesDataStore` elsewhere.
 
 ### Android
 
@@ -90,8 +92,34 @@ val preferences = createJchuPreferences(
 )
 ```
 
-The default file name on both platforms is
-`jchucomponents.preferences_pb`.
+The default file name is `jchucomponents.preferences_pb`. Android stores it in
+the app's `files/` directory and Apple stores it in the app's Documents
+directory.
+
+Pass a file name per app to isolate its preferences. For example, iNook KMP
+uses `inookuser.preferences_pb` on both platforms:
+
+```kotlin
+val preferences = createJchuPreferences(
+    context = applicationContext,
+    fileName = "inookuser.preferences_pb"
+)
+```
+
+On iOS or macOS, use the equivalent platform factory:
+
+```kotlin
+val preferences = createJchuPreferences(
+    fileName = "inookuser.preferences_pb"
+)
+```
+
+Older Android applications created with
+`preferencesDataStore(name = "default")` keep their data in
+`files/datastore/default.preferences_pb`. Migrating that legacy store to a
+custom file name is an application concern and must happen before the new store
+is read. Changing an existing file name or directory without a migration makes
+the preferences appear empty.
 
 ## Shared usage
 
@@ -154,6 +182,7 @@ val preferences = createJchuPreferences(
 val appPreferences = AppPreferences(preferences)
 ```
 
-Do not create multiple DataStore instances for the same file. Keep the
-platform-specific creation at the application boundary and use the injected
-repository from shared business logic.
+Do not create multiple DataStore instances for the same file. The platform
+factories reuse the instance they create; keep platform-specific creation at
+the application boundary and use the injected repository from shared business
+logic.
