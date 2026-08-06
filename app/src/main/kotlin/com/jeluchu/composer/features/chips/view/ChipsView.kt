@@ -9,6 +9,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.Star
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -26,6 +28,8 @@ import com.jeluchu.composer.core.ui.composables.ScaffoldStructure
 import com.jeluchu.composer.core.ui.theme.JeluchuTheme
 import com.jeluchu.jchucomponents.ui.composables.chips.Chip
 import com.jeluchu.jchucomponents.ui.composables.chips.ChipTagView
+import com.jeluchu.jchucomponents.ui.composables.chips.JchuAmountCounter
+import com.jeluchu.jchucomponents.ui.composables.chips.JchuAmountCounterColors
 import com.jeluchu.jchucomponents.ui.composables.chips.RemovableChip
 import com.jeluchu.jchucomponents.ui.composables.chips.SelectableChip
 import com.jeluchu.jchucomponents.ui.composables.chips.Tag
@@ -63,6 +67,23 @@ private fun ChipsCatalog(onBack: () -> Unit) {
                     contentDescription = fixtures[1].contentDescription,
                     isClickable = true,
                     onClick = { selected = !selected }
+                )
+            }
+
+            Text(
+                text = "Amount counters",
+                style = JchuCatalogTheme.typography.section,
+                color = JchuCatalogTheme.colors.content
+            )
+            Row(horizontalArrangement = Arrangement.spacedBy(JchuCatalogTheme.spacing.dimen08)) {
+                JchuAmountCounter(
+                    amount = "x3",
+                    imageVector = Icons.Rounded.Star,
+                    colors =
+                        JchuAmountCounterColors(
+                            containerColor = JchuCatalogTheme.colors.surface,
+                            contentColor = JchuCatalogTheme.colors.content
+                        )
                 )
             }
 

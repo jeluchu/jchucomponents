@@ -42,7 +42,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.jeluchu.jchucomponents.ktx.strings.empty
 import com.jeluchu.jchucomponents.ui.R
-import com.jeluchu.jchucomponents.ui.composables.column.ScrollableColumn
+import com.jeluchu.jchucomponents.ui.composables.column.JchuScrollableColumn
 import com.jeluchu.jchucomponents.ui.extensions.modifier.noRippleClickable
 import com.jeluchu.jchucomponents.ui.extensions.toImageVector
 import com.jeluchu.jchucomponents.ui.foundation.icon.IconLink
@@ -191,7 +191,7 @@ class TopBarSettings constructor(
 @Preview
 @Composable
 fun ToolbarActionsPreview() {
-    ScrollableColumn(
+    JchuScrollableColumn(
         verticalArrangement = Arrangement.spacedBy(10.dp)
     ) {
         Toolbar(

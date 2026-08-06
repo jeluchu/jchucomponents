@@ -8,6 +8,8 @@ enum JchuCatalogCategory: String, CaseIterable, Identifiable {
     case cards = "Cards"
     case chips = "Chips"
     case inputs = "Inputs"
+    case preferences = "Preferences"
+    case text = "Text"
     case extensions = "Extensions"
     case images = "Images"
     case lists = "Lists"
@@ -32,6 +34,10 @@ enum JchuCatalogCategory: String, CaseIterable, Identifiable {
             "tag"
         case .inputs:
             "text.cursor"
+        case .preferences:
+            "gearshape"
+        case .text:
+            "text.alignleft"
         case .extensions:
             "curlybraces"
         case .images:
@@ -207,6 +213,8 @@ enum JchuCatalogFixtures {
         JchuCatalogMenuOption(id: "cards", name: JchuCatalogCategory.cards.rawValue, systemImage: JchuCatalogCategory.cards.systemImage),
         JchuCatalogMenuOption(id: "chips", name: JchuCatalogCategory.chips.rawValue, systemImage: JchuCatalogCategory.chips.systemImage),
         JchuCatalogMenuOption(id: "inputs", name: JchuCatalogCategory.inputs.rawValue, systemImage: JchuCatalogCategory.inputs.systemImage),
+        JchuCatalogMenuOption(id: "preferences", name: JchuCatalogCategory.preferences.rawValue, systemImage: JchuCatalogCategory.preferences.systemImage),
+        JchuCatalogMenuOption(id: "text", name: JchuCatalogCategory.text.rawValue, systemImage: JchuCatalogCategory.text.systemImage),
         JchuCatalogMenuOption(id: "lists", name: JchuCatalogCategory.lists.rawValue, systemImage: JchuCatalogCategory.lists.systemImage),
         JchuCatalogMenuOption(id: "loaders", name: JchuCatalogCategory.loaders.rawValue, systemImage: JchuCatalogCategory.loaders.systemImage),
         JchuCatalogMenuOption(id: "progress", name: JchuCatalogCategory.progress.rawValue, systemImage: JchuCatalogCategory.progress.systemImage),
@@ -230,6 +238,8 @@ enum JchuCatalogFixtures {
                 JchuCatalogMenuOption(id: "cards", name: JchuCatalogCategory.cards.rawValue, systemImage: JchuCatalogCategory.cards.systemImage),
                 JchuCatalogMenuOption(id: "chips", name: JchuCatalogCategory.chips.rawValue, systemImage: JchuCatalogCategory.chips.systemImage),
                 JchuCatalogMenuOption(id: "inputs", name: JchuCatalogCategory.inputs.rawValue, systemImage: JchuCatalogCategory.inputs.systemImage),
+                JchuCatalogMenuOption(id: "preferences", name: JchuCatalogCategory.preferences.rawValue, systemImage: JchuCatalogCategory.preferences.systemImage),
+                JchuCatalogMenuOption(id: "text", name: JchuCatalogCategory.text.rawValue, systemImage: JchuCatalogCategory.text.systemImage),
                 JchuCatalogMenuOption(id: "lists", name: JchuCatalogCategory.lists.rawValue, systemImage: JchuCatalogCategory.lists.systemImage),
                 JchuCatalogMenuOption(id: "loaders", name: JchuCatalogCategory.loaders.rawValue, systemImage: JchuCatalogCategory.loaders.systemImage),
                 JchuCatalogMenuOption(id: "progress", name: JchuCatalogCategory.progress.rawValue, systemImage: JchuCatalogCategory.progress.systemImage),
@@ -295,7 +305,8 @@ enum JchuCatalogFixtures {
     ]
 
     static let cardsMenu = [
-        JchuCatalogMenuOption(id: "benefitCards", name: "BenefitCards", systemImage: "sparkles")
+        JchuCatalogMenuOption(id: "benefitCards", name: "BenefitCards", systemImage: "sparkles"),
+        JchuCatalogMenuOption(id: "requirementsCards", name: "RequirementsCards", systemImage: "rectangle.grid.2x2")
     ]
 
     static let scaffoldsMenu = [

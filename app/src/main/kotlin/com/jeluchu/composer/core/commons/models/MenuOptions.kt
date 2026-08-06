@@ -28,6 +28,10 @@ data class MenuOptions(
                     name = CatalogCategory.INPUTS.title
                 ),
                 MenuOptions(
+                    id = DestinationsIds.layouts,
+                    name = CatalogCategory.LAYOUTS.title
+                ),
+                MenuOptions(
                     id = DestinationsIds.lazyGrids,
                     name = CatalogCategory.LISTS.title
                 ),
@@ -54,6 +58,14 @@ data class MenuOptions(
                 MenuOptions(
                     id = DestinationsIds.progress,
                     name = CatalogCategory.PROGRESS.title
+                ),
+                MenuOptions(
+                    id = DestinationsIds.surfaces,
+                    name = CatalogCategory.SURFACES.title
+                ),
+                MenuOptions(
+                    id = DestinationsIds.text,
+                    name = CatalogCategory.TEXT.title
                 ),
                 MenuOptions(
                     id = DestinationsIds.dividers,
@@ -118,6 +130,10 @@ data class MenuOptions(
                 MenuOptions(
                     id = DestinationsIds.benefitCards,
                     name = Names.benefitCards
+                ),
+                MenuOptions(
+                    id = DestinationsIds.requirementsCards,
+                    name = Names.requirementsCards
                 ),
                 MenuOptions(
                     id = DestinationsIds.assistantCards,

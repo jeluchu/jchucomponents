@@ -71,6 +71,10 @@ private struct CatalogRootView: View {
             "Default, tag, selected and removable chip states."
         case "inputs":
             "Search, counted text and growing multiline fields."
+        case "preferences":
+            "Action, switch and single-choice settings rows."
+        case "text":
+            "Expandable text with caller-owned disclosure state."
         case "lists":
             "Static grid layouts and repeated item composition."
         case "loaders":
@@ -149,10 +153,16 @@ private struct CatalogDestinationView: View {
             menu("Cards", options: JchuCatalogFixtures.cardsMenu)
         case "benefitCards":
             BenefitsCatalogScreen()
+        case "requirementsCards":
+            RequirementsCardsCatalogScreen()
         case "chips":
             ChipsCatalogScreen()
         case "inputs":
             InputsCatalogScreen()
+        case "preferences":
+            PreferencesCatalogScreen()
+        case "text":
+            TextCatalogScreen()
         case "lists":
             menu("Lists", options: JchuCatalogFixtures.listsMenu)
         case "lazyStaticGrids":
@@ -390,6 +400,7 @@ private struct FloatingButtonsCatalogScreen: View {
 }
 
 private struct ChipsCatalogScreen: View {
+    @Environment(\.jchuTheme) private var theme
     @State private var selected = "Selected"
     @State private var removableVisible = true
 
@@ -423,6 +434,19 @@ private struct ChipsCatalogScreen: View {
                 }
             }
 
+            CatalogSection("Amount counters") {
+                FlowLayout(spacing: 8) {
+                    JchuAmountCounter(
+                        amount: "x3",
+                        colors: JchuAmountCounterColors(
+                            contentColor: theme.colors.content,
+                            containerColor: theme.colors.surface
+                        ),
+                        systemImageName: "star.fill"
+                    )
+                }
+            }
+
             CatalogSection("YouTube") {
                 FlowLayout(spacing: 8) {
                     ForEach(JchuCatalogFixtures.youtubeChipFixtures) { fixture in
@@ -443,6 +467,7 @@ private struct InputsCatalogScreen: View {
     @State private var componentName = ""
     @State private var notes = ""
     @State private var longContent = ""
+    @State private var selectedColor = "green"
 
     var body: some View {
         JchuScrollableScaffold("Inputs") {
@@ -504,6 +529,122 @@ private struct InputsCatalogScreen: View {
                         containerColor: theme.colors.surface,
                         contentColor: theme.colors.content
                     )
+                )
+            }
+
+            CatalogSection("Color picker") {
+                JchuColorPicker(
+                    options: [
+                        JchuColorOption(value: "green", color: .green, accessibilityLabel: "Green"),
+                        JchuColorOption(value: "blue", color: .blue, accessibilityLabel: "Blue"),
+                        JchuColorOption(value: "orange", color: .orange, accessibilityLabel: "Orange"),
+                        JchuColorOption(
+                            value: "disabled",
+                            color: .gray,
+                            accessibilityLabel: "Unavailable",
+                            isEnabled: false
+                        )
+                    ],
+                    selection: $selectedColor
+                )
+            }
+
+            CatalogSection("iNook color settings fidelity") {
+                JchuINookColorPicker(
+                    selection: $selectedColor,
+                    options: [
+                        JchuINookColorOption(colorAssetName: "green", color: .green),
+                        JchuINookColorOption(colorAssetName: "blue", color: .blue),
+                        JchuINookColorOption(colorAssetName: "orange", color: .orange),
+                        JchuINookColorOption(colorAssetName: "premium", color: .purple, isPremium: true)
+                    ],
+                    isSubscribed: false,
+                    isDarkTheme: false,
+                    title: "Phone color",
+                    description: "Choose the background color used by the phone."
+                )
+            }
+        }
+    }
+}
+
+private struct PreferencesCatalogScreen: View {
+    @State private var previewsEnabled = true
+    @State private var frequency = "Daily"
+
+    var body: some View {
+        JchuScrollableScaffold("Preferences") {
+            CatalogSection("Action") {
+                JchuPreferenceItem(
+                    "Catalog updates",
+                    description: "Open reusable preference settings",
+                    systemImage: "bell"
+                ) {}
+            }
+
+            CatalogSection("Switch") {
+                JchuPreferenceSwitch(
+                    "Enable previews",
+                    description: "Caller-owned switch state",
+                    systemImage: "sparkles",
+                    isOn: $previewsEnabled
+                )
+                JchuPreferenceSwitch(
+                    "Disabled preference",
+                    isOn: .constant(false),
+                    isEnabled: false
+                )
+            }
+
+            CatalogSection("Single choice") {
+                ForEach(["Daily", "Weekly"], id: \.self) { option in
+                    JchuPreferenceChoice(
+                        LocalizedStringKey(option),
+                        isSelected: frequency == option
+                    ) {
+                        frequency = option
+                    }
+                }
+            }
+
+            CatalogSection("iNook preference fidelity") {
+                JchuPreferenceToggle(
+                    systemImageName: "bell",
+                    title: "Enable notifications",
+                    isActive: $previewsEnabled
+                )
+                JchuSettingsToggle(
+                    title: "Enable previews",
+                    description: "Original settings toggle layout",
+                    isActive: $previewsEnabled
+                )
+            }
+        }
+    }
+}
+
+private struct TextCatalogScreen: View {
+    @State private var isExpanded = false
+
+    var body: some View {
+        JchuScrollableScaffold("Text") {
+            CatalogSection("Expandable text") {
+                JchuExpandableText(
+                    String(
+                        repeating: "The caller owns expansion state and the component only renders text. ",
+                        count: 6
+                    ),
+                    isExpanded: $isExpanded
+                )
+            }
+
+            CatalogSection("iNook expandable-description fidelity") {
+                JchuSimpleExpandableText(
+                    description: String(
+                        repeating: "This variant keeps the original internal state, gradient and disclosure behavior. ",
+                        count: 5
+                    ),
+                    config: JchuExpandableDescriptionConfig(enableHapticFeedback: false)
                 )
             }
         }
@@ -579,6 +720,49 @@ private struct BenefitsCatalogScreen: View {
                 BenefitCard(title: "Accessible states", subtitle: "Enabled, disabled, loading, error and long-content fixtures.")
                 BenefitCard(title: "Reusable SwiftUI", subtitle: "Catalog entries use the same public components exposed by the package.")
                 BenefitCard(title: "Theme ready", subtitle: "Light, dark and accessibility scenarios can be reviewed from the dashboard.")
+            }
+        }
+    }
+}
+
+private struct RequirementsCardsCatalogScreen: View {
+    @Environment(\.jchuTheme) private var theme
+
+    var body: some View {
+        let colors = JchuINookRequirementsCardColors(
+            strokeColor: theme.colors.content.opacity(0.4),
+            contentColor: theme.colors.content,
+            containerColor: theme.colors.content.opacity(0.05),
+            amountInfoColors: JchuINookAmountInfoColors(
+                contentColor: theme.colors.content,
+                containerColor: theme.colors.content.opacity(0.1),
+                iconColor: theme.colors.content
+            ),
+            amountColors: JchuINookRequirementsAmountCounterColors(
+                contentColor: theme.colors.content,
+                containerColor: theme.colors.content.opacity(0.1),
+                iconColor: theme.colors.content
+            )
+        )
+
+        JchuScrollableScaffold("RequirementsCards") {
+            CatalogSection("Text and marquee") {
+                JchuINookRequirementsCardText(
+                    title: "Lighting type",
+                    requirement: "Fluorescent lighting requirement",
+                    colors: colors
+                )
+            }
+            CatalogSection("Amount information") {
+                JchuINookRequirementsCardInfo(
+                    title: "Appearance",
+                    amount: "10%",
+                    colors: colors,
+                    dialogDefaults: JchuINookAmountInfoDialogDefaults(
+                        title: "Appearance",
+                        message: "Original alert interaction"
+                    )
+                )
             }
         }
     }

@@ -30,7 +30,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.jeluchu.jchucomponents.ui.R
-import com.jeluchu.jchucomponents.ui.composables.column.ScrollableColumn
+import com.jeluchu.jchucomponents.ui.composables.column.JchuScrollableColumn
 import com.jeluchu.jchucomponents.ui.extensions.modifier.noRippleClickable
 import com.jeluchu.jchucomponents.ui.extensions.toImageVector
 import com.jeluchu.jchucomponents.ui.extensions.toPainter
@@ -233,7 +233,7 @@ class CircularProgressCustom constructor(
 @Preview(showBackground = true)
 @Composable
 fun CircularProgressbarPreview() {
-    ScrollableColumn(
+    JchuScrollableColumn(
         verticalArrangement = Arrangement.spacedBy(10.dp)
     ) {
         Text(text = "CircularProgressbar with ImageVector")

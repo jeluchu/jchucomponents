@@ -58,6 +58,70 @@ final class JchuComponentsSwiftUITests: XCTestCase {
     }
 
     @MainActor
+    func testINookExpandableDescriptionFamilyExposesNativeInitializers() {
+        let config = JchuExpandableDescriptionConfig(enableHapticFeedback: false)
+        _ = JchuExpandableDescription(
+            image: "https://example.com/image.png",
+            description: "Description",
+            config: config
+        )
+        _ = JchuExpandableDescriptionGallery(
+            description: "Description",
+            images: [],
+            config: config
+        )
+        _ = JchuExpandableDescriptionAction(
+            image: "https://example.com/image.png",
+            description: "Description",
+            action: "Accessories",
+            config: config
+        ) { EmptyView() }
+        _ = JchuSimpleExpandableText(description: "Description", config: config)
+    }
+
+    @MainActor
+    func testINookRequirementsCardFamilyExposesNativeInitializers() {
+        let colors = JchuINookRequirementsCardColors()
+        _ = JchuINookRequirementsCard(
+            title: "Wood",
+            amount: "5",
+            image: "wood_icon",
+            colors: colors
+        )
+        _ = JchuINookRequirementsCardIcon(
+            title: "Kit",
+            amount: "2",
+            iconName: "paintbrush.fill",
+            colors: colors
+        )
+        _ = JchuINookRequirementsCardText(
+            title: "Requirements",
+            requirement: "Complete 10 tasks",
+            colors: colors
+        )
+        _ = JchuINookRequirementsCardInfo(
+            title: "Bells",
+            amount: "1000",
+            colors: colors,
+            dialogDefaults: JchuINookAmountInfoDialogDefaults(
+                title: "Bells Information",
+                message: "Amount details"
+            )
+        )
+    }
+
+    @MainActor
+    func testINookColorPickerExposesControlledInitializer() {
+        var selection = "green"
+        _ = JchuINookColorPicker(
+            selection: Binding(get: { selection }, set: { selection = $0 }),
+            options: [JchuINookColorOption(colorAssetName: "green", color: .green)],
+            isSubscribed: false,
+            isDarkTheme: false
+        )
+    }
+
+    @MainActor
     func testInputViewsExposeControlledAndUncontrolledInitializers() {
         var query = ""
         var isExpanded = false

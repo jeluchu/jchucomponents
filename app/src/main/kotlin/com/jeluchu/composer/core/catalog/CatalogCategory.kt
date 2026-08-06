@@ -7,8 +7,11 @@ enum class CatalogCategory(
     CARDS("Cards"),
     CHIPS("Chips"),
     INPUTS("Inputs"),
+    LAYOUTS("Layouts"),
     LISTS("Lists"),
     LOADERS("Loaders"),
     PROGRESS("Progress"),
+    SURFACES("Surfaces"),
+    TEXT("Text"),
     TOOLBARS("Toolbars")
 }

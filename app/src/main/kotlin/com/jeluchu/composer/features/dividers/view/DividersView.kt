@@ -17,7 +17,7 @@ import com.jeluchu.composer.core.ui.theme.milky
 import com.jeluchu.composer.core.ui.theme.primary
 import com.jeluchu.composer.core.ui.theme.secondary
 import com.jeluchu.composer.core.utils.Names
-import com.jeluchu.jchucomponents.ui.composables.column.ScrollableColumn
+import com.jeluchu.jchucomponents.ui.composables.column.JchuScrollableColumn
 import com.jeluchu.jchucomponents.ui.composables.divider.DashedDividerInteractivePreview
 import com.jeluchu.jchucomponents.ui.composables.divider.DashedDividerStaticPreview
 
@@ -47,7 +47,7 @@ private fun Dividers() =
         },
         containerColor = secondary
     ) { contentPadding ->
-        ScrollableColumn(
+        JchuScrollableColumn(
             modifier = Modifier.padding(contentPadding),
             verticalArrangement = Arrangement.spacedBy(10.dp)
         ) {

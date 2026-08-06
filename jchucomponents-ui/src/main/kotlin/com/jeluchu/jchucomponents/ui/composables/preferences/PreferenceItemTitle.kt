@@ -12,7 +12,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
+import androidx.compose.ui.unit.TextUnit.Companion.Unspecified
 import com.jeluchu.jchucomponents.ktx.colors.opacity
 
 @Composable
@@ -20,7 +20,7 @@ internal fun PreferenceItemTitle(
     modifier: Modifier = Modifier,
     text: String,
     maxLines: Int = 2,
-    fontSize: TextUnit = 20.sp,
+    fontSize: TextUnit = Unspecified,
     style: TextStyle = MaterialTheme.typography.titleLarge,
     enabled: Boolean,
     color: Color = MaterialTheme.colorScheme.onBackground,
@@ -42,7 +42,7 @@ internal fun PreferenceItemDescription(
     modifier: Modifier = Modifier,
     text: String,
     maxLines: Int = Int.MAX_VALUE,
-    fontSize: TextUnit = 16.sp,
+    fontSize: TextUnit = Unspecified,
     style: TextStyle = MaterialTheme.typography.bodyMedium,
     enabled: Boolean,
     color: Color = MaterialTheme.colorScheme.onSurfaceVariant,
@@ -54,7 +54,7 @@ internal fun PreferenceItemDescription(
         maxLines = maxLines,
         fontSize = fontSize,
         overflow = overflow,
-        color = color.copy(.4f),
+        color = color.copy(alpha = if (enabled) 0.6f else 0.38f),
         modifier = modifier.padding(top = 2.dp)
     )
 }

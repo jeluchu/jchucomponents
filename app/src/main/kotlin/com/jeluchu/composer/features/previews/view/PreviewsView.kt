@@ -13,6 +13,7 @@ import androidx.compose.material.SnackbarHostState
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Notifications
+import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -34,9 +35,13 @@ import com.jeluchu.composer.core.utils.Names
 import com.jeluchu.jchucomponents.ui.composables.dropdown.DropdownItem
 import com.jeluchu.jchucomponents.ui.composables.dropdown.DropdownItemOption
 import com.jeluchu.jchucomponents.ui.composables.pager.PageIndicator
-import com.jeluchu.jchucomponents.ui.composables.preferences.PreferenceItem
-import com.jeluchu.jchucomponents.ui.composables.preferences.PreferenceSingleChoiceItem
-import com.jeluchu.jchucomponents.ui.composables.preferences.PreferenceSwitch
+import com.jeluchu.jchucomponents.ui.composables.preferences.JchuPreferenceChoice
+import com.jeluchu.jchucomponents.ui.composables.preferences.JchuPreferenceItem
+import com.jeluchu.jchucomponents.ui.composables.preferences.JchuPreferenceSwitch
+import com.jeluchu.jchucomponents.ui.composables.preferences.JchuPlainPreference
+import com.jeluchu.jchucomponents.ui.composables.preferences.JchuPlainPreferenceColors
+import com.jeluchu.jchucomponents.ui.composables.preferences.JchuSwitchPreference
+import com.jeluchu.jchucomponents.ui.composables.preferences.JchuSwitchPreferenceColors
 import com.jeluchu.jchucomponents.ui.composables.shimmer.MiniPostItemShimmer
 import com.jeluchu.jchucomponents.ui.composables.shimmer.MovieItemShimmer
 import com.jeluchu.jchucomponents.ui.composables.snackbar.SnackbarCustomized
@@ -88,35 +93,60 @@ private fun PreviewsCatalog(onBack: () -> Unit) {
         }
 
         CatalogSection("Preferences") {
-            PreferenceItem(
+            JchuPreferenceItem(
                 title = "Catalog updates",
+                onClick = {},
                 description = "Reusable preference row",
-                icon = Icons.Outlined.Notifications,
-                containerColor = JchuCatalogTheme.colors.surface,
-                contentColor = JchuCatalogTheme.colors.content
-            )
-            PreferenceSwitch(
-                title = "Enable previews",
-                description = "Switch row state",
-                isChecked = checked,
                 containerColor = JchuCatalogTheme.colors.surface,
                 contentColor = JchuCatalogTheme.colors.content,
-                onClick = { checked = !checked }
+                leadingContent = {
+                    Icon(Icons.Outlined.Notifications, contentDescription = null)
+                }
+            )
+            JchuPreferenceSwitch(
+                title = "Enable previews",
+                description = "Switch row state",
+                checked = checked,
+                containerColor = JchuCatalogTheme.colors.surface,
+                contentColor = JchuCatalogTheme.colors.content,
+                onCheckedChange = { checked = it }
             )
             listOf("Daily", "Weekly").forEach { option ->
-                PreferenceSingleChoiceItem(
-                    text = option,
+                JchuPreferenceChoice(
+                    title = option,
                     selected = option == selectedOption,
-                    colors =
-                        com.jeluchu.jchucomponents.ui.composables.preferences.PreferenceChoiceColors(
-                            selectedRadioColor = JchuCatalogTheme.colors.accent,
-                            unselectedRadioColor = JchuCatalogTheme.colors.content,
-                            containerColor = JchuCatalogTheme.colors.surface,
-                            contentColor = JchuCatalogTheme.colors.content
-                        ),
+                    containerColor = JchuCatalogTheme.colors.surface,
+                    contentColor = JchuCatalogTheme.colors.content,
                     onClick = { selectedOption = option }
                 )
             }
+        }
+
+        CatalogSection("iNook preference fidelity") {
+            JchuPlainPreference(
+                title = "Catalog updates",
+                subtitle = "Original dimensions and typography",
+                navigationContentDescription = "Go back",
+                colors =
+                    JchuPlainPreferenceColors(
+                        containerColor = JchuCatalogTheme.colors.surface,
+                        contentColor = JchuCatalogTheme.colors.content
+                    ),
+                onClick = {}
+            )
+            JchuSwitchPreference(
+                title = "Enable previews",
+                subtitle = "Original switch colors and leaf thumb",
+                value = checked,
+                darkTheme = false,
+                imageVector = Icons.Outlined.Notifications,
+                colors =
+                    JchuSwitchPreferenceColors(
+                        containerColor = JchuCatalogTheme.colors.surface,
+                        contentColor = JchuCatalogTheme.colors.content
+                    ),
+                onValueChange = { checked = it }
+            )
         }
 
         CatalogSection("Tabs") {

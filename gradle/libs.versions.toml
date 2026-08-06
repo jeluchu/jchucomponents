@@ -1,16 +1,17 @@
 [versions]
-jchucomponents = "3.0.0-alpha08"
+jchucomponents = "3.0.0-alpha09"
 android-compile-sdk = "37"
 android-target-sdk = "37"
 android-min-sdk = "21"
 sample-min-sdk = "23"
 java = "21"
+junit = "4.13.2"
 
 agp = "9.2.1"
 ktor="3.5.1"
 koin = "4.2.2"
 kotlin = "2.4.10"
-supabase = "3.6.0"
+supabase = "3.7.0"
 dokka = "2.2.0"
 binaryCompatibilityValidator = "0.18.1"
 mavenPublish = "0.37.0"
@@ -32,10 +33,12 @@ composeBom = "2026.06.01"
 desugar_jdk_libs = "2.1.5"
 
 [libraries]
+junit = { module = "junit:junit", version.ref = "junit" }
 androidx-datastore = "androidx.datastore:datastore-preferences:1.2.1"
 androidx-activity-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activity" }
 androidx-browser = "androidx.browser:browser:1.10.0"
 androidx-compose-animation = { module = "androidx.compose.animation:animation" }
+androidx-compose-animation-graphics = { module = "androidx.compose.animation:animation-graphics" }
 androidx-compose-foundation = { module = "androidx.compose.foundation:foundation" }
 androidx-compose-foundation-foundation-layout = { module = "androidx.compose.foundation:foundation-layout" }
 androidx-compose-material = { module = "androidx.compose.material:material" }

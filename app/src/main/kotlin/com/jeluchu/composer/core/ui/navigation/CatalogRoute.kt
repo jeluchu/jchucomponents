@@ -21,6 +21,9 @@ sealed interface CatalogRoute : NavKey {
     data object Inputs : CatalogRoute
 
     @Serializable
+    data object Layouts : CatalogRoute
+
+    @Serializable
     data object Loaders : CatalogRoute
 
     @Serializable
@@ -37,6 +40,12 @@ sealed interface CatalogRoute : NavKey {
 
     @Serializable
     data object Progress : CatalogRoute
+
+    @Serializable
+    data object Surfaces : CatalogRoute
+
+    @Serializable
+    data object Text : CatalogRoute
 
     @Serializable
     data object CircularProgress : CatalogRoute
@@ -73,6 +82,9 @@ sealed interface CatalogRoute : NavKey {
 
     @Serializable
     data object BenefitCards : CatalogRoute
+
+    @Serializable
+    data object RequirementsCards : CatalogRoute
 
     @Serializable
     data object AssistantCards : CatalogRoute

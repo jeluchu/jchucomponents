@@ -14,7 +14,7 @@ import androidx.compose.ui.unit.dp
 import com.jeluchu.composer.core.ui.theme.milky
 import com.jeluchu.composer.core.ui.theme.secondary
 import com.jeluchu.jchucomponents.ui.R
-import com.jeluchu.jchucomponents.ui.composables.column.ScrollableColumn
+import com.jeluchu.jchucomponents.ui.composables.column.JchuScrollableColumn
 import com.jeluchu.jchucomponents.ui.composables.toolbars.CenterToolbarColors
 import com.jeluchu.jchucomponents.ui.composables.toolbars.Toolbar
 import com.jeluchu.jchucomponents.ui.extensions.toImageVector
@@ -46,7 +46,7 @@ fun ScaffoldStructure(
     },
     containerColor = secondary
 ) { contentPadding ->
-    ScrollableColumn(
+    JchuScrollableColumn(
         modifier = Modifier.padding(contentPadding),
         verticalArrangement = Arrangement.spacedBy(10.dp)
     ) { content() }
@@ -81,7 +81,7 @@ fun ScaffoldStructure(
     },
     containerColor = colors.containerColor
 ) { contentPadding ->
-    ScrollableColumn(
+    JchuScrollableColumn(
         modifier =
             Modifier
                 .padding(contentPadding)
