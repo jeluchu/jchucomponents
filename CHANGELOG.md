@@ -1,5 +1,14 @@
 # Changelog
 
+## 3.0.0-alpha10
+
+### Changed
+
+- Reissued the `3.0.0-alpha09` component set under new coordinates after a
+  GitHub Actions infrastructure incident prevented the Maven Central and
+  SwiftPM publication jobs from acquiring hosted runners.
+- No source or public API changes from `3.0.0-alpha09`.
+
 ## 3.0.0-alpha09
 
 ### Added
