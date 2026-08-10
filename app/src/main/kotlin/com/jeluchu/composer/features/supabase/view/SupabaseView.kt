@@ -31,7 +31,6 @@ import com.jeluchu.composer.core.catalog.ProvideJchuCatalogTheme
 import com.jeluchu.composer.core.ui.composables.ScaffoldStructure
 import com.jeluchu.composer.core.ui.theme.JeluchuTheme
 import com.jeluchu.composer.core.utils.Names
-import com.jeluchu.jchucomponents.network.models.Failure
 import com.jeluchu.jchucomponents.network.models.Resource
 import com.jeluchu.jchucomponents.supabase.JchuSupabase
 import com.jeluchu.jchucomponents.supabase.JchuSupabaseAuthConfig
@@ -68,7 +67,6 @@ private fun SupabaseCatalog(onBack: () -> Unit) {
                         publishableKey = BuildConfig.SUPABASE_PUBLISHABLE_KEY,
                         auth =
                             JchuSupabaseAuthConfig(
-                                autoLoadFromStorage = false,
                                 defaultRedirectUrl = authRedirectUrl,
                                 scheme = "com.jeluchu.composer",
                                 host = "supabase-auth"
@@ -125,9 +123,9 @@ private fun SupabaseCatalog(onBack: () -> Unit) {
                 isLoading = true
                 status = "Signing in"
             },
-            onSuccess = {
+            onSuccess = { user ->
                 isLoading = false
-                status = "Signed in"
+                status = "Signed in as ${user.email ?: user.id}"
             },
             onError = { failure ->
                 isLoading = false
@@ -148,9 +146,14 @@ private fun SupabaseCatalog(onBack: () -> Unit) {
                 isLoading = true
                 status = "Signing up"
             },
-            onSuccess = {
+            onSuccess = { result ->
                 isLoading = false
-                status = "Signed up. Check email confirmation if enabled."
+                status =
+                    if (result.requiresEmailConfirmation) {
+                        "Signed up. Check your email to confirm the account."
+                    } else {
+                        "Signed up and authenticated."
+                    }
             },
             onError = { failure ->
                 isLoading = false
@@ -462,11 +465,11 @@ private fun SupabaseNoteRow(
     }
 }
 
-private fun <T> CoroutineScope.collectResource(
-    flow: Flow<Resource<Failure, T>>,
+private fun <E, T> CoroutineScope.collectResource(
+    flow: Flow<Resource<E, T>>,
     onLoading: () -> Unit,
     onSuccess: (T) -> Unit,
-    onError: (Failure) -> Unit
+    onError: (E) -> Unit
 ) {
     launch {
         flow.collect { resource ->

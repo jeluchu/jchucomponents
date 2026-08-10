@@ -5,6 +5,8 @@ import com.jeluchu.jchucomponents.network.models.Resource
 import com.jeluchu.jchucomponents.supabase.flow.supabaseResource
 import io.github.jan.supabase.SupabaseClient
 import io.github.jan.supabase.postgrest.from
+import io.github.jan.supabase.postgrest.postgrest
+import io.github.jan.supabase.postgrest.rpc
 import kotlinx.coroutines.flow.Flow
 
 class JchuSupabaseDatabase internal constructor(
@@ -67,6 +69,42 @@ class JchuSupabaseDatabase internal constructor(
             client.from(table).insert(value) {
                 select()
             }.decodeSingle<T>()
+        }
+
+    inline fun <reified Response : Any> rpc(
+        function: String
+    ): Flow<Resource<Failure, Response>> =
+        supabaseResource {
+            client.postgrest.rpc(function).decodeAs<Response>()
+        }
+
+    inline fun <reified Parameters : Any, reified Response : Any> rpc(
+        function: String,
+        parameters: Parameters
+    ): Flow<Resource<Failure, Response>> =
+        supabaseResource {
+            client.postgrest.rpc(
+                function = function,
+                parameters = parameters
+            ).decodeAs<Response>()
+        }
+
+    fun rpcUnit(
+        function: String
+    ): Flow<Resource<Failure, Unit>> =
+        supabaseResource {
+            client.postgrest.rpc(function)
+        }
+
+    inline fun <reified Parameters : Any> rpcUnit(
+        function: String,
+        parameters: Parameters
+    ): Flow<Resource<Failure, Unit>> =
+        supabaseResource {
+            client.postgrest.rpc(
+                function = function,
+                parameters = parameters
+            )
         }
 
     inline fun <reified T : Any> createAll(

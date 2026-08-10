@@ -1,5 +1,5 @@
 [versions]
-jchucomponents = "3.0.0-alpha10"
+jchucomponents = "3.0.0-alpha11"
 android-compile-sdk = "37"
 android-target-sdk = "37"
 android-min-sdk = "21"

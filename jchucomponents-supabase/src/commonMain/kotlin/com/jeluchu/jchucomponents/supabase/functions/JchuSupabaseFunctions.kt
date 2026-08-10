@@ -13,20 +13,52 @@ class JchuSupabaseFunctions internal constructor(
     internal val client: SupabaseClient
 ) {
     inline fun <reified Response : Any> invoke(
-        name: String
+        name: String,
+        options: JchuSupabaseFunctionOptions = JchuSupabaseFunctionOptions()
     ): Flow<Resource<Failure, Response>> =
         supabaseResource {
-            client.functions.invoke(name).body<Response>()
+            client.functions
+                .invoke(
+                    function = name,
+                    headers = options.toKtorHeaders()
+                ).body<Response>()
         }
 
     inline fun <reified Request : Any, reified Response : Any> invoke(
         name: String,
-        body: Request
+        body: Request,
+        options: JchuSupabaseFunctionOptions = JchuSupabaseFunctionOptions()
     ): Flow<Resource<Failure, Response>> =
+        supabaseResource {
+            client.functions
+                .invoke(
+                    function = name,
+                    body = body,
+                    headers = options.toKtorHeaders()
+                ).body<Response>()
+        }
+
+    fun invokeUnit(
+        name: String,
+        options: JchuSupabaseFunctionOptions = JchuSupabaseFunctionOptions()
+    ): Flow<Resource<Failure, Unit>> =
         supabaseResource {
             client.functions.invoke(
                 function = name,
-                body = body
-            ).body<Response>()
+                headers = options.toKtorHeaders()
+            )
+        }
+
+    inline fun <reified Request : Any> invokeUnit(
+        name: String,
+        body: Request,
+        options: JchuSupabaseFunctionOptions = JchuSupabaseFunctionOptions()
+    ): Flow<Resource<Failure, Unit>> =
+        supabaseResource {
+            client.functions.invoke(
+                function = name,
+                body = body,
+                headers = options.toKtorHeaders()
+            )
         }
 }

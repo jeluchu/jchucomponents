@@ -13,9 +13,10 @@ Declare only the capabilities used by the application:
 kotlin {
     sourceSets {
         commonMain.dependencies {
-            implementation("io.github.jeluchu:jchucomponents-foundation:3.0.0-alpha10")
-            implementation("io.github.jeluchu:jchucomponents-network:3.0.0-alpha10")
-            implementation("io.github.jeluchu:jchucomponents-prefs:3.0.0-alpha10")
+            implementation("io.github.jeluchu:jchucomponents-foundation:3.0.0-alpha11")
+            implementation("io.github.jeluchu:jchucomponents-network:3.0.0-alpha11")
+            implementation("io.github.jeluchu:jchucomponents-prefs:3.0.0-alpha11")
+            implementation("io.github.jeluchu:jchucomponents-supabase:3.0.0-alpha11")
         }
     }
 }
@@ -30,6 +31,7 @@ Available modules:
 | `jchucomponents-pay` | Android, iOS, macOS | Shared payment and subscription models |
 | `jchucomponents-prefs` | Android, iOS, macOS | Typed observable preferences |
 | `jchucomponents-qr` | Android, iOS, macOS | QR encoding and decoding |
+| `jchucomponents-supabase` | Android, iOS, macOS | Supabase Auth, PostgREST, RPC, Realtime and Edge Functions |
 
 ## Android
 
@@ -39,7 +41,7 @@ JchuComponents versions:
 ```kotlin
 dependencies {
     implementation(
-        platform("io.github.jeluchu:jchucomponents-bom:3.0.0-alpha10")
+        platform("io.github.jeluchu:jchucomponents-bom:3.0.0-alpha11")
     )
 
     implementation("io.github.jeluchu:jchucomponents-foundation")

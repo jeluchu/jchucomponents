@@ -21,8 +21,8 @@ kotlin {
             api(libs.supabase.functions)
             api(libs.supabase.postgrest)
             api(libs.supabase.realtime)
-            implementation(libs.org.jetbrains.kotlinx.kotlinx.coroutines.core)
-            implementation(libs.org.jetbrains.kotlinx.kotlinx.serialization.json)
+            api(libs.org.jetbrains.kotlinx.kotlinx.coroutines.core)
+            api(libs.org.jetbrains.kotlinx.kotlinx.serialization.json)
         }
 
         androidMain.dependencies {

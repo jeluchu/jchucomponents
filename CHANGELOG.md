@@ -1,5 +1,37 @@
 # Changelog
 
+## 3.0.0-alpha11
+
+### Breaking changes
+
+- `signInWithEmail`, `signUpWithEmail` and `signOut` now return typed Auth
+  results/failures instead of `Failure` with `Unit` payloads. Consumers must
+  update collectors and callbacks to use `JchuSupabaseAuthFailure`,
+  `JchuSupabaseAuthUser` and `JchuSupabaseSignUpResult` as applicable.
+
+### Added
+
+- Typed Supabase Auth users, session states and failures for login, registration
+  and startup restoration flows.
+- Email confirmation resend, password recovery/update, manual refresh, callback
+  handling and scoped sign-out operations.
+- Configurable Auth persistence, PKCE verifier storage, refresh behavior and
+  lifecycle settings. PKCE is now the JchuComponents default.
+- PostgREST RPC helpers and Edge Function options for custom headers,
+  idempotency keys and correlation ids.
+
+### Changed
+
+- Supabase coroutine and JSON types used by the public API are exported as API
+  dependencies.
+
+### Fixed
+
+- Auth callbacks now validate configured schemes and hosts
+  case-insensitively and decode errors returned in implicit-flow fragments.
+- Auth flows preserve coroutine cancellation and classify network failures as
+  retryable typed errors.
+
 ## 3.0.0-alpha10
 
 ### Changed

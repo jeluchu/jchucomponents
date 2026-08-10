@@ -32,7 +32,7 @@ the optional native `JchuComponentsPay` product.
 
 ## Installation
 
-The examples below use `3.0.0-alpha10`. Replace it with the
+The examples below use `3.0.0-alpha11`. Replace it with the
 [latest available release](https://github.com/Jeluchu/jchucomponents/releases).
 
 ### Kotlin Multiplatform
@@ -45,10 +45,10 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             implementation(
-                "io.github.jeluchu:jchucomponents-foundation:3.0.0-alpha10"
+                "io.github.jeluchu:jchucomponents-foundation:3.0.0-alpha11"
             )
             implementation(
-                "io.github.jeluchu:jchucomponents-network:3.0.0-alpha10"
+                "io.github.jeluchu:jchucomponents-network:3.0.0-alpha11"
             )
         }
     }
@@ -92,7 +92,7 @@ Use the BOM to keep Android modules on the same version:
 ```kotlin
 dependencies {
     implementation(
-        platform("io.github.jeluchu:jchucomponents-bom:3.0.0-alpha10")
+        platform("io.github.jeluchu:jchucomponents-bom:3.0.0-alpha11")
     )
     implementation("com.github.jeluchu.jchucomponents:jchucomponents-ui")
     implementation("com.github.jeluchu.jchucomponents:jchucomponents-ktx")
@@ -104,7 +104,7 @@ Alternatively, specify each JitPack artifact version directly:
 ```kotlin
 dependencies {
     implementation(
-        "com.github.jeluchu.jchucomponents:jchucomponents-ui:3.0.0-alpha10"
+        "com.github.jeluchu.jchucomponents:jchucomponents-ui:3.0.0-alpha11"
     )
 }
 ```
@@ -201,14 +201,81 @@ repositories:
 val supabaseModule = jchuSupabaseModule(
     JchuSupabaseConfig(
         url = BuildKonfig.SUPABASE_URL,
-        publishableKey = BuildKonfig.SUPABASE_PUBLISHABLE_KEY
+        publishableKey = BuildKonfig.SUPABASE_PUBLISHABLE_KEY,
+        auth = JchuSupabaseAuthConfig(
+            flowType = JchuSupabaseAuthFlowType.PKCE,
+            alwaysAutoRefresh = true,
+            autoLoadFromStorage = true,
+            autoSaveToStorage = true,
+            defaultRedirectUrl = "com.example.app://auth-callback",
+            scheme = "com.example.app",
+            host = "auth-callback"
+        )
     )
 )
 ```
 
 Repositories can depend on `JchuSupabaseDatabase`, `JchuSupabaseAuth`,
-`JchuSupabaseFunctions` or `JchuSupabaseRealtime` and keep returning
-`Flow<Resource<Failure, T>>`:
+`JchuSupabaseFunctions` or `JchuSupabaseRealtime`. Database and Function
+operations return `Flow<Resource<Failure, T>>`; Auth returns a typed
+`JchuSupabaseAuthFailure` so login screens can distinguish invalid credentials,
+unconfirmed email, weak password, rate limiting, session expiry and network
+failures.
+
+Registration reports whether Supabase created a session or is waiting for the
+email confirmation link:
+
+```kotlin
+auth.signUpWithEmail(
+    email = email,
+    password = password,
+    redirectUrl = "com.example.app://auth-callback",
+    metadata = buildJsonObject {
+        put("display_name", displayName)
+        put("requested_account_type", "shop")
+    }
+).collect { resource ->
+    if (resource is Resource.Success) {
+        val result = resource.data ?: return@collect
+        if (result.requiresEmailConfirmation) {
+            showCheckYourEmail()
+        } else {
+            openAuthenticatedArea()
+        }
+    }
+}
+```
+
+Forward the Android or Apple deep-link URL to
+`auth.handleAuthCallback(url)`. Observe `auth.sessionState` during app startup;
+it differentiates initialization, restored/authenticated sessions, sign-out and
+refresh failures. Password recovery, confirmation resend, password update,
+manual refresh, local session clearing and local/global sign-out are also
+available on `JchuSupabaseAuth`.
+
+The default Supabase session and PKCE caches are used unless custom
+`SessionManager` and `CodeVerifierCache` implementations are supplied. Inject
+platform-secure implementations when the application requires explicit token
+encryption or retention policies. Never use `user_metadata` as an authorization
+source: roles, shop ownership and administrator approval must be enforced by
+database data, RLS and server-side functions.
+
+PostgREST RPCs are available through `database.rpc(...)`. Edge Functions accept
+idempotency and correlation identifiers without allowing callers to override
+the Supabase authentication headers:
+
+```kotlin
+functions.invoke<AwardPointsRequest, AwardPointsResponse>(
+    name = "award-points",
+    body = request,
+    options = JchuSupabaseFunctionOptions(
+        idempotencyKey = request.operationId,
+        correlationId = request.correlationId
+    )
+)
+```
+
+Basic table access remains available for ordinary RLS-protected data:
 
 ```kotlin
 @Serializable
@@ -392,9 +459,9 @@ Before tagging, update `jchucomponents` in `gradle/libs.versions.toml` and make
 sure CI passes on `v3`:
 
 ```bash
-git tag -a 3.0.0-alpha10 -m "3.0.0-alpha10"
+git tag -a 3.0.0-alpha11 -m "3.0.0-alpha11"
 git push origin v3
-git push origin 3.0.0-alpha10
+git push origin 3.0.0-alpha11
 ```
 
 SwiftPM publication additionally requires the repository variable
