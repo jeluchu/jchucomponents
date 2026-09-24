@@ -64,4 +64,16 @@ class JchuSupabaseAuthModelsTest {
         assertEquals(expected = JchuSupabaseAuthFailureCode.CALLBACK_INVALID, actual = failure.code)
         assertEquals(expected = "Invalid callback", actual = failure.message)
     }
+
+    @Test
+    fun unknownFailuresNeverExposeRequestHeadersOrTokens() {
+        val failure =
+            IllegalStateException(
+                "URL: https://example.test/auth/v1/signup Headers: Authorization=Bearer-secret apikey=secret"
+            ).toJchuSupabaseAuthFailure()
+
+        assertEquals(expected = JchuSupabaseAuthFailureCode.UNKNOWN, actual = failure.code)
+        assertEquals(expected = "Authentication failed.", actual = failure.message)
+        assertFalse(failure.message.contains("secret"))
+    }
 }

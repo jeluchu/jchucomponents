@@ -121,7 +121,12 @@ private fun AuthRestException.toAuthRestFailure(
         }
     return JchuSupabaseAuthFailure(
         code = resolvedCode,
-        message = errorDescription.ifBlank { message.orEmpty().ifBlank { "Authentication failed." } },
+        message =
+            when (resolvedCode) {
+                JchuSupabaseAuthFailureCode.UNKNOWN -> "Authentication failed."
+                JchuSupabaseAuthFailureCode.SERVER -> "Authentication service is unavailable."
+                else -> errorDescription.ifBlank { "Authentication failed." }
+            },
         statusCode = response.status.value,
         rawCode = error,
         weakPasswordReasons = weakPasswordReasons,
