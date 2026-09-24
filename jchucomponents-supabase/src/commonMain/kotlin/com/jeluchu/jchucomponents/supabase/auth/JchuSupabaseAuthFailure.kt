@@ -94,17 +94,18 @@ internal fun Throwable.toJchuSupabaseAuthFailure(): JchuSupabaseAuthFailure =
                 message = message.orEmpty().ifBlank { "Network connection failed." },
                 retryable = true
             )
-        else ->
+        else -> {
+            val isTimeout = message?.contains("timeout", ignoreCase = true) == true
             JchuSupabaseAuthFailure(
+                retryable = isTimeout,
                 code =
-                    if (message?.contains("timeout", ignoreCase = true) == true) {
-                        JchuSupabaseAuthFailureCode.TIMEOUT
-                    } else {
-                        JchuSupabaseAuthFailureCode.UNKNOWN
-                    },
-                message = message.orEmpty().ifBlank { "Authentication failed." },
-                retryable = message?.contains("timeout", ignoreCase = true) == true
+                    if (isTimeout) JchuSupabaseAuthFailureCode.TIMEOUT
+                    else JchuSupabaseAuthFailureCode.UNKNOWN,
+                message =
+                    if (isTimeout) "Authentication request timed out."
+                    else "Authentication failed."
             )
+        }
     }
 
 private fun AuthRestException.toAuthRestFailure(
