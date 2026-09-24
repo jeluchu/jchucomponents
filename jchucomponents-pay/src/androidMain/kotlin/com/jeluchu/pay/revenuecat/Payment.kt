@@ -27,11 +27,14 @@ import com.revenuecat.purchases.restorePurchasesWith
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.suspendCancellableCoroutine
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
 import java.util.Locale
 import kotlin.math.roundToLong
+import kotlin.coroutines.resume
+import kotlin.coroutines.resumeWithException
 
 /**
  *
@@ -257,6 +260,65 @@ class Payment {
                 onSuccess = { _billingInfo.value = it },
                 onFailure = { _billingError.value = it }
             )
+
+        /**
+         * Loads the current RevenueCat offering and the user's subscription
+         * information as a suspendable operation.
+         *
+         * This keeps platform adapters from having to coordinate the legacy
+         * callback API with their own coroutine state.
+         */
+        suspend fun loadBillingInfo(): BillingInfo = suspendCancellableCoroutine { continuation ->
+            payment.getProducts(
+                onSuccess = { info ->
+                    _billingInfo.value = info
+                    if (continuation.isActive) continuation.resume(info)
+                },
+                onFailure = { error ->
+                    _billingError.value = error
+                    if (continuation.isActive) {
+                        continuation.resumeWithException(IllegalStateException(error.message))
+                    }
+                }
+            )
+        }
+
+        /**
+         * Purchases a monthly or annual package using the configured
+         * RevenueCat offering.
+         */
+        suspend fun purchaseResult(
+            context: Context,
+            type: ProductsType
+        ): Pair<Boolean, String> = suspendCancellableCoroutine { continuation ->
+            purchase(
+                context = context,
+                type = type,
+                onSuccess = { active, productIdentifier ->
+                    if (continuation.isActive) continuation.resume(active to productIdentifier)
+                },
+                onFailure = { error, userCancelled ->
+                    if (continuation.isActive) {
+                        val message = if (userCancelled) {
+                            "Purchase cancelled"
+                        } else {
+                            error.message
+                        }
+                        continuation.resumeWithException(IllegalStateException(message))
+                    }
+                }
+            )
+        }
+
+        /**
+         * Restores the purchases associated with the current store account.
+         */
+        suspend fun restorePurchasesResult(): Pair<Boolean, String> =
+            suspendCancellableCoroutine { continuation ->
+                restorePurchases { active, productIdentifier ->
+                    if (continuation.isActive) continuation.resume(active to productIdentifier)
+                }
+            }
 
         /**
          *

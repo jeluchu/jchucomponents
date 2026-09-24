@@ -31,7 +31,9 @@ fun Context.initPayment(
     subscriptionName: String
 ) {
     if (isDebug) Purchases.logLevel = LogLevel.DEBUG
-    Purchases.configure(PurchasesConfiguration.Builder(this, apiKey).build())
+    if (!Purchases.isConfigured) {
+        Purchases.configure(PurchasesConfiguration.Builder(this, apiKey).build())
+    }
     Payment.setSubscriptionName(subscriptionName)
 }
 
