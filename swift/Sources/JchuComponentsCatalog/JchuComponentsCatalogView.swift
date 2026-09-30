@@ -93,6 +93,8 @@ private struct CatalogRootView: View {
             "Strings, numbers, dates, collections, concurrency and view helpers."
         case "pay":
             "Subscription types, billing info and RevenueCat integration flow."
+        case "navigationCodegen":
+            "SwiftUI @Screen macro, typed route values and generated destinations."
         case "themeTokens":
             "Colors, spacing, shapes, motion and preset palettes."
         case "info":
@@ -233,6 +235,8 @@ private struct CatalogDestinationView: View {
             URLImageExtensionsCatalogScreen()
         case "pay":
             PayCatalogScreen()
+        case "navigationCodegen":
+            NavigationCodegenCatalogScreen()
         case "themeTokens":
             ThemeTokensCatalogScreen()
         case "info":
@@ -1622,6 +1626,7 @@ private struct InfoCatalogScreen: View {
         "JchuComponentsSwiftUI",
         "JchuComponentsExtensions",
         "JchuComponentsPay",
+        "JchuComponentsNavigation",
         "JchuComponentsCore",
     ]
 

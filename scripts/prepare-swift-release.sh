@@ -15,6 +15,7 @@ readonly manifest_template="${project_root}/swift/Package.release.swift.template
 readonly manifest_path="${output_dir}/Package.swift"
 readonly package_sources="${output_dir}/Sources"
 readonly package_tests="${output_dir}/Tests"
+readonly package_plugins="${output_dir}/Plugins"
 
 if [[ -z "${version}" ]]; then
     echo "Unable to read jchucomponents version from ${version_catalog}" >&2
@@ -47,6 +48,18 @@ ditto \
 ditto \
     "${project_root}/swift/Sources/JchuComponentsPay" \
     "${package_sources}/JchuComponentsPay"
+ditto \
+    "${project_root}/swift/Sources/JchuComponentsNavigation" \
+    "${package_sources}/JchuComponentsNavigation"
+ditto \
+    "${project_root}/swift/Sources/JchuComponentsNavigationMacros" \
+    "${package_sources}/JchuComponentsNavigationMacros"
+ditto \
+    "${project_root}/swift/Sources/JchuComponentsNavigationGraphGenerator" \
+    "${package_sources}/JchuComponentsNavigationGraphGenerator"
+ditto \
+    "${project_root}/swift/Plugins/JchuComponentsNavigationGraphPlugin" \
+    "${package_plugins}/JchuComponentsNavigationGraphPlugin"
 ditto \
     "${project_root}/swift/Tests/JchuComponentsSwiftUITests" \
     "${package_tests}/JchuComponentsSwiftUITests"

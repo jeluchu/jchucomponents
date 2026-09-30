@@ -255,6 +255,7 @@ enum JchuCatalogFixtures {
                 JchuCatalogMenuOption(id: "scaffolds", name: JchuCatalogCategory.scaffolds.rawValue, systemImage: JchuCatalogCategory.scaffolds.systemImage),
                 JchuCatalogMenuOption(id: "images", name: JchuCatalogCategory.images.rawValue, systemImage: JchuCatalogCategory.images.systemImage),
                 JchuCatalogMenuOption(id: "themeTokens", name: JchuCatalogCategory.theme.rawValue, systemImage: JchuCatalogCategory.theme.systemImage),
+                JchuCatalogMenuOption(id: "navigationCodegen", name: "Navigation Codegen", systemImage: "point.topleft.down.to.point.bottomright.curvepath"),
             ]
         ),
         JchuCatalogModuleSection(
