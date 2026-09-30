@@ -24,11 +24,13 @@ and Apple applications with less repeated infrastructure.
 | `jchucomponents-core` | ✅ | — | — | Android architecture and lifecycle utilities |
 | `jchucomponents-ktx` | ✅ | — | — | Android and Kotlin extensions |
 | `jchucomponents-ui` | ✅ | — | — | Jetpack Compose components |
+| `jchucomponents-navigation3` | ✅ | — | — | Navigation 3 runtime annotations, helpers and KSP processor |
+| `jchucomponents-navigation3-di` | ✅ | — | — | Dependency injection helpers for generated Navigation 3 entries |
 | `jchucomponents-bom` | ✅ | — | — | Aligned Android module versions |
 
 The Swift package complements the shared Kotlin code with
-`JchuComponentsCore`, `JchuComponentsExtensions`, `JchuComponentsSwiftUI` and
-the optional native `JchuComponentsPay` product.
+`JchuComponentsCore`, `JchuComponentsExtensions`, `JchuComponentsSwiftUI`,
+`JchuComponentsNavigation` and the optional native `JchuComponentsPay` product.
 
 ## Installation
 
@@ -191,6 +193,28 @@ val database = Room.databaseBuilder<AppDatabase>(context, "app.db")
 The consuming module must apply KSP and add the
 `androidx.room3:room3-compiler` dependency itself. The runtime module does not
 enable destructive migrations or choose a database path.
+
+## Navigation 3 code generation
+
+For Android Compose apps using Navigation 3, `jchucomponents-navigation3`
+provides annotations and back-stack helpers and generates typed route keys and
+feature entry providers from `@Screen` composables. Add the same artifact to
+`implementation` and `ksp`; its Android and JVM variants are selected from Gradle
+module metadata. The optional
+`jchucomponents-navigation3-di` module provides Koin-backed injection helpers
+for screens marked with `@ScreenKoinViewModel`.
+The runtime module is independent of `jchucomponents-ui`. The processor groups screens
+by graph, uses each composable name as its default route, and wires typed
+arguments, back callbacks, cross-graph navigation and app-owned custom actions.
+See the [module README](jchucomponents-navigation3/README.md) for installation, annotation usage and additional details, and the
+**Navigation code generation** example in the
+Android catalog.
+
+The Swift package also provides `JchuComponentsNavigation`, a SwiftUI `@Screen`
+macro that creates typed route values and destination builders. Its
+`JchuComponentsNavigationGraphPlugin` build plugin collects annotated screens
+by graph and generates destination registration for the target. The iOS catalog
+contains a three-screen flow; see the [SwiftUI navigation guide](swift/README.md#swiftui-navigation-code-generation).
 
 ## Supabase quick start
 
@@ -452,8 +476,10 @@ Remove `--delete-missing` when Apple-only keys must be preserved. Add
 
 Tagged `3.*` versions trigger the release workflow. It validates the Gradle
 version, API compatibility, tests, Android publications and the Swift package;
-then it publishes the signed KMP variants and BOM to Maven Central and prepares
-the dedicated SwiftPM repository.
+then it publishes the signed Android and KMP artifacts, including Navigation 3,
+and the BOM to Maven Central and prepares the dedicated SwiftPM repository.
+JitPack builds the same Git tag on demand when a consumer requests that version;
+it does not need a separate manual upload.
 
 Before tagging, update `jchucomponents` in `gradle/libs.versions.toml` and make
 sure CI passes on `v3`:
