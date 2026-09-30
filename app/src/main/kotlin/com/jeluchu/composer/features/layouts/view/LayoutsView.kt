@@ -9,6 +9,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import com.jeluchu.jchucomponents.navigation3.BackStackBack
+import com.jeluchu.jchucomponents.navigation3.Screen
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.jeluchu.composer.core.catalog.CatalogColors
@@ -20,7 +22,8 @@ import com.jeluchu.composer.core.utils.Names
 import com.jeluchu.jchucomponents.ui.composables.column.JchuScrollableColumn
 
 @Composable
-fun LayoutsView(onBack: () -> Unit) {
+@Screen(graph = "Layouts")
+fun LayoutsView(@BackStackBack onBack: () -> Unit) {
     LayoutsCatalog(onBack)
 }
 

@@ -48,6 +48,18 @@ data class MenuOptions(
                     name = Names.extensions
                 ),
                 MenuOptions(
+                    id = DestinationsIds.navigationCodegen,
+                    name = Names.navigationCodegen
+                ),
+                MenuOptions(
+                    id = DestinationsIds.mobility,
+                    name = Names.mobility
+                ),
+                MenuOptions(
+                    id = DestinationsIds.nookCatalog,
+                    name = Names.nookCatalog
+                ),
+                MenuOptions(
                     id = DestinationsIds.supabase,
                     name = Names.supabase
                 ),

@@ -1,51 +1,43 @@
 package com.jeluchu.composer.core.ui.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.platform.LocalUriHandler
 import androidx.lifecycle.viewmodel.navigation3.rememberViewModelStoreNavEntryDecorator
 import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.runtime.rememberNavBackStack
 import androidx.navigation3.runtime.rememberSaveableStateHolderNavEntryDecorator
 import androidx.navigation3.ui.NavDisplay
-import com.jeluchu.composer.core.utils.DestinationsIds
-import com.jeluchu.composer.features.bottons.view.ButtonsView
-import com.jeluchu.composer.features.bottons.view.FloatingButtonView
-import com.jeluchu.composer.features.cards.view.BenefitsView
-import com.jeluchu.composer.features.cards.view.CardsView
-import com.jeluchu.composer.features.cards.view.RequirementsCardsView
-import com.jeluchu.composer.features.chips.view.ChipsView
-import com.jeluchu.composer.features.dashboard.view.MainView
-import com.jeluchu.composer.features.dividers.view.DividersView
-import com.jeluchu.composer.features.extensions.view.ExtensionsView
-import com.jeluchu.composer.features.inputs.view.InputsView
-import com.jeluchu.composer.features.layouts.view.LayoutsView
-import com.jeluchu.composer.features.lists.view.LazyGridsView
-import com.jeluchu.composer.features.lists.view.LazyStaticGridView
-import com.jeluchu.composer.features.loaders.view.LoadersView
-import com.jeluchu.composer.features.previews.view.PreviewsView
-import com.jeluchu.composer.features.progress.view.CircularProgressbarView
-import com.jeluchu.composer.features.progress.view.IconProgressbarView
-import com.jeluchu.composer.features.progress.view.LinearProgressbarView
-import com.jeluchu.composer.features.progress.view.ProgressView
-import com.jeluchu.composer.features.room.view.RoomView
-import com.jeluchu.composer.features.supabase.view.SupabaseView
-import com.jeluchu.composer.features.surfaces.view.SurfacesView
-import com.jeluchu.composer.features.text.view.TextView
-import com.jeluchu.composer.features.toolbars.view.ToolbarsView
-import com.jeluchu.jchucomponents.ui.composables.toolbars.CenterToolbarActionsPreview
-import com.jeluchu.jchucomponents.ui.composables.cards.AssistantCardPreview
-import com.jeluchu.jchucomponents.ui.composables.cards.CategoryCardPreview
-import com.jeluchu.jchucomponents.ui.composables.cards.CategoryIconPreview
-import com.jeluchu.jchucomponents.ui.composables.cards.DebutCardPreview
-import com.jeluchu.jchucomponents.ui.composables.cards.ExpandableCardPreview
-import com.jeluchu.jchucomponents.ui.composables.cards.InfoCardPreviewLight
-import com.jeluchu.jchucomponents.ui.composables.cards.TePreview
-import com.jeluchu.jchucomponents.ui.composables.toolbars.ToolbarActionsPreview
-import com.jeluchu.jchucomponents.ui.extensions.navigation.back
-import com.jeluchu.jchucomponents.ui.extensions.navigation.navigateSingleTop
+import com.jeluchu.composer.features.bottons.view.navigation.buttonsEntries
+import com.jeluchu.composer.features.cards.view.navigation.cardsEntries
+import com.jeluchu.composer.features.chips.view.navigation.chipsEntries
+import com.jeluchu.composer.features.dashboard.view.navigation.CatalogRoutes
+import com.jeluchu.composer.features.dashboard.view.navigation.catalogEntries
+import com.jeluchu.composer.features.dividers.view.navigation.dividersEntries
+import com.jeluchu.composer.features.extensions.view.navigation.extensionsEntries
+import com.jeluchu.composer.features.inputs.view.navigation.inputsEntries
+import com.jeluchu.composer.features.layouts.view.navigation.layoutsEntries
+import com.jeluchu.composer.features.lists.view.navigation.listsEntries
+import com.jeluchu.composer.features.loaders.view.navigation.loadersEntries
+import com.jeluchu.composer.features.navigationcodegen.navigation.MobilityRoutes
+import com.jeluchu.composer.features.navigationcodegen.navigation.NavigationCodegenRoutes
+import com.jeluchu.composer.features.navigationcodegen.navigation.NookCatalogRoutes
+import com.jeluchu.composer.features.navigationcodegen.navigation.mobilityEntries
+import com.jeluchu.composer.features.navigationcodegen.navigation.navigationCodegenEntries
+import com.jeluchu.composer.features.navigationcodegen.navigation.nookCatalogEntries
+import com.jeluchu.composer.features.previews.view.navigation.previewsEntries
+import com.jeluchu.composer.features.progress.view.navigation.progressEntries
+import com.jeluchu.composer.features.room.view.navigation.roomEntries
+import com.jeluchu.composer.features.supabase.view.navigation.supabaseEntries
+import com.jeluchu.composer.features.surfaces.view.navigation.surfacesEntries
+import com.jeluchu.composer.features.text.view.navigation.textEntries
+import com.jeluchu.composer.features.toolbars.view.navigation.toolbarsEntries
+import com.jeluchu.jchucomponents.navigation3.extensions.back
+import com.jeluchu.jchucomponents.navigation3.extensions.navigateTo
 
 @Composable
 fun Navigation() {
-    val backStack = rememberNavBackStack(CatalogRoute.Dashboard)
+    val backStack = rememberNavBackStack(CatalogRoutes.MainView)
+    val uriHandler = LocalUriHandler.current
 
     NavDisplay(
         backStack = backStack,
@@ -57,181 +49,29 @@ fun Navigation() {
             ),
         entryProvider =
             entryProvider {
-                entry<CatalogRoute.Dashboard> {
-                    MainView { id ->
-                        when (id) {
-                            DestinationsIds.buttons -> backStack.navigateSingleTop(CatalogRoute.Buttons)
-                            DestinationsIds.cards -> backStack.navigateSingleTop(CatalogRoute.Cards)
-                            DestinationsIds.chips -> backStack.navigateSingleTop(CatalogRoute.Chips)
-                            DestinationsIds.inputs -> backStack.navigateSingleTop(CatalogRoute.Inputs)
-                            DestinationsIds.layouts -> backStack.navigateSingleTop(CatalogRoute.Layouts)
-                            DestinationsIds.loaders -> backStack.navigateSingleTop(CatalogRoute.Loaders)
-                            DestinationsIds.previews -> backStack.navigateSingleTop(CatalogRoute.Previews)
-                            DestinationsIds.extensions -> backStack.navigateSingleTop(CatalogRoute.Extensions)
-                            DestinationsIds.supabase -> backStack.navigateSingleTop(CatalogRoute.Supabase)
-                            DestinationsIds.room -> backStack.navigateSingleTop(CatalogRoute.Room)
-                            DestinationsIds.progress -> backStack.navigateSingleTop(CatalogRoute.Progress)
-                            DestinationsIds.surfaces -> backStack.navigateSingleTop(CatalogRoute.Surfaces)
-                            DestinationsIds.text -> backStack.navigateSingleTop(CatalogRoute.Text)
-                            DestinationsIds.lazyGrids -> backStack.navigateSingleTop(CatalogRoute.LazyGrids)
-                            DestinationsIds.dividers -> backStack.navigateSingleTop(CatalogRoute.Dividers)
-                            DestinationsIds.toolbars -> backStack.navigateSingleTop(CatalogRoute.Toolbars)
-                        }
-                    }
-                }
-                entry<CatalogRoute.Buttons> {
-                    ButtonsView { id ->
-                        when (id) {
-                            DestinationsIds.floatingButton ->
-                                backStack.navigateSingleTop(CatalogRoute.FloatingButtons)
-                            DestinationsIds.back -> backStack.back()
-                        }
-                    }
-                }
-                entry<CatalogRoute.FloatingButtons> {
-                    FloatingButtonView { backStack.back() }
-                }
-                entry<CatalogRoute.Chips> {
-                    ChipsView { backStack.back() }
-                }
-                entry<CatalogRoute.Inputs> {
-                    InputsView { backStack.back() }
-                }
-                entry<CatalogRoute.Layouts> {
-                    LayoutsView { backStack.back() }
-                }
-                entry<CatalogRoute.Loaders> {
-                    LoadersView { backStack.back() }
-                }
-                entry<CatalogRoute.Previews> {
-                    PreviewsView { backStack.back() }
-                }
-                entry<CatalogRoute.Extensions> {
-                    ExtensionsView { backStack.back() }
-                }
-                entry<CatalogRoute.Supabase> {
-                    SupabaseView { backStack.back() }
-                }
-                entry<CatalogRoute.Room> {
-                    RoomView { backStack.back() }
-                }
-                entry<CatalogRoute.Progress> {
-                    ProgressView { id ->
-                        when (id) {
-                            DestinationsIds.circularProgress ->
-                                backStack.navigateSingleTop(CatalogRoute.CircularProgress)
-                            DestinationsIds.linearProgress ->
-                                backStack.navigateSingleTop(CatalogRoute.LinearProgress)
-                            DestinationsIds.iconProgress ->
-                                backStack.navigateSingleTop(CatalogRoute.IconProgress)
-                            DestinationsIds.back -> backStack.back()
-                        }
-                    }
-                }
-                entry<CatalogRoute.Surfaces> {
-                    SurfacesView { backStack.back() }
-                }
-                entry<CatalogRoute.Text> {
-                    TextView { backStack.back() }
-                }
-                entry<CatalogRoute.CircularProgress> {
-                    CircularProgressbarView { backStack.back() }
-                }
-                entry<CatalogRoute.LinearProgress> {
-                    LinearProgressbarView { backStack.back() }
-                }
-                entry<CatalogRoute.IconProgress> {
-                    IconProgressbarView { backStack.back() }
-                }
-                entry<CatalogRoute.LazyGrids> {
-                    LazyGridsView { id ->
-                        when (id) {
-                            DestinationsIds.lazyStaticGrids ->
-                                backStack.navigateSingleTop(CatalogRoute.LazyStaticGrids)
-                            DestinationsIds.back -> backStack.back()
-                        }
-                    }
-                }
-                entry<CatalogRoute.LazyStaticGrids> {
-                    LazyStaticGridView { backStack.back() }
-                }
-                entry<CatalogRoute.Dividers> {
-                    DividersView()
-                }
-                entry<CatalogRoute.Toolbars> {
-                    ToolbarsView { id ->
-                        when (id) {
-                            DestinationsIds.simpleToolbars ->
-                                backStack.navigateSingleTop(CatalogRoute.SimpleToolbars)
-                            DestinationsIds.centerToolbars ->
-                                backStack.navigateSingleTop(CatalogRoute.CenterToolbars)
-                            DestinationsIds.largeToolbars ->
-                                backStack.navigateSingleTop(CatalogRoute.LargeToolbars)
-                            DestinationsIds.back -> backStack.back()
-                        }
-                    }
-                }
-                entry<CatalogRoute.SimpleToolbars> {
-                    ToolbarActionsPreview()
-                }
-                entry<CatalogRoute.CenterToolbars> {
-                    CenterToolbarActionsPreview()
-                }
-                entry<CatalogRoute.LargeToolbars> {
-                    // Soon
-                }
-                entry<CatalogRoute.Cards> {
-                    CardsView { id ->
-                        when (id) {
-                            DestinationsIds.benefitCards ->
-                                backStack.navigateSingleTop(CatalogRoute.BenefitCards)
-                            DestinationsIds.requirementsCards ->
-                                backStack.navigateSingleTop(CatalogRoute.RequirementsCards)
-                            DestinationsIds.assistantCards ->
-                                backStack.navigateSingleTop(CatalogRoute.AssistantCards)
-                            DestinationsIds.categoryCards ->
-                                backStack.navigateSingleTop(CatalogRoute.CategoryCards)
-                            DestinationsIds.categoryIconCards ->
-                                backStack.navigateSingleTop(CatalogRoute.CategoryIconCards)
-                            DestinationsIds.debutCards ->
-                                backStack.navigateSingleTop(CatalogRoute.DebutCards)
-                            DestinationsIds.expandableCards ->
-                                backStack.navigateSingleTop(CatalogRoute.ExpandableCards)
-                            DestinationsIds.infoCards ->
-                                backStack.navigateSingleTop(CatalogRoute.InfoCards)
-                            DestinationsIds.teCards ->
-                                backStack.navigateSingleTop(CatalogRoute.TeCards)
-                            DestinationsIds.back -> backStack.back()
-                        }
-                    }
-                }
-                entry<CatalogRoute.BenefitCards> {
-                    BenefitsView { backStack.back() }
-                }
-                entry<CatalogRoute.RequirementsCards> {
-                    RequirementsCardsView { backStack.back() }
-                }
-                entry<CatalogRoute.AssistantCards> {
-                    AssistantCardPreview()
-                }
-                entry<CatalogRoute.CategoryCards> {
-                    CategoryCardPreview()
-                }
-                entry<CatalogRoute.CategoryIconCards> {
-                    CategoryIconPreview()
-                }
-                entry<CatalogRoute.DebutCards> {
-                    DebutCardPreview()
-                }
-                entry<CatalogRoute.ExpandableCards> {
-                    ExpandableCardPreview()
-                }
-                entry<CatalogRoute.InfoCards> {
-                    InfoCardPreviewLight()
-                }
-                entry<CatalogRoute.TeCards> {
-                    TePreview()
-                }
+                catalogEntries(backStack)
+                buttonsEntries(backStack)
+                cardsEntries(backStack)
+                chipsEntries(backStack)
+                dividersEntries(backStack)
+                extensionsEntries(backStack)
+                inputsEntries(backStack)
+                layoutsEntries(backStack)
+                listsEntries(backStack)
+                loadersEntries(backStack)
+                previewsEntries(backStack)
+                progressEntries(backStack)
+                roomEntries(backStack)
+                supabaseEntries(backStack)
+                surfacesEntries(backStack)
+                textEntries(backStack)
+                toolbarsEntries(backStack)
+                navigationCodegenEntries(backStack)
+                mobilityEntries(
+                    backStack = backStack,
+                    onOpenUrl = { url -> uriHandler.openUri(url) }
+                )
+                nookCatalogEntries(backStack)
             }
     )
 }

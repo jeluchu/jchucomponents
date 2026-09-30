@@ -15,6 +15,8 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import com.jeluchu.jchucomponents.navigation3.BackStackBack
+import com.jeluchu.jchucomponents.navigation3.Screen
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
@@ -41,7 +43,8 @@ import com.jeluchu.jchucomponents.ui.extensions.time.fixedDecimalsTime
 import com.jeluchu.jchucomponents.ui.modifiers.dashedBorder
 
 @Composable
-fun ExtensionsView(onBack: () -> Unit) {
+@Screen(graph = "Extensions")
+fun ExtensionsView(@BackStackBack onBack: () -> Unit) {
     ExtensionsCatalog(onBack)
 }
 

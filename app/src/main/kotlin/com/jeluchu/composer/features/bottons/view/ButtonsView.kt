@@ -30,13 +30,27 @@ import com.jeluchu.composer.core.ui.theme.milky
 import com.jeluchu.composer.core.ui.theme.secondary
 import com.jeluchu.composer.core.utils.DestinationsIds
 import com.jeluchu.composer.core.utils.Names
+import com.jeluchu.composer.features.bottons.view.navigation.ButtonsRoutes
+import com.jeluchu.jchucomponents.navigation3.BackStackBack
+import com.jeluchu.jchucomponents.navigation3.NavigateTo
+import com.jeluchu.jchucomponents.navigation3.Screen
 import com.jeluchu.jchucomponents.ui.composables.button.JchuProgressButton
 import com.jeluchu.jchucomponents.ui.composables.toolbars.CenterToolbarColors
 import com.jeluchu.jchucomponents.ui.extensions.modifier.cornerRadius
 
 @Composable
-fun ButtonsView(onItemClick: (String) -> Unit) {
-    Buttons(onItemClick)
+@Screen(graph = "Buttons")
+fun ButtonsView(
+    @BackStackBack onBack: () -> Unit,
+    @NavigateTo(route = ButtonsRoutes.FloatingButtonView::class)
+    onOpenFloatingButtons: () -> Unit
+) {
+    Buttons { destination ->
+        when (destination) {
+            DestinationsIds.floatingButton -> onOpenFloatingButtons()
+            DestinationsIds.back -> onBack()
+        }
+    }
 }
 
 @Composable

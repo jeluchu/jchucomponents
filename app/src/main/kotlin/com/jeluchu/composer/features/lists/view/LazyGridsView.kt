@@ -13,12 +13,26 @@ import com.jeluchu.composer.core.ui.theme.primary
 import com.jeluchu.composer.core.ui.theme.secondary
 import com.jeluchu.composer.core.utils.DestinationsIds
 import com.jeluchu.composer.core.utils.Names
+import com.jeluchu.composer.features.lists.view.navigation.ListsRoutes
+import com.jeluchu.jchucomponents.navigation3.BackStackBack
+import com.jeluchu.jchucomponents.navigation3.NavigateTo
+import com.jeluchu.jchucomponents.navigation3.Screen
 import com.jeluchu.jchucomponents.ui.composables.toolbars.CenterToolbarColors
 import com.jeluchu.jchucomponents.ui.extensions.modifier.cornerRadius
 
 @Composable
-fun LazyGridsView(onItemClick: (String) -> Unit) {
-    LazyGrids(onItemClick)
+@Screen(graph = "Lists")
+fun LazyGridsView(
+    @BackStackBack onBack: () -> Unit,
+    @NavigateTo(route = ListsRoutes.LazyStaticGridView::class)
+    onOpenStaticGrid: () -> Unit
+) {
+    LazyGrids { destination ->
+        when (destination) {
+            DestinationsIds.back -> onBack()
+            DestinationsIds.lazyStaticGrids -> onOpenStaticGrid()
+        }
+    }
 }
 
 @Composable

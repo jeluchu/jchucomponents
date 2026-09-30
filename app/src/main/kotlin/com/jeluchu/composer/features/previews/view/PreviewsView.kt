@@ -15,6 +15,8 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Notifications
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
+import com.jeluchu.jchucomponents.navigation3.BackStackBack
+import com.jeluchu.jchucomponents.navigation3.Screen
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
@@ -49,7 +51,8 @@ import com.jeluchu.jchucomponents.ui.composables.tabs.ChipTab
 import com.jeluchu.jchucomponents.ui.composables.tabs.ScrollableChipTabRow
 
 @Composable
-fun PreviewsView(onBack: () -> Unit) {
+@Screen(graph = "Previews")
+fun PreviewsView(@BackStackBack onBack: () -> Unit) {
     PreviewsCatalog(onBack)
 }
 

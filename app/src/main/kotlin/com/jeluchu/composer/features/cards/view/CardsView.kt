@@ -13,12 +13,41 @@ import com.jeluchu.composer.core.ui.theme.primary
 import com.jeluchu.composer.core.ui.theme.secondary
 import com.jeluchu.composer.core.utils.DestinationsIds
 import com.jeluchu.composer.core.utils.Names
+import com.jeluchu.composer.features.cards.view.navigation.CardsRoutes
+import com.jeluchu.jchucomponents.navigation3.BackStackBack
+import com.jeluchu.jchucomponents.navigation3.NavigateTo
+import com.jeluchu.jchucomponents.navigation3.Screen
 import com.jeluchu.jchucomponents.ui.composables.toolbars.CenterToolbarColors
 import com.jeluchu.jchucomponents.ui.extensions.modifier.cornerRadius
 
 @Composable
-fun CardsView(onItemClick: (String) -> Unit) {
-    Toolbars(onItemClick)
+@Screen(graph = "Cards")
+fun CardsView(
+    @BackStackBack onBack: () -> Unit,
+    @NavigateTo(route = CardsRoutes.BenefitsView::class) onOpenBenefits: () -> Unit,
+    @NavigateTo(route = CardsRoutes.RequirementsCardsView::class) onOpenRequirements: () -> Unit,
+    @NavigateTo(route = CardsRoutes.AssistantCardsView::class) onOpenAssistant: () -> Unit,
+    @NavigateTo(route = CardsRoutes.CategoryCardsView::class) onOpenCategory: () -> Unit,
+    @NavigateTo(route = CardsRoutes.CategoryIconCardsView::class) onOpenCategoryIcon: () -> Unit,
+    @NavigateTo(route = CardsRoutes.DebutCardsView::class) onOpenDebut: () -> Unit,
+    @NavigateTo(route = CardsRoutes.ExpandableCardsView::class) onOpenExpandable: () -> Unit,
+    @NavigateTo(route = CardsRoutes.InfoCardsView::class) onOpenInfo: () -> Unit,
+    @NavigateTo(route = CardsRoutes.TeCardsView::class) onOpenTe: () -> Unit
+) {
+    Toolbars { destination ->
+        when (destination) {
+            DestinationsIds.back -> onBack()
+            DestinationsIds.benefitCards -> onOpenBenefits()
+            DestinationsIds.requirementsCards -> onOpenRequirements()
+            DestinationsIds.assistantCards -> onOpenAssistant()
+            DestinationsIds.categoryCards -> onOpenCategory()
+            DestinationsIds.categoryIconCards -> onOpenCategoryIcon()
+            DestinationsIds.debutCards -> onOpenDebut()
+            DestinationsIds.expandableCards -> onOpenExpandable()
+            DestinationsIds.infoCards -> onOpenInfo()
+            DestinationsIds.teCards -> onOpenTe()
+        }
+    }
 }
 
 @Composable

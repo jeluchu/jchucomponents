@@ -3,6 +3,8 @@ package com.jeluchu.composer.features.text.view
 import android.content.res.Configuration
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import com.jeluchu.jchucomponents.navigation3.BackStackBack
+import com.jeluchu.jchucomponents.navigation3.Screen
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -23,7 +25,8 @@ import com.jeluchu.jchucomponents.ui.composables.text.JchuLegacySimpleDescriptio
 import com.jeluchu.jchucomponents.ui.composables.text.JchuSimpleExpandableText
 
 @Composable
-fun TextView(onBack: () -> Unit) {
+@Screen(graph = "Text")
+fun TextView(@BackStackBack onBack: () -> Unit) {
     TextCatalog(onBack)
 }
 

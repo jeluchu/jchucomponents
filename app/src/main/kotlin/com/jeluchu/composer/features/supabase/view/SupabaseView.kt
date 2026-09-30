@@ -13,6 +13,8 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import com.jeluchu.jchucomponents.navigation3.BackStackBack
+import com.jeluchu.jchucomponents.navigation3.Screen
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -48,7 +50,8 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Composable
-fun SupabaseView(onBack: () -> Unit) {
+@Screen(graph = "Supabase")
+fun SupabaseView(@BackStackBack onBack: () -> Unit) {
     SupabaseCatalog(onBack = onBack)
 }
 

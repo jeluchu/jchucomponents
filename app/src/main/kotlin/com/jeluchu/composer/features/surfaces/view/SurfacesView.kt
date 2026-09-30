@@ -9,6 +9,8 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import com.jeluchu.jchucomponents.navigation3.BackStackBack
+import com.jeluchu.jchucomponents.navigation3.Screen
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -24,7 +26,8 @@ import com.jeluchu.composer.core.utils.Names
 import com.jeluchu.jchucomponents.ui.composables.sheets.JchuAnimatedBottomSheet
 
 @Composable
-fun SurfacesView(onBack: () -> Unit) {
+@Screen(graph = "Surfaces")
+fun SurfacesView(@BackStackBack onBack: () -> Unit) {
     SurfacesCatalog(onBack)
 }
 

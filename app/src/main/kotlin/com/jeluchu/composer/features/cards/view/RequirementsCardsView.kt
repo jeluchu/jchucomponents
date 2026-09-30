@@ -16,13 +16,16 @@ import com.jeluchu.composer.core.catalog.ProvideJchuCatalogTheme
 import com.jeluchu.composer.core.ui.composables.ScaffoldStructure
 import com.jeluchu.composer.core.ui.theme.JeluchuTheme
 import com.jeluchu.composer.core.utils.Names
+import com.jeluchu.jchucomponents.navigation3.BackStackBack
+import com.jeluchu.jchucomponents.navigation3.Screen
 import com.jeluchu.jchucomponents.ui.composables.cards.JchuINookAmountInfoColors
 import com.jeluchu.jchucomponents.ui.composables.cards.JchuINookRequirementsCard
 import com.jeluchu.jchucomponents.ui.composables.cards.JchuINookRequirementsCardColors
 import com.jeluchu.jchucomponents.ui.composables.chips.JchuAmountCounterColors
 
 @Composable
-fun RequirementsCardsView(onBack: () -> Unit) {
+@Screen(graph = "Cards")
+fun RequirementsCardsView(@BackStackBack onBack: () -> Unit) {
     RequirementsCardsCatalog(onBack)
 }
 

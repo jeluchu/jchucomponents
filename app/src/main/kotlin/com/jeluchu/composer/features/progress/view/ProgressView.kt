@@ -20,11 +20,31 @@ import com.jeluchu.composer.core.ui.theme.milky
 import com.jeluchu.composer.core.ui.theme.secondary
 import com.jeluchu.composer.core.utils.DestinationsIds
 import com.jeluchu.composer.core.utils.Names
+import com.jeluchu.composer.features.progress.view.navigation.ProgressRoutes
+import com.jeluchu.jchucomponents.navigation3.BackStackBack
+import com.jeluchu.jchucomponents.navigation3.NavigateTo
+import com.jeluchu.jchucomponents.navigation3.Screen
 import com.jeluchu.jchucomponents.ui.composables.toolbars.CenterToolbarColors
 
 @Composable
-fun ProgressView(onItemClick: (String) -> Unit) {
-    Progress(onItemClick)
+@Screen(graph = "Progress")
+fun ProgressView(
+    @BackStackBack onBack: () -> Unit,
+    @NavigateTo(route = ProgressRoutes.CircularProgressbarView::class)
+    onOpenCircular: () -> Unit,
+    @NavigateTo(route = ProgressRoutes.LinearProgressbarView::class)
+    onOpenLinear: () -> Unit,
+    @NavigateTo(route = ProgressRoutes.IconProgressbarView::class)
+    onOpenIcon: () -> Unit
+) {
+    Progress { destination ->
+        when (destination) {
+            DestinationsIds.back -> onBack()
+            DestinationsIds.circularProgress -> onOpenCircular()
+            DestinationsIds.linearProgress -> onOpenLinear()
+            DestinationsIds.iconProgress -> onOpenIcon()
+        }
+    }
 }
 
 @Composable

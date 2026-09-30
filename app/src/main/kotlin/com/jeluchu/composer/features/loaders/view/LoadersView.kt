@@ -8,6 +8,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import com.jeluchu.jchucomponents.navigation3.BackStackBack
+import com.jeluchu.jchucomponents.navigation3.Screen
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
@@ -23,7 +25,8 @@ import com.jeluchu.jchucomponents.ui.composables.loaders.DotsLoading
 import com.jeluchu.jchucomponents.ui.composables.loaders.PulseLoading
 
 @Composable
-fun LoadersView(onBack: () -> Unit) {
+@Screen(graph = "Loaders")
+fun LoadersView(@BackStackBack onBack: () -> Unit) {
     LoadersCatalog(onBack)
 }
 

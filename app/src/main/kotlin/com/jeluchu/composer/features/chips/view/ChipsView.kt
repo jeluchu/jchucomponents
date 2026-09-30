@@ -13,6 +13,8 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Star
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import com.jeluchu.jchucomponents.navigation3.BackStackBack
+import com.jeluchu.jchucomponents.navigation3.Screen
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -36,7 +38,8 @@ import com.jeluchu.jchucomponents.ui.composables.chips.Tag
 import com.jeluchu.jchucomponents.ui.composables.chips.YoutubeChip
 
 @Composable
-fun ChipsView(onBack: () -> Unit) {
+@Screen(graph = "Chips")
+fun ChipsView(@BackStackBack onBack: () -> Unit) {
     ChipsCatalog(onBack)
 }
 

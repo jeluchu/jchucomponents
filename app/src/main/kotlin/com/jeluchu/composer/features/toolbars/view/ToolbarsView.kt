@@ -13,12 +13,32 @@ import com.jeluchu.composer.core.ui.theme.primary
 import com.jeluchu.composer.core.ui.theme.secondary
 import com.jeluchu.composer.core.utils.DestinationsIds
 import com.jeluchu.composer.core.utils.Names
+import com.jeluchu.composer.features.toolbars.view.navigation.ToolbarsRoutes
+import com.jeluchu.jchucomponents.navigation3.BackStackBack
+import com.jeluchu.jchucomponents.navigation3.NavigateTo
+import com.jeluchu.jchucomponents.navigation3.Screen
 import com.jeluchu.jchucomponents.ui.composables.toolbars.CenterToolbarColors
 import com.jeluchu.jchucomponents.ui.theme.JchuTheme
 
 @Composable
-fun ToolbarsView(onItemClick: (String) -> Unit) {
-    Toolbars(onItemClick)
+@Screen(graph = "Toolbars")
+fun ToolbarsView(
+    @BackStackBack onBack: () -> Unit,
+    @NavigateTo(route = ToolbarsRoutes.SimpleToolbarsView::class)
+    onOpenSimple: () -> Unit,
+    @NavigateTo(route = ToolbarsRoutes.CenterToolbarsView::class)
+    onOpenCenter: () -> Unit,
+    @NavigateTo(route = ToolbarsRoutes.LargeToolbarsView::class)
+    onOpenLarge: () -> Unit
+) {
+    Toolbars { destination ->
+        when (destination) {
+            DestinationsIds.back -> onBack()
+            DestinationsIds.simpleToolbars -> onOpenSimple()
+            DestinationsIds.centerToolbars -> onOpenCenter()
+            DestinationsIds.largeToolbars -> onOpenLarge()
+        }
+    }
 }
 
 @Composable

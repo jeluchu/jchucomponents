@@ -4,13 +4,19 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import com.jeluchu.jchucomponents.navigation3.BackStackBack
+import com.jeluchu.jchucomponents.navigation3.Screen
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.jeluchu.composer.core.ui.theme.milky
@@ -22,16 +28,22 @@ import com.jeluchu.jchucomponents.ui.composables.divider.DashedDividerInteractiv
 import com.jeluchu.jchucomponents.ui.composables.divider.DashedDividerStaticPreview
 
 @Composable
-fun DividersView() {
-    Dividers()
+@Screen(graph = "Dividers")
+fun DividersView(@BackStackBack onBack: () -> Unit) {
+    Dividers(onBack)
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun Dividers() =
+private fun Dividers(onBack: () -> Unit) =
     Scaffold(
         topBar = {
             TopAppBar(
+                navigationIcon = {
+                    IconButton(onClick = onBack) {
+                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Volver")
+                    }
+                },
                 title = {
                     Text(
                         text = Names.dividers,

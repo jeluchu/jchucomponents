@@ -6,6 +6,8 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import com.jeluchu.jchucomponents.navigation3.BackStackBack
+import com.jeluchu.jchucomponents.navigation3.Screen
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.tooling.preview.Preview
@@ -31,7 +33,8 @@ import com.jeluchu.jchucomponents.ui.composables.textfields.SearchBarDefaults
 import com.jeluchu.jchucomponents.ui.composables.textfields.SearchField
 
 @Composable
-fun InputsView(onBack: () -> Unit) {
+@Screen(graph = "Inputs")
+fun InputsView(@BackStackBack onBack: () -> Unit) {
     InputsCatalog(onBack)
 }
 

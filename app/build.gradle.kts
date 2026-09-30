@@ -82,6 +82,12 @@ dependencies {
     implementation(project(":jchucomponents-core"))
     implementation(project(":jchucomponents-foundation"))
     implementation(project(":jchucomponents-ui"))
+    implementation(project(":jchucomponents-navigation3"))
+    implementation(project(":jchucomponents-navigation3-di"))
+    implementation(project(":jchucomponents-network"))
+    implementation(libs.androidx.lifecycle.lifecycle.viewmodel.ktx)
+    implementation(libs.androidx.lifecycle.viewmodel.compose)
+    implementation(libs.koin.androidx.compose)
     implementation(project(":jchucomponents-ktx"))
     implementation(project(":jchucomponents-qr"))
     implementation(project(":jchucomponents-pay"))
@@ -94,4 +100,5 @@ dependencies {
 
     kspAndroidTest(libs.androidx.room3.compiler)
     ksp(libs.androidx.room3.compiler)
+    ksp(project(":jchucomponents-navigation3"))
 }

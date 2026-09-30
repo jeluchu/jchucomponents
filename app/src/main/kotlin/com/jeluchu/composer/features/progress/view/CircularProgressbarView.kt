@@ -18,12 +18,15 @@ import com.jeluchu.composer.core.ui.theme.milky
 import com.jeluchu.composer.core.ui.theme.secondary
 import com.jeluchu.composer.core.utils.DestinationsIds
 import com.jeluchu.composer.core.utils.Names
+import com.jeluchu.jchucomponents.navigation3.BackStackBack
+import com.jeluchu.jchucomponents.navigation3.Screen
 import com.jeluchu.jchucomponents.ui.composables.progress.JchuCircularProgress
 import com.jeluchu.jchucomponents.ui.composables.toolbars.CenterToolbarColors
 
 @Composable
-fun CircularProgressbarView(onItemClick: (String) -> Unit) {
-    CircularProgressbar(onItemClick)
+@Screen(graph = "Progress")
+fun CircularProgressbarView(@BackStackBack onBack: () -> Unit) {
+    CircularProgressbar { onBack() }
 }
 
 @Composable

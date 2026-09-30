@@ -9,6 +9,8 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import com.jeluchu.jchucomponents.navigation3.BackStackBack
+import com.jeluchu.jchucomponents.navigation3.Screen
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -35,7 +37,8 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 
 @Composable
-fun RoomView(onBack: () -> Unit) {
+@Screen(graph = "Room")
+fun RoomView(@BackStackBack onBack: () -> Unit) {
     val context = LocalContext.current.applicationContext
     val database = remember(context) { createRoomCatalogDatabase(context) }
     val notes by database.noteDao().observeAll().collectAsState(emptyList())
