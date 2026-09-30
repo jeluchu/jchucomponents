@@ -22,6 +22,8 @@ include(
         ":jchucomponents-bom",
         ":jchucomponents-core",
         ":jchucomponents-ui",
+        ":jchucomponents-navigation3",
+        ":jchucomponents-navigation3-di",
         ":jchucomponents-ktx",
         ":jchucomponents-qr",
         ":jchucomponents-pay",

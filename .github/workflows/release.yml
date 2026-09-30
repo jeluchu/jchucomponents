@@ -148,4 +148,6 @@ jobs:
             :jchucomponents-prefs:publishAndReleaseToMavenCentral \
             :jchucomponents-qr:publishAndReleaseToMavenCentral \
             :jchucomponents-room:publishAndReleaseToMavenCentral \
+            :jchucomponents-navigation3:publishAndReleaseToMavenCentral \
+            :jchucomponents-navigation3-di:publishAndReleaseToMavenCentral \
             :jchucomponents-supabase:publishAndReleaseToMavenCentral

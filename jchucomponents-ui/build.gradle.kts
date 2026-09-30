@@ -66,7 +66,6 @@ dependencies {
     implementation(libs.bundles.compose.bom)
     implementation(libs.androidx.compose.animation.graphics)
     implementation(libs.bundles.ui.androidx)
-    api(libs.androidx.navigation3.runtime)
     implementation(project(":jchucomponents-foundation"))
     implementation(project(":jchucomponents-ktx"))
     debugImplementation(libs.androidx.compose.ui.ui.tooling.preview)

@@ -5,6 +5,7 @@ plugins {
     alias(libs.plugins.android.library) apply false
     alias(libs.plugins.android.kmp.library) apply false
     alias(libs.plugins.jetbrains.kotlin.multiplatform) apply false
+    alias(libs.plugins.kotlin.jvm) apply false
     alias(libs.plugins.compose.compiler) apply false
     alias(libs.plugins.kotlinx.serialization) apply false
     alias(libs.plugins.binary.compatibility.validator)
@@ -48,6 +49,8 @@ dependencies {
     dokka(project(":jchucomponents-room"))
     dokka(project(":jchucomponents-supabase"))
     dokka(project(":jchucomponents-ui"))
+    dokka(project(":jchucomponents-navigation3"))
+    dokka(project(":jchucomponents-navigation3-di"))
 }
 
 apiValidation {

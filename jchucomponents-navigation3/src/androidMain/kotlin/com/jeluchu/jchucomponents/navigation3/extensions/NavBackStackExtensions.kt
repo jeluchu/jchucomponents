@@ -1,4 +1,4 @@
-package com.jeluchu.jchucomponents.ui.extensions.navigation
+package com.jeluchu.jchucomponents.navigation3.extensions
 
 import androidx.navigation3.runtime.NavBackStack
 import androidx.navigation3.runtime.NavKey
