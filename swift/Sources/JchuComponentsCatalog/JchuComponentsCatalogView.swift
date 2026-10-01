@@ -1,9 +1,9 @@
 import JchuComponentsCore
 import JchuComponentsExtensions
 import JchuComponentsPay
+import JchuComponentsNavigation
 import JchuComponentsSwiftUI
 import SwiftUI
-import UIKit
 
 public struct JchuComponentsCatalogView: View {
     @State private var scenario: JchuCatalogScenario = .light
@@ -22,8 +22,6 @@ public struct JchuComponentsCatalogView: View {
 private struct CatalogRootView: View {
     @Environment(\.jchuTheme) private var theme
     @Binding var scenario: JchuCatalogScenario
-    @State private var selectedDestination: JchuCatalogDestination?
-
     var body: some View {
         NavigationStack {
             ScrollView {
@@ -35,9 +33,7 @@ private struct CatalogRootView: View {
 
                         VStack(spacing: 18) {
                             ForEach(section.options) { option in
-                                Button {
-                                    selectedDestination = .route(option.id)
-                                } label: {
+                                NavigationLink(value: option.route) {
                                     CatalogHomeCard(
                                         option: option,
                                         subtitle: capabilityDescription(for: option.id)
@@ -55,9 +51,7 @@ private struct CatalogRootView: View {
             .background(theme.colors.background.ignoresSafeArea())
             .foregroundStyle(theme.colors.content)
             .toolbar(.hidden, for: .navigationBar)
-            .navigationDestination(item: $selectedDestination) { destination in
-                CatalogDestinationView(destination: destination)
-            }
+            .jchuNavigationDestinations()
         }
     }
 
@@ -105,145 +99,59 @@ private struct CatalogRootView: View {
     }
 }
 
-private enum JchuCatalogDestination: Identifiable, Hashable {
-    case route(String)
-
-    var id: String {
-        route
-    }
-
-    var route: String {
-        switch self {
-        case .route(let route):
-            route
-        }
+@Screen(graph: "Catalog", route: "Buttons")
+struct ButtonsCatalogMenuScreen: View {
+    var body: some View {
+        CatalogMenuScreen(title: "Buttons", options: JchuCatalogFixtures.buttonsMenu)
     }
 }
 
-private struct CatalogDestinationView: View {
-    let destination: JchuCatalogDestination
-    @State private var selectedDestination: JchuCatalogDestination?
-
+@Screen(graph: "Catalog", route: "Cards")
+struct CardsCatalogMenuScreen: View {
     var body: some View {
-        routeView(destination.route)
-            .navigationDestination(item: $selectedDestination) { destination in
-                CatalogDestinationView(destination: destination)
-            }
+        CatalogMenuScreen(title: "Cards", options: JchuCatalogFixtures.cardsMenu)
     }
+}
 
-    private func navigate(to route: String) {
-        selectedDestination = .route(route)
+@Screen(graph: "Catalog", route: "Lists")
+struct ListsCatalogMenuScreen: View {
+    var body: some View {
+        CatalogMenuScreen(title: "Lists", options: JchuCatalogFixtures.listsMenu)
     }
+}
 
-    @ViewBuilder
-    private func menu(_ title: LocalizedStringKey, options: [JchuCatalogMenuOption]) -> some View {
-        CatalogMenuScreen(title: title, options: options) { route in
-            navigate(to: route)
-        }
+@Screen(graph: "Catalog", route: "Progress")
+struct ProgressCatalogMenuScreen: View {
+    var body: some View {
+        CatalogMenuScreen(title: "Progress", options: JchuCatalogFixtures.progressMenu)
     }
+}
 
-    @ViewBuilder
-    private func routeView(_ route: String) -> some View {
-        switch route {
-        case "buttons":
-            menu("Buttons", options: JchuCatalogFixtures.buttonsMenu)
-        case "progressButtons":
-            ProgressButtonsCatalogScreen()
-        case "floatingButtons":
-            FloatingButtonsCatalogScreen()
-        case "cards":
-            menu("Cards", options: JchuCatalogFixtures.cardsMenu)
-        case "benefitCards":
-            BenefitsCatalogScreen()
-        case "requirementsCards":
-            RequirementsCardsCatalogScreen()
-        case "chips":
-            ChipsCatalogScreen()
-        case "inputs":
-            InputsCatalogScreen()
-        case "preferences":
-            PreferencesCatalogScreen()
-        case "text":
-            TextCatalogScreen()
-        case "lists":
-            menu("Lists", options: JchuCatalogFixtures.listsMenu)
-        case "lazyStaticGrids":
-            LazyStaticGridCatalogScreen()
-        case "loaders":
-            LoadersCatalogScreen()
-        case "progress":
-            menu("Progress", options: JchuCatalogFixtures.progressMenu)
-        case "circularProgress":
-            CircularProgressCatalogScreen()
-        case "linearProgress":
-            LinearProgressCatalogScreen()
-        case "iconProgress":
-            IconProgressCatalogScreen()
-        case "dividers":
-            DividersCatalogScreen()
-        case "toolbars":
-            menu("Toolbars", options: JchuCatalogFixtures.toolbarsMenu)
-        case "simpleToolbars":
-            ToolbarCatalogScreen(title: "Toolbars", alignment: .trailing)
-        case "centerToolbars":
-            ToolbarCatalogScreen(title: "CenterToolbars", alignment: .center)
-        case "largeToolbars":
-            LargeToolbarCatalogScreen()
-        case "scaffolds":
-            menu("Scaffolds", options: JchuCatalogFixtures.scaffoldsMenu)
-        case "basicScaffolds":
-            ScaffoldsCatalogScreen()
-        case "detailsScaffold":
-            DetailsScaffoldCatalogScreen()
-        case "settingsScaffold":
-            SettingsScaffoldCatalogScreen()
-        case "shareScaffold":
-            ShareScaffoldCatalogScreen()
-        case "remoteContent":
-            RemoteContentCatalogScreen()
-        case "purchaseGrid":
-            PurchaseGridCatalogScreen()
-        case "purchaseTabs":
-            PurchaseTabsCatalogScreen()
-        case "purchaseTabBar":
-            PurchaseTabBarCatalogScreen()
-        case "purchaseStates":
-            PurchaseStatesCatalogScreen()
-        case "images":
-            menu("Images", options: JchuCatalogFixtures.imagesMenu)
-        case "networkImage":
-            ImagesCatalogScreen()
-        case "networkImageStates":
-            NetworkImageStatesCatalogScreen()
-        case "networkPrefetcher":
-            NetworkPrefetcherCatalogScreen()
-        case "extensions":
-            menu("Extensions", options: JchuCatalogFixtures.extensionsMenu)
-        case "foundationExtensions":
-            ExtensionsCatalogScreen()
-        case "dateUtilities":
-            DateUtilitiesCatalogScreen()
-        case "concurrencyExtensions":
-            ConcurrencyCatalogScreen()
-        case "jchuCompatible":
-            JchuCompatibleCatalogScreen()
-        case "viewExtensions":
-            ViewExtensionsCatalogScreen()
-        case "imageExtensions":
-            UIImageExtensionsCatalogScreen()
-        case "urlImageExtensions":
-            URLImageExtensionsCatalogScreen()
-        case "pay":
-            PayCatalogScreen()
-        case "navigationCodegen":
-            NavigationCodegenCatalogScreen()
-        case "themeTokens":
-            ThemeTokensCatalogScreen()
-        case "info":
-            InfoCatalogScreen()
-        default:
-            CatalogPlaceholderScreen(title: route)
-        }
+@Screen(graph: "Catalog", route: "Toolbars")
+struct ToolbarsCatalogMenuScreen: View {
+    var body: some View {
+        CatalogMenuScreen(title: "Toolbars", options: JchuCatalogFixtures.toolbarsMenu)
+    }
+}
+
+@Screen(graph: "Catalog", route: "Scaffolds")
+struct ScaffoldsCatalogMenuScreen: View {
+    var body: some View {
+        CatalogMenuScreen(title: "Scaffolds", options: JchuCatalogFixtures.scaffoldsMenu)
+    }
+}
+
+@Screen(graph: "Catalog", route: "Images")
+struct ImagesCatalogMenuScreen: View {
+    var body: some View {
+        CatalogMenuScreen(title: "Images", options: JchuCatalogFixtures.imagesMenu)
+    }
+}
+
+@Screen(graph: "Catalog", route: "Extensions")
+struct ExtensionsCatalogMenuScreen: View {
+    var body: some View {
+        CatalogMenuScreen(title: "Extensions", options: JchuCatalogFixtures.extensionsMenu)
     }
 }
 
@@ -330,15 +238,12 @@ private struct CatalogHomeCard: View {
 private struct CatalogMenuScreen: View {
     let title: LocalizedStringKey
     let options: [JchuCatalogMenuOption]
-    let navigate: (String) -> Void
 
     var body: some View {
         JchuScrollableScaffold(title) {
             VStack(spacing: 12) {
                 ForEach(options) { option in
-                    Button {
-                        navigate(option.id)
-                    } label: {
+                    NavigationLink(value: option.route) {
                         CatalogMenuCard(option: option)
                     }
                     .buttonStyle(.plain)
@@ -348,7 +253,8 @@ private struct CatalogMenuScreen: View {
     }
 }
 
-private struct ProgressButtonsCatalogScreen: View {
+@Screen(graph: "Catalog", route: "ProgressButtons")
+struct ProgressButtonsCatalogScreen: View {
     @State private var interactiveLoading = false
 
     var body: some View {
@@ -377,7 +283,8 @@ private struct ProgressButtonsCatalogScreen: View {
     }
 }
 
-private struct FloatingButtonsCatalogScreen: View {
+@Screen(graph: "Catalog", route: "FloatingButtons")
+struct FloatingButtonsCatalogScreen: View {
     var body: some View {
         JchuScrollableScaffold("FloatingButtons") {
             CatalogSection("Sizes") {
@@ -403,7 +310,8 @@ private struct FloatingButtonsCatalogScreen: View {
     }
 }
 
-private struct ChipsCatalogScreen: View {
+@Screen(graph: "Catalog", route: "Chips")
+struct ChipsCatalogScreen: View {
     @Environment(\.jchuTheme) private var theme
     @State private var selected = "Selected"
     @State private var removableVisible = true
@@ -465,7 +373,8 @@ private struct ChipsCatalogScreen: View {
     }
 }
 
-private struct InputsCatalogScreen: View {
+@Screen(graph: "Catalog", route: "Inputs")
+struct InputsCatalogScreen: View {
     @Environment(\.jchuTheme) private var theme
     @State private var searchQuery = ""
     @State private var componentName = ""
@@ -572,7 +481,8 @@ private struct InputsCatalogScreen: View {
     }
 }
 
-private struct PreferencesCatalogScreen: View {
+@Screen(graph: "Catalog", route: "Preferences")
+struct PreferencesCatalogScreen: View {
     @State private var previewsEnabled = true
     @State private var frequency = "Daily"
 
@@ -627,7 +537,8 @@ private struct PreferencesCatalogScreen: View {
     }
 }
 
-private struct TextCatalogScreen: View {
+@Screen(graph: "Catalog", route: "Text")
+struct TextCatalogScreen: View {
     @State private var isExpanded = false
 
     var body: some View {
@@ -655,7 +566,8 @@ private struct TextCatalogScreen: View {
     }
 }
 
-private struct LoadersCatalogScreen: View {
+@Screen(graph: "Catalog", route: "Loaders")
+struct LoadersCatalogScreen: View {
     var body: some View {
         JchuScrollableScaffold("Loaders") {
             CatalogSection("States") {
@@ -673,7 +585,8 @@ private struct LoadersCatalogScreen: View {
     }
 }
 
-private struct LinearProgressCatalogScreen: View {
+@Screen(graph: "Catalog", route: "LinearProgress")
+struct LinearProgressCatalogScreen: View {
     var body: some View {
         JchuScrollableScaffold("LinearProgress") {
             CatalogSection("States") {
@@ -688,7 +601,8 @@ private struct LinearProgressCatalogScreen: View {
     }
 }
 
-private struct CircularProgressCatalogScreen: View {
+@Screen(graph: "Catalog", route: "CircularProgress")
+struct CircularProgressCatalogScreen: View {
     var body: some View {
         JchuScrollableScaffold("CircularProgress") {
             CatalogSection("States") {
@@ -705,7 +619,8 @@ private struct CircularProgressCatalogScreen: View {
     }
 }
 
-private struct IconProgressCatalogScreen: View {
+@Screen(graph: "Catalog", route: "IconProgress")
+struct IconProgressCatalogScreen: View {
     var body: some View {
         JchuScrollableScaffold("IconProgress") {
             CatalogSection("States") {
@@ -717,7 +632,8 @@ private struct IconProgressCatalogScreen: View {
     }
 }
 
-private struct BenefitsCatalogScreen: View {
+@Screen(graph: "Catalog", route: "BenefitCards")
+struct BenefitsCatalogScreen: View {
     var body: some View {
         JchuScrollableScaffold("BenefitCards") {
             CatalogSection("Benefits") {
@@ -729,7 +645,8 @@ private struct BenefitsCatalogScreen: View {
     }
 }
 
-private struct RequirementsCardsCatalogScreen: View {
+@Screen(graph: "Catalog", route: "RequirementsCards")
+struct RequirementsCardsCatalogScreen: View {
     @Environment(\.jchuTheme) private var theme
 
     var body: some View {
@@ -772,7 +689,8 @@ private struct RequirementsCardsCatalogScreen: View {
     }
 }
 
-private struct LazyStaticGridCatalogScreen: View {
+@Screen(graph: "Catalog", route: "LazyStaticGrids")
+struct LazyStaticGridCatalogScreen: View {
     @Environment(\.jchuTheme) private var theme
     private let columns = [GridItem(.adaptive(minimum: 96), spacing: 12)]
 
@@ -800,7 +718,8 @@ private struct LazyStaticGridCatalogScreen: View {
     }
 }
 
-private struct DividersCatalogScreen: View {
+@Screen(graph: "Catalog", route: "Dividers")
+struct DividersCatalogScreen: View {
     @Environment(\.jchuTheme) private var theme
 
     var body: some View {
@@ -831,6 +750,20 @@ private struct DividersCatalogScreen: View {
     }
 }
 
+@Screen(graph: "Catalog", route: "SimpleToolbars")
+struct SimpleToolbarsCatalogScreen: View {
+    var body: some View {
+        ToolbarCatalogScreen(title: "Toolbars", alignment: .trailing)
+    }
+}
+
+@Screen(graph: "Catalog", route: "CenterToolbars")
+struct CenterToolbarsCatalogScreen: View {
+    var body: some View {
+        ToolbarCatalogScreen(title: "CenterToolbars", alignment: .center)
+    }
+}
+
 private struct ToolbarCatalogScreen: View {
     @Environment(\.jchuTheme) private var theme
     let title: LocalizedStringKey
@@ -857,7 +790,8 @@ private struct ToolbarCatalogScreen: View {
     }
 }
 
-private struct LargeToolbarCatalogScreen: View {
+@Screen(graph: "Catalog", route: "LargeToolbars")
+struct LargeToolbarCatalogScreen: View {
     @Environment(\.jchuTheme) private var theme
 
     var body: some View {
@@ -879,7 +813,8 @@ private struct LargeToolbarCatalogScreen: View {
     }
 }
 
-private struct ScaffoldsCatalogScreen: View {
+@Screen(graph: "Catalog", route: "BasicScaffolds")
+struct ScaffoldsCatalogScreen: View {
     @Environment(\.jchuTheme) private var theme
     @State private var selectedID = "home"
     @State private var loading = false
@@ -914,7 +849,8 @@ private struct ScaffoldsCatalogScreen: View {
     }
 }
 
-private struct DetailsScaffoldCatalogScreen: View {
+@Screen(graph: "Catalog", route: "DetailsScaffold")
+struct DetailsScaffoldCatalogScreen: View {
     @Environment(\.jchuTheme) private var theme
 
     private var config: JchuDetailsScaffoldConfig {
@@ -950,7 +886,8 @@ private struct DetailsScaffoldCatalogScreen: View {
     }
 }
 
-private struct SettingsScaffoldCatalogScreen: View {
+@Screen(graph: "Catalog", route: "SettingsScaffold")
+struct SettingsScaffoldCatalogScreen: View {
     @Environment(\.jchuTheme) private var theme
     @State private var notifications = true
     @State private var analytics = false
@@ -976,7 +913,8 @@ private struct SettingsScaffoldCatalogScreen: View {
     }
 }
 
-private struct ShareScaffoldCatalogScreen: View {
+@Screen(graph: "Catalog", route: "ShareScaffold")
+struct ShareScaffoldCatalogScreen: View {
     @Environment(\.jchuTheme) private var theme
 
     private var config: JchuShareScaffoldConfig {
@@ -1015,7 +953,8 @@ private struct ShareScaffoldCatalogScreen: View {
     }
 }
 
-private struct RemoteContentCatalogScreen: View {
+@Screen(graph: "Catalog", route: "RemoteContent")
+struct RemoteContentCatalogScreen: View {
     @State private var mode = "success"
 
     var body: some View {
@@ -1053,7 +992,8 @@ private struct RemoteContentCatalogScreen: View {
     }
 }
 
-private struct PurchaseGridCatalogScreen: View {
+@Screen(graph: "Catalog", route: "PurchaseGrid")
+struct PurchaseGridCatalogScreen: View {
     @Environment(\.jchuTheme) private var theme
     @State private var query = ""
 
@@ -1089,7 +1029,8 @@ private struct PurchaseGridCatalogScreen: View {
     }
 }
 
-private struct PurchaseTabsCatalogScreen: View {
+@Screen(graph: "Catalog", route: "PurchaseTabs")
+struct PurchaseTabsCatalogScreen: View {
     @Environment(\.jchuTheme) private var theme
     @State private var selectedTabID = "components"
     @State private var query = ""
@@ -1144,7 +1085,8 @@ private struct PurchaseTabsCatalogScreen: View {
     }
 }
 
-private struct PurchaseTabBarCatalogScreen: View {
+@Screen(graph: "Catalog", route: "PurchaseTabBar")
+struct PurchaseTabBarCatalogScreen: View {
     @Environment(\.jchuTheme) private var theme
     @State private var selectedTabID = "one"
 
@@ -1176,7 +1118,8 @@ private struct PurchaseTabBarCatalogScreen: View {
     }
 }
 
-private struct PurchaseStatesCatalogScreen: View {
+@Screen(graph: "Catalog", route: "PurchaseStates")
+struct PurchaseStatesCatalogScreen: View {
     @Environment(\.jchuTheme) private var theme
     @State private var mode = "content"
 
@@ -1217,7 +1160,8 @@ private struct PurchaseStatesCatalogScreen: View {
     }
 }
 
-private struct ImagesCatalogScreen: View {
+@Screen(graph: "Catalog", route: "NetworkImage")
+struct ImagesCatalogScreen: View {
     @Environment(\.jchuTheme) private var theme
 
     var body: some View {
@@ -1233,7 +1177,8 @@ private struct ImagesCatalogScreen: View {
     }
 }
 
-private struct NetworkImageStatesCatalogScreen: View {
+@Screen(graph: "Catalog", route: "NetworkImageStates")
+struct NetworkImageStatesCatalogScreen: View {
     @Environment(\.jchuTheme) private var theme
 
     var body: some View {
@@ -1263,7 +1208,8 @@ private struct NetworkImageStatesCatalogScreen: View {
     }
 }
 
-private struct NetworkPrefetcherCatalogScreen: View {
+@Screen(graph: "Catalog", route: "NetworkPrefetcher")
+struct NetworkPrefetcherCatalogScreen: View {
     @StateObject private var prefetcher = JchuNetworkImagePrefetcher()
 
     var body: some View {
@@ -1284,7 +1230,8 @@ private struct NetworkPrefetcherCatalogScreen: View {
     }
 }
 
-private struct ExtensionsCatalogScreen: View {
+@Screen(graph: "Catalog", route: "FoundationExtensions")
+struct ExtensionsCatalogScreen: View {
     var body: some View {
         JchuScrollableScaffold("Extensions") {
             ForEach(extensionGroups, id: \.self) { group in
@@ -1305,7 +1252,8 @@ private struct ExtensionsCatalogScreen: View {
     }
 }
 
-private struct ViewExtensionsCatalogScreen: View {
+@Screen(graph: "Catalog", route: "ViewExtensions")
+struct ViewExtensionsCatalogScreen: View {
     @Environment(\.jchuTheme) private var theme
     @State private var highlighted = true
     @State private var text = ""
@@ -1363,57 +1311,47 @@ private struct ViewExtensionsCatalogScreen: View {
     }
 }
 
-private struct UIImageExtensionsCatalogScreen: View {
+@Screen(graph: "Catalog", route: "ImageExtensions")
+struct SwiftUIImageCatalogScreen: View {
     @Environment(\.jchuTheme) private var theme
 
-    private var sourceImage: UIImage {
-        let renderer = UIGraphicsImageRenderer(size: CGSize(width: 640, height: 360))
-        return renderer.image { context in
-            UIColor(red: 0.47, green: 0.73, blue: 0.60, alpha: 1).setFill()
-            context.fill(CGRect(x: 0, y: 0, width: 640, height: 360))
-            UIColor(red: 0.66, green: 0.82, blue: 0.71, alpha: 1).setFill()
-            context.cgContext.fillEllipse(in: CGRect(x: 220, y: 80, width: 200, height: 200))
-        }
-    }
-
     var body: some View {
-        let fitted = sourceImage.resizedToFit(maxDimension: 180)
-        let targetFitted = sourceImage.resizedToFit(in: CGSize(width: 160, height: 90))
-        let optimized = sourceImage.optimizedJPEG(maxDimension: 240, maximumByteCount: 80 * 1_024)
-
-        JchuScrollableScaffold("UIImage extensions") {
-            CatalogSection("Resize") {
+        JchuScrollableScaffold("SwiftUI image layouts") {
+            CatalogSection("System images") {
                 HStack(spacing: 12) {
-                    Image(uiImage: sourceImage)
-                        .resizable()
-                        .scaledToFit()
-                        .frame(height: 80)
-
-                    Image(uiImage: fitted)
-                        .resizable()
-                        .scaledToFit()
-                        .frame(height: 80)
+                    imagePreview("leaf.fill", contentMode: .fit)
+                    imagePreview("sun.max.fill", contentMode: .fill)
                 }
                 .padding(10)
                 .background(theme.colors.surface, in: .rect(cornerRadius: 8))
             }
 
-            CatalogSection("Results") {
-                CatalogValueRow(name: "Original", value: "\(Int(sourceImage.size.width)) x \(Int(sourceImage.size.height))")
-                CatalogValueRow(name: "resizedToFit(maxDimension:)", value: "\(Int(fitted.size.width)) x \(Int(fitted.size.height))")
-                CatalogValueRow(name: "resizedToFit(in:)", value: "\(Int(targetFitted.size.width)) x \(Int(targetFitted.size.height))")
-                CatalogValueRow(name: "optimizedJPEG(...)", value: optimized.map { "\($0.count) bytes" } ?? "nil")
+            CatalogSection("SwiftUI modifiers") {
+                CatalogValueRow(name: "Image(systemName:)", value: "Creates a vector-backed system image.")
+                CatalogValueRow(name: ".resizable()", value: "Lets the image use the size proposed by its container.")
+                CatalogValueRow(name: ".aspectRatio(contentMode:)", value: "Fits or fills the available frame without UIKit types.")
             }
         }
     }
+
+    private func imagePreview(_ name: String, contentMode: ContentMode) -> some View {
+        Image(systemName: name)
+            .resizable()
+            .aspectRatio(contentMode: contentMode)
+            .frame(width: 88, height: 88)
+            .foregroundStyle(theme.colors.contentSecondary)
+            .padding(14)
+            .background(theme.colors.surface, in: .rect(cornerRadius: 12))
+    }
 }
 
-private struct URLImageExtensionsCatalogScreen: View {
+@Screen(graph: "Catalog", route: "UrlImageExtensions")
+struct URLImageExtensionsCatalogScreen: View {
     var body: some View {
         JchuScrollableScaffold("URL image extensions") {
             CatalogSection("Async helpers") {
-                CatalogValueRow(name: "URL.imageSize(session:)", value: "Downloads image data and returns decoded UIImage size.")
-                CatalogValueRow(name: "URL.isPortraitImage(session:)", value: "Uses imageSize(session:) and checks height > width.")
+                CatalogValueRow(name: "URL.imageSize(session:)", value: "Downloads image data and returns the decoded image dimensions.")
+                CatalogValueRow(name: "URL.isPortraitImage(session:)", value: "Uses imageSize(session:) and checks whether the image is taller than it is wide.")
             }
 
             CatalogSection("Sample URL") {
@@ -1426,7 +1364,8 @@ private struct URLImageExtensionsCatalogScreen: View {
     }
 }
 
-private struct DateUtilitiesCatalogScreen: View {
+@Screen(graph: "Catalog", route: "DateUtilities")
+struct DateUtilitiesCatalogScreen: View {
     private let locale = Locale(identifier: "en_US_POSIX")
     private let timeZone = TimeZone(secondsFromGMT: 0)!
     private let sampleDate = Date(timeIntervalSince1970: 1_720_126_920)
@@ -1467,7 +1406,8 @@ private struct DateUtilitiesCatalogScreen: View {
     }
 }
 
-private struct ConcurrencyCatalogScreen: View {
+@Screen(graph: "Catalog", route: "ConcurrencyExtensions")
+struct ConcurrencyCatalogScreen: View {
     @State private var events: [String] = ["Idle"]
 
     var body: some View {
@@ -1518,7 +1458,8 @@ private struct ConcurrencyCatalogScreen: View {
     }
 }
 
-private struct JchuCompatibleCatalogScreen: View {
+@Screen(graph: "Catalog", route: "JchuCompatible")
+struct JchuCompatibleCatalogScreen: View {
     var body: some View {
         JchuScrollableScaffold("JchuCompatible") {
             CatalogSection("Collection wrapper") {
@@ -1541,7 +1482,8 @@ private struct JchuCompatibleCatalogScreen: View {
     }
 }
 
-private struct ThemeTokensCatalogScreen: View {
+@Screen(graph: "Catalog", route: "ThemeTokens")
+struct ThemeTokensCatalogScreen: View {
     @Environment(\.jchuTheme) private var theme
 
     var body: some View {
@@ -1585,7 +1527,8 @@ private struct ThemeTokensCatalogScreen: View {
     }
 }
 
-private struct PayCatalogScreen: View {
+@Screen(graph: "Catalog", route: "Pay")
+struct PayCatalogScreen: View {
     @Environment(\.jchuTheme) private var theme
 
     var body: some View {
@@ -1621,7 +1564,8 @@ private struct PayCatalogScreen: View {
     }
 }
 
-private struct InfoCatalogScreen: View {
+@Screen(graph: "Catalog", route: "Info")
+struct InfoCatalogScreen: View {
     private let coveredModules = [
         "JchuComponentsSwiftUI",
         "JchuComponentsExtensions",

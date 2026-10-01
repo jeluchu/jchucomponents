@@ -80,6 +80,7 @@ struct JchuCatalogStateFixture<State> {
 
 struct JchuCatalogMenuOption: Identifiable, Hashable {
     let id: String
+    let route: CatalogRoutes
     let name: String
     let systemImage: String
 }
@@ -209,23 +210,23 @@ enum JchuCatalogFixtures {
     static let scenarios = JchuCatalogScenario.allCases
 
     static let uiMenu = [
-        JchuCatalogMenuOption(id: "buttons", name: JchuCatalogCategory.buttons.rawValue, systemImage: JchuCatalogCategory.buttons.systemImage),
-        JchuCatalogMenuOption(id: "cards", name: JchuCatalogCategory.cards.rawValue, systemImage: JchuCatalogCategory.cards.systemImage),
-        JchuCatalogMenuOption(id: "chips", name: JchuCatalogCategory.chips.rawValue, systemImage: JchuCatalogCategory.chips.systemImage),
-        JchuCatalogMenuOption(id: "inputs", name: JchuCatalogCategory.inputs.rawValue, systemImage: JchuCatalogCategory.inputs.systemImage),
-        JchuCatalogMenuOption(id: "preferences", name: JchuCatalogCategory.preferences.rawValue, systemImage: JchuCatalogCategory.preferences.systemImage),
-        JchuCatalogMenuOption(id: "text", name: JchuCatalogCategory.text.rawValue, systemImage: JchuCatalogCategory.text.systemImage),
-        JchuCatalogMenuOption(id: "lists", name: JchuCatalogCategory.lists.rawValue, systemImage: JchuCatalogCategory.lists.systemImage),
-        JchuCatalogMenuOption(id: "loaders", name: JchuCatalogCategory.loaders.rawValue, systemImage: JchuCatalogCategory.loaders.systemImage),
-        JchuCatalogMenuOption(id: "progress", name: JchuCatalogCategory.progress.rawValue, systemImage: JchuCatalogCategory.progress.systemImage),
-        JchuCatalogMenuOption(id: "dividers", name: JchuCatalogCategory.dividers.rawValue, systemImage: JchuCatalogCategory.dividers.systemImage),
-        JchuCatalogMenuOption(id: "toolbars", name: JchuCatalogCategory.toolbars.rawValue, systemImage: JchuCatalogCategory.toolbars.systemImage),
-        JchuCatalogMenuOption(id: "scaffolds", name: JchuCatalogCategory.scaffolds.rawValue, systemImage: JchuCatalogCategory.scaffolds.systemImage),
-        JchuCatalogMenuOption(id: "images", name: JchuCatalogCategory.images.rawValue, systemImage: JchuCatalogCategory.images.systemImage),
-        JchuCatalogMenuOption(id: "extensions", name: JchuCatalogCategory.extensions.rawValue, systemImage: JchuCatalogCategory.extensions.systemImage),
-        JchuCatalogMenuOption(id: "pay", name: JchuCatalogCategory.pay.rawValue, systemImage: JchuCatalogCategory.pay.systemImage),
-        JchuCatalogMenuOption(id: "themeTokens", name: JchuCatalogCategory.theme.rawValue, systemImage: JchuCatalogCategory.theme.systemImage),
-        JchuCatalogMenuOption(id: "info", name: JchuCatalogCategory.info.rawValue, systemImage: JchuCatalogCategory.info.systemImage),
+        JchuCatalogMenuOption(id: "buttons", route: CatalogRoutes.buttons, name: JchuCatalogCategory.buttons.rawValue, systemImage: JchuCatalogCategory.buttons.systemImage),
+        JchuCatalogMenuOption(id: "cards", route: CatalogRoutes.cards, name: JchuCatalogCategory.cards.rawValue, systemImage: JchuCatalogCategory.cards.systemImage),
+        JchuCatalogMenuOption(id: "chips", route: CatalogRoutes.chips, name: JchuCatalogCategory.chips.rawValue, systemImage: JchuCatalogCategory.chips.systemImage),
+        JchuCatalogMenuOption(id: "inputs", route: CatalogRoutes.inputs, name: JchuCatalogCategory.inputs.rawValue, systemImage: JchuCatalogCategory.inputs.systemImage),
+        JchuCatalogMenuOption(id: "preferences", route: CatalogRoutes.preferences, name: JchuCatalogCategory.preferences.rawValue, systemImage: JchuCatalogCategory.preferences.systemImage),
+        JchuCatalogMenuOption(id: "text", route: CatalogRoutes.text, name: JchuCatalogCategory.text.rawValue, systemImage: JchuCatalogCategory.text.systemImage),
+        JchuCatalogMenuOption(id: "lists", route: CatalogRoutes.lists, name: JchuCatalogCategory.lists.rawValue, systemImage: JchuCatalogCategory.lists.systemImage),
+        JchuCatalogMenuOption(id: "loaders", route: CatalogRoutes.loaders, name: JchuCatalogCategory.loaders.rawValue, systemImage: JchuCatalogCategory.loaders.systemImage),
+        JchuCatalogMenuOption(id: "progress", route: CatalogRoutes.progress, name: JchuCatalogCategory.progress.rawValue, systemImage: JchuCatalogCategory.progress.systemImage),
+        JchuCatalogMenuOption(id: "dividers", route: CatalogRoutes.dividers, name: JchuCatalogCategory.dividers.rawValue, systemImage: JchuCatalogCategory.dividers.systemImage),
+        JchuCatalogMenuOption(id: "toolbars", route: CatalogRoutes.toolbars, name: JchuCatalogCategory.toolbars.rawValue, systemImage: JchuCatalogCategory.toolbars.systemImage),
+        JchuCatalogMenuOption(id: "scaffolds", route: CatalogRoutes.scaffolds, name: JchuCatalogCategory.scaffolds.rawValue, systemImage: JchuCatalogCategory.scaffolds.systemImage),
+        JchuCatalogMenuOption(id: "images", route: CatalogRoutes.images, name: JchuCatalogCategory.images.rawValue, systemImage: JchuCatalogCategory.images.systemImage),
+        JchuCatalogMenuOption(id: "extensions", route: CatalogRoutes.extensions, name: JchuCatalogCategory.extensions.rawValue, systemImage: JchuCatalogCategory.extensions.systemImage),
+        JchuCatalogMenuOption(id: "pay", route: CatalogRoutes.pay, name: JchuCatalogCategory.pay.rawValue, systemImage: JchuCatalogCategory.pay.systemImage),
+        JchuCatalogMenuOption(id: "themeTokens", route: CatalogRoutes.themeTokens, name: JchuCatalogCategory.theme.rawValue, systemImage: JchuCatalogCategory.theme.systemImage),
+        JchuCatalogMenuOption(id: "info", route: CatalogRoutes.info, name: JchuCatalogCategory.info.rawValue, systemImage: JchuCatalogCategory.info.systemImage),
     ]
 
     static let moduleSections = [
@@ -234,17 +235,17 @@ enum JchuCatalogFixtures {
             title: "UI Components",
             subtitle: "Reusable SwiftUI controls, inputs, feedback and layout basics.",
             options: [
-                JchuCatalogMenuOption(id: "buttons", name: JchuCatalogCategory.buttons.rawValue, systemImage: JchuCatalogCategory.buttons.systemImage),
-                JchuCatalogMenuOption(id: "cards", name: JchuCatalogCategory.cards.rawValue, systemImage: JchuCatalogCategory.cards.systemImage),
-                JchuCatalogMenuOption(id: "chips", name: JchuCatalogCategory.chips.rawValue, systemImage: JchuCatalogCategory.chips.systemImage),
-                JchuCatalogMenuOption(id: "inputs", name: JchuCatalogCategory.inputs.rawValue, systemImage: JchuCatalogCategory.inputs.systemImage),
-                JchuCatalogMenuOption(id: "preferences", name: JchuCatalogCategory.preferences.rawValue, systemImage: JchuCatalogCategory.preferences.systemImage),
-                JchuCatalogMenuOption(id: "text", name: JchuCatalogCategory.text.rawValue, systemImage: JchuCatalogCategory.text.systemImage),
-                JchuCatalogMenuOption(id: "lists", name: JchuCatalogCategory.lists.rawValue, systemImage: JchuCatalogCategory.lists.systemImage),
-                JchuCatalogMenuOption(id: "loaders", name: JchuCatalogCategory.loaders.rawValue, systemImage: JchuCatalogCategory.loaders.systemImage),
-                JchuCatalogMenuOption(id: "progress", name: JchuCatalogCategory.progress.rawValue, systemImage: JchuCatalogCategory.progress.systemImage),
-                JchuCatalogMenuOption(id: "dividers", name: JchuCatalogCategory.dividers.rawValue, systemImage: JchuCatalogCategory.dividers.systemImage),
-                JchuCatalogMenuOption(id: "toolbars", name: JchuCatalogCategory.toolbars.rawValue, systemImage: JchuCatalogCategory.toolbars.systemImage),
+                JchuCatalogMenuOption(id: "buttons", route: CatalogRoutes.buttons, name: JchuCatalogCategory.buttons.rawValue, systemImage: JchuCatalogCategory.buttons.systemImage),
+                JchuCatalogMenuOption(id: "cards", route: CatalogRoutes.cards, name: JchuCatalogCategory.cards.rawValue, systemImage: JchuCatalogCategory.cards.systemImage),
+                JchuCatalogMenuOption(id: "chips", route: CatalogRoutes.chips, name: JchuCatalogCategory.chips.rawValue, systemImage: JchuCatalogCategory.chips.systemImage),
+                JchuCatalogMenuOption(id: "inputs", route: CatalogRoutes.inputs, name: JchuCatalogCategory.inputs.rawValue, systemImage: JchuCatalogCategory.inputs.systemImage),
+                JchuCatalogMenuOption(id: "preferences", route: CatalogRoutes.preferences, name: JchuCatalogCategory.preferences.rawValue, systemImage: JchuCatalogCategory.preferences.systemImage),
+                JchuCatalogMenuOption(id: "text", route: CatalogRoutes.text, name: JchuCatalogCategory.text.rawValue, systemImage: JchuCatalogCategory.text.systemImage),
+                JchuCatalogMenuOption(id: "lists", route: CatalogRoutes.lists, name: JchuCatalogCategory.lists.rawValue, systemImage: JchuCatalogCategory.lists.systemImage),
+                JchuCatalogMenuOption(id: "loaders", route: CatalogRoutes.loaders, name: JchuCatalogCategory.loaders.rawValue, systemImage: JchuCatalogCategory.loaders.systemImage),
+                JchuCatalogMenuOption(id: "progress", route: CatalogRoutes.progress, name: JchuCatalogCategory.progress.rawValue, systemImage: JchuCatalogCategory.progress.systemImage),
+                JchuCatalogMenuOption(id: "dividers", route: CatalogRoutes.dividers, name: JchuCatalogCategory.dividers.rawValue, systemImage: JchuCatalogCategory.dividers.systemImage),
+                JchuCatalogMenuOption(id: "toolbars", route: CatalogRoutes.toolbars, name: JchuCatalogCategory.toolbars.rawValue, systemImage: JchuCatalogCategory.toolbars.systemImage),
             ]
         ),
         JchuCatalogModuleSection(
@@ -252,18 +253,18 @@ enum JchuCatalogFixtures {
             title: "SwiftUI Screens",
             subtitle: "Scaffolds, remote states, purchase layouts, images and app theme tokens.",
             options: [
-                JchuCatalogMenuOption(id: "scaffolds", name: JchuCatalogCategory.scaffolds.rawValue, systemImage: JchuCatalogCategory.scaffolds.systemImage),
-                JchuCatalogMenuOption(id: "images", name: JchuCatalogCategory.images.rawValue, systemImage: JchuCatalogCategory.images.systemImage),
-                JchuCatalogMenuOption(id: "themeTokens", name: JchuCatalogCategory.theme.rawValue, systemImage: JchuCatalogCategory.theme.systemImage),
-                JchuCatalogMenuOption(id: "navigationCodegen", name: "Navigation Codegen", systemImage: "point.topleft.down.to.point.bottomright.curvepath"),
+                JchuCatalogMenuOption(id: "scaffolds", route: CatalogRoutes.scaffolds, name: JchuCatalogCategory.scaffolds.rawValue, systemImage: JchuCatalogCategory.scaffolds.systemImage),
+                JchuCatalogMenuOption(id: "images", route: CatalogRoutes.images, name: JchuCatalogCategory.images.rawValue, systemImage: JchuCatalogCategory.images.systemImage),
+                JchuCatalogMenuOption(id: "themeTokens", route: CatalogRoutes.themeTokens, name: JchuCatalogCategory.theme.rawValue, systemImage: JchuCatalogCategory.theme.systemImage),
+                JchuCatalogMenuOption(id: "navigationCodegen", route: CatalogRoutes.navigationCodegen, name: "Navigation Codegen", systemImage: "point.topleft.down.to.point.bottomright.curvepath"),
             ]
         ),
         JchuCatalogModuleSection(
             id: "extensions",
             title: "Extensions",
-            subtitle: "Foundation, collections, dates, concurrency, URL, UIImage and View helpers.",
+            subtitle: "Foundation, collections, dates, concurrency, URL, SwiftUI image layouts and View helpers.",
             options: [
-                JchuCatalogMenuOption(id: "extensions", name: JchuCatalogCategory.extensions.rawValue, systemImage: JchuCatalogCategory.extensions.systemImage),
+                JchuCatalogMenuOption(id: "extensions", route: CatalogRoutes.extensions, name: JchuCatalogCategory.extensions.rawValue, systemImage: JchuCatalogCategory.extensions.systemImage),
             ]
         ),
         JchuCatalogModuleSection(
@@ -271,7 +272,7 @@ enum JchuCatalogFixtures {
             title: "Pay",
             subtitle: "Subscription models, billing empty states and RevenueCat flow surface.",
             options: [
-                JchuCatalogMenuOption(id: "pay", name: JchuCatalogCategory.pay.rawValue, systemImage: JchuCatalogCategory.pay.systemImage),
+                JchuCatalogMenuOption(id: "pay", route: CatalogRoutes.pay, name: JchuCatalogCategory.pay.rawValue, systemImage: JchuCatalogCategory.pay.systemImage),
             ]
         ),
         JchuCatalogModuleSection(
@@ -279,63 +280,63 @@ enum JchuCatalogFixtures {
             title: "Core",
             subtitle: "Package metadata and shared binary information exposed to Swift.",
             options: [
-                JchuCatalogMenuOption(id: "info", name: JchuCatalogCategory.info.rawValue, systemImage: JchuCatalogCategory.info.systemImage),
+                JchuCatalogMenuOption(id: "info", route: CatalogRoutes.info, name: JchuCatalogCategory.info.rawValue, systemImage: JchuCatalogCategory.info.systemImage),
             ]
         ),
     ]
 
     static let buttonsMenu = [
-        JchuCatalogMenuOption(id: "progressButtons", name: "ProgressButtons", systemImage: "rectangle.and.hand.point.up.left"),
-        JchuCatalogMenuOption(id: "floatingButtons", name: "FloatingButtons", systemImage: "plus.circle.fill"),
+        JchuCatalogMenuOption(id: "progressButtons", route: CatalogRoutes.progressButtons, name: "ProgressButtons", systemImage: "rectangle.and.hand.point.up.left"),
+        JchuCatalogMenuOption(id: "floatingButtons", route: CatalogRoutes.floatingButtons, name: "FloatingButtons", systemImage: "plus.circle.fill"),
     ]
 
     static let progressMenu = [
-        JchuCatalogMenuOption(id: "circularProgress", name: "CircularProgress", systemImage: "circle.dotted"),
-        JchuCatalogMenuOption(id: "linearProgress", name: "LinearProgress", systemImage: "chart.bar.xaxis"),
-        JchuCatalogMenuOption(id: "iconProgress", name: "IconProgress", systemImage: "icloud.and.arrow.down"),
+        JchuCatalogMenuOption(id: "circularProgress", route: CatalogRoutes.circularProgress, name: "CircularProgress", systemImage: "circle.dotted"),
+        JchuCatalogMenuOption(id: "linearProgress", route: CatalogRoutes.linearProgress, name: "LinearProgress", systemImage: "chart.bar.xaxis"),
+        JchuCatalogMenuOption(id: "iconProgress", route: CatalogRoutes.iconProgress, name: "IconProgress", systemImage: "icloud.and.arrow.down"),
     ]
 
     static let listsMenu = [
-        JchuCatalogMenuOption(id: "lazyStaticGrids", name: "LazyStaticGrids", systemImage: "square.grid.3x3")
+        JchuCatalogMenuOption(id: "lazyStaticGrids", route: CatalogRoutes.lazyStaticGrids, name: "LazyStaticGrids", systemImage: "square.grid.3x3")
     ]
 
     static let toolbarsMenu = [
-        JchuCatalogMenuOption(id: "simpleToolbars", name: "Toolbars", systemImage: "rectangle.topthird.inset.filled"),
-        JchuCatalogMenuOption(id: "centerToolbars", name: "CenterToolbars", systemImage: "align.horizontal.center"),
-        JchuCatalogMenuOption(id: "largeToolbars", name: "LargeToolbars", systemImage: "textformat.size.larger"),
+        JchuCatalogMenuOption(id: "simpleToolbars", route: CatalogRoutes.simpleToolbars, name: "Toolbars", systemImage: "rectangle.topthird.inset.filled"),
+        JchuCatalogMenuOption(id: "centerToolbars", route: CatalogRoutes.centerToolbars, name: "CenterToolbars", systemImage: "align.horizontal.center"),
+        JchuCatalogMenuOption(id: "largeToolbars", route: CatalogRoutes.largeToolbars, name: "LargeToolbars", systemImage: "textformat.size.larger"),
     ]
 
     static let cardsMenu = [
-        JchuCatalogMenuOption(id: "benefitCards", name: "BenefitCards", systemImage: "sparkles"),
-        JchuCatalogMenuOption(id: "requirementsCards", name: "RequirementsCards", systemImage: "rectangle.grid.2x2")
+        JchuCatalogMenuOption(id: "benefitCards", route: CatalogRoutes.benefitCards, name: "BenefitCards", systemImage: "sparkles"),
+        JchuCatalogMenuOption(id: "requirementsCards", route: CatalogRoutes.requirementsCards, name: "RequirementsCards", systemImage: "rectangle.grid.2x2")
     ]
 
     static let scaffoldsMenu = [
-        JchuCatalogMenuOption(id: "basicScaffolds", name: "Base & state", systemImage: "iphone"),
-        JchuCatalogMenuOption(id: "detailsScaffold", name: "DetailsScaffold", systemImage: "doc.text.magnifyingglass"),
-        JchuCatalogMenuOption(id: "settingsScaffold", name: "SettingsScaffold", systemImage: "gearshape"),
-        JchuCatalogMenuOption(id: "shareScaffold", name: "ShareScaffold", systemImage: "square.and.arrow.up"),
-        JchuCatalogMenuOption(id: "remoteContent", name: "RemoteScreenContent", systemImage: "antenna.radiowaves.left.and.right"),
-        JchuCatalogMenuOption(id: "purchaseGrid", name: "PurchaseElementsScaffold", systemImage: "square.grid.2x2"),
-        JchuCatalogMenuOption(id: "purchaseTabs", name: "PurchaseTabItemsScaffold", systemImage: "rectangle.bottomthird.inset.filled"),
-        JchuCatalogMenuOption(id: "purchaseTabBar", name: "PurchaseTabBar", systemImage: "rectangle.3.group"),
-        JchuCatalogMenuOption(id: "purchaseStates", name: "PurchaseStates", systemImage: "checklist"),
+        JchuCatalogMenuOption(id: "basicScaffolds", route: CatalogRoutes.basicScaffolds, name: "Base & state", systemImage: "iphone"),
+        JchuCatalogMenuOption(id: "detailsScaffold", route: CatalogRoutes.detailsScaffold, name: "DetailsScaffold", systemImage: "doc.text.magnifyingglass"),
+        JchuCatalogMenuOption(id: "settingsScaffold", route: CatalogRoutes.settingsScaffold, name: "SettingsScaffold", systemImage: "gearshape"),
+        JchuCatalogMenuOption(id: "shareScaffold", route: CatalogRoutes.shareScaffold, name: "ShareScaffold", systemImage: "square.and.arrow.up"),
+        JchuCatalogMenuOption(id: "remoteContent", route: CatalogRoutes.remoteContent, name: "RemoteScreenContent", systemImage: "antenna.radiowaves.left.and.right"),
+        JchuCatalogMenuOption(id: "purchaseGrid", route: CatalogRoutes.purchaseGrid, name: "PurchaseElementsScaffold", systemImage: "square.grid.2x2"),
+        JchuCatalogMenuOption(id: "purchaseTabs", route: CatalogRoutes.purchaseTabs, name: "PurchaseTabItemsScaffold", systemImage: "rectangle.bottomthird.inset.filled"),
+        JchuCatalogMenuOption(id: "purchaseTabBar", route: CatalogRoutes.purchaseTabBar, name: "PurchaseTabBar", systemImage: "rectangle.3.group"),
+        JchuCatalogMenuOption(id: "purchaseStates", route: CatalogRoutes.purchaseStates, name: "PurchaseStates", systemImage: "checklist"),
     ]
 
     static let imagesMenu = [
-        JchuCatalogMenuOption(id: "networkImage", name: "NetworkImage", systemImage: "photo"),
-        JchuCatalogMenuOption(id: "networkImageStates", name: "Placeholders & errors", systemImage: "photo.badge.exclamationmark"),
-        JchuCatalogMenuOption(id: "networkPrefetcher", name: "NetworkImagePrefetcher", systemImage: "tray.and.arrow.down"),
+        JchuCatalogMenuOption(id: "networkImage", route: CatalogRoutes.networkImage, name: "NetworkImage", systemImage: "photo"),
+        JchuCatalogMenuOption(id: "networkImageStates", route: CatalogRoutes.networkImageStates, name: "Placeholders & errors", systemImage: "photo.badge.exclamationmark"),
+        JchuCatalogMenuOption(id: "networkPrefetcher", route: CatalogRoutes.networkPrefetcher, name: "NetworkImagePrefetcher", systemImage: "tray.and.arrow.down"),
     ]
 
     static let extensionsMenu = [
-        JchuCatalogMenuOption(id: "foundationExtensions", name: "Foundation & collections", systemImage: "curlybraces"),
-        JchuCatalogMenuOption(id: "dateUtilities", name: "Date utilities", systemImage: "calendar"),
-        JchuCatalogMenuOption(id: "concurrencyExtensions", name: "Concurrency", systemImage: "bolt.horizontal"),
-        JchuCatalogMenuOption(id: "jchuCompatible", name: "JchuCompatible", systemImage: "puzzlepiece.extension"),
-        JchuCatalogMenuOption(id: "viewExtensions", name: "View extensions", systemImage: "rectangle.on.rectangle"),
-        JchuCatalogMenuOption(id: "imageExtensions", name: "UIImage extensions", systemImage: "photo.on.rectangle"),
-        JchuCatalogMenuOption(id: "urlImageExtensions", name: "URL image extensions", systemImage: "link"),
+        JchuCatalogMenuOption(id: "foundationExtensions", route: CatalogRoutes.foundationExtensions, name: "Foundation & collections", systemImage: "curlybraces"),
+        JchuCatalogMenuOption(id: "dateUtilities", route: CatalogRoutes.dateUtilities, name: "Date utilities", systemImage: "calendar"),
+        JchuCatalogMenuOption(id: "concurrencyExtensions", route: CatalogRoutes.concurrencyExtensions, name: "Concurrency", systemImage: "bolt.horizontal"),
+        JchuCatalogMenuOption(id: "jchuCompatible", route: CatalogRoutes.jchuCompatible, name: "JchuCompatible", systemImage: "puzzlepiece.extension"),
+        JchuCatalogMenuOption(id: "viewExtensions", route: CatalogRoutes.viewExtensions, name: "View extensions", systemImage: "rectangle.on.rectangle"),
+        JchuCatalogMenuOption(id: "imageExtensions", route: CatalogRoutes.imageExtensions, name: "SwiftUI image layouts", systemImage: "photo.on.rectangle"),
+        JchuCatalogMenuOption(id: "urlImageExtensions", route: CatalogRoutes.urlImageExtensions, name: "URL image extensions", systemImage: "link"),
     ]
 
     static let progressButtonStateFixtures = [
