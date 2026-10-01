@@ -211,10 +211,10 @@ See the [module README](jchucomponents-navigation3/README.md) for installation, 
 Android catalog.
 
 The Swift package also provides `JchuComponentsNavigation`, a SwiftUI `@Screen`
-macro that creates typed route values and destination builders. Its
-`JchuComponentsNavigationGraphPlugin` build plugin collects annotated screens
-by graph and generates destination registration for the target. The iOS catalog
-contains a three-screen flow; see the [SwiftUI navigation guide](swift/README.md#swiftui-navigation-code-generation).
+macro and graph plugin. Annotated screens generate a typed route enum per graph,
+including associated arguments and a switch to each destination view. The iOS
+catalog registers generated routes on its root `NavigationStack`; see the
+[SwiftUI navigation guide](swift/README.md#swiftui-navigation-code-generation).
 
 ## Supabase quick start
 
