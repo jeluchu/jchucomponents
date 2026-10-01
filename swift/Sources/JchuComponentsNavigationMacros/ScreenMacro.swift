@@ -3,7 +3,7 @@ import SwiftSyntax
 import SwiftSyntaxBuilder
 import SwiftSyntaxMacros
 
-public struct ScreenMacro: PeerMacro {
+public struct ScreenMacro: PeerMacro, MemberMacro {
     public static func expansion(
         of node: AttributeSyntax,
         providingPeersOf declaration: some DeclSyntaxProtocol,
@@ -18,7 +18,11 @@ public struct ScreenMacro: PeerMacro {
         let graph = stringArgument("graph", from: arguments) ?? ""
         let route = stringArgument("route", from: arguments)
         let routeName = route.flatMap { $0.isEmpty ? nil : $0 } ?? screen.name.text
-        let argumentNames = stringArrayArgument("arguments", from: arguments) ?? []
+        let declaredArgumentNames = stringArrayArgument("arguments", from: arguments) ?? []
+        let markedArgumentNames = routeArgumentNames(in: screen)
+        let argumentNames = declaredArgumentNames + markedArgumentNames.filter {
+            !declaredArgumentNames.contains($0)
+        }
 
         guard !graph.isEmpty else {
             diagnose("@Screen requires a non-empty graph name.", at: node, in: context)
@@ -106,12 +110,30 @@ public struct ScreenMacro: PeerMacro {
         }
     }
 
+    private static func routeArgumentNames(in declaration: StructDeclSyntax) -> [String] {
+        declaration.memberBlock.members.flatMap { member -> [String] in
+            guard let variable = member.decl.as(VariableDeclSyntax.self),
+                  variable.attributes.contains(where: isRouteArgumentAttribute)
+            else { return [] }
+
+            return variable.bindings.compactMap { binding in
+                binding.pattern.as(IdentifierPatternSyntax.self)?.identifier.text
+            }
+        }
+    }
+
+    private static func isRouteArgumentAttribute(_ element: AttributeListSyntax.Element) -> Bool {
+        guard let attribute = element.as(AttributeSyntax.self) else { return false }
+        let name = attribute.attributeName.trimmedDescription
+        return name == "RouteArgument" || name.hasSuffix(".RouteArgument")
+    }
+
     private static func storedProperties(in declaration: StructDeclSyntax) -> [String: String] {
         var properties: [String: String] = [:]
 
         for member in declaration.memberBlock.members {
             guard let variable = member.decl.as(VariableDeclSyntax.self),
-                  variable.attributes.isEmpty,
+                  variable.attributes.allSatisfy(isRouteArgumentAttribute),
                   !variable.modifiers.contains(where: { $0.name.text == "static" || $0.name.text == "class" })
             else { continue }
 
@@ -154,4 +176,143 @@ private struct ScreenMacroDiagnostic: DiagnosticMessage {
     }
 
     var severity: DiagnosticSeverity { .error }
+}
+
+extension ScreenMacro {
+    public static func expansion(
+        of node: AttributeSyntax,
+        providingMembersOf declaration: some DeclGroupSyntax,
+        conformingTo protocols: [TypeSyntax],
+        in context: some MacroExpansionContext
+    ) throws -> [DeclSyntax] {
+        guard let screen = declaration.as(StructDeclSyntax.self) else { return [] }
+        let viewModelProperties = screen.memberBlock.members.compactMap { member -> VariableDeclSyntax? in
+            guard let variable = member.decl.as(VariableDeclSyntax.self),
+                  variable.attributes.contains(where: isScreenKoinViewModelAttribute)
+            else { return nil }
+            return variable
+        }
+        guard !viewModelProperties.isEmpty else { return [] }
+
+        if screen.memberBlock.members.contains(where: { $0.decl.is(InitializerDeclSyntax.self) }) {
+            diagnose(
+                "Remove the handwritten initializer when using @ScreenKoinViewModel; @Screen generates it.",
+                at: screen,
+                in: context
+            )
+            return []
+        }
+
+        let declaredArgumentNames = stringArrayArgument(
+            "arguments",
+            from: argumentList(from: node)
+        ) ?? []
+        let markedArgumentNames = routeArgumentNames(in: screen)
+        let argumentNames = declaredArgumentNames + markedArgumentNames.filter {
+            !declaredArgumentNames.contains($0)
+        }
+        let propertyTypes = storedProperties(in: screen)
+        let routeFields = argumentNames.compactMap { name -> RouteField? in
+            guard let type = propertyTypes[name] else {
+                diagnose(
+                    "@RouteArgument '\(name)' must be a stored property with an explicit type.",
+                    at: screen,
+                    in: context
+                )
+                return nil
+            }
+            return RouteField(name: name, type: type)
+        }
+        guard routeFields.count == argumentNames.count else { return [] }
+
+        var viewModelAssignments: [String] = []
+        for variable in viewModelProperties {
+            guard variable.bindings.count == 1,
+                  let binding = variable.bindings.first,
+                  let name = binding.pattern.as(IdentifierPatternSyntax.self)?.identifier.text,
+                  binding.accessorBlock == nil
+            else {
+                diagnose(
+                    "@ScreenKoinViewModel must be applied to one stored property at a time.",
+                    at: variable,
+                    in: context
+                )
+                return []
+            }
+
+            guard let annotationElement = variable.attributes.first(where: isScreenKoinViewModelAttribute),
+                  let annotation = annotationElement.as(AttributeSyntax.self),
+                  let arguments = argumentList(from: annotation),
+                  let factory = arguments.first(where: { $0.label?.text == "factory" })?.expression
+            else {
+                diagnose("@ScreenKoinViewModel requires a factory function reference.", at: variable, in: context)
+                return []
+            }
+
+            let explicitArguments = arguments.first(where: { $0.label?.text == "arguments" })
+            let mappedArguments: [String]
+            if explicitArguments == nil {
+                mappedArguments = routeFields.map(\.name)
+            } else if let parsed = stringArrayArgument("arguments", from: arguments) {
+                mappedArguments = parsed
+            } else {
+                diagnose("@ScreenKoinViewModel arguments must be an array of string property names.", at: annotation, in: context)
+                return []
+            }
+
+            guard Set(mappedArguments).count == mappedArguments.count else {
+                diagnose("@ScreenKoinViewModel arguments must not contain duplicate names.", at: annotation, in: context)
+                return []
+            }
+            let routeFieldNames = Set(routeFields.map(\.name))
+            if let missing = mappedArguments.first(where: { !routeFieldNames.contains($0) }) {
+                diagnose(
+                    "@ScreenKoinViewModel argument '\(missing)' must be declared with @RouteArgument on this screen.",
+                    at: annotation,
+                    in: context
+                )
+                return []
+            }
+
+            let wrapperName = variable.attributes
+                .compactMap { $0.as(AttributeSyntax.self) }
+                .map { attribute in
+                    attribute.attributeName.trimmedDescription
+                        .split(separator: ".")
+                        .last
+                        .map(String.init) ?? attribute.attributeName.trimmedDescription
+                }
+                .first { $0 == "StateViewModel" || $0 == "ObservedViewModel" || $0 == "State" }
+            guard let wrapper = wrapperName else {
+                diagnose(
+                    "@ScreenKoinViewModel requires a state property wrapper with an init(wrappedValue:) initializer.",
+                    at: variable,
+                    in: context
+                )
+                return []
+            }
+
+            let factoryArguments = mappedArguments
+                .map { "\($0): \($0)" }
+                .joined(separator: ", ")
+            let factoryCall = "\(factory.trimmedDescription)(\(factoryArguments))"
+            viewModelAssignments.append("        _\(name) = \(wrapper)(wrappedValue: \(factoryCall))")
+        }
+
+        let access = screen.modifiers.contains { $0.name.text == "public" || $0.name.text == "open" }
+            ? "public "
+            : ""
+        let initializerParameters = routeFields
+            .map { "\($0.name): \($0.type)" }
+            .joined(separator: ", ")
+        let routeAssignments = routeFields.map { "        self.\($0.name) = \($0.name)" }
+        let body = (routeAssignments + viewModelAssignments).joined(separator: "\n")
+        return [DeclSyntax(stringLiteral: "\(access)init(\(initializerParameters)) {\n\(body)\n}")]
+    }
+
+    private static func isScreenKoinViewModelAttribute(_ element: AttributeListSyntax.Element) -> Bool {
+        guard let attribute = element.as(AttributeSyntax.self) else { return false }
+        let name = attribute.attributeName.trimmedDescription
+        return name == "ScreenKoinViewModel" || name.hasSuffix(".ScreenKoinViewModel")
+    }
 }
