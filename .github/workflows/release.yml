@@ -45,6 +45,10 @@ jobs:
           swift package dump-package \
             --package-path "build/swift-release/${GITHUB_REF_NAME}"
 
+      - name: Verify generated SwiftPM navigation plugin
+        run: |
+          test -f "build/swift-release/${GITHUB_REF_NAME}/Plugins/JchuComponentsNavigationGraphPlugin/plugin.swift"
+
       - name: Publish GitHub release
         env:
           GH_TOKEN: ${{ github.token }}
@@ -70,6 +74,7 @@ jobs:
             build/swift-release/${{ github.ref_name }}/Package.swift
             build/swift-release/${{ github.ref_name }}/Sources
             build/swift-release/${{ github.ref_name }}/Tests
+            build/swift-release/${{ github.ref_name }}/Plugins
 
   publish-swift-package:
     name: Publish SwiftPM manifest repository
@@ -84,6 +89,10 @@ jobs:
         with:
           name: jchucomponents-spm-${{ github.ref_name }}
           path: swift-package
+
+      - name: Verify downloaded SwiftPM navigation plugin
+        run: |
+          test -f "swift-package/Plugins/JchuComponentsNavigationGraphPlugin/plugin.swift"
 
       - name: Check out SwiftPM manifest repository
         uses: actions/checkout@v4

@@ -1,5 +1,23 @@
 # Changelog
 
+## 3.0.0-alpha15
+
+### Added
+
+- Automatic SwiftUI navigation route generation in Xcode projects through the
+  SwiftPM build-tool plugin.
+
+### Changed
+
+- Include the navigation graph plugin in generated SwiftPM release payloads and
+  verify it before and after artifact transfer.
+- Update the plugin to use the current SwiftPM plugin URL APIs.
+
+### Fixed
+
+- Declare the generated `Route` suffix in the `@Screen` macro so Swift can
+  validate the generated route name correctly.
+
 ## 3.0.0-alpha11
 
 ### Breaking changes

@@ -12,7 +12,7 @@ public protocol JchuScreenRoute: Hashable {
 }
 
 /// Marks a SwiftUI screen and generates a typed, hashable route for its arguments.
-@attached(peer, names: arbitrary)
+@attached(peer, names: suffixed(Route))
 public macro Screen(
     graph: String,
     route: String = "",
