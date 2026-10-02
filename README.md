@@ -212,9 +212,25 @@ Android catalog.
 
 The Swift package also provides `JchuComponentsNavigation`, a SwiftUI `@Screen`
 macro and graph plugin. Annotated screens generate a typed route enum per graph,
-including associated arguments and a switch to each destination view. The iOS
-catalog registers generated routes on its root `NavigationStack`; see the
-[SwiftUI navigation guide](swift/README.md#swiftui-navigation-code-generation).
+including associated arguments and a switch to each destination view. For KMP
+ViewModels, `@ScreenKoinViewModel` can infer the factory from the property type;
+for example, `UserViewModel` uses `KoinWrapper.userForScreen()`:
+
+```swift
+@Screen(graph: "Wallet")
+struct WalletScreen: View {
+    @ScreenKoinViewModel
+    @StateViewModel private var viewModel: UserViewModel
+
+    var body: some View { WalletContent(viewModel: viewModel) }
+}
+```
+
+Factories follow `<lowerCamel ViewModel name without ViewModel>ForScreen`; the
+macro forwards `@RouteArgument` values by name. Use `arguments: []` when the
+ViewModel needs no route values, or pass `factory:` explicitly for a custom
+factory name. The iOS catalog registers generated routes on its root
+`NavigationStack`.
 
 ## Supabase quick start
 

@@ -33,14 +33,17 @@ public macro RouteArgument() = #externalMacro(
     type: "RouteArgumentMacro"
 )
 
-/// Initializes a KMP ViewModel property from a typed factory while generating the screen initializer.
+/// Initializes a KMP ViewModel property while generating the screen initializer.
 ///
-/// The factory can receive route arguments by name. If `arguments` is omitted, all `@RouteArgument`
-/// properties are passed. Provide an explicit subset, including `[]`, when the ViewModel needs fewer
-/// values than the screen route.
+/// When `factory` is omitted, the macro derives a `KoinWrapper` factory from the
+/// property type. For example, `UserViewModel` resolves to
+/// `KoinWrapper.userForScreen()`. The factory can receive route arguments by
+/// name. If `arguments` is omitted, all `@RouteArgument` properties are passed.
+/// Provide a subset, including `[]`, when the ViewModel needs fewer values than
+/// the screen route. An explicit factory remains available for custom naming.
 @attached(peer, names: arbitrary)
 public macro ScreenKoinViewModel(
-    factory: Any,
+    factory: Any? = nil,
     arguments: [String] = []
 ) = #externalMacro(
     module: "JchuComponentsNavigationMacros",

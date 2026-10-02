@@ -100,10 +100,7 @@ struct NavigationCodegenViewModelScreen: View {
     @RouteArgument let itemID: Int
     @RouteArgument let title: String
 
-    @ScreenKoinViewModel(
-        factory: NavigationCodegenViewModelFactory.make,
-        arguments: ["itemID", "title"]
-    )
+    @ScreenKoinViewModel
     @State private var viewModel: NavigationCodegenViewModel
 
     var body: some View {
@@ -123,8 +120,11 @@ private struct NavigationCodegenViewModel {
     let title: String
 }
 
-private enum NavigationCodegenViewModelFactory {
-    static func make(itemID: Int, title: String) -> NavigationCodegenViewModel {
+private enum KoinWrapper {
+    static func navigationCodegenForScreen(
+        itemID: Int,
+        title: String
+    ) -> NavigationCodegenViewModel {
         NavigationCodegenViewModel(itemID: itemID, title: title)
     }
 }

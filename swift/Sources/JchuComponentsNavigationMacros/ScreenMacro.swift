@@ -241,19 +241,31 @@ extension ScreenMacro {
             }
 
             guard let annotationElement = variable.attributes.first(where: isScreenKoinViewModelAttribute),
-                  let annotation = annotationElement.as(AttributeSyntax.self),
-                  let arguments = argumentList(from: annotation),
-                  let factory = arguments.first(where: { $0.label?.text == "factory" })?.expression
+                  let annotation = annotationElement.as(AttributeSyntax.self)
             else {
-                diagnose("@ScreenKoinViewModel requires a factory function reference.", at: variable, in: context)
+                diagnose("@ScreenKoinViewModel could not read its attribute.", at: variable, in: context)
                 return []
             }
 
-            let explicitArguments = arguments.first(where: { $0.label?.text == "arguments" })
+            let viewModelArguments = argumentList(from: annotation)
+            let factoryExpression: String
+            if let factory = viewModelArguments?.first(where: { $0.label?.text == "factory" })?.expression,
+               !factory.is(NilLiteralExprSyntax.self) {
+                factoryExpression = factory.trimmedDescription
+            } else {
+                guard let inferredFactory = inferredFactoryExpression(
+                    for: variable,
+                    binding: binding,
+                    in: context
+                ) else { return [] }
+                factoryExpression = inferredFactory
+            }
+
+            let explicitArguments = viewModelArguments?.first(where: { $0.label?.text == "arguments" })
             let mappedArguments: [String]
             if explicitArguments == nil {
                 mappedArguments = routeFields.map(\.name)
-            } else if let parsed = stringArrayArgument("arguments", from: arguments) {
+            } else if let parsed = stringArrayArgument("arguments", from: viewModelArguments) {
                 mappedArguments = parsed
             } else {
                 diagnose("@ScreenKoinViewModel arguments must be an array of string property names.", at: annotation, in: context)
@@ -295,7 +307,7 @@ extension ScreenMacro {
             let factoryArguments = mappedArguments
                 .map { "\($0): \($0)" }
                 .joined(separator: ", ")
-            let factoryCall = "\(factory.trimmedDescription)(\(factoryArguments))"
+            let factoryCall = "\(factoryExpression)(\(factoryArguments))"
             viewModelAssignments.append("        _\(name) = \(wrapper)(wrappedValue: \(factoryCall))")
         }
 
@@ -314,5 +326,36 @@ extension ScreenMacro {
         guard let attribute = element.as(AttributeSyntax.self) else { return false }
         let name = attribute.attributeName.trimmedDescription
         return name == "ScreenKoinViewModel" || name.hasSuffix(".ScreenKoinViewModel")
+    }
+
+    private static func inferredFactoryExpression(
+        for variable: VariableDeclSyntax,
+        binding: PatternBindingSyntax,
+        in context: some MacroExpansionContext
+    ) -> String? {
+        guard let type = binding.typeAnnotation?.type else {
+            diagnose(
+                "@ScreenKoinViewModel needs an explicit ViewModel type to infer its factory.",
+                at: variable,
+                in: context
+            )
+            return nil
+        }
+
+        let declaredType = type.trimmedDescription.split(separator: ".").last.map(String.init)
+            ?? type.trimmedDescription
+        let suffix = "ViewModel"
+        guard declaredType.hasSuffix(suffix), declaredType.count > suffix.count else {
+            diagnose(
+                "Unable to infer @ScreenKoinViewModel factory for '\(declaredType)'. Use a *ViewModel type or pass factory: explicitly.",
+                at: variable,
+                in: context
+            )
+            return nil
+        }
+
+        let baseName = String(declaredType.dropLast(suffix.count))
+        let lowerCamelName = String(baseName.prefix(1)).lowercased() + String(baseName.dropFirst())
+        return "KoinWrapper.\(lowerCamelName)ForScreen"
     }
 }
