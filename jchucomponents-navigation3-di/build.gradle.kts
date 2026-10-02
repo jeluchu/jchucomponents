@@ -1,5 +1,6 @@
 plugins {
     alias(libs.plugins.android.library)
+    alias(libs.plugins.jetbrains.dokka)
     alias(libs.plugins.compose.compiler)
     id("jchucomponents.publish")
 }
