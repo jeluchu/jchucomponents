@@ -12,7 +12,8 @@ let swiftSyntaxDependency = Package.Dependency.package(url: "https://github.com/
 let package = Package(
     name: "JchuComponents",
     platforms: [
-        .iOS("26.0")
+        .iOS("26.0"),
+        .macOS("10.15")
     ],
     products: [
         .library(
