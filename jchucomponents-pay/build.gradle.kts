@@ -18,6 +18,7 @@ kotlin {
 
         androidMain.dependencies {
             api(libs.revenuecat)
+            implementation(project(":jchucomponents-ktx"))
             implementation(libs.org.jetbrains.kotlinx.kotlinx.coroutines.android)
         }
     }

@@ -2,7 +2,7 @@ package com.jeluchu.pay.revenuecat
 
 import android.content.Context
 import com.jeluchu.pay.revenuecat.extensions.empty
-import com.jeluchu.pay.revenuecat.extensions.findActivity
+import com.jeluchu.jchucomponents.ktx.activities.findActivity
 import com.jeluchu.pay.revenuecat.extensions.roundTo
 import com.jeluchu.pay.revenuecat.models.BillingInfo
 import com.jeluchu.pay.revenuecat.models.Product
