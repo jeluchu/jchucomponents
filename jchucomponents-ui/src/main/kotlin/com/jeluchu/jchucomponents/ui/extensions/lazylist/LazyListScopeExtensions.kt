@@ -17,6 +17,19 @@ fun LazyListScope.element(
     )
 }
 
+/** Adds a lazy-list item with an explicit stable key and content type. */
+fun LazyListScope.element(
+    key: Any,
+    contentType: Any?,
+    content: @Composable LazyItemScope.() -> Unit,
+) {
+    item(
+        key = key,
+        contentType = contentType,
+        content = content,
+    )
+}
+
 fun LazyListScope.elementIf(
     condition: Boolean,
     identifier: Enum<*>,
@@ -24,6 +37,16 @@ fun LazyListScope.elementIf(
     elseContent: @Composable LazyItemScope.() -> Unit,
 ) {
     if (condition) element(identifier, ifContent) else element(identifier, elseContent)
+}
+
+fun LazyListScope.elementIf(
+    condition: Boolean,
+    key: Any,
+    contentType: Any?,
+    ifContent: @Composable LazyItemScope.() -> Unit,
+    elseContent: @Composable LazyItemScope.() -> Unit,
+) {
+    if (condition) element(key, contentType, ifContent) else element(key, contentType, elseContent)
 }
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -34,6 +57,20 @@ fun LazyListScope.header(
     stickyHeader(
         key = identifier,
         contentType = identifier::class,
+        content = content,
+    )
+}
+
+/** Adds a sticky header with an explicit stable key and content type. */
+@OptIn(ExperimentalFoundationApi::class)
+fun LazyListScope.header(
+    key: Any,
+    contentType: Any?,
+    content: @Composable LazyItemScope.(Int) -> Unit,
+) {
+    stickyHeader(
+        key = key,
+        contentType = contentType,
         content = content,
     )
 }

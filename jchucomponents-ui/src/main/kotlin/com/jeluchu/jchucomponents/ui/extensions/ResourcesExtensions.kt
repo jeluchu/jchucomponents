@@ -15,6 +15,10 @@ fun Int.toStringRes() = stringResource(this)
 
 @Composable
 @ReadOnlyComposable
+fun Int.toStringRes(vararg formatArgs: Any): String = stringResource(this, *formatArgs)
+
+@Composable
+@ReadOnlyComposable
 fun Int.toStringArrayRes() = stringArrayResource(this)
 
 @Composable

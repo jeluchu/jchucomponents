@@ -3,8 +3,6 @@ package com.jeluchu.jchucomponents.ui.composables.structures
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.calculateEndPadding
-import androidx.compose.foundation.layout.calculateStartPadding
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.grid.LazyGridState
 import androidx.compose.foundation.lazy.grid.rememberLazyGridState
@@ -18,7 +16,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import com.jeluchu.jchucomponents.ui.R
 import com.jeluchu.jchucomponents.ui.composables.button.FloatingButtonSettings
@@ -26,6 +23,7 @@ import com.jeluchu.jchucomponents.ui.composables.button.JchuFloatingButton
 import com.jeluchu.jchucomponents.ui.composables.toolbars.CenterToolbarColors
 import com.jeluchu.jchucomponents.ui.composables.toolbars.Toolbar
 import com.jeluchu.jchucomponents.ui.composables.toolbars.TopBarSettings
+import com.jeluchu.jchucomponents.ui.extensions.withHorizontalPadding
 
 @Composable
 fun JchuScaffold(
@@ -279,15 +277,4 @@ fun JchuScaffoldColors.toCenterToolbarColors() =
     CenterToolbarColors(
         contentColor = contentColor,
         containerColor = containerColor
-    )
-
-private fun PaddingValues.withHorizontalPadding(
-    horizontalPadding: Dp,
-    layoutDirection: LayoutDirection
-): PaddingValues =
-    PaddingValues(
-        start = calculateStartPadding(layoutDirection) + horizontalPadding,
-        top = calculateTopPadding(),
-        end = calculateEndPadding(layoutDirection) + horizontalPadding,
-        bottom = calculateBottomPadding()
     )
