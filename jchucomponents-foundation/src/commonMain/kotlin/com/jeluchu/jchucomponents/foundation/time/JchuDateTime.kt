@@ -1,12 +1,14 @@
 package com.jeluchu.jchucomponents.foundation.time
 
+import com.jeluchu.jchucomponents.foundation.extensions.time.firstDayOfWeekFromLocale
 import kotlinx.datetime.DateTimeUnit
 import kotlinx.datetime.DayOfWeek
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.TimeZone
-import kotlinx.datetime.minus
-import kotlinx.datetime.plus
+import kotlinx.datetime.UtcOffset
+import kotlinx.datetime.number
+import kotlinx.datetime.offsetAt
 import kotlinx.datetime.toLocalDateTime
 import kotlinx.datetime.until
 import kotlin.time.Clock
@@ -25,6 +27,31 @@ object JchuDateTime {
         instant: Instant = now(),
         timeZone: TimeZone = TimeZone.currentSystemDefault()
     ): LocalDate = instant.toLocalDateTime(timeZone).date
+
+    fun currentYear(
+        instant: Instant = now(),
+        timeZone: TimeZone = TimeZone.currentSystemDefault()
+    ): Int = today(instant, timeZone).year
+
+    fun currentMonthNumber(
+        instant: Instant = now(),
+        timeZone: TimeZone = TimeZone.currentSystemDefault()
+    ): Int = today(instant, timeZone).month.number
+
+    fun currentDayOfMonth(
+        instant: Instant = now(),
+        timeZone: TimeZone = TimeZone.currentSystemDefault()
+    ): Int = today(instant, timeZone).day
+
+    fun currentDayOfWeek(
+        instant: Instant = now(),
+        timeZone: TimeZone = TimeZone.currentSystemDefault()
+    ): DayOfWeek = today(instant, timeZone).dayOfWeek
+
+    fun currentUtcOffset(
+        instant: Instant = now(),
+        timeZone: TimeZone = TimeZone.currentSystemDefault()
+    ): UtcOffset = timeZone.offsetAt(instant)
 
     fun nowLocal(
         instant: Instant = now(),
@@ -71,7 +98,7 @@ object JchuDateTime {
     @Throws(IllegalArgumentException::class)
     fun calculateAge(
         birthDate: LocalDate,
-        referenceDate: LocalDate
+        referenceDate: LocalDate = today()
     ): Int {
         require(referenceDate >= birthDate) { "Reference date cannot be before birth date" }
 
@@ -83,9 +110,9 @@ object JchuDateTime {
         return referenceDate.year - birthDate.year - if (birthdayHasPassed) 0 else 1
     }
 
-    fun daysOfWeek(firstDayOfWeek: DayOfWeek): List<DayOfWeek> {
+    fun daysOfWeek(firstDayOfWeek: DayOfWeek = firstDayOfWeekFromLocale()): List<DayOfWeek> {
         val days = DayOfWeek.entries
         val firstIndex = days.indexOf(firstDayOfWeek)
-        return days.drop(firstIndex) + days.take(firstIndex)
+        return days.drop(n = firstIndex) + days.take(n = firstIndex)
     }
 }

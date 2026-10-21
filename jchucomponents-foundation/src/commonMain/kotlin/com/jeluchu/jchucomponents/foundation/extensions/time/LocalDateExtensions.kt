@@ -22,6 +22,14 @@ fun LocalDate.plusYears(years: Int): LocalDate = plus(years, DateTimeUnit.YEAR)
 
 fun LocalDate.minusYears(years: Int): LocalDate = minus(years, DateTimeUnit.YEAR)
 
+fun LocalDate.isBefore(other: LocalDate): Boolean = this < other
+
+fun LocalDate.isAfter(other: LocalDate): Boolean = this > other
+
+fun LocalDate.isSameDay(other: LocalDate): Boolean = this == other
+
+fun LocalDate.isSameYearMonth(other: LocalDate): Boolean = year == other.year && month == other.month
+
 fun LocalDate.startOfMonth(): LocalDate = LocalDate(year, month, 1)
 
 fun LocalDate.endOfMonth(): LocalDate = startOfMonth().plus(1, DateTimeUnit.MONTH).minus(1, DateTimeUnit.DAY)
@@ -61,6 +69,11 @@ fun LocalDate.isTomorrow(
 ): Boolean = this == JchuDateTime.today(instant, timeZone).plusDays(1)
 
 fun LocalDate.isWeekend(): Boolean = dayOfWeek == DayOfWeek.SATURDAY || dayOfWeek == DayOfWeek.SUNDAY
+
+fun DayOfWeek.daysUntil(other: DayOfWeek): Int {
+    val difference = other.ordinal - ordinal
+    return if (difference < 0) difference + DayOfWeek.entries.size else difference
+}
 
 val LocalDate.yearMonth: YearMonth
     get() = YearMonth.from(this)
