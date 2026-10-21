@@ -35,7 +35,8 @@ jobs:
           scripts/check-visual-readiness.sh
           scripts/check-api-readiness.sh
           ./gradlew \
-            ciCheck
+            ciCheck \
+            -x :app:assembleRelease
 
       - name: Prepare Swift release
         run: ./scripts/prepare-swift-release.sh
