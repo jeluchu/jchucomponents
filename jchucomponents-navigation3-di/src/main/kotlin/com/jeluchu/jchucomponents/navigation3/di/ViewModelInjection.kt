@@ -10,8 +10,10 @@ import org.koin.core.parameter.parametersOf
 inline fun <reified T : ViewModel> inject(): T = koinViewModel()
 
 @Composable
-inline fun <reified T : ViewModel> injectByParams(key: NavKey): T =
-    koinViewModel { parametersOf(key) }
+inline fun <reified T : ViewModel> injectByParams(
+    key: NavKey,
+    viewModelKey: String = "${T::class.qualifiedName}:${key::class.qualifiedName}:${key.hashCode()}"
+): T = koinViewModel(key = viewModelKey) { parametersOf(key) }
 
 @Composable
 inline fun <reified T : ViewModel> injectByParams(vararg params: Any?): T =

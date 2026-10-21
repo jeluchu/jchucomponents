@@ -56,3 +56,21 @@ fun <T : NavKey> NavBackStack<T>.clearAndNavigateTo(screen: T) {
     clear()
     add(screen)
 }
+
+/**
+ * Replaces the root destination and removes every destination above it.
+ *
+ * Keeping the root slot in place avoids briefly leaving the back stack empty,
+ * which is useful when navigation state is observed by Navigation 3.
+ */
+fun <T : NavKey> NavBackStack<T>.replaceAll(destination: T) {
+    if (isEmpty()) {
+        add(destination)
+        return
+    }
+
+    this[0] = destination
+    while (size > 1) {
+        removeLastOrNull()
+    }
+}
