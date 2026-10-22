@@ -26,6 +26,7 @@ and Apple applications with less repeated infrastructure.
 | `jchucomponents-ui` | ✅ | — | — | Jetpack Compose components |
 | `jchucomponents-navigation3` | ✅ | — | — | Navigation 3 runtime annotations, helpers and KSP processor |
 | `jchucomponents-navigation3-di` | ✅ | — | — | Dependency injection helpers for generated Navigation 3 entries |
+| `jchucomponents-app-updates` | ✅ | — | — | Google Play update `StateFlow` and lifecycle controller; apps own the UI |
 | `jchucomponents-bom` | ✅ | — | — | Aligned Android module versions |
 
 The Swift package complements the shared Kotlin code with
@@ -68,11 +69,14 @@ io.github.jeluchu:jchucomponents-qr
 io.github.jeluchu:jchucomponents-room
 io.github.jeluchu:jchucomponents-supabase
 io.github.jeluchu:jchucomponents-bom
+io.github.jeluchu:jchucomponents-app-updates
 ```
 
-These artifacts contain Android, iOS and macOS variants except
-`jchucomponents-room`, which currently contains Android, `iosArm64`, and
-`iosSimulatorArm64`. JitPack's Linux builds do not produce the Apple KLIB
+Most listed artifacts contain Android, iOS and macOS variants. The exceptions
+are `jchucomponents-room`, which currently contains Android, `iosArm64`, and
+`iosSimulatorArm64`, and `jchucomponents-app-updates`, which is Android-only
+and intended for apps distributed through Google Play. Consumers provide their
+own update interface. JitPack's Linux builds do not produce the Apple KLIB
 variants, so KMP applications targeting iOS or macOS should use Maven Central.
 
 ### Android

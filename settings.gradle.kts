@@ -24,6 +24,7 @@ include(
         ":jchucomponents-ui",
         ":jchucomponents-navigation3",
         ":jchucomponents-navigation3-di",
+        ":jchucomponents-app-updates",
         ":jchucomponents-ktx",
         ":jchucomponents-qr",
         ":jchucomponents-pay",

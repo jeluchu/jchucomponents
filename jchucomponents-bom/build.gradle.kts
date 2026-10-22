@@ -23,6 +23,7 @@ dependencies {
         api("io.github.jeluchu:jchucomponents-supabase:$jchuComponentsVersion")
         api("io.github.jeluchu:jchucomponents-navigation3:$jchuComponentsVersion")
         api("io.github.jeluchu:jchucomponents-navigation3-di:$jchuComponentsVersion")
+        api("io.github.jeluchu:jchucomponents-app-updates:$jchuComponentsVersion")
 
         api("com.github.jeluchu:jchucomponents-core:$jchuComponentsVersion")
         api("com.github.jeluchu:jchucomponents-ktx:$jchuComponentsVersion")
