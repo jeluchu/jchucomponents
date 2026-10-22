@@ -11,6 +11,11 @@ object JchuTheme {
         @ReadOnlyComposable
         get() = LocalShapes.current
 
+    val fontSizes: FontSizes
+        @Composable
+        @ReadOnlyComposable
+        get() = LocalFontSizes.current
+
     val spacing: Spacing
         @Composable
         get() = LocalSpacing.current

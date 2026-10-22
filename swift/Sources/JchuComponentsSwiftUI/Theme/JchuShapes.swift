@@ -38,9 +38,13 @@ public struct JchuShapes: Sendable {
     public let corner24: CGFloat
     public let corner25: CGFloat
     public let corner26: CGFloat
+    public let corner28: CGFloat
     public let corner30: CGFloat
     public let corner32: CGFloat
     public let corner34: CGFloat
+    public let corner35: CGFloat
+    public let corner36: CGFloat
+    public let corner38: CGFloat
     public let corner40: CGFloat
     public let corner48: CGFloat
     public let corner50: CGFloat
@@ -73,9 +77,13 @@ public struct JchuShapes: Sendable {
         corner24: CGFloat = 24,
         corner25: CGFloat = 25,
         corner26: CGFloat = 26,
+        corner28: CGFloat = 28,
         corner30: CGFloat = 30,
         corner32: CGFloat = 32,
         corner34: CGFloat = 34,
+        corner35: CGFloat = 35,
+        corner36: CGFloat = 36,
+        corner38: CGFloat = 38,
         corner40: CGFloat = 40,
         corner48: CGFloat = 48,
         corner50: CGFloat = 50,
@@ -107,9 +115,13 @@ public struct JchuShapes: Sendable {
         self.corner24 = corner24
         self.corner25 = corner25
         self.corner26 = corner26
+        self.corner28 = corner28
         self.corner30 = corner30
         self.corner32 = corner32
         self.corner34 = corner34
+        self.corner35 = corner35
+        self.corner36 = corner36
+        self.corner38 = corner38
         self.corner40 = corner40
         self.corner48 = corner48
         self.corner50 = corner50
