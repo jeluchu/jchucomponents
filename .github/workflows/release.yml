@@ -152,6 +152,7 @@ jobs:
         run: |
           ./gradlew \
             :jchucomponents-bom:publishAndReleaseToMavenCentral \
+            :jchucomponents-app-updates:publishAndReleaseToMavenCentral \
             :jchucomponents-foundation:publishAndReleaseToMavenCentral \
             :jchucomponents-network:publishAndReleaseToMavenCentral \
             :jchucomponents-pay:publishAndReleaseToMavenCentral \

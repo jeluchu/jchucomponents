@@ -497,7 +497,8 @@ Remove `--delete-missing` when Apple-only keys must be preserved. Add
 Tagged `3.*` versions trigger the release workflow. It validates the Gradle
 version, API compatibility, tests, Android publications and the Swift package;
 then it publishes the signed Android and KMP artifacts, including Navigation 3,
-and the BOM to Maven Central and prepares the dedicated SwiftPM repository.
+Play Store updates, and the BOM to Maven Central and prepares the dedicated
+SwiftPM repository.
 JitPack builds the same Git tag on demand when a consumer requests that version;
 it does not need a separate manual upload.
 
