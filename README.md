@@ -24,6 +24,7 @@ and Apple applications with less repeated infrastructure.
 | `jchucomponents-core` | ✅ | — | — | Android architecture and lifecycle utilities |
 | `jchucomponents-ktx` | ✅ | — | — | Android and Kotlin extensions |
 | `jchucomponents-ui` | ✅ | — | — | Jetpack Compose components |
+| `jchucomponents-pdf` | ✅ | — | — | Remote PDF reader with generated Navigation 3 routes |
 | `jchucomponents-navigation3` | ✅ | — | — | Navigation 3 runtime annotations, helpers and KSP processor |
 | `jchucomponents-navigation3-di` | ✅ | — | — | Dependency injection helpers for generated Navigation 3 entries |
 | `jchucomponents-app-updates` | ✅ | — | — | Google Play update `StateFlow` and lifecycle controller; apps own the UI |
@@ -32,10 +33,11 @@ and Apple applications with less repeated infrastructure.
 The Swift package complements the shared Kotlin code with
 `JchuComponentsCore`, `JchuComponentsExtensions`, `JchuComponentsSwiftUI`,
 `JchuComponentsNavigation` and the optional native `JchuComponentsPay` product.
+`JchuComponentsSwiftUI` also includes `JchuPdfReaderView` for remote PDFs on iOS.
 
 ## Installation
 
-The examples below use `3.0.0-alpha11`. Replace it with the
+The examples below use `3.0.0-alpha22`. Replace it with the
 [latest available release](https://github.com/Jeluchu/jchucomponents/releases).
 
 ### Kotlin Multiplatform
@@ -48,10 +50,10 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             implementation(
-                "io.github.jeluchu:jchucomponents-foundation:3.0.0-alpha11"
+                "io.github.jeluchu:jchucomponents-foundation:3.0.0-alpha22"
             )
             implementation(
-                "io.github.jeluchu:jchucomponents-network:3.0.0-alpha11"
+                "io.github.jeluchu:jchucomponents-network:3.0.0-alpha22"
             )
         }
     }
@@ -79,6 +81,12 @@ and intended for apps distributed through Google Play. Consumers provide their
 own update interface. JitPack's Linux builds do not produce the Apple KLIB
 variants, so KMP applications targeting iOS or macOS should use Maven Central.
 
+`jchucomponents-foundation` also provides `JchuLocaleProvider` for reading the
+system language from shared code. `getPlatformLanguageCode()` maps Spanish in
+the United States to `es-US` and returns the base language code for other
+regional locales; `getLanguageTag()` exposes the full BCP 47 tag where the
+platform provides one.
+
 ### Android
 
 Add JitPack to `settings.gradle.kts`:
@@ -98,7 +106,7 @@ Use the BOM to keep Android modules on the same version:
 ```kotlin
 dependencies {
     implementation(
-        platform("io.github.jeluchu:jchucomponents-bom:3.0.0-alpha11")
+        platform("io.github.jeluchu:jchucomponents-bom:3.0.0-alpha22")
     )
     implementation("com.github.jeluchu.jchucomponents:jchucomponents-ui")
     implementation("com.github.jeluchu.jchucomponents:jchucomponents-ktx")
@@ -110,10 +118,20 @@ Alternatively, specify each JitPack artifact version directly:
 ```kotlin
 dependencies {
     implementation(
-        "com.github.jeluchu.jchucomponents:jchucomponents-ui:3.0.0-alpha11"
+        "com.github.jeluchu.jchucomponents:jchucomponents-ui:3.0.0-alpha22"
+    )
+    implementation(
+        "com.github.jeluchu.jchucomponents:jchucomponents-pdf:3.0.0-alpha22"
     )
 }
 ```
+
+The `jchucomponents-pdf` artifact provides an Android Compose screen for remote
+PDF URLs and is available through JitPack starting with `3.0.0-alpha22`.
+The library generates its typed `PdfReaderRoutes.Reader(url)` route and
+`pdfReaderEntries(backStack)` provider, so apps register the provider in their
+Navigation 3 entry provider and navigate to the generated route. The artifact is
+Android-only and is distributed through JitPack.
 
 ### Swift Package Manager
 
