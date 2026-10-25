@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -26,6 +27,8 @@ import com.jeluchu.composer.core.utils.Names
 import com.jeluchu.jchucomponents.ui.composables.column.JchuScrollableColumn
 import com.jeluchu.jchucomponents.ui.composables.divider.DashedDividerInteractivePreview
 import com.jeluchu.jchucomponents.ui.composables.divider.DashedDividerStaticPreview
+import com.jeluchu.jchucomponents.ui.composables.divider.JchuIconDivider
+import com.jeluchu.jchucomponents.ui.composables.divider.JchuTextDivider
 
 @Composable
 @Screen(graph = "Dividers")
@@ -86,5 +89,26 @@ private fun Dividers(onBack: () -> Unit) =
             )
 
             DashedDividerInteractivePreview()
+
+            Text(
+                text = "Reusable dividers",
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .background(primary)
+                    .padding(15.dp),
+                fontWeight = FontWeight.Bold
+            )
+
+            JchuIconDivider(
+                icon = Icons.Filled.Star,
+                modifier = Modifier.padding(horizontal = 16.dp),
+                tint = milky
+            )
+
+            JchuTextDivider(
+                text = "Section label",
+                modifier = Modifier.padding(horizontal = 16.dp),
+                tint = milky
+            )
         }
     }

@@ -636,6 +636,30 @@ struct IconProgressCatalogScreen: View {
 struct BenefitsCatalogScreen: View {
     var body: some View {
         JchuScrollableScaffold("BenefitCards") {
+            CatalogSection("Settings information card") {
+                JchuSettingInfoCard(onTap: {}) {
+                    HStack(spacing: 12) {
+                        Image(systemName: "gearshape")
+                        VStack(alignment: .leading, spacing: 4) {
+                            Text("Account settings")
+                                .font(.headline)
+                            Text("Manage your profile and preferences")
+                                .font(.subheadline)
+                                .foregroundStyle(.secondary)
+                        }
+                        Spacer()
+                        Image(systemName: "chevron.right")
+                    }
+                }
+
+                JchuSettingInfoCard(isEnabled: false) {
+                    HStack(spacing: 12) {
+                        Image(systemName: "lock")
+                        Text("Disabled setting")
+                    }
+                }
+            }
+
             CatalogSection("Benefits") {
                 BenefitCard(title: "Accessible states", subtitle: "Enabled, disabled, loading, error and long-content fixtures.")
                 BenefitCard(title: "Reusable SwiftUI", subtitle: "Catalog entries use the same public components exposed by the package.")
@@ -724,6 +748,16 @@ struct DividersCatalogScreen: View {
 
     var body: some View {
         JchuScrollableScaffold("Dividers") {
+            CatalogSection("Icon divider") {
+                JchuIconDivider(color: theme.colors.contentSecondary) {
+                    Image(systemName: "star.fill")
+                }
+            }
+
+            CatalogSection("Text divider") {
+                JchuTextDivider(label: "OR", color: theme.colors.contentSecondary)
+            }
+
             CatalogSection("Default") {
                 Text("Top content")
                 Divider()

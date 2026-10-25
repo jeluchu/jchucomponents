@@ -1,10 +1,20 @@
 package com.jeluchu.composer.features.cards.view
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.dp
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ChevronRight
+import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import com.jeluchu.composer.core.commons.models.MenuOptions
 import com.jeluchu.composer.core.ui.composables.ScaffoldStructure
 import com.jeluchu.composer.core.ui.composables.SimpleButton
@@ -18,6 +28,8 @@ import com.jeluchu.jchucomponents.navigation3.BackStackBack
 import com.jeluchu.jchucomponents.navigation3.NavigateTo
 import com.jeluchu.jchucomponents.navigation3.Screen
 import com.jeluchu.jchucomponents.ui.composables.toolbars.CenterToolbarColors
+import com.jeluchu.jchucomponents.ui.composables.cards.JchuSettingInfoCard
+import com.jeluchu.jchucomponents.ui.composables.cards.JchuSettingInfoCardDefaults
 import com.jeluchu.jchucomponents.ui.extensions.modifier.cornerRadius
 
 @Composable
@@ -70,5 +82,29 @@ private fun Toolbars(onItemClick: (String) -> Unit) =
                 label = option.name,
                 color = Color.DarkGray
             ) { onItemClick(option.id) }
+        }
+
+        JchuSettingInfoCard(
+            modifier = Modifier.padding(top = 10.dp),
+            colors = JchuSettingInfoCardDefaults.colors(
+                containerColor = primary.copy(alpha = 0.7f),
+                contentColor = milky,
+                disabledContainerColor = Color.LightGray,
+                disabledContentColor = Color.Gray
+            ),
+            onClick = {}
+        ) {
+            Icon(Icons.Filled.Settings, contentDescription = null)
+            Column(
+                modifier = Modifier.weight(1f),
+                verticalArrangement = Arrangement.spacedBy(2.dp)
+            ) {
+                Text("Appearance", style = MaterialTheme.typography.titleSmall)
+                Text(
+                    "Card content and app typography stay customizable.",
+                    style = MaterialTheme.typography.bodySmall
+                )
+            }
+            Icon(Icons.Filled.ChevronRight, contentDescription = "Open settings")
         }
     }

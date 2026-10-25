@@ -103,6 +103,20 @@ prefetcher.prefetch(
 )
 ```
 
+Present a remote PDF with native PDFKit paging and sharing:
+
+```swift
+JchuPdfReaderView(
+    url: guideURL,
+    title: "Guide",
+    labels: JchuPdfReaderLabels(
+        back: String(localized: "Back"),
+        share: String(localized: "Share PDF"),
+        retry: String(localized: "Retry")
+    )
+)
+```
+
 Compose a screen from a reusable top bar and state-aware content:
 
 ```swift
@@ -183,6 +197,15 @@ content
 - ``JchuProgressButton``
 - ``JchuChip``
 
+### Cards
+
+- ``JchuSettingInfoCard``
+
+### Dividers
+
+- ``JchuIconDivider``
+- ``JchuTextDivider``
+
 ### Loading and progress
 
 - ``JchuLoadingIndicator``
@@ -213,6 +236,11 @@ content
 - ``JchuNetworkImagePrefetcher``
 - ``JchuNetworkImagePlaceholder``
 - ``JchuNetworkImageErrorView``
+
+### Documents
+
+- ``JchuPdfReaderView``
+- ``JchuPdfReaderLabels``
 
 ### Screen structure
 
