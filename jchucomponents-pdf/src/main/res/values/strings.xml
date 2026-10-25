@@ -1,0 +1,15 @@
+<resources>
+    <string name="jchu_pdf_back">Back</string>
+    <string name="jchu_pdf_error">Unable to open the PDF: %1$s</string>
+    <string name="jchu_pdf_error_unknown">An unexpected error occurred.</string>
+    <string name="jchu_pdf_next_page">Next page</string>
+    <string name="jchu_pdf_page_description">Page %1$d</string>
+    <string name="jchu_pdf_page_indicator">%1$d / %2$d</string>
+    <string name="jchu_pdf_previous_page">Previous page</string>
+    <string name="jchu_pdf_retry">Retry</string>
+    <string name="jchu_pdf_rotate_left">Rotate left</string>
+    <string name="jchu_pdf_rotate_right">Rotate right</string>
+    <string name="jchu_pdf_share">Share PDF</string>
+    <string name="jchu_pdf_share_chooser">Share PDF</string>
+    <string name="jchu_pdf_share_error">Could not share this PDF.</string>
+</resources>

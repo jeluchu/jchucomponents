@@ -28,6 +28,7 @@ dependencies {
         api("com.github.jeluchu:jchucomponents-core:$jchuComponentsVersion")
         api("com.github.jeluchu:jchucomponents-ktx:$jchuComponentsVersion")
         api("com.github.jeluchu:jchucomponents-ui:$jchuComponentsVersion")
+        api("com.github.jeluchu:jchucomponents-pdf:$jchuComponentsVersion")
 
         api("com.github.jeluchu.jchucomponents:jchucomponents-core:$jchuComponentsVersion")
         api("com.github.jeluchu.jchucomponents:jchucomponents-foundation:$jchuComponentsVersion")
@@ -37,6 +38,7 @@ dependencies {
         api("com.github.jeluchu.jchucomponents:jchucomponents-room:$jchuComponentsVersion")
         api("com.github.jeluchu.jchucomponents:jchucomponents-supabase:$jchuComponentsVersion")
         api("com.github.jeluchu.jchucomponents:jchucomponents-ui:$jchuComponentsVersion")
+        api("com.github.jeluchu.jchucomponents:jchucomponents-pdf:$jchuComponentsVersion")
     }
 }
 

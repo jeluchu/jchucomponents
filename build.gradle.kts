@@ -52,6 +52,7 @@ dependencies {
     dokka(project(":jchucomponents-navigation3"))
     dokka(project(":jchucomponents-navigation3-di"))
     dokka(project(":jchucomponents-app-updates"))
+    dokka(project(":jchucomponents-pdf"))
 }
 
 apiValidation {
