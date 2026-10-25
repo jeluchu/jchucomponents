@@ -37,7 +37,7 @@ The Swift package complements the shared Kotlin code with
 
 ## Installation
 
-The examples below use `3.0.0-alpha22`. Replace it with the
+The examples below use `3.0.0-alpha23`. Replace it with the
 [latest available release](https://github.com/Jeluchu/jchucomponents/releases).
 
 ### Kotlin Multiplatform
@@ -50,10 +50,10 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             implementation(
-                "io.github.jeluchu:jchucomponents-foundation:3.0.0-alpha22"
+                "io.github.jeluchu:jchucomponents-foundation:3.0.0-alpha23"
             )
             implementation(
-                "io.github.jeluchu:jchucomponents-network:3.0.0-alpha22"
+                "io.github.jeluchu:jchucomponents-network:3.0.0-alpha23"
             )
         }
     }
@@ -106,7 +106,7 @@ Use the BOM to keep Android modules on the same version:
 ```kotlin
 dependencies {
     implementation(
-        platform("io.github.jeluchu:jchucomponents-bom:3.0.0-alpha22")
+        platform("io.github.jeluchu:jchucomponents-bom:3.0.0-alpha23")
     )
     implementation("com.github.jeluchu.jchucomponents:jchucomponents-ui")
     implementation("com.github.jeluchu.jchucomponents:jchucomponents-ktx")
@@ -118,16 +118,16 @@ Alternatively, specify each JitPack artifact version directly:
 ```kotlin
 dependencies {
     implementation(
-        "com.github.jeluchu.jchucomponents:jchucomponents-ui:3.0.0-alpha22"
+        "com.github.jeluchu.jchucomponents:jchucomponents-ui:3.0.0-alpha23"
     )
     implementation(
-        "com.github.jeluchu.jchucomponents:jchucomponents-pdf:3.0.0-alpha22"
+        "com.github.jeluchu.jchucomponents:jchucomponents-pdf:3.0.0-alpha23"
     )
 }
 ```
 
 The `jchucomponents-pdf` artifact provides an Android Compose screen for remote
-PDF URLs and is available through JitPack starting with `3.0.0-alpha22`.
+PDF URLs and is available through JitPack starting with `3.0.0-alpha23`.
 The library generates its typed `PdfReaderRoutes.Reader(url)` route and
 `pdfReaderEntries(backStack)` provider, so apps register the provider in their
 Navigation 3 entry provider and navigate to the generated route. The artifact is
