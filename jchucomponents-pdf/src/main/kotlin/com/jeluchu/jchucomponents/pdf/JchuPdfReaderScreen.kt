@@ -82,7 +82,7 @@ fun JchuPdfReaderScreen(
         } catch (cause: CancellationException) {
             throw cause
         } catch (cause: Exception) {
-            error = cause.localizedMessage ?: context.getString(R.string.jchu_pdf_error_unknown)
+            error = cause.localizedMessage?.takeIf(String::isNotBlank)
         } finally {
             client.close()
             isLoading = false
