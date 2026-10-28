@@ -69,6 +69,7 @@ The available Maven Central artifacts are:
 
 ```text
 io.github.jeluchu:jchucomponents-foundation
+io.github.jeluchu:jchucomponents-core
 io.github.jeluchu:jchucomponents-ktx
 io.github.jeluchu:jchucomponents-network
 io.github.jeluchu:jchucomponents-ui-kmp
@@ -79,6 +80,7 @@ io.github.jeluchu:jchucomponents-qr
 io.github.jeluchu:jchucomponents-room
 io.github.jeluchu:jchucomponents-supabase
 io.github.jeluchu:jchucomponents-navigation3
+io.github.jeluchu:jchucomponents-navigation3-di
 io.github.jeluchu:jchucomponents-bom
 io.github.jeluchu:jchucomponents-app-updates
 ```
@@ -91,6 +93,7 @@ equivalent already exists. Dispatcher-based coroutine helpers remain in
 
 Most listed artifacts contain Android, iOS and macOS variants. The exceptions
 are `jchucomponents-room`, `jchucomponents-navigation3`,
+`jchucomponents-navigation3-di`,
 `jchucomponents-pdf-kmp`, and `jchucomponents-ui-kmp`, which currently contain
 Android, `iosArm64`, and `iosSimulatorArm64`; and
 `jchucomponents-app-updates`, which is Android-only and intended for apps
