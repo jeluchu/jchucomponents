@@ -24,6 +24,7 @@ include(
         ":jchucomponents-ui",
         ":jchucomponents-ui-kmp",
         ":jchucomponents-pdf",
+        ":jchucomponents-pdf-kmp",
         ":jchucomponents-navigation3",
         ":jchucomponents-navigation3-di",
         ":jchucomponents-app-updates",

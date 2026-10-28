@@ -26,6 +26,7 @@ and Apple applications with less repeated infrastructure.
 | `jchucomponents-ui-kmp` | ✅ | ✅ | — | Portable Compose components without Android resource dependencies (iOS ARM targets) |
 | `jchucomponents-ui` | ✅ | — | — | Android adapter for resource- and platform-dependent components; re-exports `jchucomponents-ui-kmp` |
 | `jchucomponents-pdf` | ✅ | — | — | Remote PDF reader with generated Navigation 3 routes |
+| `jchucomponents-pdf-kmp` | ✅ | ✅ | — | Compose Multiplatform PDF reader with Android PdfRenderer and iOS PDFKit (iOS ARM targets) |
 | `jchucomponents-navigation3` | ✅ | ✅ | — | Compose Multiplatform Navigation 3 annotations, helpers and KSP processor (iOS ARM targets) |
 | `jchucomponents-navigation3-di` | ✅ | ✅ | — | Dependency injection helpers for generated Navigation 3 entries on JVM and iOS ARM targets |
 | `jchucomponents-app-updates` | ✅ | — | — | Google Play update `StateFlow` and lifecycle controller; apps own the UI |
@@ -71,6 +72,7 @@ io.github.jeluchu:jchucomponents-foundation
 io.github.jeluchu:jchucomponents-ktx
 io.github.jeluchu:jchucomponents-network
 io.github.jeluchu:jchucomponents-ui-kmp
+io.github.jeluchu:jchucomponents-pdf-kmp
 io.github.jeluchu:jchucomponents-pay
 io.github.jeluchu:jchucomponents-prefs
 io.github.jeluchu:jchucomponents-qr
@@ -88,9 +90,9 @@ equivalent already exists. Dispatcher-based coroutine helpers remain in
 `androidMain`.
 
 Most listed artifacts contain Android, iOS and macOS variants. The exceptions
-are `jchucomponents-room`, `jchucomponents-navigation3`, and
-`jchucomponents-ui-kmp`, which currently contain Android, `iosArm64`, and
-`iosSimulatorArm64`; and
+are `jchucomponents-room`, `jchucomponents-navigation3`,
+`jchucomponents-pdf-kmp`, and `jchucomponents-ui-kmp`, which currently contain
+Android, `iosArm64`, and `iosSimulatorArm64`; and
 `jchucomponents-app-updates`, which is Android-only and intended for apps
 distributed through Google Play. Consumers provide their own update interface.
 JitPack's Linux builds do not produce the Apple KLIB variants, so KMP
@@ -154,6 +156,14 @@ The library generates its typed `PdfReaderRoutes.Reader(url)` route and
 `pdfReaderEntries(backStack)` provider, so apps register the provider in their
 Navigation 3 entry provider and navigate to the generated route. The artifact is
 Android-only and is distributed through JitPack.
+
+For Compose Multiplatform apps, use the Maven Central artifact
+`io.github.jeluchu:jchucomponents-pdf-kmp`. It provides the same reader route on
+Android, `iosArm64`, and `iosSimulatorArm64`, using PdfRenderer/FileProvider on
+Android and PDFKit/native sharing on iOS. Add it to `commonMain` and register
+`pdfReaderKmpEntries(backStack)`; then navigate with
+`PdfReaderKmpRoutes.Reader(url = remotePdfUrl)`. The Android-only artifact
+remains available unchanged.
 
 ### Swift Package Manager
 

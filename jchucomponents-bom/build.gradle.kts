@@ -19,6 +19,7 @@ dependencies {
         api("io.github.jeluchu:jchucomponents-ktx:$jchuComponentsVersion")
         api("io.github.jeluchu:jchucomponents-network:$jchuComponentsVersion")
         api("io.github.jeluchu:jchucomponents-ui-kmp:$jchuComponentsVersion")
+        api("io.github.jeluchu:jchucomponents-pdf-kmp:$jchuComponentsVersion")
         api("io.github.jeluchu:jchucomponents-pay:$jchuComponentsVersion")
         api("io.github.jeluchu:jchucomponents-prefs:$jchuComponentsVersion")
         api("io.github.jeluchu:jchucomponents-room:$jchuComponentsVersion")
