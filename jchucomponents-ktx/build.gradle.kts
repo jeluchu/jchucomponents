@@ -1,74 +1,36 @@
 plugins {
-    alias(libs.plugins.android.library)
-    alias(libs.plugins.jetbrains.dokka)
-    id("maven-publish")
+    id("jchucomponents.kmp-library")
+    id("jchucomponents.publish")
 }
 
-android {
-    namespace = "com.jeluchu.jchucomponents.ktx"
-    compileSdk =
-        libs.versions.android.compile.sdk
-            .get()
-            .toInt()
+version = libs.versions.jchucomponents.get()
+description = "Android extensions with a small Kotlin Multiplatform compatibility API."
 
-    defaultConfig {
-        minSdk =
-            libs.versions.android.min.sdk
-                .get()
-                .toInt()
-        proguardFiles(
-            getDefaultProguardFile("proguard-android-optimize.txt"),
-            "proguard-rules.pro"
-        )
+kotlin {
+    android {
+        namespace = "com.jeluchu.jchucomponents.ktx"
+        androidResources.enable = true
     }
 
-    buildTypes {
-        debug {
-            isMinifyEnabled = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
+    sourceSets {
+        commonMain.dependencies {
+            api(project(":jchucomponents-foundation"))
+            api(libs.org.jetbrains.kotlinx.kotlinx.coroutines.core)
         }
-        release {
-            isMinifyEnabled = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
-        }
-    }
 
-    compileOptions {
-        sourceCompatibility = JavaVersion.toVersion(libs.versions.java.get())
-        targetCompatibility = JavaVersion.toVersion(libs.versions.java.get())
-    }
-
-    publishing {
-        singleVariant("release") {
-            withSourcesJar()
+        androidMain.dependencies {
+            api(project(":jchucomponents-network"))
+            api(libs.org.jetbrains.kotlinx.kotlinx.serialization.json)
+            implementation(project.dependencies.platform(libs.compose.bom))
+            implementation(libs.bundles.ktx.google)
+            implementation(libs.bundles.ktx.androidx)
         }
     }
 }
 
-dependencies {
-    api(project(":jchucomponents-network"))
-    api(libs.org.jetbrains.kotlinx.kotlinx.serialization.json)
-    implementation(platform(libs.compose.bom))
-    implementation(libs.bundles.ktx.google)
-    implementation(libs.bundles.ktx.androidx)
-}
-
-publishing {
-    publications {
-        register<MavenPublication>("release") {
-            groupId = "com.github.jeluchu"
-            artifactId = "jchucomponents-ktx"
-            version = libs.versions.jchucomponents.get()
-
-            afterEvaluate {
-                from(components["release"])
-            }
-        }
+mavenPublishing {
+    pom {
+        name.set("JchuComponents KTX")
+        description.set(project.description)
     }
 }

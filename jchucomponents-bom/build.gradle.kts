@@ -16,6 +16,7 @@ dependencies {
     constraints {
         api("io.github.jeluchu:jchucomponents-foundation:$jchuComponentsVersion")
         api("io.github.jeluchu:jchucomponents-core:$jchuComponentsVersion")
+        api("io.github.jeluchu:jchucomponents-ktx:$jchuComponentsVersion")
         api("io.github.jeluchu:jchucomponents-network:$jchuComponentsVersion")
         api("io.github.jeluchu:jchucomponents-pay:$jchuComponentsVersion")
         api("io.github.jeluchu:jchucomponents-prefs:$jchuComponentsVersion")

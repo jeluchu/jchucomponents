@@ -22,7 +22,7 @@ and Apple applications with less repeated infrastructure.
 | `jchucomponents-room` | ✅ | ✅ | — | Room 3 runtime configuration and SQL migrations |
 | `jchucomponents-supabase` | ✅ | ✅ | ✅ | Supabase Auth, database, realtime, Edge Functions and Koin setup |
 | `jchucomponents-core` | ✅ | — | — | Android architecture and lifecycle utilities |
-| `jchucomponents-ktx` | ✅ | — | — | Android and Kotlin extensions |
+| `jchucomponents-ktx` | ✅ | ✅ | ✅ | Android APIs and portable Kotlin extension compatibility helpers |
 | `jchucomponents-ui` | ✅ | — | — | Jetpack Compose components |
 | `jchucomponents-pdf` | ✅ | — | — | Remote PDF reader with generated Navigation 3 routes |
 | `jchucomponents-navigation3` | ✅ | ✅ | — | Compose Multiplatform Navigation 3 annotations, helpers and KSP processor (iOS ARM targets) |
@@ -64,6 +64,7 @@ The available Maven Central artifacts are:
 
 ```text
 io.github.jeluchu:jchucomponents-foundation
+io.github.jeluchu:jchucomponents-ktx
 io.github.jeluchu:jchucomponents-network
 io.github.jeluchu:jchucomponents-pay
 io.github.jeluchu:jchucomponents-prefs
@@ -74,6 +75,12 @@ io.github.jeluchu:jchucomponents-navigation3
 io.github.jeluchu:jchucomponents-bom
 io.github.jeluchu:jchucomponents-app-updates
 ```
+
+`jchucomponents-ktx` keeps its Android extensions in `androidMain`; its shared
+API provides the existing boolean, list, and serialization package names plus
+a portable `Job` helper, backed by `jchucomponents-foundation` where an
+equivalent already exists. Dispatcher-based coroutine helpers remain in
+`androidMain`.
 
 Most listed artifacts contain Android, iOS and macOS variants. The exceptions
 are `jchucomponents-room` and `jchucomponents-navigation3`, which currently
@@ -111,7 +118,7 @@ dependencies {
         platform("io.github.jeluchu:jchucomponents-bom:3.0.0-alpha23")
     )
     implementation("com.github.jeluchu.jchucomponents:jchucomponents-ui")
-    implementation("com.github.jeluchu.jchucomponents:jchucomponents-ktx")
+    implementation("io.github.jeluchu:jchucomponents-ktx")
 }
 ```
 
