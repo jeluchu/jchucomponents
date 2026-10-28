@@ -40,7 +40,7 @@ The Swift package complements the shared Kotlin code with
 
 ## Installation
 
-The examples below use `3.0.0-alpha23`. Replace it with the
+The examples below use `3.0.0-alpha24`. Replace it with the
 [latest available release](https://github.com/Jeluchu/jchucomponents/releases).
 
 ### Kotlin Multiplatform
@@ -53,13 +53,13 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             implementation(
-                "io.github.jeluchu:jchucomponents-foundation:3.0.0-alpha23"
+                "io.github.jeluchu:jchucomponents-foundation:3.0.0-alpha24"
             )
             implementation(
-                "io.github.jeluchu:jchucomponents-network:3.0.0-alpha23"
+                "io.github.jeluchu:jchucomponents-network:3.0.0-alpha24"
             )
             implementation(
-                "io.github.jeluchu:jchucomponents-ui-kmp:3.0.0-alpha23"
+                "io.github.jeluchu:jchucomponents-ui-kmp:3.0.0-alpha24"
             )
         }
     }
@@ -143,7 +143,7 @@ Use the BOM to keep Android modules on the same version:
 ```kotlin
 dependencies {
     implementation(
-        platform("io.github.jeluchu:jchucomponents-bom:3.0.0-alpha23")
+        platform("io.github.jeluchu:jchucomponents-bom:3.0.0-alpha24")
     )
     implementation("com.github.jeluchu.jchucomponents:jchucomponents-ui")
     implementation("io.github.jeluchu:jchucomponents-ktx")
@@ -155,10 +155,10 @@ Alternatively, specify each JitPack artifact version directly:
 ```kotlin
 dependencies {
     implementation(
-        "com.github.jeluchu.jchucomponents:jchucomponents-ui:3.0.0-alpha23"
+        "com.github.jeluchu.jchucomponents:jchucomponents-ui:3.0.0-alpha24"
     )
     implementation(
-        "com.github.jeluchu.jchucomponents:jchucomponents-pdf:3.0.0-alpha23"
+        "com.github.jeluchu.jchucomponents:jchucomponents-pdf:3.0.0-alpha24"
     )
 }
 ```
@@ -187,7 +187,7 @@ to `commonMain`:
 kotlin {
     sourceSets {
         commonMain.dependencies {
-            implementation("io.github.jeluchu:jchucomponents-pay-kmp:3.0.0-alpha23")
+            implementation("io.github.jeluchu:jchucomponents-pay-kmp:3.0.0-alpha24")
         }
     }
 }
