@@ -1,73 +1,34 @@
 plugins {
-    alias(libs.plugins.android.library)
-    alias(libs.plugins.jetbrains.dokka)
-    id("maven-publish")
+    id("jchucomponents.kmp-library")
+    id("jchucomponents.publish")
 }
 
-android {
-    namespace = "com.jeluchu.jchucomponents.core"
-    compileSdk =
-        libs.versions.android.compile.sdk
-            .get()
-            .toInt()
+version = libs.versions.jchucomponents.get()
+description = "Android architecture and lifecycle utilities with portable core APIs."
 
-    defaultConfig {
-        minSdk =
-            libs.versions.android.min.sdk
-                .get()
-                .toInt()
-        proguardFiles(
-            getDefaultProguardFile("proguard-android-optimize.txt"),
-            "proguard-rules.pro"
-        )
+kotlin {
+    android {
+        namespace = "com.jeluchu.jchucomponents.core"
     }
 
-    buildTypes {
-        debug {
-            isMinifyEnabled = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
+    sourceSets {
+        commonMain.dependencies {
+            api(libs.org.jetbrains.kotlinx.kotlinx.coroutines.core)
+            implementation(project(":jchucomponents-foundation"))
         }
-        release {
-            isMinifyEnabled = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
-        }
-    }
 
-    compileOptions {
-        sourceCompatibility = JavaVersion.toVersion(libs.versions.java.get())
-        targetCompatibility = JavaVersion.toVersion(libs.versions.java.get())
-    }
-
-    publishing {
-        singleVariant("release") {
-            withSourcesJar()
+        androidMain.dependencies {
+            api(project(":jchucomponents-network"))
+            api(libs.bundles.core.androidx)
+            api(libs.com.google.code.gson)
+            implementation(libs.org.jetbrains.kotlinx.kotlinx.coroutines.android)
         }
     }
 }
 
-dependencies {
-    api(project(":jchucomponents-network"))
-    implementation(libs.bundles.core.androidx)
-    implementation(libs.bundles.core.jetbrains)
-    implementation(libs.com.google.code.gson)
-}
-
-publishing {
-    publications {
-        register<MavenPublication>("release") {
-            groupId = "com.github.jeluchu"
-            artifactId = "jchucomponents-core"
-            version = libs.versions.jchucomponents.get()
-
-            afterEvaluate {
-                from(components["release"])
-            }
-        }
+mavenPublishing {
+    pom {
+        name.set("JchuComponents Core")
+        description.set(project.description)
     }
 }

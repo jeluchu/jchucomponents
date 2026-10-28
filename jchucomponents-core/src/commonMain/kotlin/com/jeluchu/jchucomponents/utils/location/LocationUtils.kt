@@ -6,6 +6,7 @@
 
 package com.jeluchu.jchucomponents.utils.location
 
+import kotlin.math.PI
 import kotlin.math.atan2
 import kotlin.math.cos
 import kotlin.math.pow
@@ -30,12 +31,12 @@ fun getDistance(
     lon2: Double
 ): Double {
     val radiusOfEarth = 6371
-    val latDistance = Math.toRadians(lat2 - lat1)
-    val lonDistance = Math.toRadians(lon2 - lon1)
+    val latDistance = (lat2 - lat1) * PI / 180.0
+    val lonDistance = (lon2 - lon1) * PI / 180.0
     val a = (
         sin(latDistance / 2) * sin(latDistance / 2) +
             (
-                cos(Math.toRadians(lat1)) * cos(Math.toRadians(lat2)) *
+                cos(lat1 * PI / 180.0) * cos(lat2 * PI / 180.0) *
                     sin(lonDistance / 2) * sin(lonDistance / 2)
             )
     )

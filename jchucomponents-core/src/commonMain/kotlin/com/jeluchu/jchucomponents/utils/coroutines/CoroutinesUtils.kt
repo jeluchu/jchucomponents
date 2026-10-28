@@ -57,7 +57,7 @@ fun doOnMain(
     onLog: (text: String) -> Unit = {},
     func: suspend () -> Unit
 ) {
-    GlobalScope.launch(Dispatchers.IO) {
+    GlobalScope.launch(Dispatchers.Default) {
         noCrashSuspend(enableLog) {
             func()
         }?.also { onLog(it) }
