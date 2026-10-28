@@ -13,11 +13,11 @@ Declare only the capabilities used by the application:
 kotlin {
     sourceSets {
         commonMain.dependencies {
-            implementation("io.github.jeluchu:jchucomponents-foundation:3.0.0-alpha23")
-            implementation("io.github.jeluchu:jchucomponents-network:3.0.0-alpha23")
-            implementation("io.github.jeluchu:jchucomponents-ui-kmp:3.0.0-alpha23")
-            implementation("io.github.jeluchu:jchucomponents-prefs:3.0.0-alpha23")
-            implementation("io.github.jeluchu:jchucomponents-supabase:3.0.0-alpha23")
+            implementation("io.github.jeluchu:jchucomponents-foundation:3.0.0-alpha25")
+            implementation("io.github.jeluchu:jchucomponents-network:3.0.0-alpha25")
+            implementation("io.github.jeluchu:jchucomponents-ui-kmp:3.0.0-alpha25")
+            implementation("io.github.jeluchu:jchucomponents-prefs:3.0.0-alpha25")
+            implementation("io.github.jeluchu:jchucomponents-supabase:3.0.0-alpha25")
         }
     }
 }
@@ -27,13 +27,13 @@ Available modules:
 
 | Artifact | Platforms | Use it for |
 | --- | --- | --- |
-| `jchucomponents-foundation` | Android, iOS, macOS | Portable state, date, text and version helpers |
-| `jchucomponents-network` | Android, iOS, macOS | Ktor configuration, resources and flow helpers |
-| `jchucomponents-pay` | Android, iOS, macOS | Shared payment and subscription models |
-| `jchucomponents-prefs` | Android, iOS, macOS | Typed observable preferences |
-| `jchucomponents-qr` | Android, iOS, macOS | QR encoding and decoding |
-| `jchucomponents-supabase` | Android, iOS, macOS | Supabase Auth, PostgREST, RPC, Realtime and Edge Functions |
-| `jchucomponents-ui-kmp` | Android, iOS (ARM targets) | Compose components without Android resource dependencies |
+| `jchucomponents-foundation` | Android, iOS ARM64, macOS ARM64 | Portable state, date, text and version helpers |
+| `jchucomponents-network` | Android, iOS ARM64, macOS ARM64 | Ktor configuration, resources and flow helpers |
+| `jchucomponents-pay` | Android, iOS ARM64, macOS ARM64 | Shared payment and subscription models |
+| `jchucomponents-prefs` | Android, iOS ARM64, macOS ARM64 | Typed observable preferences |
+| `jchucomponents-qr` | Android, iOS ARM64, macOS ARM64 | QR encoding and decoding |
+| `jchucomponents-supabase` | Android, iOS ARM64, macOS ARM64 | Supabase Auth, PostgREST, RPC, Realtime and Edge Functions |
+| `jchucomponents-ui-kmp` | Android, iOS ARM64 | Compose components without Android resource dependencies |
 
 The existing Android-only `jchucomponents-ui` artifact remains available and
 re-exports the KMP UI artifact. It retains the components that depend on
@@ -47,7 +47,7 @@ JchuComponents versions:
 ```kotlin
 dependencies {
     implementation(
-        platform("io.github.jeluchu:jchucomponents-bom:3.0.0-alpha23")
+        platform("io.github.jeluchu:jchucomponents-bom:3.0.0-alpha25")
     )
 
     implementation("io.github.jeluchu:jchucomponents-foundation")

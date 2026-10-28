@@ -17,13 +17,13 @@ Add the dependency to your shared source set:
 kotlin {
     sourceSets {
         commonMain.dependencies {
-            implementation("io.github.jeluchu:jchucomponents-pay-kmp:3.0.0-alpha24")
+            implementation("io.github.jeluchu:jchucomponents-pay-kmp:3.0.0-alpha25")
         }
     }
 }
 ```
 
-RevenueCat SDK 3.6.0 is added transitively.
+RevenueCat SDK 4.0.0 is added transitively.
 
 ## Initialization and purchases
 

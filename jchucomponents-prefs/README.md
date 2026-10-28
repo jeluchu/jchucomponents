@@ -2,7 +2,7 @@
 
 `jchucomponents-prefs` provides a Kotlin Multiplatform preferences API backed
 by AndroidX DataStore Preferences. It can be used from shared Kotlin code on
-Android, iOS and macOS.
+Android, iOS ARM64 and macOS ARM64.
 
 ## Installation
 
@@ -22,7 +22,7 @@ Declare the library in the version catalog:
 
 ```toml
 [versions]
-jchucomponents = "3.0.0-alpha08"
+jchucomponents = "3.0.0-alpha25"
 
 [libraries]
 jchucomponents-prefs = {

@@ -28,10 +28,8 @@ kotlin {
     }
 
     iosArm64()
-    iosX64()
     iosSimulatorArm64()
     macosArm64()
-    macosX64()
 
     sourceSets {
         commonTest.dependencies {

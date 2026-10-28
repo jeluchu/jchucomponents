@@ -10,6 +10,9 @@ and Apple applications with less repeated infrastructure.
 > versions follow `3.0.0-alphaNN`, `3.0.0-betaNN` and `3.0.0-rcNN` before the
 > stable `3.0.0` release.
 
+Apple targets are ARM64 only: `iosArm64`, `iosSimulatorArm64` and
+`macosArm64`. Intel x64 targets are not supported.
+
 ## Modules and platforms
 
 | Module | Android | iOS | macOS | Purpose |
@@ -40,7 +43,7 @@ The Swift package complements the shared Kotlin code with
 
 ## Installation
 
-The examples below use `3.0.0-alpha24`. Replace it with the
+The examples below use `3.0.0-alpha25`. Replace it with the
 [latest available release](https://github.com/Jeluchu/jchucomponents/releases).
 
 ### Kotlin Multiplatform
@@ -53,13 +56,13 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             implementation(
-                "io.github.jeluchu:jchucomponents-foundation:3.0.0-alpha24"
+                "io.github.jeluchu:jchucomponents-foundation:3.0.0-alpha25"
             )
             implementation(
-                "io.github.jeluchu:jchucomponents-network:3.0.0-alpha24"
+                "io.github.jeluchu:jchucomponents-network:3.0.0-alpha25"
             )
             implementation(
-                "io.github.jeluchu:jchucomponents-ui-kmp:3.0.0-alpha24"
+                "io.github.jeluchu:jchucomponents-ui-kmp:3.0.0-alpha25"
             )
         }
     }
@@ -100,8 +103,8 @@ SDK and publishes Android, `iosArm64`, and `iosSimulatorArm64` variants. Its
 RevenueCat SDK dependency is limited to Android and iOS, so this artifact does
 not currently target macOS.
 
-Most listed artifacts contain Android, iOS and macOS variants. The exceptions
-are `jchucomponents-room`, `jchucomponents-navigation3`,
+Most listed artifacts contain Android, iOS ARM64 and macOS ARM64 variants.
+The exceptions are `jchucomponents-room`, `jchucomponents-navigation3`,
 `jchucomponents-navigation3-di`,
 `jchucomponents-pdf-kmp`, `jchucomponents-pay-kmp`, and
 `jchucomponents-ui-kmp`, which currently contain
@@ -143,7 +146,7 @@ Use the BOM to keep Android modules on the same version:
 ```kotlin
 dependencies {
     implementation(
-        platform("io.github.jeluchu:jchucomponents-bom:3.0.0-alpha24")
+        platform("io.github.jeluchu:jchucomponents-bom:3.0.0-alpha25")
     )
     implementation("com.github.jeluchu.jchucomponents:jchucomponents-ui")
     implementation("io.github.jeluchu:jchucomponents-ktx")
@@ -155,10 +158,10 @@ Alternatively, specify each JitPack artifact version directly:
 ```kotlin
 dependencies {
     implementation(
-        "com.github.jeluchu.jchucomponents:jchucomponents-ui:3.0.0-alpha24"
+        "com.github.jeluchu.jchucomponents:jchucomponents-ui:3.0.0-alpha25"
     )
     implementation(
-        "com.github.jeluchu.jchucomponents:jchucomponents-pdf:3.0.0-alpha24"
+        "com.github.jeluchu.jchucomponents:jchucomponents-pdf:3.0.0-alpha25"
     )
 }
 ```
@@ -187,7 +190,7 @@ to `commonMain`:
 kotlin {
     sourceSets {
         commonMain.dependencies {
-            implementation("io.github.jeluchu:jchucomponents-pay-kmp:3.0.0-alpha24")
+            implementation("io.github.jeluchu:jchucomponents-pay-kmp:3.0.0-alpha25")
         }
     }
 }
