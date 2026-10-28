@@ -60,6 +60,10 @@ dependencies {
     add("kspCommonMainMetadata", project(":jchucomponents-navigation3"))
 }
 
+tasks.matching { it.name == "runKtlintCheckOverCommonMainSourceSet" }.configureEach {
+    dependsOn("kspCommonMainKotlinMetadata")
+}
+
 tasks.configureEach {
     if (name.startsWith("compile") && name != "compileKotlinMetadata") {
         dependsOn("kspCommonMainKotlinMetadata")

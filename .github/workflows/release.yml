@@ -153,12 +153,17 @@ jobs:
           ./gradlew \
             :jchucomponents-bom:publishAndReleaseToMavenCentral \
             :jchucomponents-app-updates:publishAndReleaseToMavenCentral \
+            :jchucomponents-core:publishAndReleaseToMavenCentral \
             :jchucomponents-foundation:publishAndReleaseToMavenCentral \
+            :jchucomponents-ktx:publishAndReleaseToMavenCentral \
             :jchucomponents-network:publishAndReleaseToMavenCentral \
             :jchucomponents-pay:publishAndReleaseToMavenCentral \
+            :jchucomponents-pay-kmp:publishAndReleaseToMavenCentral \
+            :jchucomponents-pdf-kmp:publishAndReleaseToMavenCentral \
             :jchucomponents-prefs:publishAndReleaseToMavenCentral \
             :jchucomponents-qr:publishAndReleaseToMavenCentral \
             :jchucomponents-room:publishAndReleaseToMavenCentral \
             :jchucomponents-navigation3:publishAndReleaseToMavenCentral \
             :jchucomponents-navigation3-di:publishAndReleaseToMavenCentral \
-            :jchucomponents-supabase:publishAndReleaseToMavenCentral
+            :jchucomponents-supabase:publishAndReleaseToMavenCentral \
+            :jchucomponents-ui-kmp:publishAndReleaseToMavenCentral
