@@ -42,6 +42,7 @@ gson = "2.14.0"
 coil-kt = "3.6.3"
 supabase = "3.8.0"
 revenuecat = "10.28.1"
+revenuecat-kmp = "3.6.0"
 desugar_jdk_libs = "2.1.5"
 play-services-base = "18.11.1"
 playAppUpdate = "2.1.0"
@@ -128,6 +129,7 @@ koin-compose-viewmodel-multiplatform = { module = "io.insert-koin:koin-compose-v
 # Google & Third Party
 com-google-code-gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
 revenuecat = { module = "com.revenuecat.purchases:purchases", version.ref = "revenuecat" }
+revenuecat-kmp-core = { module = "com.revenuecat.purchases:purchases-kmp-core", version.ref = "revenuecat-kmp" }
 desugar_jdk_libs = { module = "com.android.tools:desugar_jdk_libs", version.ref = "desugar_jdk_libs" }
 com-google-android-gms-play-services-base = { module = "com.google.android.gms:play-services-base", version.ref = "play-services-base" }
 play-app-update = { module = "com.google.android.play:app-update", version.ref = "playAppUpdate" }

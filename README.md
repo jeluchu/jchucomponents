@@ -17,7 +17,8 @@ and Apple applications with less repeated infrastructure.
 | `jchucomponents-foundation` | ✅ | ✅ | ✅ | Portable state, dates, text and utilities |
 | `jchucomponents-network` | ✅ | ✅ | ✅ | Ktor client configuration, resources and flow helpers |
 | `jchucomponents-prefs` | ✅ | ✅ | ✅ | Multiplatform DataStore preferences |
-| `jchucomponents-pay` | ✅ | ✅ | ✅ | Shared payment models and platform integrations |
+| `jchucomponents-pay` | ✅ | ✅ | ✅ | Shared payment models and Android RevenueCat integration |
+| `jchucomponents-pay-kmp` | ✅ | ✅ | — | Shared RevenueCat purchases for Android and iOS (iOS ARM targets) |
 | `jchucomponents-qr` | ✅ | ✅ | ✅ | QR encoding and decoding utilities |
 | `jchucomponents-room` | ✅ | ✅ | — | Room 3 runtime configuration and SQL migrations |
 | `jchucomponents-supabase` | ✅ | ✅ | ✅ | Supabase Auth, database, realtime, Edge Functions and Koin setup |
@@ -75,6 +76,7 @@ io.github.jeluchu:jchucomponents-network
 io.github.jeluchu:jchucomponents-ui-kmp
 io.github.jeluchu:jchucomponents-pdf-kmp
 io.github.jeluchu:jchucomponents-pay
+io.github.jeluchu:jchucomponents-pay-kmp
 io.github.jeluchu:jchucomponents-prefs
 io.github.jeluchu:jchucomponents-qr
 io.github.jeluchu:jchucomponents-room
@@ -91,10 +93,18 @@ a portable `Job` helper, backed by `jchucomponents-foundation` where an
 equivalent already exists. Dispatcher-based coroutine helpers remain in
 `androidMain`.
 
+`jchucomponents-pay` keeps its existing Android RevenueCat API and shared
+payment models. For purchases from common Kotlin on Android and iOS, use
+`jchucomponents-pay-kmp`; it wraps RevenueCat's official Kotlin Multiplatform
+SDK and publishes Android, `iosArm64`, and `iosSimulatorArm64` variants. Its
+RevenueCat SDK dependency is limited to Android and iOS, so this artifact does
+not currently target macOS.
+
 Most listed artifacts contain Android, iOS and macOS variants. The exceptions
 are `jchucomponents-room`, `jchucomponents-navigation3`,
 `jchucomponents-navigation3-di`,
-`jchucomponents-pdf-kmp`, and `jchucomponents-ui-kmp`, which currently contain
+`jchucomponents-pdf-kmp`, `jchucomponents-pay-kmp`, and
+`jchucomponents-ui-kmp`, which currently contain
 Android, `iosArm64`, and `iosSimulatorArm64`; and
 `jchucomponents-app-updates`, which is Android-only and intended for apps
 distributed through Google Play. Consumers provide their own update interface.
@@ -167,6 +177,44 @@ Android and PDFKit/native sharing on iOS. Add it to `commonMain` and register
 `pdfReaderKmpEntries(backStack)`; then navigate with
 `PdfReaderKmpRoutes.Reader(url = remotePdfUrl)`. The Android-only artifact
 remains available unchanged.
+
+### Multiplatform payments
+
+For a shared RevenueCat integration on Android and iOS, add the KMP artifact
+to `commonMain`:
+
+```kotlin
+kotlin {
+    sourceSets {
+        commonMain.dependencies {
+            implementation("io.github.jeluchu:jchucomponents-pay-kmp:3.0.0-alpha23")
+        }
+    }
+}
+```
+
+Initialize it once with the API key for the current store, then load the active
+offering and make purchases from shared Kotlin:
+
+```kotlin
+import com.jeluchu.pay.revenuecat.kmp.Payment
+import com.jeluchu.pay.revenuecat.kmp.initPayment
+
+initPayment(
+    apiKey = revenueCatApiKey,
+    isDebug = isDebug,
+    subscriptionName = "premium"
+)
+
+val billingInfo = Payment.loadBillingInfo()
+val purchaseResult = Payment.purchaseResult(Payment.ProductsType.MONTHLY)
+```
+
+The artifact uses RevenueCat's Kotlin Multiplatform SDK 3.6.0 and currently
+targets Android, `iosArm64`, and `iosSimulatorArm64`. macOS is not included
+because the upstream KMP SDK does not currently publish a macOS target. See
+the [module README](jchucomponents-pay-kmp/README.md) for callbacks, restore,
+subscription status, and plan switching.
 
 ### Swift Package Manager
 

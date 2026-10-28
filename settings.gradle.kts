@@ -31,6 +31,7 @@ include(
         ":jchucomponents-ktx",
         ":jchucomponents-qr",
         ":jchucomponents-pay",
+        ":jchucomponents-pay-kmp",
         ":jchucomponents-prefs",
         ":jchucomponents-room",
         ":jchucomponents-foundation",
