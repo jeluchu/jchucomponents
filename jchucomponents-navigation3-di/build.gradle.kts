@@ -1,33 +1,35 @@
 plugins {
-    alias(libs.plugins.android.library)
+    alias(libs.plugins.jetbrains.kotlin.multiplatform)
+    alias(libs.plugins.android.kmp.library)
     alias(libs.plugins.jetbrains.dokka)
     alias(libs.plugins.compose.compiler)
     id("jchucomponents.publish")
 }
 
 version = libs.versions.jchucomponents.get()
-description = "Dependency injection helpers for AndroidX Navigation 3."
+description = "Dependency injection helpers for Navigation 3 ViewModels."
 
-android {
-    namespace = "com.jeluchu.jchucomponents.navigation3.di"
-    compileSdk = libs.versions.android.compile.sdk.get().toInt()
+kotlin {
+    jvmToolchain(libs.versions.java.get().toInt())
 
-    defaultConfig {
+    android {
+        namespace = "com.jeluchu.jchucomponents.navigation3.di"
+        compileSdk = libs.versions.android.compile.sdk.get().toInt()
         minSdk = libs.versions.android.min.sdk.get().toInt()
+        withSourcesJar(publish = true)
     }
 
-    buildFeatures.compose = true
+    jvm()
+    iosArm64()
+    iosSimulatorArm64()
 
-    compileOptions {
-        sourceCompatibility = JavaVersion.toVersion(libs.versions.java.get())
-        targetCompatibility = JavaVersion.toVersion(libs.versions.java.get())
+    sourceSets {
+        commonMain.dependencies {
+            api(project(":jchucomponents-navigation3"))
+            api(libs.koin.compose.multiplatform)
+            api(libs.koin.compose.viewmodel.multiplatform)
+        }
     }
-
-}
-
-dependencies {
-    api(project(":jchucomponents-navigation3"))
-    api(libs.koin.androidx.compose)
 }
 
 mavenPublishing {

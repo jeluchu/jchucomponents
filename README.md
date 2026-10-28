@@ -26,7 +26,7 @@ and Apple applications with less repeated infrastructure.
 | `jchucomponents-ui` | ✅ | — | — | Jetpack Compose components |
 | `jchucomponents-pdf` | ✅ | — | — | Remote PDF reader with generated Navigation 3 routes |
 | `jchucomponents-navigation3` | ✅ | ✅ | — | Compose Multiplatform Navigation 3 annotations, helpers and KSP processor (iOS ARM targets) |
-| `jchucomponents-navigation3-di` | ✅ | — | — | Dependency injection helpers for generated Navigation 3 entries |
+| `jchucomponents-navigation3-di` | ✅ | ✅ | — | Dependency injection helpers for generated Navigation 3 entries on JVM and iOS ARM targets |
 | `jchucomponents-app-updates` | ✅ | — | — | Google Play update `StateFlow` and lifecycle controller; apps own the UI |
 | `jchucomponents-bom` | ✅ | — | — | Aligned Android module versions |
 
@@ -227,9 +227,11 @@ targets (`iosArm64` and `iosSimulatorArm64`). Configure KSP with
 `kspCommonMainMetadata` in the module containing those screens. The host still
 supplies its Navigation 3 UI dependency and root `NavDisplay`.
 
-The optional `jchucomponents-navigation3-di` artifact remains Android-only. Its
-`@ScreenKoinViewModel` integration is intended for Android source sets; shared
-screens should use an application-owned multiplatform ViewModel provider.
+The optional `jchucomponents-navigation3-di` artifact provides Koin
+`inject()`/`injectByParams()` helpers on Android, JVM, `iosArm64` and
+`iosSimulatorArm64`. It uses Koin's multiplatform Compose ViewModel APIs and
+shares the runtime module's target restrictions: Navigation 3 1.2.0 has no
+`iosX64` or macOS variants.
 The runtime module is independent of `jchucomponents-ui`. The processor groups
 screens by graph, uses each composable name as its default route, and wires
 typed arguments, back callbacks, cross-graph navigation and app-owned custom

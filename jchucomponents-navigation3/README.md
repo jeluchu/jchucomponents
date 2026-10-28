@@ -225,12 +225,17 @@ marked with `@CustomAction`.
 
 ## ViewModel injection
 
-Koin integration is optional. Add the DI artifact and annotate a ViewModel
-parameter with `@ScreenKoinViewModel`:
+Koin integration is optional. Add the DI artifact to `commonMain` and annotate a
+ViewModel parameter with `@ScreenKoinViewModel`. The artifact publishes Android,
+JVM, `iosArm64`, and `iosSimulatorArm64` variants, matching the runtime module's
+target availability:
 
 ```kotlin
 implementation("io.github.jeluchu:jchucomponents-navigation3-di:<published-version>")
 ```
+
+The DI helpers use Koin's multiplatform Compose ViewModel APIs, so the artifact
+exposes its Koin dependencies to the consuming source set.
 
 ```kotlin
 @Composable
