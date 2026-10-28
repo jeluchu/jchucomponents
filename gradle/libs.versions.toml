@@ -33,6 +33,7 @@ androidx-core-splashscreen = "1.2.0"
 # KotlinX
 kotlinx-datetime = "0.8.0"
 org-jetbrains-kotlinx = "1.11.0"
+kotlinx-serialization = "1.12.0"
 
 # Libraries
 ktor = "3.6.0"
@@ -98,7 +99,7 @@ symbol-processing-api = { module = "com.google.devtools.ksp:symbol-processing-ap
 kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "kotlinx-datetime" }
 org-jetbrains-kotlinx-kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "org-jetbrains-kotlinx" }
 org-jetbrains-kotlinx-kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "org-jetbrains-kotlinx" }
-org-jetbrains-kotlinx-kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "org-jetbrains-kotlinx" }
+org-jetbrains-kotlinx-kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinx-serialization" }
 
 # Ktor Client
 ktor-darwin = { module = "io.ktor:ktor-client-darwin", version.ref = "ktor" }
