@@ -28,8 +28,6 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.jeluchu.jchucomponents.ktx.numbers.empty
-import com.jeluchu.jchucomponents.ktx.strings.empty
 import com.jeluchu.jchucomponents.ui.runtime.remember.rememberMutableStateOf
 
 /**
@@ -48,7 +46,7 @@ import com.jeluchu.jchucomponents.ui.runtime.remember.rememberMutableStateOf
 
 @Composable
 fun DoubleTapAnimation(
-    image: Int = Int.empty(),
+    image: Int = 0,
     icon: Int,
     size: Dp = 250.dp,
     onDoubleTap: () -> Unit
@@ -65,7 +63,7 @@ fun DoubleTapAnimation(
     Box(modifier = Modifier.fillMaxSize()) {
         Image(
             imageVector = ImageVector.vectorResource(id = image),
-            contentDescription = String.empty(),
+            contentDescription = "",
             modifier =
                 Modifier
                     .align(Alignment.Center)
@@ -87,7 +85,7 @@ fun DoubleTapAnimation(
                     Modifier
                         .size(animatedSize)
                         .align(Alignment.Center),
-                contentDescription = String.empty()
+                contentDescription = ""
             )
             if (animatedSize == size) isLike = false
         }
@@ -120,7 +118,7 @@ private fun DoubleTapAnimationPreview() {
 
 @Composable
 fun DoubleTapAnimation(
-    url: String = String.empty(),
+    url: String = "",
     icon: Int,
     size: Dp = 250.dp,
     onDoubleTap: () -> Unit
@@ -157,7 +155,7 @@ fun DoubleTapAnimation(
                     Modifier
                         .size(animatedSize)
                         .align(Alignment.Center),
-                contentDescription = String.empty()
+                contentDescription = ""
             )
             if (animatedSize == size) isLike = false
         }

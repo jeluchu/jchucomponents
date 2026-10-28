@@ -38,11 +38,6 @@ import com.jeluchu.jchucomponents.ui.extensions.toPainter
 import com.jeluchu.jchucomponents.ui.foundation.icon.IconLink
 import com.jeluchu.jchucomponents.ui.runtime.remember.rememberMutableStateOf
 
-const val ExpandAnimation = 300
-const val CollapseAnimation = 300
-const val FadeInAnimation = 300
-const val FadeOutAnimation = 300
-
 @SuppressLint("UnusedTransitionTargetStateParameter")
 @Composable
 fun ExpandableCard(

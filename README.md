@@ -21,9 +21,10 @@ and Apple applications with less repeated infrastructure.
 | `jchucomponents-qr` | ✅ | ✅ | ✅ | QR encoding and decoding utilities |
 | `jchucomponents-room` | ✅ | ✅ | — | Room 3 runtime configuration and SQL migrations |
 | `jchucomponents-supabase` | ✅ | ✅ | ✅ | Supabase Auth, database, realtime, Edge Functions and Koin setup |
-| `jchucomponents-core` | ✅ | — | — | Android architecture and lifecycle utilities |
+| `jchucomponents-core` | ✅ | ✅ | ✅ | Android architecture and lifecycle utilities with portable core APIs |
 | `jchucomponents-ktx` | ✅ | ✅ | ✅ | Android APIs and portable Kotlin extension compatibility helpers |
-| `jchucomponents-ui` | ✅ | — | — | Jetpack Compose components |
+| `jchucomponents-ui-kmp` | ✅ | ✅ | — | Portable Compose components without Android resource dependencies (iOS ARM targets) |
+| `jchucomponents-ui` | ✅ | — | — | Android adapter for resource- and platform-dependent components; re-exports `jchucomponents-ui-kmp` |
 | `jchucomponents-pdf` | ✅ | — | — | Remote PDF reader with generated Navigation 3 routes |
 | `jchucomponents-navigation3` | ✅ | ✅ | — | Compose Multiplatform Navigation 3 annotations, helpers and KSP processor (iOS ARM targets) |
 | `jchucomponents-navigation3-di` | ✅ | ✅ | — | Dependency injection helpers for generated Navigation 3 entries on JVM and iOS ARM targets |
@@ -55,6 +56,9 @@ kotlin {
             implementation(
                 "io.github.jeluchu:jchucomponents-network:3.0.0-alpha23"
             )
+            implementation(
+                "io.github.jeluchu:jchucomponents-ui-kmp:3.0.0-alpha23"
+            )
         }
     }
 }
@@ -66,6 +70,7 @@ The available Maven Central artifacts are:
 io.github.jeluchu:jchucomponents-foundation
 io.github.jeluchu:jchucomponents-ktx
 io.github.jeluchu:jchucomponents-network
+io.github.jeluchu:jchucomponents-ui-kmp
 io.github.jeluchu:jchucomponents-pay
 io.github.jeluchu:jchucomponents-prefs
 io.github.jeluchu:jchucomponents-qr
@@ -83,8 +88,9 @@ equivalent already exists. Dispatcher-based coroutine helpers remain in
 `androidMain`.
 
 Most listed artifacts contain Android, iOS and macOS variants. The exceptions
-are `jchucomponents-room` and `jchucomponents-navigation3`, which currently
-contain Android, `iosArm64`, and `iosSimulatorArm64`; and
+are `jchucomponents-room`, `jchucomponents-navigation3`, and
+`jchucomponents-ui-kmp`, which currently contain Android, `iosArm64`, and
+`iosSimulatorArm64`; and
 `jchucomponents-app-updates`, which is Android-only and intended for apps
 distributed through Google Play. Consumers provide their own update interface.
 JitPack's Linux builds do not produce the Apple KLIB variants, so KMP
@@ -95,6 +101,13 @@ system language from shared code. `getPlatformLanguageCode()` maps Spanish in
 the United States to `es-US` and returns the base language code for other
 regional locales; `getLanguageTag()` exposes the full BCP 47 tag where the
 platform provides one.
+
+`jchucomponents-ui-kmp` contains the UI components that compile for Android,
+`iosArm64`, and `iosSimulatorArm64`. The Android `jchucomponents-ui` artifact
+keeps the existing Android API and adds the platform-bound parts that use `R`, `Context`, `View`,
+`Bitmap`, Android resource APIs or Android Coil requests. KMP applications
+should depend on `jchucomponents-ui-kmp` directly; Android applications can
+continue using `jchucomponents-ui` as before.
 
 ### Android
 

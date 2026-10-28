@@ -13,10 +13,11 @@ Declare only the capabilities used by the application:
 kotlin {
     sourceSets {
         commonMain.dependencies {
-            implementation("io.github.jeluchu:jchucomponents-foundation:3.0.0-alpha11")
-            implementation("io.github.jeluchu:jchucomponents-network:3.0.0-alpha11")
-            implementation("io.github.jeluchu:jchucomponents-prefs:3.0.0-alpha11")
-            implementation("io.github.jeluchu:jchucomponents-supabase:3.0.0-alpha11")
+            implementation("io.github.jeluchu:jchucomponents-foundation:3.0.0-alpha23")
+            implementation("io.github.jeluchu:jchucomponents-network:3.0.0-alpha23")
+            implementation("io.github.jeluchu:jchucomponents-ui-kmp:3.0.0-alpha23")
+            implementation("io.github.jeluchu:jchucomponents-prefs:3.0.0-alpha23")
+            implementation("io.github.jeluchu:jchucomponents-supabase:3.0.0-alpha23")
         }
     }
 }
@@ -32,6 +33,11 @@ Available modules:
 | `jchucomponents-prefs` | Android, iOS, macOS | Typed observable preferences |
 | `jchucomponents-qr` | Android, iOS, macOS | QR encoding and decoding |
 | `jchucomponents-supabase` | Android, iOS, macOS | Supabase Auth, PostgREST, RPC, Realtime and Edge Functions |
+| `jchucomponents-ui-kmp` | Android, iOS (ARM targets) | Compose components without Android resource dependencies |
+
+The existing Android-only `jchucomponents-ui` artifact remains available and
+re-exports the KMP UI artifact. It retains the components that depend on
+Android resources, `Context`, `View`, `Bitmap`, or Android Coil APIs.
 
 ## Android
 
@@ -41,7 +47,7 @@ JchuComponents versions:
 ```kotlin
 dependencies {
     implementation(
-        platform("io.github.jeluchu:jchucomponents-bom:3.0.0-alpha11")
+        platform("io.github.jeluchu:jchucomponents-bom:3.0.0-alpha23")
     )
 
     implementation("io.github.jeluchu:jchucomponents-foundation")

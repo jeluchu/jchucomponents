@@ -40,7 +40,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.jeluchu.jchucomponents.ktx.strings.empty
 import com.jeluchu.jchucomponents.ui.R
 import com.jeluchu.jchucomponents.ui.composables.column.JchuScrollableColumn
 import com.jeluchu.jchucomponents.ui.extensions.modifier.noRippleClickable
@@ -50,7 +49,7 @@ import com.jeluchu.jchucomponents.ui.foundation.icon.IconLink
 @Composable
 fun Toolbar(
     modifier: Modifier = Modifier,
-    title: String = String.empty(),
+    title: String = "",
     shapeActions: Shape =
         RoundedCornerShape(
             topStart = 0.dp,
@@ -117,7 +116,7 @@ fun Toolbar(
 @Composable
 fun Toolbar(
     modifier: Modifier = Modifier,
-    title: String = String.empty(),
+    title: String = "",
     topBarSettings: TopBarSettings = TopBarSettings(),
     style: TextStyle = LocalTextStyle.current,
     navigateToBackScreen: () -> Unit

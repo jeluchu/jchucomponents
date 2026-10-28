@@ -23,7 +23,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.jeluchu.jchucomponents.ktx.strings.empty
 import com.jeluchu.jchucomponents.ui.R
 import com.jeluchu.jchucomponents.ui.extensions.modifier.cornerRadius
 import com.jeluchu.jchucomponents.ui.extensions.toImageVector
@@ -60,7 +59,7 @@ fun BenefitsCard(
                 tint = benefitsDefaults.colors.boxContentColor,
                 modifier = Modifier.padding(5.dp),
                 imageVector = icon.toImageVector(),
-                contentDescription = String.empty()
+                contentDescription = ""
             )
         }
     }
@@ -116,7 +115,7 @@ fun BenefitsCard(
             tint = benefitsDefaults.colors.containerColor,
             modifier = Modifier.padding(5.dp),
             imageVector = icon.toImageVector(),
-            contentDescription = String.empty()
+            contentDescription = ""
         )
     }
 }

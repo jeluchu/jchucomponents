@@ -22,6 +22,7 @@ include(
         ":jchucomponents-bom",
         ":jchucomponents-core",
         ":jchucomponents-ui",
+        ":jchucomponents-ui-kmp",
         ":jchucomponents-pdf",
         ":jchucomponents-navigation3",
         ":jchucomponents-navigation3-di",

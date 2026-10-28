@@ -32,7 +32,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.jeluchu.jchucomponents.ktx.strings.empty
 import com.jeluchu.jchucomponents.ui.composables.images.NetworkImage
 import com.jeluchu.jchucomponents.ui.foundation.text.MarqueeText
 
@@ -56,14 +55,14 @@ import com.jeluchu.jchucomponents.ui.foundation.text.MarqueeText
 @Composable
 fun DebutCard(
     modifier: Modifier = Modifier,
-    title: String = String.empty(),
+    title: String = "",
     image: String,
     titleColor: Color = Color.Black,
     debutColor: Color = Color.Black,
     gradientEdgeColor: Color = Color.Transparent,
     style: TextStyle = LocalTextStyle.current,
     iconDebut: String,
-    nameOfDebut: String = String.empty(),
+    nameOfDebut: String = "",
     isDebut: Boolean = false,
     bgDebut: Color = Color.Black,
     debubtAlignment: Alignment = Alignment.TopStart,

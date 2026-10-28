@@ -30,7 +30,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.jeluchu.jchucomponents.ktx.numbers.isNotEmpty
-import com.jeluchu.jchucomponents.ktx.strings.empty
 import com.jeluchu.jchucomponents.ui.composables.images.NetworkImage
 import com.jeluchu.jchucomponents.ui.extensions.modifier.cornerRadius
 import com.jeluchu.jchucomponents.ui.extensions.modifier.noRippleClickable
@@ -57,7 +56,7 @@ fun StoryCard(
     title: String,
     textColor: Color = Color.Black,
     circleImage: Int,
-    iconMainUrl: String = String.empty(),
+    iconMainUrl: String = "",
     iconMainResource: Int = 0,
     navigateToScreen: () -> Unit
 ) = Card(

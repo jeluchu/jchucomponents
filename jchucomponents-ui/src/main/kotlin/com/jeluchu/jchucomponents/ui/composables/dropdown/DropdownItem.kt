@@ -41,7 +41,6 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
-import com.jeluchu.jchucomponents.ktx.strings.empty
 import com.jeluchu.jchucomponents.ui.R
 import com.jeluchu.jchucomponents.ui.extensions.toImageVector
 
@@ -74,7 +73,7 @@ fun DropdownItemOption(
             tint = tint,
             modifier = modifier,
             imageVector = icon.toImageVector(),
-            contentDescription = String.empty()
+            contentDescription = ""
         )
     }
 

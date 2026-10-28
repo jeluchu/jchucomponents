@@ -29,7 +29,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.jeluchu.jchucomponents.ktx.numbers.isNotEmpty
-import com.jeluchu.jchucomponents.ktx.strings.empty
 import com.jeluchu.jchucomponents.ui.composables.images.NetworkImage
 
 /**
@@ -58,7 +57,7 @@ fun ChipTagView(
     title: String,
     textColor: Color,
     isIconShow: Boolean = false,
-    iconUrl: String = String.empty(),
+    iconUrl: String = "",
     iconResource: Int = 0,
     iconTintColor: Color = Color.White,
     modifierIcon: Modifier = Modifier.padding(8.dp, 6.dp, 12.dp, 6.dp)

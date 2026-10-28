@@ -62,6 +62,7 @@ android {
 }
 
 dependencies {
+    api(project(":jchucomponents-ui-kmp"))
     implementation(platform(libs.compose.bom))
     implementation(libs.bundles.compose.bom)
     implementation(libs.androidx.compose.animation.graphics)

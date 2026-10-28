@@ -1,0 +1,74 @@
+package com.jeluchu.jchucomponents.ui.composables.preferences
+
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.TextUnit
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.TextUnit.Companion.Unspecified
+
+@Composable
+internal fun PreferenceItemTitle(
+    modifier: Modifier = Modifier,
+    text: String,
+    maxLines: Int = 2,
+    fontSize: TextUnit = Unspecified,
+    style: TextStyle = MaterialTheme.typography.titleLarge,
+    enabled: Boolean,
+    color: Color = MaterialTheme.colorScheme.onBackground,
+    overflow: TextOverflow = TextOverflow.Ellipsis
+) {
+    Text(
+        modifier = modifier,
+        text = text,
+        maxLines = maxLines,
+        fontSize = fontSize,
+        style = style,
+        color = color.copy(alpha = if (enabled) 1f else 0.62f),
+        overflow = overflow
+    )
+}
+
+@Composable
+internal fun PreferenceItemDescription(
+    modifier: Modifier = Modifier,
+    text: String,
+    maxLines: Int = Int.MAX_VALUE,
+    fontSize: TextUnit = Unspecified,
+    style: TextStyle = MaterialTheme.typography.bodyMedium,
+    enabled: Boolean,
+    color: Color = MaterialTheme.colorScheme.onSurfaceVariant,
+    overflow: TextOverflow = TextOverflow.Ellipsis
+) {
+    Text(
+        text = text,
+        style = style,
+        maxLines = maxLines,
+        fontSize = fontSize,
+        overflow = overflow,
+        color = color.copy(alpha = if (enabled) 0.6f else 0.38f),
+        modifier = modifier.padding(top = 2.dp)
+    )
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun PreferenceItemTitlePreview() {
+    Column {
+        PreferenceItemTitle(
+            text = "Notifications",
+            enabled = true
+        )
+        PreferenceItemDescription(
+            text = "Receive updates when new content is available",
+            enabled = true
+        )
+    }
+}

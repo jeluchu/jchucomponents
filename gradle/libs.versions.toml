@@ -20,6 +20,7 @@ binaryCompatibilityValidator = "0.18.2"
 androidx-room3 = "3.0.3"
 androidx-sqlite = "2.7.1"
 composeBom = "2026.09.00"
+compose-multiplatform = "1.12.2"
 androidx-browser = "1.10.0"
 androidx-appcompat = "1.8.0"
 androidx-core-ktx = "1.19.1"
@@ -58,6 +59,7 @@ androidx-compose-runtime = { module = "androidx.compose.runtime:runtime" }
 androidx-compose-material = { module = "androidx.compose.material:material" }
 androidx-compose-animation = { module = "androidx.compose.animation:animation" }
 androidx-compose-foundation = { module = "androidx.compose.foundation:foundation" }
+compose-ui-tooling-preview-kmp = { module = "org.jetbrains.compose.ui:ui-tooling-preview", version.ref = "compose-multiplatform" }
 androidx-compose-ui-ui-tooling = { module = "androidx.compose.ui:ui-tooling" }
 androidx-compose-ui-test-junit4 = { module = "androidx.compose.ui:ui-test-junit4" }
 compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "composeBom" }
@@ -148,6 +150,7 @@ maven-publish = { id = "com.vanniktech.maven.publish", version.ref = "mavenPubli
 android-kmp-library = { id = "com.android.kotlin.multiplatform.library", version.ref = "agp" }
 kotlinx-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 jetbrains-kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
+compose-multiplatform = { id = "org.jetbrains.compose", version.ref = "compose-multiplatform" }
 binary-compatibility-validator = { id = "org.jetbrains.kotlinx.binary-compatibility-validator", version.ref = "binaryCompatibilityValidator" }
 
 [bundles]
