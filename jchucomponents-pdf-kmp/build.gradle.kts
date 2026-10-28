@@ -64,6 +64,10 @@ tasks.matching { it.name == "runKtlintCheckOverCommonMainSourceSet" }.configureE
     dependsOn("kspCommonMainKotlinMetadata")
 }
 
+tasks.matching { it.name == "sourcesJar" || it.name.endsWith("SourcesJar") }.configureEach {
+    dependsOn("kspCommonMainKotlinMetadata")
+}
+
 tasks.configureEach {
     if (name.startsWith("compile") && name != "compileKotlinMetadata") {
         dependsOn("kspCommonMainKotlinMetadata")

@@ -155,5 +155,6 @@ jobs:
             -project JchuComponentsCatalog.xcodeproj \
             -scheme JchuComponentsCatalog \
             -destination 'generic/platform=iOS Simulator' \
+            ARCHS=arm64 \
             CODE_SIGNING_ALLOWED=NO \
             build
