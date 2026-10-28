@@ -25,7 +25,7 @@ and Apple applications with less repeated infrastructure.
 | `jchucomponents-ktx` | ✅ | — | — | Android and Kotlin extensions |
 | `jchucomponents-ui` | ✅ | — | — | Jetpack Compose components |
 | `jchucomponents-pdf` | ✅ | — | — | Remote PDF reader with generated Navigation 3 routes |
-| `jchucomponents-navigation3` | ✅ | — | — | Navigation 3 runtime annotations, helpers and KSP processor |
+| `jchucomponents-navigation3` | ✅ | ✅ | — | Compose Multiplatform Navigation 3 annotations, helpers and KSP processor (iOS ARM targets) |
 | `jchucomponents-navigation3-di` | ✅ | — | — | Dependency injection helpers for generated Navigation 3 entries |
 | `jchucomponents-app-updates` | ✅ | — | — | Google Play update `StateFlow` and lifecycle controller; apps own the UI |
 | `jchucomponents-bom` | ✅ | — | — | Aligned Android module versions |
@@ -70,16 +70,18 @@ io.github.jeluchu:jchucomponents-prefs
 io.github.jeluchu:jchucomponents-qr
 io.github.jeluchu:jchucomponents-room
 io.github.jeluchu:jchucomponents-supabase
+io.github.jeluchu:jchucomponents-navigation3
 io.github.jeluchu:jchucomponents-bom
 io.github.jeluchu:jchucomponents-app-updates
 ```
 
 Most listed artifacts contain Android, iOS and macOS variants. The exceptions
-are `jchucomponents-room`, which currently contains Android, `iosArm64`, and
-`iosSimulatorArm64`, and `jchucomponents-app-updates`, which is Android-only
-and intended for apps distributed through Google Play. Consumers provide their
-own update interface. JitPack's Linux builds do not produce the Apple KLIB
-variants, so KMP applications targeting iOS or macOS should use Maven Central.
+are `jchucomponents-room` and `jchucomponents-navigation3`, which currently
+contain Android, `iosArm64`, and `iosSimulatorArm64`; and
+`jchucomponents-app-updates`, which is Android-only and intended for apps
+distributed through Google Play. Consumers provide their own update interface.
+JitPack's Linux builds do not produce the Apple KLIB variants, so KMP
+applications targeting iOS or macOS should use Maven Central.
 
 `jchucomponents-foundation` also provides `JchuLocaleProvider` for reading the
 system language from shared code. `getPlatformLanguageCode()` maps Spanish in
@@ -218,18 +220,21 @@ enable destructive migrations or choose a database path.
 
 ## Navigation 3 code generation
 
-For Android Compose apps using Navigation 3, `jchucomponents-navigation3`
-provides annotations and back-stack helpers and generates typed route keys and
-feature entry providers from `@Screen` composables. Add the same artifact to
-`implementation` and `ksp`; its Android and JVM variants are selected from Gradle
-module metadata. The optional
-`jchucomponents-navigation3-di` module provides Koin-backed injection helpers
-for screens marked with `@ScreenKoinViewModel`.
-The runtime module is independent of `jchucomponents-ui`. The processor groups screens
-by graph, uses each composable name as its default route, and wires typed
-arguments, back callbacks, cross-graph navigation and app-owned custom actions.
-See the [module README](jchucomponents-navigation3/README.md) for installation, annotation usage and additional details, and the
-**Navigation code generation** example in the
+`jchucomponents-navigation3` provides Navigation 3 annotations and back-stack
+helpers in `commonMain`. Its KSP processor can generate typed route keys and
+entry providers from shared `@Screen` composables for Android and iOS ARM
+targets (`iosArm64` and `iosSimulatorArm64`). Configure KSP with
+`kspCommonMainMetadata` in the module containing those screens. The host still
+supplies its Navigation 3 UI dependency and root `NavDisplay`.
+
+The optional `jchucomponents-navigation3-di` artifact remains Android-only. Its
+`@ScreenKoinViewModel` integration is intended for Android source sets; shared
+screens should use an application-owned multiplatform ViewModel provider.
+The runtime module is independent of `jchucomponents-ui`. The processor groups
+screens by graph, uses each composable name as its default route, and wires
+typed arguments, back callbacks, cross-graph navigation and app-owned custom
+actions. See the [module README](jchucomponents-navigation3/README.md) for KMP
+and Android setup, and the **Navigation code generation** example in the
 Android catalog.
 
 The Swift package also provides `JchuComponentsNavigation`, a SwiftUI `@Screen`

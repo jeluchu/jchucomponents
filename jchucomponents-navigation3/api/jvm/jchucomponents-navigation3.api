@@ -3,3 +3,31 @@ public final class com/jeluchu/jchucomponents/navigation/ksp/NavigationProcessor
 	public fun create (Lcom/google/devtools/ksp/processing/SymbolProcessorEnvironment;)Lcom/google/devtools/ksp/processing/SymbolProcessor;
 }
 
+public abstract interface annotation class com/jeluchu/jchucomponents/navigation3/BackStackBack : java/lang/annotation/Annotation {
+}
+
+public abstract interface annotation class com/jeluchu/jchucomponents/navigation3/CustomAction : java/lang/annotation/Annotation {
+}
+
+public abstract interface annotation class com/jeluchu/jchucomponents/navigation3/NavigateTo : java/lang/annotation/Annotation {
+	public abstract fun route ()Ljava/lang/Class;
+}
+
+public abstract interface annotation class com/jeluchu/jchucomponents/navigation3/Screen : java/lang/annotation/Annotation {
+	public abstract fun graph ()Ljava/lang/String;
+	public abstract fun route ()Ljava/lang/String;
+}
+
+public abstract interface annotation class com/jeluchu/jchucomponents/navigation3/ScreenKoinViewModel : java/lang/annotation/Annotation {
+}
+
+public final class com/jeluchu/jchucomponents/navigation3/extensions/NavBackStackExtensionsKt {
+	public static final fun back (Landroidx/navigation3/runtime/NavBackStack;)Z
+	public static final fun backOr (Landroidx/navigation3/runtime/NavBackStack;Lkotlin/jvm/functions/Function0;)Z
+	public static final fun backTo (Landroidx/navigation3/runtime/NavBackStack;Landroidx/navigation3/runtime/NavKey;)Z
+	public static final fun clearAndNavigateTo (Landroidx/navigation3/runtime/NavBackStack;Landroidx/navigation3/runtime/NavKey;)V
+	public static final fun navigateSingleTop (Landroidx/navigation3/runtime/NavBackStack;Landroidx/navigation3/runtime/NavKey;)Z
+	public static final fun navigateTo (Landroidx/navigation3/runtime/NavBackStack;Landroidx/navigation3/runtime/NavKey;)V
+	public static final fun replaceAll (Landroidx/navigation3/runtime/NavBackStack;Landroidx/navigation3/runtime/NavKey;)V
+}
+

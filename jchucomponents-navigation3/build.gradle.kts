@@ -19,9 +19,11 @@ kotlin {
     }
 
     jvm()
+    iosArm64()
+    iosSimulatorArm64()
 
     sourceSets {
-        androidMain.dependencies {
+        commonMain.dependencies {
             api(libs.androidx.navigation3.runtime)
         }
 

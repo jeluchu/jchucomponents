@@ -1,18 +1,63 @@
 # JchuComponents Navigation 3
 
-`jchucomponents-navigation3` adds typed, generated navigation for Android
-Compose apps that use AndroidX Navigation 3. Annotate composables with
-`@Screen`; KSP generates serializable route keys and an entry-provider function
-for each graph.
+`jchucomponents-navigation3` adds typed, generated navigation for Android and
+Compose Multiplatform apps that use AndroidX Navigation 3. Its common API and
+KSP code generation work from shared `commonMain` screens on Android,
+`iosArm64`, and `iosSimulatorArm64`. Annotate composables with `@Screen`; KSP
+generates serializable route keys and an entry-provider function for each graph.
 
-The artifact contains both the Android runtime API and the KSP processor. Use
-the same dependency coordinate with `implementation` and `ksp`. It does not
-depend on `jchucomponents-ui`.
+The multiplatform artifact contains the runtime API and the KSP processor. Use
+the same dependency coordinate with `implementation` and the platform-appropriate
+KSP configuration. It does not depend on `jchucomponents-ui`. Navigation 3
+runtime 1.2.0 does not publish `iosX64` or macOS variants, so this module cannot
+be added to a `commonMain` source set that also targets those platforms.
 
-## Add the dependency
+## Kotlin Multiplatform setup
 
-Apply KSP and Kotlin Serialization in the module that contains the annotated
-screens. Keep the KSP plugin version compatible with the Kotlin Gradle plugin.
+Apply KSP, Kotlin Serialization, and the Compose compiler plugin in the module
+that contains the shared annotated screens. Keep KSP compatible with the Kotlin
+Gradle plugin version.
+
+```kotlin
+plugins {
+    alias(libs.plugins.ksp)
+    alias(libs.plugins.kotlinx.serialization)
+    alias(libs.plugins.compose.compiler)
+}
+
+kotlin {
+    sourceSets {
+        val commonMain = getByName("commonMain")
+        commonMain.kotlin.srcDir("build/generated/ksp/metadata/commonMain/kotlin")
+        commonMain.dependencies {
+            implementation("io.github.jeluchu:jchucomponents-navigation3:<published-version>")
+        }
+    }
+}
+
+dependencies {
+    add(
+        "kspCommonMainMetadata",
+        "io.github.jeluchu:jchucomponents-navigation3:<published-version>"
+    )
+}
+
+tasks.configureEach {
+    if (name.startsWith("compile") && name != "compileKotlinMetadata") {
+        dependsOn("kspCommonMainKotlinMetadata")
+    }
+}
+```
+
+The explicit generated source directory and task dependency make KSP's common
+metadata output available to Android and Kotlin/Native compilations. The app
+still owns `NavDisplay`, its root back stack, and any Navigation 3 UI dependency.
+
+## Android setup
+
+For an Android-only module, apply KSP and Kotlin Serialization in the module
+that contains the annotated screens. Keep the KSP plugin version compatible
+with the Kotlin Gradle plugin.
 
 ```kotlin
 plugins {
