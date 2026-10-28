@@ -13,7 +13,6 @@ ksp = "2.3.10"
 dokka = "2.2.0"
 kotlin = "2.4.21"
 mavenPublish = "0.37.0"
-ktlintGradle = "14.2.0"
 binaryCompatibilityValidator = "0.18.2"
 
 # AndroidX
@@ -146,7 +145,6 @@ kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 android-library = { id = "com.android.library", version.ref = "agp" }
 jetbrains-dokka = { id = "org.jetbrains.dokka", version.ref = "dokka" }
 android-application = { id = "com.android.application", version.ref = "agp" }
-ktlint = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "ktlintGradle" }
 compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 maven-publish = { id = "com.vanniktech.maven.publish", version.ref = "mavenPublish" }
 android-kmp-library = { id = "com.android.kotlin.multiplatform.library", version.ref = "agp" }
@@ -160,10 +158,6 @@ core-androidx = [
     "androidx-core-core-ktx",
     "androidx-lifecycle-lifecycle-livedata-core-ktx",
     "androidx-lifecycle-lifecycle-viewmodel-ktx",
-]
-core-jetbrains = [
-    "org-jetbrains-kotlinx-kotlinx-coroutines-android",
-    "org-jetbrains-kotlinx-kotlinx-coroutines-core",
 ]
 ktx-androidx = [
     "androidx-browser",
