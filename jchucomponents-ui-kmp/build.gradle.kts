@@ -37,6 +37,7 @@ kotlin {
             api(compose.material3)
             api(compose.materialIconsExtended)
             api(libs.org.jetbrains.kotlinx.kotlinx.coroutines.core)
+            implementation(libs.coil.compose)
             api(libs.kotlinx.datetime)
             implementation(libs.compose.ui.tooling.preview.kmp)
         }
