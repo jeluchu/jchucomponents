@@ -155,28 +155,6 @@ fun Toolbar(
     }
 )
 
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun Toolbar(
-    title: @Composable () -> Unit,
-    modifier: Modifier = Modifier,
-    navigationIcon: @Composable () -> Unit = {},
-    actions: @Composable RowScope.() -> Unit = {},
-    colors: CenterToolbarColors = CenterToolbarColors()
-) = TopAppBar(
-    title = title,
-    actions = actions,
-    modifier = modifier,
-    navigationIcon = navigationIcon,
-    colors =
-        TopAppBarDefaults.topAppBarColors(
-            containerColor = colors.containerColor,
-            titleContentColor = colors.contentColor,
-            actionIconContentColor = colors.contentColor,
-            navigationIconContentColor = colors.contentColor
-        )
-)
-
 @Immutable
 class TopBarSettings constructor(
     @DrawableRes val navIcon: Int = R.drawable.ic_arrow_left,

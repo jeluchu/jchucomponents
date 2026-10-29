@@ -2,7 +2,6 @@
 
 package com.jeluchu.jchucomponents.ui.foundation.icon
 
-import androidx.annotation.StringRes
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.LocalContentColor
@@ -13,9 +12,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
-import com.jeluchu.jchucomponents.ui.R
 
 /**
  *
@@ -49,16 +45,6 @@ fun IconLink(
         bitmap = bitmap,
         modifier = modifier,
         contentDescription = contentDescription
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-private fun IconLinkPreview() {
-    IconLink(
-        painter = painterResource(R.drawable.ic_btn_share),
-        contentDescription = "Share",
-        onClick = {}
     )
 }
 

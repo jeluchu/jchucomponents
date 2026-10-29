@@ -1,6 +1,5 @@
 package com.jeluchu.jchucomponents.ui.composables.column
 
-import android.os.Build
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -14,7 +13,8 @@ import androidx.compose.ui.Modifier
 import com.jeluchu.jchucomponents.ui.foundation.lists.composition.ListNotOverScroll
 
 /**
- * A vertically scrollable column that suppresses the legacy overscroll effect below Android 12.
+ * A vertically scrollable column that suppresses the legacy overscroll effect on platforms where
+ * it looks outdated (Android below 12).
  *
  * The content keeps its [ColumnScope], so children can use column-specific modifiers such as
  * `weight` and `align`.
@@ -45,9 +45,12 @@ fun JchuScrollableColumn(
         )
     }
 
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-        column()
-    } else {
+    if (shouldSuppressLegacyOverscroll()) {
         ListNotOverScroll(content = column)
+    } else {
+        column()
     }
 }
+
+/** Whether the platform still draws the legacy stretch-less overscroll glow. */
+internal expect fun shouldSuppressLegacyOverscroll(): Boolean
