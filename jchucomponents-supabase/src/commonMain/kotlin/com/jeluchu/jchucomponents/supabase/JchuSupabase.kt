@@ -4,7 +4,12 @@ import com.jeluchu.jchucomponents.supabase.auth.JchuSupabaseAuth
 import com.jeluchu.jchucomponents.supabase.database.JchuSupabaseDatabase
 import com.jeluchu.jchucomponents.supabase.functions.JchuSupabaseFunctions
 import com.jeluchu.jchucomponents.supabase.realtime.JchuSupabaseRealtime
+import com.jeluchu.jchucomponents.network.models.Failure
+import com.jeluchu.jchucomponents.network.models.Resource
+import com.jeluchu.jchucomponents.supabase.flow.awaitSessionRestored
+import com.jeluchu.jchucomponents.supabase.flow.supabaseResource
 import io.github.jan.supabase.SupabaseClient
+import kotlinx.coroutines.flow.Flow
 
 class JchuSupabase internal constructor(
     val client: SupabaseClient,
@@ -26,6 +31,18 @@ class JchuSupabase internal constructor(
         requireModule(enabled = modules.realtime, name = "Realtime")
         JchuSupabaseRealtime(client)
     }
+
+    /** Suspends until the stored auth session has been restored (no-op when Auth is disabled). */
+    suspend fun awaitSessionRestored() = client.awaitSessionRestored()
+
+    /** Like [supabaseResource], but waits for the stored session before running [block]. */
+    inline fun <T> resource(
+        crossinline block: suspend () -> T
+    ): Flow<Resource<Failure, T>> =
+        supabaseResource {
+            awaitSessionRestored()
+            block()
+        }
 
     private fun requireModule(
         enabled: Boolean,
