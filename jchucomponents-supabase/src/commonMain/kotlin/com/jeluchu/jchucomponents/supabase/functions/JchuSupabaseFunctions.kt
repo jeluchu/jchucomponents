@@ -2,6 +2,7 @@ package com.jeluchu.jchucomponents.supabase.functions
 
 import com.jeluchu.jchucomponents.network.models.Failure
 import com.jeluchu.jchucomponents.network.models.Resource
+import com.jeluchu.jchucomponents.supabase.flow.awaitSessionRestored
 import com.jeluchu.jchucomponents.supabase.flow.supabaseResource
 import io.github.jan.supabase.SupabaseClient
 import io.github.jan.supabase.functions.functions
@@ -17,6 +18,7 @@ class JchuSupabaseFunctions internal constructor(
         options: JchuSupabaseFunctionOptions = JchuSupabaseFunctionOptions()
     ): Flow<Resource<Failure, Response>> =
         supabaseResource {
+            client.awaitSessionRestored()
             client.functions
                 .invoke(
                     function = name,
@@ -30,6 +32,7 @@ class JchuSupabaseFunctions internal constructor(
         options: JchuSupabaseFunctionOptions = JchuSupabaseFunctionOptions()
     ): Flow<Resource<Failure, Response>> =
         supabaseResource {
+            client.awaitSessionRestored()
             client.functions
                 .invoke(
                     function = name,
@@ -43,6 +46,7 @@ class JchuSupabaseFunctions internal constructor(
         options: JchuSupabaseFunctionOptions = JchuSupabaseFunctionOptions()
     ): Flow<Resource<Failure, Unit>> =
         supabaseResource {
+            client.awaitSessionRestored()
             client.functions.invoke(
                 function = name,
                 headers = options.toKtorHeaders()
@@ -55,6 +59,7 @@ class JchuSupabaseFunctions internal constructor(
         options: JchuSupabaseFunctionOptions = JchuSupabaseFunctionOptions()
     ): Flow<Resource<Failure, Unit>> =
         supabaseResource {
+            client.awaitSessionRestored()
             client.functions.invoke(
                 function = name,
                 body = body,

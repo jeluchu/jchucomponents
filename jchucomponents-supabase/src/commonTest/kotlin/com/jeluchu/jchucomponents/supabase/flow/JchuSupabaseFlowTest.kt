@@ -1,10 +1,14 @@
 package com.jeluchu.jchucomponents.supabase.flow
 
 import com.jeluchu.jchucomponents.network.models.Resource
+import com.jeluchu.jchucomponents.supabase.JchuSupabaseConfig
+import com.jeluchu.jchucomponents.supabase.JchuSupabaseModules
+import com.jeluchu.jchucomponents.supabase.createJchuSupabaseClient
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.withTimeout
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
@@ -40,5 +44,29 @@ class JchuSupabaseFlowTest {
                 }.collect()
             }
         }
+    }
+}
+
+class JchuSupabaseSessionRestoreTest {
+    private fun supabaseWithoutAuth() =
+        createJchuSupabaseClient(
+            JchuSupabaseConfig(
+                url = "https://example.supabase.co",
+                publishableKey = "publishable-key",
+                modules = JchuSupabaseModules(auth = false, database = false, functions = false, realtime = false)
+            )
+        )
+
+    @Test
+    fun awaitSessionRestoredReturnsWhenAuthIsNotInstalled() = runBlocking {
+        withTimeout(timeMillis = 10_000) { supabaseWithoutAuth().awaitSessionRestored() }
+    }
+
+    @Test
+    fun resourceWaitsForSessionBeforeRunningBlock() = runBlocking {
+        val resources = withTimeout(timeMillis = 10_000) { supabaseWithoutAuth().resource { "ready" }.toList() }
+
+        assertIs<Resource.Loading>(resources[0])
+        assertEquals(expected = "ready", actual = resources[1].data)
     }
 }

@@ -2,6 +2,7 @@ package com.jeluchu.jchucomponents.supabase.database
 
 import com.jeluchu.jchucomponents.network.models.Failure
 import com.jeluchu.jchucomponents.network.models.Resource
+import com.jeluchu.jchucomponents.supabase.flow.awaitSessionRestored
 import com.jeluchu.jchucomponents.supabase.flow.supabaseResource
 import io.github.jan.supabase.SupabaseClient
 import io.github.jan.supabase.postgrest.from
@@ -25,6 +26,7 @@ class JchuSupabaseDatabase internal constructor(
         table: String
     ): Flow<Resource<Failure, List<T>>> =
         supabaseResource {
+            client.awaitSessionRestored()
             client.from(table).select().decodeList<T>()
         }
 
@@ -43,6 +45,7 @@ class JchuSupabaseDatabase internal constructor(
     ): Flow<Resource<Failure, T>> {
         requireSupabaseFilters(filters)
         return supabaseResource {
+            client.awaitSessionRestored()
             client.from(table).select {
                 filter {
                     filters.forEach { eq(it.column, it.value) }
@@ -66,6 +69,7 @@ class JchuSupabaseDatabase internal constructor(
         value: T
     ): Flow<Resource<Failure, T>> =
         supabaseResource {
+            client.awaitSessionRestored()
             client.from(table).insert(value) {
                 select()
             }.decodeSingle<T>()
@@ -75,6 +79,7 @@ class JchuSupabaseDatabase internal constructor(
         function: String
     ): Flow<Resource<Failure, Response>> =
         supabaseResource {
+            client.awaitSessionRestored()
             client.postgrest.rpc(function).decodeAs<Response>()
         }
 
@@ -83,6 +88,7 @@ class JchuSupabaseDatabase internal constructor(
         parameters: Parameters
     ): Flow<Resource<Failure, Response>> =
         supabaseResource {
+            client.awaitSessionRestored()
             client.postgrest.rpc(
                 function = function,
                 parameters = parameters
@@ -93,6 +99,7 @@ class JchuSupabaseDatabase internal constructor(
         function: String
     ): Flow<Resource<Failure, Unit>> =
         supabaseResource {
+            client.awaitSessionRestored()
             client.postgrest.rpc(function)
         }
 
@@ -101,6 +108,7 @@ class JchuSupabaseDatabase internal constructor(
         parameters: Parameters
     ): Flow<Resource<Failure, Unit>> =
         supabaseResource {
+            client.awaitSessionRestored()
             client.postgrest.rpc(
                 function = function,
                 parameters = parameters
@@ -112,6 +120,7 @@ class JchuSupabaseDatabase internal constructor(
         values: List<T>
     ): Flow<Resource<Failure, List<T>>> =
         supabaseResource {
+            client.awaitSessionRestored()
             client.from(table).insert(values) {
                 select()
             }.decodeList<T>()
@@ -135,6 +144,7 @@ class JchuSupabaseDatabase internal constructor(
     ): Flow<Resource<Failure, T>> {
         requireSupabaseFilters(filters)
         return supabaseResource {
+            client.awaitSessionRestored()
             client.from(table).update(value) {
                 select()
                 filter {
@@ -171,6 +181,7 @@ class JchuSupabaseDatabase internal constructor(
     ): Flow<Resource<Failure, Unit>> {
         requireSupabaseFilters(filters)
         return supabaseResource {
+            client.awaitSessionRestored()
             client.from(table).delete {
                 filter {
                     filters.forEach { eq(it.column, it.value) }
