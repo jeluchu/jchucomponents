@@ -15,6 +15,7 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
+            api(project(":jchucomponents-config"))
             api(libs.androidx.room3.runtime)
             api(libs.androidx.sqlite.bundled)
             api(libs.org.jetbrains.kotlinx.kotlinx.coroutines.core)
