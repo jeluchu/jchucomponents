@@ -14,6 +14,7 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
+            api(project(":jchucomponents-config"))
             api(project(":jchucomponents-network"))
             api(project.dependencies.platform(libs.supabase.bom))
             api(libs.koin.core)
