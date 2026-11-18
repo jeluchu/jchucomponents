@@ -15,26 +15,26 @@ Apple targets are ARM64 only: `iosArm64`, `iosSimulatorArm64` and
 
 ## Modules and platforms
 
-| Module | Android | iOS | macOS | Purpose |
-| --- | :---: | :---: | :---: | --- |
-| `jchucomponents-foundation` | ✅ | ✅ | ✅ | Portable state, dates, text and utilities |
-| `jchucomponents-network` | ✅ | ✅ | ✅ | Ktor client configuration, resources and flow helpers |
-| `jchucomponents-prefs` | ✅ | ✅ | ✅ | Multiplatform DataStore preferences |
-| `jchucomponents-pay` | ✅ | ✅ | ✅ | Shared payment models and Android RevenueCat integration |
-| `jchucomponents-pay-kmp` | ✅ | ✅ | — | Shared RevenueCat purchases for Android and iOS (iOS ARM targets) |
-| `jchucomponents-qr` | ✅ | ✅ | ✅ | QR encoding and decoding utilities |
-| `jchucomponents-room` | ✅ | ✅ | — | Room 3 runtime configuration and SQL migrations |
-| `jchucomponents-supabase` | ✅ | ✅ | ✅ | Supabase Auth, database, realtime, Edge Functions and Koin setup |
-| `jchucomponents-core` | ✅ | ✅ | ✅ | Android architecture and lifecycle utilities with portable core APIs |
-| `jchucomponents-ktx` | ✅ | ✅ | ✅ | Android APIs and portable Kotlin extension compatibility helpers |
-| `jchucomponents-ui-kmp` | ✅ | ✅ | — | Portable Compose components without Android resource dependencies (iOS ARM targets) |
-| `jchucomponents-ui` | ✅ | — | — | Android adapter for resource- and platform-dependent components; re-exports `jchucomponents-ui-kmp` |
-| `jchucomponents-pdf` | ✅ | — | — | Remote PDF reader with generated Navigation 3 routes |
-| `jchucomponents-pdf-kmp` | ✅ | ✅ | — | Compose Multiplatform PDF reader with Android PdfRenderer and iOS PDFKit (iOS ARM targets) |
-| `jchucomponents-navigation3` | ✅ | ✅ | — | Compose Multiplatform Navigation 3 annotations, helpers and KSP processor (iOS ARM targets) |
-| `jchucomponents-navigation3-di` | ✅ | ✅ | — | Dependency injection helpers for generated Navigation 3 entries on JVM and iOS ARM targets |
-| `jchucomponents-app-updates` | ✅ | — | — | Google Play update `StateFlow` and lifecycle controller; apps own the UI |
-| `jchucomponents-bom` | ✅ | — | — | Aligned Android module versions |
+| Module | Android | iOS | macOS | Desktop (JVM) | Purpose |
+| --- | :---: | :---: | :---: | :---: | --- |
+| `jchucomponents-foundation` | ✅ | ✅ | ✅ | ✅ | Portable state, dates, text and utilities |
+| `jchucomponents-network` | ✅ | ✅ | ✅ | ✅ | Ktor client configuration, resources and flow helpers |
+| `jchucomponents-prefs` | ✅ | ✅ | ✅ | ✅ | Multiplatform DataStore preferences |
+| `jchucomponents-pay` | ✅ | ✅ | ✅ | — | Shared payment models and Android RevenueCat integration |
+| `jchucomponents-pay-kmp` | ✅ | ✅ | — | — | Shared RevenueCat purchases for Android and iOS (iOS ARM targets) |
+| `jchucomponents-qr` | ✅ | ✅ | ✅ | — | QR encoding and decoding utilities |
+| `jchucomponents-room` | ✅ | ✅ | — | ✅ | Room 3 runtime configuration and SQL migrations |
+| `jchucomponents-supabase` | ✅ | ✅ | ✅ | — | Supabase Auth, database, realtime, Edge Functions and Koin setup |
+| `jchucomponents-core` | ✅ | ✅ | ✅ | — | Android architecture and lifecycle utilities with portable core APIs |
+| `jchucomponents-ktx` | ✅ | ✅ | ✅ | — | Android APIs and portable Kotlin extension compatibility helpers |
+| `jchucomponents-ui-kmp` | ✅ | ✅ | — | ✅ | Portable Compose components without Android resource dependencies (iOS ARM targets) |
+| `jchucomponents-ui` | ✅ | — | — | — | Android adapter for resource- and platform-dependent components; re-exports `jchucomponents-ui-kmp` |
+| `jchucomponents-pdf` | ✅ | — | — | — | Remote PDF reader with generated Navigation 3 routes |
+| `jchucomponents-pdf-kmp` | ✅ | ✅ | — | — | Compose Multiplatform PDF reader with Android PdfRenderer and iOS PDFKit (iOS ARM targets) |
+| `jchucomponents-navigation3` | ✅ | ✅ | — | ✅ | Compose Multiplatform Navigation 3 annotations, helpers and KSP processor (iOS ARM targets) |
+| `jchucomponents-navigation3-di` | ✅ | ✅ | — | ✅ | Dependency injection helpers for generated Navigation 3 entries on JVM and iOS ARM targets |
+| `jchucomponents-app-updates` | ✅ | — | — | — | Google Play update `StateFlow` and lifecycle controller; apps own the UI |
+| `jchucomponents-bom` | ✅ | — | — | — | Aligned Android module versions |
 
 The Swift package complements the shared Kotlin code with
 `JchuComponentsCore`, `JchuComponentsExtensions`, `JchuComponentsSwiftUI`,

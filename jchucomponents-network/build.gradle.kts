@@ -4,12 +4,14 @@ plugins {
 }
 
 version = libs.versions.jchucomponents.get()
-description = "Kotlin Multiplatform networking utilities for Android, iOS and macOS."
+description = "Kotlin Multiplatform networking utilities for Android, iOS, macOS and JVM desktop."
 
 kotlin {
     android {
         namespace = "com.jeluchu.jchucomponents.network"
     }
+
+    jvm()
 
     sourceSets {
         commonMain.dependencies {
@@ -23,6 +25,10 @@ kotlin {
         androidMain.dependencies {
             implementation(libs.ktor.android)
             implementation(libs.androidx.core.core.ktx)
+        }
+
+        jvmMain.dependencies {
+            implementation(libs.ktor.cio)
         }
 
         appleMain.dependencies {

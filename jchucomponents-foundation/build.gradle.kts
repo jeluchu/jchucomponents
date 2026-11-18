@@ -13,6 +13,8 @@ kotlin {
         namespace = "com.jeluchu.jchucomponents.foundation"
     }
 
+    jvm()
+
     val xcFramework = XCFramework(xcFrameworkName = "JchuComponentsCore")
 
     targets

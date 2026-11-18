@@ -4,12 +4,14 @@ plugins {
 }
 
 version = libs.versions.jchucomponents.get()
-description = "Kotlin Multiplatform Room 3 infrastructure for Android and Apple platforms."
+description = "Kotlin Multiplatform Room 3 infrastructure for Android, Apple platforms and JVM desktop."
 
 kotlin {
     android {
         namespace = "com.jeluchu.jchucomponents.room"
     }
+
+    jvm()
 
     sourceSets {
         commonMain.dependencies {

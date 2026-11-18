@@ -4,12 +4,14 @@ plugins {
 }
 
 version = libs.versions.jchucomponents.get()
-description = "Kotlin Multiplatform DataStore preferences for Android, iOS and macOS."
+description = "Kotlin Multiplatform DataStore preferences for Android, iOS, macOS and JVM desktop."
 
 kotlin {
     android {
         namespace = "com.jeluchu.jchucomponents.prefs"
     }
+
+    jvm()
 
     sourceSets {
         commonMain.dependencies {

@@ -8,7 +8,7 @@ plugins {
 }
 
 version = libs.versions.jchucomponents.get()
-description = "Kotlin Multiplatform Compose components for Android and iOS."
+description = "Kotlin Multiplatform Compose components for Android, iOS and JVM desktop."
 
 kotlin {
     compilerOptions {
@@ -23,6 +23,7 @@ kotlin {
         withHostTest {}
     }
 
+    jvm()
     iosArm64()
     iosSimulatorArm64()
 

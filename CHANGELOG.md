@@ -1,5 +1,15 @@
 # Changelog
 
+## Unreleased
+
+### Added
+
+- JVM (desktop) target for `jchucomponents-foundation`, `jchucomponents-network`
+  (Ktor CIO engine), `jchucomponents-prefs` (file under `~/.jchucomponents` by
+  default), `jchucomponents-room` and `jchucomponents-ui-kmp`, so Compose Desktop
+  apps on macOS, Windows and Linux can use them from `commonMain`. The Android and
+  Apple targets are unchanged.
+
 ## 3.0.0-alpha15
 
 ### Added
