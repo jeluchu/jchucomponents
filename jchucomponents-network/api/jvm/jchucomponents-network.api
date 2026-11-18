@@ -1,0 +1,361 @@
+public abstract class com/jeluchu/jchucomponents/network/api/ApiEndpoint {
+	public fun <init> (Lcom/jeluchu/jchucomponents/network/api/ApiVersion;)V
+	public abstract fun getEndpoint ()Ljava/lang/String;
+	public fun getFormat ()Ljava/lang/String;
+	public final fun getVersion ()Lcom/jeluchu/jchucomponents/network/api/ApiVersion;
+}
+
+public final class com/jeluchu/jchucomponents/network/api/ApiVersion : java/lang/Enum {
+	public static final field NONE Lcom/jeluchu/jchucomponents/network/api/ApiVersion;
+	public static final field V1 Lcom/jeluchu/jchucomponents/network/api/ApiVersion;
+	public static final field V2 Lcom/jeluchu/jchucomponents/network/api/ApiVersion;
+	public static final field V3 Lcom/jeluchu/jchucomponents/network/api/ApiVersion;
+	public static final field V4 Lcom/jeluchu/jchucomponents/network/api/ApiVersion;
+	public static final field V5 Lcom/jeluchu/jchucomponents/network/api/ApiVersion;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public final fun getPath ()Ljava/lang/String;
+	public static fun valueOf (Ljava/lang/String;)Lcom/jeluchu/jchucomponents/network/api/ApiVersion;
+	public static fun values ()[Lcom/jeluchu/jchucomponents/network/api/ApiVersion;
+}
+
+public final class com/jeluchu/jchucomponents/network/extensions/ErrorExtensionsKt {
+	public static final fun handleFailure (Lcom/jeluchu/jchucomponents/network/models/Failure;)Ljava/lang/String;
+	public static final fun toFailure (Ljava/lang/Throwable;)Lcom/jeluchu/jchucomponents/network/models/Failure;
+}
+
+public final class com/jeluchu/jchucomponents/network/extensions/flow/FlowExtensionsKt {
+	public static final fun flowCollector (Lkotlinx/coroutines/flow/Flow;Lkotlinx/coroutines/CoroutineScope;Lkotlin/jvm/functions/Function1;)V
+	public static final fun flowResourceCollector (Lkotlinx/coroutines/flow/Flow;Ljava/lang/Object;Lkotlinx/coroutines/CoroutineScope;Lkotlin/jvm/functions/Function0;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;)Lkotlinx/coroutines/Job;
+}
+
+public final class com/jeluchu/jchucomponents/network/handler/NetworkHandler {
+	public fun <init> ()V
+	public final fun isNetworkAvailable ()Z
+}
+
+public final class com/jeluchu/jchucomponents/network/http/HttpClientConfigBlockKt {
+	public static final fun network (Lcom/jeluchu/jchucomponents/config/JchuConfigBuilder;Lkotlin/jvm/functions/Function1;)V
+	public static synthetic fun network$default (Lcom/jeluchu/jchucomponents/config/JchuConfigBuilder;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)V
+}
+
+public final class com/jeluchu/jchucomponents/network/http/HttpClientConfiguration {
+	public static final field Companion Lcom/jeluchu/jchucomponents/network/http/HttpClientConfiguration$Companion;
+	public static final field DEFAULT_TIMEOUT_MILLIS J
+	public fun <init> ()V
+	public fun <init> (Ljava/lang/String;ZZZZZZLjava/util/Map;JJJLcom/jeluchu/jchucomponents/network/http/HttpClientLogLevel;Ljava/util/Set;)V
+	public synthetic fun <init> (Ljava/lang/String;ZZZZZZLjava/util/Map;JJJLcom/jeluchu/jchucomponents/network/http/HttpClientLogLevel;Ljava/util/Set;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component10 ()J
+	public final fun component11 ()J
+	public final fun component12 ()Lcom/jeluchu/jchucomponents/network/http/HttpClientLogLevel;
+	public final fun component13 ()Ljava/util/Set;
+	public final fun component2 ()Z
+	public final fun component3 ()Z
+	public final fun component4 ()Z
+	public final fun component5 ()Z
+	public final fun component6 ()Z
+	public final fun component7 ()Z
+	public final fun component8 ()Ljava/util/Map;
+	public final fun component9 ()J
+	public final fun copy (Ljava/lang/String;ZZZZZZLjava/util/Map;JJJLcom/jeluchu/jchucomponents/network/http/HttpClientLogLevel;Ljava/util/Set;)Lcom/jeluchu/jchucomponents/network/http/HttpClientConfiguration;
+	public static synthetic fun copy$default (Lcom/jeluchu/jchucomponents/network/http/HttpClientConfiguration;Ljava/lang/String;ZZZZZZLjava/util/Map;JJJLcom/jeluchu/jchucomponents/network/http/HttpClientLogLevel;Ljava/util/Set;ILjava/lang/Object;)Lcom/jeluchu/jchucomponents/network/http/HttpClientConfiguration;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getBaseUrl ()Ljava/lang/String;
+	public final fun getCoerceInputValues ()Z
+	public final fun getConnectTimeoutMillis ()J
+	public final fun getDefaultHeaders ()Ljava/util/Map;
+	public final fun getEnableCache ()Z
+	public final fun getEnableLogging ()Z
+	public final fun getExpectSuccess ()Z
+	public final fun getIgnoreUnknownKeys ()Z
+	public final fun getLogLevel ()Lcom/jeluchu/jchucomponents/network/http/HttpClientLogLevel;
+	public final fun getRequestTimeoutMillis ()J
+	public final fun getSensitiveHeaders ()Ljava/util/Set;
+	public final fun getSocketTimeoutMillis ()J
+	public fun hashCode ()I
+	public final fun isLenient ()Z
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/jeluchu/jchucomponents/network/http/HttpClientConfiguration$Companion {
+}
+
+public final class com/jeluchu/jchucomponents/network/http/HttpClientExtensionsKt {
+	public static final fun path (Lcom/jeluchu/jchucomponents/network/api/ApiEndpoint;)Ljava/lang/String;
+}
+
+public final class com/jeluchu/jchucomponents/network/http/HttpClientFactoryKt {
+	public static final fun createHttpClient (Lcom/jeluchu/jchucomponents/network/http/HttpClientConfiguration;)Lio/ktor/client/HttpClient;
+	public static synthetic fun createHttpClient$default (Lcom/jeluchu/jchucomponents/network/http/HttpClientConfiguration;ILjava/lang/Object;)Lio/ktor/client/HttpClient;
+}
+
+public final class com/jeluchu/jchucomponents/network/http/HttpClientLogLevel : java/lang/Enum {
+	public static final field ALL Lcom/jeluchu/jchucomponents/network/http/HttpClientLogLevel;
+	public static final field BODY Lcom/jeluchu/jchucomponents/network/http/HttpClientLogLevel;
+	public static final field HEADERS Lcom/jeluchu/jchucomponents/network/http/HttpClientLogLevel;
+	public static final field INFO Lcom/jeluchu/jchucomponents/network/http/HttpClientLogLevel;
+	public static final field NONE Lcom/jeluchu/jchucomponents/network/http/HttpClientLogLevel;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lcom/jeluchu/jchucomponents/network/http/HttpClientLogLevel;
+	public static fun values ()[Lcom/jeluchu/jchucomponents/network/http/HttpClientLogLevel;
+}
+
+public final class com/jeluchu/jchucomponents/network/http/HttpStatusCode : java/lang/Enum {
+	public static final field Accepted Lcom/jeluchu/jchucomponents/network/http/HttpStatusCode;
+	public static final field AlreadyReported Lcom/jeluchu/jchucomponents/network/http/HttpStatusCode;
+	public static final field BadGateway Lcom/jeluchu/jchucomponents/network/http/HttpStatusCode;
+	public static final field BadRequest Lcom/jeluchu/jchucomponents/network/http/HttpStatusCode;
+	public static final field Companion Lcom/jeluchu/jchucomponents/network/http/HttpStatusCode$Companion;
+	public static final field Conflict Lcom/jeluchu/jchucomponents/network/http/HttpStatusCode;
+	public static final field Continue Lcom/jeluchu/jchucomponents/network/http/HttpStatusCode;
+	public static final field Created Lcom/jeluchu/jchucomponents/network/http/HttpStatusCode;
+	public static final field EarlyHints Lcom/jeluchu/jchucomponents/network/http/HttpStatusCode;
+	public static final field ExpectationFailed Lcom/jeluchu/jchucomponents/network/http/HttpStatusCode;
+	public static final field FailedDependency Lcom/jeluchu/jchucomponents/network/http/HttpStatusCode;
+	public static final field Forbidden Lcom/jeluchu/jchucomponents/network/http/HttpStatusCode;
+	public static final field Found Lcom/jeluchu/jchucomponents/network/http/HttpStatusCode;
+	public static final field GatewayTimeout Lcom/jeluchu/jchucomponents/network/http/HttpStatusCode;
+	public static final field Gone Lcom/jeluchu/jchucomponents/network/http/HttpStatusCode;
+	public static final field HTTPVersionNotSupported Lcom/jeluchu/jchucomponents/network/http/HttpStatusCode;
+	public static final field IMATeapot Lcom/jeluchu/jchucomponents/network/http/HttpStatusCode;
+	public static final field IMUsed Lcom/jeluchu/jchucomponents/network/http/HttpStatusCode;
+	public static final field InternalServerError Lcom/jeluchu/jchucomponents/network/http/HttpStatusCode;
+	public static final field LengthRequired Lcom/jeluchu/jchucomponents/network/http/HttpStatusCode;
+	public static final field Locked Lcom/jeluchu/jchucomponents/network/http/HttpStatusCode;
+	public static final field MethodNotAllowed Lcom/jeluchu/jchucomponents/network/http/HttpStatusCode;
+	public static final field MisdirectedRequest Lcom/jeluchu/jchucomponents/network/http/HttpStatusCode;
+	public static final field MovePermanently Lcom/jeluchu/jchucomponents/network/http/HttpStatusCode;
+	public static final field MultiStatus Lcom/jeluchu/jchucomponents/network/http/HttpStatusCode;
+	public static final field MultipleChoices Lcom/jeluchu/jchucomponents/network/http/HttpStatusCode;
+	public static final field NetworkAuthenticationRequired Lcom/jeluchu/jchucomponents/network/http/HttpStatusCode;
+	public static final field NoContent Lcom/jeluchu/jchucomponents/network/http/HttpStatusCode;
+	public static final field NonAuthoritative Lcom/jeluchu/jchucomponents/network/http/HttpStatusCode;
+	public static final field NotAcceptable Lcom/jeluchu/jchucomponents/network/http/HttpStatusCode;
+	public static final field NotExtended Lcom/jeluchu/jchucomponents/network/http/HttpStatusCode;
+	public static final field NotFound Lcom/jeluchu/jchucomponents/network/http/HttpStatusCode;
+	public static final field NotImplemented Lcom/jeluchu/jchucomponents/network/http/HttpStatusCode;
+	public static final field NotModified Lcom/jeluchu/jchucomponents/network/http/HttpStatusCode;
+	public static final field OK Lcom/jeluchu/jchucomponents/network/http/HttpStatusCode;
+	public static final field PartialContent Lcom/jeluchu/jchucomponents/network/http/HttpStatusCode;
+	public static final field PayloadTooLarge Lcom/jeluchu/jchucomponents/network/http/HttpStatusCode;
+	public static final field PaymentRequired Lcom/jeluchu/jchucomponents/network/http/HttpStatusCode;
+	public static final field PermanentRedirect Lcom/jeluchu/jchucomponents/network/http/HttpStatusCode;
+	public static final field PreconditionFailed Lcom/jeluchu/jchucomponents/network/http/HttpStatusCode;
+	public static final field PreconditionRequired Lcom/jeluchu/jchucomponents/network/http/HttpStatusCode;
+	public static final field Processing Lcom/jeluchu/jchucomponents/network/http/HttpStatusCode;
+	public static final field ProxyAuthenticationRequired Lcom/jeluchu/jchucomponents/network/http/HttpStatusCode;
+	public static final field RangeNotSatisfiable Lcom/jeluchu/jchucomponents/network/http/HttpStatusCode;
+	public static final field RequestHeaderFieldsTooLarge Lcom/jeluchu/jchucomponents/network/http/HttpStatusCode;
+	public static final field RequestTimeout Lcom/jeluchu/jchucomponents/network/http/HttpStatusCode;
+	public static final field ResetContent Lcom/jeluchu/jchucomponents/network/http/HttpStatusCode;
+	public static final field SeeOther Lcom/jeluchu/jchucomponents/network/http/HttpStatusCode;
+	public static final field ServiceUnavailable Lcom/jeluchu/jchucomponents/network/http/HttpStatusCode;
+	public static final field SwitchProxy Lcom/jeluchu/jchucomponents/network/http/HttpStatusCode;
+	public static final field SwitchingProtocols Lcom/jeluchu/jchucomponents/network/http/HttpStatusCode;
+	public static final field TemporaryRedirect Lcom/jeluchu/jchucomponents/network/http/HttpStatusCode;
+	public static final field TooEarly Lcom/jeluchu/jchucomponents/network/http/HttpStatusCode;
+	public static final field TooManyRequests Lcom/jeluchu/jchucomponents/network/http/HttpStatusCode;
+	public static final field URITooLong Lcom/jeluchu/jchucomponents/network/http/HttpStatusCode;
+	public static final field UnProcessableEntity Lcom/jeluchu/jchucomponents/network/http/HttpStatusCode;
+	public static final field Unauthorized Lcom/jeluchu/jchucomponents/network/http/HttpStatusCode;
+	public static final field UnavailableForLegalReasons Lcom/jeluchu/jchucomponents/network/http/HttpStatusCode;
+	public static final field Unknown Lcom/jeluchu/jchucomponents/network/http/HttpStatusCode;
+	public static final field UnsupportedMediaType Lcom/jeluchu/jchucomponents/network/http/HttpStatusCode;
+	public static final field UpgradeRequired Lcom/jeluchu/jchucomponents/network/http/HttpStatusCode;
+	public static final field UseProxy Lcom/jeluchu/jchucomponents/network/http/HttpStatusCode;
+	public final fun getCode ()I
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public final fun getMessage ()Ljava/lang/String;
+	public final fun isClientError ()Z
+	public final fun isInformational ()Z
+	public final fun isRedirection ()Z
+	public final fun isServerError ()Z
+	public final fun isSuccess ()Z
+	public static fun valueOf (Ljava/lang/String;)Lcom/jeluchu/jchucomponents/network/http/HttpStatusCode;
+	public static fun values ()[Lcom/jeluchu/jchucomponents/network/http/HttpStatusCode;
+}
+
+public final class com/jeluchu/jchucomponents/network/http/HttpStatusCode$Companion {
+	public final fun fromCode (I)Lcom/jeluchu/jchucomponents/network/http/HttpStatusCode;
+}
+
+public final class com/jeluchu/jchucomponents/network/http/HttpStatusCodeKt {
+	public static final fun getHttpErrorInfo (I)Lcom/jeluchu/jchucomponents/network/http/HttpStatusCode;
+}
+
+public final class com/jeluchu/jchucomponents/network/http/JchuNetworkBlock {
+	public fun <init> ()V
+	public final fun getBaseUrl ()Ljava/lang/String;
+	public final fun getCoerceInputValues ()Z
+	public final fun getConnectTimeoutMillis ()J
+	public final fun getDefaultHeaders ()Ljava/util/Map;
+	public final fun getEnableCache ()Z
+	public final fun getEnableLogging ()Z
+	public final fun getExpectSuccess ()Z
+	public final fun getIgnoreUnknownKeys ()Z
+	public final fun getLogLevel ()Lcom/jeluchu/jchucomponents/network/http/HttpClientLogLevel;
+	public final fun getRequestTimeoutMillis ()J
+	public final fun getSensitiveHeaders ()Ljava/util/Set;
+	public final fun getSocketTimeoutMillis ()J
+	public final fun isLenient ()Z
+	public final fun setBaseUrl (Ljava/lang/String;)V
+	public final fun setCoerceInputValues (Z)V
+	public final fun setConnectTimeoutMillis (J)V
+	public final fun setDefaultHeaders (Ljava/util/Map;)V
+	public final fun setEnableCache (Z)V
+	public final fun setEnableLogging (Z)V
+	public final fun setExpectSuccess (Z)V
+	public final fun setIgnoreUnknownKeys (Z)V
+	public final fun setLenient (Z)V
+	public final fun setLogLevel (Lcom/jeluchu/jchucomponents/network/http/HttpClientLogLevel;)V
+	public final fun setRequestTimeoutMillis (J)V
+	public final fun setSensitiveHeaders (Ljava/util/Set;)V
+	public final fun setSocketTimeoutMillis (J)V
+}
+
+public abstract class com/jeluchu/jchucomponents/network/models/Failure {
+	public abstract fun getCode ()Ljava/lang/Integer;
+	public abstract fun getMessage ()Ljava/lang/String;
+}
+
+public final class com/jeluchu/jchucomponents/network/models/Failure$CustomError : com/jeluchu/jchucomponents/network/models/Failure {
+	public fun <init> (Ljava/lang/Integer;Ljava/lang/String;)V
+	public synthetic fun <init> (Ljava/lang/Integer;Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/lang/Integer;
+	public final fun component2 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/Integer;Ljava/lang/String;)Lcom/jeluchu/jchucomponents/network/models/Failure$CustomError;
+	public static synthetic fun copy$default (Lcom/jeluchu/jchucomponents/network/models/Failure$CustomError;Ljava/lang/Integer;Ljava/lang/String;ILjava/lang/Object;)Lcom/jeluchu/jchucomponents/network/models/Failure$CustomError;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getCode ()Ljava/lang/Integer;
+	public final fun getErrorCode ()Ljava/lang/Integer;
+	public final fun getErrorMessage ()Ljava/lang/String;
+	public fun getMessage ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/jeluchu/jchucomponents/network/models/Failure$DatabaseError : com/jeluchu/jchucomponents/network/models/Failure {
+	public fun <init> ()V
+	public fun <init> (Ljava/lang/String;)V
+	public synthetic fun <init> (Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;)Lcom/jeluchu/jchucomponents/network/models/Failure$DatabaseError;
+	public static synthetic fun copy$default (Lcom/jeluchu/jchucomponents/network/models/Failure$DatabaseError;Ljava/lang/String;ILjava/lang/Object;)Lcom/jeluchu/jchucomponents/network/models/Failure$DatabaseError;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getCode ()Ljava/lang/Integer;
+	public final fun getErrorMessage ()Ljava/lang/String;
+	public fun getMessage ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/jeluchu/jchucomponents/network/models/Failure$LegacyError : com/jeluchu/jchucomponents/network/models/Failure {
+	public fun <init> ()V
+	public fun <init> (Ljava/lang/Integer;Ljava/lang/String;)V
+	public synthetic fun <init> (Ljava/lang/Integer;Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/lang/Integer;
+	public final fun component2 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/Integer;Ljava/lang/String;)Lcom/jeluchu/jchucomponents/network/models/Failure$LegacyError;
+	public static synthetic fun copy$default (Lcom/jeluchu/jchucomponents/network/models/Failure$LegacyError;Ljava/lang/Integer;Ljava/lang/String;ILjava/lang/Object;)Lcom/jeluchu/jchucomponents/network/models/Failure$LegacyError;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getCode ()Ljava/lang/Integer;
+	public final fun getErrorCode ()Ljava/lang/Integer;
+	public final fun getErrorMessage ()Ljava/lang/String;
+	public fun getMessage ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/jeluchu/jchucomponents/network/models/Failure$NetworkConnection : com/jeluchu/jchucomponents/network/models/Failure {
+	public fun <init> (Ljava/lang/Integer;Ljava/lang/String;)V
+	public synthetic fun <init> (Ljava/lang/Integer;Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/lang/Integer;
+	public final fun component2 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/Integer;Ljava/lang/String;)Lcom/jeluchu/jchucomponents/network/models/Failure$NetworkConnection;
+	public static synthetic fun copy$default (Lcom/jeluchu/jchucomponents/network/models/Failure$NetworkConnection;Ljava/lang/Integer;Ljava/lang/String;ILjava/lang/Object;)Lcom/jeluchu/jchucomponents/network/models/Failure$NetworkConnection;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getCode ()Ljava/lang/Integer;
+	public final fun getErrorCode ()Ljava/lang/Integer;
+	public final fun getErrorMessage ()Ljava/lang/String;
+	public fun getMessage ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/jeluchu/jchucomponents/network/models/Failure$ServerError : com/jeluchu/jchucomponents/network/models/Failure {
+	public fun <init> (ILjava/lang/String;)V
+	public synthetic fun <init> (ILjava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun <init> (Lcom/jeluchu/jchucomponents/network/http/HttpStatusCode;Ljava/lang/String;)V
+	public synthetic fun <init> (Lcom/jeluchu/jchucomponents/network/http/HttpStatusCode;Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Lcom/jeluchu/jchucomponents/network/http/HttpStatusCode;
+	public final fun component2 ()Ljava/lang/String;
+	public final fun copy (Lcom/jeluchu/jchucomponents/network/http/HttpStatusCode;Ljava/lang/String;)Lcom/jeluchu/jchucomponents/network/models/Failure$ServerError;
+	public static synthetic fun copy$default (Lcom/jeluchu/jchucomponents/network/models/Failure$ServerError;Lcom/jeluchu/jchucomponents/network/http/HttpStatusCode;Ljava/lang/String;ILjava/lang/Object;)Lcom/jeluchu/jchucomponents/network/models/Failure$ServerError;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getCode ()Ljava/lang/Integer;
+	public final fun getErrorMessage ()Ljava/lang/String;
+	public fun getMessage ()Ljava/lang/String;
+	public final fun getStatusCode ()Lcom/jeluchu/jchucomponents/network/http/HttpStatusCode;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/jeluchu/jchucomponents/network/models/Failure$Timeout : com/jeluchu/jchucomponents/network/models/Failure {
+	public fun <init> ()V
+	public fun <init> (Ljava/lang/String;)V
+	public synthetic fun <init> (Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;)Lcom/jeluchu/jchucomponents/network/models/Failure$Timeout;
+	public static synthetic fun copy$default (Lcom/jeluchu/jchucomponents/network/models/Failure$Timeout;Ljava/lang/String;ILjava/lang/Object;)Lcom/jeluchu/jchucomponents/network/models/Failure$Timeout;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getCode ()Ljava/lang/Integer;
+	public final fun getErrorMessage ()Ljava/lang/String;
+	public fun getMessage ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/jeluchu/jchucomponents/network/models/Failure$UnknownError : com/jeluchu/jchucomponents/network/models/Failure {
+	public fun <init> ()V
+	public fun <init> (Ljava/lang/String;)V
+	public synthetic fun <init> (Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;)Lcom/jeluchu/jchucomponents/network/models/Failure$UnknownError;
+	public static synthetic fun copy$default (Lcom/jeluchu/jchucomponents/network/models/Failure$UnknownError;Ljava/lang/String;ILjava/lang/Object;)Lcom/jeluchu/jchucomponents/network/models/Failure$UnknownError;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getCode ()Ljava/lang/Integer;
+	public final fun getErrorMessage ()Ljava/lang/String;
+	public fun getMessage ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public abstract class com/jeluchu/jchucomponents/network/models/Resource {
+	public synthetic fun <init> (Ljava/lang/Object;Ljava/lang/Object;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun <init> (Ljava/lang/Object;Ljava/lang/Object;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun getData ()Ljava/lang/Object;
+	public fun getError ()Ljava/lang/Object;
+}
+
+public final class com/jeluchu/jchucomponents/network/models/Resource$Error : com/jeluchu/jchucomponents/network/models/Resource {
+	public fun <init> (Ljava/lang/Object;Ljava/lang/Object;)V
+	public synthetic fun <init> (Ljava/lang/Object;Ljava/lang/Object;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+}
+
+public final class com/jeluchu/jchucomponents/network/models/Resource$Loading : com/jeluchu/jchucomponents/network/models/Resource {
+	public fun <init> ()V
+}
+
+public final class com/jeluchu/jchucomponents/network/models/Resource$Success : com/jeluchu/jchucomponents/network/models/Resource {
+	public fun <init> (Ljava/lang/Object;)V
+}
+
+public final class com/jeluchu/jchucomponents/network/resource/NetworkBoundResourceKt {
+	public static final fun mapToResource (Lkotlinx/coroutines/flow/Flow;Lkotlin/jvm/functions/Function1;Lcom/jeluchu/jchucomponents/network/models/Failure;)Lkotlinx/coroutines/flow/Flow;
+	public static synthetic fun mapToResource$default (Lkotlinx/coroutines/flow/Flow;Lkotlin/jvm/functions/Function1;Lcom/jeluchu/jchucomponents/network/models/Failure;ILjava/lang/Object;)Lkotlinx/coroutines/flow/Flow;
+	public static final fun networkBoundResource (Lkotlin/jvm/functions/Function0;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function2;)Lkotlinx/coroutines/flow/Flow;
+	public static synthetic fun networkBoundResource$default (Lkotlin/jvm/functions/Function0;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function2;ILjava/lang/Object;)Lkotlinx/coroutines/flow/Flow;
+	public static final fun networkResource (Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function0;)Lkotlinx/coroutines/flow/Flow;
+	public static synthetic fun networkResource$default (Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function0;ILjava/lang/Object;)Lkotlinx/coroutines/flow/Flow;
+}
+

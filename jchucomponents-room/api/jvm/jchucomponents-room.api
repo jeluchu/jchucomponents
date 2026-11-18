@@ -1,0 +1,32 @@
+public final class com/jeluchu/jchucomponents/room/JchuDatabaseBlock {
+	public fun <init> ()V
+	public final fun applyTo (Landroidx/room3/RoomDatabase$Builder;)Landroidx/room3/RoomDatabase$Builder;
+	public final fun configure (Lkotlin/jvm/functions/Function1;)V
+	public final fun getDriver ()Landroidx/sqlite/SQLiteDriver;
+	public final fun getFallbackToDestructiveMigration ()Z
+	public final fun migrations ([Landroidx/room3/migration/Migration;)V
+	public final fun setDriver (Landroidx/sqlite/SQLiteDriver;)V
+	public final fun setFallbackToDestructiveMigration (Z)V
+}
+
+public final class com/jeluchu/jchucomponents/room/JchuDatabaseConfigKt {
+	public static final fun installDatabase (Lcom/jeluchu/jchucomponents/config/JchuConfigBuilder;Ljava/lang/String;Lkotlin/jvm/functions/Function0;)V
+}
+
+public final class com/jeluchu/jchucomponents/room/JchuDatabaseConfig_jvmKt {
+	public static final fun jchuDatabasePath (Ljava/lang/String;)Ljava/lang/String;
+}
+
+public final class com/jeluchu/jchucomponents/room/RoomBuilderExtensionsKt {
+	public static final fun configureJchuRoom (Landroidx/room3/RoomDatabase$Builder;Landroidx/sqlite/SQLiteDriver;Lkotlin/coroutines/CoroutineContext;Lkotlin/jvm/functions/Function1;)Landroidx/room3/RoomDatabase$Builder;
+	public static synthetic fun configureJchuRoom$default (Landroidx/room3/RoomDatabase$Builder;Landroidx/sqlite/SQLiteDriver;Lkotlin/coroutines/CoroutineContext;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Landroidx/room3/RoomDatabase$Builder;
+}
+
+public final class com/jeluchu/jchucomponents/room/RoomCoroutineContext_jvmKt {
+	public static final fun getJchuRoomCoroutineContext ()Lkotlin/coroutines/CoroutineContext;
+}
+
+public final class com/jeluchu/jchucomponents/room/RoomMigrationsKt {
+	public static final fun sqlMigration (II[Ljava/lang/String;)Landroidx/room3/migration/Migration;
+}
+

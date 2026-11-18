@@ -1,0 +1,37 @@
+public final class com/jeluchu/jchucomponents/config/JchuConfigBuilder {
+	public final fun getPlatform ()Lcom/jeluchu/jchucomponents/config/JchuPlatform;
+	public final fun install (Lcom/jeluchu/jchucomponents/config/JchuFeature;)V
+	public final fun koin (Lkotlin/jvm/functions/Function1;)V
+	public static synthetic fun koin$default (Lcom/jeluchu/jchucomponents/config/JchuConfigBuilder;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)V
+}
+
+public final class com/jeluchu/jchucomponents/config/JchuConfigKt {
+	public static final fun JchuConfig (Lcom/jeluchu/jchucomponents/config/JchuPlatform;Lkotlin/jvm/functions/Function1;)Lcom/jeluchu/jchucomponents/config/JchuConfigResult;
+	public static synthetic fun JchuConfig$default (Lcom/jeluchu/jchucomponents/config/JchuPlatform;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lcom/jeluchu/jchucomponents/config/JchuConfigResult;
+}
+
+public final class com/jeluchu/jchucomponents/config/JchuConfigResult {
+	public final fun getKoinApplication ()Lorg/koin/core/KoinApplication;
+	public final fun getModules ()Ljava/util/List;
+}
+
+public abstract interface class com/jeluchu/jchucomponents/config/JchuFeature {
+	public fun getDependsOn ()Ljava/util/Set;
+	public abstract fun getId ()Ljava/lang/String;
+	public fun initialize (Lcom/jeluchu/jchucomponents/config/JchuPlatform;)V
+	public fun modules (Lcom/jeluchu/jchucomponents/config/JchuPlatform;)Ljava/util/List;
+}
+
+public final class com/jeluchu/jchucomponents/config/JchuFeature$DefaultImpls {
+	public static fun getDependsOn (Lcom/jeluchu/jchucomponents/config/JchuFeature;)Ljava/util/Set;
+	public static fun initialize (Lcom/jeluchu/jchucomponents/config/JchuFeature;Lcom/jeluchu/jchucomponents/config/JchuPlatform;)V
+	public static fun modules (Lcom/jeluchu/jchucomponents/config/JchuFeature;Lcom/jeluchu/jchucomponents/config/JchuPlatform;)Ljava/util/List;
+}
+
+public abstract interface class com/jeluchu/jchucomponents/config/JchuPlatform {
+}
+
+public final class com/jeluchu/jchucomponents/config/JchuPlatform$None : com/jeluchu/jchucomponents/config/JchuPlatform {
+	public static final field INSTANCE Lcom/jeluchu/jchucomponents/config/JchuPlatform$None;
+}
+

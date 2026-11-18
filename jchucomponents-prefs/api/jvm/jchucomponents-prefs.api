@@ -1,0 +1,80 @@
+public final class com/jeluchu/jchucomponents/prefs/JchuPreferenceKeys {
+	public static final field INSTANCE Lcom/jeluchu/jchucomponents/prefs/JchuPreferenceKeys;
+	public final fun boolean (Ljava/lang/String;)Landroidx/datastore/preferences/core/Preferences$Key;
+	public final fun double (Ljava/lang/String;)Landroidx/datastore/preferences/core/Preferences$Key;
+	public final fun float (Ljava/lang/String;)Landroidx/datastore/preferences/core/Preferences$Key;
+	public final fun int (Ljava/lang/String;)Landroidx/datastore/preferences/core/Preferences$Key;
+	public final fun long (Ljava/lang/String;)Landroidx/datastore/preferences/core/Preferences$Key;
+	public final fun string (Ljava/lang/String;)Landroidx/datastore/preferences/core/Preferences$Key;
+	public final fun stringSet (Ljava/lang/String;)Landroidx/datastore/preferences/core/Preferences$Key;
+}
+
+public final class com/jeluchu/jchucomponents/prefs/JchuPreferences {
+	public fun <init> (Landroidx/datastore/core/DataStore;)V
+	public final fun clear (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun contains (Ljava/lang/String;)Lkotlinx/coroutines/flow/Flow;
+	public final fun edit (Lkotlin/jvm/functions/Function2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun get (Landroidx/datastore/preferences/core/Preferences$Key;Ljava/lang/Object;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun getBoolean (Ljava/lang/String;ZLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun getBoolean$default (Lcom/jeluchu/jchucomponents/prefs/JchuPreferences;Ljava/lang/String;ZLkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public final fun getDataStore ()Landroidx/datastore/core/DataStore;
+	public final fun getDouble (Ljava/lang/String;DLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun getDouble$default (Lcom/jeluchu/jchucomponents/prefs/JchuPreferences;Ljava/lang/String;DLkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public final fun getFloat (Ljava/lang/String;FLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun getFloat$default (Lcom/jeluchu/jchucomponents/prefs/JchuPreferences;Ljava/lang/String;FLkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public final fun getInt (Ljava/lang/String;ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun getInt$default (Lcom/jeluchu/jchucomponents/prefs/JchuPreferences;Ljava/lang/String;ILkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public final fun getLong (Ljava/lang/String;JLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun getLong$default (Lcom/jeluchu/jchucomponents/prefs/JchuPreferences;Ljava/lang/String;JLkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public final fun getString (Ljava/lang/String;Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun getString$default (Lcom/jeluchu/jchucomponents/prefs/JchuPreferences;Ljava/lang/String;Ljava/lang/String;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public final fun getStringSet (Ljava/lang/String;Ljava/util/Set;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun getStringSet$default (Lcom/jeluchu/jchucomponents/prefs/JchuPreferences;Ljava/lang/String;Ljava/util/Set;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public final fun observe (Landroidx/datastore/preferences/core/Preferences$Key;Ljava/lang/Object;)Lkotlinx/coroutines/flow/Flow;
+	public final fun observeBoolean (Ljava/lang/String;Z)Lkotlinx/coroutines/flow/Flow;
+	public static synthetic fun observeBoolean$default (Lcom/jeluchu/jchucomponents/prefs/JchuPreferences;Ljava/lang/String;ZILjava/lang/Object;)Lkotlinx/coroutines/flow/Flow;
+	public final fun observeDouble (Ljava/lang/String;D)Lkotlinx/coroutines/flow/Flow;
+	public static synthetic fun observeDouble$default (Lcom/jeluchu/jchucomponents/prefs/JchuPreferences;Ljava/lang/String;DILjava/lang/Object;)Lkotlinx/coroutines/flow/Flow;
+	public final fun observeFloat (Ljava/lang/String;F)Lkotlinx/coroutines/flow/Flow;
+	public static synthetic fun observeFloat$default (Lcom/jeluchu/jchucomponents/prefs/JchuPreferences;Ljava/lang/String;FILjava/lang/Object;)Lkotlinx/coroutines/flow/Flow;
+	public final fun observeInt (Ljava/lang/String;I)Lkotlinx/coroutines/flow/Flow;
+	public static synthetic fun observeInt$default (Lcom/jeluchu/jchucomponents/prefs/JchuPreferences;Ljava/lang/String;IILjava/lang/Object;)Lkotlinx/coroutines/flow/Flow;
+	public final fun observeLong (Ljava/lang/String;J)Lkotlinx/coroutines/flow/Flow;
+	public static synthetic fun observeLong$default (Lcom/jeluchu/jchucomponents/prefs/JchuPreferences;Ljava/lang/String;JILjava/lang/Object;)Lkotlinx/coroutines/flow/Flow;
+	public final fun observeString (Ljava/lang/String;Ljava/lang/String;)Lkotlinx/coroutines/flow/Flow;
+	public static synthetic fun observeString$default (Lcom/jeluchu/jchucomponents/prefs/JchuPreferences;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Lkotlinx/coroutines/flow/Flow;
+	public final fun observeStringSet (Ljava/lang/String;Ljava/util/Set;)Lkotlinx/coroutines/flow/Flow;
+	public static synthetic fun observeStringSet$default (Lcom/jeluchu/jchucomponents/prefs/JchuPreferences;Ljava/lang/String;Ljava/util/Set;ILjava/lang/Object;)Lkotlinx/coroutines/flow/Flow;
+	public final fun remove ([Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun set (Landroidx/datastore/preferences/core/Preferences$Key;Ljava/lang/Object;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun setBoolean (Ljava/lang/String;ZLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun setDouble (Ljava/lang/String;DLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun setFloat (Ljava/lang/String;FLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun setInt (Ljava/lang/String;ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun setLong (Ljava/lang/String;JLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun setString (Ljava/lang/String;Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun setStringSet (Ljava/lang/String;Ljava/util/Set;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class com/jeluchu/jchucomponents/prefs/JchuPreferencesBlock {
+	public fun <init> ()V
+	public final fun getFileName ()Ljava/lang/String;
+	public final fun setFileName (Ljava/lang/String;)V
+}
+
+public final class com/jeluchu/jchucomponents/prefs/JchuPreferencesConfigKt {
+	public static final fun preferences (Lcom/jeluchu/jchucomponents/config/JchuConfigBuilder;Lkotlin/jvm/functions/Function1;)V
+	public static synthetic fun preferences$default (Lcom/jeluchu/jchucomponents/config/JchuConfigBuilder;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)V
+}
+
+public final class com/jeluchu/jchucomponents/prefs/JchuPreferencesKt {
+	public static final field JchuPreferencesFileName Ljava/lang/String;
+	public static final fun createJchuPreferences (Landroidx/datastore/core/DataStore;)Lcom/jeluchu/jchucomponents/prefs/JchuPreferences;
+	public static final fun createJchuPreferencesDataStore (Ljava/lang/String;)Landroidx/datastore/core/DataStore;
+}
+
+public final class com/jeluchu/jchucomponents/prefs/JchuPreferences_jvmKt {
+	public static final fun createJchuPreferences (Ljava/lang/String;Ljava/io/File;)Lcom/jeluchu/jchucomponents/prefs/JchuPreferences;
+	public static synthetic fun createJchuPreferences$default (Ljava/lang/String;Ljava/io/File;ILjava/lang/Object;)Lcom/jeluchu/jchucomponents/prefs/JchuPreferences;
+}
+
