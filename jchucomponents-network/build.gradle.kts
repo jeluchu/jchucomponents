@@ -15,6 +15,7 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
+            api(project(":jchucomponents-config"))
             api(libs.ktor.client.core)
             api(libs.org.jetbrains.kotlinx.kotlinx.coroutines.core)
             implementation(libs.ktor.client.content.negotiation)
