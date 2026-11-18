@@ -29,3 +29,8 @@ fun createJchuPreferences(fileName: String = JchuPreferencesFileName): JchuPrefe
         preferencesByPathLock.unlock()
     }
 }
+
+internal actual fun createPlatformJchuPreferences(
+    platform: com.jeluchu.jchucomponents.config.JchuPlatform,
+    fileName: String
+): JchuPreferences = createJchuPreferences(fileName)

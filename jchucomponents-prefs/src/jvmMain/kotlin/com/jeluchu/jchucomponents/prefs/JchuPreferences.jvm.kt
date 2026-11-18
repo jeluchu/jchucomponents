@@ -23,3 +23,8 @@ fun createJchuPreferences(
         JchuPreferences(dataStore = createJchuPreferencesDataStore(path))
     }
 }
+
+internal actual fun createPlatformJchuPreferences(
+    platform: com.jeluchu.jchucomponents.config.JchuPlatform,
+    fileName: String
+): JchuPreferences = createJchuPreferences(fileName)

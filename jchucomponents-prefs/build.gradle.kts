@@ -15,6 +15,7 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
+            api(project(":jchucomponents-config"))
             api(libs.androidx.datastore)
             implementation(libs.org.jetbrains.kotlinx.kotlinx.coroutines.core)
         }
