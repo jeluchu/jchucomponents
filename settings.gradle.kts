@@ -35,6 +35,7 @@ include(
         ":jchucomponents-prefs",
         ":jchucomponents-room",
         ":jchucomponents-foundation",
+        ":jchucomponents-config",
         ":jchucomponents-network",
         ":jchucomponents-supabase",
         "app"

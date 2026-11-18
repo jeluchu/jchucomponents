@@ -15,6 +15,7 @@ val jchuComponentsVersion = libs.versions.jchucomponents.get()
 dependencies {
     constraints {
         api("io.github.jeluchu:jchucomponents-foundation:$jchuComponentsVersion")
+        api("io.github.jeluchu:jchucomponents-config:$jchuComponentsVersion")
         api("io.github.jeluchu:jchucomponents-core:$jchuComponentsVersion")
         api("io.github.jeluchu:jchucomponents-ktx:$jchuComponentsVersion")
         api("io.github.jeluchu:jchucomponents-network:$jchuComponentsVersion")

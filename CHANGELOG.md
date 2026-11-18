@@ -4,6 +4,10 @@
 
 ### Added
 
+- New `jchucomponents-config` module with `JchuConfig { }`, a single startup block that
+  initializes only the declared modules and can start Koin. Blocks `preferences {}`,
+  `supabase {}`, `payments {}`, `network {}` and `database<T> {}` (Room 3) live in their own modules, which now
+  depend on `jchucomponents-config`.
 - JVM (desktop) target for `jchucomponents-foundation`, `jchucomponents-network`
   (Ktor CIO engine), `jchucomponents-prefs` (file under `~/.jchucomponents` by
   default), `jchucomponents-room` and `jchucomponents-ui-kmp`, so Compose Desktop

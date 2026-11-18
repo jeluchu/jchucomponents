@@ -18,6 +18,7 @@ Apple targets are ARM64 only: `iosArm64`, `iosSimulatorArm64` and
 | Module | Android | iOS | macOS | Desktop (JVM) | Purpose |
 | --- | :---: | :---: | :---: | :---: | --- |
 | `jchucomponents-foundation` | ✅ | ✅ | ✅ | ✅ | Portable state, dates, text and utilities |
+| `jchucomponents-config` | ✅ | ✅ | ✅ | ✅ | `JchuConfig { }`: one startup block to configure the modules and Koin |
 | `jchucomponents-network` | ✅ | ✅ | ✅ | ✅ | Ktor client configuration, resources and flow helpers |
 | `jchucomponents-prefs` | ✅ | ✅ | ✅ | ✅ | Multiplatform DataStore preferences |
 | `jchucomponents-pay` | ✅ | ✅ | ✅ | — | Shared payment models and Android RevenueCat integration |
@@ -75,6 +76,7 @@ The available Maven Central artifacts are:
 io.github.jeluchu:jchucomponents-foundation
 io.github.jeluchu:jchucomponents-core
 io.github.jeluchu:jchucomponents-ktx
+io.github.jeluchu:jchucomponents-config
 io.github.jeluchu:jchucomponents-network
 io.github.jeluchu:jchucomponents-ui-kmp
 io.github.jeluchu:jchucomponents-pdf-kmp
@@ -519,6 +521,7 @@ Verify the artifacts as an external KMP consumer after publishing them locally:
 ```bash
 ./gradlew \
   :jchucomponents-foundation:publishToMavenLocal \
+  :jchucomponents-config:publishToMavenLocal \
   :jchucomponents-network:publishToMavenLocal \
   :jchucomponents-pay:publishToMavenLocal \
   :jchucomponents-prefs:publishToMavenLocal \
