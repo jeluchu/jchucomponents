@@ -28,9 +28,14 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
+            api(project(":jchucomponents-config"))
             api(libs.revenuecat.kmp.core)
             api(libs.org.jetbrains.kotlinx.kotlinx.coroutines.core)
             implementation(libs.kotlinx.datetime)
+        }
+
+        commonTest.dependencies {
+            implementation(kotlin("test"))
         }
 
         all {
