@@ -8,6 +8,13 @@ plugins {
 version = libs.versions.jchucomponents.get()
 description = "Compose Multiplatform RevenueCat payment integration for Android and iOS."
 
+val swiftSimulatorLibsDir = runCatching {
+    val process = ProcessBuilder("xcode-select", "-p").start()
+    val developerDir = process.inputStream.bufferedReader().readText().trim()
+    check(process.waitFor() == 0 && developerDir.isNotEmpty())
+    "$developerDir/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator"
+}.getOrNull()
+
 kotlin {
     android {
         namespace = "com.jeluchu.jchucomponents.pay.kmp"
@@ -24,7 +31,7 @@ kotlin {
     }
 
     iosArm64()
-    iosSimulatorArm64()
+    val iosSimulatorArm64Target = iosSimulatorArm64()
 
     sourceSets {
         commonMain.dependencies {
@@ -43,6 +50,16 @@ kotlin {
                 languageSettings.optIn("kotlinx.cinterop.ExperimentalForeignApi")
             }
         }
+    }
+
+    swiftSimulatorLibsDir?.let { swiftLibsDir ->
+        iosSimulatorArm64Target.binaries.getTest("DEBUG").linkerOpts.addAll(
+            listOf(
+                "-L$swiftLibsDir",
+                "-lswiftCompatibilityConcurrency",
+                "-lswiftCompatibility56",
+            ),
+        )
     }
 }
 
