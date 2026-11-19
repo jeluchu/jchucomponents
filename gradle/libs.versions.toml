@@ -8,9 +8,9 @@ android-compile-sdk = "37"
 jchucomponents = "3.0.0-alpha29"
 
 # Plugins & Tools
-agp = "9.4.1"
+agp = "9.5.1"
 ksp = "2.3.10"
-dokka = "2.2.0"
+dokka = "2.3.0"
 kotlin = "2.4.21"
 mavenPublish = "0.37.0"
 binaryCompatibilityValidator = "0.18.2"
@@ -26,26 +26,27 @@ androidx-core-ktx = "1.19.1"
 androidx-activity = "1.13.0"
 androidx-datastore = "1.3.0"
 androidx-lifecycle = "2.11.0"
-androidx-navigation3 = "1.2.0"
+androidx-navigation3 = "1.2.1"
 androidx-compose-material3 = "1.4.0"
 androidx-core-splashscreen = "1.2.0"
 
 # KotlinX
 kotlinx-datetime = "0.8.0"
 org-jetbrains-kotlinx = "1.11.0"
-kotlinx-serialization = "1.12.0"
+kotlinx-serialization = "1.13.0"
 
 # Libraries
-ktor = "3.6.0"
+ktor = "3.6.1"
 koin = "4.2.2"
 gson = "2.15.0"
 coil-kt = "3.6.3"
-supabase = "3.8.0"
-revenuecat = "11.0.0"
-revenuecat-kmp = "4.0.0"
+supabase = "3.9.0"
+revenuecat = "11.4.1"
+revenuecat-kmp = "4.2.0"
 desugar_jdk_libs = "2.1.5"
 play-services-base = "18.11.1"
 playAppUpdate = "2.1.0"
+firebase-bom = "35.2.0"
 
 # Testing
 junit = "4.13.2"
@@ -134,6 +135,9 @@ revenuecat = { module = "com.revenuecat.purchases:purchases", version.ref = "rev
 revenuecat-kmp-core = { module = "com.revenuecat.purchases:purchases-kmp-core", version.ref = "revenuecat-kmp" }
 desugar_jdk_libs = { module = "com.android.tools:desugar_jdk_libs", version.ref = "desugar_jdk_libs" }
 com-google-android-gms-play-services-base = { module = "com.google.android.gms:play-services-base", version.ref = "play-services-base" }
+firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebase-bom" }
+firebase-crashlytics = { module = "com.google.firebase:firebase-crashlytics" }
+firebase-analytics = { module = "com.google.firebase:firebase-analytics" }
 play-app-update = { module = "com.google.android.play:app-update", version.ref = "playAppUpdate" }
 
 # Testing

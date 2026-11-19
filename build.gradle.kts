@@ -47,6 +47,7 @@ dependencies {
     dokka(project(":jchucomponents-pay-kmp"))
     dokka(project(":jchucomponents-prefs"))
     dokka(project(":jchucomponents-config"))
+    dokka(project(":jchucomponents-monitoring"))
     dokka(project(":jchucomponents-qr"))
     dokka(project(":jchucomponents-room"))
     dokka(project(":jchucomponents-supabase"))
@@ -82,8 +83,12 @@ gradle.projectsEvaluated {
     )
     ciCheck.configure {
         dependsOn(
+            // Resolve by name: `tasks.matching { }` realizes every task, and AGP 9.5 fails while creating the
+            // Compose Preview tasks of variants without unit tests (for example :app release).
             allprojects.flatMap { project ->
-                project.tasks.matching { it.name in verificationTaskNames }
+                project.tasks.names
+                    .filter { it in verificationTaskNames }
+                    .map { project.tasks.named(it) }
             },
         )
     }
