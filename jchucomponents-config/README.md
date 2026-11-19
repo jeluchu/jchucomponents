@@ -1,5 +1,7 @@
 # JchuComponents Config
 
+Full guide: [docs/jchu-config.md](../docs/jchu-config.md).
+
 `jchucomponents-config` gives every app a single startup block, `JchuConfig { }`,
 to configure the JchuComponents modules it uses (and, optionally, Koin) instead
 of initializing each one by hand in `Application`, `KoinHelper` or `main()`.
@@ -17,7 +19,9 @@ Platforms: Android, iOS, macOS and JVM desktop.
 
 | Block | Module | What it does |
 | --- | --- | --- |
-| `preferences { fileName }` | `jchucomponents-prefs` | Registers `JchuPreferences` (DataStore) in Koin |
+| `preferences { fileName }` | `jchucomponents-prefs` | Registers `JchuPreferences` (DataStore) and the synchronous `JchuPreferencesHelper` in Koin |
+| `crashlytics { collectionEnabled; backend }` | `jchucomponents-monitoring` | Crash and non-fatal error reporting through `JchuMonitoring.crash` (Firebase Crashlytics by default) |
+| `analytics { collectionEnabled; backend }` | `jchucomponents-monitoring` | Usage statistics through `JchuMonitoring.analytics` (Firebase Analytics by default) |
 | `supabase { url; publishableKey; auth; modules; optional }` | `jchucomponents-supabase` | Validates the keys, creates the client at start and registers it and its sub-clients in Koin. `optional = true` skips it when the config is missing or unsafe (`isJchuSupabaseConfigured()`) |
 | `payments { apiKey; isDebug; subscriptionName }` | `jchucomponents-pay-kmp` | Calls `initPayment` (RevenueCat) |
 | `network { baseUrl; enableLogging; ... }` | `jchucomponents-network` | Registers a shared Ktor `HttpClient` in Koin |

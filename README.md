@@ -19,6 +19,7 @@ Apple targets are ARM64 only: `iosArm64`, `iosSimulatorArm64` and
 | --- | :---: | :---: | :---: | :---: | --- |
 | `jchucomponents-foundation` | ✅ | ✅ | ✅ | ✅ | Portable state, dates, text and utilities |
 | `jchucomponents-config` | ✅ | ✅ | ✅ | ✅ | `JchuConfig { }`: one startup block to configure the modules and Koin |
+| `jchucomponents-monitoring` | ✅ | ✅ | ✅ | ✅ | Crash reporting and analytics (`crashlytics {}`, `analytics {}`) |
 | `jchucomponents-network` | ✅ | ✅ | ✅ | ✅ | Ktor client configuration, resources and flow helpers |
 | `jchucomponents-prefs` | ✅ | ✅ | ✅ | ✅ | Multiplatform DataStore preferences |
 | `jchucomponents-pay` | ✅ | ✅ | ✅ | — | Shared payment models and Android RevenueCat integration |

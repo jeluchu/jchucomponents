@@ -8,6 +8,15 @@
   initializes only the declared modules and can start Koin. Blocks `preferences {}`,
   `supabase {}`, `payments {}`, `network {}` and `database<T> {}` (Room 3) live in their own modules, which now
   depend on `jchucomponents-config`.
+- `JchuPreferencesHelper`: synchronous preferences (`getBoolean(key, default)`, `saveInt(key, value)`, `savePreference(tag, value)`...)
+  over the DataStore of `jchucomponents-prefs`, registered by `preferences {}` and read with `jchuPreferencesHelper()`, so
+  apps only declare their own variables.
+- New `jchucomponents-monitoring` module: `crashlytics {}` and `analytics {}` blocks and `JchuMonitoring.crash` /
+  `JchuMonitoring.analytics`. Firebase is compile-only on Android and reached through the Objective-C runtime on
+  Apple targets, so apps keep owning the SDK and no Swift bridge is needed.
+- Release safety: `scripts/check-release-readiness.sh`, `scripts/release-preflight.sh` and the "Release preflight"
+  workflow run the Release workflow's checks before a tag is pushed.
+- `jchucomponents-config` is now included in the Maven Central release.
 - JVM (desktop) target for `jchucomponents-foundation`, `jchucomponents-network`
   (Ktor CIO engine), `jchucomponents-prefs` (file under `~/.jchucomponents` by
   default), `jchucomponents-room` and `jchucomponents-ui-kmp`, so Compose Desktop
