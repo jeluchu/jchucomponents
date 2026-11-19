@@ -119,7 +119,7 @@ To send events somewhere else, pass your own `backend = ...` to either block.
 ### Room databases
 
 `database<T>` is platform-specific because Room 3 has no common builder: call it from the Android `Application` and
-from the iOS host in `iosMain`. Room 3 only; apps on `androidx.room` 2.x must migrate first.
+from the Apple host in `appleMain` (iOS and macOS) or the desktop `main()` (JVM). Room 3 only; apps on `androidx.room` 2.x must migrate first.
 
 ```kotlin
 // Android

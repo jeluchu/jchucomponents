@@ -21,6 +21,7 @@
   `scripts/publish-maven-repository.sh` instead of Maven Central. Consumers add
   `maven("https://raw.githubusercontent.com/jeluchu/jchucomponents-maven/main")`; coordinates are unchanged.
   JitPack cannot serve the KMP modules because it rewrites their Gradle metadata.
+- `jchucomponents-room` now also targets macOS (`macosArm64`), so `database<T> { }` works on macOS apps.
 - JVM (desktop) target for `jchucomponents-foundation`, `jchucomponents-network`
   (Ktor CIO engine), `jchucomponents-prefs` (file under `~/.jchucomponents` by
   default), `jchucomponents-room` and `jchucomponents-ui-kmp`, so Compose Desktop

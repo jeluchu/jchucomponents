@@ -53,6 +53,7 @@ if [[ "$(uname)" == "Darwin" ]]; then
     :jchucomponents-pay:macosArm64Test \
     :jchucomponents-prefs:macosArm64Test \
     :jchucomponents-qr:macosArm64Test \
+    :jchucomponents-room:macosArm64Test \
     :jchucomponents-supabase:macosArm64Test
 
   step "Published KMP consumer (Android, iOS, macOS)"
