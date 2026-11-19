@@ -47,6 +47,7 @@ jobs:
         run: |
           scripts/check-visual-readiness.sh
           scripts/check-api-readiness.sh
+          scripts/check-release-readiness.sh
 
   android:
     name: Android and publications
@@ -86,7 +87,9 @@ jobs:
       - name: Test shared code on iOS
         run: |
           ./gradlew \
+            :jchucomponents-config:iosSimulatorArm64Test \
             :jchucomponents-foundation:iosSimulatorArm64Test \
+            :jchucomponents-monitoring:iosSimulatorArm64Test \
             :jchucomponents-network:iosSimulatorArm64Test \
             :jchucomponents-pay:iosSimulatorArm64Test \
             :jchucomponents-prefs:iosSimulatorArm64Test \
@@ -97,7 +100,9 @@ jobs:
       - name: Test shared code on macOS
         run: |
           ./gradlew \
+            :jchucomponents-config:macosArm64Test \
             :jchucomponents-foundation:macosArm64Test \
+            :jchucomponents-monitoring:macosArm64Test \
             :jchucomponents-network:macosArm64Test \
             :jchucomponents-pay:macosArm64Test \
             :jchucomponents-prefs:macosArm64Test \
@@ -107,6 +112,7 @@ jobs:
       - name: Publish KMP artifacts for consumer smoke test
         run: |
           ./gradlew \
+            :jchucomponents-config:publishToMavenLocal \
             :jchucomponents-foundation:publishToMavenLocal \
             :jchucomponents-network:publishToMavenLocal \
             :jchucomponents-pay:publishToMavenLocal \

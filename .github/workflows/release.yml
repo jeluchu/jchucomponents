@@ -30,25 +30,8 @@ jobs:
           )"
           test "${GITHUB_REF_NAME}" = "${catalog_version}"
 
-      - name: Build Android release and publications
-        run: |
-          scripts/check-visual-readiness.sh
-          scripts/check-api-readiness.sh
-          ./gradlew \
-            ciCheck \
-            -x :app:assembleRelease
-
-      - name: Prepare Swift release
-        run: ./scripts/prepare-swift-release.sh
-
-      - name: Validate generated Swift manifest
-        run: |
-          swift package dump-package \
-            --package-path "build/swift-release/${GITHUB_REF_NAME}"
-
-      - name: Verify generated SwiftPM navigation plugin
-        run: |
-          test -f "build/swift-release/${GITHUB_REF_NAME}/Plugins/JchuComponentsNavigationGraphPlugin/plugin.swift"
+      - name: Release preflight (same script as the "Release preflight" workflow)
+        run: scripts/release-preflight.sh "${GITHUB_REF_NAME}"
 
       - name: Publish GitHub release
         env:
@@ -153,9 +136,11 @@ jobs:
           ./gradlew \
             :jchucomponents-bom:publishAndReleaseToMavenCentral \
             :jchucomponents-app-updates:publishAndReleaseToMavenCentral \
+            :jchucomponents-config:publishAndReleaseToMavenCentral \
             :jchucomponents-core:publishAndReleaseToMavenCentral \
             :jchucomponents-foundation:publishAndReleaseToMavenCentral \
             :jchucomponents-ktx:publishAndReleaseToMavenCentral \
+            :jchucomponents-monitoring:publishAndReleaseToMavenCentral \
             :jchucomponents-network:publishAndReleaseToMavenCentral \
             :jchucomponents-pay:publishAndReleaseToMavenCentral \
             :jchucomponents-pay-kmp:publishAndReleaseToMavenCentral \
