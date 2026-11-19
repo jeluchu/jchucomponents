@@ -29,6 +29,11 @@ fail() {
 [[ "$version" == "$catalog_version" ]] || fail "Version '$version' does not match the catalog version '$catalog_version'"
 
 if ((check_tag)); then
+  # The preflight must test what the tag will contain: uncommitted edits (or editor/commit-time
+  # normalization of files such as API dumps) would make a green local run meaningless.
+  if [[ -n "$(git status --porcelain --untracked-files=no)" ]]; then
+    fail "There are uncommitted changes to tracked files: commit them first so the preflight tests what the tag will contain"
+  fi
   if git rev-parse --verify --quiet "refs/tags/$version" >/dev/null; then
     fail "Tag '$version' already exists locally: a new version needs a new tag"
   fi
