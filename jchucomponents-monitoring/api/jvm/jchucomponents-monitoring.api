@@ -67,3 +67,4 @@ public final class com/jeluchu/jchucomponents/monitoring/JchuMonitoringConfigKt 
 	public static final fun crashlytics (Lcom/jeluchu/jchucomponents/config/JchuConfigBuilder;Lkotlin/jvm/functions/Function1;)V
 	public static synthetic fun crashlytics$default (Lcom/jeluchu/jchucomponents/config/JchuConfigBuilder;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)V
 }
+

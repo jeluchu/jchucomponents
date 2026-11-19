@@ -12,3 +12,8 @@ trim_trailing_whitespace = true
 ktlint_code_style = ktlint_official
 ij_kotlin_allow_trailing_comma = false
 ij_kotlin_allow_trailing_comma_on_call_site = false
+
+# Binary-compatibility-validator dumps end with a blank line; normalizing them makes apiCheck fail in CI.
+[*.api]
+insert_final_newline = unset
+trim_trailing_whitespace = false
