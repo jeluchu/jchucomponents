@@ -1,0 +1,33 @@
+language = Objective-C
+package = com.jeluchu.jchucomponents.monitoring.objc
+---
+#import <Foundation/Foundation.h>
+#import <objc/message.h>
+#import <objc/runtime.h>
+
+// Typed objc_msgSend wrappers. performSelector: cannot be used for methods returning void or taking
+// a BOOL, so the Firebase calls go through these helpers instead.
+
+static inline id jchuClassNamed(const char *name) {
+    return (id)objc_getClass(name);
+}
+
+static inline BOOL jchuResponds(id target, SEL selector) {
+    return [target respondsToSelector:selector];
+}
+
+static inline id jchuSendObject0(id target, SEL selector) {
+    return ((id (*)(id, SEL))objc_msgSend)(target, selector);
+}
+
+static inline void jchuSendVoid1(id target, SEL selector, id first) {
+    ((void (*)(id, SEL, id))objc_msgSend)(target, selector, first);
+}
+
+static inline void jchuSendVoid2(id target, SEL selector, id first, id second) {
+    ((void (*)(id, SEL, id, id))objc_msgSend)(target, selector, first, second);
+}
+
+static inline void jchuSendBool(id target, SEL selector, BOOL value) {
+    ((void (*)(id, SEL, BOOL))objc_msgSend)(target, selector, value);
+}

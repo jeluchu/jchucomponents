@@ -36,6 +36,7 @@ include(
         ":jchucomponents-room",
         ":jchucomponents-foundation",
         ":jchucomponents-config",
+        ":jchucomponents-monitoring",
         ":jchucomponents-network",
         ":jchucomponents-supabase",
         "app"

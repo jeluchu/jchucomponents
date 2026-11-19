@@ -1,0 +1,69 @@
+public abstract interface class com/jeluchu/jchucomponents/monitoring/JchuAnalytics {
+	public abstract fun logEvent (Ljava/lang/String;Ljava/util/Map;)V
+	public static synthetic fun logEvent$default (Lcom/jeluchu/jchucomponents/monitoring/JchuAnalytics;Ljava/lang/String;Ljava/util/Map;ILjava/lang/Object;)V
+	public abstract fun logScreen (Ljava/lang/String;Ljava/lang/String;)V
+	public static synthetic fun logScreen$default (Lcom/jeluchu/jchucomponents/monitoring/JchuAnalytics;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)V
+	public abstract fun setCollectionEnabled (Z)V
+	public abstract fun setUserId (Ljava/lang/String;)V
+	public abstract fun setUserProperty (Ljava/lang/String;Ljava/lang/String;)V
+}
+
+public final class com/jeluchu/jchucomponents/monitoring/JchuAnalytics$DefaultImpls {
+	public static synthetic fun logEvent$default (Lcom/jeluchu/jchucomponents/monitoring/JchuAnalytics;Ljava/lang/String;Ljava/util/Map;ILjava/lang/Object;)V
+	public static synthetic fun logScreen$default (Lcom/jeluchu/jchucomponents/monitoring/JchuAnalytics;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)V
+}
+
+public final class com/jeluchu/jchucomponents/monitoring/JchuAnalyticsBlock {
+	public fun <init> ()V
+	public final fun getBackend ()Lcom/jeluchu/jchucomponents/monitoring/JchuAnalytics;
+	public final fun getCollectionEnabled ()Z
+	public final fun setBackend (Lcom/jeluchu/jchucomponents/monitoring/JchuAnalytics;)V
+	public final fun setCollectionEnabled (Z)V
+}
+
+public final class com/jeluchu/jchucomponents/monitoring/JchuAnalyticsRules {
+	public static final field INSTANCE Lcom/jeluchu/jchucomponents/monitoring/JchuAnalyticsRules;
+	public static final field MAX_NAME_LENGTH I
+	public static final field MAX_PARAMS I
+	public static final field MAX_PARAM_VALUE I
+	public static final field MAX_PROPERTY_VALUE I
+	public final fun eventName (Ljava/lang/String;)Ljava/lang/String;
+	public final fun paramName (Ljava/lang/String;)Ljava/lang/String;
+	public final fun params (Ljava/util/Map;)Ljava/util/Map;
+	public final fun propertyName (Ljava/lang/String;)Ljava/lang/String;
+}
+
+public abstract interface class com/jeluchu/jchucomponents/monitoring/JchuCrashReporter {
+	public abstract fun log (Ljava/lang/String;)V
+	public abstract fun recordException (Ljava/lang/Throwable;Ljava/lang/String;)V
+	public static synthetic fun recordException$default (Lcom/jeluchu/jchucomponents/monitoring/JchuCrashReporter;Ljava/lang/Throwable;Ljava/lang/String;ILjava/lang/Object;)V
+	public abstract fun setCollectionEnabled (Z)V
+	public abstract fun setCustomKey (Ljava/lang/String;Ljava/lang/String;)V
+	public abstract fun setUserId (Ljava/lang/String;)V
+}
+
+public final class com/jeluchu/jchucomponents/monitoring/JchuCrashReporter$DefaultImpls {
+	public static synthetic fun recordException$default (Lcom/jeluchu/jchucomponents/monitoring/JchuCrashReporter;Ljava/lang/Throwable;Ljava/lang/String;ILjava/lang/Object;)V
+}
+
+public final class com/jeluchu/jchucomponents/monitoring/JchuCrashlyticsBlock {
+	public fun <init> ()V
+	public final fun getBackend ()Lcom/jeluchu/jchucomponents/monitoring/JchuCrashReporter;
+	public final fun getCollectionEnabled ()Z
+	public final fun setBackend (Lcom/jeluchu/jchucomponents/monitoring/JchuCrashReporter;)V
+	public final fun setCollectionEnabled (Z)V
+}
+
+public final class com/jeluchu/jchucomponents/monitoring/JchuMonitoring {
+	public static final field INSTANCE Lcom/jeluchu/jchucomponents/monitoring/JchuMonitoring;
+	public final fun getAnalytics ()Lcom/jeluchu/jchucomponents/monitoring/JchuAnalytics;
+	public final fun getCrash ()Lcom/jeluchu/jchucomponents/monitoring/JchuCrashReporter;
+	public final fun reset ()V
+}
+
+public final class com/jeluchu/jchucomponents/monitoring/JchuMonitoringConfigKt {
+	public static final fun analytics (Lcom/jeluchu/jchucomponents/config/JchuConfigBuilder;Lkotlin/jvm/functions/Function1;)V
+	public static synthetic fun analytics$default (Lcom/jeluchu/jchucomponents/config/JchuConfigBuilder;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)V
+	public static final fun crashlytics (Lcom/jeluchu/jchucomponents/config/JchuConfigBuilder;Lkotlin/jvm/functions/Function1;)V
+	public static synthetic fun crashlytics$default (Lcom/jeluchu/jchucomponents/config/JchuConfigBuilder;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)V
+}
