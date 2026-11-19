@@ -67,6 +67,62 @@ public final class com/jeluchu/jchucomponents/prefs/JchuPreferencesConfigKt {
 	public static synthetic fun preferences$default (Lcom/jeluchu/jchucomponents/config/JchuConfigBuilder;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)V
 }
 
+public abstract interface class com/jeluchu/jchucomponents/prefs/JchuPreferencesHelper {
+	public abstract fun clearAll ()V
+	public abstract fun contains (Ljava/lang/String;)Z
+	public abstract fun flush (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public abstract fun getAny (Ljava/lang/String;)Ljava/lang/Object;
+	public abstract fun getBoolean (Ljava/lang/String;Z)Z
+	public static synthetic fun getBoolean$default (Lcom/jeluchu/jchucomponents/prefs/JchuPreferencesHelper;Ljava/lang/String;ZILjava/lang/Object;)Z
+	public abstract fun getChanges ()Lkotlinx/coroutines/flow/StateFlow;
+	public abstract fun getDouble (Ljava/lang/String;D)D
+	public static synthetic fun getDouble$default (Lcom/jeluchu/jchucomponents/prefs/JchuPreferencesHelper;Ljava/lang/String;DILjava/lang/Object;)D
+	public abstract fun getFloat (Ljava/lang/String;F)F
+	public static synthetic fun getFloat$default (Lcom/jeluchu/jchucomponents/prefs/JchuPreferencesHelper;Ljava/lang/String;FILjava/lang/Object;)F
+	public abstract fun getInt (Ljava/lang/String;I)I
+	public static synthetic fun getInt$default (Lcom/jeluchu/jchucomponents/prefs/JchuPreferencesHelper;Ljava/lang/String;IILjava/lang/Object;)I
+	public abstract fun getLong (Ljava/lang/String;J)J
+	public static synthetic fun getLong$default (Lcom/jeluchu/jchucomponents/prefs/JchuPreferencesHelper;Ljava/lang/String;JILjava/lang/Object;)J
+	public abstract fun getString (Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+	public static synthetic fun getString$default (Lcom/jeluchu/jchucomponents/prefs/JchuPreferencesHelper;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Ljava/lang/String;
+	public abstract fun getStringOrNull (Ljava/lang/String;)Ljava/lang/String;
+	public abstract fun remove (Ljava/lang/String;)V
+	public abstract fun saveBoolean (Ljava/lang/String;Z)V
+	public abstract fun saveDouble (Ljava/lang/String;D)V
+	public abstract fun saveFloat (Ljava/lang/String;F)V
+	public abstract fun saveInt (Ljava/lang/String;I)V
+	public abstract fun saveLong (Ljava/lang/String;J)V
+	public abstract fun saveString (Ljava/lang/String;Ljava/lang/String;)V
+}
+
+public final class com/jeluchu/jchucomponents/prefs/JchuPreferencesHelper$DefaultImpls {
+	public static synthetic fun getBoolean$default (Lcom/jeluchu/jchucomponents/prefs/JchuPreferencesHelper;Ljava/lang/String;ZILjava/lang/Object;)Z
+	public static synthetic fun getDouble$default (Lcom/jeluchu/jchucomponents/prefs/JchuPreferencesHelper;Ljava/lang/String;DILjava/lang/Object;)D
+	public static synthetic fun getFloat$default (Lcom/jeluchu/jchucomponents/prefs/JchuPreferencesHelper;Ljava/lang/String;FILjava/lang/Object;)F
+	public static synthetic fun getInt$default (Lcom/jeluchu/jchucomponents/prefs/JchuPreferencesHelper;Ljava/lang/String;IILjava/lang/Object;)I
+	public static synthetic fun getLong$default (Lcom/jeluchu/jchucomponents/prefs/JchuPreferencesHelper;Ljava/lang/String;JILjava/lang/Object;)J
+	public static synthetic fun getString$default (Lcom/jeluchu/jchucomponents/prefs/JchuPreferencesHelper;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Ljava/lang/String;
+}
+
+public final class com/jeluchu/jchucomponents/prefs/JchuPreferencesHelperKt {
+	public static final fun createInMemoryJchuPreferencesHelper ()Lcom/jeluchu/jchucomponents/prefs/JchuPreferencesHelper;
+	public static final fun createJchuPreferencesHelper (Lcom/jeluchu/jchucomponents/prefs/JchuPreferences;)Lcom/jeluchu/jchucomponents/prefs/JchuPreferencesHelper;
+	public static final fun getPreference (Lcom/jeluchu/jchucomponents/prefs/JchuPreferencesHelper;Ljava/lang/String;Ljava/lang/Object;)Ljava/lang/Object;
+	public static final fun jchuPreferencesHelper ()Lcom/jeluchu/jchucomponents/prefs/JchuPreferencesHelper;
+	public static final fun observeBoolean (Lcom/jeluchu/jchucomponents/prefs/JchuPreferencesHelper;Ljava/lang/String;Z)Lkotlinx/coroutines/flow/Flow;
+	public static synthetic fun observeBoolean$default (Lcom/jeluchu/jchucomponents/prefs/JchuPreferencesHelper;Ljava/lang/String;ZILjava/lang/Object;)Lkotlinx/coroutines/flow/Flow;
+	public static final fun observeInt (Lcom/jeluchu/jchucomponents/prefs/JchuPreferencesHelper;Ljava/lang/String;I)Lkotlinx/coroutines/flow/Flow;
+	public static synthetic fun observeInt$default (Lcom/jeluchu/jchucomponents/prefs/JchuPreferencesHelper;Ljava/lang/String;IILjava/lang/Object;)Lkotlinx/coroutines/flow/Flow;
+	public static final fun observeString (Lcom/jeluchu/jchucomponents/prefs/JchuPreferencesHelper;Ljava/lang/String;Ljava/lang/String;)Lkotlinx/coroutines/flow/Flow;
+	public static synthetic fun observeString$default (Lcom/jeluchu/jchucomponents/prefs/JchuPreferencesHelper;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Lkotlinx/coroutines/flow/Flow;
+	public static final fun savePreference (Lcom/jeluchu/jchucomponents/prefs/JchuPreferencesHelper;Ljava/lang/String;D)V
+	public static final fun savePreference (Lcom/jeluchu/jchucomponents/prefs/JchuPreferencesHelper;Ljava/lang/String;F)V
+	public static final fun savePreference (Lcom/jeluchu/jchucomponents/prefs/JchuPreferencesHelper;Ljava/lang/String;I)V
+	public static final fun savePreference (Lcom/jeluchu/jchucomponents/prefs/JchuPreferencesHelper;Ljava/lang/String;J)V
+	public static final fun savePreference (Lcom/jeluchu/jchucomponents/prefs/JchuPreferencesHelper;Ljava/lang/String;Ljava/lang/String;)V
+	public static final fun savePreference (Lcom/jeluchu/jchucomponents/prefs/JchuPreferencesHelper;Ljava/lang/String;Z)V
+}
+
 public final class com/jeluchu/jchucomponents/prefs/JchuPreferencesKt {
 	public static final field JchuPreferencesFileName Ljava/lang/String;
 	public static final fun createJchuPreferences (Landroidx/datastore/core/DataStore;)Lcom/jeluchu/jchucomponents/prefs/JchuPreferences;

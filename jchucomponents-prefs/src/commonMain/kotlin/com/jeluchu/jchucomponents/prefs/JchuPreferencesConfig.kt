@@ -13,7 +13,8 @@ class JchuPreferencesBlock {
 }
 
 /**
- * Registers [JchuPreferences] (DataStore) so it can be injected with Koin.
+ * Registers [JchuPreferences] (DataStore) and the synchronous [JchuPreferencesHelper] so they can be
+ * injected with Koin (or read with `jchuPreferencesHelper()`).
  *
  * ```
  * JchuConfig(application) {
@@ -36,6 +37,7 @@ internal class JchuPreferencesFeature(
         listOf(
             module {
                 single<JchuPreferences> { createPlatformJchuPreferences(platform, fileName) }
+                single<JchuPreferencesHelper> { createJchuPreferencesHelper(get()) }
             }
         )
 
