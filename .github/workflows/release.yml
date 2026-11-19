@@ -105,15 +105,10 @@ jobs:
           git push origin HEAD
           git push origin "refs/tags/${GITHUB_REF_NAME}"
 
-  publish-maven-central:
-    name: Publish KMP artifacts to Maven Central
+  publish-maven-repository:
+    name: Publish KMP artifacts to the Maven repository
     needs: validate
     runs-on: macos-26
-    env:
-      ORG_GRADLE_PROJECT_mavenCentralUsername: ${{ secrets.MAVEN_CENTRAL_USERNAME }}
-      ORG_GRADLE_PROJECT_mavenCentralPassword: ${{ secrets.MAVEN_CENTRAL_PASSWORD }}
-      ORG_GRADLE_PROJECT_signingInMemoryKey: ${{ secrets.SIGNING_KEY }}
-      ORG_GRADLE_PROJECT_signingInMemoryKeyPassword: ${{ secrets.SIGNING_PASSWORD }}
     steps:
       - uses: actions/checkout@v4
 
@@ -124,31 +119,30 @@ jobs:
 
       - uses: gradle/actions/setup-gradle@v4
 
-      - name: Verify Maven Central credentials
-        run: |
-          test -n "${ORG_GRADLE_PROJECT_mavenCentralUsername}"
-          test -n "${ORG_GRADLE_PROJECT_mavenCentralPassword}"
-          test -n "${ORG_GRADLE_PROJECT_signingInMemoryKey}"
-          test -n "${ORG_GRADLE_PROJECT_signingInMemoryKeyPassword}"
+      - name: Verify repository token
+        env:
+          MAVEN_REPOSITORY_TOKEN: ${{ secrets.MAVEN_REPOSITORY_TOKEN }}
+        run: test -n "${MAVEN_REPOSITORY_TOKEN}"
 
-      - name: Publish signed KMP variants
+      - name: Check out the Maven repository
+        uses: actions/checkout@v4
+        with:
+          repository: jeluchu/jchucomponents-maven
+          token: ${{ secrets.MAVEN_REPOSITORY_TOKEN }}
+          path: jchucomponents-maven
+
+      - name: Publish every module into the repository layout
+        run: scripts/publish-maven-repository.sh jchucomponents-maven
+
+      - name: Commit and push
+        working-directory: jchucomponents-maven
         run: |
-          ./gradlew \
-            :jchucomponents-bom:publishAndReleaseToMavenCentral \
-            :jchucomponents-app-updates:publishAndReleaseToMavenCentral \
-            :jchucomponents-config:publishAndReleaseToMavenCentral \
-            :jchucomponents-core:publishAndReleaseToMavenCentral \
-            :jchucomponents-foundation:publishAndReleaseToMavenCentral \
-            :jchucomponents-ktx:publishAndReleaseToMavenCentral \
-            :jchucomponents-monitoring:publishAndReleaseToMavenCentral \
-            :jchucomponents-network:publishAndReleaseToMavenCentral \
-            :jchucomponents-pay:publishAndReleaseToMavenCentral \
-            :jchucomponents-pay-kmp:publishAndReleaseToMavenCentral \
-            :jchucomponents-pdf-kmp:publishAndReleaseToMavenCentral \
-            :jchucomponents-prefs:publishAndReleaseToMavenCentral \
-            :jchucomponents-qr:publishAndReleaseToMavenCentral \
-            :jchucomponents-room:publishAndReleaseToMavenCentral \
-            :jchucomponents-navigation3:publishAndReleaseToMavenCentral \
-            :jchucomponents-navigation3-di:publishAndReleaseToMavenCentral \
-            :jchucomponents-supabase:publishAndReleaseToMavenCentral \
-            :jchucomponents-ui-kmp:publishAndReleaseToMavenCentral
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add --all
+          if git diff --cached --quiet; then
+            echo "Nothing new to publish for ${GITHUB_REF_NAME}"
+          else
+            git commit -m "Publish jchucomponents ${GITHUB_REF_NAME}"
+            git push origin HEAD:main
+          fi

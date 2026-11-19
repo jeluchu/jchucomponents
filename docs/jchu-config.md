@@ -172,8 +172,9 @@ internal class MyFeature(private val options: MyBlock) : JchuFeature {
 4. Register the module in every place a release needs it. `scripts/check-release-readiness.sh` fails when one is
    missing, so you cannot forget:
    - `settings.gradle.kts` and the root `build.gradle.kts` (`dokka(project(...))`),
-   - `jchucomponents-bom/build.gradle.kts`,
-   - the Maven Central list in `.github/workflows/release.yml`.
+   - `jchucomponents-bom/build.gradle.kts`.
+
+   The release workflow publishes every module that applies `jchucomponents.publish`, so it needs no list.
 5. Add tests, run `./gradlew :your-module:apiDump` and commit the API baseline.
 6. Document the block in this guide and in `jchucomponents-config/README.md`.
 

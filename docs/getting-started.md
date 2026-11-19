@@ -6,7 +6,7 @@ same version.
 
 ## Kotlin Multiplatform
 
-KMP modules are available from Maven Central under `io.github.jeluchu`.
+KMP modules are available from the `jchucomponents-maven` repository (`https://raw.githubusercontent.com/jeluchu/jchucomponents-maven/main`) under `io.github.jeluchu`.
 Declare only the capabilities used by the application:
 
 ```kotlin
@@ -41,7 +41,7 @@ Android resources, `Context`, `View`, `Bitmap`, or Android Coil APIs.
 
 ## Android
 
-The BOM is published to Maven Central and aligns both KMP and Android
+The BOM is published to the same repository and aligns both KMP and Android
 JchuComponents versions:
 
 ```kotlin

@@ -1,8 +1,7 @@
 #!/usr/bin/env bash
 # Static release checks that need no build. Catches the mistakes that force a new version + tag:
 #  - the tag/version is not the catalog version, or the tag already exists
-#  - a publishable module is missing from the Maven Central release list, settings.gradle.kts or the BOM
-#  - a release list entry points to a module that does not exist
+#  - a publishable module is missing from settings.gradle.kts or the BOM
 # Usage: scripts/check-release-readiness.sh [--check-tag] [version]
 #   --check-tag  also fail when the tag already exists (use it before tagging; CI on branches omits it)
 set -euo pipefail
@@ -54,20 +53,11 @@ done
 
 for module in "${publishable[@]}" jchucomponents-bom; do
   grep -q "\":$module\"" settings.gradle.kts || fail "$module is not included in settings.gradle.kts"
-  grep -q ":$module:publishAndReleaseToMavenCentral" .github/workflows/release.yml \
-    || fail "$module is missing from the Maven Central list in .github/workflows/release.yml"
 done
 
 for module in "${publishable[@]}"; do
   grep -q "io.github.jeluchu:$module:" jchucomponents-bom/build.gradle.kts \
     || fail "$module is missing from jchucomponents-bom/build.gradle.kts"
-done
-
-# Release list entries must exist.
-for entry in $(grep -o ':jchucomponents-[a-z0-9-]*:publishAndReleaseToMavenCentral' .github/workflows/release.yml); do
-  module="${entry#:}"
-  module="${module%%:*}"
-  [[ -d "$module" ]] || fail "release.yml publishes '$module', which does not exist"
 done
 
 if ((errors > 0)); then

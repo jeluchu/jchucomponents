@@ -50,7 +50,7 @@ The examples below use `3.0.0-alpha25`. Replace it with the
 
 ### Kotlin Multiplatform
 
-KMP artifacts are published to Maven Central. Add only the modules needed by
+KMP artifacts are published to the `jchucomponents-maven` repository (see below). Add only the modules needed by
 your shared source set:
 
 ```kotlin
@@ -71,7 +71,7 @@ kotlin {
 }
 ```
 
-The available Maven Central artifacts are:
+The available KMP artifacts are:
 
 ```text
 io.github.jeluchu:jchucomponents-foundation
@@ -115,7 +115,8 @@ Android, `iosArm64`, and `iosSimulatorArm64`; and
 `jchucomponents-app-updates`, which is Android-only and intended for apps
 distributed through Google Play. Consumers provide their own update interface.
 JitPack's Linux builds do not produce the Apple KLIB variants, so KMP
-applications targeting iOS or macOS should use Maven Central.
+applications targeting iOS or macOS must use the `jchucomponents-maven` repository, because JitPack also
+rewrites the Gradle metadata of KMP modules and breaks their resolution.
 
 `jchucomponents-foundation` also provides `JchuLocaleProvider` for reading the
 system language from shared code. `getPlatformLanguageCode()` maps Spanish in
@@ -139,6 +140,8 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
+        // KMP artifacts (io.github.jeluchu coordinates)
+        maven("https://raw.githubusercontent.com/jeluchu/jchucomponents-maven/main")
         maven("https://jitpack.io")
     }
 }
@@ -176,7 +179,7 @@ The library generates its typed `PdfReaderRoutes.Reader(url)` route and
 Navigation 3 entry provider and navigate to the generated route. The artifact is
 Android-only and is distributed through JitPack.
 
-For Compose Multiplatform apps, use the Maven Central artifact
+For Compose Multiplatform apps, use the KMP artifact
 `io.github.jeluchu:jchucomponents-pdf-kmp`. It provides the same reader route on
 Android, `iosArm64`, and `iosSimulatorArm64`, using PdfRenderer/FileProvider on
 Android and PDFKit/native sharing on iOS. Add it to `commonMain` and register
@@ -538,7 +541,7 @@ Verify the artifacts as an external KMP consumer after publishing them locally:
 ```
 
 The smoke project reserves `io.github.jeluchu` for Maven Local, ensuring the
-check cannot silently consume an already published release from Maven Central.
+check cannot silently consume an already published release from a published release.
 
 Build the Swift package after assembling the XCFramework:
 
@@ -610,7 +613,7 @@ Remove `--delete-missing` when Apple-only keys must be preserved. Add
 Tagged `3.*` versions trigger the release workflow. It validates the Gradle
 version, API compatibility, tests, Android publications and the Swift package;
 then it publishes the signed Android and KMP artifacts, including Navigation 3,
-Play Store updates, and the BOM to Maven Central and prepares the dedicated
+Play Store updates, and the BOM to the `jchucomponents-maven` repository and prepares the dedicated
 SwiftPM repository.
 JitPack builds the same Git tag on demand when a consumer requests that version;
 it does not need a separate manual upload.

@@ -16,7 +16,11 @@
   Apple targets, so apps keep owning the SDK and no Swift bridge is needed.
 - Release safety: `scripts/check-release-readiness.sh`, `scripts/release-preflight.sh` and the "Release preflight"
   workflow run the Release workflow's checks before a tag is pushed.
-- `jchucomponents-config` is now included in the Maven Central release.
+- The Release workflow now publishes the KMP artifacts (including `jchucomponents-config` and
+  `jchucomponents-monitoring`) to https://github.com/jeluchu/jchucomponents-maven with
+  `scripts/publish-maven-repository.sh` instead of Maven Central. Consumers add
+  `maven("https://raw.githubusercontent.com/jeluchu/jchucomponents-maven/main")`; coordinates are unchanged.
+  JitPack cannot serve the KMP modules because it rewrites their Gradle metadata.
 - JVM (desktop) target for `jchucomponents-foundation`, `jchucomponents-network`
   (Ktor CIO engine), `jchucomponents-prefs` (file under `~/.jchucomponents` by
   default), `jchucomponents-room` and `jchucomponents-ui-kmp`, so Compose Desktop
