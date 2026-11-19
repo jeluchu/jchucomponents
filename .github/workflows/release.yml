@@ -146,3 +146,28 @@ jobs:
             git commit -m "Publish jchucomponents ${GITHUB_REF_NAME}"
             git push origin HEAD:main
           fi
+
+  # JitPack builds a version the first time somebody requests it. It serves the Android-only modules
+  # (ui, core, ktx...), so ask for the new tag now instead of making the first consumer wait.
+  # The KMP modules come from jchucomponents-maven, so a JitPack failure never fails the release.
+  warm-jitpack:
+    name: Ask JitPack to build the tag
+    needs: validate
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - name: Request the build and wait for it
+        run: |
+          base="https://jitpack.io"
+          pom="${base}/com/github/jeluchu/jchucomponents/jchucomponents-ui/${GITHUB_REF_NAME}/jchucomponents-ui-${GITHUB_REF_NAME}.pom"
+          for attempt in $(seq 1 40); do
+            code="$(curl -s -o /dev/null -w '%{http_code}' --max-time 60 "${pom}" || true)"
+            echo "attempt ${attempt}: HTTP ${code}"
+            if [[ "${code}" == "200" ]]; then
+              echo "JitPack built ${GITHUB_REF_NAME}"
+              exit 0
+            fi
+            sleep 30
+          done
+          echo "JitPack did not finish in time; request the version at https://jitpack.io/#jeluchu/jchucomponents"
+          exit 1
