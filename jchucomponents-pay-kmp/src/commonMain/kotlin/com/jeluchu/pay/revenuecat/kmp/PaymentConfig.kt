@@ -1,14 +1,20 @@
 package com.jeluchu.pay.revenuecat.kmp
 
+import com.jeluchu.jchucomponents.config.JchuAppInfo
 import com.jeluchu.jchucomponents.config.JchuConfigBuilder
 import com.jeluchu.jchucomponents.config.JchuFeature
 import com.jeluchu.jchucomponents.config.JchuPlatform
 
 /** Options of the `payments { }` block of `JchuConfig`. */
 class JchuPaymentsBlock {
-    /** RevenueCat public API key of the current store. */
+    /**
+     * RevenueCat public API key of the current store. When left blank it is read from the app metadata entry
+     * [API_KEY_METADATA] (manifest `<meta-data>` on Android, `Info.plist` on Apple), see [JchuAppInfo.metadata].
+     */
     var apiKey: String = ""
-    var isDebug: Boolean = false
+
+    /** Verbose RevenueCat logs. Defaults to [JchuAppInfo.isDebug]. */
+    var isDebug: Boolean = JchuAppInfo.isDebug
 
     /** Name of the entitlement that unlocks the premium features. */
     var subscriptionName: String = ""
@@ -19,6 +25,11 @@ class JchuPaymentsBlock {
      * Check `Purchases.isConfigured` before using purchases.
      */
     var optional: Boolean = false
+
+    companion object {
+        /** Name of the app metadata entry that holds the RevenueCat key when [apiKey] is not set. */
+        const val API_KEY_METADATA: String = "revenuecat"
+    }
 }
 
 /**
@@ -27,17 +38,17 @@ class JchuPaymentsBlock {
  * ```
  * JchuConfig(application) {
  *     payments {
- *         apiKey = getString(R.string.revenuecat_android_api_key)
- *         subscriptionName = "premium"
+ *         subscriptionName = "premium" // apiKey and isDebug come from the app metadata and build type
  *     }
  * }
  * ```
  */
 fun JchuConfigBuilder.payments(block: JchuPaymentsBlock.() -> Unit) {
     val options = JchuPaymentsBlock().apply(block)
-    if (options.optional && jchuPaymentsKeyProblem(options.apiKey) != null) return
-    require(options.apiKey.isNotBlank()) { "JchuConfig: payments.apiKey cannot be blank." }
-    install(JchuPaymentsFeature(options.apiKey, options.isDebug, options.subscriptionName))
+    val apiKey = options.apiKey.ifBlank { JchuAppInfo.metadata(JchuPaymentsBlock.API_KEY_METADATA) }
+    if (options.optional && jchuPaymentsKeyProblem(apiKey) != null) return
+    require(apiKey.isNotBlank()) { "JchuConfig: payments.apiKey cannot be blank." }
+    install(JchuPaymentsFeature(apiKey, options.isDebug, options.subscriptionName))
 }
 
 internal class JchuPaymentsFeature(
