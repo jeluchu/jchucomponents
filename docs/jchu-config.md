@@ -125,8 +125,9 @@ has to wrap the SDK callbacks itself. Every call is `suspend`, has a timeout and
 ```kotlin
 JchuPurchases.identify(userId)                       // log in, log out (null/blank) or nothing if already identified
 val offering = JchuPurchases.offering()              // the current one; offering("id") for another
+val packages = JchuPurchases.packages()             // JchuPackage: id, product, title, formattedPrice, priceMicros, type
 val annual = JchuPurchases.findPackage("annual")     // in the current offering or in offering("id")
-when (val result = JchuPurchases.purchase(annual)) {
+when (val result = JchuPurchases.purchase(annual)) {   // or purchase("annual"), and replacingProductId = "old" to switch plans
     is JchuPurchaseResult.Purchased -> result.customer.isActive("premium")
     JchuPurchaseResult.Cancelled -> Unit             // the user closed the store sheet: not an error
 }

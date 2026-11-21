@@ -2,6 +2,7 @@ package com.jeluchu.pay.revenuecat.kmp
 
 import com.jeluchu.pay.revenuecat.kmp.models.JchuCustomer
 import com.jeluchu.pay.revenuecat.kmp.models.JchuEntitlement
+import com.jeluchu.pay.revenuecat.kmp.models.JchuPackage
 import com.revenuecat.purchases.kmp.Purchases
 import com.revenuecat.purchases.kmp.models.CustomerInfo
 import com.revenuecat.purchases.kmp.models.Offering
@@ -100,15 +101,36 @@ object JchuPurchases {
             ?.firstOrNull { it.identifier == packageId }
             ?: throw JchuPurchasesException("RevenueCat package not found: $packageId")
 
+    /** The packages of the offering [offeringId] (or the current one) as plain data for a paywall. */
+    suspend fun packages(
+        offeringId: String? = null,
+        timeoutMillis: Long = DEFAULT_TIMEOUT_MILLIS
+    ): List<JchuPackage> =
+        offering(offeringId, timeoutMillis)?.availablePackages.orEmpty().map { it.toJchuPackage() }
+
+    /**
+     * Finds the package [packageId] (see [findPackage]) and buys it. [replacingProductId] is the product the user
+     * has now, to switch plans: Google Play replaces it, the App Store applies its own subscription rules.
+     */
+    suspend fun purchase(
+        packageId: String,
+        offeringId: String? = null,
+        replacingProductId: String? = null,
+        timeoutMillis: Long = DEFAULT_PURCHASE_TIMEOUT_MILLIS
+    ): JchuPurchaseResult =
+        purchase(findPackage(packageId, offeringId), replacingProductId, timeoutMillis)
+
     /** Buys [packageToBuy]. Returns [JchuPurchaseResult.Cancelled] when the user dismisses the store sheet. */
     suspend fun purchase(
         packageToBuy: Package,
+        replacingProductId: String? = null,
         timeoutMillis: Long = DEFAULT_PURCHASE_TIMEOUT_MILLIS
     ): JchuPurchaseResult {
         ensureConfigured()
         return await<CustomerInfo?>(timeoutMillis, "complete the purchase") { onSuccess, onError ->
             Purchases.sharedInstance.purchase(
                 packageToPurchase = packageToBuy,
+                oldProductId = replacingProductId,
                 onError = { error, userCancelled ->
                     if (userCancelled) onSuccess(null) else onError(error.message)
                 },
@@ -217,6 +239,17 @@ object JchuPurchases {
 
 /** App user ids are compared trimmed; blank means "no user". */
 internal fun normalizeUserId(userId: String?): String? = userId?.trim()?.takeIf { it.isNotEmpty() }
+
+private fun Package.toJchuPackage(): JchuPackage =
+    JchuPackage(
+        identifier = identifier,
+        productIdentifier = storeProduct.id,
+        title = storeProduct.title,
+        description = storeProduct.localizedDescription.orEmpty(),
+        formattedPrice = storeProduct.price.formatted,
+        priceMicros = storeProduct.price.amountMicros,
+        type = packageType.name
+    )
 
 private fun CustomerInfo.toJchuCustomer(appUserId: String): JchuCustomer =
     JchuCustomer(

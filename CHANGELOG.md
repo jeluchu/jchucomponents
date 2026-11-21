@@ -37,7 +37,8 @@
   `jchucomponents-ui-kmp`.
 
 - `JchuPurchases` in `jchucomponents-pay-kmp`: suspending, timeout-guarded RevenueCat operations (offerings and
-  packages by id, purchase with a cancelled result, restore, `identify`/`logOut`, `refreshCustomer`) and a
+  packages by id and as `JchuPackage` data, purchase by id or package with a cancelled result and an optional
+  product to replace, restore, `identify`/`logOut`, `refreshCustomer`) and a
   `JchuCustomer` model with `isActive(entitlement)`, so apps stop calling the SDK callbacks directly.
 - `jchucomponents-room` now also targets macOS (`macosArm64`), so `database<T> { }` works on macOS apps.
 - JVM (desktop) target for `jchucomponents-foundation`, `jchucomponents-network`
