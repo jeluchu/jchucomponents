@@ -69,7 +69,7 @@ fun startApp() {
 | `analytics { collectionEnabled; backend }` | `jchucomponents-monitoring` | `JchuMonitoring.analytics` (events, screens, user id and properties) |
 | `payments { apiKey; isDebug; subscriptionName; optional }` | `jchucomponents-pay-kmp` | Initializes RevenueCat. `apiKey` and `isDebug` default to the app metadata `revenuecat` and `JchuAppInfo.isDebug` |
 | `supabase { url; publishableKey; auth; modules; optional }` | `jchucomponents-supabase` | Validated Supabase client and sub-clients in Koin |
-| `network { baseUrl; enableLogging }` | `jchucomponents-network` | A shared Ktor `HttpClient` in Koin |
+| `network(name?) { baseUrl; enableLogging; header(...); useJson; engine... }` | `jchucomponents-network` | A shared Ktor `HttpClient` in Koin; with a name, an extra client under `named(name)` |
 | `database<T>(name) { migrations; fallbackToDestructiveMigration }` | `jchucomponents-room` | A Room 3 database in Koin, one call per database |
 | `koin { modules(...) }` | `jchucomponents-config` | Starts Koin with the feature modules plus yours |
 
@@ -204,6 +204,28 @@ not be migrated.
 
 - `String.removeDiacritics()` (`jchucomponents-foundation`): `"Canción ñandú"` becomes `"Cancion nandu"`.
 - `ImageBitmap.toPngBytesOrNull()` (`jchucomponents-ui-kmp`): PNG bytes for sharing or saving, null if encoding fails.
+
+### HTTP clients
+
+`network { }` registers the shared `HttpClient`. For anything that differs, add more clients with a name and inject
+them with `get<HttpClient>(named("name"))`:
+
+```kotlin
+network {
+    baseUrl = "https://api.example.com/"
+    header("x-api-key") { ApiKeyStore.current }   // evaluated on every request; a blank value omits the header
+}
+network("linkPreview") { useJson = false; followRedirects = false; expectSuccess = false }
+network("downloads") {
+    useJson = false                       // no JSON negotiation or JSON headers
+    requestTimeoutMillis = 0              // a long download must not hit a total timeout
+    engine = JchuHttpEngine.Cio           // Android: pure Kotlin CIO instead of HttpURLConnection
+    allowCellularAccess = false           // Apple: stay off mobile data
+}
+```
+
+`header` values are read for each request, after the static `defaultHeaders`, and replace a static header of the same
+name, so a key that arrives later (or a refreshed token) is always current without recreating the client.
 
 ### Room databases
 

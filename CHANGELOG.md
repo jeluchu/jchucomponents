@@ -25,6 +25,9 @@
   `SystemProvider`). `payments { }` now reads `apiKey` from the `revenuecat` app metadata and `isDebug` from it
   when they are not set.
 - `NetworkHandler.isWifiConnected()` on every target.
+- `network(name) { }` registers extra named `HttpClient`s, and the block gains `header(name) { value }` (evaluated per
+  request), `followRedirects`, `useJson`, `engine` (`JchuHttpEngine.Cio` on Android) and `allowCellularAccess`
+  (Apple). The Android target now also depends on `ktor-client-cio`.
 - `JchuConfigOnce { }` (idempotent start for hosts that can call it more than once) and `JchuConfigResult.koin`.
 - Preference properties in `jchucomponents-prefs`: `booleanPreference`, `intPreference`, `longPreference`,
   `floatPreference`, `doublePreference`, `stringPreference` and `enumPreference`, to declare a stored variable in one line.
