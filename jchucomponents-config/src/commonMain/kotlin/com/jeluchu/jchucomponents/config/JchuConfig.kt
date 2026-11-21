@@ -1,5 +1,6 @@
 package com.jeluchu.jchucomponents.config
 
+import org.koin.core.Koin
 import org.koin.core.KoinApplication
 import org.koin.core.context.startKoin
 import org.koin.core.module.Module
@@ -22,7 +23,31 @@ import org.koin.core.module.Module
 fun JchuConfig(
     platform: JchuPlatform = JchuPlatform.None,
     block: JchuConfigBuilder.() -> Unit
-): JchuConfigResult = JchuConfigBuilder(platform).apply(block).build()
+): JchuConfigResult {
+    attachJchuAppInfo(platform)
+    return JchuConfigBuilder(platform).apply(block).build()
+}
+
+/**
+ * Like [JchuConfig], but safe to call more than once: the first call configures and starts everything, later
+ * calls ignore [block] and return the same result. Meant for entry points the host can reach repeatedly (an iOS
+ * `App.init`, a SwiftUI preview, a desktop `main`). Call it from one thread, usually the main one.
+ */
+@Suppress("FunctionName")
+fun JchuConfigOnce(
+    platform: JchuPlatform = JchuPlatform.None,
+    block: JchuConfigBuilder.() -> Unit
+): JchuConfigResult {
+    startedOnce?.let { return it }
+    return JchuConfig(platform, block).also { startedOnce = it }
+}
+
+/** Forgets the result of [JchuConfigOnce]. Meant for tests. */
+fun resetJchuConfigOnce() {
+    startedOnce = null
+}
+
+private var startedOnce: JchuConfigResult? = null
 
 /** Receiver of the [JchuConfig] block. Feature modules add their blocks as extensions of it. */
 class JchuConfigBuilder internal constructor(
@@ -81,7 +106,10 @@ class JchuConfigBuilder internal constructor(
 class JchuConfigResult internal constructor(
     val modules: List<Module>,
     val koinApplication: KoinApplication?
-)
+) {
+    /** The started Koin, or `null` when no `koin { }` block was used. */
+    val koin: Koin? get() = koinApplication?.koin
+}
 
 internal fun sortByDependencies(features: Map<String, JchuFeature>): List<JchuFeature> {
     features.values.forEach { feature ->
@@ -108,3 +136,6 @@ internal fun sortByDependencies(features: Map<String, JchuFeature>): List<JchuFe
 }
 
 internal expect fun KoinApplication.applyJchuPlatform(platform: JchuPlatform)
+
+/** Gives [JchuAppInfo] what it needs from [platform] (the Android context). */
+internal expect fun attachJchuAppInfo(platform: JchuPlatform)

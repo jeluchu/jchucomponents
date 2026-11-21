@@ -101,4 +101,23 @@ class JchuConfigTest {
         val error = assertFailsWith<IllegalStateException> { JchuConfig { install(failing) } }
         assertTrue("'boom'" in error.message.orEmpty())
     }
+
+    @Test
+    fun configOnceRunsTheBlockOnlyOnceAndReturnsTheSameResult() {
+        resetJchuConfigOnce()
+        val log = mutableListOf<String>()
+
+        val first = JchuConfigOnce { install(Recorder("one", log = log)); koin() }
+        val second = JchuConfigOnce { install(Recorder("two", log = log)) }
+
+        assertEquals(listOf("one"), log)
+        assertTrue(first === second)
+        assertTrue(first.koin != null)
+        resetJchuConfigOnce()
+    }
+
+    @Test
+    fun resultHasNoKoinWithoutAKoinBlock() {
+        assertNull(JchuConfig { install(Recorder("x", log = mutableListOf())) }.koin)
+    }
 }
