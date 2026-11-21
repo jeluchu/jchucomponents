@@ -116,6 +116,28 @@ Event and parameter names are sanitized to Firebase's rules (letters, digits and
 
 To send events somewhere else, pass your own `backend = ...` to either block.
 
+### Purchases
+
+`payments { }` only configures RevenueCat. `JchuPurchases` (same module) is what apps call afterwards, so no app
+has to wrap the SDK callbacks itself. Every call is `suspend`, has a timeout and fails with `JchuPurchasesException`
+(also when `payments { optional = true }` skipped an unusable key, see `JchuPurchases.isConfigured`).
+
+```kotlin
+JchuPurchases.identify(userId)                       // log in, log out (null/blank) or nothing if already identified
+val offering = JchuPurchases.offering()              // the current one; offering("id") for another
+val annual = JchuPurchases.findPackage("annual")     // in the current offering or in offering("id")
+when (val result = JchuPurchases.purchase(annual)) {
+    is JchuPurchaseResult.Purchased -> result.customer.isActive("premium")
+    JchuPurchaseResult.Cancelled -> Unit             // the user closed the store sheet: not an error
+}
+val customer = JchuPurchases.restore()               // or refreshCustomer()
+JchuPurchases.customer                               // StateFlow<JchuCustomer?> with the last state seen
+```
+
+`JchuCustomer` exposes `isActive(entitlement)`, `activeProduct(entitlement)` and every `JchuEntitlement`, so apps with
+several entitlements read them all from the same object. Map the SDK `Offering` and `Package` to your own models in
+the app. `Payment` (billing info and ready-made monthly/annual paywall data) is unchanged.
+
 ### Room databases
 
 `database<T>` is platform-specific because Room 3 has no common builder: call it from the Android `Application` and
