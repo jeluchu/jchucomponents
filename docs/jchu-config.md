@@ -67,7 +67,7 @@ fun startApp() {
 | `preferences { fileName }` | `jchucomponents-prefs` | `JchuPreferences` (DataStore) and `JchuPreferencesHelper` (synchronous reads and writes) in Koin |
 | `crashlytics { collectionEnabled; backend }` | `jchucomponents-monitoring` | `JchuMonitoring.crash` (log, record exceptions, user id, custom keys) |
 | `analytics { collectionEnabled; backend }` | `jchucomponents-monitoring` | `JchuMonitoring.analytics` (events, screens, user id and properties) |
-| `payments { apiKey; isDebug; subscriptionName }` | `jchucomponents-pay-kmp` | Initializes RevenueCat |
+| `payments { apiKey; isDebug; subscriptionName; optional }` | `jchucomponents-pay-kmp` | Initializes RevenueCat. `apiKey` and `isDebug` default to the app metadata `revenuecat` and `JchuAppInfo.isDebug` |
 | `supabase { url; publishableKey; auth; modules; optional }` | `jchucomponents-supabase` | Validated Supabase client and sub-clients in Koin |
 | `network { baseUrl; enableLogging }` | `jchucomponents-network` | A shared Ktor `HttpClient` in Koin |
 | `database<T>(name) { migrations; fallbackToDestructiveMigration }` | `jchucomponents-room` | A Room 3 database in Koin, one call per database |
@@ -137,6 +137,73 @@ JchuPurchases.customer                               // StateFlow<JchuCustomer?>
 `JchuCustomer` exposes `isActive(entitlement)`, `activeProduct(entitlement)` and every `JchuEntitlement`, so apps with
 several entitlements read them all from the same object. Map the SDK `Offering` and `Package` to your own models in
 the app. `Payment` (billing info and ready-made monthly/annual paywall data) is unchanged.
+
+### App info
+
+`JchuAppInfo` (in `jchucomponents-config`) replaces the per-app `SystemProvider`. `JchuConfig` attaches it, so there is
+no `init` call:
+
+```kotlin
+JchuAppInfo.isDebug          // Android: manifest meta-data app.flavor == "debug"; Apple: Info.plist CFBundleConfiguration == "debug"
+JchuAppInfo.versionName      // versionName / CFBundleShortVersionString
+JchuAppInfo.versionCode      // versionCode / CFBundleVersion
+JchuAppInfo.platform         // "android", "ios", "macos" or "jvm"
+JchuAppInfo.metadata("key")  // manifest <meta-data> / Info.plist entry / JVM system property; "" when missing
+```
+
+Nothing throws: a missing value gives `"Unknown"` or an empty string.
+
+### Connectivity
+
+`NetworkHandler` (`jchucomponents-network`) has `isNetworkAvailable()` and `isWifiConnected()` (Wi-Fi or Ethernet, to
+keep large downloads off mobile data). iOS and macOS use the Network framework; before the first system update the
+device is assumed online.
+
+### Starting once from a host
+
+Entry points the host can reach more than once (an iOS `App.init`, a SwiftUI preview, a desktop `main`) use
+`JchuConfigOnce { ... }`: the first call configures everything, later calls ignore their block and return the same
+`JchuConfigResult`. `result.koin` is the started Koin (or null without a `koin { }` block).
+
+### Preference properties
+
+Declare each stored variable in one line instead of a getter and a setter:
+
+```kotlin
+object PreferencesService {
+    var isFirstLaunch by booleanPreference("first_boot", default = true)
+    var theme by stringPreference("theme", default = "system")
+    var sort by enumPreference("sort", SortMode.Name)     // stored by name; unknown names give the default
+    val launches by intPreference("launches")             // `val` for read-only use
+}
+```
+
+`int`, `long`, `float`, `double`, `string`, `boolean` and `enum` are available. The helper is resolved on every access,
+so the object can exist before `JchuConfig` starts.
+
+### Keeping old data (legacy stores)
+
+Apps that stored settings in `SharedPreferences` (Android) or `UserDefaults` (Apple) copy them once into the new
+DataStore:
+
+```kotlin
+preferences {
+    fileName = "app.preferences_pb"
+    migrateFromLegacy(name = "akaito_preferences", keys = setOf("theme", "first_boot"))
+}
+```
+
+`name` is the `SharedPreferences` file or the `UserDefaults` suite (null: the standard defaults); `keys` is required
+because Apple's standard defaults also hold system entries. Boolean, Int, Long, Float, Double and String values are
+copied. Values already in DataStore are never overwritten, a marker makes later launches skip the copy, and
+`removeAfter = true` deletes the old keys. It runs in the background right after `JchuConfig`, so a read in the first
+milliseconds can still see the default. Values that other code reads from the native store (for example Swift) must
+not be migrated.
+
+### Text and images
+
+- `String.removeDiacritics()` (`jchucomponents-foundation`): `"Canción ñandú"` becomes `"Cancion nandu"`.
+- `ImageBitmap.toPngBytesOrNull()` (`jchucomponents-ui-kmp`): PNG bytes for sharing or saving, null if encoding fails.
 
 ### Room databases
 

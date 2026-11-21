@@ -21,6 +21,18 @@
   `scripts/publish-maven-repository.sh` instead of Maven Central. Consumers add
   `maven("https://raw.githubusercontent.com/jeluchu/jchucomponents-maven/main")`; coordinates are unchanged.
   JitPack cannot serve the KMP modules because it rewrites their Gradle metadata.
+- `JchuAppInfo` in `jchucomponents-config` (debug flag, version, platform and app metadata, replacing each app's
+  `SystemProvider`). `payments { }` now reads `apiKey` from the `revenuecat` app metadata and `isDebug` from it
+  when they are not set.
+- `NetworkHandler.isWifiConnected()` on every target.
+- `JchuConfigOnce { }` (idempotent start for hosts that can call it more than once) and `JchuConfigResult.koin`.
+- Preference properties in `jchucomponents-prefs`: `booleanPreference`, `intPreference`, `longPreference`,
+  `floatPreference`, `doublePreference`, `stringPreference` and `enumPreference`, to declare a stored variable in one line.
+- `preferences { migrateFromLegacy(name, keys, removeAfter) }`: one-time copy from `SharedPreferences` or `UserDefaults`
+  into the DataStore, without overwriting existing values.
+- `String.removeDiacritics()` in `jchucomponents-foundation` and `ImageBitmap.toPngBytesOrNull()` in
+  `jchucomponents-ui-kmp`.
+
 - `JchuPurchases` in `jchucomponents-pay-kmp`: suspending, timeout-guarded RevenueCat operations (offerings and
   packages by id, purchase with a cancelled result, restore, `identify`/`logOut`, `refreshCustomer`) and a
   `JchuCustomer` model with `isActive(entitlement)`, so apps stop calling the SDK callbacks directly.
@@ -30,6 +42,10 @@
   default), `jchucomponents-room` and `jchucomponents-ui-kmp`, so Compose Desktop
   apps on macOS, Windows and Linux can use them from `commonMain`. The Android and
   Apple targets are unchanged.
+
+### Fixed
+
+- `NetworkHandler` on iOS and macOS always reported being online; it now uses the Network framework.
 
 ## 3.0.0-alpha15
 
