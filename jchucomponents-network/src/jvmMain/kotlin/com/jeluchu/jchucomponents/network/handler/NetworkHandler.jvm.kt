@@ -12,4 +12,7 @@ actual class NetworkHandler {
                     networkInterface.inetAddresses.hasMoreElements()
             }
         }.getOrDefault(false)
+
+    /** A desktop has no mobile data, so any usable network counts. */
+    actual fun isWifiConnected(): Boolean = isNetworkAvailable()
 }

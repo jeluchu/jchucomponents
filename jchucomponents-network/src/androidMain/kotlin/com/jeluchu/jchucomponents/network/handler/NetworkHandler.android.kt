@@ -2,6 +2,7 @@ package com.jeluchu.jchucomponents.network.handler
 
 import android.Manifest
 import android.content.Context
+import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
 import androidx.annotation.RequiresPermission
@@ -26,5 +27,21 @@ actual class NetworkHandler(
         }
 
         return connectivityManager.activeNetworkInfo?.isConnected == true
+    }
+
+    @Suppress("DEPRECATION")
+    @RequiresPermission(value = Manifest.permission.ACCESS_NETWORK_STATE)
+    actual fun isWifiConnected(): Boolean {
+        val connectivityManager = context.connectivityManager
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            val network = connectivityManager.activeNetwork ?: return false
+            val capabilities = connectivityManager.getNetworkCapabilities(network) ?: return false
+            return capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) ||
+                capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET)
+        }
+
+        val type = connectivityManager.activeNetworkInfo?.type
+        return type == ConnectivityManager.TYPE_WIFI || type == ConnectivityManager.TYPE_ETHERNET
     }
 }
