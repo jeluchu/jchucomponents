@@ -32,17 +32,20 @@ internal fun <T : HttpClientEngineConfig> HttpClientConfig<T>.applyJchuConfigura
     platformLogger: Logger
 ) {
     expectSuccess = configuration.expectSuccess
+    followRedirects = configuration.followRedirects
 
-    install(plugin = ContentNegotiation) {
-        json(
-            json =
-                Json {
-                    coerceInputValues = configuration.coerceInputValues
-                    ignoreUnknownKeys = configuration.ignoreUnknownKeys
-                    isLenient = configuration.isLenient
-                },
-            contentType = ContentType.Any
-        )
+    if (configuration.useJson) {
+        install(plugin = ContentNegotiation) {
+            json(
+                json =
+                    Json {
+                        coerceInputValues = configuration.coerceInputValues
+                        ignoreUnknownKeys = configuration.ignoreUnknownKeys
+                        isLenient = configuration.isLenient
+                    },
+                contentType = ContentType.Any
+            )
+        }
     }
 
     if (configuration.enableCache) install(HttpCache)
@@ -67,9 +70,15 @@ internal fun <T : HttpClientEngineConfig> HttpClientConfig<T>.applyJchuConfigura
 
     defaultRequest {
         if (configuration.baseUrl.isNotBlank()) url(urlString = configuration.baseUrl)
-        header(HttpHeaders.Accept, ContentType.Application.Json)
-        header(HttpHeaders.ContentType, ContentType.Application.Json)
+        if (configuration.useJson) {
+            header(HttpHeaders.Accept, ContentType.Application.Json)
+            header(HttpHeaders.ContentType, ContentType.Application.Json)
+        }
         configuration.defaultHeaders.forEach { (key, value) -> header(key, value) }
+        configuration.headerProvider?.invoke()?.forEach { (key, value) ->
+            headers.remove(key)
+            header(key, value)
+        }
     }
 }
 

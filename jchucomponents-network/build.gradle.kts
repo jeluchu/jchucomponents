@@ -23,8 +23,14 @@ kotlin {
             implementation(libs.ktor.serialization.kotlinx.json)
         }
 
+        commonTest.dependencies {
+            implementation(libs.ktor.client.mock)
+        }
+
         androidMain.dependencies {
             implementation(libs.ktor.android)
+            // Optional engine (see JchuHttpEngine.Cio), also used by the JVM target.
+            implementation(libs.ktor.cio)
             implementation(libs.androidx.core.core.ktx)
         }
 

@@ -7,5 +7,8 @@ import io.ktor.client.plugins.logging.SIMPLE
 
 internal actual fun createPlatformHttpClient(configuration: HttpClientConfiguration): HttpClient =
     HttpClient(engineFactory = Darwin) {
+        engine {
+            configureSession { allowsCellularAccess = configuration.allowCellularAccess }
+        }
         applyJchuConfiguration(configuration, platformLogger = Logger.SIMPLE)
     }
