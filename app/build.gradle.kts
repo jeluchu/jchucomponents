@@ -19,10 +19,13 @@ val localProperties =
     }
 
 android {
-    compileSdk =
-        libs.versions.android.compile.sdk
-            .get()
-            .toInt()
+    // Compose UI 1.13 requires API 37.1, so the sample compiles against the 37 minor release 1.
+    compileSdk {
+        version =
+            release(libs.versions.android.compile.sdk.get().toInt()) {
+                minorApiLevel = 1
+            }
+    }
     defaultConfig {
         applicationId = "com.jeluchu.composer"
         minSdk =
