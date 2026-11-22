@@ -65,7 +65,7 @@ fun startApp() {
 | Block | Module | Result |
 | --- | --- | --- |
 | `preferences { fileName }` | `jchucomponents-prefs` | `JchuPreferences` (DataStore) and `JchuPreferencesHelper` (synchronous reads and writes) in Koin |
-| `crashlytics { collectionEnabled; backend }` | `jchucomponents-monitoring` | `JchuMonitoring.crash` (log, record exceptions, user id, custom keys) |
+| `crashlytics { collectionEnabled; backend; appContext; userId { flow } }` | `jchucomponents-monitoring` | `JchuMonitoring.crash` (log, record exceptions, user id, custom keys); tags reports with platform, version and build by itself |
 | `analytics { collectionEnabled; backend }` | `jchucomponents-monitoring` | `JchuMonitoring.analytics` (events, screens, user id and properties) |
 | `payments { apiKey; isDebug; subscriptionName; optional }` | `jchucomponents-pay-kmp` | Initializes RevenueCat. `apiKey` and `isDebug` default to the app metadata `revenuecat` and `JchuAppInfo.isDebug` |
 | `supabase { url; publishableKey; auth; modules; optional }` | `jchucomponents-supabase` | Validated Supabase client and sub-clients in Koin |
@@ -97,6 +97,17 @@ object PreferencesService {
 
 Both blocks are safe by design: calling `JchuMonitoring.crash` or `JchuMonitoring.analytics` before configuration, on
 a platform without Firebase, or when the backend throws, does nothing instead of failing.
+
+`crashlytics { }` tags every report with `app_platform`, `app_version` and `app_build` by itself (from `JchuAppInfo`;
+`appContext = false` turns it off), so the app never sets them. The user id is declared once, as a flow that the
+library keeps applied: it is set on login and cleared on logout (null or blank), with no calls from the app.
+`analytics { userId { } }` works the same for the analytics user id.
+
+```kotlin
+crashlytics {
+    userId { jchuPreferencesHelper().observeString("supabase_user_id") }   // runs once, after Koin has started
+}
+```
 
 ```kotlin
 JchuMonitoring.crash.recordException(error, context = "Checkout")

@@ -33,6 +33,9 @@
 - `network(name) { }` registers extra named `HttpClient`s, and the block gains `header(name) { value }` (evaluated per
   request), `followRedirects`, `useJson`, `engine` (`JchuHttpEngine.Cio` on Android) and `allowCellularAccess`
   (Apple). The Android target now also depends on `ktor-client-cio`.
+- `crashlytics { }` now sets `app_platform`, `app_version` and `app_build` on its own (`appContext`), and
+  `crashlytics { userId { flow } }` / `analytics { userId { flow } }` keep the user id in sync with a flow, so apps no
+  longer set them by hand. `JchuFeature.onStarted(platform, koin)` runs after Koin starts.
 - `JchuConfigOnce { }` (idempotent start for hosts that can call it more than once) and `JchuConfigResult.koin`.
 - Preference properties in `jchucomponents-prefs`: `booleanPreference`, `intPreference`, `longPreference`,
   `floatPreference`, `doublePreference`, `stringPreference` and `enumPreference`, to declare a stored variable in one line.
