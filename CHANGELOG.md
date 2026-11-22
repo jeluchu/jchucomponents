@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+## 3.0.0-beta01 - 2026-11-22
+
+First beta. The module layout and the Maven coordinates are final; smaller API cleanups may still follow in the next betas.
+The sections below also collect the changes of `3.0.0-alpha16` to `3.0.0-alpha35`, which never had an entry of their own.
+
 ### Breaking changes
 
 The module layout was consolidated before `3.0.0-beta01`. See
