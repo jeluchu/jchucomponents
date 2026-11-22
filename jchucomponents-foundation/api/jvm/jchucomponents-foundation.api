@@ -39,6 +39,23 @@ public final class com/jeluchu/jchucomponents/foundation/components/JchuProgress
 	public fun toString ()Ljava/lang/String;
 }
 
+public final class com/jeluchu/jchucomponents/foundation/coroutines/CoroutinesUtilsKt {
+	public static final fun doOnGlobal (ZLkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;)V
+	public static synthetic fun doOnGlobal$default (ZLkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)V
+	public static final fun doOnMain (ZLkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;)Lkotlinx/coroutines/Job;
+	public static synthetic fun doOnMain$default (ZLkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lkotlinx/coroutines/Job;
+	public static final fun doOnUI (ZLkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;)Lkotlinx/coroutines/Job;
+	public static synthetic fun doOnUI$default (ZLkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lkotlinx/coroutines/Job;
+	public static final fun noCrash (ZLkotlin/jvm/functions/Function0;)Ljava/lang/String;
+	public static synthetic fun noCrash$default (ZLkotlin/jvm/functions/Function0;ILjava/lang/Object;)Ljava/lang/String;
+	public static final fun noCrashSuspend (ZLkotlin/jvm/functions/Function1;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun noCrashSuspend$default (ZLkotlin/jvm/functions/Function1;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+}
+
+public final class com/jeluchu/jchucomponents/foundation/coroutines/JobExtensionsKt {
+	public static final fun cancelIfActive (Lkotlinx/coroutines/Job;)V
+}
+
 public final class com/jeluchu/jchucomponents/foundation/crypto/CaesarCipher {
 	public static final field DEFAULT_KEY I
 	public static final field INSTANCE Lcom/jeluchu/jchucomponents/foundation/crypto/CaesarCipher;
@@ -188,6 +205,13 @@ public final class com/jeluchu/jchucomponents/foundation/location/LocationUtilsK
 	public static synthetic fun getDistanceInMeters$default (DDDDDDILjava/lang/Object;)D
 }
 
+public final class com/jeluchu/jchucomponents/foundation/random/RandomUtilsKt {
+	public static final fun getRandomUUID ()Ljava/lang/String;
+	public static final fun getUUIDBits ()J
+	public static final fun randDouble (DD)D
+	public static final fun randInt (II)I
+}
+
 public final class com/jeluchu/jchucomponents/foundation/result/TryExtensionsKt {
 	public static final fun safeLet (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lkotlin/jvm/functions/Function3;)Ljava/lang/Object;
 	public static final fun tryOrDefault (Ljava/lang/Object;Lkotlin/jvm/functions/Function0;)Ljava/lang/Object;
@@ -197,6 +221,44 @@ public final class com/jeluchu/jchucomponents/foundation/result/TryExtensionsKt 
 
 public final class com/jeluchu/jchucomponents/foundation/serialization/SerializationExtensionsKt {
 	public static final fun getDefaultJson ()Lkotlinx/serialization/json/Json;
+}
+
+public final class com/jeluchu/jchucomponents/foundation/state/ListStates {
+	public fun <init> ()V
+	public fun <init> (ZLjava/util/List;ZLjava/lang/String;)V
+	public synthetic fun <init> (ZLjava/util/List;ZLjava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Z
+	public final fun component2 ()Ljava/util/List;
+	public final fun component3 ()Z
+	public final fun component4 ()Ljava/lang/String;
+	public final fun copy (ZLjava/util/List;ZLjava/lang/String;)Lcom/jeluchu/jchucomponents/foundation/state/ListStates;
+	public static synthetic fun copy$default (Lcom/jeluchu/jchucomponents/foundation/state/ListStates;ZLjava/util/List;ZLjava/lang/String;ILjava/lang/Object;)Lcom/jeluchu/jchucomponents/foundation/state/ListStates;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getData ()Ljava/util/List;
+	public final fun getError ()Ljava/lang/String;
+	public fun hashCode ()I
+	public final fun isFloatButtom ()Z
+	public final fun isLoading ()Z
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/jeluchu/jchucomponents/foundation/state/States {
+	public fun <init> ()V
+	public fun <init> (ZLjava/lang/Object;ZLjava/lang/String;)V
+	public synthetic fun <init> (ZLjava/lang/Object;ZLjava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Z
+	public final fun component2 ()Ljava/lang/Object;
+	public final fun component3 ()Z
+	public final fun component4 ()Ljava/lang/String;
+	public final fun copy (ZLjava/lang/Object;ZLjava/lang/String;)Lcom/jeluchu/jchucomponents/foundation/state/States;
+	public static synthetic fun copy$default (Lcom/jeluchu/jchucomponents/foundation/state/States;ZLjava/lang/Object;ZLjava/lang/String;ILjava/lang/Object;)Lcom/jeluchu/jchucomponents/foundation/state/States;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getData ()Ljava/lang/Object;
+	public final fun getError ()Ljava/lang/String;
+	public fun hashCode ()I
+	public final fun isFloatButtom ()Z
+	public final fun isLoading ()Z
+	public fun toString ()Ljava/lang/String;
 }
 
 public final class com/jeluchu/jchucomponents/foundation/text/Diacritics_jvmKt {
