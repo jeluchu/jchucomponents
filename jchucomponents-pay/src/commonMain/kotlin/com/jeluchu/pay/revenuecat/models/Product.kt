@@ -1,11 +1,11 @@
 package com.jeluchu.pay.revenuecat.models
 
+import com.revenuecat.purchases.kmp.models.StoreProduct
+
 data class Product(
     val isMonthly: Boolean,
     val price: String,
     val priceConversion: String?,
     val saveAmount: String?,
-    val storeProduct: RevenueCatStoreProduct
+    val storeProduct: StoreProduct
 )
-
-expect interface RevenueCatStoreProduct

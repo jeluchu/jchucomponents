@@ -8,7 +8,6 @@ import com.jeluchu.jchucomponents.network.models.Resource
 import com.jeluchu.jchucomponents.prefs.JchuPreferenceKeys
 import com.jeluchu.jchucomponents.supabase.JchuSupabaseConfig
 import com.jeluchu.jchucomponents.supabase.database.JchuSupabaseTable
-import com.jeluchu.pay.revenuecat.models.SubscriptionState
 import com.jeluchu.qr.BarcodeFormat
 
 /**
@@ -21,7 +20,6 @@ object ConsumerSmoke {
     val endpoint: ApiEndpoint = SmokeEndpoint
     val resource: Resource<Nothing, String> = Resource.Success("ready")
     val preferenceKey = JchuPreferenceKeys.boolean("smoke-ready")
-    val subscriptionState: SubscriptionState = SubscriptionState.ACTIVE
     val barcodeFormat: BarcodeFormat = BarcodeFormat.QR_CODE
     val supabaseConfig = JchuSupabaseConfig(
         url = "https://example.supabase.co",

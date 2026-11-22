@@ -3,10 +3,6 @@ package com.jeluchu.pay.revenuecat.utils
 import kotlin.math.roundToLong
 
 object PriceUtil {
-    internal const val TAG = "JchuPay/PriceUtil"
-
-    var enableLogging: Boolean = false
-
     /**
      * Convert a formatted price to a formatted price with a given divider.
      * For example: "12.80 EUR" with a divider of 4 will return "4.20 EUR"

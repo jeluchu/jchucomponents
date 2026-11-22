@@ -1,7 +1,5 @@
 package com.jeluchu.pay.revenuecat.models
 
-import com.jeluchu.pay.revenuecat.extensions.empty
-
 data class SubscriptionInfo(
     val renewalType: SubscriptionsType,
     val expireDate: String,
@@ -13,7 +11,7 @@ data class SubscriptionInfo(
         fun empty() =
             SubscriptionInfo(
                 renewalType = SubscriptionsType.NONE,
-                expireDate = String.empty(),
+                expireDate = "",
                 promotional = false,
                 state = SubscriptionState.NONE,
                 managementUrl = null

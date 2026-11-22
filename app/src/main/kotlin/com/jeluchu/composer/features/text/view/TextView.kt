@@ -10,7 +10,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.graphics.Color
 import com.jeluchu.composer.core.catalog.CatalogColors
 import com.jeluchu.composer.core.catalog.JchuCatalogTheme
 import com.jeluchu.composer.core.catalog.ProvideJchuCatalogTheme
@@ -19,9 +18,6 @@ import com.jeluchu.composer.core.ui.theme.JeluchuTheme
 import com.jeluchu.composer.core.utils.Names
 import com.jeluchu.jchucomponents.ui.composables.text.JchuExpandableText
 import com.jeluchu.jchucomponents.ui.composables.text.JchuExpandableDescriptionConfig
-import com.jeluchu.jchucomponents.ui.composables.text.JchuLegacyExpandableDescription
-import com.jeluchu.jchucomponents.ui.composables.text.JchuLegacyExpandableDescriptionColors
-import com.jeluchu.jchucomponents.ui.composables.text.JchuLegacySimpleDescription
 import com.jeluchu.jchucomponents.ui.composables.text.JchuSimpleExpandableText
 
 @Composable
@@ -61,40 +57,6 @@ private fun TextCatalog(onBack: () -> Unit) {
                 "This variant keeps the original internal state, fade, gradient, text " +
                     "selection and disclosure-arrow behavior. ".repeat(4),
             config = JchuExpandableDescriptionConfig(enableHapticFeedback = false)
-        )
-        Text(
-            text = "iNook legacy expandable-description fidelity",
-            style = JchuCatalogTheme.typography.section,
-            color = JchuCatalogTheme.colors.content
-        )
-        JchuLegacyExpandableDescription(
-            image = "https://picsum.photos/400/200",
-            title = "Legacy description",
-            description =
-                "The first-generation component uses a manual Layout height animation, " +
-                    "centered selectable text and a fixed 200-character threshold. ".repeat(3),
-            colors = JchuLegacyExpandableDescriptionColors(
-                contentColor = Color(0xFFFEF8E4),
-                gradientColor = Color(0xFFF3A56F),
-                containerColor = Color(0x335B4636)
-            )
-        )
-        Text(
-            text = "iNook legacy static-description fidelity",
-            style = JchuCatalogTheme.typography.section,
-            color = JchuCatalogTheme.colors.content
-        )
-        JchuLegacySimpleDescription(
-            image = "https://picsum.photos/400/200",
-            title = "Pocket Camp appearance",
-            description =
-                "This static card preserves the original spacing, typography, colors and " +
-                    "image sizing without expandable behavior.",
-            colors = JchuLegacyExpandableDescriptionColors(
-                contentColor = Color(0xFFFEF8E4),
-                gradientColor = Color(0xFFF3A56F),
-                containerColor = Color(0x335B4636)
-            )
         )
     }
 }

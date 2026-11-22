@@ -1,96 +1,84 @@
 plugins {
-    alias(libs.plugins.android.library)
+    alias(libs.plugins.jetbrains.kotlin.multiplatform)
+    alias(libs.plugins.android.kmp.library)
     alias(libs.plugins.jetbrains.dokka)
+    id("jchucomponents.publish")
+    alias(libs.plugins.compose.multiplatform)
     alias(libs.plugins.compose.compiler)
-    id("maven-publish")
 }
 
-android {
-    namespace = "com.jeluchu.jchucomponents.ui"
-    compileSdk {
-        version =
-            release(libs.versions.android.compile.sdk.get().toInt()) {
-                minorApiLevel = libs.versions.android.compile.minor.api.get().toInt()
-            }
+version = libs.versions.jchucomponents.get()
+description = "Compose Multiplatform components for Android, iOS and JVM desktop, with Android-specific extras."
+
+kotlin {
+    compilerOptions {
+        freeCompilerArgs.add("-Xexpect-actual-classes")
     }
 
-    defaultConfig {
-        minSdk =
-            libs.versions.android.min.sdk
-                .get()
-                .toInt()
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        proguardFiles(
-            getDefaultProguardFile("proguard-android-optimize.txt"),
-            "proguard-rules.pro"
-        )
-    }
-
-    buildFeatures.compose = true
-
-    lint {
-        // Full lint still runs through `check`. AGP 9.2 lintVital crashes while
-        // building this Compose library with "Unexpected owner function".
-        checkReleaseBuilds = false
-    }
-
-    buildTypes {
-        debug {
-            isMinifyEnabled = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
+    android {
+        namespace = "com.jeluchu.jchucomponents.ui"
+        compileSdk {
+            version =
+                release(libs.versions.android.compile.sdk.get().toInt()) {
+                    minorApiLevel = libs.versions.android.compile.minor.api.get().toInt()
+                }
         }
-        release {
-            isMinifyEnabled = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
+        minSdk = libs.versions.android.min.sdk.get().toInt()
+        withSourcesJar(publish = true)
+        androidResources.enable = true
+        withHostTest {}
+        withDeviceTest {
+            instrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         }
     }
 
-    compileOptions {
-        sourceCompatibility = JavaVersion.toVersion(libs.versions.java.get())
-        targetCompatibility = JavaVersion.toVersion(libs.versions.java.get())
-    }
+    jvm()
+    iosArm64()
+    iosSimulatorArm64()
 
-    publishing {
-        singleVariant("release") {
-            withSourcesJar()
+    sourceSets {
+        commonMain.dependencies {
+            api(project(":jchucomponents-foundation"))
+            api(compose.runtime)
+            api(compose.ui)
+            api(compose.animation)
+            api(compose.foundation)
+            api(compose.components.resources)
+            api(compose.material)
+            api(compose.material3)
+            api(compose.materialIconsExtended)
+            api(libs.org.jetbrains.kotlinx.kotlinx.coroutines.core)
+            implementation(libs.coil.compose)
+            api(libs.kotlinx.datetime)
+            implementation(libs.compose.ui.tooling.preview.kmp)
+        }
+
+        androidMain.dependencies {
+            implementation(project.dependencies.platform(libs.compose.bom))
+            implementation(libs.bundles.compose.bom)
+            implementation(libs.androidx.compose.animation.graphics)
+            implementation(libs.bundles.ui.androidx)
+            implementation(project(":jchucomponents-android"))
+        }
+
+        getByName("androidHostTest").dependencies {
+            implementation(libs.junit)
+        }
+
+        getByName("androidDeviceTest").dependencies {
+            implementation(project.dependencies.platform(libs.compose.bom))
+            implementation(libs.androidx.compose.ui.test.junit4)
+            implementation(libs.androidx.compose.ui.test.manifest)
+            implementation(libs.androidx.test.ext.junit)
+            implementation(libs.androidx.test.espresso.core)
+            implementation(libs.androidx.test.runner)
         }
     }
 }
 
-dependencies {
-    api(project(":jchucomponents-ui-kmp"))
-    implementation(platform(libs.compose.bom))
-    implementation(libs.bundles.compose.bom)
-    implementation(libs.androidx.compose.animation.graphics)
-    implementation(libs.bundles.ui.androidx)
-    implementation(project(":jchucomponents-foundation"))
-    implementation(project(":jchucomponents-ktx"))
-    debugImplementation(libs.androidx.compose.ui.ui.tooling.preview)
-    debugImplementation(libs.androidx.compose.ui.test.manifest)
-    testImplementation(libs.junit)
-    androidTestImplementation(platform(libs.compose.bom))
-    androidTestImplementation(libs.androidx.compose.ui.test.junit4)
-    androidTestImplementation(libs.androidx.test.ext.junit)
-    androidTestImplementation(libs.androidx.test.espresso.core)
-    androidTestImplementation(libs.androidx.test.runner)
-}
-
-publishing {
-    publications {
-        register<MavenPublication>("release") {
-            groupId = "com.github.jeluchu"
-            artifactId = "jchucomponents-ui"
-            version = libs.versions.jchucomponents.get()
-
-            afterEvaluate {
-                from(components["release"])
-            }
-        }
+mavenPublishing {
+    pom {
+        name.set("JchuComponents UI Multiplatform")
+        description.set(project.description)
     }
 }

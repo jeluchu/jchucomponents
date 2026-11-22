@@ -30,9 +30,6 @@ kotlin {
                 "io.github.jeluchu:jchucomponents-network:$jchuComponentsVersion"
             )
             implementation(
-                "io.github.jeluchu:jchucomponents-pay:$jchuComponentsVersion"
-            )
-            implementation(
                 "io.github.jeluchu:jchucomponents-prefs:$jchuComponentsVersion"
             )
             implementation(
@@ -47,11 +44,17 @@ kotlin {
             implementation(
                 "io.github.jeluchu:jchucomponents-room:$jchuComponentsVersion"
             )
+            implementation(
+                "io.github.jeluchu:jchucomponents-pay:$jchuComponentsVersion"
+            )
         }
 
         iosSimulatorArm64Main.dependencies {
             implementation(
                 "io.github.jeluchu:jchucomponents-room:$jchuComponentsVersion"
+            )
+            implementation(
+                "io.github.jeluchu:jchucomponents-pay:$jchuComponentsVersion"
             )
         }
     }

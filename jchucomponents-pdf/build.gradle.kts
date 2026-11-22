@@ -1,70 +1,87 @@
 plugins {
-    alias(libs.plugins.android.library)
+    alias(libs.plugins.jetbrains.kotlin.multiplatform)
+    alias(libs.plugins.android.kmp.library)
     alias(libs.plugins.jetbrains.dokka)
+    alias(libs.plugins.compose.multiplatform)
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.ksp)
     alias(libs.plugins.kotlinx.serialization)
-    id("maven-publish")
+    id("jchucomponents.publish")
 }
 
-android {
-    namespace = "com.jeluchu.jchucomponents.pdf"
-    compileSdk {
-        version =
-            release(libs.versions.android.compile.sdk.get().toInt()) {
-                minorApiLevel = libs.versions.android.compile.minor.api.get().toInt()
-            }
+version = libs.versions.jchucomponents.get()
+description = "Compose Multiplatform PDF reader for Android and iOS."
+
+kotlin {
+    compilerOptions {
+        freeCompilerArgs.add("-Xexpect-actual-classes")
     }
 
-    defaultConfig {
+    android {
+        namespace = "com.jeluchu.jchucomponents.pdf"
+        compileSdk {
+            version =
+                release(libs.versions.android.compile.sdk.get().toInt()) {
+                    minorApiLevel = libs.versions.android.compile.minor.api.get().toInt()
+                }
+        }
         minSdk = libs.versions.android.min.sdk.get().toInt()
-        proguardFiles(
-            getDefaultProguardFile("proguard-android-optimize.txt"),
-            "proguard-rules.pro"
-        )
+        withSourcesJar(publish = true)
+        withHostTest {}
     }
 
-    buildFeatures.compose = true
+    iosArm64()
+    iosSimulatorArm64()
 
-    compileOptions {
-        sourceCompatibility = JavaVersion.toVersion(libs.versions.java.get())
-        targetCompatibility = JavaVersion.toVersion(libs.versions.java.get())
-    }
+    sourceSets {
+        commonMain {
+            kotlin.srcDir("build/generated/ksp/metadata/commonMain/kotlin")
+        }
 
-    publishing {
-        singleVariant("release") {
-            withSourcesJar()
+        commonMain.dependencies {
+            api(project(":jchucomponents-navigation3"))
+            api(compose.runtime)
+            api(libs.org.jetbrains.kotlinx.kotlinx.serialization.json)
+            implementation(project(":jchucomponents-network"))
+            implementation(project(":jchucomponents-ui"))
+            implementation(compose.foundation)
+            implementation(compose.material3)
+            implementation(compose.materialIconsExtended)
+            implementation(compose.components.resources)
+            implementation(libs.org.jetbrains.kotlinx.kotlinx.coroutines.core)
+        }
+
+        androidMain.dependencies {
+            implementation(libs.androidx.core.core.ktx)
         }
     }
+}
+
+compose.resources {
+    packageOfResClass = "com.jeluchu.jchucomponents.pdf.resources"
 }
 
 dependencies {
-    implementation(platform(libs.compose.bom))
-    implementation(libs.androidx.compose.foundation)
-    implementation(libs.androidx.compose.material3)
-    implementation(libs.androidx.compose.material.material.icons.extended)
-    implementation(libs.androidx.compose.runtime)
-    implementation(libs.androidx.compose.ui)
-    implementation(libs.androidx.core.core.ktx)
-    implementation(libs.org.jetbrains.kotlinx.kotlinx.coroutines.core)
-    implementation(libs.org.jetbrains.kotlinx.kotlinx.serialization.json)
-
-    implementation(project(":jchucomponents-network"))
-    implementation(project(":jchucomponents-ui"))
-    api(project(":jchucomponents-navigation3"))
-    ksp(project(":jchucomponents-navigation3"))
+    add("kspCommonMainMetadata", project(":jchucomponents-navigation3"))
 }
 
-publishing {
-    publications {
-        register<MavenPublication>("release") {
-            groupId = "com.github.jeluchu"
-            artifactId = "jchucomponents-pdf"
-            version = libs.versions.jchucomponents.get()
+tasks.matching { it.name == "runKtlintCheckOverCommonMainSourceSet" }.configureEach {
+    dependsOn("kspCommonMainKotlinMetadata")
+}
 
-            afterEvaluate {
-                from(components["release"])
-            }
-        }
+tasks.matching { it.name == "sourcesJar" || it.name.endsWith("SourcesJar") }.configureEach {
+    dependsOn("kspCommonMainKotlinMetadata")
+}
+
+tasks.configureEach {
+    if (name.startsWith("compile") && name != "compileKotlinMetadata") {
+        dependsOn("kspCommonMainKotlinMetadata")
+    }
+}
+
+mavenPublishing {
+    pom {
+        name.set("JchuComponents PDF Reader Multiplatform")
+        description.set(project.description)
     }
 }
