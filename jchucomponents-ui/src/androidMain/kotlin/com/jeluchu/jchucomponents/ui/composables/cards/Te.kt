@@ -11,14 +11,14 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Button
-import androidx.compose.material.ButtonDefaults
-import androidx.compose.material.Card
-import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material.Icon
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
 import androidx.compose.ui.Alignment
@@ -34,7 +34,6 @@ import com.jeluchu.jchucomponents.ui.R
 import com.jeluchu.jchucomponents.ui.composables.images.NetworkImage
 import com.jeluchu.jchucomponents.ui.extensions.toPainter
 
-@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun Te(
     image: String,
@@ -46,10 +45,10 @@ fun Te(
     onPrimaryButtonClick: () -> Unit = {},
     onSecondaryButtonClick: () -> Unit = {}
 ) = Card(
+    onClick = onClick,
     modifier = Modifier.width(width).height(height),
     shape = RoundedCornerShape(28.dp),
-    elevation = 0.dp,
-    onClick = onClick
+    elevation = CardDefaults.cardElevation(defaultElevation = 0.dp)
 ) {
     Box {
         NetworkImage(
@@ -66,19 +65,19 @@ fun Te(
                 contentAlignment = Alignment.TopStart
             ) {
                 Card(
-                    backgroundColor = MaterialTheme.colors.secondary,
+                    colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.secondary),
                     shape = RoundedCornerShape(9.dp),
                     modifier =
                         Modifier
                             .size(height = 30.dp, width = 100.dp),
-                    elevation = 0.dp
+                    elevation = CardDefaults.cardElevation(defaultElevation = 0.dp)
                 ) {
                     Text(
                         text = tag,
                         fontSize = 14.sp,
                         textAlign = TextAlign.Center,
                         fontWeight = FontWeight.Medium,
-                        color = MaterialTheme.colors.onSecondary,
+                        color = MaterialTheme.colorScheme.onSecondary,
                         modifier = Modifier.padding(top = 4.dp, bottom = 4.dp)
                     )
                 }
@@ -104,7 +103,7 @@ fun Te(
                             .width(176.dp)
                             .height(40.dp),
                     elevation =
-                        ButtonDefaults.elevation(
+                        ButtonDefaults.buttonElevation(
                             defaultElevation = 0.dp,
                             pressedElevation = 0.dp,
                             disabledElevation = 0.dp,
@@ -114,7 +113,7 @@ fun Te(
                     shape = RoundedCornerShape(45.dp),
                     colors =
                         ButtonDefaults.buttonColors(
-                            backgroundColor = colors.containerPrimaryButtonColor
+                            containerColor = colors.containerPrimaryButtonColor
                         )
                 ) {
                     Text(

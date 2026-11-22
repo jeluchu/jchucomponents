@@ -6,7 +6,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.MaterialTheme
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -17,6 +17,7 @@ import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
+import androidx.compose.ui.graphics.luminance
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
@@ -26,7 +27,7 @@ fun ReadingIndicator(
     totalPage: Float,
     modifier: Modifier = Modifier
 ) {
-    val color = if (MaterialTheme.colors.isLight) Color.LightGray else Color.DarkGray
+    val color = if (MaterialTheme.colorScheme.background.luminance() > 0.5f) Color.LightGray else Color.DarkGray
 
     var width by remember {
         mutableStateOf(0f)

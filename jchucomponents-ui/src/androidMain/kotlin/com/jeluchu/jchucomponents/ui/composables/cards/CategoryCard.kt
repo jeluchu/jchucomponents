@@ -85,8 +85,8 @@ fun CategoryAssistantCard(
         .bounceClick(onClick = onClick)
         .size(width = 170.dp, height = 200.dp)
         .height(200.dp)
-        .background(shape = RoundedCornerShape(16.dp), color = androidx.compose.material.MaterialTheme.colors.onSecondary)
-        .border(2.dp, color = androidx.compose.material.MaterialTheme.colors.onPrimary, shape = RoundedCornerShape(16.dp))
+        .background(shape = RoundedCornerShape(16.dp), color = androidx.compose.material3.MaterialTheme.colorScheme.onSecondary)
+        .border(2.dp, color = androidx.compose.material3.MaterialTheme.colorScheme.onPrimary, shape = RoundedCornerShape(16.dp))
         .padding(16.dp)
 ) {
     Icon(
@@ -109,7 +109,7 @@ fun CategoryAssistantCard(
     )
     Text(
         text = name,
-        color = androidx.compose.material.MaterialTheme.colors.surface,
+        color = androidx.compose.material3.MaterialTheme.colorScheme.surface,
         style = TextStyle(
             fontSize = 18.sp,
             fontWeight = FontWeight.W700,
@@ -119,7 +119,7 @@ fun CategoryAssistantCard(
     )
     Text(
         text = description,
-        color = androidx.compose.material.MaterialTheme.colors.onSurface,
+        color = androidx.compose.material3.MaterialTheme.colorScheme.onSurface,
         style = TextStyle(
             fontSize = 14.sp,
             fontWeight = FontWeight.W500,

@@ -19,11 +19,21 @@ kotlin {
         namespace = "com.jeluchu.jchucomponents.ui"
         compileSdk {
             version =
-                release(libs.versions.android.compile.sdk.get().toInt()) {
-                    minorApiLevel = libs.versions.android.compile.minor.api.get().toInt()
+                release(
+                    libs.versions.android.compile.sdk
+                        .get()
+                        .toInt()
+                ) {
+                    minorApiLevel =
+                        libs.versions.android.compile.minor.api
+                            .get()
+                            .toInt()
                 }
         }
-        minSdk = libs.versions.android.min.sdk.get().toInt()
+        minSdk =
+            libs.versions.android.min.sdk
+                .get()
+                .toInt()
         withSourcesJar(publish = true)
         androidResources.enable = true
         withHostTest {}
@@ -44,7 +54,6 @@ kotlin {
             api(compose.animation)
             api(compose.foundation)
             api(compose.components.resources)
-            api(compose.material)
             api(compose.material3)
             api(compose.materialIconsExtended)
             api(libs.org.jetbrains.kotlinx.kotlinx.coroutines.core)

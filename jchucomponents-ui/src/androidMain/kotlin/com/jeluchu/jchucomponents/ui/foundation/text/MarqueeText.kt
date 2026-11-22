@@ -12,7 +12,7 @@ import androidx.compose.foundation.MarqueeAnimationMode
 import androidx.compose.foundation.MarqueeDefaults.RepeatDelayMillis
 import androidx.compose.foundation.MarqueeDefaults.Velocity
 import androidx.compose.foundation.MarqueeSpacing
-import androidx.compose.material.LocalTextStyle
+import androidx.compose.material3.LocalTextStyle
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.NonRestartableComposable
 import androidx.compose.ui.Modifier

@@ -87,6 +87,29 @@ The generated navigation names (`pdfReaderKmpEntries`, `PdfReaderKmpRoutes`) are
 The `R` class of the former `ktx` module moved with the new namespace:
 `com.jeluchu.jchucomponents.ktx.R` is now `com.jeluchu.jchucomponents.android.R`.
 
+## Material 3 only
+
+`jchucomponents-ui` no longer depends on Material 2. It declares
+`org.jetbrains.compose.material3:material3` (on Android that artifact resolves to
+`androidx.compose.material3:material3`), and the library catalog no longer lists any
+`androidx.compose.material` or `androidx.compose.material3` dependency.
+
+- Applications that still import `androidx.compose.material.*` (anything other than
+  `material.icons`) used to receive Material 2 through `jchucomponents-ui`. Declare it yourself, for
+  example `implementation(compose.material)`. `BackdropScaffold` has no Material 3 equivalent.
+- `ScaffoldStates(scaffoldState, backgroundColor, isFloatingActionButtonDocked, ...)` is now
+  `ScaffoldStates(snackbarHostState, containerColor, ...)`.
+- `SnackbarController.showSnackbar` and `showSnack` take a `SnackbarHostState` instead of a
+  `ScaffoldState` or `BottomSheetScaffoldState`; the class is no longer `@ExperimentalMaterialApi`.
+- The `Snackbar` and `CustomSnackbar` copies of the Material 2 snackbar were removed; use
+  `androidx.compose.material3.Snackbar`. `SnackbarCustomized` keeps its parameters and renders a Material 3
+  snackbar (no `elevation`).
+- `com.jeluchu.jchucomponents.ui.theme.typography` is a Material 3 `Typography`
+  (`bodyLarge`, `bodyMedium`, `labelLarge`, `bodySmall`, `titleMedium`, `titleSmall`).
+- `ScrollableChipTabRow` defaults to the Material 3 tab row container color; `ChipTab` no longer
+  uses `LocalContentAlpha`; `Tooltip`, `TimeCard`, `ReadingIndicator`, `DebutCard` and `CategoryCard` read
+  `MaterialTheme.colorScheme` and the Material 3 typography.
+
 ## Removed APIs
 
 - `JchuLegacyExpandableDescription` and `JchuLegacySimpleDescription` (and their colors class).

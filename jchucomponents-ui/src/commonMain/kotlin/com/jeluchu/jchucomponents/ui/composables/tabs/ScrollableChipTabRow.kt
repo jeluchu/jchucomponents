@@ -15,12 +15,10 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.selection.selectableGroup
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.TabRowDefaults
-import androidx.compose.material.Text
-import androidx.compose.material.contentColorFor
-import androidx.compose.material.primarySurface
+import androidx.compose.material3.Surface
+import androidx.compose.material3.TabRowDefaults
+import androidx.compose.material3.Text
+import androidx.compose.material3.contentColorFor
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.remember
@@ -41,9 +39,9 @@ import kotlinx.coroutines.launch
 fun ScrollableChipTabRow(
     selectedTabIndex: Int,
     modifier: Modifier = Modifier,
-    backgroundColor: Color = MaterialTheme.colors.primarySurface,
+    backgroundColor: Color = TabRowDefaults.primaryContainerColor,
     contentColor: Color = contentColorFor(backgroundColor),
-    edgePadding: Dp = TabRowDefaults.ScrollableTabRowPadding,
+    edgePadding: Dp = ScrollableTabRowEdgePadding,
     tabs: @Composable () -> Unit
 ) = Surface(
     modifier = modifier,
@@ -173,6 +171,8 @@ private class ScrollableTabData(
             return centeredTabOffset.coerceIn(0, availableSpace)
         }
 }
+
+private val ScrollableTabRowEdgePadding = 52.dp
 
 private val ScrollableTabRowMinimumTabWidth = 90.dp
 

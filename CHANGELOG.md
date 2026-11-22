@@ -24,6 +24,10 @@ The module layout was consolidated before `3.0.0-beta01`. See
   `navigation3` now depends on Koin Compose.
 - The legacy Android `jchucomponents-pay` (Play Billing) and `jchucomponents-pdf` modules were removed.
 - `JchuLegacyExpandableDescription` and `JchuLegacySimpleDescription` were removed.
+- `jchucomponents-ui` is Material 3 only: it no longer exposes Material 2 (`compose.material`) and declares
+  `org.jetbrains.compose.material3:material3`. `ScaffoldStates` and `SnackbarController` take a
+  `SnackbarHostState` instead of `ScaffoldState`, the Material 2 `Snackbar` copy was removed and
+  `ui.theme.typography` is now a Material 3 `Typography`. Applications that still use Material 2 must declare it.
 
 ### Improvements
 

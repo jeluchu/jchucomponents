@@ -5,9 +5,9 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.Divider
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
 import androidx.compose.ui.Alignment
@@ -29,7 +29,7 @@ fun TimeCard(
     amount: String,
     description: String,
     colors: TimeCardColors = TimeCardColors(),
-    style: TextStyle = MaterialTheme.typography.subtitle2
+    style: TextStyle = MaterialTheme.typography.titleSmall
 ) = Column(
     modifier =
         Modifier
@@ -57,9 +57,9 @@ fun TimeCard(
         textAlign = TextAlign.Center,
         modifier = Modifier.padding(top = 15.dp)
     )
-    Divider(
-        color = colors.contentPrimaryColor,
-        thickness = 1.dp
+    HorizontalDivider(
+        thickness = 1.dp,
+        color = colors.contentPrimaryColor
     )
     Text(
         text = amount,

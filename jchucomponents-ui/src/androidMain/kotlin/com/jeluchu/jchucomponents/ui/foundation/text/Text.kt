@@ -1,8 +1,8 @@
 package com.jeluchu.jchucomponents.ui.foundation.text
 
 import androidx.annotation.StringRes
-import androidx.compose.material.LocalContentColor
-import androidx.compose.material.LocalTextStyle
+import androidx.compose.material3.LocalContentColor
+import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.NonRestartableComposable

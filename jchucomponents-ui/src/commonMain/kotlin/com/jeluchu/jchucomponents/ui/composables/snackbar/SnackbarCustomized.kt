@@ -1,9 +1,12 @@
 package com.jeluchu.jchucomponents.ui.composables.snackbar
 
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.LocalTextStyle
-import androidx.compose.material.SnackbarHost
-import androidx.compose.material.SnackbarHostState
+import androidx.compose.material3.LocalTextStyle
+import androidx.compose.material3.Snackbar
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
@@ -25,15 +28,23 @@ fun SnackbarCustomized(
     textStyle: TextStyle = LocalTextStyle.current,
     shape: Shape = RoundedCornerShape(15.dp)
 ) = SnackbarHost(snackHost) { data ->
-    CustomSnackbar(
+    Snackbar(
         modifier = modifier,
-        backgroundColor = bgColor,
-        contentColor = contentColor,
-        textStyle = textStyle,
         shape = shape,
-        elevation = 0.dp,
-        snackbarData = data
-    )
+        containerColor = bgColor,
+        contentColor = contentColor,
+        actionContentColor = contentColor,
+        action =
+            data.visuals.actionLabel?.let { label ->
+                {
+                    TextButton(onClick = data::performAction) {
+                        Text(text = label, style = textStyle)
+                    }
+                }
+            }
+    ) {
+        Text(text = data.visuals.message, style = textStyle)
+    }
 }
 
 @Preview(showBackground = true)

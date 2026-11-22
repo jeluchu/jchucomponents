@@ -16,9 +16,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.selection.selectable
-import androidx.compose.material.ContentAlpha
-import androidx.compose.material.LocalContentAlpha
-import androidx.compose.material.LocalContentColor
+import androidx.compose.material3.LocalContentColor
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.getValue
@@ -41,7 +39,7 @@ fun ChipTab(
     enabled: Boolean = true,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     selectedContentColor: Color = LocalContentColor.current,
-    unselectedContentColor: Color = selectedContentColor.copy(alpha = ContentAlpha.medium),
+    unselectedContentColor: Color = selectedContentColor.copy(alpha = MediumContentAlpha),
     content: @Composable ColumnScope.() -> Unit
 ) = TabTransition(selectedContentColor, unselectedContentColor, selected) {
     Column(
@@ -68,7 +66,7 @@ private fun ChipTabPreview() {
         selected = true,
         onClick = {}
     ) {
-        androidx.compose.material.Text(text = "Selected")
+        androidx.compose.material3.Text(text = "Selected")
     }
 }
 
@@ -100,8 +98,9 @@ private fun TabTransition(
         if (it) activeColor else inactiveColor
     }
     CompositionLocalProvider(
-        LocalContentColor provides color.copy(alpha = 1f),
-        LocalContentAlpha provides color.alpha,
+        LocalContentColor provides color,
         content = content
     )
 }
+
+private const val MediumContentAlpha = 0.74f

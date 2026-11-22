@@ -15,9 +15,8 @@ import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.sizeIn
-import androidx.compose.material.ContentAlpha
-import androidx.compose.material.LocalContentAlpha
 import androidx.compose.material3.Icon
+import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.MenuDefaults
@@ -154,8 +153,8 @@ internal fun DropdownMenuItemContent(
 ) {
     val typography = MaterialTheme.typography
     ProvideTextStyle(typography.titleMedium) {
-        val contentAlpha = if (enabled) ContentAlpha.high else ContentAlpha.disabled
-        CompositionLocalProvider(LocalContentAlpha provides contentAlpha) {
+        val contentAlpha = if (enabled) 1f else DisabledContentAlpha
+        CompositionLocalProvider(LocalContentColor provides LocalContentColor.current.copy(alpha = contentAlpha)) {
             content()
         }
     }
@@ -168,3 +167,5 @@ private fun DropdownItemPreview() {
         DropdownItemOption(title = "Share")
     }
 }
+
+private const val DisabledContentAlpha = 0.38f

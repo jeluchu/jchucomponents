@@ -6,18 +6,16 @@
 
 package com.jeluchu.jchucomponents.ui.composables.snackbar
 
-import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material.ScaffoldState
+import androidx.compose.material3.SnackbarHostState
 import kotlinx.coroutines.launch
 
-@ExperimentalMaterialApi
 fun SnackbarController.showSnack(
-    scaffoldState: ScaffoldState,
+    snackbarHostState: SnackbarHostState,
     message: String
 ) {
     getScope().launch {
         showSnackbar(
-            scaffoldState = scaffoldState,
+            snackbarHostState = snackbarHostState,
             message = message
         )
     }

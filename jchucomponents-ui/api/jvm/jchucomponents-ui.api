@@ -498,42 +498,20 @@ public final class com/jeluchu/jchucomponents/ui/composables/shimmer/PostItemShi
 	public static final fun ShimmerItemBig (Ljava/util/List;FZLandroidx/compose/runtime/Composer;II)V
 }
 
-public final class com/jeluchu/jchucomponents/ui/composables/snackbar/ComposableSingletons$SnackbarKt {
-	public static final field INSTANCE Lcom/jeluchu/jchucomponents/ui/composables/snackbar/ComposableSingletons$SnackbarKt;
-	public fun <init> ()V
-	public final fun getLambda$-1069395738$io_github_jeluchu_jchucomponents_ui ()Lkotlin/jvm/functions/Function3;
-	public final fun getLambda$-1426301073$io_github_jeluchu_jchucomponents_ui ()Lkotlin/jvm/functions/Function2;
-	public final fun getLambda$1982198633$io_github_jeluchu_jchucomponents_ui ()Lkotlin/jvm/functions/Function2;
-}
-
 public final class com/jeluchu/jchucomponents/ui/composables/snackbar/SnackbarController {
 	public static final field $stable I
 	public fun <init> (Lkotlinx/coroutines/CoroutineScope;)V
 	public final fun getScope ()Lkotlinx/coroutines/CoroutineScope;
-	public final fun showSnackbar (Landroidx/compose/material/BottomSheetScaffoldState;Ljava/lang/String;Ljava/lang/String;)V
-	public final fun showSnackbar (Landroidx/compose/material/ScaffoldState;Ljava/lang/String;Ljava/lang/String;)V
-	public static synthetic fun showSnackbar$default (Lcom/jeluchu/jchucomponents/ui/composables/snackbar/SnackbarController;Landroidx/compose/material/BottomSheetScaffoldState;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)V
-	public static synthetic fun showSnackbar$default (Lcom/jeluchu/jchucomponents/ui/composables/snackbar/SnackbarController;Landroidx/compose/material/ScaffoldState;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)V
+	public final fun showSnackbar (Landroidx/compose/material3/SnackbarHostState;Ljava/lang/String;Ljava/lang/String;)V
+	public static synthetic fun showSnackbar$default (Lcom/jeluchu/jchucomponents/ui/composables/snackbar/SnackbarController;Landroidx/compose/material3/SnackbarHostState;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)V
 }
 
 public final class com/jeluchu/jchucomponents/ui/composables/snackbar/SnackbarCustomizedKt {
-	public static final fun SnackbarCustomized-Y0xEhic (Landroidx/compose/ui/Modifier;Landroidx/compose/material/SnackbarHostState;JJLandroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/graphics/Shape;Landroidx/compose/runtime/Composer;II)V
-}
-
-public final class com/jeluchu/jchucomponents/ui/composables/snackbar/SnackbarDefaults {
-	public static final field $stable I
-	public static final field INSTANCE Lcom/jeluchu/jchucomponents/ui/composables/snackbar/SnackbarDefaults;
-	public final fun getBackgroundColor (Landroidx/compose/runtime/Composer;I)J
-	public final fun getPrimaryActionColor (Landroidx/compose/runtime/Composer;I)J
+	public static final fun SnackbarCustomized-Y0xEhic (Landroidx/compose/ui/Modifier;Landroidx/compose/material3/SnackbarHostState;JJLandroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/graphics/Shape;Landroidx/compose/runtime/Composer;II)V
 }
 
 public final class com/jeluchu/jchucomponents/ui/composables/snackbar/SnackbarExtensionKt {
-	public static final fun showSnack (Lcom/jeluchu/jchucomponents/ui/composables/snackbar/SnackbarController;Landroidx/compose/material/ScaffoldState;Ljava/lang/String;)V
-}
-
-public final class com/jeluchu/jchucomponents/ui/composables/snackbar/SnackbarKt {
-	public static final fun CustomSnackbar-uP4mCaE (Landroidx/compose/material/SnackbarData;Landroidx/compose/ui/Modifier;ZLandroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/graphics/Shape;JJJFLandroidx/compose/runtime/Composer;II)V
-	public static final fun Snackbar-7zSek6w (Landroidx/compose/ui/Modifier;Lkotlin/jvm/functions/Function2;ZLandroidx/compose/ui/graphics/Shape;JJFLkotlin/jvm/functions/Function2;Landroidx/compose/runtime/Composer;II)V
+	public static final fun showSnack (Lcom/jeluchu/jchucomponents/ui/composables/snackbar/SnackbarController;Landroidx/compose/material3/SnackbarHostState;Ljava/lang/String;)V
 }
 
 public final class com/jeluchu/jchucomponents/ui/composables/structures/ComposableSingletons$JchuItemsScaffoldKt {
@@ -545,12 +523,12 @@ public final class com/jeluchu/jchucomponents/ui/composables/structures/Composab
 public final class com/jeluchu/jchucomponents/ui/composables/structures/ComposableSingletons$ScaffoldKt {
 	public static final field INSTANCE Lcom/jeluchu/jchucomponents/ui/composables/structures/ComposableSingletons$ScaffoldKt;
 	public fun <init> ()V
-	public final fun getLambda$-1403664707$io_github_jeluchu_jchucomponents_ui ()Lkotlin/jvm/functions/Function2;
-	public final fun getLambda$-1539521451$io_github_jeluchu_jchucomponents_ui ()Lkotlin/jvm/functions/Function3;
-	public final fun getLambda$-887793944$io_github_jeluchu_jchucomponents_ui ()Lkotlin/jvm/functions/Function3;
-	public final fun getLambda$-932628259$io_github_jeluchu_jchucomponents_ui ()Lkotlin/jvm/functions/Function2;
-	public final fun getLambda$1075750122$io_github_jeluchu_jchucomponents_ui ()Lkotlin/jvm/functions/Function3;
-	public final fun getLambda$14281677$io_github_jeluchu_jchucomponents_ui ()Lkotlin/jvm/functions/Function2;
+	public final fun getLambda$-1504397078$io_github_jeluchu_jchucomponents_ui ()Lkotlin/jvm/functions/Function2;
+	public final fun getLambda$-248104182$io_github_jeluchu_jchucomponents_ui ()Lkotlin/jvm/functions/Function2;
+	public final fun getLambda$-484370795$io_github_jeluchu_jchucomponents_ui ()Lkotlin/jvm/functions/Function3;
+	public final fun getLambda$-512379497$io_github_jeluchu_jchucomponents_ui ()Lkotlin/jvm/functions/Function3;
+	public final fun getLambda$-842382718$io_github_jeluchu_jchucomponents_ui ()Lkotlin/jvm/functions/Function3;
+	public final fun getLambda$1750459898$io_github_jeluchu_jchucomponents_ui ()Lkotlin/jvm/functions/Function2;
 }
 
 public final class com/jeluchu/jchucomponents/ui/composables/structures/JchuItemsScaffoldKt {
@@ -573,7 +551,7 @@ public final class com/jeluchu/jchucomponents/ui/composables/structures/JchuScaf
 }
 
 public final class com/jeluchu/jchucomponents/ui/composables/structures/ScaffoldKt {
-	public static final fun ScaffoldStates-kMkbbjE (Landroidx/compose/ui/Modifier;Landroidx/compose/material/ScaffoldState;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function3;Lkotlin/jvm/functions/Function2;IZJJZLjava/util/List;Lkotlin/jvm/functions/Function4;Lkotlin/jvm/functions/Function3;Lkotlin/jvm/functions/Function3;Landroidx/compose/runtime/Composer;III)V
+	public static final fun ScaffoldStates-FeSRAXk (Landroidx/compose/ui/Modifier;Landroidx/compose/material3/SnackbarHostState;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function3;Lkotlin/jvm/functions/Function2;IJJZLjava/util/List;Lkotlin/jvm/functions/Function4;Lkotlin/jvm/functions/Function3;Lkotlin/jvm/functions/Function3;Landroidx/compose/runtime/Composer;III)V
 }
 
 public final class com/jeluchu/jchucomponents/ui/composables/swipe/SwipeAction {
@@ -1643,7 +1621,7 @@ public final class com/jeluchu/jchucomponents/ui/theme/SpacingKt {
 }
 
 public final class com/jeluchu/jchucomponents/ui/theme/TypeKt {
-	public static final fun getTypography ()Landroidx/compose/material/Typography;
+	public static final fun getTypography ()Landroidx/compose/material3/Typography;
 }
 
 public final class com/jeluchu/jchucomponents/ui/utils/AccessibilityKt {

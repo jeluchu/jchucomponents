@@ -17,12 +17,14 @@ import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.Card
-import androidx.compose.material.DropdownMenu
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
-import androidx.compose.material.contentColorFor
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
+import androidx.compose.material3.contentColorFor
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.LaunchedEffect
@@ -71,8 +73,8 @@ import kotlin.math.pow
  * @param expanded Whether the tooltip is currently visible to the user
  * @param offset [DpOffset] to be added to the position of the tooltip
  *
- * @see androidx.compose.material.DropdownMenu
- * @see androidx.compose.material.DropdownMenuPositionProvider
+ * @see androidx.compose.material3.DropdownMenu
+ * @see androidx.compose.material3.DropdownMenuPositionProvider
  * @see androidx.compose.ui.window.Popup
  *
  */
@@ -196,7 +198,7 @@ fun Tooltip(
     }
 }
 
-/** @see androidx.compose.material.DropdownMenuContent */
+/** @see androidx.compose.material3.DropdownMenu */
 @Composable
 private fun TooltipContent(
     expandedStates: MutableTransitionState<Boolean>,
@@ -221,13 +223,17 @@ private fun TooltipContent(
     ) { if (it) 1f else 0f }
 
     Card(
-        backgroundColor = backgroundColor.copy(alpha = 0.75f),
-        contentColor =
-            MaterialTheme.colors
-                .contentColorFor(backgroundColor)
-                .takeOrElse { backgroundColor.onColor() },
         modifier = Modifier.alpha(alpha),
-        elevation = TooltipElevation
+        shape = RoundedCornerShape(4.dp),
+        colors =
+            CardDefaults.cardColors(
+                containerColor = backgroundColor.copy(alpha = 0.75f),
+                contentColor =
+                    MaterialTheme.colorScheme
+                        .contentColorFor(backgroundColor)
+                        .takeOrElse { backgroundColor.onColor() }
+            ),
+        elevation = CardDefaults.cardElevation(defaultElevation = TooltipElevation)
     ) {
         val p = TooltipPadding
         Column(
