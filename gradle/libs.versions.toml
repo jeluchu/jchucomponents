@@ -8,7 +8,7 @@ android-compile-sdk = "37"
 jchucomponents = "3.0.0-alpha35"
 
 # Plugins & Tools
-agp = "9.5.1"
+agp = "9.5.2"
 ksp = "2.3.10"
 dokka = "2.3.0"
 kotlin = "2.4.21"
@@ -18,7 +18,7 @@ binaryCompatibilityValidator = "0.18.2"
 # AndroidX
 androidx-room3 = "3.0.3"
 androidx-sqlite = "2.7.1"
-composeBom = "2026.09.00"
+composeBom = "2026.11.01"
 compose-multiplatform = "1.12.2"
 androidx-browser = "1.10.0"
 androidx-appcompat = "1.8.0"
