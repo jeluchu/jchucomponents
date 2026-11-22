@@ -4,6 +4,11 @@
 
 ### Added
 
+- Extensions shared by the apps, so they can drop their own copies: `DrawableResource.toPainter()`,
+  `toImageVector()` and `StringResource.toStringRes(vararg)` in `jchucomponents-ui-kmp` (which now exposes
+  `compose.components.resources`); `NSDate.toKotlinInstant/LocalDateTime/LocalDate`, `LocalDate.formatForSwift` and
+  `ByteArray.toNSData()` for Apple targets, and `List<T>.search(query, selector)` (case and accent insensitive),
+  `String.isNotZero()`, `String.isBuyNotAvailability()` and `String.getTranslateOrDefault()` in `jchucomponents-foundation`.
 - New `jchucomponents-config` module with `JchuConfig { }`, a single startup block that
   initializes only the declared modules and can start Koin. Blocks `preferences {}`,
   `supabase {}`, `payments {}`, `network {}` and `database<T> {}` (Room 3) live in their own modules, which now

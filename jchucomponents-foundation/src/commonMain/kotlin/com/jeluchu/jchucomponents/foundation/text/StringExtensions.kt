@@ -12,3 +12,15 @@ fun String.formatInGroups(
     require(groupSize > 0) { "Group size must be greater than zero" }
     return chunked(groupSize).joinToString(separator)
 }
+
+/** Returns this string, or [default] when it is empty. */
+fun String.getTranslateOrDefault(default: String): String = ifEmpty { default }
+
+/** `true` when this string is not the literal `"0"` (a number-as-string flag used by several backends). */
+fun String.isNotZero(): Boolean = this != "0"
+
+/**
+ * `true` when a store/availability code means "not available": empty, `"0"`, `"na"`/`"NA"`, `"nts"` or `"NFS"`.
+ */
+fun String.isBuyNotAvailability(): Boolean =
+    isEmpty() || this == "0" || this == "na" || this == "NA" || this == "nts" || this == "NFS"
