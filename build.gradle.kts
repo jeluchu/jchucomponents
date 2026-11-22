@@ -39,12 +39,10 @@ dokka {
 }
 
 dependencies {
-    dokka(project(":jchucomponents-core"))
     dokka(project(":jchucomponents-foundation"))
-    dokka(project(":jchucomponents-ktx"))
+    dokka(project(":jchucomponents-android"))
     dokka(project(":jchucomponents-network"))
     dokka(project(":jchucomponents-pay"))
-    dokka(project(":jchucomponents-pay-kmp"))
     dokka(project(":jchucomponents-prefs"))
     dokka(project(":jchucomponents-config"))
     dokka(project(":jchucomponents-monitoring"))
@@ -52,12 +50,8 @@ dependencies {
     dokka(project(":jchucomponents-room"))
     dokka(project(":jchucomponents-supabase"))
     dokka(project(":jchucomponents-ui"))
-    dokka(project(":jchucomponents-ui-kmp"))
     dokka(project(":jchucomponents-navigation3"))
-    dokka(project(":jchucomponents-navigation3-di"))
-    dokka(project(":jchucomponents-app-updates"))
     dokka(project(":jchucomponents-pdf"))
-    dokka(project(":jchucomponents-pdf-kmp"))
 }
 
 apiValidation {

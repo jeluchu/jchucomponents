@@ -6,7 +6,6 @@ ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 required_paths=(
   "$ROOT_DIR/jchucomponents-foundation/src/commonMain"
   "$ROOT_DIR/jchucomponents-network/src/commonMain"
-  "$ROOT_DIR/jchucomponents-core/src/commonMain"
 )
 
 required_patterns=(
@@ -26,8 +25,7 @@ done
 for pattern in "${required_patterns[@]}"; do
   if ! grep -R --fixed-strings --quiet "$pattern" \
     "$ROOT_DIR/jchucomponents-foundation/src/commonMain" \
-    "$ROOT_DIR/jchucomponents-network/src/commonMain" \
-    "$ROOT_DIR/jchucomponents-core/src/commonMain"; then
+    "$ROOT_DIR/jchucomponents-network/src/commonMain"; then
     echo "Missing API readiness pattern: $pattern" >&2
     exit 1
   fi

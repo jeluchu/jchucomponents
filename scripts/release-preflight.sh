@@ -50,7 +50,6 @@ if [[ "$(uname)" == "Darwin" ]]; then
     :jchucomponents-foundation:macosArm64Test \
     :jchucomponents-monitoring:macosArm64Test \
     :jchucomponents-network:macosArm64Test \
-    :jchucomponents-pay:macosArm64Test \
     :jchucomponents-prefs:macosArm64Test \
     :jchucomponents-qr:macosArm64Test \
     :jchucomponents-room:macosArm64Test \
