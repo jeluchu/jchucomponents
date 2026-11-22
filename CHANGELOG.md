@@ -2,6 +2,35 @@
 
 ## Unreleased
 
+### Breaking changes
+
+The module layout was consolidated before `3.0.0-beta01`. See
+[docs/migration-v3-modules.md](docs/migration-v3-modules.md) for the full map and import rewrites.
+
+- Every module is now published under `io.github.jeluchu` from the `jchucomponents-maven` repository.
+  Applications should use that repository; the `com.github.jeluchu...` JitPack coordinates are no longer
+  the supported way to consume the library (JitPack still builds each tag).
+- `jchucomponents-core`, `jchucomponents-ktx` and `jchucomponents-app-updates` were removed. Their Android
+  code is now `jchucomponents-android` (Android-only; Kotlin packages unchanged, `R` moved to
+  `com.jeluchu.jchucomponents.android.R`). Their portable code moved to `jchucomponents-foundation`:
+  `States`/`ListStates` (`foundation.state`), UUID and random helpers (`foundation.random`),
+  `noCrash`/`doOn*`/`cancelIfActive` (`foundation.coroutines`). `foundation` now depends on
+  `kotlinx-coroutines-core`, and `doOnMain` runs on `Dispatchers.Default`.
+- `jchucomponents-ui-kmp`, `jchucomponents-pay-kmp` and `jchucomponents-pdf-kmp` were renamed to
+  `jchucomponents-ui`, `jchucomponents-pay` and `jchucomponents-pdf`. The Android-only `ui` code now lives in
+  the `androidMain` of `jchucomponents-ui`. Packages `com.jeluchu.pay.revenuecat.kmp` and
+  `com.jeluchu.jchucomponents.pdf.kmp` became `com.jeluchu.pay.revenuecat` and `com.jeluchu.jchucomponents.pdf`.
+- `jchucomponents-navigation3-di` was merged into `jchucomponents-navigation3` (package `navigation3.di` unchanged);
+  `navigation3` now depends on Koin Compose.
+- The legacy Android `jchucomponents-pay` (Play Billing) and `jchucomponents-pdf` modules were removed.
+- `JchuLegacyExpandableDescription` and `JchuLegacySimpleDescription` were removed.
+
+### Improvements
+
+- `PriceUtil` (divide/multiply formatted prices) is available in the multiplatform `jchucomponents-pay`.
+- The BOM lists only the 13 current modules.
+- `jchucomponents-ui` and `jchucomponents-pdf` are published to the Maven repository with every other module.
+
 ### Added
 
 - Extensions shared by the apps, so they can drop their own copies: `DrawableResource.toPainter()`,

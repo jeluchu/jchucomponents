@@ -13,11 +13,11 @@ Declare only the capabilities used by the application:
 kotlin {
     sourceSets {
         commonMain.dependencies {
-            implementation("io.github.jeluchu:jchucomponents-foundation:3.0.0-alpha25")
-            implementation("io.github.jeluchu:jchucomponents-network:3.0.0-alpha25")
-            implementation("io.github.jeluchu:jchucomponents-ui-kmp:3.0.0-alpha25")
-            implementation("io.github.jeluchu:jchucomponents-prefs:3.0.0-alpha25")
-            implementation("io.github.jeluchu:jchucomponents-supabase:3.0.0-alpha25")
+            implementation("io.github.jeluchu:jchucomponents-foundation:3.0.0-beta01")
+            implementation("io.github.jeluchu:jchucomponents-network:3.0.0-beta01")
+            implementation("io.github.jeluchu:jchucomponents-ui:3.0.0-beta01")
+            implementation("io.github.jeluchu:jchucomponents-prefs:3.0.0-beta01")
+            implementation("io.github.jeluchu:jchucomponents-supabase:3.0.0-beta01")
         }
     }
 }
@@ -29,35 +29,34 @@ Available modules:
 | --- | --- | --- |
 | `jchucomponents-foundation` | Android, iOS ARM64, macOS ARM64 | Portable state, date, text and version helpers |
 | `jchucomponents-network` | Android, iOS ARM64, macOS ARM64 | Ktor configuration, resources and flow helpers |
-| `jchucomponents-pay` | Android, iOS ARM64, macOS ARM64 | Shared payment and subscription models |
+| `jchucomponents-pay` | Android, iOS ARM64 | RevenueCat purchases and subscription models |
 | `jchucomponents-prefs` | Android, iOS ARM64, macOS ARM64 | Typed observable preferences |
 | `jchucomponents-qr` | Android, iOS ARM64, macOS ARM64 | QR encoding and decoding |
 | `jchucomponents-supabase` | Android, iOS ARM64, macOS ARM64 | Supabase Auth, PostgREST, RPC, Realtime and Edge Functions |
-| `jchucomponents-ui-kmp` | Android, iOS ARM64 | Compose components without Android resource dependencies |
+| `jchucomponents-ui` | Android, iOS ARM64, JVM | Compose Multiplatform components, with Android-specific extras on Android |
 
-The existing Android-only `jchucomponents-ui` artifact remains available and
-re-exports the KMP UI artifact. It retains the components that depend on
-Android resources, `Context`, `View`, `Bitmap`, or Android Coil APIs.
+`jchucomponents-ui` is a single multiplatform artifact: Android applications also
+receive the components that depend on Android resources, `Context`, `View`,
+`Bitmap` or Android Coil APIs.
 
 ## Android
 
-The BOM is published to the same repository and aligns both KMP and Android
-JchuComponents versions:
+The BOM is published to the same repository and aligns every JchuComponents module:
 
 ```kotlin
 dependencies {
     implementation(
-        platform("io.github.jeluchu:jchucomponents-bom:3.0.0-alpha25")
+        platform("io.github.jeluchu:jchucomponents-bom:3.0.0-beta01")
     )
 
     implementation("io.github.jeluchu:jchucomponents-foundation")
-    implementation("com.github.jeluchu.jchucomponents:jchucomponents-ui")
-    implementation("com.github.jeluchu.jchucomponents:jchucomponents-ktx")
+    implementation("io.github.jeluchu:jchucomponents-ui")
+    implementation("io.github.jeluchu:jchucomponents-android")
 }
 ```
 
-Android-only modules are resolved from JitPack, so applications using them
-must also add `https://jitpack.io` to dependency repositories.
+All modules are resolved from the `jchucomponents-maven` repository. JitPack builds each
+tag too, but it is not required and it cannot serve the Apple variants of KMP modules.
 
 ## Swift
 

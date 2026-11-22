@@ -22,21 +22,15 @@ Apple targets are ARM64 only: `iosArm64`, `iosSimulatorArm64` and
 | `jchucomponents-monitoring` | ✅ | ✅ | ✅ | ✅ | Crash reporting and analytics (`crashlytics {}`, `analytics {}`) |
 | `jchucomponents-network` | ✅ | ✅ | ✅ | ✅ | Ktor client configuration, resources and flow helpers |
 | `jchucomponents-prefs` | ✅ | ✅ | ✅ | ✅ | Multiplatform DataStore preferences |
-| `jchucomponents-pay` | ✅ | ✅ | ✅ | — | Shared payment models and Android RevenueCat integration |
-| `jchucomponents-pay-kmp` | ✅ | ✅ | — | — | Shared RevenueCat purchases for Android and iOS (iOS ARM targets) |
+| `jchucomponents-pay` | ✅ | ✅ | — | — | Shared RevenueCat purchases for Android and iOS (iOS ARM targets) |
 | `jchucomponents-qr` | ✅ | ✅ | ✅ | — | QR encoding and decoding utilities |
 | `jchucomponents-room` | ✅ | ✅ | — | ✅ | Room 3 runtime configuration and SQL migrations |
 | `jchucomponents-supabase` | ✅ | ✅ | ✅ | — | Supabase Auth, database, realtime, Edge Functions and Koin setup |
-| `jchucomponents-core` | ✅ | ✅ | ✅ | — | Android architecture and lifecycle utilities with portable core APIs |
-| `jchucomponents-ktx` | ✅ | ✅ | ✅ | — | Android APIs and portable Kotlin extension compatibility helpers |
-| `jchucomponents-ui-kmp` | ✅ | ✅ | — | ✅ | Portable Compose components without Android resource dependencies (iOS ARM targets) |
-| `jchucomponents-ui` | ✅ | — | — | — | Android adapter for resource- and platform-dependent components; re-exports `jchucomponents-ui-kmp` |
-| `jchucomponents-pdf` | ✅ | — | — | — | Remote PDF reader with generated Navigation 3 routes |
-| `jchucomponents-pdf-kmp` | ✅ | ✅ | — | — | Compose Multiplatform PDF reader with Android PdfRenderer and iOS PDFKit (iOS ARM targets) |
+| `jchucomponents-android` | ✅ | — | — | — | Android-only utilities: Context and lifecycle extensions, ViewModel base, media player and Google Play in-app updates |
+| `jchucomponents-ui` | ✅ | ✅ | — | ✅ | Compose Multiplatform components for Android, iOS ARM and JVM desktop, plus Android-specific extras (resources, Coil, scaffolds) in `androidMain` |
+| `jchucomponents-pdf` | ✅ | ✅ | — | — | Compose Multiplatform PDF reader with Android PdfRenderer and iOS PDFKit (iOS ARM targets) |
 | `jchucomponents-navigation3` | ✅ | ✅ | — | ✅ | Compose Multiplatform Navigation 3 annotations, helpers and KSP processor (iOS ARM targets) |
-| `jchucomponents-navigation3-di` | ✅ | ✅ | — | ✅ | Dependency injection helpers for generated Navigation 3 entries on JVM and iOS ARM targets |
-| `jchucomponents-app-updates` | ✅ | — | — | — | Google Play update `StateFlow` and lifecycle controller; apps own the UI |
-| `jchucomponents-bom` | ✅ | — | — | — | Aligned Android module versions |
+| `jchucomponents-bom` | ✅ | ✅ | ✅ | ✅ | Aligned versions for every module |
 
 The Swift package complements the shared Kotlin code with
 `JchuComponentsCore`, `JchuComponentsExtensions`, `JchuComponentsSwiftUI`,
@@ -45,7 +39,7 @@ The Swift package complements the shared Kotlin code with
 
 ## Installation
 
-The examples below use `3.0.0-alpha25`. Replace it with the
+The examples below use `3.0.0-beta01`. Replace it with the
 [latest available release](https://github.com/Jeluchu/jchucomponents/releases).
 
 ### Kotlin Multiplatform
@@ -58,13 +52,13 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             implementation(
-                "io.github.jeluchu:jchucomponents-foundation:3.0.0-alpha25"
+                "io.github.jeluchu:jchucomponents-foundation:3.0.0-beta01"
             )
             implementation(
-                "io.github.jeluchu:jchucomponents-network:3.0.0-alpha25"
+                "io.github.jeluchu:jchucomponents-network:3.0.0-beta01"
             )
             implementation(
-                "io.github.jeluchu:jchucomponents-ui-kmp:3.0.0-alpha25"
+                "io.github.jeluchu:jchucomponents-ui:3.0.0-beta01"
             )
         }
     }
@@ -75,48 +69,44 @@ The available KMP artifacts are:
 
 ```text
 io.github.jeluchu:jchucomponents-foundation
-io.github.jeluchu:jchucomponents-core
-io.github.jeluchu:jchucomponents-ktx
+io.github.jeluchu:jchucomponents-android
 io.github.jeluchu:jchucomponents-config
 io.github.jeluchu:jchucomponents-network
-io.github.jeluchu:jchucomponents-ui-kmp
-io.github.jeluchu:jchucomponents-pdf-kmp
+io.github.jeluchu:jchucomponents-ui
+io.github.jeluchu:jchucomponents-pdf
 io.github.jeluchu:jchucomponents-pay
-io.github.jeluchu:jchucomponents-pay-kmp
 io.github.jeluchu:jchucomponents-prefs
 io.github.jeluchu:jchucomponents-qr
 io.github.jeluchu:jchucomponents-room
 io.github.jeluchu:jchucomponents-supabase
 io.github.jeluchu:jchucomponents-navigation3
-io.github.jeluchu:jchucomponents-navigation3-di
 io.github.jeluchu:jchucomponents-bom
-io.github.jeluchu:jchucomponents-app-updates
 ```
 
-`jchucomponents-ktx` keeps its Android extensions in `androidMain`; its shared
-API provides the existing boolean, list, and serialization package names plus
-a portable `Job` helper, backed by `jchucomponents-foundation` where an
-equivalent already exists. Dispatcher-based coroutine helpers remain in
-`androidMain`.
+`jchucomponents-android` is Android-only. It replaces the former
+`jchucomponents-core`, `jchucomponents-ktx` and `jchucomponents-app-updates`
+modules; their Kotlin packages are unchanged. Portable helpers that used to
+live in `core` and `ktx` (`States`, `ListStates`, UUID/random helpers,
+`noCrash`/`doOn*` and `Job.cancelIfActive`) now live in
+`jchucomponents-foundation`.
 
-`jchucomponents-pay` keeps its existing Android RevenueCat API and shared
-payment models. For purchases from common Kotlin on Android and iOS, use
-`jchucomponents-pay-kmp`; it wraps RevenueCat's official Kotlin Multiplatform
-SDK and publishes Android, `iosArm64`, and `iosSimulatorArm64` variants. Its
-RevenueCat SDK dependency is limited to Android and iOS, so this artifact does
-not currently target macOS.
+`jchucomponents-pay` wraps RevenueCat's official Kotlin Multiplatform SDK for
+purchases from common Kotlin on Android and iOS. Its RevenueCat SDK dependency is
+limited to those platforms, so it does not currently target macOS.
 
 Most listed artifacts contain Android, iOS ARM64 and macOS ARM64 variants.
 The exceptions are `jchucomponents-room`, `jchucomponents-navigation3`,
-`jchucomponents-navigation3-di`,
-`jchucomponents-pdf-kmp`, `jchucomponents-pay-kmp`, and
-`jchucomponents-ui-kmp`, which currently contain
+`jchucomponents-pdf`, `jchucomponents-pay`, and
+`jchucomponents-ui`, which currently contain
 Android, `iosArm64`, and `iosSimulatorArm64`; and
-`jchucomponents-app-updates`, which is Android-only and intended for apps
-distributed through Google Play. Consumers provide their own update interface.
-JitPack's Linux builds do not produce the Apple KLIB variants, so KMP
-applications targeting iOS or macOS must use the `jchucomponents-maven` repository, because JitPack also
-rewrites the Gradle metadata of KMP modules and breaks their resolution.
+`jchucomponents-android`, which is Android-only. Its Google Play update controller
+is intended for apps distributed through Google Play; consumers provide their own
+update interface.
+Every artifact is served complete from the `jchucomponents-maven` repository; use it
+in applications. The Release workflow also asks JitPack to build each tag
+(`com.github.jeluchu.jchucomponents:*`), but JitPack's Linux builds do not produce the
+Apple KLIB variants and it rewrites the Gradle metadata of KMP modules, which breaks
+their resolution, so KMP modules must not be consumed from JitPack.
 
 `jchucomponents-foundation` also provides `JchuLocaleProvider` for reading the
 system language from shared code. `getPlatformLanguageCode()` maps Spanish in
@@ -124,68 +114,43 @@ the United States to `es-US` and returns the base language code for other
 regional locales; `getLanguageTag()` exposes the full BCP 47 tag where the
 platform provides one.
 
-`jchucomponents-ui-kmp` contains the UI components that compile for Android,
-`iosArm64`, and `iosSimulatorArm64`. The Android `jchucomponents-ui` artifact
-keeps the existing Android API and adds the platform-bound parts that use `R`, `Context`, `View`,
-`Bitmap`, Android resource APIs or Android Coil requests. KMP applications
-should depend on `jchucomponents-ui-kmp` directly; Android applications can
-continue using `jchucomponents-ui` as before.
+`jchucomponents-ui` is a Kotlin Multiplatform module. Its common code compiles for
+Android, `iosArm64`, `iosSimulatorArm64` and JVM desktop. The platform-bound
+components that use `R`, `Context`, `View`, `Bitmap`, Android resource APIs or Android
+Coil requests live in its `androidMain`, so Android applications get them from the same
+dependency.
 
 ### Android
 
-Add JitPack to `settings.gradle.kts`:
+Add the `jchucomponents-maven` repository to `settings.gradle.kts`:
 
 ```kotlin
 dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
-        // KMP artifacts (io.github.jeluchu coordinates)
         maven("https://raw.githubusercontent.com/jeluchu/jchucomponents-maven/main")
-        maven("https://jitpack.io")
     }
 }
 ```
 
-Use the BOM to keep Android modules on the same version:
+Use the BOM to keep every module on the same version:
 
 ```kotlin
 dependencies {
     implementation(
-        platform("io.github.jeluchu:jchucomponents-bom:3.0.0-alpha25")
+        platform("io.github.jeluchu:jchucomponents-bom:3.0.0-beta01")
     )
-    implementation("com.github.jeluchu.jchucomponents:jchucomponents-ui")
-    implementation("io.github.jeluchu:jchucomponents-ktx")
+    implementation("io.github.jeluchu:jchucomponents-ui")
+    implementation("io.github.jeluchu:jchucomponents-android")
 }
 ```
 
-Alternatively, specify each JitPack artifact version directly:
-
-```kotlin
-dependencies {
-    implementation(
-        "com.github.jeluchu.jchucomponents:jchucomponents-ui:3.0.0-alpha25"
-    )
-    implementation(
-        "com.github.jeluchu.jchucomponents:jchucomponents-pdf:3.0.0-alpha25"
-    )
-}
-```
-
-The `jchucomponents-pdf` artifact provides an Android Compose screen for remote
-PDF URLs and is available through JitPack starting with `3.0.0-alpha23`.
-The library generates its typed `PdfReaderRoutes.Reader(url)` route and
-`pdfReaderEntries(backStack)` provider, so apps register the provider in their
-Navigation 3 entry provider and navigate to the generated route. The artifact is
-Android-only and is distributed through JitPack.
-
-For Compose Multiplatform apps, use the KMP artifact
-`io.github.jeluchu:jchucomponents-pdf-kmp`. It provides the same reader route on
-Android, `iosArm64`, and `iosSimulatorArm64`, using PdfRenderer/FileProvider on
-Android and PDFKit/native sharing on iOS. Add it to `commonMain` and register
-`pdfReaderKmpEntries(backStack)`; then navigate with
-`PdfReaderKmpRoutes.Reader(url = remotePdfUrl)`. The Android-only artifact
-remains available unchanged.
+`jchucomponents-pdf` provides a Compose Multiplatform PDF reader route on Android,
+`iosArm64` and `iosSimulatorArm64`, using PdfRenderer/FileProvider on Android and
+PDFKit/native sharing on iOS. Add it to `commonMain`, register
+`pdfReaderKmpEntries(backStack)` and navigate with
+`PdfReaderKmpRoutes.Reader(url = remotePdfUrl)`.
 
 ### Multiplatform payments
 
@@ -196,7 +161,7 @@ to `commonMain`:
 kotlin {
     sourceSets {
         commonMain.dependencies {
-            implementation("io.github.jeluchu:jchucomponents-pay-kmp:3.0.0-alpha25")
+            implementation("io.github.jeluchu:jchucomponents-pay:3.0.0-beta01")
         }
     }
 }
@@ -206,8 +171,8 @@ Initialize it once with the API key for the current store, then load the active
 offering and make purchases from shared Kotlin:
 
 ```kotlin
-import com.jeluchu.pay.revenuecat.kmp.Payment
-import com.jeluchu.pay.revenuecat.kmp.initPayment
+import com.jeluchu.pay.revenuecat.Payment
+import com.jeluchu.pay.revenuecat.initPayment
 
 initPayment(
     apiKey = revenueCatApiKey,
@@ -222,7 +187,7 @@ val purchaseResult = Payment.purchaseResult(Payment.ProductsType.MONTHLY)
 The artifact uses RevenueCat's Kotlin Multiplatform SDK 3.6.0 and currently
 targets Android, `iosArm64`, and `iosSimulatorArm64`. macOS is not included
 because the upstream KMP SDK does not currently publish a macOS target. See
-the [module README](jchucomponents-pay-kmp/README.md) for callbacks, restore,
+the [module README](jchucomponents-pay/README.md) for callbacks, restore,
 subscription status, and plan switching.
 
 ### Swift Package Manager
@@ -317,11 +282,9 @@ targets (`iosArm64` and `iosSimulatorArm64`). Configure KSP with
 `kspCommonMainMetadata` in the module containing those screens. The host still
 supplies its Navigation 3 UI dependency and root `NavDisplay`.
 
-The optional `jchucomponents-navigation3-di` artifact provides Koin
-`inject()`/`injectByParams()` helpers on Android, JVM, `iosArm64` and
-`iosSimulatorArm64`. It uses Koin's multiplatform Compose ViewModel APIs and
-shares the runtime module's target restrictions: Navigation 3 1.2.0 has no
-`iosX64` or macOS variants.
+`jchucomponents-navigation3` also provides Koin `inject()`/`injectByParams()` helpers on
+Android, JVM, `iosArm64` and `iosSimulatorArm64`, using Koin's multiplatform Compose
+ViewModel APIs. Navigation 3 1.2.0 has no `iosX64` or macOS variants.
 The runtime module is independent of `jchucomponents-ui`. The processor groups
 screens by graph, uses each composable name as its default route, and wires
 typed arguments, back callbacks, cross-graph navigation and app-owned custom

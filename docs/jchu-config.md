@@ -67,7 +67,7 @@ fun startApp() {
 | `preferences { fileName }` | `jchucomponents-prefs` | `JchuPreferences` (DataStore) and `JchuPreferencesHelper` (synchronous reads and writes) in Koin |
 | `crashlytics { collectionEnabled; backend; appContext; userId { flow } }` | `jchucomponents-monitoring` | `JchuMonitoring.crash` (log, record exceptions, user id, custom keys); tags reports with platform, version and build by itself |
 | `analytics { collectionEnabled; backend }` | `jchucomponents-monitoring` | `JchuMonitoring.analytics` (events, screens, user id and properties) |
-| `payments { apiKey; isDebug; subscriptionName; optional }` | `jchucomponents-pay-kmp` | Initializes RevenueCat. `apiKey` and `isDebug` default to the app metadata `revenuecat` and `JchuAppInfo.isDebug` |
+| `payments { apiKey; isDebug; subscriptionName; optional }` | `jchucomponents-pay` | Initializes RevenueCat. `apiKey` and `isDebug` default to the app metadata `revenuecat` and `JchuAppInfo.isDebug` |
 | `supabase { url; publishableKey; auth; modules; optional }` | `jchucomponents-supabase` | Validated Supabase client and sub-clients in Koin |
 | `network(name?) { baseUrl; enableLogging; header(...); useJson; engine... }` | `jchucomponents-network` | A shared Ktor `HttpClient` in Koin; with a name, an extra client under `named(name)` |
 | `database<T>(name) { migrations; fallbackToDestructiveMigration }` | `jchucomponents-room` | A Room 3 database in Koin, one call per database |
@@ -215,7 +215,7 @@ not be migrated.
 ### Text and images
 
 - `String.removeDiacritics()` (`jchucomponents-foundation`): `"Canción ñandú"` becomes `"Cancion nandu"`.
-- `ImageBitmap.toPngBytesOrNull()` (`jchucomponents-ui-kmp`): PNG bytes for sharing or saving, null if encoding fails.
+- `ImageBitmap.toPngBytesOrNull()` (`jchucomponents-ui`): PNG bytes for sharing or saving, null if encoding fails.
 
 ### HTTP clients
 
