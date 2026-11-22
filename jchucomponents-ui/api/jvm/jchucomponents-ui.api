@@ -985,6 +985,16 @@ public final class com/jeluchu/jchucomponents/ui/extensions/PaddingValuesExtensi
 	public static final fun withHorizontalPadding-lG28NQ4 (Landroidx/compose/foundation/layout/PaddingValues;FLandroidx/compose/ui/unit/LayoutDirection;)Landroidx/compose/foundation/layout/PaddingValues;
 }
 
+public final class com/jeluchu/jchucomponents/ui/extensions/color/ColorExtensionsKt {
+	public static final fun isDark-8_81llA (J)Z
+	public static final fun opacity-ek8zF_U (JZF)J
+	public static synthetic fun opacity-ek8zF_U$default (JZFILjava/lang/Object;)J
+	public static final fun orTransparent-_7FUsp8 (Landroidx/compose/ui/graphics/Color;J)J
+	public static synthetic fun orTransparent-_7FUsp8$default (Landroidx/compose/ui/graphics/Color;JILjava/lang/Object;)J
+	public static final fun random (Landroidx/compose/ui/graphics/Color$Companion;)J
+	public static final fun toColorFilter-8_81llA (J)Landroidx/compose/ui/graphics/ColorFilter;
+}
+
 public final class com/jeluchu/jchucomponents/ui/extensions/dimensions/DpExtensionsKt {
 	public static final fun getPx (FLandroidx/compose/runtime/Composer;I)F
 	public static final fun getRoundToPx (FLandroidx/compose/runtime/Composer;I)I

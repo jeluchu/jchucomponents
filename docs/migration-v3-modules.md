@@ -87,6 +87,40 @@ The generated navigation names (`pdfReaderKmpEntries`, `PdfReaderKmpRoutes`) are
 The `R` class of the former `ktx` module moved with the new namespace:
 `com.jeluchu.jchucomponents.ktx.R` is now `com.jeluchu.jchucomponents.android.R`.
 
+## Extensions that moved from `jchucomponents-android` to the KMP modules
+
+The portable extensions of the old `ktx` package now live in KMP modules, so they work in `commonMain`:
+
+| Old import | New import |
+|---|---|
+| `ktx.strings.empty`, `ktx.numbers.empty` | `foundation.extensions.empty` |
+| `ktx.strings.orEmpty`, `ktx.numbers.orEmpty`, `ktx.numbers.isNotEmpty` | `foundation.extensions.orEmpty`, `isNotEmpty` |
+| `ktx.numbers.bytesToMeg`, `milliSecondsToTimer`, `roundUpToNearestTen`, `thousandsFormat` | `foundation.extensions.*` |
+| `ktx.any.isNull` | `foundation.extensions.isNull` |
+| `ktx.strings.getLastBitFromUrl`, `extractYTId`, `deleteDouble`, `safeValue`, `removeCharactersWeirds`, `isEmptyString`, `isIp`, `getCurrencyString` | `foundation.text.*` |
+| `ktx.colors.orTransparent`, `opacity`, `isDark`, `toColorFilter`, `random` | `ui.extensions.color.*` |
+
+All prefixes are `com.jeluchu.jchucomponents.`. `ktx.strings.isEmpty` (a copy of the stdlib function) and
+`Color.Companion.Random` were removed.
+
+Behavior changes while moving:
+
+- `extractYTId` now recognizes `youtube.com/watch?v=ID` URLs (the old pattern treated `?` as a quantifier and only matched
+  `youtu.be` and `embed` links).
+- `milliSecondsToTimer` pads the minutes when there are hours (`1:01:05`, it used to return `1:1:05`).
+- `Color.isDark()` uses Compose's `luminance()` instead of `androidx.core.ColorUtils`.
+
+Not moved on purpose: `ktx.strings.noNumbers`, `onlyNumbers`, `allUpperCase`, `allLowerCase`, `atLeastOneNumber`,
+`atLeastOneLowerCase`, `atLeastOneUpperCase`, `atLeastOneSpecialCharacter`, `noSpecialCharacter` and `startsWithNonNumber`.
+They return `true` when the rule is *violated* (`noNumbers()` is `true` for a text that has digits), which would be a
+misleading public KMP API. The `String` helpers whose names also exist in `foundation.text` but behave differently
+(`capitalizeWords`, `capitalizeFirstLetter`, `toHttpsUrl`, `wordCount`, `isNumber`, `onlyDigits`) stay in
+`jchucomponents-android`; prefer the `foundation.text` versions.
+
+New in this release: `Flow<Resource>.awaitResource`, `awaitResourceData`, `awaitRequiredResourceData`, `awaitResourceUnit`,
+`asResourceFlow`, `catchAsResourceError` and `ResourceException` in `network`; `Throwable.rethrowIfCancellation` in
+`foundation.coroutines`; a public `String.normalizeForSearch()` and `NSData.toByteArray()` in `foundation`.
+
 ## Material 3 only
 
 `jchucomponents-ui` no longer depends on Material 2. It declares

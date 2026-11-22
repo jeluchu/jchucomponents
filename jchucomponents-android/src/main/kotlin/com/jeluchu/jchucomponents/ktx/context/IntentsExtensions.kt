@@ -15,7 +15,7 @@ import android.provider.MediaStore
 import androidx.annotation.ColorRes
 import com.jeluchu.jchucomponents.ktx.constants.INTENT_TYPE_IMG_PNG
 import com.jeluchu.jchucomponents.ktx.constants.INTENT_TYPE_TEXT
-import com.jeluchu.jchucomponents.ktx.strings.empty
+import com.jeluchu.jchucomponents.foundation.extensions.empty
 import java.io.ByteArrayOutputStream
 
 private fun intentView(url: String) = Intent(Intent.ACTION_VIEW, Uri.parse(url))

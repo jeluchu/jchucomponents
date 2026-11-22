@@ -29,7 +29,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.jeluchu.jchucomponents.ktx.numbers.isNotEmpty
+import com.jeluchu.jchucomponents.foundation.extensions.isNotEmpty
 import com.jeluchu.jchucomponents.ui.composables.images.NetworkImage
 import com.jeluchu.jchucomponents.ui.extensions.modifier.cornerRadius
 import com.jeluchu.jchucomponents.ui.extensions.modifier.noRippleClickable

@@ -28,6 +28,20 @@ public final class com/jeluchu/jchucomponents/network/extensions/flow/FlowExtens
 	public static final fun flowResourceCollector (Lkotlinx/coroutines/flow/Flow;Ljava/lang/Object;Lkotlinx/coroutines/CoroutineScope;Lkotlin/jvm/functions/Function0;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;)Lkotlinx/coroutines/Job;
 }
 
+public final class com/jeluchu/jchucomponents/network/extensions/flow/ResourceAwaitExtensionsKt {
+	public static final fun asResourceFlow (Lkotlinx/coroutines/flow/Flow;)Lkotlinx/coroutines/flow/Flow;
+	public static final fun awaitRequiredResourceData (Lkotlinx/coroutines/flow/Flow;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun awaitResource (Lkotlinx/coroutines/flow/Flow;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun awaitResourceData (Lkotlinx/coroutines/flow/Flow;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun awaitResourceUnit (Lkotlinx/coroutines/flow/Flow;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun catchAsResourceError (Lkotlinx/coroutines/flow/Flow;)Lkotlinx/coroutines/flow/Flow;
+}
+
+public final class com/jeluchu/jchucomponents/network/extensions/flow/ResourceException : java/lang/RuntimeException {
+	public fun <init> (Lcom/jeluchu/jchucomponents/network/models/Failure;)V
+	public final fun getFailure ()Lcom/jeluchu/jchucomponents/network/models/Failure;
+}
+
 public final class com/jeluchu/jchucomponents/network/handler/NetworkHandler {
 	public fun <init> ()V
 	public final fun isNetworkAvailable ()Z

@@ -31,6 +31,13 @@ The module layout was consolidated before `3.0.0-beta01`. See
 
 ### Improvements
 
+- Portable extensions moved out of `jchucomponents-android` into the KMP modules: number helpers (`orEmpty`, `isNotEmpty`,
+  `thousandsFormat`, `milliSecondsToTimer`...) and text helpers (`getLastBitFromUrl`, `extractYTId`, `isIp`...) in
+  `foundation`, and `Color` helpers (`orTransparent`, `toColorFilter`, `isDark`...) in `ui`. See the migration guide.
+- `network` gets `Flow<Resource>` await helpers (`awaitResource`, `awaitResourceData`, `awaitRequiredResourceData`,
+  `awaitResourceUnit`, `asResourceFlow`, `catchAsResourceError`) and `ResourceException`; `foundation` gets
+  `Throwable.rethrowIfCancellation()`, a public `String.normalizeForSearch()` and `NSData.toByteArray()`.
+
 - `PriceUtil` (divide/multiply formatted prices) is available in the multiplatform `jchucomponents-pay`.
 - The BOM lists only the 13 current modules.
 - `jchucomponents-ui` and `jchucomponents-pdf` are published to the Maven repository with every other module.
@@ -90,6 +97,8 @@ The module layout was consolidated before `3.0.0-beta01`. See
 
 ### Fixed
 
+- `extractYTId` now reads `youtube.com/watch?v=ID` URLs (the old regex treated `?` as a quantifier), and `milliSecondsToTimer`
+  pads the minutes when there are hours (`1:01:05` instead of `1:1:05`).
 - `NetworkHandler` on iOS and macOS always reported being online; it now uses the Network framework.
 
 ## 3.0.0-alpha15

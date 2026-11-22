@@ -15,8 +15,12 @@ import android.util.Base64
 import android.util.Log
 import android.util.Patterns
 import androidx.compose.ui.graphics.Color
+import com.jeluchu.jchucomponents.foundation.extensions.empty
+import com.jeluchu.jchucomponents.foundation.text.safeValue
 import com.jeluchu.jchucomponents.ktx.constants.DATE_FORMAT_TIMESTAMP
 import com.jeluchu.jchucomponents.ktx.constants.DATE_FORMAT_VERBOSE
+import com.jeluchu.jchucomponents.network.extensions.getBitmapFromUrl as networkBitmapFromUrl
+import com.jeluchu.jchucomponents.network.extensions.saveImage as networkSaveImage
 import org.intellij.lang.annotations.RegExp
 import org.json.JSONObject
 import java.io.File
@@ -28,15 +32,6 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 import java.util.regex.Pattern
-import com.jeluchu.jchucomponents.network.extensions.getBitmapFromUrl as networkBitmapFromUrl
-import com.jeluchu.jchucomponents.network.extensions.saveImage as networkSaveImage
-
-fun String.removeFirstLastChar(): String = this.substring(1, this.length - 1)
-
-/** ---- FORMATER STRINGS ---------------------------------------------------------------------- **/
-fun String.addSpaceAfterEvery4Chars() = replace("....".toRegex(), "$0 ")
-
-fun String.addSpaceAfterEvery3Chars() = replace("...".toRegex(), "$0 ")
 
 /** ---- REGEX AND CONST ----------------------------------------------------------------------- **/
 
@@ -57,8 +52,6 @@ private const val LETRAS_NIF = "TRWAGMYFPDXBNJZSQVHLCKE"
 
 /** ---- IMAGES DOWNLOAD URL ------------------------------------------------------------------- **/
 
-fun String.getLastBitFromUrl(): String = replaceFirst(".*/([^/?]+).*".toRegex(), "$1")
-
 fun String.saveImage(destinationFile: File) {
     networkSaveImage(destinationFile)
 }
@@ -71,27 +64,11 @@ fun String.getColorWithHex(): Color = Color(android.graphics.Color.parseColor("#
 
 /** ---- YOUTUBE ------------------------------------------------------------------------------- **/
 
-fun String.extractYTId(): String? {
-    var vId: String? = null
-    val pattern =
-        Pattern.compile(
-            "^https?://.*(?:youtu.be/|v/|u/\\w/|embed/|watch?v=)([^#&?]*).*$",
-            Pattern.CASE_INSENSITIVE
-        )
-    val matcher = pattern.matcher(this)
-    if (matcher.matches()) {
-        vId = matcher.group(1)
-    }
-    return vId
-}
-
 /** ---- BITMAPS ------------------------------------------------------------------------------- **/
 
 fun String.getBitmapFromURL(): Bitmap? = networkBitmapFromUrl()
 
 fun String.toBitmapDrawable(context: Context): BitmapDrawable = BitmapDrawable(context.resources, getBitmapFromURL())
-
-fun String.deleteDouble() = this.split(".")[0]
 
 /** ---- DATE ---------------------------------------------------------------------------------- **/
 
@@ -139,14 +116,6 @@ fun String?.toDateTimeNull(): Date? =
     }
 
 /** ---- CHECKER ------------------------------------------------------------------------------- **/
-
-fun String?.safeValue(default: String = String.empty()) = this?.let { return@let it } ?: default
-
-fun String?.removeCharactersWeirds() =
-    this?.let { return@let it.replace("\n", String.empty()).replace("\r", String.empty()) }
-        ?: String.empty()
-
-fun CharSequence.isEmptyString(): Boolean = this.isEmpty() || this.toString().equals("null", true)
 
 fun CharSequence.isDigitOnly(): Boolean = (0 until length).any { Character.isDigit(this[it]) }
 
@@ -243,21 +212,6 @@ fun Any.readResourceText(resource: String): String? =
         ?.getResource(resource)
         ?.readText()
 
-inline val String.isIp: Boolean
-    get() {
-        val p =
-            Pattern.compile("([1-9]|[1-9]\\d|1\\d{2}|2[0-4]\\d|25[0-5])(\\.(\\d|[1-9]\\d|1\\d{2}|2[0-4]\\d|25[0-5])){3}")
-        val m = p.matcher(this)
-        return m.find()
-    }
-
-fun String?.returnNullIfEmpty() =
-    if (this != null && this.isEmpty()) {
-        null
-    } else {
-        this
-    }
-
 /** ---- ENCODE & DECODE ----------------------------------------------------------------------- **/
 
 fun String.fromNormalBase64ToImage(): Bitmap {
@@ -311,16 +265,6 @@ fun String.remove(
 
 fun String.remove(regex: Regex) = replace(regex, String.empty())
 
-fun String.Companion.empty() = ""
-
-fun String?.orEmpty(defaultValue: String = String.empty()) = this ?: defaultValue
-
-@Suppress("EXTENSION_SHADOWED_BY_MEMBER")
-fun CharSequence.isEmpty(): Boolean = length == 0
-
-@Suppress("EXTENSION_SHADOWED_BY_MEMBER")
-fun String.isEmpty(): Boolean = length == 0
-
 fun String.replace(): String = replace("-", " ")
 
 fun String.parseDate(): String? =
@@ -357,18 +301,6 @@ fun String.jwtBodyToJsonObject(): JSONObject? {
 }
 
 /** ---- CURRENCIES ---------------------------------------------------------------------------- **/
-
-fun String.getCurrencyString() =
-    when (this) {
-        "EUR" -> "€"
-        "GBP" -> "£"
-        "USD" -> "$"
-        "CHF" -> "Fr"
-        "SEK" -> "kr"
-        "DKK" -> "kr"
-        "RUB" -> "₽"
-        else -> "€"
-    }
 
 fun String.toPriceAmount(): String {
     val dec = DecimalFormat("###,###,###.00")

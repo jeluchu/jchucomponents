@@ -56,6 +56,10 @@ public final class com/jeluchu/jchucomponents/foundation/coroutines/JobExtension
 	public static final fun cancelIfActive (Lkotlinx/coroutines/Job;)V
 }
 
+public final class com/jeluchu/jchucomponents/foundation/coroutines/ThrowableExtensionsKt {
+	public static final fun rethrowIfCancellation (Ljava/lang/Throwable;)V
+}
+
 public final class com/jeluchu/jchucomponents/foundation/crypto/CaesarCipher {
 	public static final field DEFAULT_KEY I
 	public static final field INSTANCE Lcom/jeluchu/jchucomponents/foundation/crypto/CaesarCipher;
@@ -76,6 +80,23 @@ public final class com/jeluchu/jchucomponents/foundation/extensions/BooleanExten
 }
 
 public final class com/jeluchu/jchucomponents/foundation/extensions/NumberExtensionsKt {
+	public static final fun empty (Lkotlin/jvm/internal/DoubleCompanionObject;)D
+	public static final fun empty (Lkotlin/jvm/internal/FloatCompanionObject;)F
+	public static final fun empty (Lkotlin/jvm/internal/IntCompanionObject;)I
+	public static final fun empty (Lkotlin/jvm/internal/LongCompanionObject;)J
+	public static final fun isNegative (Ljava/lang/Number;)Z
+	public static final fun isNegativeOrZero (Ljava/lang/Number;)Z
+	public static final fun isNotEmpty (I)Z
+	public static final fun isPositive (Ljava/lang/Number;)Z
+	public static final fun isPositiveOrZero (Ljava/lang/Number;)Z
+	public static final fun orEmpty (Ljava/lang/Double;D)D
+	public static final fun orEmpty (Ljava/lang/Float;F)F
+	public static final fun orEmpty (Ljava/lang/Integer;I)I
+	public static final fun orEmpty (Ljava/lang/Long;J)J
+	public static synthetic fun orEmpty$default (Ljava/lang/Double;DILjava/lang/Object;)D
+	public static synthetic fun orEmpty$default (Ljava/lang/Float;FILjava/lang/Object;)F
+	public static synthetic fun orEmpty$default (Ljava/lang/Integer;IILjava/lang/Object;)I
+	public static synthetic fun orEmpty$default (Ljava/lang/Long;JILjava/lang/Object;)J
 	public static final fun orZero (Ljava/lang/Double;D)D
 	public static final fun orZero (Ljava/lang/Float;F)F
 	public static final fun orZero (Ljava/lang/Integer;I)I
@@ -88,6 +109,13 @@ public final class com/jeluchu/jchucomponents/foundation/extensions/NumberExtens
 	public static final fun zero (Lkotlin/jvm/internal/FloatCompanionObject;)F
 	public static final fun zero (Lkotlin/jvm/internal/IntCompanionObject;)I
 	public static final fun zero (Lkotlin/jvm/internal/LongCompanionObject;)J
+}
+
+public final class com/jeluchu/jchucomponents/foundation/extensions/NumberFormatExtensionsKt {
+	public static final fun bytesToMeg (J)Ljava/lang/String;
+	public static final fun milliSecondsToTimer (I)Ljava/lang/String;
+	public static final fun roundUpToNearestTen (Ljava/lang/Integer;)I
+	public static final fun thousandsFormat (I)Ljava/lang/String;
 }
 
 public final class com/jeluchu/jchucomponents/foundation/extensions/StringExtensionsKt {
@@ -271,6 +299,19 @@ public final class com/jeluchu/jchucomponents/foundation/text/StringExtensionsKt
 	public static final fun getTranslateOrDefault (Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
 	public static final fun isBuyNotAvailability (Ljava/lang/String;)Z
 	public static final fun isNotZero (Ljava/lang/String;)Z
+}
+
+public final class com/jeluchu/jchucomponents/foundation/text/TextExtensionsKt {
+	public static final fun deleteDouble (Ljava/lang/String;)Ljava/lang/String;
+	public static final fun extractYTId (Ljava/lang/String;)Ljava/lang/String;
+	public static final fun getCurrencyString (Ljava/lang/String;)Ljava/lang/String;
+	public static final fun getLastBitFromUrl (Ljava/lang/String;)Ljava/lang/String;
+	public static final fun isEmptyString (Ljava/lang/CharSequence;)Z
+	public static final fun isIp (Ljava/lang/String;)Z
+	public static final fun normalizeForSearch (Ljava/lang/String;)Ljava/lang/String;
+	public static final fun removeCharactersWeirds (Ljava/lang/String;)Ljava/lang/String;
+	public static final fun safeValue (Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+	public static synthetic fun safeValue$default (Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Ljava/lang/String;
 }
 
 public final class com/jeluchu/jchucomponents/foundation/text/ValidationExtensionsKt {

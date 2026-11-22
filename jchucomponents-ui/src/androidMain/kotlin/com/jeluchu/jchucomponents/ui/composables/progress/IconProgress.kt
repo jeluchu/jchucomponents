@@ -32,7 +32,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.jeluchu.jchucomponents.ktx.colors.toColorFilter
+import com.jeluchu.jchucomponents.ui.extensions.color.toColorFilter
 import com.jeluchu.jchucomponents.ui.R
 import com.jeluchu.jchucomponents.ui.extensions.modifier.cornerRadius
 import com.jeluchu.jchucomponents.ui.extensions.toImageVector

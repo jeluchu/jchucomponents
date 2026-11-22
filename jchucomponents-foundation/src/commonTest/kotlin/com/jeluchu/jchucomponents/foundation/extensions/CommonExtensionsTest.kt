@@ -24,8 +24,8 @@ class CommonExtensionsTest {
 
     @Test
     fun nullableStringsUseEmptyOrProvidedDefaults() {
-        assertEquals("", null.orEmpty())
-        assertEquals("fallback", null.orEmpty(defaultValue = "fallback"))
+        assertEquals("", (null as String?).orEmpty())
+        assertEquals("fallback", (null as String?).orEmpty(defaultValue = "fallback"))
         assertEquals("value", "value".orEmpty())
     }
 

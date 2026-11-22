@@ -4,8 +4,6 @@ import android.util.Log
 import com.jeluchu.jchucomponents.ktx.constants.JCHUCOMPONENTS_ERROR
 import com.jeluchu.jchucomponents.foundation.serialization.defaultJson
 
-fun Any?.isNull() = this == null
-
 val Any.logTag: String
     get() = this::class.java.simpleName
 
