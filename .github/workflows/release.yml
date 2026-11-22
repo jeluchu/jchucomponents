@@ -147,9 +147,11 @@ jobs:
             git push origin HEAD:main
           fi
 
-  # JitPack builds a version the first time somebody requests it. It serves the Android-only modules
-  # (ui, core, ktx...), so ask for the new tag now instead of making the first consumer wait.
-  # The KMP modules come from jchucomponents-maven, so a JitPack failure never fails the release.
+  # JitPack builds a version the first time somebody requests it, and that build is slow (over an hour
+  # before the module consolidation). Ask for the new tag now so the first consumer does not wait.
+  # `jchucomponents-android` is the Android-only module JitPack can serve in full; the KMP modules are
+  # also built there on Linux without their Apple targets. Every module, KMP or not, comes complete from
+  # jchucomponents-maven, so a JitPack failure never fails the release.
   warm-jitpack:
     name: Ask JitPack to build the tag
     needs: validate
@@ -159,8 +161,8 @@ jobs:
       - name: Request the build and wait for it
         run: |
           base="https://jitpack.io"
-          pom="${base}/com/github/jeluchu/jchucomponents/jchucomponents-ui/${GITHUB_REF_NAME}/jchucomponents-ui-${GITHUB_REF_NAME}.pom"
-          for attempt in $(seq 1 40); do
+          pom="${base}/com/github/jeluchu/jchucomponents/jchucomponents-android/${GITHUB_REF_NAME}/jchucomponents-android-${GITHUB_REF_NAME}.pom"
+          for attempt in $(seq 1 160); do
             code="$(curl -s -o /dev/null -w '%{http_code}' --max-time 60 "${pom}" || true)"
             echo "attempt ${attempt}: HTTP ${code}"
             if [[ "${code}" == "200" ]]; then
