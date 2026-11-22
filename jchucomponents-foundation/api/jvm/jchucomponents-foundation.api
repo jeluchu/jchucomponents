@@ -79,6 +79,10 @@ public final class com/jeluchu/jchucomponents/foundation/extensions/StringExtens
 	public static synthetic fun orEmpty$default (Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Ljava/lang/String;
 }
 
+public final class com/jeluchu/jchucomponents/foundation/extensions/lists/ListSearchExtensionsKt {
+	public static final fun search (Ljava/util/List;Ljava/lang/String;Lkotlin/jvm/functions/Function1;)Ljava/util/List;
+}
+
 public final class com/jeluchu/jchucomponents/foundation/extensions/lists/MutableListExtensionsKt {
 	public static final fun addAllIfNotExist (Ljava/util/List;Ljava/util/Collection;)V
 	public static final fun concatenateLowercase (Ljava/util/List;)Ljava/lang/String;
@@ -195,9 +199,16 @@ public final class com/jeluchu/jchucomponents/foundation/serialization/Serializa
 	public static final fun getDefaultJson ()Lkotlinx/serialization/json/Json;
 }
 
+public final class com/jeluchu/jchucomponents/foundation/text/Diacritics_jvmKt {
+	public static final fun removeDiacritics (Ljava/lang/String;)Ljava/lang/String;
+}
+
 public final class com/jeluchu/jchucomponents/foundation/text/StringExtensionsKt {
 	public static final fun formatInGroups (Ljava/lang/String;ILjava/lang/String;)Ljava/lang/String;
 	public static synthetic fun formatInGroups$default (Ljava/lang/String;ILjava/lang/String;ILjava/lang/Object;)Ljava/lang/String;
+	public static final fun getTranslateOrDefault (Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+	public static final fun isBuyNotAvailability (Ljava/lang/String;)Z
+	public static final fun isNotZero (Ljava/lang/String;)Z
 }
 
 public final class com/jeluchu/jchucomponents/foundation/text/ValidationExtensionsKt {

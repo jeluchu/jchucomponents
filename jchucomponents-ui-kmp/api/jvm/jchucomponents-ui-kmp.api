@@ -997,6 +997,12 @@ public abstract class com/jeluchu/jchucomponents/ui/dragndrop/states/Reorderable
 public final class com/jeluchu/jchucomponents/ui/dragndrop/states/ReorderableState$Companion {
 }
 
+public final class com/jeluchu/jchucomponents/ui/extensions/ComposeResourcesExtensionsKt {
+	public static final fun toImageVector (Lorg/jetbrains/compose/resources/DrawableResource;Landroidx/compose/runtime/Composer;I)Landroidx/compose/ui/graphics/vector/ImageVector;
+	public static final fun toPainter (Lorg/jetbrains/compose/resources/DrawableResource;Landroidx/compose/runtime/Composer;I)Landroidx/compose/ui/graphics/painter/Painter;
+	public static final fun toStringRes (Lorg/jetbrains/compose/resources/StringResource;[Ljava/lang/Object;Landroidx/compose/runtime/Composer;I)Ljava/lang/String;
+}
+
 public final class com/jeluchu/jchucomponents/ui/extensions/PaddingValuesExtensionsKt {
 	public static final fun withHorizontalPadding-lG28NQ4 (Landroidx/compose/foundation/layout/PaddingValues;FLandroidx/compose/ui/unit/LayoutDirection;)Landroidx/compose/foundation/layout/PaddingValues;
 }
@@ -1232,6 +1238,10 @@ public final class com/jeluchu/jchucomponents/ui/foundation/text/MarqueeTextComm
 	public static final fun MarqueeText-ByRb2RA (Ljava/lang/String;Landroidx/compose/ui/Modifier;Landroidx/compose/ui/Modifier;JJJLandroidx/compose/ui/text/font/FontStyle;Landroidx/compose/ui/text/font/FontWeight;Landroidx/compose/ui/text/font/FontFamily;JLandroidx/compose/ui/text/style/TextDecoration;Landroidx/compose/ui/text/style/TextAlign;JIZLkotlin/jvm/functions/Function1;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/runtime/Composer;III)V
 	public static final fun MarqueeText-W_0fRSM (Ljava/lang/String;Landroidx/compose/ui/Modifier;JJLandroidx/compose/ui/text/font/FontStyle;Landroidx/compose/ui/text/font/FontWeight;Landroidx/compose/ui/text/font/FontFamily;JLandroidx/compose/ui/text/style/TextDecoration;Landroidx/compose/ui/text/style/TextAlign;JIZIFLandroidx/compose/foundation/MarqueeSpacing;IIFILkotlin/jvm/functions/Function1;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/runtime/Composer;IIII)V
 	public static final fun drawFadedEdge-wH6b6FI (Landroidx/compose/ui/graphics/drawscope/ContentDrawScope;ZF)V
+}
+
+public final class com/jeluchu/jchucomponents/ui/graphics/ImageEncoding_jvmKt {
+	public static final fun toPngBytesOrNull (Landroidx/compose/ui/graphics/ImageBitmap;)[B
 }
 
 public final class com/jeluchu/jchucomponents/ui/modifiers/DashedBorderKt {

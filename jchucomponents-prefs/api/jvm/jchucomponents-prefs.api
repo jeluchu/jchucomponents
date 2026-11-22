@@ -1,3 +1,30 @@
+public final class com/jeluchu/jchucomponents/prefs/JchuLegacyMigrationKt {
+	public static final fun migrateFromLegacy (Lcom/jeluchu/jchucomponents/prefs/JchuPreferencesBlock;Ljava/lang/String;Ljava/util/Set;Z)V
+	public static synthetic fun migrateFromLegacy$default (Lcom/jeluchu/jchucomponents/prefs/JchuPreferencesBlock;Ljava/lang/String;Ljava/util/Set;ZILjava/lang/Object;)V
+}
+
+public final class com/jeluchu/jchucomponents/prefs/JchuLegacyStore {
+	public fun <init> (Ljava/lang/String;Ljava/util/Set;Z)V
+	public final fun getKeys ()Ljava/util/Set;
+	public final fun getName ()Ljava/lang/String;
+	public final fun getRemoveAfter ()Z
+}
+
+public final class com/jeluchu/jchucomponents/prefs/JchuPreferenceDelegatesKt {
+	public static final fun booleanPreference (Ljava/lang/String;ZLkotlin/jvm/functions/Function0;)Lkotlin/properties/ReadWriteProperty;
+	public static synthetic fun booleanPreference$default (Ljava/lang/String;ZLkotlin/jvm/functions/Function0;ILjava/lang/Object;)Lkotlin/properties/ReadWriteProperty;
+	public static final fun doublePreference (Ljava/lang/String;DLkotlin/jvm/functions/Function0;)Lkotlin/properties/ReadWriteProperty;
+	public static synthetic fun doublePreference$default (Ljava/lang/String;DLkotlin/jvm/functions/Function0;ILjava/lang/Object;)Lkotlin/properties/ReadWriteProperty;
+	public static final fun floatPreference (Ljava/lang/String;FLkotlin/jvm/functions/Function0;)Lkotlin/properties/ReadWriteProperty;
+	public static synthetic fun floatPreference$default (Ljava/lang/String;FLkotlin/jvm/functions/Function0;ILjava/lang/Object;)Lkotlin/properties/ReadWriteProperty;
+	public static final fun intPreference (Ljava/lang/String;ILkotlin/jvm/functions/Function0;)Lkotlin/properties/ReadWriteProperty;
+	public static synthetic fun intPreference$default (Ljava/lang/String;ILkotlin/jvm/functions/Function0;ILjava/lang/Object;)Lkotlin/properties/ReadWriteProperty;
+	public static final fun longPreference (Ljava/lang/String;JLkotlin/jvm/functions/Function0;)Lkotlin/properties/ReadWriteProperty;
+	public static synthetic fun longPreference$default (Ljava/lang/String;JLkotlin/jvm/functions/Function0;ILjava/lang/Object;)Lkotlin/properties/ReadWriteProperty;
+	public static final fun stringPreference (Ljava/lang/String;Ljava/lang/String;Lkotlin/jvm/functions/Function0;)Lkotlin/properties/ReadWriteProperty;
+	public static synthetic fun stringPreference$default (Ljava/lang/String;Ljava/lang/String;Lkotlin/jvm/functions/Function0;ILjava/lang/Object;)Lkotlin/properties/ReadWriteProperty;
+}
+
 public final class com/jeluchu/jchucomponents/prefs/JchuPreferenceKeys {
 	public static final field INSTANCE Lcom/jeluchu/jchucomponents/prefs/JchuPreferenceKeys;
 	public final fun boolean (Ljava/lang/String;)Landroidx/datastore/preferences/core/Preferences$Key;
@@ -7,6 +34,12 @@ public final class com/jeluchu/jchucomponents/prefs/JchuPreferenceKeys {
 	public final fun long (Ljava/lang/String;)Landroidx/datastore/preferences/core/Preferences$Key;
 	public final fun string (Ljava/lang/String;)Landroidx/datastore/preferences/core/Preferences$Key;
 	public final fun stringSet (Ljava/lang/String;)Landroidx/datastore/preferences/core/Preferences$Key;
+}
+
+public final class com/jeluchu/jchucomponents/prefs/JchuPreferenceProperty : kotlin/properties/ReadWriteProperty {
+	public fun <init> (Lkotlin/jvm/functions/Function0;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function2;)V
+	public fun getValue (Ljava/lang/Object;Lkotlin/reflect/KProperty;)Ljava/lang/Object;
+	public fun setValue (Ljava/lang/Object;Lkotlin/reflect/KProperty;Ljava/lang/Object;)V
 }
 
 public final class com/jeluchu/jchucomponents/prefs/JchuPreferences {

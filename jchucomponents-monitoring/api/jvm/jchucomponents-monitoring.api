@@ -19,6 +19,7 @@ public final class com/jeluchu/jchucomponents/monitoring/JchuAnalyticsBlock {
 	public final fun getCollectionEnabled ()Z
 	public final fun setBackend (Lcom/jeluchu/jchucomponents/monitoring/JchuAnalytics;)V
 	public final fun setCollectionEnabled (Z)V
+	public final fun userId (Lkotlin/jvm/functions/Function0;)V
 }
 
 public final class com/jeluchu/jchucomponents/monitoring/JchuAnalyticsRules {
@@ -48,10 +49,13 @@ public final class com/jeluchu/jchucomponents/monitoring/JchuCrashReporter$Defau
 
 public final class com/jeluchu/jchucomponents/monitoring/JchuCrashlyticsBlock {
 	public fun <init> ()V
+	public final fun getAppContext ()Z
 	public final fun getBackend ()Lcom/jeluchu/jchucomponents/monitoring/JchuCrashReporter;
 	public final fun getCollectionEnabled ()Z
+	public final fun setAppContext (Z)V
 	public final fun setBackend (Lcom/jeluchu/jchucomponents/monitoring/JchuCrashReporter;)V
 	public final fun setCollectionEnabled (Z)V
+	public final fun userId (Lkotlin/jvm/functions/Function0;)V
 }
 
 public final class com/jeluchu/jchucomponents/monitoring/JchuMonitoring {

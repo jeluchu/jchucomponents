@@ -1,3 +1,12 @@
+public final class com/jeluchu/jchucomponents/config/JchuAppInfo {
+	public static final field INSTANCE Lcom/jeluchu/jchucomponents/config/JchuAppInfo;
+	public final fun getPlatform ()Ljava/lang/String;
+	public final fun getVersionCode ()Ljava/lang/String;
+	public final fun getVersionName ()Ljava/lang/String;
+	public final fun isDebug ()Z
+	public final fun metadata (Ljava/lang/String;)Ljava/lang/String;
+}
+
 public final class com/jeluchu/jchucomponents/config/JchuConfigBuilder {
 	public final fun getPlatform ()Lcom/jeluchu/jchucomponents/config/JchuPlatform;
 	public final fun install (Lcom/jeluchu/jchucomponents/config/JchuFeature;)V
@@ -8,9 +17,13 @@ public final class com/jeluchu/jchucomponents/config/JchuConfigBuilder {
 public final class com/jeluchu/jchucomponents/config/JchuConfigKt {
 	public static final fun JchuConfig (Lcom/jeluchu/jchucomponents/config/JchuPlatform;Lkotlin/jvm/functions/Function1;)Lcom/jeluchu/jchucomponents/config/JchuConfigResult;
 	public static synthetic fun JchuConfig$default (Lcom/jeluchu/jchucomponents/config/JchuPlatform;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lcom/jeluchu/jchucomponents/config/JchuConfigResult;
+	public static final fun JchuConfigOnce (Lcom/jeluchu/jchucomponents/config/JchuPlatform;Lkotlin/jvm/functions/Function1;)Lcom/jeluchu/jchucomponents/config/JchuConfigResult;
+	public static synthetic fun JchuConfigOnce$default (Lcom/jeluchu/jchucomponents/config/JchuPlatform;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lcom/jeluchu/jchucomponents/config/JchuConfigResult;
+	public static final fun resetJchuConfigOnce ()V
 }
 
 public final class com/jeluchu/jchucomponents/config/JchuConfigResult {
+	public final fun getKoin ()Lorg/koin/core/Koin;
 	public final fun getKoinApplication ()Lorg/koin/core/KoinApplication;
 	public final fun getModules ()Ljava/util/List;
 }
@@ -20,12 +33,14 @@ public abstract interface class com/jeluchu/jchucomponents/config/JchuFeature {
 	public abstract fun getId ()Ljava/lang/String;
 	public fun initialize (Lcom/jeluchu/jchucomponents/config/JchuPlatform;)V
 	public fun modules (Lcom/jeluchu/jchucomponents/config/JchuPlatform;)Ljava/util/List;
+	public fun onStarted (Lcom/jeluchu/jchucomponents/config/JchuPlatform;Lorg/koin/core/Koin;)V
 }
 
 public final class com/jeluchu/jchucomponents/config/JchuFeature$DefaultImpls {
 	public static fun getDependsOn (Lcom/jeluchu/jchucomponents/config/JchuFeature;)Ljava/util/Set;
 	public static fun initialize (Lcom/jeluchu/jchucomponents/config/JchuFeature;Lcom/jeluchu/jchucomponents/config/JchuPlatform;)V
 	public static fun modules (Lcom/jeluchu/jchucomponents/config/JchuFeature;Lcom/jeluchu/jchucomponents/config/JchuPlatform;)Ljava/util/List;
+	public static fun onStarted (Lcom/jeluchu/jchucomponents/config/JchuFeature;Lcom/jeluchu/jchucomponents/config/JchuPlatform;Lorg/koin/core/Koin;)V
 }
 
 public abstract interface class com/jeluchu/jchucomponents/config/JchuPlatform {
