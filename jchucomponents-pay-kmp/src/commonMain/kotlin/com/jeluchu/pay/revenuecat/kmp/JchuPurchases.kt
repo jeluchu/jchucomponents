@@ -61,10 +61,9 @@ object JchuPurchases {
     private var identifiedUserId: String? = null
     private var hasIdentifiedUser = false
 
-    private val _customer = MutableStateFlow<JchuCustomer?>(null)
-
     /** Last customer state seen by any operation, or null before the first one. */
-    val customer: StateFlow<JchuCustomer?> = _customer.asStateFlow()
+    val customer: StateFlow<JchuCustomer?>
+        field = MutableStateFlow<JchuCustomer?>(null)
 
     /** True once `payments { }` configured RevenueCat. */
     val isConfigured: Boolean
@@ -196,7 +195,7 @@ object JchuPurchases {
     suspend fun logOut(timeoutMillis: Long = DEFAULT_TIMEOUT_MILLIS) = identify(null, timeoutMillis)
 
     private fun publish(info: CustomerInfo): JchuCustomer =
-        info.toJchuCustomer(Purchases.sharedInstance.appUserID).also { _customer.value = it }
+        info.toJchuCustomer(Purchases.sharedInstance.appUserID).also { customer.value = it }
 
     private fun ensureConfigured() {
         if (!Purchases.isConfigured) {

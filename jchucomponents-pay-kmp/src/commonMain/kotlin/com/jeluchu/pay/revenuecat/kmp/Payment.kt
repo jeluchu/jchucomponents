@@ -47,11 +47,11 @@ fun initPayment(
 object Payment {
     private var subscriptionName: String = ""
 
-    private val _billingError = MutableStateFlow<PurchasesError?>(null)
-    val billingError: StateFlow<PurchasesError?> = _billingError.asStateFlow()
+    val billingError: StateFlow<PurchasesError?>
+        field = MutableStateFlow<PurchasesError?>(null)
 
-    private val _billingInfo = MutableStateFlow(BillingInfo.empty())
-    val billingInfo: StateFlow<BillingInfo> = _billingInfo.asStateFlow()
+    val billingInfo: StateFlow<BillingInfo>
+        field = MutableStateFlow(BillingInfo.empty())
 
     /** The RevenueCat app user ID. RevenueCat must be configured before reading this property. */
     val userId: String
@@ -64,8 +64,8 @@ object Payment {
     /** Loads the current offering and updates [billingInfo] and [billingError]. */
     fun getProducts() {
         loadBillingInfo(
-            onSuccess = { _billingInfo.value = it },
-            onFailure = { _billingError.value = it }
+            onSuccess = { billingInfo.value = it },
+            onFailure = { billingError.value = it }
         )
     }
 
@@ -74,11 +74,11 @@ object Payment {
         suspendCancellableCoroutine { continuation ->
             loadBillingInfo(
                 onSuccess = { info ->
-                    _billingInfo.value = info
+                    billingInfo.value = info
                     if (continuation.isActive) continuation.resume(info)
                 },
                 onFailure = { error ->
-                    _billingError.value = error
+                    billingError.value = error
                     if (continuation.isActive) {
                         continuation.resumeWithException(IllegalStateException(error.message))
                     }
@@ -99,7 +99,7 @@ object Payment {
         Purchases.sharedInstance.purchase(
             packageToPurchase = packageToPurchase,
             onError = { error, userCancelled ->
-                _billingError.value = error
+                billingError.value = error
                 onFailure(error, userCancelled)
             },
             onSuccess = { _, customerInfo ->
@@ -122,7 +122,7 @@ object Payment {
             Purchases.sharedInstance.purchase(
                 packageToPurchase = packageToPurchase,
                 onError = { error, userCancelled ->
-                    _billingError.value = error
+                    billingError.value = error
                     if (continuation.isActive) {
                         val message = if (userCancelled) "Purchase cancelled" else error.message
                         continuation.resumeWithException(IllegalStateException(message))
@@ -138,7 +138,7 @@ object Payment {
     /** Restores purchases associated with the current App Store or Play Store account. */
     fun restorePurchases(onRestored: (Boolean, String) -> Unit = { _, _ -> }) {
         Purchases.sharedInstance.restorePurchases(
-            onError = { error -> _billingError.value = error },
+            onError = { error -> billingError.value = error },
             onSuccess = { customerInfo ->
                 val (active, productId) = subscriptionResult(customerInfo)
                 onRestored(active, productId)
@@ -150,7 +150,7 @@ object Payment {
         suspendCancellableCoroutine { continuation ->
             Purchases.sharedInstance.restorePurchases(
                 onError = { error ->
-                    _billingError.value = error
+                    billingError.value = error
                     if (continuation.isActive) {
                         continuation.resumeWithException(IllegalStateException(error.message))
                     }
@@ -164,7 +164,7 @@ object Payment {
     /** Checks the configured entitlement without refreshing products. */
     fun isSubscriptionActive(onChecked: (Boolean, String) -> Unit = { _, _ -> }) {
         Purchases.sharedInstance.getCustomerInfo(
-            onError = { error -> _billingError.value = error },
+            onError = { error -> billingError.value = error },
             onSuccess = { customerInfo ->
                 val (active, productId) = subscriptionResult(customerInfo)
                 onChecked(active, productId)
@@ -182,7 +182,7 @@ object Payment {
     ) {
         Purchases.sharedInstance.getCustomerInfo(
             onError = { error ->
-                _billingError.value = error
+                billingError.value = error
                 onFailure(error, false)
             },
             onSuccess = { customerInfo ->
@@ -206,7 +206,7 @@ object Payment {
                     packageToPurchase = targetPackage,
                     oldProductId = currentProductId,
                     onError = { error, userCancelled ->
-                        _billingError.value = error
+                        billingError.value = error
                         onFailure(error, userCancelled)
                     },
                     onSuccess = { _, updatedInfo -> activateSubscription(updatedInfo, onSuccess) }

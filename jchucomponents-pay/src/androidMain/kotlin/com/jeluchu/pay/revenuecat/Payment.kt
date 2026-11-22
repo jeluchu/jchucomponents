@@ -235,11 +235,11 @@ class Payment {
         private val payment = Payment()
         val userId: String = Purchases.sharedInstance.appUserID
 
-        private val _billingError = MutableStateFlow(PurchasesError(PurchasesErrorCode.UnknownError))
-        val billingError: StateFlow<PurchasesError> = _billingError.asStateFlow()
+        val billingError: StateFlow<PurchasesError>
+            field = MutableStateFlow(PurchasesError(PurchasesErrorCode.UnknownError))
 
-        private val _billingInfo = MutableStateFlow(BillingInfo.empty())
-        val billingInfo: StateFlow<BillingInfo> = _billingInfo.asStateFlow()
+        val billingInfo: StateFlow<BillingInfo>
+            field = MutableStateFlow(BillingInfo.empty())
 
         fun setSubscriptionName(name: String) {
             payment.subscriptionName = name
@@ -257,8 +257,8 @@ class Payment {
          */
         fun getProducts() =
             payment.getProducts(
-                onSuccess = { _billingInfo.value = it },
-                onFailure = { _billingError.value = it }
+                onSuccess = { billingInfo.value = it },
+                onFailure = { billingError.value = it }
             )
 
         /**
@@ -271,11 +271,11 @@ class Payment {
         suspend fun loadBillingInfo(): BillingInfo = suspendCancellableCoroutine { continuation ->
             payment.getProducts(
                 onSuccess = { info ->
-                    _billingInfo.value = info
+                    billingInfo.value = info
                     if (continuation.isActive) continuation.resume(info)
                 },
                 onFailure = { error ->
-                    _billingError.value = error
+                    billingError.value = error
                     if (continuation.isActive) {
                         continuation.resumeWithException(IllegalStateException(error.message))
                     }
