@@ -59,6 +59,8 @@ public final class com/jeluchu/jchucomponents/foundation/coroutines/JobExtension
 public final class com/jeluchu/jchucomponents/foundation/coroutines/RunCatchingCancellableKt {
 	public static final fun runCatchingCancellable (Ljava/lang/Object;Lkotlin/jvm/functions/Function1;)Ljava/lang/Object;
 	public static final fun runCatchingCancellable (Lkotlin/jvm/functions/Function0;)Ljava/lang/Object;
+	public static final fun runCatchingExceptions (Ljava/lang/Object;Lkotlin/jvm/functions/Function1;)Ljava/lang/Object;
+	public static final fun runCatchingExceptions (Lkotlin/jvm/functions/Function0;)Ljava/lang/Object;
 }
 
 public final class com/jeluchu/jchucomponents/foundation/coroutines/ThrowableExtensionsKt {

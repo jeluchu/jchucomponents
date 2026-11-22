@@ -29,3 +29,28 @@ inline fun <T, R> T.runCatchingCancellable(block: T.() -> R): Result<R> =
     } catch (error: Throwable) {
         Result.failure(error)
     }
+
+/**
+ * Like [runCatchingCancellable], but only [Exception]s are captured: an [Error] (for example `OutOfMemoryError`
+ * or `AssertionError`) keeps propagating, as it does with `catch (error: Exception)`.
+ *
+ * A [CancellationException] is always rethrown.
+ */
+inline fun <R> runCatchingExceptions(block: () -> R): Result<R> =
+    try {
+        Result.success(block())
+    } catch (error: CancellationException) {
+        throw error
+    } catch (error: Exception) {
+        Result.failure(error)
+    }
+
+/** Receiver version of [runCatchingExceptions]. */
+inline fun <T, R> T.runCatchingExceptions(block: T.() -> R): Result<R> =
+    try {
+        Result.success(block())
+    } catch (error: CancellationException) {
+        throw error
+    } catch (error: Exception) {
+        Result.failure(error)
+    }

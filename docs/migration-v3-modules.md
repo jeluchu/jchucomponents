@@ -118,7 +118,7 @@ misleading public KMP API. The `String` helpers whose names also exist in `found
 `jchucomponents-android`; prefer the `foundation.text` versions.
 
 New in this release: `runCatchingCancellable` (use it instead of `runCatching` around suspend calls, and instead of
-`try { } catch (e: CancellationException) { throw e } catch (e: Throwable) { }`), `Flow<Resource>.awaitResource`, `awaitResourceData`, `awaitRequiredResourceData`, `awaitResourceUnit`,
+`try { } catch (e: CancellationException) { throw e } catch (e: Throwable) { }`; `runCatchingExceptions` replaces the same block with `catch (e: Exception)`), `Flow<Resource>.awaitResource`, `awaitResourceData`, `awaitRequiredResourceData`, `awaitResourceUnit`,
 `asResourceFlow`, `catchAsResourceError` and `ResourceException` in `network`; `Throwable.rethrowIfCancellation` in
 `foundation.coroutines`; a public `String.normalizeForSearch()` and `NSData.toByteArray()` in `foundation`.
 

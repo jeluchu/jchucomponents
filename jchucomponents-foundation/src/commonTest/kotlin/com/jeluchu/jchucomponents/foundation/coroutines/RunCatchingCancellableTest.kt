@@ -68,4 +68,31 @@ class RunCatchingCancellableTest {
             "abc".runCatchingCancellable { throw CancellationException("stop") }
         }
     }
+
+    @Test
+    fun exceptionsVariantCapturesExceptionsButLetsErrorsThrough() {
+        val failure = IllegalStateException("boom")
+        assertEquals(failure, runCatchingExceptions { throw failure }.exceptionOrNull())
+        assertEquals(3, runCatchingExceptions { 3 }.getOrNull())
+        assertFailsWith<AssertionError> { runCatchingExceptions { throw AssertionError("fatal") } }
+    }
+
+    @Test
+    fun exceptionsVariantRethrowsCancellation() {
+        assertFailsWith<CancellationException> { runCatchingExceptions { throw CancellationException("stop") } }
+        assertFailsWith<CancellationException> { "abc".runCatchingExceptions { throw CancellationException("stop") } }
+        assertEquals(3, "abc".runCatchingExceptions { length }.getOrNull())
+    }
+
+    @Test
+    fun exceptionsVariantStopsACancelledCoroutine() =
+        runBlocking<Unit> {
+            var reached = false
+            val job = launch(start = CoroutineStart.UNDISPATCHED) {
+                runCatchingExceptions { awaitCancellation() }
+                reached = true
+            }
+            job.cancelAndJoin()
+            assertFalse(reached)
+        }
 }
