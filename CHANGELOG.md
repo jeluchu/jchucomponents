@@ -34,6 +34,8 @@ The module layout was consolidated before `3.0.0-beta01`. See
 - Portable extensions moved out of `jchucomponents-android` into the KMP modules: number helpers (`orEmpty`, `isNotEmpty`,
   `thousandsFormat`, `milliSecondsToTimer`...) and text helpers (`getLastBitFromUrl`, `extractYTId`, `isIp`...) in
   `foundation`, and `Color` helpers (`orTransparent`, `toColorFilter`, `isDark`...) in `ui`. See the migration guide.
+- `runCatchingCancellable { }` in `foundation.coroutines`: `runCatching` that rethrows `CancellationException`, so a cancelled
+  coroutine stops instead of continuing after the failure was swallowed. `noCrashSuspend` now uses it.
 - `network` gets `Flow<Resource>` await helpers (`awaitResource`, `awaitResourceData`, `awaitRequiredResourceData`,
   `awaitResourceUnit`, `asResourceFlow`, `catchAsResourceError`) and `ResourceException`; `foundation` gets
   `Throwable.rethrowIfCancellation()`, a public `String.normalizeForSearch()` and `NSData.toByteArray()`.

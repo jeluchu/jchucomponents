@@ -60,7 +60,7 @@ suspend fun noCrashSuspend(
     enableLog: Boolean = true,
     func: suspend () -> Unit
 ): String? =
-    runCatching {
+    runCatchingCancellable {
         func()
         null
     }.getOrElse {

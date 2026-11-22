@@ -56,6 +56,11 @@ public final class com/jeluchu/jchucomponents/foundation/coroutines/JobExtension
 	public static final fun cancelIfActive (Lkotlinx/coroutines/Job;)V
 }
 
+public final class com/jeluchu/jchucomponents/foundation/coroutines/RunCatchingCancellableKt {
+	public static final fun runCatchingCancellable (Ljava/lang/Object;Lkotlin/jvm/functions/Function1;)Ljava/lang/Object;
+	public static final fun runCatchingCancellable (Lkotlin/jvm/functions/Function0;)Ljava/lang/Object;
+}
+
 public final class com/jeluchu/jchucomponents/foundation/coroutines/ThrowableExtensionsKt {
 	public static final fun rethrowIfCancellation (Ljava/lang/Throwable;)V
 }
