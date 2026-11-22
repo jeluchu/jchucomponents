@@ -9,7 +9,12 @@ plugins {
 
 android {
     namespace = "com.jeluchu.jchucomponents.pdf"
-    compileSdk = libs.versions.android.compile.sdk.get().toInt()
+    compileSdk {
+        version =
+            release(libs.versions.android.compile.sdk.get().toInt()) {
+                minorApiLevel = libs.versions.android.compile.minor.api.get().toInt()
+            }
+    }
 
     defaultConfig {
         minSdk = libs.versions.android.min.sdk.get().toInt()

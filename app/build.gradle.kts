@@ -19,11 +19,10 @@ val localProperties =
     }
 
 android {
-    // Compose UI 1.13 requires API 37.1, so the sample compiles against the 37 minor release 1.
     compileSdk {
         version =
             release(libs.versions.android.compile.sdk.get().toInt()) {
-                minorApiLevel = 1
+                minorApiLevel = libs.versions.android.compile.minor.api.get().toInt()
             }
     }
     defaultConfig {

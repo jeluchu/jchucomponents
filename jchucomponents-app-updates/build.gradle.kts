@@ -9,7 +9,12 @@ description = "Android Google Play in-app update state and lifecycle handling."
 
 android {
     namespace = "com.jeluchu.jchucomponents.appupdates"
-    compileSdk = libs.versions.android.compile.sdk.get().toInt()
+    compileSdk {
+        version =
+            release(libs.versions.android.compile.sdk.get().toInt()) {
+                minorApiLevel = libs.versions.android.compile.minor.api.get().toInt()
+            }
+    }
 
     defaultConfig {
         minSdk = libs.versions.android.min.sdk.get().toInt()

@@ -6,7 +6,12 @@ plugins {
 kotlin {
     android {
         namespace = "com.jeluchu.jchucomponents.smoke"
-        compileSdk = libs.versions.android.compile.sdk.get().toInt()
+        compileSdk {
+            version =
+                release(libs.versions.android.compile.sdk.get().toInt()) {
+                    minorApiLevel = libs.versions.android.compile.minor.api.get().toInt()
+                }
+        }
         minSdk = libs.versions.android.min.sdk.get().toInt()
     }
 

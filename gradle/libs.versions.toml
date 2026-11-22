@@ -5,6 +5,7 @@ sample-min-sdk = "24"
 android-min-sdk = "21"
 android-target-sdk = "37"
 android-compile-sdk = "37"
+android-compile-minor-api = "1"
 jchucomponents = "3.0.0-alpha35"
 
 # Plugins & Tools

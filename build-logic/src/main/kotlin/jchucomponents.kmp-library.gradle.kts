@@ -14,10 +14,16 @@ kotlin {
     }
 
     android {
-        compileSdk = libsCatalog.findVersion("android-compile-sdk")
-            .get()
-            .requiredVersion
-            .toInt()
+        compileSdk {
+            version = release(
+                libsCatalog.findVersion("android-compile-sdk").get().requiredVersion.toInt()
+            ) {
+                minorApiLevel = libsCatalog.findVersion("android-compile-minor-api")
+                    .get()
+                    .requiredVersion
+                    .toInt()
+            }
+        }
         minSdk = libsCatalog.findVersion("android-min-sdk")
             .get()
             .requiredVersion

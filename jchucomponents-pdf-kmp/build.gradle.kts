@@ -19,7 +19,12 @@ kotlin {
 
     android {
         namespace = "com.jeluchu.jchucomponents.pdf.kmp"
-        compileSdk = libs.versions.android.compile.sdk.get().toInt()
+        compileSdk {
+            version =
+                release(libs.versions.android.compile.sdk.get().toInt()) {
+                    minorApiLevel = libs.versions.android.compile.minor.api.get().toInt()
+                }
+        }
         minSdk = libs.versions.android.min.sdk.get().toInt()
         withSourcesJar(publish = true)
         withHostTest {}
