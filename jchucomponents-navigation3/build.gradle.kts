@@ -2,11 +2,12 @@ plugins {
     alias(libs.plugins.jetbrains.kotlin.multiplatform)
     alias(libs.plugins.android.kmp.library)
     alias(libs.plugins.jetbrains.dokka)
+    alias(libs.plugins.compose.compiler)
     id("jchucomponents.publish")
 }
 
 version = libs.versions.jchucomponents.get()
-description = "AndroidX Navigation 3 runtime and KSP code generation."
+description = "AndroidX Navigation 3 runtime, KSP code generation and Koin ViewModel injection helpers."
 
 kotlin {
     jvmToolchain(libs.versions.java.get().toInt())
@@ -30,6 +31,8 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             api(libs.androidx.navigation3.runtime)
+            api(libs.koin.compose.multiplatform)
+            api(libs.koin.compose.viewmodel.multiplatform)
         }
 
         jvmMain.dependencies {

@@ -88,8 +88,8 @@ implementation(project(":jchucomponents-navigation3"))
 ksp(project(":jchucomponents-navigation3"))
 ```
 
-Add the optional `jchucomponents-navigation3-di` artifact only when screens use
-`@ScreenKoinViewModel`; see [ViewModel injection](#viewmodel-injection).
+Screens that use `@ScreenKoinViewModel` need no extra artifact: the Koin helpers ship in
+`jchucomponents-navigation3`; see [ViewModel injection](#viewmodel-injection).
 
 ## Declare screens and routes
 
@@ -225,14 +225,9 @@ marked with `@CustomAction`.
 
 ## ViewModel injection
 
-Koin integration is optional. Add the DI artifact to `commonMain` and annotate a
-ViewModel parameter with `@ScreenKoinViewModel`. The artifact publishes Android,
-JVM, `iosArm64`, and `iosSimulatorArm64` variants, matching the runtime module's
-target availability:
-
-```kotlin
-implementation("io.github.jeluchu:jchucomponents-navigation3-di:<published-version>")
-```
+Koin integration needs no extra dependency: annotate a ViewModel parameter with
+`@ScreenKoinViewModel`. The artifact publishes Android, JVM, `iosArm64`, and
+`iosSimulatorArm64` variants.
 
 The DI helpers use Koin's multiplatform Compose ViewModel APIs, so the artifact
 exposes its Koin dependencies to the consuming source set.
