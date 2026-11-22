@@ -46,7 +46,7 @@ class JchuMonitoringTest {
     @Test
     fun crashlyticsBlockInstallsTheBackendAndAppliesCollection() {
         val backend = RecordingCrash()
-        JchuConfig { crashlytics { this.backend = backend; collectionEnabled = false } }
+        JchuConfig { crashlytics { this.backend = backend; collectionEnabled = false; appContext = false } }
 
         JchuMonitoring.crash.recordException(IllegalStateException("bad"), "Home")
         assertEquals(listOf("enabled:false", "error:bad:Home"), backend.calls)
@@ -77,5 +77,61 @@ class JchuMonitoringTest {
         assertEquals(40, JchuAnalyticsRules.eventName("a".repeat(80)).length)
         assertTrue(JchuAnalyticsRules.params((1..40).associate { "k$it" to "v" }).size == JchuAnalyticsRules.MAX_PARAMS)
         assertEquals(100, (JchuAnalyticsRules.params(mapOf("a" to "x".repeat(300)))["a"] as String).length)
+    }
+
+    @Test
+    fun crashlyticsTagsReportsWithTheAppContextByDefault() {
+        val crash = RecordingCrash()
+
+        JchuConfig { crashlytics { backend = crash } }
+
+        val keys = crash.calls.filter { it.startsWith("key:") }.map { it.substringAfter("key:").substringBefore("=") }
+        assertEquals(listOf("app_platform", "app_version", "app_build"), keys)
+    }
+
+    @Test
+    fun theAppContextCanBeTurnedOff() {
+        val crash = RecordingCrash()
+
+        JchuConfig { crashlytics { backend = crash; appContext = false } }
+
+        assertTrue(crash.calls.none { it.startsWith("key:") })
+    }
+
+    @Test
+    fun theCrashUserIdFollowsTheFlowAndClearsOnBlank() {
+        val crash = RecordingCrash()
+        val user = kotlinx.coroutines.flow.MutableStateFlow<String?>(null)
+
+        JchuConfig {
+            crashlytics {
+                backend = crash
+                appContext = false
+                userId { user }
+            }
+        }
+        user.value = "u-1"
+        user.value = "  "
+        user.value = "u-2"
+
+        assertEquals(listOf("user:null", "user:u-1", "user:null", "user:u-2"), crash.calls.filter { it.startsWith("user:") })
+    }
+
+    @Test
+    fun theAnalyticsUserIdFollowsTheFlowToo() {
+        val analytics = object : JchuAnalytics {
+            val ids = mutableListOf<String?>()
+            override fun logEvent(name: String, params: Map<String, Any?>) = Unit
+            override fun logScreen(name: String, screenClass: String?) = Unit
+            override fun setUserId(userId: String?) { ids += userId }
+            override fun setUserProperty(name: String, value: String?) = Unit
+            override fun setCollectionEnabled(enabled: Boolean) = Unit
+        }
+        val user = kotlinx.coroutines.flow.MutableStateFlow<String?>("a")
+
+        JchuConfig { analytics { backend = analytics; userId { user } } }
+        user.value = "b"
+
+        assertEquals(listOf<String?>("a", "b"), analytics.ids)
     }
 }

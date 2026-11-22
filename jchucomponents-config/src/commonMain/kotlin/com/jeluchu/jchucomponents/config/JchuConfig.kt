@@ -93,6 +93,16 @@ class JchuConfigBuilder internal constructor(
                     extra()
                 }
             }
+        ordered.forEach { feature ->
+            try {
+                feature.onStarted(platform, application?.koin)
+            } catch (error: Throwable) {
+                throw IllegalStateException(
+                    "JchuConfig: failed to start '${feature.id}': ${error.message}",
+                    error
+                )
+            }
+        }
         return JchuConfigResult(modules = modules, koinApplication = application)
     }
 }

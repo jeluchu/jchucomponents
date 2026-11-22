@@ -120,4 +120,37 @@ class JchuConfigTest {
     fun resultHasNoKoinWithoutAKoinBlock() {
         assertNull(JchuConfig { install(Recorder("x", log = mutableListOf())) }.koin)
     }
+
+    @Test
+    fun onStartedRunsAfterKoinHasStartedInDependencyOrder() {
+        val log = mutableListOf<String>()
+        var koinSeen: Boolean? = null
+        val late = object : JchuFeature {
+            override val id = "late"
+            override val dependsOn = setOf("early")
+            override fun onStarted(platform: JchuPlatform, koin: org.koin.core.Koin?) { log += "late"; koinSeen = koin != null }
+        }
+        val early = object : JchuFeature {
+            override val id = "early"
+            override fun initialize(platform: JchuPlatform) { log += "init" }
+            override fun onStarted(platform: JchuPlatform, koin: org.koin.core.Koin?) { log += "early" }
+        }
+
+        JchuConfig { install(late); install(early); koin() }
+
+        assertEquals(listOf("init", "early", "late"), log)
+        assertEquals(true, koinSeen)
+    }
+
+    @Test
+    fun onStartedReceivesNullWithoutAKoinBlock() {
+        var koinSeen: Boolean? = null
+        JchuConfig {
+            install(object : JchuFeature {
+                override val id = "solo"
+                override fun onStarted(platform: JchuPlatform, koin: org.koin.core.Koin?) { koinSeen = koin != null }
+            })
+        }
+        assertEquals(false, koinSeen)
+    }
 }

@@ -24,6 +24,7 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             api(project(":jchucomponents-config"))
+            api(libs.org.jetbrains.kotlinx.kotlinx.coroutines.core)
         }
 
         // Firebase is compile-only: the app owns the SDK and its version, the library never forces it.

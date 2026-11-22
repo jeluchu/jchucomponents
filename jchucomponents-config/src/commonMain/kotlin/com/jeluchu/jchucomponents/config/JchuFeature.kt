@@ -1,5 +1,6 @@
 package com.jeluchu.jchucomponents.config
 
+import org.koin.core.Koin
 import org.koin.core.module.Module
 
 /**
@@ -21,4 +22,10 @@ interface JchuFeature {
 
     /** Koin modules this feature contributes. Called once, in dependency order. */
     fun modules(platform: JchuPlatform): List<Module> = emptyList()
+
+    /**
+     * Called once after Koin has started (in dependency order), so a feature can use what other features
+     * registered. [koin] is null when the config has no `koin { }` block.
+     */
+    fun onStarted(platform: JchuPlatform, koin: Koin?) = Unit
 }
