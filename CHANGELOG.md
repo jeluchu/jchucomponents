@@ -8,9 +8,14 @@
   the `FileProvider` paths (`res/xml`) were missing from the Android AAR, so opening the PDF screen from an app failed at
   runtime with a missing resource. Present in `3.0.0-beta01`.
 - The documentation build no longer looks for the logo in the old `jchucomponents-ui/src/main/res` path.
+- `rememberJchuZoomState` no longer recreates its state on every recomposition, which reset the zoom to 1x right after a
+  double tap or pinch. `velocityDecay` is no longer a `remember` key.
 
 ### Improvements
 
+- The PDF reader uses a full-screen page with floating rounded controls (back, `1 de 32` page pill, share, rotate and
+  previous/next), keeps zoom and pan inside the page, and renders the Android page at 2x so it stays sharp when zoomed.
+  The Spanish page indicator reads `1 de 32`.
 - `scripts/check-published-android-resources.sh` runs in the release preflight and in CI and fails when a published
   Android AAR is missing the resources its module declares.
 

@@ -19,6 +19,7 @@ import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
@@ -118,6 +119,10 @@ internal actual fun PdfPageContent(
         if (bitmap == null) {
             CircularProgressIndicator()
         } else {
+            LaunchedEffect(bitmap) {
+                // Lets the zoom state pan within the page instead of within the whole viewport.
+                bitmap?.let { zoomState.setContentSize(Size(it.width.toFloat(), it.height.toFloat())) }
+            }
             Image(
                 bitmap = bitmap!!.asImageBitmap(),
                 contentDescription = contentDescription,
@@ -201,10 +206,15 @@ private class AndroidPdfDocument(
                 val swapsAxes = rotation == 90 || rotation == 270
                 val renderWidth = if (swapsAxes) viewportHeight else viewportWidth
                 val renderHeight = if (swapsAxes) viewportWidth else viewportHeight
-                val scale = min(
+                val fitScale = min(
                     renderWidth / page.width.toFloat(),
                     renderHeight / page.height.toFloat(),
                 )
+                // Render above the viewport size so the page stays sharp when the user zooms in,
+                // without letting a huge page allocate an oversized bitmap.
+                val scale = (fitScale * ZOOM_RENDER_FACTOR)
+                    .coerceAtMost(MAX_RENDER_SIDE / max(page.width, page.height).toFloat())
+                    .coerceAtLeast(fitScale)
                 val bitmapWidth = max(1, (page.width * scale).roundToInt())
                 val bitmapHeight = max(1, (page.height * scale).roundToInt())
                 val bitmap = Bitmap.createBitmap(bitmapWidth, bitmapHeight, Bitmap.Config.ARGB_8888)
@@ -248,3 +258,6 @@ private class AndroidPdfDocument(
         }
     }
 }
+
+private const val ZOOM_RENDER_FACTOR = 2f
+private const val MAX_RENDER_SIDE = 4096f

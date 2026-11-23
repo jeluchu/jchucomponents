@@ -382,7 +382,9 @@ fun rememberJchuZoomState(
     @FloatRange(from = 1.0) maxScale: Float = 5f,
     contentSize: Size = Size.Zero,
     velocityDecay: DecayAnimationSpec<Float> = exponentialDecay(),
-) = remember(maxScale, contentSize, velocityDecay) {
+) = remember(maxScale, contentSize) {
+    // [velocityDecay] is deliberately not a key: its default is a new object on every call, which
+    // would recreate the state (and drop the current zoom) at each recomposition.
     JchuZoomState(maxScale, contentSize, velocityDecay)
 }
 

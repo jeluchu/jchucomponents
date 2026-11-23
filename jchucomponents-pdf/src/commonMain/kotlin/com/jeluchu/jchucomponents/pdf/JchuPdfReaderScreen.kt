@@ -1,30 +1,35 @@
 package com.jeluchu.jchucomponents.pdf
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.WindowInsetsSides
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.only
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.safeDrawing
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ChevronLeft
-import androidx.compose.material.icons.filled.ChevronRight
-import androidx.compose.material.icons.filled.Share
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.ArrowForward
+import androidx.compose.material.icons.automirrored.filled.KeyboardArrowLeft
 import androidx.compose.material.icons.automirrored.filled.RotateLeft
 import androidx.compose.material.icons.automirrored.filled.RotateRight
+import androidx.compose.material.icons.filled.Share
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
@@ -39,6 +44,11 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.jeluchu.jchucomponents.navigation3.BackStackBack
@@ -145,105 +155,18 @@ private fun JchuPdfDocumentContent(
     onShare: () -> Unit,
 ) {
     val scope = rememberCoroutineScope()
-    val colors = MaterialTheme.colorScheme
     val pagerState = rememberPagerState(pageCount = { document.pageCount })
     val rotations = remember(document) { mutableStateMapOf<Int, Int>() }
     val currentPage = pagerState.currentPage
 
-    Scaffold(
-        containerColor = colors.background,
-        topBar = {
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .background(colors.surface)
-                    .padding(horizontal = 8.dp, vertical = 6.dp),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(8.dp),
-            ) {
-                IconButton(onClick = onBack) {
-                    Icon(
-                        imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                        contentDescription = stringResource(Res.string.jchu_pdf_back),
-                        tint = colors.onSurface,
-                    )
-                }
-                Text(
-                    text = stringResource(
-                        Res.string.jchu_pdf_page_indicator,
-                        currentPage + 1,
-                        document.pageCount,
-                    ),
-                    modifier = Modifier.weight(1f),
-                    color = colors.onSurface,
-                    style = MaterialTheme.typography.titleMedium,
-                    textAlign = TextAlign.Center,
-                )
-                IconButton(onClick = onShare) {
-                    Icon(
-                        imageVector = Icons.Default.Share,
-                        contentDescription = stringResource(Res.string.jchu_pdf_share),
-                        tint = colors.onSurface,
-                    )
-                }
-            }
-        },
-        bottomBar = {
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .background(colors.surfaceVariant)
-                    .padding(horizontal = 8.dp, vertical = 8.dp),
-                verticalAlignment = Alignment.CenterVertically,
-            ) {
-                IconButton(
-                    enabled = currentPage > 0,
-                    onClick = {
-                        scope.launch { pagerState.animateScrollToPage(currentPage - 1) }
-                    },
-                ) {
-                    Icon(
-                        imageVector = Icons.Default.ChevronLeft,
-                        contentDescription = stringResource(Res.string.jchu_pdf_previous_page),
-                        tint = colors.onSurfaceVariant,
-                    )
-                }
-                Spacer(Modifier.weight(1f))
-                IconButton(onClick = { rotations[currentPage] = (rotations[currentPage] ?: 0) - 90 }) {
-                    Icon(
-                        imageVector = Icons.AutoMirrored.Filled.RotateLeft,
-                        contentDescription = stringResource(Res.string.jchu_pdf_rotate_left),
-                        tint = colors.onSurfaceVariant,
-                    )
-                }
-                IconButton(onClick = { rotations[currentPage] = (rotations[currentPage] ?: 0) + 90 }) {
-                    Icon(
-                        imageVector = Icons.AutoMirrored.Filled.RotateRight,
-                        contentDescription = stringResource(Res.string.jchu_pdf_rotate_right),
-                        tint = colors.onSurfaceVariant,
-                    )
-                }
-                Spacer(Modifier.weight(1f))
-                IconButton(
-                    enabled = currentPage < document.pageCount - 1,
-                    onClick = {
-                        scope.launch { pagerState.animateScrollToPage(currentPage + 1) }
-                    },
-                ) {
-                    Icon(
-                        imageVector = Icons.Default.ChevronRight,
-                        contentDescription = stringResource(Res.string.jchu_pdf_next_page),
-                        tint = colors.onSurfaceVariant,
-                    )
-                }
-            }
-        },
-    ) { contentPadding ->
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(PdfViewerBackground),
+    ) {
         HorizontalPager(
             state = pagerState,
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(contentPadding),
+            modifier = Modifier.fillMaxSize(),
             beyondViewportPageCount = 1,
         ) { pageIndex ->
             PdfPageContent(
@@ -257,6 +180,111 @@ private fun JchuPdfDocumentContent(
                 modifier = Modifier.fillMaxSize(),
             )
         }
+
+        Box(
+            modifier = Modifier
+                .align(Alignment.TopCenter)
+                .fillMaxWidth()
+                .windowInsetsPadding(WindowInsets.safeDrawing.only(WindowInsetsSides.Top + WindowInsetsSides.Horizontal))
+                .padding(horizontal = 16.dp, vertical = 12.dp),
+        ) {
+            PdfControlButton(
+                modifier = Modifier.align(Alignment.CenterStart),
+                icon = Icons.AutoMirrored.Filled.KeyboardArrowLeft,
+                contentDescription = stringResource(Res.string.jchu_pdf_back),
+                onClick = onBack,
+            )
+            Text(
+                text = stringResource(
+                    Res.string.jchu_pdf_page_indicator,
+                    currentPage + 1,
+                    document.pageCount,
+                ),
+                modifier = Modifier
+                    .align(Alignment.Center)
+                    .clip(PdfControlShape)
+                    .background(PdfControlBackground)
+                    .padding(horizontal = 24.dp, vertical = 14.dp),
+                color = PdfControlContent,
+                style = MaterialTheme.typography.titleMedium,
+                fontWeight = FontWeight.Bold,
+                textAlign = TextAlign.Center,
+            )
+            PdfControlButton(
+                modifier = Modifier.align(Alignment.CenterEnd),
+                icon = Icons.Default.Share,
+                contentDescription = stringResource(Res.string.jchu_pdf_share),
+                onClick = onShare,
+            )
+        }
+
+        Box(
+            modifier = Modifier
+                .align(Alignment.BottomCenter)
+                .fillMaxWidth()
+                .windowInsetsPadding(WindowInsets.safeDrawing.only(WindowInsetsSides.Bottom + WindowInsetsSides.Horizontal))
+                .padding(horizontal = 16.dp, vertical = 16.dp),
+        ) {
+            if (currentPage > 0) {
+                PdfControlButton(
+                    modifier = Modifier.align(Alignment.CenterStart),
+                    icon = Icons.AutoMirrored.Filled.ArrowBack,
+                    contentDescription = stringResource(Res.string.jchu_pdf_previous_page),
+                    onClick = { scope.launch { pagerState.animateScrollToPage(currentPage - 1) } },
+                )
+            }
+            Row(
+                modifier = Modifier.align(Alignment.Center),
+                horizontalArrangement = Arrangement.spacedBy(12.dp),
+            ) {
+                PdfControlButton(
+                    icon = Icons.AutoMirrored.Filled.RotateLeft,
+                    contentDescription = stringResource(Res.string.jchu_pdf_rotate_left),
+                    onClick = { rotations[currentPage] = (rotations[currentPage] ?: 0) - 90 },
+                )
+                PdfControlButton(
+                    icon = Icons.AutoMirrored.Filled.RotateRight,
+                    contentDescription = stringResource(Res.string.jchu_pdf_rotate_right),
+                    onClick = { rotations[currentPage] = (rotations[currentPage] ?: 0) + 90 },
+                )
+            }
+            if (currentPage < document.pageCount - 1) {
+                PdfControlButton(
+                    modifier = Modifier.align(Alignment.CenterEnd),
+                    icon = Icons.AutoMirrored.Filled.ArrowForward,
+                    contentDescription = stringResource(Res.string.jchu_pdf_next_page),
+                    onClick = { scope.launch { pagerState.animateScrollToPage(currentPage + 1) } },
+                )
+            }
+        }
+    }
+}
+
+private val PdfViewerBackground = Color(0xFF3F3F3F)
+private val PdfControlBackground = Color.Black.copy(alpha = 0.4f)
+private val PdfControlContent = Color.White
+private val PdfControlShape = RoundedCornerShape(18.dp)
+
+@Composable
+private fun PdfControlButton(
+    icon: ImageVector,
+    contentDescription: String,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    Box(
+        modifier = modifier
+            .size(52.dp)
+            .clip(PdfControlShape)
+            .background(PdfControlBackground)
+            .clickable(role = Role.Button, onClickLabel = contentDescription, onClick = onClick),
+        contentAlignment = Alignment.Center,
+    ) {
+        Icon(
+            imageVector = icon,
+            contentDescription = contentDescription,
+            tint = PdfControlContent,
+        )
     }
 }
 
