@@ -27,7 +27,7 @@ dokka {
     pluginsConfiguration.html {
         customStyleSheets.from(layout.projectDirectory.file("docs/styles/jchucomponents.css"))
         customAssets.from(
-            layout.projectDirectory.file("jchucomponents-ui/src/main/res/drawable/ic_deco_jeluchu.webp"),
+            layout.projectDirectory.file("jchucomponents-ui/src/androidMain/res/drawable/ic_deco_jeluchu.webp"),
             layout.projectDirectory.file("app/src/main/res/font/light.ttf"),
             layout.projectDirectory.file("app/src/main/res/font/regular.ttf"),
             layout.projectDirectory.file("app/src/main/res/font/medium.ttf"),
