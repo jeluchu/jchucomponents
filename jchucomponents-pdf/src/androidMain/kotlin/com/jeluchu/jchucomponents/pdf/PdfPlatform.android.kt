@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -20,6 +19,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Size
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
@@ -30,6 +30,10 @@ import io.ktor.client.HttpClient
 import io.ktor.client.statement.bodyAsChannel
 import io.ktor.utils.io.readAvailable
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.currentCoroutineContext
+import kotlinx.coroutines.ensureActive
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
 import java.io.Closeable
 import java.io.File
@@ -98,26 +102,23 @@ internal actual fun PdfPageContent(
     ) {
         val viewportWidth = constraints.maxWidth
         val viewportHeight = constraints.maxHeight
-        var bitmap by remember(androidDocument, pageIndex, viewportWidth, viewportHeight, rotationDegrees) {
-            mutableStateOf<Bitmap?>(null)
-        }
+        // Keeps showing the previous bitmap while the next one renders, so rotating or resizing
+        // does not flash an empty page.
+        var bitmap by remember(androidDocument, pageIndex) { mutableStateOf<Bitmap?>(null) }
 
         LaunchedEffect(androidDocument, pageIndex, viewportWidth, viewportHeight, rotationDegrees) {
-            bitmap = androidDocument.renderPage(
-                pageIndex = pageIndex,
-                viewportWidth = viewportWidth,
-                viewportHeight = viewportHeight,
-                rotationDegrees = rotationDegrees,
-            )
-        }
-
-        DisposableEffect(bitmap) {
-            val renderedBitmap = bitmap
-            onDispose { renderedBitmap?.recycle() }
+            androidDocument.cachedPage(pageIndex, viewportWidth, viewportHeight, rotationDegrees, sharp = true)
+                ?.let {
+                    bitmap = it
+                    return@LaunchedEffect
+                }
+            // A viewport-sized render first (fast), then the sharper one used for zooming.
+            bitmap = androidDocument.renderPage(pageIndex, viewportWidth, viewportHeight, rotationDegrees, sharp = false)
+            bitmap = androidDocument.renderPage(pageIndex, viewportWidth, viewportHeight, rotationDegrees, sharp = true)
         }
 
         if (bitmap == null) {
-            CircularProgressIndicator()
+            CircularProgressIndicator(color = Color.White)
         } else {
             LaunchedEffect(bitmap) {
                 // Lets the zoom state pan within the page instead of within the whole viewport.
@@ -189,60 +190,111 @@ private class AndroidPdfDocument(
     override val pageCount: Int
         get() = renderer.pageCount
 
+    private val renderMutex = Mutex()
+    private val cache = object : LinkedHashMap<RenderKey, Bitmap>(16, 0.75f, true) {}
+    private var cacheBytes = 0
+
+    fun cachedPage(
+        pageIndex: Int,
+        viewportWidth: Int,
+        viewportHeight: Int,
+        rotationDegrees: Int,
+        sharp: Boolean,
+    ): Bitmap? = synchronized(cache) {
+        cache[RenderKey(pageIndex, viewportWidth, viewportHeight, normalizedRotation(rotationDegrees), sharp)]
+    }
+
     suspend fun renderPage(
         pageIndex: Int,
         viewportWidth: Int,
         viewportHeight: Int,
         rotationDegrees: Int,
+        sharp: Boolean,
     ): Bitmap = withContext(Dispatchers.IO) {
-        synchronized(lock) {
-            check(!isClosed) { "PDF document is already closed." }
-            require(pageIndex in 0 until renderer.pageCount) { "PDF page index is out of bounds." }
-            require(viewportWidth > 0 && viewportHeight > 0) { "PDF viewport must have a positive size." }
+        val rotation = normalizedRotation(rotationDegrees)
+        val key = RenderKey(pageIndex, viewportWidth, viewportHeight, rotation, sharp)
+        cachedPage(pageIndex, viewportWidth, viewportHeight, rotation, sharp)?.let { return@withContext it }
 
-            val page = renderer.openPage(pageIndex)
-            try {
-                val rotation = ((rotationDegrees % 360) + 360) % 360
-                val swapsAxes = rotation == 90 || rotation == 270
-                val renderWidth = if (swapsAxes) viewportHeight else viewportWidth
-                val renderHeight = if (swapsAxes) viewportWidth else viewportHeight
-                val fitScale = min(
-                    renderWidth / page.width.toFloat(),
-                    renderHeight / page.height.toFloat(),
-                )
-                // Render above the viewport size so the page stays sharp when the user zooms in,
-                // without letting a huge page allocate an oversized bitmap.
-                val scale = (fitScale * ZOOM_RENDER_FACTOR)
+        // A page the user already swiped past is cancelled while it waits here instead of piling up.
+        renderMutex.withLock {
+            currentCoroutineContext().ensureActive()
+            cachedPage(pageIndex, viewportWidth, viewportHeight, rotation, sharp)?.let { return@withLock it }
+            renderUncached(pageIndex, viewportWidth, viewportHeight, rotation, sharp).also { rendered ->
+                synchronized(cache) {
+                    cache[key] = rendered
+                    cacheBytes += rendered.byteCount
+                    val iterator = cache.entries.iterator()
+                    while (cacheBytes > MAX_CACHE_BYTES && iterator.hasNext()) {
+                        val eldest = iterator.next()
+                        if (eldest.value !== rendered) {
+                            cacheBytes -= eldest.value.byteCount
+                            iterator.remove()
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private fun renderUncached(
+        pageIndex: Int,
+        viewportWidth: Int,
+        viewportHeight: Int,
+        rotation: Int,
+        sharp: Boolean,
+    ): Bitmap = synchronized(lock) {
+        check(!isClosed) { "PDF document is already closed." }
+        require(pageIndex in 0 until renderer.pageCount) { "PDF page index is out of bounds." }
+        require(viewportWidth > 0 && viewportHeight > 0) { "PDF viewport must have a positive size." }
+
+        val page = renderer.openPage(pageIndex)
+        try {
+            val swapsAxes = rotation == 90 || rotation == 270
+            val renderWidth = if (swapsAxes) viewportHeight else viewportWidth
+            val renderHeight = if (swapsAxes) viewportWidth else viewportHeight
+            val fitScale = min(
+                renderWidth / page.width.toFloat(),
+                renderHeight / page.height.toFloat(),
+            )
+            // The sharp render goes above the viewport size so the page stays crisp when zoomed,
+            // without letting a huge page allocate an oversized bitmap.
+            val scale = if (sharp) {
+                (fitScale * ZOOM_RENDER_FACTOR)
                     .coerceAtMost(MAX_RENDER_SIDE / max(page.width, page.height).toFloat())
                     .coerceAtLeast(fitScale)
-                val bitmapWidth = max(1, (page.width * scale).roundToInt())
-                val bitmapHeight = max(1, (page.height * scale).roundToInt())
-                val bitmap = Bitmap.createBitmap(bitmapWidth, bitmapHeight, Bitmap.Config.ARGB_8888)
-                page.render(
-                    bitmap,
-                    null,
-                    Matrix().apply { setScale(scale, scale) },
-                    PdfRenderer.Page.RENDER_MODE_FOR_DISPLAY,
-                )
-
-                if (rotation == 0) {
-                    bitmap
-                } else {
-                    val rotated = Bitmap.createBitmap(
-                        bitmap,
-                        0,
-                        0,
-                        bitmap.width,
-                        bitmap.height,
-                        Matrix().apply { postRotate(rotation.toFloat()) },
-                        true,
-                    )
-                    if (rotated !== bitmap) bitmap.recycle()
-                    rotated
-                }
-            } finally {
-                page.close()
+            } else {
+                fitScale
             }
+            val bitmapWidth = max(1, (page.width * scale).roundToInt())
+            val bitmapHeight = max(1, (page.height * scale).roundToInt())
+            val bitmap = Bitmap.createBitmap(bitmapWidth, bitmapHeight, Bitmap.Config.ARGB_8888)
+            // PdfRenderer draws on a transparent bitmap: pages without their own background would
+            // show dark text over the dark viewer.
+            bitmap.eraseColor(android.graphics.Color.WHITE)
+            page.render(
+                bitmap,
+                null,
+                Matrix().apply { setScale(scale, scale) },
+                PdfRenderer.Page.RENDER_MODE_FOR_DISPLAY,
+            )
+
+            if (rotation == 0) {
+                bitmap
+            } else {
+                val rotated = Bitmap.createBitmap(
+                    bitmap,
+                    0,
+                    0,
+                    bitmap.width,
+                    bitmap.height,
+                    Matrix().apply { postRotate(rotation.toFloat()) },
+                    true,
+                )
+                if (rotated !== bitmap) bitmap.recycle()
+                rotated
+            }
+        } finally {
+            page.close()
         }
     }
 
@@ -259,5 +311,16 @@ private class AndroidPdfDocument(
     }
 }
 
+private data class RenderKey(
+    val pageIndex: Int,
+    val viewportWidth: Int,
+    val viewportHeight: Int,
+    val rotation: Int,
+    val sharp: Boolean,
+)
+
+private fun normalizedRotation(degrees: Int): Int = ((degrees % 360) + 360) % 360
+
 private const val ZOOM_RENDER_FACTOR = 2f
 private const val MAX_RENDER_SIDE = 4096f
+private const val MAX_CACHE_BYTES = 96 * 1024 * 1024

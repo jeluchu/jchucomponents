@@ -11,8 +11,16 @@
 - `rememberJchuZoomState` no longer recreates its state on every recomposition, which reset the zoom to 1x right after a
   double tap or pinch. `velocityDecay` is no longer a `remember` key.
 
+- PDF pages without their own background were drawn on a transparent bitmap and became unreadable over the dark viewer;
+  Android pages are now rendered on white.
+- Rotating a PDF page no longer makes it disappear and reappear: the previous render stays visible until the rotated one
+  is ready.
+
 ### Improvements
 
+- Android PDF pages are cached (96 MB), rendered first at viewport size and then sharp, and renders of pages the user
+  already swiped past are cancelled, so paging quickly no longer leaves empty pages. The reader keeps two pages ahead and
+  the loader is visible on the dark background.
 - The PDF reader uses a full-screen page with floating rounded controls (back, `1 de 32` page pill, share, rotate and
   previous/next), keeps zoom and pan inside the page, and renders the Android page at 2x so it stays sharp when zoomed.
   The Spanish page indicator reads `1 de 32`.

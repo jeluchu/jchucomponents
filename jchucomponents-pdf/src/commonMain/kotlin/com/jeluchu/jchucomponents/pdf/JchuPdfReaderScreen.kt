@@ -167,7 +167,7 @@ private fun JchuPdfDocumentContent(
         HorizontalPager(
             state = pagerState,
             modifier = Modifier.fillMaxSize(),
-            beyondViewportPageCount = 1,
+            beyondViewportPageCount = 2,
         ) { pageIndex ->
             PdfPageContent(
                 document = document,
