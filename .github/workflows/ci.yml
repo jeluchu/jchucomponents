@@ -65,6 +65,9 @@ jobs:
       - name: Build and test Android
         run: ./gradlew ciCheck
 
+      - name: Published AARs carry their resources
+        run: scripts/check-published-android-resources.sh
+
       - name: Compile published KMP consumer for Android
         run: |
           ./gradlew \

@@ -33,6 +33,7 @@ scripts/check-api-readiness.sh
 
 step "Build, tests, API checks and Maven Local publications"
 ./gradlew ciCheck -x :app:assembleRelease
+scripts/check-published-android-resources.sh "$version"
 
 if [[ "$(uname)" == "Darwin" ]]; then
   step "Kotlin tests on Apple targets"
