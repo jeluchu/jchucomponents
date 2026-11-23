@@ -27,8 +27,9 @@ import androidx.compose.material.icons.automirrored.filled.RotateRight
 import androidx.compose.material.icons.filled.Share
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
-import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.Icon
+import androidx.compose.material3.LoadingIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -260,6 +261,13 @@ private fun JchuPdfDocumentContent(
     }
 }
 
+/** The Material 3 Expressive morphing loader, white over the dark viewer. */
+@OptIn(ExperimentalMaterial3ExpressiveApi::class)
+@Composable
+internal fun JchuPdfLoadingIndicator(modifier: Modifier = Modifier) {
+    LoadingIndicator(modifier = modifier, color = PdfControlContent)
+}
+
 private val PdfViewerBackground = Color(0xFF3F3F3F)
 private val PdfControlBackground = Color.Black.copy(alpha = 0.4f)
 private val PdfControlContent = Color.White
@@ -293,10 +301,10 @@ private fun JchuPdfLoadingContent() {
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(MaterialTheme.colorScheme.background),
+            .background(PdfViewerBackground),
         contentAlignment = Alignment.Center,
     ) {
-        CircularProgressIndicator(color = MaterialTheme.colorScheme.primary)
+        JchuPdfLoadingIndicator()
     }
 }
 

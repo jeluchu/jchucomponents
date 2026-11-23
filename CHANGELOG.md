@@ -18,6 +18,9 @@
 
 ### Improvements
 
+- The PDF reader shows the Material 3 Expressive `LoadingIndicator` (morphing shape) while it downloads and renders.
+  `jchucomponents-pdf` now depends on `org.jetbrains.compose.material3:material3:1.13.0-rc01`, which is the version the
+  apps already use; `LoadingIndicator` is not in the 1.9.0 that `compose.material3` resolves to.
 - Android PDF pages are cached (96 MB), rendered first at viewport size and then sharp, and renders of pages the user
   already swiped past are cancelled, so paging quickly no longer leaves empty pages. The reader keeps two pages ahead and
   the loader is visible on the dark background.
