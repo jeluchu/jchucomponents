@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 3.0.0-beta02 - 2026-11-23
 
 ### Fixed
 

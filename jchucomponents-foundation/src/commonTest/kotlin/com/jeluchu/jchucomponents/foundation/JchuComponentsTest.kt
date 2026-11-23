@@ -6,6 +6,6 @@ import kotlin.test.assertEquals
 class JchuComponentsTest {
     @Test
     fun exposesCurrentLibraryVersion() {
-        assertEquals("3.0.0-beta01", JchuComponents.VERSION)
+        assertEquals("3.0.0-beta02", JchuComponents.VERSION)
     }
 }

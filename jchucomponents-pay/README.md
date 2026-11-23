@@ -17,7 +17,7 @@ Add the dependency to your shared source set:
 kotlin {
     sourceSets {
         commonMain.dependencies {
-            implementation("io.github.jeluchu:jchucomponents-pay:3.0.0-beta01")
+            implementation("io.github.jeluchu:jchucomponents-pay:3.0.0-beta02")
         }
     }
 }
