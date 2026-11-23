@@ -26,6 +26,8 @@ kotlin {
                 }
         }
         minSdk = libs.versions.android.min.sdk.get().toInt()
+        // Packs the FileProvider paths (res/xml) and the Compose resources (assets) into the AAR.
+        androidResources.enable = true
         withSourcesJar(publish = true)
         withHostTest {}
     }

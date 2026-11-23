@@ -2,6 +2,18 @@
 
 ## Unreleased
 
+### Fixed
+
+- `jchucomponents-pdf` now packs its Android resources: the Compose strings of the reader (`assets/composeResources`) and
+  the `FileProvider` paths (`res/xml`) were missing from the Android AAR, so opening the PDF screen from an app failed at
+  runtime with a missing resource. Present in `3.0.0-beta01`.
+- The documentation build no longer looks for the logo in the old `jchucomponents-ui/src/main/res` path.
+
+### Improvements
+
+- `scripts/check-published-android-resources.sh` runs in the release preflight and in CI and fails when a published
+  Android AAR is missing the resources its module declares.
+
 ## 3.0.0-beta01 - 2026-11-22
 
 First beta. The module layout and the Maven coordinates are final; smaller API cleanups may still follow in the next betas.
