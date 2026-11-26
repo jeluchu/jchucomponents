@@ -45,12 +45,26 @@ fun main() {
 private fun CatalogApp() {
     var dark by remember { mutableStateOf(true) }
     var tab by remember { mutableStateOf("Components") }
+    var family by remember { mutableStateOf(demos.first().family) }
+    var selected by remember { mutableStateOf(demos.first()) }
+    var query by remember { mutableStateOf("") }
+    val results = remember(query) { searchCatalog(query) }
     val p = if (dark) DarkSage else LightSage
     CompositionLocalProvider(LocalPalette provides p) {
         MaterialTheme(colorScheme = p.scheme) {
             Surface(Modifier.fillMaxSize(), color = p.bg) {
                 Column(Modifier.fillMaxSize()) {
-                    Header(dark = dark, onToggle = { dark = !dark })
+                    Header(dark = dark, onToggle = { dark = !dark }, query = query, onQueryChange = { query = it })
+                    if (query.isNotBlank()) {
+                        SearchResults(
+                            results, query, modifier = Modifier.padding(start = 32.dp, top = 8.dp),
+                            onPick = { e ->
+                                tab = e.tab
+                                e.demo?.let { family = it.family; selected = it }
+                                query = ""
+                            }
+                        )
+                    }
                     Column(
                         Modifier.weight(1f).fillMaxWidth().verticalScroll(rememberScrollState()).padding(horizontal = 40.dp, vertical = 32.dp),
                         verticalArrangement = Arrangement.spacedBy(24.dp)
@@ -68,7 +82,7 @@ private fun CatalogApp() {
                             }
                         }
                         when (tab) {
-                            "Components" -> ComponentsTab()
+                            "Components" -> ComponentsTab(family, { family = it }, selected, { selected = it })
                             "Extensions" -> ExtensionsTab()
                             else -> DatesTab()
                         }
@@ -80,7 +94,7 @@ private fun CatalogApp() {
 }
 
 @Composable
-private fun Header(dark: Boolean, onToggle: () -> Unit) {
+private fun Header(dark: Boolean, onToggle: () -> Unit, query: String, onQueryChange: (String) -> Unit) {
     val p = LocalPalette.current
     Row(
         Modifier.fillMaxWidth().background(p.panel).padding(horizontal = 32.dp, vertical = 14.dp),
@@ -89,22 +103,22 @@ private fun Header(dark: Boolean, onToggle: () -> Unit) {
         Box(Modifier.size(36.dp).clip(CircleShape).background(p.accent).border(3.dp, p.mint, CircleShape), contentAlignment = Alignment.Center) {
             Text("J", color = p.onAccent, fontWeight = FontWeight.ExtraBold)
         }
-        Text("JchuComponents", color = p.fg, fontSize = 19.sp, fontWeight = FontWeight.ExtraBold, modifier = Modifier.weight(1f))
+        Text("JchuComponents", color = p.fg, fontSize = 19.sp, fontWeight = FontWeight.ExtraBold)
+        SearchBar(query, onQueryChange, Modifier.weight(1f).widthIn(max = 520.dp))
+        Box(Modifier.weight(0.001f))
         Pill(if (dark) "Light" else "Dark", selected = false, onClick = onToggle, height = 44.dp)
     }
 }
 
 @Composable
-private fun ComponentsTab() {
+private fun ComponentsTab(family: String, onFamily: (String) -> Unit, selected: Demo, onSelect: (Demo) -> Unit) {
     val p = LocalPalette.current
     val families = remember { demos.map { it.family }.distinct() }
-    var family by remember { mutableStateOf(families.first()) }
-    var selected by remember { mutableStateOf(demos.first { it.family == families.first() }) }
     val items = demos.filter { it.family == family }
 
     FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
         families.forEach { f ->
-            Pill(f, selected = f == family, onClick = { family = f; selected = demos.first { it.family == f } })
+            Pill(f, selected = f == family, onClick = { onFamily(f); onSelect(demos.first { it.family == f }) })
         }
     }
     FlowRow(horizontalArrangement = Arrangement.spacedBy(20.dp), verticalArrangement = Arrangement.spacedBy(20.dp)) {
@@ -112,7 +126,7 @@ private fun ComponentsTab() {
             val on = d == selected || (selected.family != family && d == items.first())
             Column(
                 Modifier.widthIn(min = 300.dp, max = 360.dp).clip(RoundedCornerShape(20.dp)).background(p.panel)
-                    .border(2.dp, if (on) p.accent else p.line, RoundedCornerShape(20.dp)).clickable { selected = d }
+                    .border(2.dp, if (on) p.accent else p.line, RoundedCornerShape(20.dp)).clickable { onSelect(d) }
             ) {
                 Box(Modifier.fillMaxWidth().heightIn(min = 150.dp).background(p.stage).padding(20.dp), contentAlignment = Alignment.Center) { d.preview() }
                 Column(Modifier.padding(18.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
