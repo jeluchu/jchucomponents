@@ -7,7 +7,11 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.calculateEndPadding
+import androidx.compose.foundation.layout.calculateStartPadding
+import androidx.compose.material.icons.filled.Star
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -35,11 +39,20 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.Spacer
+import com.jeluchu.jchucomponents.ui.composables.accessibility.calculateContrastFor
+import com.jeluchu.jchucomponents.ui.composables.accessibility.isLightColor
+import com.jeluchu.jchucomponents.ui.composables.accessibility.onColor
 import com.jeluchu.jchucomponents.ui.extensions.color.isDark
 import com.jeluchu.jchucomponents.ui.extensions.color.orTransparent
 import com.jeluchu.jchucomponents.ui.extensions.color.random
 import com.jeluchu.jchucomponents.ui.extensions.lists.itemIf
 import com.jeluchu.jchucomponents.ui.extensions.modifier.Height
+import com.jeluchu.jchucomponents.ui.extensions.modifier.Width
+import com.jeluchu.jchucomponents.ui.extensions.modifier.graphicsCollapse
+import com.jeluchu.jchucomponents.ui.extensions.color.toColorFilter
+import com.jeluchu.jchucomponents.ui.extensions.lists.disableScrolling
+import com.jeluchu.jchucomponents.ui.extensions.lists.enableScrolling
+import com.jeluchu.jchucomponents.ui.extensions.withHorizontalPadding
 import com.jeluchu.jchucomponents.ui.extensions.modifier.click
 import com.jeluchu.jchucomponents.ui.extensions.modifier.cornerRadius
 import com.jeluchu.jchucomponents.ui.extensions.modifier.noRippleClickable
@@ -59,6 +72,7 @@ fun ExtensionsTab() {
         ModifiersCard()
         MoreModifiersCard()
         ListsAndLayoutCard()
+        ScrollAndPaddingCard()
     }
 }
 
@@ -79,17 +93,25 @@ private fun ColorCard() {
         }
         Row(horizontalArrangement = Arrangement.spacedBy(12.dp), verticalAlignment = Alignment.CenterVertically) {
             Box(Modifier.size(width = 110.dp, height = 64.dp).clip(RoundedCornerShape(14.dp)).background(color), contentAlignment = Alignment.Center) {
-                Text("Aa", color = if (color.isDark()) Color.White else Color(0xFF1B2128), fontWeight = FontWeight.ExtraBold)
+                Text("Aa", color = color.onColor(), fontWeight = FontWeight.ExtraBold)
             }
             Box(Modifier.size(width = 110.dp, height = 64.dp).clip(RoundedCornerShape(14.dp)).background(color.opacity(enabled = false, opacity = 0.5f)), contentAlignment = Alignment.Center) {
                 Text("disabled", color = p.fg, fontSize = 13.sp, fontWeight = FontWeight.Bold)
             }
-            Text("isDark() = ${color.isDark()}", color = p.mint, fontFamily = FontFamily.Monospace, fontSize = 13.sp)
+            Column(verticalArrangement = Arrangement.spacedBy(2.dp)) {
+                Text("isDark() = ${color.isDark()}", color = p.mint, fontFamily = FontFamily.Monospace, fontSize = 12.sp)
+                Text("isLightColor() = ${color.isLightColor()}", color = p.mint, fontFamily = FontFamily.Monospace, fontSize = 12.sp)
+                Text("contrast vs white = ${((color.calculateContrastFor(Color.White) * 100).toInt() / 100.0)}", color = p.mint, fontFamily = FontFamily.Monospace, fontSize = 12.sp)
+            }
         }
         CodeBlock(
             """val c = Color(0x${color.toArgbHex()})
 c.opacity(enabled = false, opacity = 0.5f)
-if (c.isDark()) Color.White else Color.Black"""
+if (c.isDark()) Color.White else Color.Black
+c.onColor()                 // Black or White for readable text
+c.isLightColor()
+c.calculateContrastFor(Color.White)
+Icon(painter, null, tint = c)   // or Image(colorFilter = c.toColorFilter())"""
         )
     }
 }
@@ -230,5 +252,46 @@ private fun Tile2(label: String, color: Color) {
     val p = LocalPalette.current
     Box(Modifier.fillMaxWidth().clip(RoundedCornerShape(10.dp)).background(color).padding(10.dp), contentAlignment = Alignment.Center) {
         Text(label, color = p.onAccent, fontWeight = FontWeight.Bold, fontSize = 13.sp)
+    }
+}
+
+@Composable
+private fun ScrollAndPaddingCard() {
+    val p = LocalPalette.current
+    val listState = androidx.compose.foundation.lazy.rememberLazyListState()
+    val scope = androidx.compose.runtime.rememberCoroutineScope()
+    var locked by remember { mutableStateOf(false) }
+    val padded = androidx.compose.foundation.layout.PaddingValues(start = 8.dp, top = 4.dp, end = 8.dp, bottom = 4.dp).withHorizontalPadding(12.dp, androidx.compose.ui.unit.LayoutDirection.Ltr)
+    Section("graphicsCollapse(), disableScrolling(), withHorizontalPadding(), toColorFilter()", "Scroll & padding", Modifier.widthIn(max = 420.dp).fillMaxWidth()) {
+        Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+            Pill(if (locked) "Enable scrolling" else "Disable scrolling", locked, {
+                locked = !locked
+                if (locked) listState.disableScrolling(scope) else listState.enableScrolling(scope)
+            })
+        }
+        Box(Modifier.fillMaxWidth().height(150.dp).clip(RoundedCornerShape(14.dp)).background(p.stage)) {
+            LazyColumn(state = listState, modifier = Modifier.fillMaxSize().padding(10.dp)) {
+                item { Box(Modifier.fillMaxWidth().height(54.dp).graphicsCollapse(listState).clip(RoundedCornerShape(10.dp)).background(p.mint), contentAlignment = Alignment.Center) { Text("graphicsCollapse header", color = p.onAccent, fontWeight = FontWeight.Bold, fontSize = 13.sp) } }
+                items(10) { i -> Box(Modifier.fillMaxWidth().padding(top = 6.dp).clip(RoundedCornerShape(10.dp)).background(p.accent).padding(10.dp), contentAlignment = Alignment.Center) { Text("Item ${i + 1}", color = p.onAccent, fontSize = 13.sp, fontWeight = FontWeight.Bold) } }
+            }
+        }
+        Row(horizontalArrangement = Arrangement.spacedBy(10.dp), verticalAlignment = Alignment.CenterVertically) {
+            androidx.compose.foundation.Image(
+                androidx.compose.ui.graphics.vector.rememberVectorPainter(androidx.compose.material.icons.Icons.Default.Star), contentDescription = null,
+                colorFilter = p.accent.toColorFilter(), modifier = Modifier.size(32.dp)
+            )
+            4.Width()
+            Text("start = ${padded.calculateStartPadding(androidx.compose.ui.unit.LayoutDirection.Ltr)}, end = ${padded.calculateEndPadding(androidx.compose.ui.unit.LayoutDirection.Ltr)}", color = p.muted, fontSize = 12.sp, fontFamily = FontFamily.Monospace)
+        }
+        CodeBlock(
+            """Modifier.graphicsCollapse(listState)      // parallax while the list scrolls
+
+listState.disableScrolling(scope)           // lock / unlock the list
+listState.enableScrolling(scope)
+
+PaddingValues(8.dp).withHorizontalPadding(12.dp, LayoutDirection.Ltr)
+Image(painter, null, colorFilter = accent.toColorFilter())
+4.Width()                                   // Spacer(Modifier.width(4.dp))"""
+        )
     }
 }

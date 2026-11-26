@@ -21,7 +21,21 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.jeluchu.jchucomponents.foundation.extensions.time.daysUntil
+import com.jeluchu.jchucomponents.foundation.extensions.time.endOfMonth
+import com.jeluchu.jchucomponents.foundation.extensions.time.endOfWeek
+import com.jeluchu.jchucomponents.foundation.extensions.time.endOfYear
 import com.jeluchu.jchucomponents.foundation.extensions.time.format
+import com.jeluchu.jchucomponents.foundation.extensions.time.isBefore
+import com.jeluchu.jchucomponents.foundation.extensions.time.isBetween
+import com.jeluchu.jchucomponents.foundation.extensions.time.isSameYearMonth
+import com.jeluchu.jchucomponents.foundation.extensions.time.isToday
+import com.jeluchu.jchucomponents.foundation.extensions.time.isTomorrow
+import com.jeluchu.jchucomponents.foundation.extensions.time.isWeekend
+import com.jeluchu.jchucomponents.foundation.extensions.time.isYesterday
+import com.jeluchu.jchucomponents.foundation.extensions.time.startOfWeek
+import com.jeluchu.jchucomponents.foundation.extensions.time.startOfYear
+import kotlinx.datetime.DayOfWeek
 import com.jeluchu.jchucomponents.foundation.extensions.time.isAfter
 import com.jeluchu.jchucomponents.foundation.extensions.time.isSameDay
 import com.jeluchu.jchucomponents.foundation.extensions.time.minusDays
@@ -69,7 +83,17 @@ fun DatesTab() {
                 "startOfMonth()" to date.startOfMonth().toString(),
                 "plusYears(1)" to date.plusYears(1).toString(),
                 "isSameDay(today)" to date.isSameDay(today).toString(),
-                "isAfter(today)" to date.isAfter(today).toString()
+                "isAfter(today)" to date.isAfter(today).toString(),
+                "isBefore(today)" to date.isBefore(today).toString(),
+                "isToday()" to date.isToday().toString(),
+                "isTomorrow() / isYesterday()" to "${date.isTomorrow()} / ${date.isYesterday()}",
+                "isWeekend()" to date.isWeekend().toString(),
+                "isSameYearMonth(today)" to date.isSameYearMonth(today).toString(),
+                "isBetween(today -3d, today +3d)" to date.isBetween(today.minusDays(3), today.plusDays(3)).toString(),
+                "startOfWeek() / endOfWeek()" to "${date.startOfWeek()} / ${date.endOfWeek()}",
+                "endOfMonth()" to date.endOfMonth().toString(),
+                "startOfYear() / endOfYear()" to "${date.startOfYear()} / ${date.endOfYear()}",
+                "dayOfWeek.daysUntil(FRIDAY)" to date.dayOfWeek.daysUntil(DayOfWeek.FRIDAY).toString()
             ).forEach { (fn, out) ->
                 Row(
                     Modifier.fillMaxWidth().clip(RoundedCornerShape(12.dp)).background(p.stage).padding(horizontal = 14.dp, vertical = 12.dp),

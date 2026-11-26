@@ -16,6 +16,7 @@ import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -61,6 +62,24 @@ import com.jeluchu.jchucomponents.foundation.text.removeFirstLastChar
 import com.jeluchu.jchucomponents.foundation.text.toHttpsUrl
 import com.jeluchu.jchucomponents.foundation.text.wordCount
 import com.jeluchu.jchucomponents.foundation.validators.CreditCardValidator
+import com.jeluchu.jchucomponents.foundation.extensions.bytesToMeg
+import com.jeluchu.jchucomponents.foundation.extensions.isNegative
+import com.jeluchu.jchucomponents.foundation.extensions.isNegativeOrZero
+import com.jeluchu.jchucomponents.foundation.extensions.isPositive
+import com.jeluchu.jchucomponents.foundation.extensions.isPositiveOrZero
+import com.jeluchu.jchucomponents.foundation.extensions.lists.addAllIfNotExist
+import com.jeluchu.jchucomponents.foundation.extensions.lists.concatenateLowercase
+import com.jeluchu.jchucomponents.foundation.extensions.roundUpToNearestTen
+import com.jeluchu.jchucomponents.foundation.functional.flatMap
+import com.jeluchu.jchucomponents.foundation.text.deleteDouble
+import com.jeluchu.jchucomponents.foundation.text.getTranslateOrDefault
+import com.jeluchu.jchucomponents.foundation.text.isEmptyString
+import com.jeluchu.jchucomponents.foundation.text.isNotZero
+import com.jeluchu.jchucomponents.foundation.text.removeCharactersWeirds
+import com.jeluchu.jchucomponents.foundation.text.returnNullIfEmpty
+import com.jeluchu.jchucomponents.foundation.text.safeValue
+import com.jeluchu.jchucomponents.foundation.version.compareVersionTo
+import com.jeluchu.jchucomponents.ui.extensions.time.fixedDecimalsTime
 import com.jeluchu.jchucomponents.foundation.version.compareVersions
 
 /** One utility card: a group, a name for search and deep links, and a live preview. */
@@ -127,6 +146,44 @@ val utilities: List<UtilCard> by lazy {
             "${CreditCardValidator.getCardType(it).name} · valid=${CreditCardValidator.isValidCard(it)}"
         }),
         textCard("Finance", "IbanUtils", "Returns the two IBAN check digits for a Spanish 20-digit account; the IBAN is ES + check digits + account.", "21000418450200051332", { "IbanUtils.getIban(\"$it\")  // check digits; IBAN = \"ES\" + digits + account" }, { IbanUtils.getIban(it) }),
+        textCard("Text", "isEmptyString", "True for empty text and for the literal word null.", "null", { "\"$it\".isEmptyString()" }, { it.isEmptyString().toString() }),
+        textCard("Text", "safeValue", "Replaces a null or empty value with a default.", "", { "(if (\"$it\".isEmpty()) null else \"$it\").safeValue(\"n/a\")" }, { (if (it.isEmpty()) null else it).safeValue("n/a") }),
+        textCard("Text", "returnNullIfEmpty", "Returns null instead of an empty string.", "", { "\"$it\".returnNullIfEmpty()" }, { it.returnNullIfEmpty().toString() }),
+        textCard("Text", "deleteDouble", "Drops the decimals of a numeric string.", "12.75", { "\"$it\".deleteDouble()" }, { it.deleteDouble() }),
+        textCard("Text", "getTranslateOrDefault", "Falls back to a default when a translation is empty.", "", { "\"$it\".getTranslateOrDefault(\"Untitled\")" }, { it.getTranslateOrDefault("Untitled") }),
+        textCard("Text", "removeCharactersWeirds", "Removes unusual characters from a title.", "Hello_<World>!", { "\"$it\".removeCharactersWeirds()" }, { it.removeCharactersWeirds() }),
+        textCard("Text", "isNotZero", "True when a numeric string is not zero.", "0", { "\"$it\".isNotZero()" }, { it.isNotZero().toString() }),
+        textCard("Version", "compareVersionTo", "String shortcut for compareVersions against another version.", "2.1.0", { "\"$it\".compareVersionTo(\"2.0.9\")" }, { it.compareVersionTo("2.0.9").toString() }),
+        UtilCard("Numbers", "isPositive, isNegative, roundUpToNearestTen, bytesToMeg, fixedDecimalsTime", "Sign checks and number formatting helpers.") {
+            var text by remember { mutableStateOf("1234") }
+            val n = text.toIntOrNull()
+            Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
+                UtilInput(text, { text = it }, "Number")
+                if (n == null) {
+                    UtilOutput("Result", "enter an integer")
+                } else {
+                    UtilOutput("isPositive() / isNegative()", "${n.isPositive()} / ${n.isNegative()}")
+                    UtilOutput("isPositiveOrZero() / isNegativeOrZero()", "${n.isPositiveOrZero()} / ${n.isNegativeOrZero()}")
+                    UtilOutput("roundUpToNearestTen()", n.roundUpToNearestTen().toString())
+                    UtilOutput("(n * 1_048_576L).bytesToMeg()", (n * 1_048_576L).bytesToMeg())
+                    UtilOutput("fixedDecimalsTime()", n.fixedDecimalsTime())
+                    CodeBlock("$n.isPositive()\n$n.roundUpToNearestTen()\n${n}L.bytesToMeg()\n$n.fixedDecimalsTime()")
+                }
+            }
+        },
+        UtilCard("Collections", "addAllIfNotExist, concatenateLowercase", "Add only new elements to a list, and join strings in lowercase.") {
+            val list = remember { mutableStateListOf("Action", "Drama") }
+            var joined by remember { mutableStateOf("") }
+            Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
+                Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                    Pill("addAllIfNotExist(Drama, Sci-Fi)", false, { list.addAllIfNotExist(listOf("Drama", "Sci-Fi")); joined = list.concatenateLowercase() }, mono = true)
+                    Pill("reset", false, { list.clear(); list.addAll(listOf("Action", "Drama")); joined = "" })
+                }
+                UtilOutput("list", list.joinToString())
+                UtilOutput("concatenateLowercase()", joined.ifEmpty { "(press the button)" })
+                CodeBlock("val list = mutableListOf(\"Action\", \"Drama\")\nlist.addAllIfNotExist(listOf(\"Drama\", \"Sci-Fi\"))\nlist.concatenateLowercase()")
+            }
+        },
         UtilCard("Crypto", "CaesarCipher", "Encrypts and decrypts Latin letters by shifting them.") {
             var text by remember { mutableStateOf("Hello World") }
             var key by remember { mutableStateOf(CaesarCipher.DEFAULT_KEY) }
@@ -205,8 +262,9 @@ val utilities: List<UtilCard> by lazy {
             Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
                 Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) { Pill("right(21)", ok, { ok = true }, mono = true); Pill("left(\"error\")", !ok, { ok = false }, mono = true) }
                 UtilOutput("map { it * 2 }", doubled.toString())
+                UtilOutput("flatMap { right(it + 1) }", r.flatMap { v -> right(v + 1) }.toString())
                 UtilOutput("getOrElse(0)", doubled.getOrElse(0).toString())
-                CodeBlock("val r: Either<String, Int> = ${if (ok) "right(21)" else "left(\"network error\")"}\nr.map { it * 2 }.getOrElse(0)")
+                CodeBlock("val r: Either<String, Int> = ${if (ok) "right(21)" else "left(\"network error\")"}\nr.map { it * 2 }.getOrElse(0)\nr.flatMap { right(it + 1) }")
             }
         }
     )

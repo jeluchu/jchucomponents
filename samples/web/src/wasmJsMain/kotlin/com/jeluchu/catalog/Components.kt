@@ -493,7 +493,7 @@ JchuAnimatedBottomSheet(
     )
 }
 
-val demos: List<Demo> by lazy { baseDemos + moreDemos }
+val demos: List<Demo> by lazy { baseDemos + moreDemos + closeDemos }
 
 private const val UiPath = "jchucomponents-ui/src/commonMain/kotlin/com/jeluchu/jchucomponents/ui/composables/"
 
@@ -513,6 +513,8 @@ private val sourceFiles =
         "Dividers" to "divider/JchuDividers.kt", "Tooltip" to "accessibility/Tooltip.kt",
         "ScrollableChipTabRow" to "tabs/ScrollableChipTabRow.kt", "SnackbarCustomized" to "snackbar/SnackbarCustomized.kt",
         "JchuAnimatedBottomSheet" to "sheets/JchuAnimatedBottomSheet.kt",
+        "ScrollableColumn" to "column/ScrollableColumn.kt", "ProgressIndicator" to "loaders/DotsLoading.kt",
+        "DashedDivider" to "divider/DashDivider.kt", "ScaffoldStates" to "structures/Scaffold.kt",
         "Card" to "cards/Card.kt", "Toolbar" to "toolbars/SlotToolbar.kt", "CenterToolbar" to "toolbars/CenterToolbars.kt",
         "BottomSheetWithCloseDialog" to "sheets/BottomSheetWithClose.kt", "JchuScrollableColumn" to "column/JchuScrollableColumn.kt",
         "JchuRemoteScreenContent" to "structures/JchuRemoteScreenContent.kt", "JchuDefaultEmptyContent" to "structures/JchuItemsScaffold.kt",
@@ -530,7 +532,9 @@ private const val FoundationPath = "jchucomponents-ui/src/commonMain/kotlin/com/
 
 private val foundationSourceFiles =
     mapOf(
-        "LazyColumnFor" to "lists/LazyColumns.kt", "LazyGrid" to "lists/LazyGrid.kt", "VerticalGrid" to "lists/LazyGrids.kt",
+        "LazyColumnFor" to "lists/LazyColumns.kt", "LazyColumnForIndexed" to "lists/LazyColumns.kt", "ListColumn" to "lists/LazyColumns.kt",
+        "LazyRowFor" to "lists/LazyRows.kt", "LazyRowForIndexed" to "lists/LazyRows.kt", "ListRow" to "lists/LazyRows.kt",
+        "ComposePagerSnapHelper" to "lists/composition/ComposePagerSnapHelper.kt", "LazyGrid" to "lists/LazyGrid.kt", "VerticalGrid" to "lists/LazyGrids.kt",
         "LazyStaticGrid" to "lists/LazyGrids.kt", "LazyHorizontalGrid" to "lists/LazyHorizontalGrid.kt",
         "DraggableItem" to "lists/LazyColumnDragAndDrop.kt", "MarqueeText" to "text/MarqueeTextCommon.kt", "IconLink" to "icon/IconLink.kt"
     )
