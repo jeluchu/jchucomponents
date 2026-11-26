@@ -18,9 +18,9 @@ kotlin {
             api(project(":jchucomponents-config"))
             api(libs.ktor.client.core)
             api(libs.org.jetbrains.kotlinx.kotlinx.coroutines.core)
-            implementation(libs.ktor.client.content.negotiation)
-            implementation(libs.ktor.client.logging)
-            implementation(libs.ktor.serialization.kotlinx.json)
+            api(libs.ktor.client.content.negotiation)
+            api(libs.ktor.client.logging)
+            api(libs.ktor.serialization.kotlinx.json)
         }
 
         commonTest.dependencies {
@@ -28,18 +28,18 @@ kotlin {
         }
 
         androidMain.dependencies {
-            implementation(libs.ktor.android)
+            api(libs.ktor.android)
             // Optional engine (see JchuHttpEngine.Cio), also used by the JVM target.
-            implementation(libs.ktor.cio)
+            api(libs.ktor.cio)
             implementation(libs.androidx.core.core.ktx)
         }
 
         jvmMain.dependencies {
-            implementation(libs.ktor.cio)
+            api(libs.ktor.cio)
         }
 
         appleMain.dependencies {
-            implementation(libs.ktor.darwin)
+            api(libs.ktor.darwin)
         }
     }
 }

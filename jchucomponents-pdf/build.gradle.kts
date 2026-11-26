@@ -48,8 +48,6 @@ kotlin {
             implementation(project(":jchucomponents-network"))
             implementation(project(":jchucomponents-ui"))
             implementation(compose.foundation)
-            // Newer than the one compose.material3 resolves to: the pdf reader uses LoadingIndicator.
-            implementation(libs.compose.material3.expressive)
             implementation(compose.materialIconsExtended)
             implementation(compose.components.resources)
             implementation(libs.org.jetbrains.kotlinx.kotlinx.coroutines.core)

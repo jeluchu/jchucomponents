@@ -54,10 +54,12 @@ kotlin {
             api(compose.animation)
             api(compose.foundation)
             api(compose.components.resources)
-            api(compose.material3)
+            // Same Material 3 as the pdf reader (it needs LoadingIndicator); apps get it transitively.
+            api(libs.compose.material3.expressive)
             api(compose.materialIconsExtended)
             api(libs.org.jetbrains.kotlinx.kotlinx.coroutines.core)
-            implementation(libs.coil.compose)
+            api(libs.coil.compose)
+            api(libs.coil.compose.ktor)
             api(libs.kotlinx.datetime)
             implementation(libs.compose.ui.tooling.preview.kmp)
         }
