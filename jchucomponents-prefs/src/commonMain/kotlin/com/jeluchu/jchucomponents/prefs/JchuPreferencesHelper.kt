@@ -6,6 +6,7 @@ import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.distinctUntilChanged
@@ -160,6 +161,9 @@ private class DataStoreJchuPreferencesHelper(
     private val version = MutableStateFlow(0)
     private val writer = CoroutineScope(SupervisorJob() + Dispatchers.Default.limitedParallelism(1))
 
+    /** Writes launched on [writer] that have not finished persisting yet; [flush] waits for this to reach zero. */
+    private val writesInFlight = MutableStateFlow(0)
+
     override val changes: StateFlow<Int> = version.asStateFlow()
 
     init {
@@ -204,18 +208,20 @@ private class DataStoreJchuPreferencesHelper(
     override fun remove(key: String) {
         pending.update { it + (key to Removed) }
         version.update { it + 1 }
-        writer.launch { runCatching { preferences.remove(key) } }
+        persistLater { preferences.remove(key) }
     }
 
     override suspend fun flush() {
-        writer.launch { }.join()
+        // The writer runs concurrently while DataStore is suspended on I/O, so joining an empty job would
+        // return before earlier writes reach the disk. Wait until every launched write has finished.
+        writesInFlight.first { it == 0 }
     }
 
     override fun clearAll() {
         pending.value = emptyMap()
         stored.value = emptyMap()
         version.update { it + 1 }
-        writer.launch { runCatching { preferences.clear() } }
+        persistLater { preferences.clear() }
     }
 
     private fun raw(key: String): Any? {
@@ -227,6 +233,17 @@ private class DataStoreJchuPreferencesHelper(
     private fun write(key: String, value: Any, persist: suspend () -> Unit) {
         pending.update { it + (key to value) }
         version.update { it + 1 }
-        writer.launch { runCatching { persist() } }
+        persistLater(persist)
+    }
+
+    private fun persistLater(persist: suspend () -> Unit) {
+        writesInFlight.update { it + 1 }
+        writer.launch {
+            try {
+                runCatching { persist() }
+            } finally {
+                writesInFlight.update { it - 1 }
+            }
+        }
     }
 }

@@ -9,6 +9,11 @@
 - `jchucomponents-pdf` now publishes a JVM target (`jchucomponents-pdf-jvm`). The desktop reader renders pages with
   Apache PDFBox, supports rotation, zoom and the same floating controls, and "share" opens the PDF in the system viewer.
 
+### Fixed
+
+- `JchuPreferencesHelper.flush()` now waits for the writes that are still in flight. It returned immediately before, so
+  a value saved right before closing a desktop app could be lost.
+
 ## 3.0.0-beta02 - 2026-11-23
 
 ### Fixed
