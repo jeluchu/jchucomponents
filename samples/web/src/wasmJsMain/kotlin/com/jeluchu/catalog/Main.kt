@@ -32,6 +32,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -146,6 +147,11 @@ private fun ComponentsTab(family: String, onFamily: (String) -> Unit, selected: 
     val current = if (selected.family == family) selected else items.first()
     Section(current.name, "How to use it", Modifier.fillMaxWidth()) {
         Text(current.description, color = p.muted, fontSize = 15.sp)
+        val uri = LocalUriHandler.current
+        FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+            Pill("View source", true, { uri.openUri(current.sourceUrl()) }, height = 44.dp)
+            Pill("API reference", false, { uri.openUri("../") }, height = 44.dp)
+        }
         CodeBlock(current.code)
     }
 }

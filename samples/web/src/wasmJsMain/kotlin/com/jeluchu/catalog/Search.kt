@@ -62,12 +62,31 @@ private val dateEntries =
 
 private fun String.norm() = removeDiacritics().lowercase()
 
+/** Spanish search terms mapped to the English words used in the catalog. */
+private val synonyms: Map<String, List<String>> =
+    mapOf(
+        "fecha" to listOf("date", "localdate"), "fechas" to listOf("date", "localdate"), "mes" to listOf("month"),
+        "meses" to listOf("month"), "dia" to listOf("day"), "dias" to listOf("day"), "ano" to listOf("year"),
+        "carga" to listOf("loading", "loader", "progress"), "cargando" to listOf("loading", "loader"),
+        "boton" to listOf("button"), "tarjeta" to listOf("card"), "buscar" to listOf("search"), "busqueda" to listOf("search"),
+        "buscador" to listOf("search"), "texto" to listOf("text"), "progreso" to listOf("progress"),
+        "ajustes" to listOf("preference", "setting"), "preferencias" to listOf("preference"), "opciones" to listOf("preference", "choice"),
+        "pestana" to listOf("tab"), "pestanas" to listOf("tab"), "hoja" to listOf("sheet"), "aviso" to listOf("snackbar"),
+        "mensaje" to listOf("snackbar"), "ayuda" to listOf("tooltip"), "numero" to listOf("number", "int"), "numeros" to listOf("number", "int"),
+        "tiempo" to listOf("timer", "time"), "temporizador" to listOf("timer"), "formato" to listOf("format"),
+        "contador" to listOf("counter", "count"), "divisor" to listOf("divider"), "separador" to listOf("divider"),
+        "campo" to listOf("field"), "entrada" to listOf("field", "input"), "color" to listOf("color"), "colores" to listOf("color"),
+        "animacion" to listOf("animated", "shake", "bounce"), "temblar" to listOf("shake"), "rebote" to listOf("bounce"),
+        "etiqueta" to listOf("tag", "chip"), "interruptor" to listOf("switch"), "paginas" to listOf("page", "pager"),
+        "lista" to listOf("list"), "miles" to listOf("thousands")
+    )
+
 fun searchCatalog(query: String): List<SearchEntry> {
     val terms = query.norm().split(' ').filter { it.isNotBlank() }
     if (terms.isEmpty()) return emptyList()
     val all = demos.map { SearchEntry(it.name, it.description, it.family, "Components", it) } + extensionEntries + dateEntries
     return all
-        .filter { e -> val hay = "${e.title} ${e.subtitle} ${e.kind}".norm(); terms.all { it in hay } }
+        .filter { e -> val hay = "${e.title} ${e.subtitle} ${e.kind}".norm(); terms.all { t -> t in hay || synonyms[t].orEmpty().any { it in hay } } }
         .sortedBy { if (it.title.norm().startsWith(terms.first())) 0 else 1 }
         .take(8)
 }

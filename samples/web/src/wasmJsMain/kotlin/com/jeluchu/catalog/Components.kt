@@ -1,3 +1,5 @@
+@file:OptIn(androidx.compose.material3.ExperimentalMaterial3Api::class)
+
 package com.jeluchu.catalog
 
 import androidx.compose.foundation.background
@@ -19,6 +21,19 @@ import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
+import androidx.compose.material3.SnackbarHostState
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.graphics.vector.rememberVectorPainter
+import kotlinx.coroutines.launch
+import com.jeluchu.jchucomponents.ui.composables.chips.JchuAmountCounter
+import com.jeluchu.jchucomponents.ui.composables.sheets.JchuAnimatedBottomSheet
+import com.jeluchu.jchucomponents.ui.composables.snackbar.SnackbarCustomized
+import com.jeluchu.jchucomponents.ui.composables.tabs.ChipTab
+import com.jeluchu.jchucomponents.ui.composables.tabs.ScrollableChipTabRow
+import com.jeluchu.jchucomponents.ui.composables.textfields.GrowingTextFieldDefaults
+import com.jeluchu.jchucomponents.ui.composables.textfields.JchuExpandableSearch
+import com.jeluchu.jchucomponents.ui.composables.textfields.JchuGrowingTextField
+import com.jeluchu.jchucomponents.ui.composables.textfields.SearchBarDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.ui.draw.clip
 import androidx.compose.material3.Text
@@ -29,6 +44,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.jeluchu.jchucomponents.ui.composables.accessibility.Tooltip
 import com.jeluchu.jchucomponents.ui.composables.cards.JchuSettingInfoCard
@@ -281,7 +297,7 @@ JchuCountedField(
             Box(Modifier.widthIn(max = 300.dp).fillMaxWidth()) {
                 JchuCountedField(
                     title = "Name", value = name, onValueChange = { name = it }, maxLength = 30,
-                    countField = CountField(cursorColor = p.accent, counterTextColor = p.onAccent, disabledLabelColor = p.accent, backgroundColor = p.soft)
+                    countField = CountField(cursorColor = p.mint, counterTextColor = p.fg, disabledLabelColor = p.muted, backgroundColor = p.soft)
                 )
             }
         },
@@ -363,5 +379,140 @@ Box {
                 Tooltip(expanded = expanded, text = "Saved to library", backgroundColor = p.codeBg)
             }
         }
+        ,
+        Demo(
+            "Inputs", "JchuExpandableSearch", "Compose", "Search icon that expands into a full field and collapses back.",
+            """var query by remember { mutableStateOf("") }
+
+JchuExpandableSearch(
+    query = query,
+    onQueryChange = { query = it },
+    defaults = SearchBarDefaults(label = "Search anime")
+)"""
+        ) {
+            val p = LocalPalette.current
+            var query by remember { mutableStateOf("") }
+            JchuExpandableSearch(
+                query = query, onQueryChange = { query = it },
+                defaults = SearchBarDefaults(label = "Search anime", containerColor = p.panel, contentColor = p.fg, cursorColor = p.accent),
+                modifier = Modifier.widthIn(max = 300.dp).fillMaxWidth()
+            )
+        },
+        Demo(
+            "Inputs", "JchuGrowingTextField", "Compose", "Multi-line field that grows with its content and counts characters.",
+            """var notes by remember { mutableStateOf("") }
+
+JchuGrowingTextField(
+    value = notes,
+    onValueChange = { notes = it },
+    defaults = GrowingTextFieldDefaults(
+        label = "Notes",
+        minLines = 2,
+        maxCharacters = 120
+    )
+)"""
+        ) {
+            var notes by remember { mutableStateOf("") }
+            JchuGrowingTextField(
+                value = notes, onValueChange = { notes = it },
+                defaults = GrowingTextFieldDefaults(label = "Notes", placeholder = "Write something…", minLines = 2, maxCharacters = 120),
+                modifier = Modifier.widthIn(max = 300.dp).fillMaxWidth()
+            )
+        },
+        Demo(
+            "Chips", "JchuAmountCounter", "Compose", "Small counter badge with a leading icon.",
+            """JchuAmountCounter(
+    amount = "12",
+    painter = rememberVectorPainter(Icons.Default.Star)
+)"""
+        ) {
+            JchuAmountCounter(amount = "12", painter = rememberVectorPainter(Icons.Default.Star))
+        },
+        Demo(
+            "Navigation", "ScrollableChipTabRow", "Compose", "Horizontally scrollable tab row made of chip tabs.",
+            """var selected by remember { mutableStateOf(0) }
+
+ScrollableChipTabRow(selectedTabIndex = selected) {
+    listOf("Overview", "Episodes", "Reviews").forEachIndexed { i, title ->
+        ChipTab(selected = selected == i, onClick = { selected = i }) {
+            Text(title)
+        }
+    }
+}"""
+        ) {
+            val p = LocalPalette.current
+            var idx by remember { mutableStateOf(1) }
+            ScrollableChipTabRow(selectedTabIndex = idx, backgroundColor = p.stage, contentColor = p.fg) {
+                listOf("Overview", "Episodes", "Reviews", "Related").forEachIndexed { i, t ->
+                    ChipTab(selected = idx == i, onClick = { idx = i }, selectedContentColor = p.accent) {
+                        Text(t, Modifier.padding(horizontal = 14.dp, vertical = 8.dp), fontWeight = FontWeight.Bold)
+                    }
+                }
+            }
+        },
+        Demo(
+            "Feedback", "SnackbarCustomized", "Compose", "Themed snackbar host driven by a SnackbarHostState.",
+            """val host = remember { SnackbarHostState() }
+val scope = rememberCoroutineScope()
+
+Button(onClick = { scope.launch { host.showSnackbar("Saved") } }) { Text("Save") }
+SnackbarCustomized(snackHost = host)"""
+        ) {
+            val p = LocalPalette.current
+            val host = remember { SnackbarHostState() }
+            val scope = rememberCoroutineScope()
+            Box(Modifier.fillMaxWidth().height(160.dp)) {
+                Box(Modifier.align(Alignment.TopCenter)) { Pill("Show snackbar", false, { scope.launch { host.showSnackbar("Saved to library") } }, height = 44.dp) }
+                SnackbarCustomized(Modifier.align(Alignment.BottomCenter), snackHost = host, bgColor = p.accent, contentColor = p.onAccent)
+            }
+        },
+        Demo(
+            "Surfaces", "JchuAnimatedBottomSheet", "Compose", "Modal bottom sheet driven by a nullable value; it keeps the last value while it animates out.",
+            """var shown by remember { mutableStateOf<String?>(null) }
+
+Button(onClick = { shown = "Share" }) { Text("Open") }
+
+JchuAnimatedBottomSheet(
+    value = shown,
+    onDismissRequest = { shown = null }
+) { title ->
+    Text(title)
+}"""
+        ) {
+            val p = LocalPalette.current
+            var shown by remember { mutableStateOf<String?>(null) }
+            Pill("Open sheet", false, { shown = "Share this catalog" }, height = 44.dp)
+            JchuAnimatedBottomSheet(value = shown, onDismissRequest = { shown = null }, containerColor = p.panel, contentColor = p.fg) { title ->
+                Column(Modifier.fillMaxWidth().padding(horizontal = 24.dp, vertical = 12.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
+                    Text(title, color = p.fg, fontWeight = FontWeight.ExtraBold)
+                    Text("The sheet animates in and out; value is retained while it closes.", color = p.muted)
+                    Pill("Close", true, { shown = null }, height = 44.dp)
+                }
+            }
+        }
     )
 }
+
+private const val UiPath = "jchucomponents-ui/src/commonMain/kotlin/com/jeluchu/jchucomponents/ui/composables/"
+
+private val sourceFiles =
+    mapOf(
+        "SelectableChip" to "chips/Chips.kt", "Chip" to "chips/Chips.kt", "Tag" to "chips/Tag.kt",
+        "YoutubeChip" to "chips/YoutubeChip.kt", "JchuAmountCounter" to "chips/JchuAmountCounter.kt",
+        "DotsLoading" to "loaders/DotsLoading.kt", "PulseLoading" to "loaders/PulseLoading.kt",
+        "CircularLoading" to "loaders/CircularLoading.kt",
+        "JchuPreferenceSwitch" to "preferences/JchuPreferenceSwitch.kt", "JchuPreferenceItem" to "preferences/JchuPreferenceItem.kt",
+        "JchuPreferenceChoice" to "preferences/JchuPreferenceChoice.kt",
+        "JchuSearchField" to "textfields/SearchTexField.kt", "JchuExpandableSearch" to "textfields/JchuExpandableSearch.kt",
+        "JchuGrowingTextField" to "textfields/JchuGrowingTextField.kt", "JchuCountedField" to "textfields/CountTextField.kt",
+        "JchuColorPicker" to "colors/JchuColorPicker.kt", "JchuSettingInfoCard" to "cards/JchuSettingInfoCard.kt",
+        "TimeCard" to "premium/TimeCard.kt", "ReadingIndicator" to "progress/ReadingIndicator.kt",
+        "PageIndicator" to "pager/PageIndicator.kt", "JchuExpandableText" to "text/JchuExpandableText.kt",
+        "Dividers" to "divider/JchuDividers.kt", "Tooltip" to "accessibility/Tooltip.kt",
+        "ScrollableChipTabRow" to "tabs/ScrollableChipTabRow.kt", "SnackbarCustomized" to "snackbar/SnackbarCustomized.kt",
+        "JchuAnimatedBottomSheet" to "sheets/JchuAnimatedBottomSheet.kt"
+    )
+
+/** GitHub URL of the file that declares this component. */
+fun Demo.sourceUrl(): String =
+    "https://github.com/jeluchu/jchucomponents/blob/main/" + sourceFiles[name]?.let { UiPath + it }.orEmpty().ifEmpty { "jchucomponents-ui" }
