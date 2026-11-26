@@ -81,7 +81,7 @@ fun SearchBar(query: String, onQueryChange: (String) -> Unit, modifier: Modifier
     ) {
         Icon(Icons.Default.Search, contentDescription = "Search", tint = p.muted)
         Box(Modifier.weight(1f)) {
-            if (query.isEmpty()) Text("Search components, extensions, dates…", color = p.muted, fontSize = 14.sp)
+            if (query.isEmpty()) Text(if (LocalCompact.current) "Search…" else "Search components, extensions, dates…", color = p.muted, fontSize = 14.sp, maxLines = 1)
             BasicTextField(
                 value = query, onValueChange = onQueryChange, singleLine = true,
                 textStyle = TextStyle(color = p.fg, fontSize = 14.sp), cursorBrush = SolidColor(p.accent),

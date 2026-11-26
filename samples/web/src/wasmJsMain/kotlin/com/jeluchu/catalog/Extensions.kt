@@ -11,7 +11,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -50,7 +50,7 @@ private fun ColorCard() {
     val p = LocalPalette.current
     var color by remember { mutableStateOf(Color(0xFFB9C78F)) }
     val swatches = listOf(Color(0xFFB9C78F), Color(0xFF8FC4A0), Color(0xFF3D4D42), Color(0xFFF1EFE0), Color(0xFF1B2128))
-    Section("opacity() and isDark()", "Color", Modifier.width(420.dp)) {
+    Section("opacity() and isDark()", "Color", Modifier.widthIn(max = 420.dp).fillMaxWidth()) {
         Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
             swatches.forEach { c ->
                 Box(
@@ -86,7 +86,7 @@ private fun Color.toArgbHex(): String {
 private fun NumbersCard() {
     val p = LocalPalette.current
     var n by remember { mutableStateOf(205_000) }
-    Section("milliSecondsToTimer() and thousandsFormat()", "Numbers", Modifier.width(420.dp)) {
+    Section("milliSecondsToTimer() and thousandsFormat()", "Numbers", Modifier.widthIn(max = 420.dp).fillMaxWidth()) {
         FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
             listOf(950, 12_500, 205_000, 3_725_000).forEach { v -> Pill(v.toString(), selected = v == n, onClick = { n = v }, mono = true) }
         }
@@ -114,7 +114,7 @@ private fun ModifiersCard() {
     var selected by remember { mutableStateOf(false) }
     var presses by remember { mutableStateOf(0) }
     val transition = rememberInfiniteTransition()
-    Section("shake(), bounceClick() and conditional()", "Modifiers", Modifier.width(420.dp)) {
+    Section("shake(), bounceClick() and conditional()", "Modifiers", Modifier.widthIn(max = 420.dp).fillMaxWidth()) {
         Column(
             Modifier.fillMaxWidth().height(150.dp).clip(RoundedCornerShape(14.dp)).background(p.stage),
             verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally

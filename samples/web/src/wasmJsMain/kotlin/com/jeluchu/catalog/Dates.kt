@@ -6,7 +6,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -43,7 +43,7 @@ fun DatesTab() {
     val formatted = date.format(pattern)
 
     FlowRow(horizontalArrangement = Arrangement.spacedBy(20.dp), verticalArrangement = Arrangement.spacedBy(20.dp)) {
-        Section("LocalDate helpers", "Playground", Modifier.width(440.dp)) {
+        Section("LocalDate helpers", "Playground", Modifier.widthIn(max = 440.dp).fillMaxWidth()) {
             Text(date.toString(), color = p.fg, fontSize = 34.sp, fontWeight = FontWeight.ExtraBold)
             FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
                 Pill("minusMonths(1)", false, { date = date.minusMonths(1) }, mono = true, height = 44.dp)
@@ -59,7 +59,7 @@ fun DatesTab() {
                 }
             }
         }
-        Section("What you get back", "Result", Modifier.width(440.dp)) {
+        Section("What you get back", "Result", Modifier.widthIn(max = 440.dp).fillMaxWidth()) {
             listOf(
                 "format(\"$pattern\")" to formatted,
                 "startOfMonth()" to date.startOfMonth().toString(),
@@ -70,7 +70,7 @@ fun DatesTab() {
                     Modifier.fillMaxWidth().clip(RoundedCornerShape(12.dp)).background(p.stage).padding(horizontal = 14.dp, vertical = 12.dp),
                     horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Text(fn, color = p.muted, fontFamily = FontFamily.Monospace, fontSize = 13.sp)
+                    Text(fn, color = p.muted, fontFamily = FontFamily.Monospace, fontSize = 13.sp, modifier = Modifier.weight(1f, fill = false))
                     Text(out, color = p.fg, fontWeight = FontWeight.ExtraBold, fontSize = 15.sp)
                 }
             }

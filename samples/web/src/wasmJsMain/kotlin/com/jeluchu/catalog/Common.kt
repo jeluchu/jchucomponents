@@ -52,6 +52,9 @@ private fun legacyCopy(text: String): Boolean =
 
 val LocalPalette = compositionLocalOf { DarkSage }
 
+/** True on phone-sized windows. */
+val LocalCompact = compositionLocalOf { false }
+
 @Composable
 fun Section(title: String, kicker: String, modifier: Modifier = Modifier, content: @Composable () -> Unit) {
     val p = LocalPalette.current
@@ -75,32 +78,37 @@ fun CodeBlock(code: String, modifier: Modifier = Modifier) {
     val scope = rememberCoroutineScope()
     var copied by remember(code) { mutableStateOf(false) }
     var failed by remember(code) { mutableStateOf(false) }
-    Box(modifier.fillMaxWidth().clip(RoundedCornerShape(14.dp)).background(p.codeBg)) {
-        Box(Modifier.horizontalScroll(rememberScrollState()).padding(start = 16.dp, top = 16.dp, bottom = 16.dp, end = 120.dp)) {
-            Text(code, color = Color(0xFFE8ECD8), fontFamily = FontFamily.Monospace, fontSize = 13.sp, lineHeight = 22.sp, softWrap = false)
+    Column(modifier.fillMaxWidth().clip(RoundedCornerShape(14.dp)).background(p.codeBg)) {
+        Row(Modifier.fillMaxWidth().padding(start = 10.dp, end = 10.dp, top = 10.dp), horizontalArrangement = Arrangement.End) {
+            Row(
+                Modifier.height(34.dp).clip(RoundedCornerShape(999.dp))
+                    .background(if (copied) p.accent else Color(0xFF2A343C))
+                    .clickable {
+                        scope.launch {
+                            val ok =
+                                runCatching { clipboard.setClipEntry(ClipEntry.withPlainText(code)) }.isSuccess ||
+                                    legacyCopy(code)
+                            failed = !ok
+                            copied = ok
+                            delay(1600)
+                            copied = false
+                            failed = false
+                        }
+                    }.padding(horizontal = 12.dp),
+                verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)
+            ) {
+                Icon(
+                    if (copied) Icons.Default.Check else Icons.Default.ContentCopy, contentDescription = null,
+                    tint = if (copied) p.onAccent else Color(0xFFE8ECD8), modifier = Modifier.size(16.dp)
+                )
+                Text(
+                    if (copied) "Copied" else if (failed) "Copy failed" else "Copy",
+                    color = if (copied) p.onAccent else Color(0xFFE8ECD8), fontSize = 12.sp, fontWeight = FontWeight.Bold
+                )
+            }
         }
-        Row(
-            Modifier.align(Alignment.TopEnd).padding(10.dp).height(34.dp).clip(RoundedCornerShape(999.dp))
-                .background(if (copied) p.accent else Color(0xFF2A343C))
-                .clickable {
-                    scope.launch {
-                        val ok =
-                            runCatching { clipboard.setClipEntry(ClipEntry.withPlainText(code)) }.isSuccess ||
-                                legacyCopy(code)
-                        failed = !ok
-                        copied = ok
-                        if (!ok) { delay(1600); failed = false; return@launch }
-                        delay(1600)
-                        copied = false
-                    }
-                }.padding(horizontal = 12.dp),
-            verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)
-        ) {
-            Icon(
-                if (copied) Icons.Default.Check else Icons.Default.ContentCopy, contentDescription = null,
-                tint = if (copied) p.onAccent else Color(0xFFE8ECD8), modifier = Modifier.size(16.dp)
-            )
-            Text(if (copied) "Copied" else if (failed) "Copy failed" else "Copy", color = if (copied) p.onAccent else Color(0xFFE8ECD8), fontSize = 12.sp, fontWeight = FontWeight.Bold)
+        Box(Modifier.horizontalScroll(rememberScrollState()).padding(start = 16.dp, end = 16.dp, top = 4.dp, bottom = 16.dp)) {
+            Text(code, color = Color(0xFFE8ECD8), fontFamily = FontFamily.Monospace, fontSize = 13.sp, lineHeight = 22.sp, softWrap = false)
         }
     }
 }

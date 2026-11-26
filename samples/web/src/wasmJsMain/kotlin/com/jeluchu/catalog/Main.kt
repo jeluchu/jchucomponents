@@ -5,6 +5,7 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
@@ -50,14 +51,16 @@ private fun CatalogApp() {
     var query by remember { mutableStateOf("") }
     val results = remember(query) { searchCatalog(query) }
     val p = if (dark) DarkSage else LightSage
-    CompositionLocalProvider(LocalPalette provides p) {
+    BoxWithConstraints(Modifier.fillMaxSize()) {
+    val compact = maxWidth < 700.dp
+    CompositionLocalProvider(LocalPalette provides p, LocalCompact provides compact) {
         MaterialTheme(colorScheme = p.scheme) {
             Surface(Modifier.fillMaxSize(), color = p.bg) {
                 Column(Modifier.fillMaxSize()) {
                     Header(dark = dark, onToggle = { dark = !dark }, query = query, onQueryChange = { query = it })
                     if (query.isNotBlank()) {
                         SearchResults(
-                            results, query, modifier = Modifier.padding(start = 32.dp, top = 8.dp),
+                            results, query, modifier = Modifier.padding(horizontal = if (compact) 12.dp else 32.dp, vertical = 8.dp),
                             onPick = { e ->
                                 tab = e.tab
                                 e.demo?.let { family = it.family; selected = it }
@@ -66,17 +69,17 @@ private fun CatalogApp() {
                         )
                     }
                     Column(
-                        Modifier.weight(1f).fillMaxWidth().verticalScroll(rememberScrollState()).padding(horizontal = 40.dp, vertical = 32.dp),
+                        Modifier.weight(1f).fillMaxWidth().verticalScroll(rememberScrollState()).padding(horizontal = if (compact) 16.dp else 40.dp, vertical = if (compact) 20.dp else 32.dp),
                         verticalArrangement = Arrangement.spacedBy(24.dp)
                     ) {
                         Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                            Text("Explore, tweak, copy.", color = p.fg, fontSize = 40.sp, fontWeight = FontWeight.ExtraBold)
+                            Text("Explore, tweak, copy.", color = p.fg, fontSize = if (compact) 30.sp else 40.sp, fontWeight = FontWeight.ExtraBold)
                             Text(
                                 "Components, extensions and date helpers running live, with the code to use each one.",
                                 color = p.muted, fontSize = 16.sp, modifier = Modifier.widthIn(max = 640.dp)
                             )
                         }
-                        Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                        FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
                             listOf("Components", "Extensions", "Dates").forEach { name ->
                                 Pill(name, selected = tab == name, onClick = { tab = name }, height = 44.dp)
                             }
@@ -91,21 +94,22 @@ private fun CatalogApp() {
             }
         }
     }
+    }
 }
 
 @Composable
 private fun Header(dark: Boolean, onToggle: () -> Unit, query: String, onQueryChange: (String) -> Unit) {
     val p = LocalPalette.current
     Row(
-        Modifier.fillMaxWidth().background(p.panel).padding(horizontal = 32.dp, vertical = 14.dp),
+        Modifier.fillMaxWidth().background(p.panel).padding(horizontal = if (LocalCompact.current) 14.dp else 32.dp, vertical = 14.dp),
         verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(12.dp)
     ) {
         Box(Modifier.size(36.dp).clip(CircleShape).background(p.accent).border(3.dp, p.mint, CircleShape), contentAlignment = Alignment.Center) {
             Text("J", color = p.onAccent, fontWeight = FontWeight.ExtraBold)
         }
-        Text("JchuComponents", color = p.fg, fontSize = 19.sp, fontWeight = FontWeight.ExtraBold)
+        if (!LocalCompact.current) Text("JchuComponents", color = p.fg, fontSize = 19.sp, fontWeight = FontWeight.ExtraBold)
         SearchBar(query, onQueryChange, Modifier.weight(1f).widthIn(max = 520.dp))
-        Box(Modifier.weight(0.001f))
+        if (!LocalCompact.current) Box(Modifier.weight(0.001f))
         Pill(if (dark) "Light" else "Dark", selected = false, onClick = onToggle, height = 44.dp)
     }
 }
@@ -125,7 +129,7 @@ private fun ComponentsTab(family: String, onFamily: (String) -> Unit, selected: 
         items.forEach { d ->
             val on = d == selected || (selected.family != family && d == items.first())
             Column(
-                Modifier.widthIn(min = 300.dp, max = 360.dp).clip(RoundedCornerShape(20.dp)).background(p.panel)
+                Modifier.widthIn(max = 360.dp).fillMaxWidth().clip(RoundedCornerShape(20.dp)).background(p.panel)
                     .border(2.dp, if (on) p.accent else p.line, RoundedCornerShape(20.dp)).clickable { onSelect(d) }
             ) {
                 Box(Modifier.fillMaxWidth().heightIn(min = 150.dp).background(p.stage).padding(20.dp), contentAlignment = Alignment.Center) { d.preview() }
