@@ -26,7 +26,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.ExperimentalComposeUiApi
-import androidx.compose.ui.platform.ClipEntry
 import androidx.compose.ui.platform.LocalClipboard
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -41,14 +40,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-
-/** Fallback for browsers or contexts where the async Clipboard API is blocked. */
-private fun legacyCopy(text: String): Boolean =
-    js(
-        "(function(){var t=document.createElement('textarea');t.value=text;t.style.position='fixed';t.style.opacity='0';" +
-            "document.body.appendChild(t);t.select();var ok=false;try{ok=document.execCommand('copy')}catch(e){}" +
-            "document.body.removeChild(t);return ok})()"
-    )
 
 val LocalPalette = compositionLocalOf { DarkSage }
 
@@ -85,9 +76,7 @@ fun CodeBlock(code: String, modifier: Modifier = Modifier) {
                     .background(if (copied) p.accent else Color(0xFF2A343C))
                     .clickable {
                         scope.launch {
-                            val ok =
-                                runCatching { clipboard.setClipEntry(ClipEntry.withPlainText(code)) }.isSuccess ||
-                                    legacyCopy(code)
+                            val ok = copyToClipboard(clipboard, code)
                             failed = !ok
                             copied = ok
                             delay(1600)

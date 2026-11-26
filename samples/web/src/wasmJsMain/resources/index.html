@@ -4,8 +4,27 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>JchuComponents Catalog</title>
-    <style>html,body{margin:0;height:100%;background:#1b2128}</style>
+    <meta name="description" content="Live catalog of JchuComponents: Compose Multiplatform components, extensions and date helpers, with the code to use each one.">
+    <meta name="theme-color" content="#1b2128">
+    <meta property="og:title" content="JchuComponents Catalog">
+    <meta property="og:description" content="Explore, tweak and copy Compose Multiplatform components running live in your browser.">
+    <meta property="og:type" content="website">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='29' fill='%23b9c78f' stroke='%238fc4a0' stroke-width='6'/%3E%3Ctext x='32' y='43' text-anchor='middle' font-family='Arial' font-weight='800' font-size='32' fill='%231b2128'%3EJ%3C/text%3E%3C/svg%3E">
+    <style>
+        html, body { margin: 0; height: 100%; background: #1b2128; }
+        #loading { position: fixed; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 18px; color: #eef0e4; font: 600 15px system-ui, sans-serif; }
+        #loading .ring { width: 44px; height: 44px; border-radius: 50%; border: 5px solid #34404a; border-top-color: #b9c78f; animation: spin 0.9s linear infinite; }
+        #loading small { color: #a9b3a9; font-weight: 400; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+    </style>
     <script src="catalog.js"></script>
 </head>
-<body></body>
+<body>
+    <div id="loading" role="status">
+        <div class="ring"></div>
+        <div>Loading catalog…</div>
+        <small>First load downloads about 5 MB (compressed)</small>
+    </div>
+    <noscript>This catalog needs JavaScript and a browser with WebAssembly GC support.</noscript>
+</body>
 </html>

@@ -22,6 +22,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.input.key.Key
+import androidx.compose.ui.input.key.KeyEventType
+import androidx.compose.ui.input.key.key
+import androidx.compose.ui.input.key.onPreviewKeyEvent
+import androidx.compose.ui.input.key.type
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -92,8 +100,15 @@ fun searchCatalog(query: String): List<SearchEntry> {
 }
 
 @Composable
-fun SearchBar(query: String, onQueryChange: (String) -> Unit, modifier: Modifier = Modifier) {
+fun SearchBar(
+    query: String,
+    onQueryChange: (String) -> Unit,
+    focusRequester: FocusRequester,
+    onKey: (Key) -> Boolean,
+    modifier: Modifier = Modifier
+) {
     val p = LocalPalette.current
+    val focusManager = LocalFocusManager.current
     Row(
         modifier.height(44.dp).clip(RoundedCornerShape(12.dp)).background(p.bg).border(1.dp, p.line, RoundedCornerShape(12.dp)).padding(horizontal = 14.dp),
         verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(10.dp)
@@ -104,7 +119,14 @@ fun SearchBar(query: String, onQueryChange: (String) -> Unit, modifier: Modifier
             BasicTextField(
                 value = query, onValueChange = onQueryChange, singleLine = true,
                 textStyle = TextStyle(color = p.fg, fontSize = 14.sp), cursorBrush = SolidColor(p.accent),
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier.fillMaxWidth().focusRequester(focusRequester).onPreviewKeyEvent { e ->
+                    if (e.type != KeyEventType.KeyDown) {
+                        false
+                    } else {
+                        if (e.key == Key.Escape) focusManager.clearFocus()
+                        onKey(e.key)
+                    }
+                }
             )
         }
         if (query.isNotEmpty()) {
@@ -114,7 +136,7 @@ fun SearchBar(query: String, onQueryChange: (String) -> Unit, modifier: Modifier
 }
 
 @Composable
-fun SearchResults(results: List<SearchEntry>, query: String, onPick: (SearchEntry) -> Unit, modifier: Modifier = Modifier) {
+fun SearchResults(results: List<SearchEntry>, query: String, activeIndex: Int, onPick: (SearchEntry) -> Unit, modifier: Modifier = Modifier) {
     val p = LocalPalette.current
     Column(
         modifier.widthIn(max = 560.dp).clip(RoundedCornerShape(16.dp)).background(p.panel).border(1.dp, p.line, RoundedCornerShape(16.dp)).padding(8.dp)
@@ -122,9 +144,9 @@ fun SearchResults(results: List<SearchEntry>, query: String, onPick: (SearchEntr
         if (results.isEmpty()) {
             Text("No results for \"$query\"", color = p.muted, fontSize = 14.sp, modifier = Modifier.padding(12.dp))
         }
-        results.forEach { e ->
+        results.forEachIndexed { i, e ->
             Row(
-                Modifier.fillMaxWidth().clip(RoundedCornerShape(10.dp)).clickable { onPick(e) }.padding(horizontal = 12.dp, vertical = 10.dp),
+                Modifier.fillMaxWidth().clip(RoundedCornerShape(10.dp)).background(if (i == activeIndex) p.stage else androidx.compose.ui.graphics.Color.Transparent).clickable { onPick(e) }.padding(horizontal = 12.dp, vertical = 10.dp),
                 verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(12.dp)
             ) {
                 Column(Modifier.weight(1f)) {

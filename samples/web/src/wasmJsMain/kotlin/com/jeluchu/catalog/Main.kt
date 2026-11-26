@@ -24,6 +24,13 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.input.key.Key
+import androidx.compose.ui.platform.LocalClipboard
+import androidx.compose.runtime.rememberCoroutineScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.delay
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -43,14 +50,42 @@ fun main() {
     ComposeViewport { CatalogApp() }
 }
 
+private class StartState(val tab: String, val family: String, val demo: Demo)
+
+/** Reads `#components/<Family>/<Name>`, `#extensions` or `#dates` from the URL. */
+private fun parseHash(hash: String): StartState {
+    val parts = hash.removePrefix("#").split('/')
+    val tab = when (parts.firstOrNull()?.lowercase()) { "extensions" -> "Extensions"; "dates" -> "Dates"; else -> "Components" }
+    val byName = demos.firstOrNull { it.name.equals(parts.getOrNull(2), ignoreCase = true) }
+    val family = byName?.family ?: demos.firstOrNull { it.family.equals(parts.getOrNull(1), ignoreCase = true) }?.family ?: demos.first().family
+    return StartState(tab, family, byName ?: demos.first { it.family == family })
+}
+
 @Composable
 private fun CatalogApp() {
+    val start = remember { parseHash(readHash()) }
     var dark by remember { mutableStateOf(true) }
-    var tab by remember { mutableStateOf("Components") }
-    var family by remember { mutableStateOf(demos.first().family) }
-    var selected by remember { mutableStateOf(demos.first()) }
+    var tab by remember { mutableStateOf(start.tab) }
+    var family by remember { mutableStateOf(start.family) }
+    var selected by remember { mutableStateOf(start.demo) }
     var query by remember { mutableStateOf("") }
     val results = remember(query) { searchCatalog(query) }
+    var active by remember(query) { mutableStateOf(0) }
+    val searchFocus = remember { FocusRequester() }
+
+    fun pick(e: SearchEntry) {
+        tab = e.tab
+        e.demo?.let { family = it.family; selected = it }
+        query = ""
+    }
+
+    LaunchedEffect(Unit) {
+        hideLoading()
+        listenForSlash { searchFocus.requestFocus() }
+    }
+    LaunchedEffect(tab, family, selected) {
+        writeHash(if (tab == "Components") "#components/${family}/${selected.name}" else "#${tab.lowercase()}")
+    }
     val p = if (dark) DarkSage else LightSage
     BoxWithConstraints(Modifier.fillMaxSize()) {
     val compact = maxWidth < 700.dp
@@ -58,15 +93,23 @@ private fun CatalogApp() {
         MaterialTheme(colorScheme = p.scheme) {
             Surface(Modifier.fillMaxSize(), color = p.bg) {
                 Column(Modifier.fillMaxSize()) {
-                    Header(dark = dark, onToggle = { dark = !dark }, query = query, onQueryChange = { query = it })
+                    Header(
+                        dark = dark, onToggle = { dark = !dark }, query = query, onQueryChange = { query = it }, focusRequester = searchFocus,
+                        onKey = { key ->
+                            when {
+                                key == Key.Escape -> { query = ""; true }
+                                query.isBlank() || results.isEmpty() -> false
+                                key == Key.DirectionDown -> { active = (active + 1).coerceAtMost(results.lastIndex); true }
+                                key == Key.DirectionUp -> { active = (active - 1).coerceAtLeast(0); true }
+                                key == Key.Enter -> { pick(results[active.coerceAtMost(results.lastIndex)]); true }
+                                else -> false
+                            }
+                        }
+                    )
                     if (query.isNotBlank()) {
                         SearchResults(
-                            results, query, modifier = Modifier.padding(horizontal = if (compact) 12.dp else 32.dp, vertical = 8.dp),
-                            onPick = { e ->
-                                tab = e.tab
-                                e.demo?.let { family = it.family; selected = it }
-                                query = ""
-                            }
+                            results, query, active, modifier = Modifier.padding(horizontal = if (compact) 12.dp else 32.dp, vertical = 8.dp),
+                            onPick = { e -> pick(e) }
                         )
                     }
                     Column(
@@ -99,7 +142,7 @@ private fun CatalogApp() {
 }
 
 @Composable
-private fun Header(dark: Boolean, onToggle: () -> Unit, query: String, onQueryChange: (String) -> Unit) {
+private fun Header(dark: Boolean, onToggle: () -> Unit, query: String, onQueryChange: (String) -> Unit, focusRequester: FocusRequester, onKey: (Key) -> Boolean) {
     val p = LocalPalette.current
     Row(
         Modifier.fillMaxWidth().background(p.panel).padding(horizontal = if (LocalCompact.current) 14.dp else 32.dp, vertical = 14.dp),
@@ -109,7 +152,7 @@ private fun Header(dark: Boolean, onToggle: () -> Unit, query: String, onQueryCh
             Text("J", color = p.onAccent, fontWeight = FontWeight.ExtraBold)
         }
         if (!LocalCompact.current) Text("JchuComponents", color = p.fg, fontSize = 19.sp, fontWeight = FontWeight.ExtraBold)
-        SearchBar(query, onQueryChange, Modifier.weight(1f).widthIn(max = 520.dp))
+        SearchBar(query, onQueryChange, focusRequester, onKey, Modifier.weight(1f).widthIn(max = 520.dp))
         if (!LocalCompact.current) Box(Modifier.weight(0.001f))
         Pill(if (dark) "Light" else "Dark", selected = false, onClick = onToggle, height = 44.dp)
     }
@@ -151,6 +194,12 @@ private fun ComponentsTab(family: String, onFamily: (String) -> Unit, selected: 
         FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
             Pill("View source", true, { uri.openUri(current.sourceUrl()) }, height = 44.dp)
             Pill("API reference", false, { uri.openUri("../") }, height = 44.dp)
+            val clipboard = LocalClipboard.current
+            val scope = rememberCoroutineScope()
+            var linkCopied by remember(current) { mutableStateOf(false) }
+            Pill(if (linkCopied) "Link copied" else "Copy link", false, {
+                scope.launch { linkCopied = copyToClipboard(clipboard, currentUrl()); delay(1600); linkCopied = false }
+            }, height = 44.dp)
         }
         CodeBlock(current.code)
     }
