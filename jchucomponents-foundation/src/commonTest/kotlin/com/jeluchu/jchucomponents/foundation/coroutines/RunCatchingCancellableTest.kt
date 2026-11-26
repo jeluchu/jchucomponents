@@ -6,7 +6,7 @@ import kotlinx.coroutines.awaitCancellation
 import kotlinx.coroutines.cancelAndJoin
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.test.runTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
@@ -36,13 +36,13 @@ class RunCatchingCancellableTest {
 
     @Test
     fun worksAroundSuspendCalls() =
-        runBlocking<Unit> {
+        runTest {
             assertEquals(7, runCatchingCancellable { delay(1); 7 }.getOrNull())
         }
 
     @Test
     fun cancellationStopsTheCoroutineWhereRunCatchingWouldNot() =
-        runBlocking<Unit> {
+        runTest {
             var reachedAfterCatching = false
             var reachedAfterPlainRunCatching = false
 
@@ -86,7 +86,7 @@ class RunCatchingCancellableTest {
 
     @Test
     fun exceptionsVariantStopsACancelledCoroutine() =
-        runBlocking<Unit> {
+        runTest {
             var reached = false
             val job = launch(start = CoroutineStart.UNDISPATCHED) {
                 runCatchingExceptions { awaitCancellation() }

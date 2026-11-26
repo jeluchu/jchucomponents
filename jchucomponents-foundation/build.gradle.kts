@@ -17,7 +17,13 @@ kotlin {
     jvm()
 
     @OptIn(ExperimentalWasmDsl::class)
-    wasmJs { browser() }
+    wasmJs {
+        browser {
+            // Browser tests need Chrome, which not every machine has; the Node target runs the same tests.
+            testTask { enabled = false }
+        }
+        nodejs()
+    }
 
     val xcFramework = XCFramework(xcFrameworkName = "JchuComponentsCore")
 
@@ -41,6 +47,11 @@ kotlin {
             api(libs.kotlinx.datetime)
             api(libs.org.jetbrains.kotlinx.kotlinx.coroutines.core)
             api(libs.org.jetbrains.kotlinx.kotlinx.serialization.json)
+        }
+
+        commonTest.dependencies {
+            // runBlocking does not exist on Wasm; runTest works on every target.
+            implementation(libs.org.jetbrains.kotlinx.kotlinx.coroutines.test)
         }
     }
 }

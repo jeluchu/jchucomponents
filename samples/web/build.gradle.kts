@@ -42,4 +42,6 @@ compose {
 
 apply(from = "catalog-coverage.gradle.kts")
 
-tasks.matching { it.name == "compileKotlinWasmJs" || it.name.endsWith("SourcesJar") }.configureEach { dependsOn("generateApiLinks") }
+// Everything that reads the generated ApiLinks.kt must run after it is generated (ktlint already skips generated sources).
+tasks.matching { it.name.startsWith("compileKotlin") || it.name.contains("Ktlint", ignoreCase = true) || it.name.endsWith("SourcesJar") }
+    .configureEach { dependsOn("generateApiLinks") }

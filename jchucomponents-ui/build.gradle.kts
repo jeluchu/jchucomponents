@@ -47,7 +47,13 @@ kotlin {
     jvm()
 
     @OptIn(ExperimentalWasmDsl::class)
-    wasmJs { browser() }
+    wasmJs {
+        browser {
+            // Browser tests need Chrome, which not every machine has; the Node target runs the same tests.
+            testTask { enabled = false }
+        }
+        nodejs()
+    }
     iosArm64()
     iosSimulatorArm64()
 
@@ -98,3 +104,6 @@ mavenPublishing {
         description.set(project.description)
     }
 }
+
+// ui is a library and has no Compose UI tests for Wasm, so it declares no executable binary; skip the check that asks for one.
+tasks.matching { it.name == "checkComposeUiTestConfigurationForWasmJs" }.configureEach { enabled = false }

@@ -11,7 +11,8 @@ import com.jeluchu.jchucomponents.foundation.extensions.time.startOfWeek
 import com.jeluchu.jchucomponents.foundation.extensions.time.startOfYear
 import kotlinx.datetime.DayOfWeek
 import kotlinx.datetime.LocalDate
-import kotlinx.datetime.TimeZone
+import kotlinx.datetime.UtcOffset
+import kotlinx.datetime.asTimeZone
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
@@ -40,7 +41,8 @@ class JchuDateTimeTest {
     @Test
     fun evaluatesRelativeDatesUsingInjectedTimeAndZone() {
         val now = Instant.parse("2026-07-03T23:30:00Z")
-        val madrid = TimeZone.of("Europe/Madrid")
+        // Madrid in July. A fixed offset keeps the test independent of the time zone database, which Wasm does not ship.
+        val madrid = UtcOffset(hours = 2).asTimeZone()
 
         assertTrue(LocalDate(2026, 7, 4).isToday(now, madrid))
         assertTrue(LocalDate(2026, 7, 3).isYesterday(now, madrid))
