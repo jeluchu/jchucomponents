@@ -1,0 +1,417 @@
+public final class com/jeluchu/jchucomponents/supabase/JchuSupabase {
+	public final fun awaitSessionRestored (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun getAuth ()Lcom/jeluchu/jchucomponents/supabase/auth/JchuSupabaseAuth;
+	public final fun getClient ()Lio/github/jan/supabase/SupabaseClient;
+	public final fun getDatabase ()Lcom/jeluchu/jchucomponents/supabase/database/JchuSupabaseDatabase;
+	public final fun getFunctions ()Lcom/jeluchu/jchucomponents/supabase/functions/JchuSupabaseFunctions;
+	public final fun getModules ()Lcom/jeluchu/jchucomponents/supabase/JchuSupabaseModules;
+	public final fun getRealtime ()Lcom/jeluchu/jchucomponents/supabase/realtime/JchuSupabaseRealtime;
+	public final fun refreshExpiredSession-VtjQ1oo (JLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun refreshExpiredSession-VtjQ1oo$default (Lcom/jeluchu/jchucomponents/supabase/JchuSupabase;JLkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public final fun resource (Lkotlin/jvm/functions/Function1;)Lkotlinx/coroutines/flow/Flow;
+}
+
+public final class com/jeluchu/jchucomponents/supabase/JchuSupabaseAuthConfig {
+	public fun <init> ()V
+	public synthetic fun <init> (ZZZJLcom/jeluchu/jchucomponents/supabase/JchuSupabaseAuthFlowType;Lio/github/jan/supabase/auth/SessionManager;Lio/github/jan/supabase/auth/CodeVerifierCache;ZLjava/lang/String;Ljava/lang/String;Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun <init> (ZZZJLcom/jeluchu/jchucomponents/supabase/JchuSupabaseAuthFlowType;Lio/github/jan/supabase/auth/SessionManager;Lio/github/jan/supabase/auth/CodeVerifierCache;ZLjava/lang/String;Ljava/lang/String;Ljava/lang/String;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Z
+	public final fun component10 ()Ljava/lang/String;
+	public final fun component11 ()Ljava/lang/String;
+	public final fun component2 ()Z
+	public final fun component3 ()Z
+	public final fun component4-UwyO8pc ()J
+	public final fun component5 ()Lcom/jeluchu/jchucomponents/supabase/JchuSupabaseAuthFlowType;
+	public final fun component6 ()Lio/github/jan/supabase/auth/SessionManager;
+	public final fun component7 ()Lio/github/jan/supabase/auth/CodeVerifierCache;
+	public final fun component8 ()Z
+	public final fun component9 ()Ljava/lang/String;
+	public final fun copy-Tp8oMn4 (ZZZJLcom/jeluchu/jchucomponents/supabase/JchuSupabaseAuthFlowType;Lio/github/jan/supabase/auth/SessionManager;Lio/github/jan/supabase/auth/CodeVerifierCache;ZLjava/lang/String;Ljava/lang/String;Ljava/lang/String;)Lcom/jeluchu/jchucomponents/supabase/JchuSupabaseAuthConfig;
+	public static synthetic fun copy-Tp8oMn4$default (Lcom/jeluchu/jchucomponents/supabase/JchuSupabaseAuthConfig;ZZZJLcom/jeluchu/jchucomponents/supabase/JchuSupabaseAuthFlowType;Lio/github/jan/supabase/auth/SessionManager;Lio/github/jan/supabase/auth/CodeVerifierCache;ZLjava/lang/String;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Lcom/jeluchu/jchucomponents/supabase/JchuSupabaseAuthConfig;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getAlwaysAutoRefresh ()Z
+	public final fun getAutoLoadFromStorage ()Z
+	public final fun getAutoSaveToStorage ()Z
+	public final fun getCodeVerifierCache ()Lio/github/jan/supabase/auth/CodeVerifierCache;
+	public final fun getDefaultRedirectUrl ()Ljava/lang/String;
+	public final fun getEnableLifecycleCallbacks ()Z
+	public final fun getFlowType ()Lcom/jeluchu/jchucomponents/supabase/JchuSupabaseAuthFlowType;
+	public final fun getHost ()Ljava/lang/String;
+	public final fun getRetryDelay-UwyO8pc ()J
+	public final fun getScheme ()Ljava/lang/String;
+	public final fun getSessionManager ()Lio/github/jan/supabase/auth/SessionManager;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/jeluchu/jchucomponents/supabase/JchuSupabaseAuthFlowType : java/lang/Enum {
+	public static final field IMPLICIT Lcom/jeluchu/jchucomponents/supabase/JchuSupabaseAuthFlowType;
+	public static final field PKCE Lcom/jeluchu/jchucomponents/supabase/JchuSupabaseAuthFlowType;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lcom/jeluchu/jchucomponents/supabase/JchuSupabaseAuthFlowType;
+	public static fun values ()[Lcom/jeluchu/jchucomponents/supabase/JchuSupabaseAuthFlowType;
+}
+
+public final class com/jeluchu/jchucomponents/supabase/JchuSupabaseClientFactoryKt {
+	public static final fun createJchuSupabaseClient (Lcom/jeluchu/jchucomponents/supabase/JchuSupabaseConfig;)Lcom/jeluchu/jchucomponents/supabase/JchuSupabase;
+}
+
+public final class com/jeluchu/jchucomponents/supabase/JchuSupabaseConfig {
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;Lcom/jeluchu/jchucomponents/supabase/JchuSupabaseAuthConfig;Lcom/jeluchu/jchucomponents/supabase/JchuSupabaseModules;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Lcom/jeluchu/jchucomponents/supabase/JchuSupabaseAuthConfig;Lcom/jeluchu/jchucomponents/supabase/JchuSupabaseModules;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Ljava/lang/String;
+	public final fun component3 ()Lcom/jeluchu/jchucomponents/supabase/JchuSupabaseAuthConfig;
+	public final fun component4 ()Lcom/jeluchu/jchucomponents/supabase/JchuSupabaseModules;
+	public final fun copy (Ljava/lang/String;Ljava/lang/String;Lcom/jeluchu/jchucomponents/supabase/JchuSupabaseAuthConfig;Lcom/jeluchu/jchucomponents/supabase/JchuSupabaseModules;)Lcom/jeluchu/jchucomponents/supabase/JchuSupabaseConfig;
+	public static synthetic fun copy$default (Lcom/jeluchu/jchucomponents/supabase/JchuSupabaseConfig;Ljava/lang/String;Ljava/lang/String;Lcom/jeluchu/jchucomponents/supabase/JchuSupabaseAuthConfig;Lcom/jeluchu/jchucomponents/supabase/JchuSupabaseModules;ILjava/lang/Object;)Lcom/jeluchu/jchucomponents/supabase/JchuSupabaseConfig;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getAuth ()Lcom/jeluchu/jchucomponents/supabase/JchuSupabaseAuthConfig;
+	public final fun getModules ()Lcom/jeluchu/jchucomponents/supabase/JchuSupabaseModules;
+	public final fun getPublishableKey ()Ljava/lang/String;
+	public final fun getUrl ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/jeluchu/jchucomponents/supabase/JchuSupabaseModules {
+	public fun <init> ()V
+	public fun <init> (ZZZZ)V
+	public synthetic fun <init> (ZZZZILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Z
+	public final fun component2 ()Z
+	public final fun component3 ()Z
+	public final fun component4 ()Z
+	public final fun copy (ZZZZ)Lcom/jeluchu/jchucomponents/supabase/JchuSupabaseModules;
+	public static synthetic fun copy$default (Lcom/jeluchu/jchucomponents/supabase/JchuSupabaseModules;ZZZZILjava/lang/Object;)Lcom/jeluchu/jchucomponents/supabase/JchuSupabaseModules;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getAuth ()Z
+	public final fun getDatabase ()Z
+	public final fun getFunctions ()Z
+	public final fun getRealtime ()Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/jeluchu/jchucomponents/supabase/auth/JchuSupabaseAuth {
+	public final fun awaitInitialization (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun clearLocalSession ()Lkotlinx/coroutines/flow/Flow;
+	public final fun currentUser ()Lcom/jeluchu/jchucomponents/supabase/auth/JchuSupabaseAuthUser;
+	public final fun currentUserId ()Ljava/lang/String;
+	public final fun getSessionState ()Lkotlinx/coroutines/flow/StateFlow;
+	public final fun handleAuthCallback (Ljava/lang/String;)Lkotlinx/coroutines/flow/Flow;
+	public final fun refreshSession ()Lkotlinx/coroutines/flow/Flow;
+	public final fun requestPasswordReset (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Lkotlinx/coroutines/flow/Flow;
+	public static synthetic fun requestPasswordReset$default (Lcom/jeluchu/jchucomponents/supabase/auth/JchuSupabaseAuth;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Lkotlinx/coroutines/flow/Flow;
+	public final fun resendSignUpConfirmation (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Lkotlinx/coroutines/flow/Flow;
+	public static synthetic fun resendSignUpConfirmation$default (Lcom/jeluchu/jchucomponents/supabase/auth/JchuSupabaseAuth;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Lkotlinx/coroutines/flow/Flow;
+	public final fun restoreSession (Z)Lkotlinx/coroutines/flow/Flow;
+	public static synthetic fun restoreSession$default (Lcom/jeluchu/jchucomponents/supabase/auth/JchuSupabaseAuth;ZILjava/lang/Object;)Lkotlinx/coroutines/flow/Flow;
+	public final fun signInWithEmail (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Lkotlinx/coroutines/flow/Flow;
+	public static synthetic fun signInWithEmail$default (Lcom/jeluchu/jchucomponents/supabase/auth/JchuSupabaseAuth;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Lkotlinx/coroutines/flow/Flow;
+	public final fun signOut (Lcom/jeluchu/jchucomponents/supabase/auth/JchuSupabaseSignOutScope;)Lkotlinx/coroutines/flow/Flow;
+	public static synthetic fun signOut$default (Lcom/jeluchu/jchucomponents/supabase/auth/JchuSupabaseAuth;Lcom/jeluchu/jchucomponents/supabase/auth/JchuSupabaseSignOutScope;ILjava/lang/Object;)Lkotlinx/coroutines/flow/Flow;
+	public final fun signUpWithEmail (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lkotlinx/serialization/json/JsonObject;Ljava/lang/String;)Lkotlinx/coroutines/flow/Flow;
+	public static synthetic fun signUpWithEmail$default (Lcom/jeluchu/jchucomponents/supabase/auth/JchuSupabaseAuth;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lkotlinx/serialization/json/JsonObject;Ljava/lang/String;ILjava/lang/Object;)Lkotlinx/coroutines/flow/Flow;
+	public final fun updatePassword (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Lkotlinx/coroutines/flow/Flow;
+	public static synthetic fun updatePassword$default (Lcom/jeluchu/jchucomponents/supabase/auth/JchuSupabaseAuth;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Lkotlinx/coroutines/flow/Flow;
+}
+
+public final class com/jeluchu/jchucomponents/supabase/auth/JchuSupabaseAuthFailure {
+	public fun <init> (Lcom/jeluchu/jchucomponents/supabase/auth/JchuSupabaseAuthFailureCode;Ljava/lang/String;Ljava/lang/Integer;Ljava/lang/String;Ljava/util/List;Z)V
+	public synthetic fun <init> (Lcom/jeluchu/jchucomponents/supabase/auth/JchuSupabaseAuthFailureCode;Ljava/lang/String;Ljava/lang/Integer;Ljava/lang/String;Ljava/util/List;ZILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Lcom/jeluchu/jchucomponents/supabase/auth/JchuSupabaseAuthFailureCode;
+	public final fun component2 ()Ljava/lang/String;
+	public final fun component3 ()Ljava/lang/Integer;
+	public final fun component4 ()Ljava/lang/String;
+	public final fun component5 ()Ljava/util/List;
+	public final fun component6 ()Z
+	public final fun copy (Lcom/jeluchu/jchucomponents/supabase/auth/JchuSupabaseAuthFailureCode;Ljava/lang/String;Ljava/lang/Integer;Ljava/lang/String;Ljava/util/List;Z)Lcom/jeluchu/jchucomponents/supabase/auth/JchuSupabaseAuthFailure;
+	public static synthetic fun copy$default (Lcom/jeluchu/jchucomponents/supabase/auth/JchuSupabaseAuthFailure;Lcom/jeluchu/jchucomponents/supabase/auth/JchuSupabaseAuthFailureCode;Ljava/lang/String;Ljava/lang/Integer;Ljava/lang/String;Ljava/util/List;ZILjava/lang/Object;)Lcom/jeluchu/jchucomponents/supabase/auth/JchuSupabaseAuthFailure;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getCode ()Lcom/jeluchu/jchucomponents/supabase/auth/JchuSupabaseAuthFailureCode;
+	public final fun getMessage ()Ljava/lang/String;
+	public final fun getRawCode ()Ljava/lang/String;
+	public final fun getRetryable ()Z
+	public final fun getStatusCode ()Ljava/lang/Integer;
+	public final fun getWeakPasswordReasons ()Ljava/util/List;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/jeluchu/jchucomponents/supabase/auth/JchuSupabaseAuthFailureCode : java/lang/Enum {
+	public static final field ACCOUNT_ALREADY_EXISTS Lcom/jeluchu/jchucomponents/supabase/auth/JchuSupabaseAuthFailureCode;
+	public static final field CALLBACK_INVALID Lcom/jeluchu/jchucomponents/supabase/auth/JchuSupabaseAuthFailureCode;
+	public static final field CAPTCHA_FAILED Lcom/jeluchu/jchucomponents/supabase/auth/JchuSupabaseAuthFailureCode;
+	public static final field EMAIL_NOT_CONFIRMED Lcom/jeluchu/jchucomponents/supabase/auth/JchuSupabaseAuthFailureCode;
+	public static final field INVALID_CREDENTIALS Lcom/jeluchu/jchucomponents/supabase/auth/JchuSupabaseAuthFailureCode;
+	public static final field INVALID_EMAIL Lcom/jeluchu/jchucomponents/supabase/auth/JchuSupabaseAuthFailureCode;
+	public static final field INVALID_INPUT Lcom/jeluchu/jchucomponents/supabase/auth/JchuSupabaseAuthFailureCode;
+	public static final field NETWORK Lcom/jeluchu/jchucomponents/supabase/auth/JchuSupabaseAuthFailureCode;
+	public static final field PASSWORD_UNCHANGED Lcom/jeluchu/jchucomponents/supabase/auth/JchuSupabaseAuthFailureCode;
+	public static final field PROVIDER_DISABLED Lcom/jeluchu/jchucomponents/supabase/auth/JchuSupabaseAuthFailureCode;
+	public static final field RATE_LIMITED Lcom/jeluchu/jchucomponents/supabase/auth/JchuSupabaseAuthFailureCode;
+	public static final field REAUTHENTICATION_REQUIRED Lcom/jeluchu/jchucomponents/supabase/auth/JchuSupabaseAuthFailureCode;
+	public static final field SERVER Lcom/jeluchu/jchucomponents/supabase/auth/JchuSupabaseAuthFailureCode;
+	public static final field SESSION_EXPIRED Lcom/jeluchu/jchucomponents/supabase/auth/JchuSupabaseAuthFailureCode;
+	public static final field SIGN_UP_DISABLED Lcom/jeluchu/jchucomponents/supabase/auth/JchuSupabaseAuthFailureCode;
+	public static final field TIMEOUT Lcom/jeluchu/jchucomponents/supabase/auth/JchuSupabaseAuthFailureCode;
+	public static final field UNKNOWN Lcom/jeluchu/jchucomponents/supabase/auth/JchuSupabaseAuthFailureCode;
+	public static final field USER_BANNED Lcom/jeluchu/jchucomponents/supabase/auth/JchuSupabaseAuthFailureCode;
+	public static final field WEAK_PASSWORD Lcom/jeluchu/jchucomponents/supabase/auth/JchuSupabaseAuthFailureCode;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lcom/jeluchu/jchucomponents/supabase/auth/JchuSupabaseAuthFailureCode;
+	public static fun values ()[Lcom/jeluchu/jchucomponents/supabase/auth/JchuSupabaseAuthFailureCode;
+}
+
+public abstract interface class com/jeluchu/jchucomponents/supabase/auth/JchuSupabaseAuthState {
+}
+
+public final class com/jeluchu/jchucomponents/supabase/auth/JchuSupabaseAuthState$Initializing : com/jeluchu/jchucomponents/supabase/auth/JchuSupabaseAuthState {
+	public static final field INSTANCE Lcom/jeluchu/jchucomponents/supabase/auth/JchuSupabaseAuthState$Initializing;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/jeluchu/jchucomponents/supabase/auth/JchuSupabaseAuthState$RefreshFailed : com/jeluchu/jchucomponents/supabase/auth/JchuSupabaseAuthState {
+	public fun <init> (Lcom/jeluchu/jchucomponents/supabase/auth/JchuSupabaseSessionRefreshFailure;)V
+	public final fun component1 ()Lcom/jeluchu/jchucomponents/supabase/auth/JchuSupabaseSessionRefreshFailure;
+	public final fun copy (Lcom/jeluchu/jchucomponents/supabase/auth/JchuSupabaseSessionRefreshFailure;)Lcom/jeluchu/jchucomponents/supabase/auth/JchuSupabaseAuthState$RefreshFailed;
+	public static synthetic fun copy$default (Lcom/jeluchu/jchucomponents/supabase/auth/JchuSupabaseAuthState$RefreshFailed;Lcom/jeluchu/jchucomponents/supabase/auth/JchuSupabaseSessionRefreshFailure;ILjava/lang/Object;)Lcom/jeluchu/jchucomponents/supabase/auth/JchuSupabaseAuthState$RefreshFailed;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getCause ()Lcom/jeluchu/jchucomponents/supabase/auth/JchuSupabaseSessionRefreshFailure;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/jeluchu/jchucomponents/supabase/auth/JchuSupabaseAuthState$SignedIn : com/jeluchu/jchucomponents/supabase/auth/JchuSupabaseAuthState {
+	public fun <init> (Lcom/jeluchu/jchucomponents/supabase/auth/JchuSupabaseAuthUser;Lkotlin/time/Instant;Lcom/jeluchu/jchucomponents/supabase/auth/JchuSupabaseSessionSource;Z)V
+	public final fun component1 ()Lcom/jeluchu/jchucomponents/supabase/auth/JchuSupabaseAuthUser;
+	public final fun component2 ()Lkotlin/time/Instant;
+	public final fun component3 ()Lcom/jeluchu/jchucomponents/supabase/auth/JchuSupabaseSessionSource;
+	public final fun component4 ()Z
+	public final fun copy (Lcom/jeluchu/jchucomponents/supabase/auth/JchuSupabaseAuthUser;Lkotlin/time/Instant;Lcom/jeluchu/jchucomponents/supabase/auth/JchuSupabaseSessionSource;Z)Lcom/jeluchu/jchucomponents/supabase/auth/JchuSupabaseAuthState$SignedIn;
+	public static synthetic fun copy$default (Lcom/jeluchu/jchucomponents/supabase/auth/JchuSupabaseAuthState$SignedIn;Lcom/jeluchu/jchucomponents/supabase/auth/JchuSupabaseAuthUser;Lkotlin/time/Instant;Lcom/jeluchu/jchucomponents/supabase/auth/JchuSupabaseSessionSource;ZILjava/lang/Object;)Lcom/jeluchu/jchucomponents/supabase/auth/JchuSupabaseAuthState$SignedIn;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getExpiresAt ()Lkotlin/time/Instant;
+	public final fun getSource ()Lcom/jeluchu/jchucomponents/supabase/auth/JchuSupabaseSessionSource;
+	public final fun getUser ()Lcom/jeluchu/jchucomponents/supabase/auth/JchuSupabaseAuthUser;
+	public fun hashCode ()I
+	public final fun isNewSession ()Z
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/jeluchu/jchucomponents/supabase/auth/JchuSupabaseAuthState$SignedOut : com/jeluchu/jchucomponents/supabase/auth/JchuSupabaseAuthState {
+	public fun <init> (Z)V
+	public final fun component1 ()Z
+	public final fun copy (Z)Lcom/jeluchu/jchucomponents/supabase/auth/JchuSupabaseAuthState$SignedOut;
+	public static synthetic fun copy$default (Lcom/jeluchu/jchucomponents/supabase/auth/JchuSupabaseAuthState$SignedOut;ZILjava/lang/Object;)Lcom/jeluchu/jchucomponents/supabase/auth/JchuSupabaseAuthState$SignedOut;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public final fun isSignOut ()Z
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/jeluchu/jchucomponents/supabase/auth/JchuSupabaseAuthUser {
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;Lkotlin/time/Instant;Ljava/lang/String;Lkotlin/time/Instant;Lkotlin/time/Instant;Lkotlinx/serialization/json/JsonObject;Lkotlinx/serialization/json/JsonObject;Z)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Ljava/lang/String;
+	public final fun component3 ()Lkotlin/time/Instant;
+	public final fun component4 ()Ljava/lang/String;
+	public final fun component5 ()Lkotlin/time/Instant;
+	public final fun component6 ()Lkotlin/time/Instant;
+	public final fun component7 ()Lkotlinx/serialization/json/JsonObject;
+	public final fun component8 ()Lkotlinx/serialization/json/JsonObject;
+	public final fun component9 ()Z
+	public final fun copy (Ljava/lang/String;Ljava/lang/String;Lkotlin/time/Instant;Ljava/lang/String;Lkotlin/time/Instant;Lkotlin/time/Instant;Lkotlinx/serialization/json/JsonObject;Lkotlinx/serialization/json/JsonObject;Z)Lcom/jeluchu/jchucomponents/supabase/auth/JchuSupabaseAuthUser;
+	public static synthetic fun copy$default (Lcom/jeluchu/jchucomponents/supabase/auth/JchuSupabaseAuthUser;Ljava/lang/String;Ljava/lang/String;Lkotlin/time/Instant;Ljava/lang/String;Lkotlin/time/Instant;Lkotlin/time/Instant;Lkotlinx/serialization/json/JsonObject;Lkotlinx/serialization/json/JsonObject;ZILjava/lang/Object;)Lcom/jeluchu/jchucomponents/supabase/auth/JchuSupabaseAuthUser;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getAppMetadata ()Lkotlinx/serialization/json/JsonObject;
+	public final fun getCreatedAt ()Lkotlin/time/Instant;
+	public final fun getEmail ()Ljava/lang/String;
+	public final fun getEmailConfirmedAt ()Lkotlin/time/Instant;
+	public final fun getId ()Ljava/lang/String;
+	public final fun getPhone ()Ljava/lang/String;
+	public final fun getUpdatedAt ()Lkotlin/time/Instant;
+	public final fun getUserMetadata ()Lkotlinx/serialization/json/JsonObject;
+	public fun hashCode ()I
+	public final fun isAnonymous ()Z
+	public final fun isEmailVerified ()Z
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/jeluchu/jchucomponents/supabase/auth/JchuSupabaseSessionRefreshFailure : java/lang/Enum {
+	public static final field NETWORK Lcom/jeluchu/jchucomponents/supabase/auth/JchuSupabaseSessionRefreshFailure;
+	public static final field SERVER Lcom/jeluchu/jchucomponents/supabase/auth/JchuSupabaseSessionRefreshFailure;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lcom/jeluchu/jchucomponents/supabase/auth/JchuSupabaseSessionRefreshFailure;
+	public static fun values ()[Lcom/jeluchu/jchucomponents/supabase/auth/JchuSupabaseSessionRefreshFailure;
+}
+
+public final class com/jeluchu/jchucomponents/supabase/auth/JchuSupabaseSessionSource : java/lang/Enum {
+	public static final field ANONYMOUS_SIGN_IN Lcom/jeluchu/jchucomponents/supabase/auth/JchuSupabaseSessionSource;
+	public static final field EXTERNAL Lcom/jeluchu/jchucomponents/supabase/auth/JchuSupabaseSessionSource;
+	public static final field REFRESH Lcom/jeluchu/jchucomponents/supabase/auth/JchuSupabaseSessionSource;
+	public static final field SIGN_IN Lcom/jeluchu/jchucomponents/supabase/auth/JchuSupabaseSessionSource;
+	public static final field SIGN_UP Lcom/jeluchu/jchucomponents/supabase/auth/JchuSupabaseSessionSource;
+	public static final field STORAGE Lcom/jeluchu/jchucomponents/supabase/auth/JchuSupabaseSessionSource;
+	public static final field UNKNOWN Lcom/jeluchu/jchucomponents/supabase/auth/JchuSupabaseSessionSource;
+	public static final field USER_CHANGED Lcom/jeluchu/jchucomponents/supabase/auth/JchuSupabaseSessionSource;
+	public static final field USER_IDENTITIES_CHANGED Lcom/jeluchu/jchucomponents/supabase/auth/JchuSupabaseSessionSource;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lcom/jeluchu/jchucomponents/supabase/auth/JchuSupabaseSessionSource;
+	public static fun values ()[Lcom/jeluchu/jchucomponents/supabase/auth/JchuSupabaseSessionSource;
+}
+
+public final class com/jeluchu/jchucomponents/supabase/auth/JchuSupabaseSignOutScope : java/lang/Enum {
+	public static final field GLOBAL Lcom/jeluchu/jchucomponents/supabase/auth/JchuSupabaseSignOutScope;
+	public static final field LOCAL Lcom/jeluchu/jchucomponents/supabase/auth/JchuSupabaseSignOutScope;
+	public static final field OTHERS Lcom/jeluchu/jchucomponents/supabase/auth/JchuSupabaseSignOutScope;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lcom/jeluchu/jchucomponents/supabase/auth/JchuSupabaseSignOutScope;
+	public static fun values ()[Lcom/jeluchu/jchucomponents/supabase/auth/JchuSupabaseSignOutScope;
+}
+
+public final class com/jeluchu/jchucomponents/supabase/auth/JchuSupabaseSignUpResult {
+	public fun <init> (Lcom/jeluchu/jchucomponents/supabase/auth/JchuSupabaseAuthUser;Z)V
+	public final fun component1 ()Lcom/jeluchu/jchucomponents/supabase/auth/JchuSupabaseAuthUser;
+	public final fun component2 ()Z
+	public final fun copy (Lcom/jeluchu/jchucomponents/supabase/auth/JchuSupabaseAuthUser;Z)Lcom/jeluchu/jchucomponents/supabase/auth/JchuSupabaseSignUpResult;
+	public static synthetic fun copy$default (Lcom/jeluchu/jchucomponents/supabase/auth/JchuSupabaseSignUpResult;Lcom/jeluchu/jchucomponents/supabase/auth/JchuSupabaseAuthUser;ZILjava/lang/Object;)Lcom/jeluchu/jchucomponents/supabase/auth/JchuSupabaseSignUpResult;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getRequiresEmailConfirmation ()Z
+	public final fun getUser ()Lcom/jeluchu/jchucomponents/supabase/auth/JchuSupabaseAuthUser;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/jeluchu/jchucomponents/supabase/database/JchuSupabaseDatabase {
+	public static final field Companion Lcom/jeluchu/jchucomponents/supabase/database/JchuSupabaseDatabase$Companion;
+	public static final field DEFAULT_PRIMARY_KEY Ljava/lang/String;
+	public final fun delete (Ljava/lang/String;Lcom/jeluchu/jchucomponents/supabase/database/JchuSupabaseFilter;)Lkotlinx/coroutines/flow/Flow;
+	public final fun delete (Ljava/lang/String;Ljava/util/List;)Lkotlinx/coroutines/flow/Flow;
+	public final fun deleteById (Ljava/lang/String;Ljava/lang/Object;Ljava/lang/String;)Lkotlinx/coroutines/flow/Flow;
+	public static synthetic fun deleteById$default (Lcom/jeluchu/jchucomponents/supabase/database/JchuSupabaseDatabase;Ljava/lang/String;Ljava/lang/Object;Ljava/lang/String;ILjava/lang/Object;)Lkotlinx/coroutines/flow/Flow;
+	public final fun getClient ()Lio/github/jan/supabase/SupabaseClient;
+	public final fun rpcUnit (Ljava/lang/String;)Lkotlinx/coroutines/flow/Flow;
+	public final fun table (Lcom/jeluchu/jchucomponents/supabase/database/JchuSupabaseTable;)Lcom/jeluchu/jchucomponents/supabase/database/JchuSupabaseTableReference;
+}
+
+public final class com/jeluchu/jchucomponents/supabase/database/JchuSupabaseDatabase$Companion {
+}
+
+public final class com/jeluchu/jchucomponents/supabase/database/JchuSupabaseDatabaseKt {
+	public static final fun requireSupabaseFilters (Ljava/util/List;)V
+}
+
+public final class com/jeluchu/jchucomponents/supabase/database/JchuSupabaseFilter {
+	public static final field Companion Lcom/jeluchu/jchucomponents/supabase/database/JchuSupabaseFilter$Companion;
+	public fun <init> (Ljava/lang/String;Ljava/lang/Object;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Ljava/lang/Object;
+	public final fun copy (Ljava/lang/String;Ljava/lang/Object;)Lcom/jeluchu/jchucomponents/supabase/database/JchuSupabaseFilter;
+	public static synthetic fun copy$default (Lcom/jeluchu/jchucomponents/supabase/database/JchuSupabaseFilter;Ljava/lang/String;Ljava/lang/Object;ILjava/lang/Object;)Lcom/jeluchu/jchucomponents/supabase/database/JchuSupabaseFilter;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getColumn ()Ljava/lang/String;
+	public final fun getValue ()Ljava/lang/Object;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/jeluchu/jchucomponents/supabase/database/JchuSupabaseFilter$Companion {
+	public final fun eq (Ljava/lang/String;Ljava/lang/Object;)Lcom/jeluchu/jchucomponents/supabase/database/JchuSupabaseFilter;
+}
+
+public abstract interface class com/jeluchu/jchucomponents/supabase/database/JchuSupabaseTable {
+	public abstract fun getName ()Ljava/lang/String;
+	public fun getPrimaryKey ()Ljava/lang/String;
+}
+
+public final class com/jeluchu/jchucomponents/supabase/database/JchuSupabaseTable$DefaultImpls {
+	public static fun getPrimaryKey (Lcom/jeluchu/jchucomponents/supabase/database/JchuSupabaseTable;)Ljava/lang/String;
+}
+
+public final class com/jeluchu/jchucomponents/supabase/database/JchuSupabaseTableReference {
+	public fun <init> (Lcom/jeluchu/jchucomponents/supabase/database/JchuSupabaseDatabase;Lcom/jeluchu/jchucomponents/supabase/database/JchuSupabaseTable;)V
+	public final fun getDatabase ()Lcom/jeluchu/jchucomponents/supabase/database/JchuSupabaseDatabase;
+	public final fun getDefinition ()Lcom/jeluchu/jchucomponents/supabase/database/JchuSupabaseTable;
+}
+
+public final class com/jeluchu/jchucomponents/supabase/database/JchuSupabaseTableReferenceKt {
+	public static final fun delete (Lcom/jeluchu/jchucomponents/supabase/database/JchuSupabaseTableReference;Lcom/jeluchu/jchucomponents/supabase/database/JchuSupabaseFilter;)Lkotlinx/coroutines/flow/Flow;
+	public static final fun delete (Lcom/jeluchu/jchucomponents/supabase/database/JchuSupabaseTableReference;Ljava/util/List;)Lkotlinx/coroutines/flow/Flow;
+	public static final fun deleteById (Lcom/jeluchu/jchucomponents/supabase/database/JchuSupabaseTableReference;Ljava/lang/Object;)Lkotlinx/coroutines/flow/Flow;
+}
+
+public final class com/jeluchu/jchucomponents/supabase/di/JchuSupabaseAccessKt {
+	public static final fun isJchuSupabaseConfigured ()Z
+	public static final fun jchuSupabaseOrNull ()Lcom/jeluchu/jchucomponents/supabase/JchuSupabase;
+}
+
+public final class com/jeluchu/jchucomponents/supabase/di/JchuSupabaseBlock {
+	public fun <init> ()V
+	public final fun getAuth ()Lcom/jeluchu/jchucomponents/supabase/JchuSupabaseAuthConfig;
+	public final fun getCreatedAtStart ()Z
+	public final fun getModules ()Lcom/jeluchu/jchucomponents/supabase/JchuSupabaseModules;
+	public final fun getOptional ()Z
+	public final fun getPublishableKey ()Ljava/lang/String;
+	public final fun getUrl ()Ljava/lang/String;
+	public final fun setAuth (Lcom/jeluchu/jchucomponents/supabase/JchuSupabaseAuthConfig;)V
+	public final fun setCreatedAtStart (Z)V
+	public final fun setModules (Lcom/jeluchu/jchucomponents/supabase/JchuSupabaseModules;)V
+	public final fun setOptional (Z)V
+	public final fun setPublishableKey (Ljava/lang/String;)V
+	public final fun setUrl (Ljava/lang/String;)V
+}
+
+public final class com/jeluchu/jchucomponents/supabase/di/JchuSupabaseConfigBlockKt {
+	public static final fun supabase (Lcom/jeluchu/jchucomponents/config/JchuConfigBuilder;Lkotlin/jvm/functions/Function1;)V
+}
+
+public final class com/jeluchu/jchucomponents/supabase/di/JchuSupabaseModuleKt {
+	public static final fun jchuSupabaseModule (Lcom/jeluchu/jchucomponents/supabase/JchuSupabaseConfig;Z)Lorg/koin/core/module/Module;
+	public static final fun jchuSupabaseModule (ZLkotlin/jvm/functions/Function0;)Lorg/koin/core/module/Module;
+	public static synthetic fun jchuSupabaseModule$default (Lcom/jeluchu/jchucomponents/supabase/JchuSupabaseConfig;ZILjava/lang/Object;)Lorg/koin/core/module/Module;
+	public static synthetic fun jchuSupabaseModule$default (ZLkotlin/jvm/functions/Function0;ILjava/lang/Object;)Lorg/koin/core/module/Module;
+}
+
+public final class com/jeluchu/jchucomponents/supabase/flow/JchuSupabaseFlowKt {
+	public static final fun awaitSessionRestored (Lio/github/jan/supabase/SupabaseClient;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun supabaseResource (Lkotlin/jvm/functions/Function1;)Lkotlinx/coroutines/flow/Flow;
+}
+
+public final class com/jeluchu/jchucomponents/supabase/functions/JchuSupabaseFunctionOptions {
+	public static final field CORRELATION_ID_HEADER Ljava/lang/String;
+	public static final field Companion Lcom/jeluchu/jchucomponents/supabase/functions/JchuSupabaseFunctionOptions$Companion;
+	public static final field IDEMPOTENCY_KEY_HEADER Ljava/lang/String;
+	public fun <init> ()V
+	public fun <init> (Ljava/util/Map;Ljava/lang/String;Ljava/lang/String;)V
+	public synthetic fun <init> (Ljava/util/Map;Ljava/lang/String;Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/util/Map;
+	public final fun component2 ()Ljava/lang/String;
+	public final fun component3 ()Ljava/lang/String;
+	public final fun copy (Ljava/util/Map;Ljava/lang/String;Ljava/lang/String;)Lcom/jeluchu/jchucomponents/supabase/functions/JchuSupabaseFunctionOptions;
+	public static synthetic fun copy$default (Lcom/jeluchu/jchucomponents/supabase/functions/JchuSupabaseFunctionOptions;Ljava/util/Map;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Lcom/jeluchu/jchucomponents/supabase/functions/JchuSupabaseFunctionOptions;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getCorrelationId ()Ljava/lang/String;
+	public final fun getHeaders ()Ljava/util/Map;
+	public final fun getIdempotencyKey ()Ljava/lang/String;
+	public fun hashCode ()I
+	public final fun toKtorHeaders ()Lio/ktor/http/Headers;
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/jeluchu/jchucomponents/supabase/functions/JchuSupabaseFunctionOptions$Companion {
+}
+
+public final class com/jeluchu/jchucomponents/supabase/functions/JchuSupabaseFunctions {
+	public final fun getClient ()Lio/github/jan/supabase/SupabaseClient;
+	public final fun invokeUnit (Ljava/lang/String;Lcom/jeluchu/jchucomponents/supabase/functions/JchuSupabaseFunctionOptions;)Lkotlinx/coroutines/flow/Flow;
+	public static synthetic fun invokeUnit$default (Lcom/jeluchu/jchucomponents/supabase/functions/JchuSupabaseFunctions;Ljava/lang/String;Lcom/jeluchu/jchucomponents/supabase/functions/JchuSupabaseFunctionOptions;ILjava/lang/Object;)Lkotlinx/coroutines/flow/Flow;
+}
+
+public final class com/jeluchu/jchucomponents/supabase/realtime/JchuSupabaseRealtime {
+	public final fun getClient ()Lio/github/jan/supabase/SupabaseClient;
+}
+

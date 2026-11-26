@@ -1,0 +1,60 @@
+public final class com/jeluchu/jchucomponents/pdf/ComposableSingletons$JchuPdfReaderScreenKt {
+	public static final field INSTANCE Lcom/jeluchu/jchucomponents/pdf/ComposableSingletons$JchuPdfReaderScreenKt;
+	public fun <init> ()V
+	public final fun getLambda$-1667276590$io_github_jeluchu_jchucomponents_pdf ()Lkotlin/jvm/functions/Function3;
+	public final fun getLambda$-1924707680$io_github_jeluchu_jchucomponents_pdf ()Lkotlin/jvm/functions/Function3;
+	public final fun getLambda$-285898731$io_github_jeluchu_jchucomponents_pdf ()Lkotlin/jvm/functions/Function2;
+	public final fun getLambda$-683547047$io_github_jeluchu_jchucomponents_pdf ()Lkotlin/jvm/functions/Function2;
+}
+
+public final class com/jeluchu/jchucomponents/pdf/ComposableSingletons$PdfPlatform_jvmKt {
+	public static final field INSTANCE Lcom/jeluchu/jchucomponents/pdf/ComposableSingletons$PdfPlatform_jvmKt;
+	public fun <init> ()V
+	public final fun getLambda$-619525012$io_github_jeluchu_jchucomponents_pdf ()Lkotlin/jvm/functions/Function3;
+}
+
+public final class com/jeluchu/jchucomponents/pdf/JchuPdfReaderScreenKt {
+	public static final fun JchuPdfReaderScreen (Ljava/lang/String;Lkotlin/jvm/functions/Function0;Landroidx/compose/runtime/Composer;I)V
+}
+
+public final class com/jeluchu/jchucomponents/pdf/navigation/PdfReaderKmpNavigationKt {
+	public static final fun pdfReaderKmpEntries (Landroidx/navigation3/runtime/EntryProviderScope;Landroidx/navigation3/runtime/NavBackStack;)V
+}
+
+public abstract interface class com/jeluchu/jchucomponents/pdf/navigation/PdfReaderKmpRoutes : androidx/navigation3/runtime/NavKey {
+	public static final field Companion Lcom/jeluchu/jchucomponents/pdf/navigation/PdfReaderKmpRoutes$Companion;
+}
+
+public final class com/jeluchu/jchucomponents/pdf/navigation/PdfReaderKmpRoutes$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/jeluchu/jchucomponents/pdf/navigation/PdfReaderKmpRoutes$Reader : com/jeluchu/jchucomponents/pdf/navigation/PdfReaderKmpRoutes {
+	public static final field $stable I
+	public static final field Companion Lcom/jeluchu/jchucomponents/pdf/navigation/PdfReaderKmpRoutes$Reader$Companion;
+	public fun <init> (Ljava/lang/String;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;)Lcom/jeluchu/jchucomponents/pdf/navigation/PdfReaderKmpRoutes$Reader;
+	public static synthetic fun copy$default (Lcom/jeluchu/jchucomponents/pdf/navigation/PdfReaderKmpRoutes$Reader;Ljava/lang/String;ILjava/lang/Object;)Lcom/jeluchu/jchucomponents/pdf/navigation/PdfReaderKmpRoutes$Reader;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getUrl ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final synthetic class com/jeluchu/jchucomponents/pdf/navigation/PdfReaderKmpRoutes$Reader$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field $stable I
+	public static final field INSTANCE Lcom/jeluchu/jchucomponents/pdf/navigation/PdfReaderKmpRoutes$Reader$$serializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lcom/jeluchu/jchucomponents/pdf/navigation/PdfReaderKmpRoutes$Reader;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lcom/jeluchu/jchucomponents/pdf/navigation/PdfReaderKmpRoutes$Reader;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/jeluchu/jchucomponents/pdf/navigation/PdfReaderKmpRoutes$Reader$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
