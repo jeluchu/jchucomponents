@@ -81,7 +81,7 @@ class Demo(
     val preview: @Composable () -> Unit
 )
 
-val demos: List<Demo> by lazy {
+private val baseDemos: List<Demo> by lazy {
     listOf(
         Demo(
             "Chips", "SelectableChip", "Compose", "Chip that toggles its selected state and shows a check mark.",
@@ -493,6 +493,8 @@ JchuAnimatedBottomSheet(
     )
 }
 
+val demos: List<Demo> by lazy { baseDemos + moreDemos }
+
 private const val UiPath = "jchucomponents-ui/src/commonMain/kotlin/com/jeluchu/jchucomponents/ui/composables/"
 
 private val sourceFiles =
@@ -510,9 +512,30 @@ private val sourceFiles =
         "PageIndicator" to "pager/PageIndicator.kt", "JchuExpandableText" to "text/JchuExpandableText.kt",
         "Dividers" to "divider/JchuDividers.kt", "Tooltip" to "accessibility/Tooltip.kt",
         "ScrollableChipTabRow" to "tabs/ScrollableChipTabRow.kt", "SnackbarCustomized" to "snackbar/SnackbarCustomized.kt",
-        "JchuAnimatedBottomSheet" to "sheets/JchuAnimatedBottomSheet.kt"
+        "JchuAnimatedBottomSheet" to "sheets/JchuAnimatedBottomSheet.kt",
+        "Card" to "cards/Card.kt", "Toolbar" to "toolbars/SlotToolbar.kt", "CenterToolbar" to "toolbars/CenterToolbars.kt",
+        "BottomSheetWithCloseDialog" to "sheets/BottomSheetWithClose.kt", "JchuScrollableColumn" to "column/JchuScrollableColumn.kt",
+        "JchuRemoteScreenContent" to "structures/JchuRemoteScreenContent.kt", "JchuDefaultEmptyContent" to "structures/JchuItemsScaffold.kt",
+        "JchuDefaultLoadingContent" to "structures/JchuItemsScaffold.kt", "Pager" to "pager/Pager.kt",
+        "SwipeableActionsBox" to "swipe/SwipeableActionsBox.kt", "jchuZoomable" to "images/JchuZoomable.kt",
+        "MiniPostItemShimmer" to "shimmer/MiniPostItemShimmer.kt", "MovieItemShimmer" to "shimmer/MovieItemShimmer.kt",
+        "ShimmerItemBig" to "shimmer/PostItemShimmer.kt", "Particles" to "particles/Particles.kt",
+        "PreferenceItem" to "preferences/PreferenceItem.kt", "PreferenceSwitch" to "preferences/PreferenceSwitch.kt",
+        "PreferenceSingleChoiceItem" to "preferences/PreferenceSingleChoiceItem.kt",
+        "PreferenceSwitchWithContainer" to "preferences/PreferenceSwitchWithContainer.kt",
+        "PreferencesHintCard" to "preferences/PreferencesHintCard.kt", "Type" to "chips/Type.kt", "RemovableChip" to "chips/Chips.kt"
+    )
+
+private const val FoundationPath = "jchucomponents-ui/src/commonMain/kotlin/com/jeluchu/jchucomponents/ui/foundation/"
+
+private val foundationSourceFiles =
+    mapOf(
+        "LazyColumnFor" to "lists/LazyColumns.kt", "LazyGrid" to "lists/LazyGrid.kt", "VerticalGrid" to "lists/LazyGrids.kt",
+        "LazyStaticGrid" to "lists/LazyGrids.kt", "LazyHorizontalGrid" to "lists/LazyHorizontalGrid.kt",
+        "DraggableItem" to "lists/LazyColumnDragAndDrop.kt", "MarqueeText" to "text/MarqueeTextCommon.kt", "IconLink" to "icon/IconLink.kt"
     )
 
 /** GitHub URL of the file that declares this component. */
 fun Demo.sourceUrl(): String =
-    "https://github.com/jeluchu/jchucomponents/blob/main/" + sourceFiles[name]?.let { UiPath + it }.orEmpty().ifEmpty { "jchucomponents-ui" }
+    "https://github.com/jeluchu/jchucomponents/blob/main/" +
+        (sourceFiles[name]?.let { UiPath + it } ?: foundationSourceFiles[name]?.let { FoundationPath + it } ?: "jchucomponents-ui")
