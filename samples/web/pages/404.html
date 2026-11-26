@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Page not found - JchuComponents</title>
+    <style>
+        body { margin: 0; min-height: 100vh; display: flex; align-items: center; justify-content: center; background: #1b2128; color: #eef0e4; font: 16px/1.5 system-ui, sans-serif; }
+        main { max-width: 440px; padding: 24px; text-align: center; }
+        a { display: inline-block; margin: 6px; padding: 10px 18px; border-radius: 999px; background: #b9c78f; color: #1b2128; font-weight: 700; text-decoration: none; }
+        p { color: #a9b3a9; }
+    </style>
+</head>
+<body>
+    <main>
+        <h1>Page not found</h1>
+        <p>Looking for the API reference? It now lives under <code>/api/</code>.</p>
+        <a id="catalog" href="./">Open the catalog</a>
+        <a id="api" href="./api/">API reference</a>
+    </main>
+    <script>
+        // The API reference used to be the root of this site. Send old links (anything outside /api/) to /api/.
+        // BASE is the site's path prefix, filled in by the Pages workflow (empty for a user site or custom domain).
+        (function () {
+            var base = '__BASE__';
+            if (base.indexOf('__') === 0) base = '';
+            var rest = location.pathname.slice(base.length);
+            document.getElementById('catalog').href = base + '/';
+            document.getElementById('api').href = base + '/api/';
+            if (location.pathname.indexOf(base) === 0 && rest.indexOf('/api/') !== 0) {
+                location.replace(base + '/api' + rest + location.search + location.hash);
+            }
+        })();
+    </script>
+</body>
+</html>

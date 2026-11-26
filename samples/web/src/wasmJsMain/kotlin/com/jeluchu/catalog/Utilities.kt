@@ -405,6 +405,8 @@ fun UtilitiesTab(group: String, onGroup: (String) -> Unit, selected: String, onS
         items.forEach { u ->
             Section(u.name, u.group, Modifier.widthIn(max = if (compact) 600.dp else 440.dp).fillMaxWidth()) {
                 Text(u.description, color = LocalPalette.current.muted, fontSize = 13.sp, lineHeight = 19.sp)
+                val uri = androidx.compose.ui.platform.LocalUriHandler.current
+                Pill("API reference", false, { uri.openUri(apiUrlFor(u.name)) }, height = 36.dp)
                 u.body()
             }
         }

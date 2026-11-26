@@ -24,7 +24,7 @@ concurrency:
 
 jobs:
   build:
-    name: Build documentation and web catalog
+    name: Build web catalog and API reference
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -42,14 +42,17 @@ jobs:
       - name: Build web catalog (Compose for Web / Wasm)
         run: ./gradlew :samples:web:wasmJsBrowserDistribution
 
+      - uses: actions/configure-pages@v5
+        id: pages
+
       - name: Assemble site
         run: |
-          mkdir -p _site/catalog
-          cp -R build/dokka/html/. _site/
-          cp -R samples/web/build/dist/wasmJs/productionExecutable/. _site/catalog/
+          # The catalog is the home page; the Dokka API reference lives under /api/.
+          mkdir -p _site/api
+          cp -R samples/web/build/dist/wasmJs/productionExecutable/. _site/
+          cp -R build/dokka/html/. _site/api/
+          sed "s|__BASE__|${{ steps.pages.outputs.base_path }}|" samples/web/pages/404.html > _site/404.html
           touch _site/.nojekyll
-
-      - uses: actions/configure-pages@v5
 
       - name: Upload site
         uses: actions/upload-pages-artifact@v3

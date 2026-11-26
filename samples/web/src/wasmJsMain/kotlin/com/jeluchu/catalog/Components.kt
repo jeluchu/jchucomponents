@@ -544,3 +544,13 @@ private val foundationSourceFiles =
 fun Demo.sourceUrl(): String =
     "https://github.com/jeluchu/jchucomponents/blob/main/" +
         (sourceFiles[name]?.let { UiPath + it } ?: foundationSourceFiles[name]?.let { FoundationPath + it } ?: "jchucomponents-ui")
+
+private val apiAliases = mapOf("Dividers" to "JchuTextDivider")
+
+/** Dokka page of a symbol, relative to the catalog: the API reference is published under api/. */
+fun apiUrlFor(name: String): String {
+    val key = name.substringBefore(',').trim().replace("*", "Int")
+    return "api/" + (ApiLinks.pages[apiAliases[key] ?: key] ?: "")
+}
+
+fun Demo.apiUrl(): String = apiUrlFor(name)

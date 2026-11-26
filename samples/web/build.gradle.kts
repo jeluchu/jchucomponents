@@ -18,6 +18,9 @@ kotlin {
     }
 
     sourceSets {
+        wasmJsMain {
+            kotlin.srcDir(layout.buildDirectory.dir("generated/apiLinks"))
+        }
         wasmJsMain.dependencies {
             implementation(project(":jchucomponents-ui"))
             implementation(project(":jchucomponents-foundation"))
@@ -38,3 +41,5 @@ compose {
 }
 
 apply(from = "catalog-coverage.gradle.kts")
+
+tasks.matching { it.name == "compileKotlinWasmJs" || it.name.endsWith("SourcesJar") }.configureEach { dependsOn("generateApiLinks") }

@@ -166,6 +166,10 @@ private fun Header(dark: Boolean, onToggle: () -> Unit, query: String, onQueryCh
         if (!LocalCompact.current) Text("JchuComponents", color = p.fg, fontSize = 19.sp, fontWeight = FontWeight.ExtraBold)
         SearchBar(query, onQueryChange, focusRequester, onKey, Modifier.weight(1f).widthIn(max = 520.dp))
         if (!LocalCompact.current) Box(Modifier.weight(0.001f))
+        if (!LocalCompact.current) {
+            val uri = LocalUriHandler.current
+            Pill("API", selected = false, onClick = { uri.openUri("api/") }, height = 44.dp)
+        }
         Pill(if (dark) "Light" else "Dark", selected = false, onClick = onToggle, height = 44.dp)
     }
 }
@@ -205,7 +209,7 @@ private fun ComponentsTab(family: String, onFamily: (String) -> Unit, selected: 
         val uri = LocalUriHandler.current
         FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
             Pill("View source", true, { uri.openUri(current.sourceUrl()) }, height = 44.dp)
-            Pill("API reference", false, { uri.openUri("../") }, height = 44.dp)
+            Pill("API reference", false, { uri.openUri(current.apiUrl()) }, height = 44.dp)
             val clipboard = LocalClipboard.current
             val scope = rememberCoroutineScope()
             var linkCopied by remember(current) { mutableStateOf(false) }
