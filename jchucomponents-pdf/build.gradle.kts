@@ -55,10 +55,6 @@ kotlin {
             implementation(libs.org.jetbrains.kotlinx.kotlinx.coroutines.core)
         }
 
-        jvmMain.dependencies {
-            implementation(libs.pdfbox)
-        }
-
         androidMain.dependencies {
             implementation(libs.androidx.core.core.ktx)
         }

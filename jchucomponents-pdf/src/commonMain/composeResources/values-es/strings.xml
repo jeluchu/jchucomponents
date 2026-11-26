@@ -1,5 +1,7 @@
 <resources>
     <string name="jchu_pdf_back">Volver</string>
+    <string name="jchu_pdf_desktop_hint">En escritorio los PDF se abren en tu visor predeterminado.</string>
+    <string name="jchu_pdf_desktop_open">Abrir PDF</string>
     <string name="jchu_pdf_error">No se ha podido abrir el PDF: %1$s</string>
     <string name="jchu_pdf_error_unknown">Se ha producido un error inesperado.</string>
     <string name="jchu_pdf_next_page">Página siguiente</string>

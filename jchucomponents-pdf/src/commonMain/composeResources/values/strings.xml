@@ -1,5 +1,7 @@
 <resources>
     <string name="jchu_pdf_back">Back</string>
+    <string name="jchu_pdf_desktop_hint">PDFs open in your default viewer on desktop.</string>
+    <string name="jchu_pdf_desktop_open">Open PDF</string>
     <string name="jchu_pdf_error">Unable to open the PDF: %1$s</string>
     <string name="jchu_pdf_error_unknown">An unexpected error occurred.</string>
     <string name="jchu_pdf_next_page">Next page</string>

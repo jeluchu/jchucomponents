@@ -195,22 +195,24 @@ private fun JchuPdfDocumentContent(
                 contentDescription = stringResource(Res.string.jchu_pdf_back),
                 onClick = onBack,
             )
-            Text(
-                text = stringResource(
-                    Res.string.jchu_pdf_page_indicator,
-                    currentPage + 1,
-                    document.pageCount,
-                ),
-                modifier = Modifier
-                    .align(Alignment.Center)
-                    .clip(PdfControlShape)
-                    .background(PdfControlBackground)
-                    .padding(horizontal = 24.dp, vertical = 14.dp),
-                color = PdfControlContent,
-                style = MaterialTheme.typography.titleMedium,
-                fontWeight = FontWeight.Bold,
-                textAlign = TextAlign.Center,
-            )
+            if (document.supportsInlineReading) {
+                Text(
+                    text = stringResource(
+                        Res.string.jchu_pdf_page_indicator,
+                        currentPage + 1,
+                        document.pageCount,
+                    ),
+                    modifier = Modifier
+                        .align(Alignment.Center)
+                        .clip(PdfControlShape)
+                        .background(PdfControlBackground)
+                        .padding(horizontal = 24.dp, vertical = 14.dp),
+                    color = PdfControlContent,
+                    style = MaterialTheme.typography.titleMedium,
+                    fontWeight = FontWeight.Bold,
+                    textAlign = TextAlign.Center,
+                )
+            }
             PdfControlButton(
                 modifier = Modifier.align(Alignment.CenterEnd),
                 icon = Icons.Default.Share,
@@ -234,20 +236,22 @@ private fun JchuPdfDocumentContent(
                     onClick = { scope.launch { pagerState.animateScrollToPage(currentPage - 1) } },
                 )
             }
-            Row(
-                modifier = Modifier.align(Alignment.Center),
-                horizontalArrangement = Arrangement.spacedBy(12.dp),
-            ) {
-                PdfControlButton(
-                    icon = Icons.AutoMirrored.Filled.RotateLeft,
-                    contentDescription = stringResource(Res.string.jchu_pdf_rotate_left),
-                    onClick = { rotations[currentPage] = (rotations[currentPage] ?: 0) - 90 },
-                )
-                PdfControlButton(
-                    icon = Icons.AutoMirrored.Filled.RotateRight,
-                    contentDescription = stringResource(Res.string.jchu_pdf_rotate_right),
-                    onClick = { rotations[currentPage] = (rotations[currentPage] ?: 0) + 90 },
-                )
+            if (document.supportsInlineReading) {
+                Row(
+                    modifier = Modifier.align(Alignment.Center),
+                    horizontalArrangement = Arrangement.spacedBy(12.dp),
+                ) {
+                    PdfControlButton(
+                        icon = Icons.AutoMirrored.Filled.RotateLeft,
+                        contentDescription = stringResource(Res.string.jchu_pdf_rotate_left),
+                        onClick = { rotations[currentPage] = (rotations[currentPage] ?: 0) - 90 },
+                    )
+                    PdfControlButton(
+                        icon = Icons.AutoMirrored.Filled.RotateRight,
+                        contentDescription = stringResource(Res.string.jchu_pdf_rotate_right),
+                        onClick = { rotations[currentPage] = (rotations[currentPage] ?: 0) + 90 },
+                    )
+                }
             }
             if (currentPage < document.pageCount - 1) {
                 PdfControlButton(

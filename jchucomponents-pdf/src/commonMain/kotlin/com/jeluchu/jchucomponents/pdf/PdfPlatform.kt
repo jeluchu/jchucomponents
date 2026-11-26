@@ -7,6 +7,9 @@ import io.ktor.client.HttpClient
 internal interface PdfDocumentHandle {
     val pageCount: Int
 
+    /** False where pages cannot be drawn in the app (desktop): the reader then offers to open the file instead. */
+    val supportsInlineReading: Boolean get() = true
+
     fun close()
 }
 
