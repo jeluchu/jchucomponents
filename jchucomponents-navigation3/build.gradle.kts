@@ -31,6 +31,8 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             api(libs.androidx.navigation3.runtime)
+            api(libs.jetbrains.navigation3.ui)
+            api(libs.jetbrains.lifecycle.viewmodel.navigation3)
             api(libs.koin.compose.multiplatform)
             api(libs.koin.compose.viewmodel.multiplatform)
         }
