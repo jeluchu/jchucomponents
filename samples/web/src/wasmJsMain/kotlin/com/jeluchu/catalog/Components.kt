@@ -376,7 +376,7 @@ Box {
             val expanded = remember { mutableStateOf(false) }
             Box {
                 Pill("Show tooltip", false, { expanded.value = true }, height = 44.dp)
-                Tooltip(expanded = expanded, text = "Saved to library", backgroundColor = p.codeBg)
+                Tooltip(expanded = expanded, text = "Saved to library", backgroundColor = p.mint)
             }
         }
         ,
