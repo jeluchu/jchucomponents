@@ -22,7 +22,7 @@ Declare the library in the version catalog:
 
 ```toml
 [versions]
-jchucomponents = "3.0.0-beta03"
+jchucomponents = "3.0.0-beta04"
 
 [libraries]
 jchucomponents-prefs = {

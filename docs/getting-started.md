@@ -13,11 +13,11 @@ Declare only the capabilities used by the application:
 kotlin {
     sourceSets {
         commonMain.dependencies {
-            implementation("io.github.jeluchu:jchucomponents-foundation:3.0.0-beta03")
-            implementation("io.github.jeluchu:jchucomponents-network:3.0.0-beta03")
-            implementation("io.github.jeluchu:jchucomponents-ui:3.0.0-beta03")
-            implementation("io.github.jeluchu:jchucomponents-prefs:3.0.0-beta03")
-            implementation("io.github.jeluchu:jchucomponents-supabase:3.0.0-beta03")
+            implementation("io.github.jeluchu:jchucomponents-foundation:3.0.0-beta04")
+            implementation("io.github.jeluchu:jchucomponents-network:3.0.0-beta04")
+            implementation("io.github.jeluchu:jchucomponents-ui:3.0.0-beta04")
+            implementation("io.github.jeluchu:jchucomponents-prefs:3.0.0-beta04")
+            implementation("io.github.jeluchu:jchucomponents-supabase:3.0.0-beta04")
         }
     }
 }
@@ -46,7 +46,7 @@ The BOM is published to the same repository and aligns every JchuComponents modu
 ```kotlin
 dependencies {
     implementation(
-        platform("io.github.jeluchu:jchucomponents-bom:3.0.0-beta03")
+        platform("io.github.jeluchu:jchucomponents-bom:3.0.0-beta04")
     )
 
     implementation("io.github.jeluchu:jchucomponents-foundation")

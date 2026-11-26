@@ -156,7 +156,7 @@ New in this release: `runCatchingCancellable` (use it instead of `runCatching` a
 
 ```toml
 [versions]
-jchucomponents = "3.0.0-beta03"
+jchucomponents = "3.0.0-beta04"
 
 [libraries]
 jchucomponents-bom = { module = "io.github.jeluchu:jchucomponents-bom", version.ref = "jchucomponents" }

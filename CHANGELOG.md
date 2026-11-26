@@ -1,6 +1,9 @@
 # Changelog
 
-## 3.0.0-beta03 - 2026-11-26
+## 3.0.0-beta04 - 2026-11-26
+
+`3.0.0-beta03` was tagged but never published because its release validation failed (the new JVM targets had no API
+baseline). Everything in it ships in this version.
 
 ### What's new
 
