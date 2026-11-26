@@ -10,6 +10,7 @@ on:
       - "**/*.kts"
       - "README.md"
       - "gradle/libs.versions.toml"
+      - "samples/web/**"
       - ".github/workflows/docs.yml"
 
 permissions:
@@ -23,7 +24,7 @@ concurrency:
 
 jobs:
   build:
-    name: Build Dokka site
+    name: Build documentation and web catalog
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -38,12 +39,22 @@ jobs:
       - name: Generate aggregated documentation
         run: ./gradlew :dokkaGenerate
 
+      - name: Build web catalog (Compose for Web / Wasm)
+        run: ./gradlew :samples:web:wasmJsBrowserDistribution
+
+      - name: Assemble site
+        run: |
+          mkdir -p _site/catalog
+          cp -R build/dokka/html/. _site/
+          cp -R samples/web/build/dist/wasmJs/productionExecutable/. _site/catalog/
+          touch _site/.nojekyll
+
       - uses: actions/configure-pages@v5
 
-      - name: Upload documentation
+      - name: Upload site
         uses: actions/upload-pages-artifact@v3
         with:
-          path: build/dokka/html
+          path: _site
 
   deploy:
     name: Deploy GitHub Pages
