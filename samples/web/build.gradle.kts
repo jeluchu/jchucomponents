@@ -27,3 +27,5 @@ kotlin {
         }
     }
 }
+
+apply(from = "catalog-coverage.gradle.kts")

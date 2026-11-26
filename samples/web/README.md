@@ -26,3 +26,22 @@ Requires a browser with WebAssembly GC (Chrome and Edge 119+, Firefox 120+, Safa
 
 Add a `Demo(family, name, tag, description, code) { preview }` entry to `demos` in `Components.kt`, and its source file to
 `sourceFiles` so *View source* points at the right place. Extensions and dates live in `Extensions.kt` and `Dates.kt`.
+
+## Coverage
+
+`catalogCoverage` compares the library's public API with what the catalog shows, so the catalog cannot silently fall behind:
+
+```bash
+./gradlew :samples:web:catalogCoverage
+```
+
+It scans the public `@Composable` functions and extension functions of `jchucomponents-ui` and `jchucomponents-foundation`
+and looks for each name in `samples/web/src`. The report is written to `samples/web/build/reports/catalog-coverage.md`.
+
+- `coverage-baseline.txt` lists the known gaps. The task fails only for **new** public API without a demo, and tells you
+  when a baseline entry became covered so you can remove it.
+- `coverage-ignore.txt` lists names that intentionally have no demo; every line needs a `# reason`.
+- After adding demos, regenerate the baseline with `-PupdateBaseline=true`.
+
+A name counts as covered when it appears as a word anywhere in the catalog sources, so a generic name can match by accident.
+Treat the percentage as a guide. CI runs this check in the `web-catalog` job.

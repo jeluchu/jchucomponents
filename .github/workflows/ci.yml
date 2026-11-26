@@ -49,6 +49,33 @@ jobs:
           scripts/check-api-readiness.sh
           scripts/check-release-readiness.sh
 
+  web-catalog:
+    name: Web catalog coverage
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "21"
+
+      - uses: gradle/actions/setup-gradle@v4
+
+      - name: Every public API has a demo or a baseline entry
+        run: ./gradlew :samples:web:catalogCoverage
+
+      - name: Compile the web catalog
+        run: ./gradlew :samples:web:compileKotlinWasmJs
+
+      - name: Upload coverage report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: catalog-coverage
+          path: samples/web/build/reports/catalog-coverage.md
+          if-no-files-found: ignore
+
   android:
     name: Android and publications
     runs-on: ubuntu-latest

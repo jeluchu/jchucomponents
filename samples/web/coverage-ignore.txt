@@ -1,0 +1,3 @@
+# Public API that intentionally has no demo in the web catalog. Every line needs a "# reason".
+toPngBytesOrNull # needs a rendered ImageBitmap and a platform encoder; nothing to show live
+isFontScalingEnabled # reads a platform accessibility setting
