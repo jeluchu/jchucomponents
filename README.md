@@ -39,7 +39,7 @@ The Swift package complements the shared Kotlin code with
 
 ## Installation
 
-The examples below use `3.0.0-beta02`. Replace it with the
+The examples below use `3.0.0-beta03`. Replace it with the
 [latest available release](https://github.com/Jeluchu/jchucomponents/releases).
 
 ### Kotlin Multiplatform
@@ -52,13 +52,13 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             implementation(
-                "io.github.jeluchu:jchucomponents-foundation:3.0.0-beta02"
+                "io.github.jeluchu:jchucomponents-foundation:3.0.0-beta03"
             )
             implementation(
-                "io.github.jeluchu:jchucomponents-network:3.0.0-beta02"
+                "io.github.jeluchu:jchucomponents-network:3.0.0-beta03"
             )
             implementation(
-                "io.github.jeluchu:jchucomponents-ui:3.0.0-beta02"
+                "io.github.jeluchu:jchucomponents-ui:3.0.0-beta03"
             )
         }
     }
@@ -139,7 +139,7 @@ Use the BOM to keep every module on the same version:
 ```kotlin
 dependencies {
     implementation(
-        platform("io.github.jeluchu:jchucomponents-bom:3.0.0-beta02")
+        platform("io.github.jeluchu:jchucomponents-bom:3.0.0-beta03")
     )
     implementation("io.github.jeluchu:jchucomponents-ui")
     implementation("io.github.jeluchu:jchucomponents-android")
@@ -161,7 +161,7 @@ to `commonMain`:
 kotlin {
     sourceSets {
         commonMain.dependencies {
-            implementation("io.github.jeluchu:jchucomponents-pay:3.0.0-beta02")
+            implementation("io.github.jeluchu:jchucomponents-pay:3.0.0-beta03")
         }
     }
 }
