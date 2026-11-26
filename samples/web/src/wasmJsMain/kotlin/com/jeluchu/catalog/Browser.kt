@@ -15,7 +15,7 @@ private fun legacyCopy(text: String): Boolean =
             "document.body.removeChild(t);return ok})()"
     )
 
-fun readHash(): String = js("window.location.hash")
+fun readHash(): String = js("(function(){try{return decodeURIComponent(window.location.hash)}catch(e){return window.location.hash}})()")
 
 fun writeHash(hash: String): Unit = js("window.history.replaceState(null, '', hash)")
 

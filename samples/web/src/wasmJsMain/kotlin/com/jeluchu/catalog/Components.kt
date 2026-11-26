@@ -493,7 +493,7 @@ JchuAnimatedBottomSheet(
     )
 }
 
-val demos: List<Demo> by lazy { baseDemos + moreDemos + closeDemos }
+val demos: List<Demo> by lazy { baseDemos + moreDemos + closeDemos + gapDemos }
 
 private const val UiPath = "jchucomponents-ui/src/commonMain/kotlin/com/jeluchu/jchucomponents/ui/composables/"
 
@@ -513,7 +513,8 @@ private val sourceFiles =
         "Dividers" to "divider/JchuDividers.kt", "Tooltip" to "accessibility/Tooltip.kt",
         "ScrollableChipTabRow" to "tabs/ScrollableChipTabRow.kt", "SnackbarCustomized" to "snackbar/SnackbarCustomized.kt",
         "JchuAnimatedBottomSheet" to "sheets/JchuAnimatedBottomSheet.kt",
-        "ScrollableColumn" to "column/ScrollableColumn.kt", "ProgressIndicator" to "loaders/DotsLoading.kt",
+        "ScrollableColumn" to "column/ScrollableColumn.kt", "SnackbarController" to "snackbar/SnackbarController.kt",
+        "jchuSnapBackZoomable" to "images/JchuZoomable.kt", "ProgressIndicator" to "loaders/DotsLoading.kt",
         "DashedDivider" to "divider/DashDivider.kt", "ScaffoldStates" to "structures/Scaffold.kt",
         "Card" to "cards/Card.kt", "Toolbar" to "toolbars/SlotToolbar.kt", "CenterToolbar" to "toolbars/CenterToolbars.kt",
         "BottomSheetWithCloseDialog" to "sheets/BottomSheetWithClose.kt", "JchuScrollableColumn" to "column/JchuScrollableColumn.kt",

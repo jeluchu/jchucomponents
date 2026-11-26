@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
@@ -29,6 +30,40 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.runtime.rememberCoroutineScope
+import com.jeluchu.jchucomponents.foundation.coroutines.cancelIfActive
+import com.jeluchu.jchucomponents.foundation.coroutines.rethrowIfCancellation
+import com.jeluchu.jchucomponents.foundation.coroutines.runCatchingCancellable
+import com.jeluchu.jchucomponents.foundation.coroutines.runCatchingExceptions
+import com.jeluchu.jchucomponents.ui.extensions.time.clock
+import com.jeluchu.jchucomponents.ui.extensions.time.clockTime
+import com.jeluchu.jchucomponents.ui.extensions.time.clockWithZoneDay
+import com.jeluchu.jchucomponents.ui.foundation.lists.composition.rememberPagerSnapState
+import com.jeluchu.jchucomponents.ui.runtime.remember.rememberCountdownTimerState
+import com.jeluchu.jchucomponents.ui.runtime.remember.rememberDerivedStateOf
+import com.jeluchu.jchucomponents.ui.runtime.remember.rememberMutableDoubleStateOf
+import com.jeluchu.jchucomponents.ui.runtime.remember.rememberMutableFloatStateOf
+import com.jeluchu.jchucomponents.ui.runtime.remember.rememberMutableIntStateOf
+import com.jeluchu.jchucomponents.ui.runtime.remember.rememberMutableLongStateOf
+import com.jeluchu.jchucomponents.ui.runtime.remember.rememberMutableStateOf
+import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import com.jeluchu.catalog.resources.Res
+import com.jeluchu.catalog.resources.catalog_title
+import com.jeluchu.catalog.resources.greeting
+import com.jeluchu.catalog.resources.leaf
+import com.jeluchu.jchucomponents.foundation.serialization.convert
+import com.jeluchu.jchucomponents.foundation.serialization.decodeListOrNull
+import com.jeluchu.jchucomponents.foundation.serialization.decodeOrNull
+import com.jeluchu.jchucomponents.foundation.serialization.defaultJson
+import com.jeluchu.jchucomponents.foundation.serialization.toJsonObject
+import com.jeluchu.jchucomponents.foundation.serialization.toObject
+import com.jeluchu.jchucomponents.ui.extensions.toImageVector
+import com.jeluchu.jchucomponents.ui.extensions.toPainter
+import com.jeluchu.jchucomponents.ui.extensions.toStringRes
+import kotlinx.serialization.Serializable
 import com.jeluchu.jchucomponents.foundation.crypto.CaesarCipher
 import com.jeluchu.jchucomponents.foundation.extensions.isNull
 import com.jeluchu.jchucomponents.foundation.extensions.isTrue
@@ -82,8 +117,17 @@ import com.jeluchu.jchucomponents.foundation.version.compareVersionTo
 import com.jeluchu.jchucomponents.ui.extensions.time.fixedDecimalsTime
 import com.jeluchu.jchucomponents.foundation.version.compareVersions
 
+@Serializable
+data class Anime(val title: String, val episodes: Int = 12)
+
+@Serializable
+data class AnimeCard(val title: String, val episodes: Int = 0, val badge: String = "new")
+
 /** One utility card: a group, a name for search and deep links, and a live preview. */
-class UtilCard(val group: String, val name: String, val description: String, val body: @Composable () -> Unit)
+class UtilCard(val group: String, val name: String, val description: String, val body: @Composable () -> Unit) {
+    /** Short id for URLs: the first function of a multi-function card, such as toPainter. */
+    val slug: String = name.substringBefore(',').trim()
+}
 
 @Composable
 private fun UtilInput(value: String, onChange: (String) -> Unit, label: String, modifier: Modifier = Modifier) {
@@ -182,6 +226,85 @@ val utilities: List<UtilCard> by lazy {
                 UtilOutput("list", list.joinToString())
                 UtilOutput("concatenateLowercase()", joined.ifEmpty { "(press the button)" })
                 CodeBlock("val list = mutableListOf(\"Action\", \"Drama\")\nlist.addAllIfNotExist(listOf(\"Drama\", \"Sci-Fi\"))\nlist.concatenateLowercase()")
+            }
+        },
+        UtilCard("State", "rememberMutable*StateOf, rememberDerivedStateOf, rememberCountdownTimerState", "Shorter remember helpers for state, a derived value and a countdown.") {
+            val ints = rememberMutableIntStateOf(0)
+            val longs = rememberMutableLongStateOf(0L)
+            val floats = rememberMutableFloatStateOf(0f)
+            val doubles = rememberMutableDoubleStateOf(0.0)
+            var label by rememberMutableStateOf("idle")
+            val doubled by rememberDerivedStateOf(ints.intValue) { ints.intValue * 2 }
+            var round by remember { mutableStateOf(0) }
+            val left by rememberCountdownTimerState(initialMillis = if (round % 2 == 0) 10_000L else 10_001L)
+            val snap = rememberPagerSnapState()
+            Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
+                Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                    Pill("Tick all", false, { ints.intValue++; longs.longValue += 10L; floats.floatValue += 0.5f; doubles.doubleValue += 0.25; label = "ticked" }, height = 44.dp)
+                    Pill("Restart countdown", false, { round++ }, height = 44.dp)
+                }
+                UtilOutput("Int / Long / Float / Double", "${ints.intValue} / ${longs.longValue} / ${floats.floatValue} / ${doubles.doubleValue}")
+                UtilOutput("rememberMutableStateOf (String)", label)
+                UtilOutput("rememberDerivedStateOf { count * 2 }", doubled.toString())
+                UtilOutput("rememberCountdownTimerState(10_000)", "${left / 1000}s left")
+                UtilOutput("rememberPagerSnapState().firstVisibleItemIndex", snap.firstVisibleItemIndex.value.toString())
+                CodeBlock("val count = rememberMutableIntStateOf(0)\nval doubled by rememberDerivedStateOf(count.intValue) { count.intValue * 2 }\nval timeLeft by rememberCountdownTimerState(initialMillis = 10_000)\nval snap = rememberPagerSnapState()")
+            }
+        },
+        UtilCard("State", "clock, clockTime, clockWithZoneDay", "Composables that return the current time and tick every second.") {
+            val c = clock()
+            val t = clockTime()
+            val z = clockWithZoneDay()
+            Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
+                UtilOutput("clock()", c)
+                UtilOutput("clockTime()", "${t.hours}:${t.minutes} ${t.zoneDay}")
+                UtilOutput("clockWithZoneDay()", z)
+                CodeBlock("val time: String = clock()\nval parts: Time = clockTime()      // hours, minutes, zoneDay\nval withZone = clockWithZoneDay()")
+            }
+        },
+        UtilCard("Coroutines", "runCatchingCancellable, runCatchingExceptions, rethrowIfCancellation, cancelIfActive", "Result helpers that never swallow cancellation, and a safe Job cancel.") {
+            val scope = rememberCoroutineScope()
+            var log by remember { mutableStateOf("press a button") }
+            var job by remember { mutableStateOf<Job?>(null) }
+            Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
+                FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                    Pill("runCatchingCancellable { error }", false, { log = runCatchingCancellable { error("boom") }.fold({ "ok" }, { "failure: ${it.message}" }) }, mono = true)
+                    Pill("runCatchingExceptions { 21 * 2 }", false, { log = runCatchingExceptions { 21 * 2 }.fold({ "success: $it" }, { "failure" }) }, mono = true)
+                    Pill("start job", false, { job = scope.launch { try { log = "job running…"; delay(60_000); log = "job done" } catch (e: Throwable) { log = "caught ${e::class.simpleName}, rethrowing"; e.rethrowIfCancellation() } } }, mono = true)
+                    Pill("cancelIfActive()", false, { job.cancelIfActive() }, mono = true)
+                }
+                UtilOutput("Result", log)
+                CodeBlock("runCatchingCancellable { error(\"boom\") }   // Result.failure, but CancellationException is rethrown\nrunCatchingExceptions { 21 * 2 }\njob.cancelIfActive()\ncatch (e: Throwable) { e.rethrowIfCancellation() }")
+            }
+        },
+        UtilCard("Serialization", "toObject, toJsonObject, convert, decodeOrNull, decodeListOrNull", "JSON helpers on top of kotlinx.serialization with a lenient default Json.") {
+            var json by remember { mutableStateOf("""{"title":"Frieren","episodes":28,"extra":true}""") }
+            val anime = remember(json) { runCatching { json.toObject<Anime>() }.getOrNull() }
+            val asObject = remember(anime) { anime?.toJsonObject() }
+            val card = remember(anime) { anime?.convert<Anime, AnimeCard>() }
+            val orNull = remember(json) { defaultJson.decodeOrNull<Anime>(json) }
+            val list = remember { defaultJson.decodeListOrNull<Anime>("""[{"title":"A"},{"title":"B","episodes":24}]""") }
+            Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
+                UtilInput(json, { json = it }, "JSON")
+                UtilOutput("String.toObject<Anime>()", anime?.toString() ?: "invalid JSON")
+                UtilOutput("toJsonObject()", asObject?.toString() ?: "-")
+                UtilOutput("convert<Anime, AnimeCard>()", card?.toString() ?: "-")
+                UtilOutput("decodeOrNull<Anime>() / invalid", "${orNull != null} / ${defaultJson.decodeOrNull<Anime>("not json")}")
+                UtilOutput("decodeListOrNull<Anime>()", list.toString())
+                CodeBlock("@Serializable data class Anime(val title: String, val episodes: Int = 12)\n\njson.toObject<Anime>()\nanime.toJsonObject()\nanime.convert<Anime, AnimeCard>()\ndefaultJson.decodeOrNull<Anime>(json)\ndefaultJson.decodeListOrNull<Anime>(listJson)")
+            }
+        },
+        UtilCard("Resources", "toPainter, toImageVector, toStringRes", "Load Compose Multiplatform drawables and strings with one call.") {
+            val p = LocalPalette.current
+            Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
+                Row(horizontalArrangement = Arrangement.spacedBy(14.dp), verticalAlignment = Alignment.CenterVertically) {
+                    androidx.compose.foundation.Image(Res.drawable.leaf.toPainter(), contentDescription = "toPainter", modifier = Modifier.size(48.dp))
+                    androidx.compose.material3.Icon(Res.drawable.leaf.toImageVector(), contentDescription = "toImageVector", tint = p.mint, modifier = Modifier.size(48.dp))
+                    Text("painter (left) and ImageVector with a tint (right)", color = p.muted, fontSize = 12.sp)
+                }
+                UtilOutput("Res.string.catalog_title.toStringRes()", Res.string.catalog_title.toStringRes())
+                UtilOutput("Res.string.greeting.toStringRes(\"Jeluchu\", 3)", Res.string.greeting.toStringRes("Jeluchu", 3))
+                CodeBlock("Image(Res.drawable.leaf.toPainter(), null)\nIcon(Res.drawable.leaf.toImageVector(), null)\nRes.string.greeting.toStringRes(\"Jeluchu\", 3)")
             }
         },
         UtilCard("Crypto", "CaesarCipher", "Encrypts and decrypts Latin letters by shifting them.") {

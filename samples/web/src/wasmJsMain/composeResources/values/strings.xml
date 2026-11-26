@@ -1,0 +1,4 @@
+<resources>
+    <string name="catalog_title">JchuComponents Catalog</string>
+    <string name="greeting">Hello, %1$s! You have %2$d new components.</string>
+</resources>

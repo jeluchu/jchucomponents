@@ -45,6 +45,7 @@ import com.jeluchu.jchucomponents.ui.composables.accessibility.onColor
 import com.jeluchu.jchucomponents.ui.extensions.color.isDark
 import com.jeluchu.jchucomponents.ui.extensions.color.orTransparent
 import com.jeluchu.jchucomponents.ui.extensions.color.random
+import com.jeluchu.jchucomponents.ui.extensions.lazylist.elementIf
 import com.jeluchu.jchucomponents.ui.extensions.lists.itemIf
 import com.jeluchu.jchucomponents.ui.extensions.modifier.Height
 import com.jeluchu.jchucomponents.ui.extensions.modifier.Width
@@ -227,6 +228,7 @@ private fun ListsAndLayoutCard() {
         Column(Modifier.fillMaxWidth().height(150.dp).clip(RoundedCornerShape(14.dp)).background(p.stage)) {
             LazyColumn(Modifier.fillMaxWidth().padding(10.dp)) {
                 itemIf(header) { Tile2("Header (itemIf)", p.mint) }
+                elementIf(header, ListSection.Banner, { Tile2("elementIf: banner is on", p.soft) }, { Tile2("elementIf: banner is off", p.stage) })
                 items(5) { i -> Tile2("Item ${i + 1}", p.accent); 6.Height() }
             }
         }
@@ -238,6 +240,7 @@ private fun ListsAndLayoutCard() {
         CodeBlock(
             """LazyColumn {
     itemIf(showHeader) { Header() }
+    elementIf(showHeader, Section.Banner, { On() }, { Off() })
     items(list) { Row(it); 6.Height() }
 }
 
@@ -295,3 +298,5 @@ Image(painter, null, colorFilter = accent.toColorFilter())
         )
     }
 }
+
+private enum class ListSection { Banner }

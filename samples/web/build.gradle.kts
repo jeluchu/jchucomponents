@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.jetbrains.kotlin.multiplatform)
     alias(libs.plugins.compose.multiplatform)
     alias(libs.plugins.compose.compiler)
+    alias(libs.plugins.kotlinx.serialization)
 }
 
 kotlin {
@@ -24,7 +25,15 @@ kotlin {
             implementation(compose.foundation)
             implementation(compose.material3)
             implementation(compose.ui)
+            implementation(compose.components.resources)
         }
+    }
+}
+
+compose {
+    resources {
+        packageOfResClass = "com.jeluchu.catalog.resources"
+        generateResClass = always
     }
 }
 

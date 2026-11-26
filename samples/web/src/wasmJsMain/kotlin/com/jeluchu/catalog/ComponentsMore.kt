@@ -75,6 +75,7 @@ import com.jeluchu.jchucomponents.ui.composables.structures.JchuDefaultLoadingCo
 import com.jeluchu.jchucomponents.ui.composables.structures.JchuRemoteScreenContent
 import com.jeluchu.jchucomponents.ui.composables.swipe.SwipeAction
 import com.jeluchu.jchucomponents.ui.composables.swipe.SwipeableActionsBox
+import com.jeluchu.jchucomponents.ui.composables.swipe.rememberSwipeableActionsState
 import com.jeluchu.jchucomponents.ui.composables.toolbars.CenterToolbar
 import com.jeluchu.jchucomponents.ui.composables.toolbars.CenterToolbarColors
 import com.jeluchu.jchucomponents.ui.composables.toolbars.Toolbar
@@ -300,7 +301,10 @@ LazyColumn(Modifier.dragContainer(dragDropState), state = listState) {
         // ---------- Gestures
         Demo(
             "Gestures", "SwipeableActionsBox", "Compose", "Reveals actions when you swipe the content to either side.",
-            """SwipeableActionsBox(
+            """val state = rememberSwipeableActionsState()
+
+SwipeableActionsBox(
+    state = state,
     startActions = listOf(SwipeAction(onSwipe = { fav() }, icon = { Icon(...) }, background = mint)),
     endActions = listOf(SwipeAction(onSwipe = { delete() }, icon = { Icon(...) }, background = red))
 ) {
@@ -309,14 +313,16 @@ LazyColumn(Modifier.dragContainer(dragDropState), state = listState) {
         ) {
             val p = LocalPalette.current
             var last by remember { mutableStateOf("none") }
+            val swipeState = rememberSwipeableActionsState()
             Column(narrow(), verticalArrangement = Arrangement.spacedBy(8.dp)) {
                 SwipeableActionsBox(
+                    state = swipeState,
                     startActions = listOf(SwipeAction(onSwipe = { last = "favorite" }, icon = { Icon(Icons.Default.Favorite, null, tint = Color(0xFF1B2128)) }, background = p.mint)),
                     endActions = listOf(SwipeAction(onSwipe = { last = "delete" }, icon = { Icon(Icons.Default.Delete, null, tint = Color.White) }, background = Color(0xFFB3543F)))
                 ) {
                     Box(Modifier.fillMaxWidth().background(p.panel).padding(18.dp)) { Text("Swipe me left or right", color = p.fg) }
                 }
-                Text("Last action: $last", color = p.muted, fontSize = 12.sp)
+                Text("Last action: $last · offset ${swipeState.offset.value.toInt()}px", color = p.muted, fontSize = 12.sp)
             }
         },
         Demo(

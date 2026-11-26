@@ -56,7 +56,7 @@ private class StartState(val tab: String, val family: String, val demo: Demo, va
 private fun parseHash(hash: String): StartState {
     val parts = hash.removePrefix("#").split('/')
     val tab = when (parts.firstOrNull()?.lowercase()) { "extensions" -> "Extensions"; "dates" -> "Dates"; "utilities" -> "Utilities"; else -> "Components" }
-    val util = utilities.firstOrNull { it.name.equals(parts.getOrNull(2), ignoreCase = true) }
+    val util = utilities.firstOrNull { it.slug.equals(parts.getOrNull(2), ignoreCase = true) || it.name.equals(parts.getOrNull(2), ignoreCase = true) }
     val utilGroup = util?.group ?: utilities.firstOrNull { it.group.equals(parts.getOrNull(1), ignoreCase = true) }?.group ?: utilities.first().group
     val byName = demos.firstOrNull { it.name.equals(parts.getOrNull(2), ignoreCase = true) }
     val family = byName?.family ?: demos.firstOrNull { it.family.equals(parts.getOrNull(1), ignoreCase = true) }?.family ?: demos.first().family
@@ -92,7 +92,7 @@ private fun CatalogApp() {
         writeHash(
             when (tab) {
                 "Components" -> "#components/${family}/${selected.name}"
-                "Utilities" -> "#utilities/${utilGroup}/${util}"
+                "Utilities" -> "#utilities/${utilGroup}/${utilities.firstOrNull { it.name == util }?.slug ?: util}"
                 else -> "#${tab.lowercase()}"
             }
         )
