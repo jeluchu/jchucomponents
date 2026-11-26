@@ -50,15 +50,17 @@ fun main() {
     ComposeViewport { CatalogApp() }
 }
 
-private class StartState(val tab: String, val family: String, val demo: Demo)
+private class StartState(val tab: String, val family: String, val demo: Demo, val utilGroup: String, val util: String)
 
 /** Reads `#components/<Family>/<Name>`, `#extensions` or `#dates` from the URL. */
 private fun parseHash(hash: String): StartState {
     val parts = hash.removePrefix("#").split('/')
-    val tab = when (parts.firstOrNull()?.lowercase()) { "extensions" -> "Extensions"; "dates" -> "Dates"; else -> "Components" }
+    val tab = when (parts.firstOrNull()?.lowercase()) { "extensions" -> "Extensions"; "dates" -> "Dates"; "utilities" -> "Utilities"; else -> "Components" }
+    val util = utilities.firstOrNull { it.name.equals(parts.getOrNull(2), ignoreCase = true) }
+    val utilGroup = util?.group ?: utilities.firstOrNull { it.group.equals(parts.getOrNull(1), ignoreCase = true) }?.group ?: utilities.first().group
     val byName = demos.firstOrNull { it.name.equals(parts.getOrNull(2), ignoreCase = true) }
     val family = byName?.family ?: demos.firstOrNull { it.family.equals(parts.getOrNull(1), ignoreCase = true) }?.family ?: demos.first().family
-    return StartState(tab, family, byName ?: demos.first { it.family == family })
+    return StartState(tab, family, byName ?: demos.first { it.family == family }, utilGroup, (util ?: utilities.first { it.group == utilGroup }).name)
 }
 
 @Composable
@@ -68,6 +70,8 @@ private fun CatalogApp() {
     var tab by remember { mutableStateOf(start.tab) }
     var family by remember { mutableStateOf(start.family) }
     var selected by remember { mutableStateOf(start.demo) }
+    var utilGroup by remember { mutableStateOf(start.utilGroup) }
+    var util by remember { mutableStateOf(start.util) }
     var query by remember { mutableStateOf("") }
     val results = remember(query) { searchCatalog(query) }
     var active by remember(query) { mutableStateOf(0) }
@@ -76,6 +80,7 @@ private fun CatalogApp() {
     fun pick(e: SearchEntry) {
         tab = e.tab
         e.demo?.let { family = it.family; selected = it }
+        e.util?.let { u -> utilGroup = u.group; util = u.name }
         query = ""
     }
 
@@ -83,8 +88,14 @@ private fun CatalogApp() {
         hideLoading()
         listenForSlash { searchFocus.requestFocus() }
     }
-    LaunchedEffect(tab, family, selected) {
-        writeHash(if (tab == "Components") "#components/${family}/${selected.name}" else "#${tab.lowercase()}")
+    LaunchedEffect(tab, family, selected, utilGroup, util) {
+        writeHash(
+            when (tab) {
+                "Components" -> "#components/${family}/${selected.name}"
+                "Utilities" -> "#utilities/${utilGroup}/${util}"
+                else -> "#${tab.lowercase()}"
+            }
+        )
     }
     val p = if (dark) DarkSage else LightSage
     BoxWithConstraints(Modifier.fillMaxSize()) {
@@ -119,18 +130,19 @@ private fun CatalogApp() {
                         Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
                             Text("Explore, tweak, copy.", color = p.fg, fontSize = if (compact) 30.sp else 40.sp, fontWeight = FontWeight.ExtraBold)
                             Text(
-                                "Components, extensions and date helpers running live, with the code to use each one.",
+                                "Components, extensions, utilities and date helpers running live, with the code to use each one.",
                                 color = p.muted, fontSize = 16.sp, modifier = Modifier.widthIn(max = 640.dp)
                             )
                         }
                         FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                            listOf("Components", "Extensions", "Dates").forEach { name ->
+                            listOf("Components", "Extensions", "Utilities", "Dates").forEach { name ->
                                 Pill(name, selected = tab == name, onClick = { tab = name }, height = 44.dp)
                             }
                         }
                         when (tab) {
                             "Components" -> ComponentsTab(family, { family = it }, selected, { selected = it })
                             "Extensions" -> ExtensionsTab()
+                            "Utilities" -> UtilitiesTab(utilGroup, { utilGroup = it }, util, { util = it })
                             else -> DatesTab()
                         }
                     }

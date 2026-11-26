@@ -29,7 +29,22 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.jeluchu.jchucomponents.foundation.extensions.milliSecondsToTimer
 import com.jeluchu.jchucomponents.foundation.extensions.thousandsFormat
+import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.Spacer
 import com.jeluchu.jchucomponents.ui.extensions.color.isDark
+import com.jeluchu.jchucomponents.ui.extensions.color.orTransparent
+import com.jeluchu.jchucomponents.ui.extensions.color.random
+import com.jeluchu.jchucomponents.ui.extensions.lists.itemIf
+import com.jeluchu.jchucomponents.ui.extensions.modifier.Height
+import com.jeluchu.jchucomponents.ui.extensions.modifier.click
+import com.jeluchu.jchucomponents.ui.extensions.modifier.cornerRadius
+import com.jeluchu.jchucomponents.ui.extensions.modifier.noRippleClickable
+import com.jeluchu.jchucomponents.ui.extensions.modifier.whenNotNull
+import com.jeluchu.jchucomponents.ui.modifiers.dashedBorder
 import com.jeluchu.jchucomponents.ui.extensions.color.opacity
 import com.jeluchu.jchucomponents.ui.extensions.modifier.bounceClick
 import com.jeluchu.jchucomponents.ui.extensions.modifier.conditional
@@ -42,6 +57,8 @@ fun ExtensionsTab() {
         ColorCard()
         NumbersCard()
         ModifiersCard()
+        MoreModifiersCard()
+        ListsAndLayoutCard()
     }
 }
 
@@ -141,5 +158,77 @@ Modifier
     .conditional(isSelected) { Modifier.background(accent) }
     .bounceClick { save() }"""
         )
+    }
+}
+
+@Composable
+private fun MoreModifiersCard() {
+    val p = LocalPalette.current
+    var plain by remember { mutableStateOf(0) }
+    var ripple by remember { mutableStateOf(0) }
+    var tint by remember { mutableStateOf(p.accent) }
+    var badge by remember { mutableStateOf<String?>(null) }
+    Section("dashedBorder(), noRippleClickable(), click(), whenNotNull()", "Modifiers", Modifier.widthIn(max = 420.dp).fillMaxWidth()) {
+        Column(Modifier.fillMaxWidth().clip(RoundedCornerShape(14.dp)).background(p.stage).padding(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
+            Box(
+                Modifier.fillMaxWidth().height(64.dp).dashedBorder(width = 2.dp, color = p.accent, shape = 14.cornerRadius(), on = 8.dp, off = 6.dp),
+                contentAlignment = Alignment.Center
+            ) { Text("dashedBorder(2.dp, accent, on = 8.dp, off = 6.dp)", color = p.fg, fontSize = 12.sp) }
+            Row(horizontalArrangement = Arrangement.spacedBy(10.dp), verticalAlignment = Alignment.CenterVertically) {
+                Box(Modifier.clip(10.cornerRadius()).background(p.soft).noRippleClickable { plain++ }.padding(horizontal = 14.dp, vertical = 10.dp)) { Text("noRipple · $plain", color = p.softFg, fontWeight = FontWeight.Bold, fontSize = 13.sp) }
+                Box(Modifier.clip(10.cornerRadius()).background(tint).click { ripple++; tint = Color.random() }.padding(horizontal = 14.dp, vertical = 10.dp)) { Text("click · $ripple", color = if (tint.isDark()) Color.White else Color(0xFF1B2128), fontWeight = FontWeight.Bold, fontSize = 13.sp) }
+            }
+            Row(horizontalArrangement = Arrangement.spacedBy(10.dp), verticalAlignment = Alignment.CenterVertically) {
+                Pill(if (badge == null) "Set badge" else "Clear badge", badge != null, { badge = if (badge == null) "NEW" else null })
+                Box(Modifier.size(width = 80.dp, height = 40.dp).clip(10.cornerRadius()).background(p.panel).whenNotNull(badge) { b -> Modifier.border(BorderStroke(2.dp, p.mint)).padding(2.dp) }, contentAlignment = Alignment.Center) {
+                    Text(badge ?: "none", color = p.fg, fontSize = 12.sp, fontWeight = FontWeight.Bold)
+                }
+            }
+        }
+        CodeBlock(
+            """Modifier.dashedBorder(width = 2.dp, color = accent, shape = 14.cornerRadius(), on = 8.dp, off = 6.dp)
+
+Modifier.noRippleClickable { count++ }
+Modifier.click { Color.random() }
+
+Modifier.whenNotNull(badge) { b -> Modifier.border(2.dp, mint) }"""
+        )
+    }
+}
+
+@Composable
+private fun ListsAndLayoutCard() {
+    val p = LocalPalette.current
+    var header by remember { mutableStateOf(true) }
+    Section("itemIf(), Int.Height(), Color.orTransparent()", "Lists & layout", Modifier.widthIn(max = 420.dp).fillMaxWidth()) {
+        Pill(if (header) "Hide header item" else "Show header item", header, { header = !header }, height = 44.dp)
+        Column(Modifier.fillMaxWidth().height(150.dp).clip(RoundedCornerShape(14.dp)).background(p.stage)) {
+            LazyColumn(Modifier.fillMaxWidth().padding(10.dp)) {
+                itemIf(header) { Tile2("Header (itemIf)", p.mint) }
+                items(5) { i -> Tile2("Item ${i + 1}", p.accent); 6.Height() }
+            }
+        }
+        val missing: Color? = null
+        Row(horizontalArrangement = Arrangement.spacedBy(10.dp), verticalAlignment = Alignment.CenterVertically) {
+            Box(Modifier.size(40.dp).clip(10.cornerRadius()).background(missing.orTransparent(p.soft))) {}
+            Text("null.orTransparent(soft)", color = p.muted, fontSize = 12.sp, fontFamily = FontFamily.Monospace)
+        }
+        CodeBlock(
+            """LazyColumn {
+    itemIf(showHeader) { Header() }
+    items(list) { Row(it); 6.Height() }
+}
+
+val tint: Color? = null
+tint.orTransparent(defaultValue = soft)"""
+        )
+    }
+}
+
+@Composable
+private fun Tile2(label: String, color: Color) {
+    val p = LocalPalette.current
+    Box(Modifier.fillMaxWidth().clip(RoundedCornerShape(10.dp)).background(color).padding(10.dp), contentAlignment = Alignment.Center) {
+        Text(label, color = p.onAccent, fontWeight = FontWeight.Bold, fontSize = 13.sp)
     }
 }

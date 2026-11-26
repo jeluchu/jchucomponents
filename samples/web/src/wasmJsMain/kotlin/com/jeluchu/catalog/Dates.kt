@@ -26,6 +26,8 @@ import com.jeluchu.jchucomponents.foundation.extensions.time.isAfter
 import com.jeluchu.jchucomponents.foundation.extensions.time.isSameDay
 import com.jeluchu.jchucomponents.foundation.extensions.time.minusDays
 import com.jeluchu.jchucomponents.foundation.extensions.time.minusMonths
+import com.jeluchu.jchucomponents.foundation.extensions.time.minusYears
+import com.jeluchu.jchucomponents.foundation.extensions.time.plusYears
 import com.jeluchu.jchucomponents.foundation.extensions.time.plusDays
 import com.jeluchu.jchucomponents.foundation.extensions.time.plusMonths
 import com.jeluchu.jchucomponents.foundation.extensions.time.startOfMonth
@@ -50,6 +52,8 @@ fun DatesTab() {
                 Pill("minusDays(1)", false, { date = date.minusDays(1) }, mono = true, height = 44.dp)
                 Pill("plusDays(1)", false, { date = date.plusDays(1) }, mono = true, height = 44.dp)
                 Pill("plusMonths(1)", false, { date = date.plusMonths(1) }, mono = true, height = 44.dp)
+                Pill("minusYears(1)", false, { date = date.minusYears(1) }, mono = true, height = 44.dp)
+                Pill("plusYears(1)", false, { date = date.plusYears(1) }, mono = true, height = 44.dp)
                 Pill("today", false, { date = today }, mono = true, height = 44.dp)
             }
             Text("FORMAT(PATTERN)", color = p.muted, fontSize = 12.sp, fontWeight = FontWeight.ExtraBold, letterSpacing = 1.sp)
@@ -63,6 +67,7 @@ fun DatesTab() {
             listOf(
                 "format(\"$pattern\")" to formatted,
                 "startOfMonth()" to date.startOfMonth().toString(),
+                "plusYears(1)" to date.plusYears(1).toString(),
                 "isSameDay(today)" to date.isSameDay(today).toString(),
                 "isAfter(today)" to date.isAfter(today).toString()
             ).forEach { (fn, out) ->

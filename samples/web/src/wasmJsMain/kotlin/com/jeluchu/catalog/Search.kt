@@ -43,7 +43,8 @@ class SearchEntry(
     val subtitle: String,
     val kind: String,
     val tab: String,
-    val demo: Demo? = null
+    val demo: Demo? = null,
+    val util: UtilCard? = null
 )
 
 private val extensionEntries =
@@ -54,7 +55,15 @@ private val extensionEntries =
         "Int.thousandsFormat()" to "Groups digits by thousands: 1.234.567",
         "Modifier.shake()" to "Wiggles an element, ideal for errors",
         "Modifier.bounceClick()" to "Scale-down feedback on press",
-        "Modifier.conditional()" to "Applies a modifier only when a condition holds"
+        "Modifier.conditional()" to "Applies a modifier only when a condition holds",
+        "Modifier.dashedBorder()" to "Draws a dashed border around any element",
+        "Modifier.noRippleClickable()" to "Clickable without a ripple",
+        "Modifier.click()" to "Simple click helper",
+        "Modifier.whenNotNull()" to "Applies a modifier only when a value is not null",
+        "LazyListScope.itemIf()" to "Adds a lazy item only when a condition holds",
+        "Int.cornerRadius() and Int.Height()" to "Shape and spacer shortcuts on Int",
+        "Color?.orTransparent()" to "Default color for a nullable color",
+        "Color.random()" to "Random color"
     ).map { (title, description) -> SearchEntry(title, description, "Extension", "Extensions") }
 
 private val dateEntries =
@@ -86,13 +95,14 @@ private val synonyms: Map<String, List<String>> =
         "campo" to listOf("field"), "entrada" to listOf("field", "input"), "color" to listOf("color"), "colores" to listOf("color"),
         "animacion" to listOf("animated", "shake", "bounce"), "temblar" to listOf("shake"), "rebote" to listOf("bounce"),
         "etiqueta" to listOf("tag", "chip"), "interruptor" to listOf("switch"), "paginas" to listOf("page", "pager"),
-        "lista" to listOf("list"), "miles" to listOf("thousands")
+        "lista" to listOf("list"), "validar" to listOf("validator", "validation"), "tarjeta credito" to listOf("credit"), "cifrado" to listOf("cipher", "crypto"), "version" to listOf("version"), "distancia" to listOf("distance"), "aleatorio" to listOf("random"), "mayusculas" to listOf("capitalize"), "acentos" to listOf("diacritics"), "dinero" to listOf("currency", "iban"), "banco" to listOf("iban"), "miles" to listOf("thousands")
     )
 
 fun searchCatalog(query: String): List<SearchEntry> {
     val terms = query.norm().split(' ').filter { it.isNotBlank() }
     if (terms.isEmpty()) return emptyList()
-    val all = demos.map { SearchEntry(it.name, it.description, it.family, "Components", it) } + extensionEntries + dateEntries
+    val all = demos.map { SearchEntry(it.name, it.description, it.family, "Components", it) } +
+        utilities.map { SearchEntry(it.name, it.description, it.group, "Utilities", util = it) } + extensionEntries + dateEntries
     return all
         .filter { e -> val hay = "${e.title} ${e.subtitle} ${e.kind}".norm(); terms.all { t -> t in hay || synonyms[t].orEmpty().any { it in hay } } }
         .sortedBy { if (it.title.norm().startsWith(terms.first())) 0 else 1 }
