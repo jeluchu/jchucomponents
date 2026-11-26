@@ -12,6 +12,8 @@ kotlin {
         namespace = "com.jeluchu.jchucomponents.supabase"
     }
 
+    jvm()
+
     sourceSets {
         commonMain.dependencies {
             api(project(":jchucomponents-config"))
@@ -28,6 +30,10 @@ kotlin {
 
         androidMain.dependencies {
             implementation(libs.ktor.android)
+        }
+
+        jvmMain.dependencies {
+            implementation(libs.ktor.cio)
         }
 
         appleMain.dependencies {

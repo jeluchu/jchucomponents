@@ -1,5 +1,14 @@
 # Changelog
 
+## 3.0.0-beta03 - 2026-11-26
+
+### What's new
+
+- `jchucomponents-supabase` now publishes a JVM target (`jchucomponents-supabase-jvm`), using the Ktor CIO engine, so
+  desktop applications can use the same Auth, database, realtime and Edge Functions integration as Android and iOS.
+- `jchucomponents-pdf` now publishes a JVM target (`jchucomponents-pdf-jvm`). The desktop reader renders pages with
+  Apache PDFBox, supports rotation, zoom and the same floating controls, and "share" opens the PDF in the system viewer.
+
 ## 3.0.0-beta02 - 2026-11-23
 
 ### Fixed

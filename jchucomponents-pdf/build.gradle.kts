@@ -10,7 +10,7 @@ plugins {
 }
 
 version = libs.versions.jchucomponents.get()
-description = "Compose Multiplatform PDF reader for Android and iOS."
+description = "Compose Multiplatform PDF reader for Android, iOS and desktop (JVM)."
 
 kotlin {
     compilerOptions {
@@ -32,6 +32,7 @@ kotlin {
         withHostTest {}
     }
 
+    jvm()
     iosArm64()
     iosSimulatorArm64()
 
@@ -52,6 +53,10 @@ kotlin {
             implementation(compose.materialIconsExtended)
             implementation(compose.components.resources)
             implementation(libs.org.jetbrains.kotlinx.kotlinx.coroutines.core)
+        }
+
+        jvmMain.dependencies {
+            implementation(libs.pdfbox)
         }
 
         androidMain.dependencies {
