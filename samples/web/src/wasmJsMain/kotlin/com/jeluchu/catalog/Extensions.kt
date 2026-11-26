@@ -67,7 +67,7 @@ private fun ColorCard() {
             Box(Modifier.size(width = 110.dp, height = 64.dp).clip(RoundedCornerShape(14.dp)).background(color.opacity(enabled = false, opacity = 0.5f)), contentAlignment = Alignment.Center) {
                 Text("disabled", color = p.fg, fontSize = 13.sp, fontWeight = FontWeight.Bold)
             }
-            Text("isDark() → ${color.isDark()}", color = p.mint, fontFamily = FontFamily.Monospace, fontSize = 13.sp)
+            Text("isDark() = ${color.isDark()}", color = p.mint, fontFamily = FontFamily.Monospace, fontSize = 13.sp)
         }
         CodeBlock(
             """val c = Color(0x${color.toArgbHex()})
