@@ -1,5 +1,20 @@
 # Changelog
 
+## 3.0.0-beta05 - 2026-11-26
+
+Apps no longer need to declare, next to jchucomponents, the libraries it already requires: these dependencies are now
+exposed as `api` by the modules that use them.
+
+### Improvements
+
+- `jchucomponents-ui` exposes Coil (`coil-compose` and `coil-network-ktor3`) and Material 3 (the expressive
+  `org.jetbrains.compose.material3:material3` `1.13.0-rc01`, replacing the one resolved by the Compose plugin). The
+  `jchucomponents-pdf` module uses the same artifact.
+- `jchucomponents-navigation3` exposes `navigation3-ui` and `lifecycle-viewmodel-navigation3` (JetBrains KMP artifacts) on
+  top of the runtime.
+- `jchucomponents-network` exposes the Ktor `content-negotiation`, `logging` and `serialization-kotlinx-json` plugins and
+  the platform engines (Android and CIO on Android, CIO on JVM, Darwin on Apple).
+
 ## 3.0.0-beta04 - 2026-11-26
 
 `3.0.0-beta03` was tagged but never published because its release validation failed (the new JVM targets had no API
