@@ -7,9 +7,7 @@
 package com.jeluchu.jchucomponents.foundation.coroutines
 
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 fun noCrash(
@@ -25,20 +23,6 @@ fun noCrash(
         }
         it.message
     }
-
-@OptIn(DelicateCoroutinesApi::class)
-@Deprecated("GlobalScope is delicated api", ReplaceWith("doOnUI or doOnMain"))
-fun doOnGlobal(
-    enableLog: Boolean = true,
-    onLog: (text: String) -> Unit = {},
-    func: suspend () -> Unit
-) {
-    GlobalScope.launch {
-        noCrashSuspend(enableLog) {
-            func()
-        }?.also { onLog(it) }
-    }
-}
 
 fun doOnUI(
     enableLog: Boolean = true,

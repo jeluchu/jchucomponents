@@ -45,37 +45,6 @@ object JchuCatalogTheme {
         get() = LocalCatalogMotion.current
 }
 
-@Deprecated(
-    message = "Use JchuCatalogTheme.",
-    replaceWith = ReplaceWith("JchuCatalogTheme")
-)
-object CatalogTheme {
-    val colors: CatalogColors
-        @Composable
-        @ReadOnlyComposable
-        get() = JchuCatalogTheme.colors
-
-    val spacing: Spacing
-        @Composable
-        @ReadOnlyComposable
-        get() = JchuCatalogTheme.spacing
-
-    val shapes: Shapes
-        @Composable
-        @ReadOnlyComposable
-        get() = JchuCatalogTheme.shapes
-
-    val typography: CatalogTypography
-        @Composable
-        @ReadOnlyComposable
-        get() = JchuCatalogTheme.typography
-
-    val motion: CatalogMotion
-        @Composable
-        @ReadOnlyComposable
-        get() = JchuCatalogTheme.motion
-}
-
 @Stable
 class CatalogColors(
     val background: Color = catalogBackground,

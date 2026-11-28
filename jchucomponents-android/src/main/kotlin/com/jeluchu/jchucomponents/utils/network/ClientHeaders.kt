@@ -7,7 +7,7 @@
 package com.jeluchu.jchucomponents.utils.network
 
 /**
- * Headers shared by every request created with [KtorClient].
+ * Describes the client app (user agent and API key) for building request headers.
  */
 public data class ClientHeaders(
     public val userAgent: UserAgent,

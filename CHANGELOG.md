@@ -1,5 +1,23 @@
 # Changelog
 
+## Unreleased
+
+### Improvements
+
+- `JchuPreferenceItem` accepts a `shape` (`RectangleShape` by default). The click handling now lives inside the surface,
+  so the ripple is clipped to that shape.
+
+### Removed
+
+Deprecated APIs with no remaining users have been deleted:
+
+- `jchucomponents-ui`: `PreferenceItem`, `PreferenceSwitch`, `PreferenceSingleChoiceItem` (and `PreferenceChoiceColors`),
+  `ScrollableColumn` and `VerticalGrid`. Use `JchuPreferenceItem`, `JchuPreferenceSwitch`, `JchuPreferenceChoice`,
+  `JchuScrollableColumn` and `LazyStaticGrid`.
+- `jchucomponents-foundation`: `doOnGlobal`. Use `doOnUI` or `doOnMain`.
+- `jchucomponents-android`: `KtorClient` and `getIpv4LocalHostAddress`. Use `createHttpClient` and
+  `getIpv4LocalHostAddress` from `jchucomponents-network`.
+
 ## 3.0.0-beta05 - 2026-11-26
 
 Apps no longer need to declare, next to jchucomponents, the libraries it already requires: these dependencies are now

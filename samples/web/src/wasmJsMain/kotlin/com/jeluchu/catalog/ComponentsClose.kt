@@ -30,7 +30,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.jeluchu.jchucomponents.ui.composables.column.ScrollableColumn
 import com.jeluchu.jchucomponents.ui.composables.divider.DashedDivider
 import com.jeluchu.jchucomponents.ui.composables.loaders.ProgressIndicator
 import com.jeluchu.jchucomponents.ui.composables.structures.ScaffoldStates
@@ -101,17 +100,6 @@ val closeDemos: List<Demo> by lazy {
         ) {
             val p = LocalPalette.current
             ListRow(modifier = narrow2(), horizontalArrangement = Arrangement.spacedBy(6.dp)) { items(12) { Chip2("Item ${it + 1}", p.mint) } }
-        },
-        Demo(
-            "Layout", "ScrollableColumn", "Compose", "Vertically scrollable column that takes plain composable content.",
-            """ScrollableColumn {
-    repeat(10) { Text("Row ${'$'}it") }
-}"""
-        ) {
-            val p = LocalPalette.current
-            Box(narrow2().height(110.dp).clip(RoundedCornerShape(12.dp)).background(p.panel)) {
-                ScrollableColumn(modifier = Modifier.padding(8.dp)) { repeat(8) { Chip2("Row ${it + 1}", p.accent, Modifier.fillMaxWidth().padding(vertical = 3.dp)) } }
-            }
         },
         Demo(
             "Layout", "ComposePagerSnapHelper", "Compose", "Gives a LazyRow snap-to-page behavior using the width of each item.",

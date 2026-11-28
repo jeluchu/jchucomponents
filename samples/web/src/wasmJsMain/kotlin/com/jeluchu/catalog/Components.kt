@@ -513,7 +513,7 @@ private val sourceFiles =
         "Dividers" to "divider/JchuDividers.kt", "Tooltip" to "accessibility/Tooltip.kt",
         "ScrollableChipTabRow" to "tabs/ScrollableChipTabRow.kt", "SnackbarCustomized" to "snackbar/SnackbarCustomized.kt",
         "JchuAnimatedBottomSheet" to "sheets/JchuAnimatedBottomSheet.kt",
-        "ScrollableColumn" to "column/ScrollableColumn.kt", "SnackbarController" to "snackbar/SnackbarController.kt",
+        "SnackbarController" to "snackbar/SnackbarController.kt",
         "jchuSnapBackZoomable" to "images/JchuZoomable.kt", "ProgressIndicator" to "loaders/DotsLoading.kt",
         "DashedDivider" to "divider/DashDivider.kt", "ScaffoldStates" to "structures/Scaffold.kt",
         "Card" to "cards/Card.kt", "Toolbar" to "toolbars/SlotToolbar.kt", "CenterToolbar" to "toolbars/CenterToolbars.kt",
@@ -523,8 +523,6 @@ private val sourceFiles =
         "SwipeableActionsBox" to "swipe/SwipeableActionsBox.kt", "jchuZoomable" to "images/JchuZoomable.kt",
         "MiniPostItemShimmer" to "shimmer/MiniPostItemShimmer.kt", "MovieItemShimmer" to "shimmer/MovieItemShimmer.kt",
         "ShimmerItemBig" to "shimmer/PostItemShimmer.kt", "Particles" to "particles/Particles.kt",
-        "PreferenceItem" to "preferences/PreferenceItem.kt", "PreferenceSwitch" to "preferences/PreferenceSwitch.kt",
-        "PreferenceSingleChoiceItem" to "preferences/PreferenceSingleChoiceItem.kt",
         "PreferenceSwitchWithContainer" to "preferences/PreferenceSwitchWithContainer.kt",
         "PreferencesHintCard" to "preferences/PreferencesHintCard.kt", "Type" to "chips/Type.kt", "RemovableChip" to "chips/Chips.kt"
     )
@@ -535,7 +533,7 @@ private val foundationSourceFiles =
     mapOf(
         "LazyColumnFor" to "lists/LazyColumns.kt", "LazyColumnForIndexed" to "lists/LazyColumns.kt", "ListColumn" to "lists/LazyColumns.kt",
         "LazyRowFor" to "lists/LazyRows.kt", "LazyRowForIndexed" to "lists/LazyRows.kt", "ListRow" to "lists/LazyRows.kt",
-        "ComposePagerSnapHelper" to "lists/composition/ComposePagerSnapHelper.kt", "LazyGrid" to "lists/LazyGrid.kt", "VerticalGrid" to "lists/LazyGrids.kt",
+        "ComposePagerSnapHelper" to "lists/composition/ComposePagerSnapHelper.kt", "LazyGrid" to "lists/LazyGrid.kt",
         "LazyStaticGrid" to "lists/LazyGrids.kt", "LazyHorizontalGrid" to "lists/LazyHorizontalGrid.kt",
         "DraggableItem" to "lists/LazyColumnDragAndDrop.kt", "MarqueeText" to "text/MarqueeTextCommon.kt", "IconLink" to "icon/IconLink.kt"
     )

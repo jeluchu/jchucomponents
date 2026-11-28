@@ -58,10 +58,6 @@ import com.jeluchu.jchucomponents.ui.composables.images.rememberJchuZoomState
 import com.jeluchu.jchucomponents.ui.composables.pager.Pager
 import com.jeluchu.jchucomponents.ui.composables.pager.PagerState
 import com.jeluchu.jchucomponents.ui.composables.particles.Particles
-import com.jeluchu.jchucomponents.ui.composables.preferences.PreferenceChoiceColors
-import com.jeluchu.jchucomponents.ui.composables.preferences.PreferenceItem
-import com.jeluchu.jchucomponents.ui.composables.preferences.PreferenceSingleChoiceItem
-import com.jeluchu.jchucomponents.ui.composables.preferences.PreferenceSwitch
 import com.jeluchu.jchucomponents.ui.composables.preferences.PreferenceSwitchWithContainer
 import com.jeluchu.jchucomponents.ui.composables.preferences.PreferencesHintCard
 import com.jeluchu.jchucomponents.ui.composables.preferences.SwitchWithContainerColors
@@ -86,7 +82,6 @@ import com.jeluchu.jchucomponents.ui.foundation.lists.LazyColumnFor
 import com.jeluchu.jchucomponents.ui.foundation.lists.LazyGrid
 import com.jeluchu.jchucomponents.ui.foundation.lists.LazyHorizontalGrid
 import com.jeluchu.jchucomponents.ui.foundation.lists.LazyStaticGrid
-import com.jeluchu.jchucomponents.ui.foundation.lists.VerticalGrid
 import com.jeluchu.jchucomponents.ui.foundation.lists.dragContainer
 import com.jeluchu.jchucomponents.ui.foundation.lists.rememberDragDropState
 import com.jeluchu.jchucomponents.ui.foundation.text.MarqueeText
@@ -206,17 +201,6 @@ Pager(state = state) {
                 JchuScrollableColumn(verticalArrangement = Arrangement.spacedBy(6.dp), modifier = Modifier.padding(8.dp)) {
                     repeat(8) { Tile("Row ${it + 1}", p.accent, Modifier.fillMaxWidth()) }
                 }
-            }
-        },
-        Demo(
-            "Layout", "VerticalGrid", "Compose", "Non-lazy grid that lays children out in a fixed number of columns.",
-            """VerticalGrid(columns = 3) {
-    repeat(6) { Tile("${'$'}it") }
-}"""
-        ) {
-            val p = LocalPalette.current
-            VerticalGrid(modifier = narrow(), columns = 3) {
-                repeat(6) { Tile("${it + 1}", if (it % 2 == 0) p.accent else p.mint, Modifier.padding(3.dp)) }
             }
         },
         Demo(
@@ -492,49 +476,6 @@ ShimmerItemBig(
             }
         },
         // ---------- Preferences (legacy variants)
-        Demo(
-            "Preferences", "PreferenceItem", "Compose", "Settings row with title, description and icon.",
-            """PreferenceItem(
-    title = "Storage",
-    description = "2.1 GB used",
-    onClick = { }
-)"""
-        ) {
-            val p = LocalPalette.current
-            Box(narrow()) { PreferenceItem(title = "Storage", description = "2.1 GB used", containerColor = p.panel, contentColor = p.fg) }
-        },
-        Demo(
-            "Preferences", "PreferenceSwitch", "Compose", "Settings row with a switch.",
-            """PreferenceSwitch(
-    title = "Auto-play",
-    description = "Start the next episode",
-    isChecked = on,
-    onClick = { on = !on }
-)"""
-        ) {
-            val p = LocalPalette.current
-            var on by remember { mutableStateOf(true) }
-            Box(narrow()) { PreferenceSwitch(title = "Auto-play", description = "Start the next episode", isChecked = on, containerColor = p.panel, contentColor = p.fg, onClick = { on = !on }) }
-        },
-        Demo(
-            "Preferences", "PreferenceSingleChoiceItem", "Compose", "Radio row for single-choice lists.",
-            """PreferenceSingleChoiceItem(
-    text = "English",
-    selected = lang == "en",
-    onClick = { lang = "en" }
-)"""
-        ) {
-            val p = LocalPalette.current
-            var lang by remember { mutableStateOf("en") }
-            Column(narrow()) {
-                listOf("en" to "English", "es" to "Español").forEach { (code, name) ->
-                    PreferenceSingleChoiceItem(
-                        text = name, selected = lang == code, onClick = { lang = code },
-                        colors = PreferenceChoiceColors(selectedRadioColor = p.accent, unselectedRadioColor = p.muted, containerColor = p.panel, contentColor = p.fg)
-                    )
-                }
-            }
-        },
         Demo(
             "Preferences", "PreferenceSwitchWithContainer", "Compose", "Switch row whose whole container changes color.",
             """PreferenceSwitchWithContainer(
