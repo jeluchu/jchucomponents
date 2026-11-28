@@ -40,8 +40,6 @@ public final class com/jeluchu/jchucomponents/foundation/components/JchuProgress
 }
 
 public final class com/jeluchu/jchucomponents/foundation/coroutines/CoroutinesUtilsKt {
-	public static final fun doOnGlobal (ZLkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;)V
-	public static synthetic fun doOnGlobal$default (ZLkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)V
 	public static final fun doOnMain (ZLkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;)Lkotlinx/coroutines/Job;
 	public static synthetic fun doOnMain$default (ZLkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lkotlinx/coroutines/Job;
 	public static final fun doOnUI (ZLkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;)Lkotlinx/coroutines/Job;
