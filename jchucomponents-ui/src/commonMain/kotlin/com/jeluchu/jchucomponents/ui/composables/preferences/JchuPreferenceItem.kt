@@ -13,10 +13,18 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 
-/** A controlled preference row with typed composable slots for leading and trailing content. */
+/**
+ * A controlled preference row with typed composable slots for leading and trailing content.
+ *
+ * @param shape shape of the row container; the ripple and content are clipped to it.
+ * @param titleStyle typography applied to [title].
+ * @param descriptionStyle typography applied to [description].
+ */
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun JchuPreferenceItem(
@@ -25,6 +33,7 @@ fun JchuPreferenceItem(
     modifier: Modifier = Modifier,
     description: String? = null,
     enabled: Boolean = true,
+    shape: Shape = RectangleShape,
     containerColor: Color = MaterialTheme.colorScheme.surface,
     contentColor: Color = MaterialTheme.colorScheme.onSurface,
     titleStyle: TextStyle = MaterialTheme.typography.titleMedium,
@@ -35,19 +44,23 @@ fun JchuPreferenceItem(
     leadingContent: (@Composable () -> Unit)? = null,
     trailingContent: (@Composable RowScope.() -> Unit)? = null
 ) = Surface(
-    modifier =
-        modifier.combinedClickable(
-            enabled = enabled,
-            onClickLabel = onClickLabel,
-            onLongClickLabel = onLongClickLabel,
-            onLongClick = onLongClick,
-            onClick = onClick
-        ),
+    modifier = modifier,
+    shape = shape,
     color = containerColor,
     contentColor = contentColor
 ) {
     Row(
-        modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 14.dp),
+        modifier =
+            Modifier
+                .fillMaxWidth()
+                .combinedClickable(
+                    enabled = enabled,
+                    onClickLabel = onClickLabel,
+                    onLongClickLabel = onLongClickLabel,
+                    onLongClick = onLongClick,
+                    onClick = onClick
+                )
+                .padding(horizontal = 16.dp, vertical = 14.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
         if (leadingContent != null) {
